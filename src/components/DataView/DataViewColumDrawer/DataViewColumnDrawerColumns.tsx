@@ -5,17 +5,17 @@ import {
 	PointerSensor,
 	closestCenter,
 	useSensor,
-	useSensors
+	useSensors,
 } from "@dnd-kit/core";
 import {
 	SortableContext,
 	arrayMove,
 	sortableKeyboardCoordinates,
-	verticalListSortingStrategy
+	verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import {
 	restrictToParentElement,
-	restrictToVerticalAxis
+	restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 
 import DataViewColumnDrawerColumn from "./DataViewColumnDrawerColumn";
@@ -25,8 +25,8 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 	const sensors = useSensors(
 		useSensor(PointerSensor),
 		useSensor(KeyboardSensor, {
-			coordinateGetter: sortableKeyboardCoordinates
-		})
+			coordinateGetter: sortableKeyboardCoordinates,
+		}),
 	);
 
 	function handleDragEnd(event) {
@@ -36,7 +36,7 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 			onReorder(arrayMove(
 				activeColumns,
 				activeColumns.indexOf(active.id),
-				activeColumns.indexOf(over.id)
+				activeColumns.indexOf(over.id),
 			));
 		}
 	}
@@ -47,7 +47,7 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 				sensors={sensors}
 				collisionDetection={closestCenter}
 				onDragEnd={handleDragEnd}
-				autoScroll={{layoutShiftCompensation: false}}
+				autoScroll={{ layoutShiftCompensation: false }}
 				modifiers={[restrictToVerticalAxis, restrictToParentElement]}
 			>
 				<SortableContext
@@ -64,7 +64,7 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 				</SortableContext>
 			</DndContext>
 		</div>
-	)
+	);
 }
 
-export default DataViewColumnDrawerColumns
+export default DataViewColumnDrawerColumns;

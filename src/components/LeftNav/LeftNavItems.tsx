@@ -29,7 +29,7 @@ function LeftNavItems(props: Props): ReactElement {
 							openName={props.openName}
 							onOpen={props.onOpen}
 						/>
-					)
+					);
 				})
 			}
 		</Fragment>

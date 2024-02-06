@@ -5,7 +5,7 @@ import {
 	withKnobs,
 	text,
 	select,
-	number
+	number,
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 import Form, { formActions, useForm } from "@root/components/Form";
@@ -41,7 +41,7 @@ const initialValues = {
 			size: Math.random(),
 			name: "Lipsum",
 		},
-	]
+	],
 };
 
 export const Playground = (): ReactElement => {
@@ -50,7 +50,7 @@ export const Playground = (): ReactElement => {
 	const limit = select(
 		"Limit",
 		["No limit", 1, 2, 3],
-		"No limit"
+		"No limit",
 	);
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -85,8 +85,8 @@ export const Playground = (): ReactElement => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
-					onChunkComplete({ percent: (i + 1) * 0.1 })
-				), (timeToLoad * 1000) / 10)
+					onChunkComplete({ percent: (i + 1) * 0.1 }),
+				), (timeToLoad * 1000) / 10),
 			);
 		}
 
@@ -100,19 +100,19 @@ export const Playground = (): ReactElement => {
 			size: file.size,
 			thumbnailUrl: thumbnailUrl || (["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : ""),
 			fileUrl: fileUrl || URL.createObjectURL(file),
-			downloadUrl: downloadUrl
+			downloadUrl: downloadUrl,
 		});
 	}, [
 		timeToLoad,
 		thumbnailUrl,
 		fileUrl,
 		downloadUrl,
-		error
+		error,
 	]);
 
-	const onFileDelete = async ({id}) => {
+	const onFileDelete = async ({ id }) => {
 		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
-	}
+	};
 
 	const getFormValues = useCallback(async () => {
 		await new Promise(res => setTimeout(res, 1000));
@@ -137,8 +137,8 @@ export const Playground = (): ReactElement => {
 						onFileDelete,
 						accept,
 						maxFileSize: maxFileSize ? Number(maxFileSize) * 1000 : undefined,
-						maxTotalSize: maxTotalSize ? Number(maxTotalSize) * 1000 : undefined
-					}
+						maxTotalSize: maxTotalSize ? Number(maxTotalSize) * 1000 : undefined,
+					},
 				},
 			],
 		[
@@ -151,8 +151,8 @@ export const Playground = (): ReactElement => {
 			onFileAdd,
 			accept,
 			maxFileSize,
-			maxTotalSize
-		]
+			maxTotalSize,
+		],
 	);
 
 	return (

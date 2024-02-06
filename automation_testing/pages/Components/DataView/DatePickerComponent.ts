@@ -25,7 +25,7 @@ export class DatePickerComponent {
 	}
 
 	async selectYear(year: string): Promise<void> {
-		await this.page.locator("button", {hasText: year} ).click();
+		await this.page.locator("button", { hasText: year } ).click();
 	}
 
 	async selectDay(day: string): Promise<void> {
@@ -49,7 +49,7 @@ export class DatePickerComponent {
 	}
 
 	async selectDate(date: string): Promise<void> {
-		const values = date.split(" ")
+		const values = date.split(" ");
 		await this.year.click();
 		await this.selectYear(values[0]);
 		await this.findMonth(values[1]);

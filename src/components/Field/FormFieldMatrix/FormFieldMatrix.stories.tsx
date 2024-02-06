@@ -32,7 +32,7 @@ const DrawerEditForm = ({
 	onClose,
 	onSave,
 	title,
-	fields
+	fields,
 }: {
 	onClose: () => void,
 	onSave: (data: any) => void,
@@ -56,7 +56,7 @@ const DrawerEditForm = ({
 					label: "Save",
 					onClick: onSaveClick,
 					color: "yellow",
-					variant: "contained"
+					variant: "contained",
 				},
 			]}
 			title={title}
@@ -65,8 +65,8 @@ const DrawerEditForm = ({
 			dispatch={dispatch}
 			onBack={onClose}
 		/>
-	)
-}
+	);
+};
 
 export const FormVariant = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
@@ -99,11 +99,11 @@ export const FormVariant = (): ReactElement => {
 
 	const addOrEdit = async (data) => {
 		if (!isEditing) {
-			const id = "id" + Math.random().toString(16).slice(2)
+			const id = "id" + Math.random().toString(16).slice(2);
 			const newRow = {
 				id: id,
 				title: data.title,
-				description: data.description
+				description: data.description,
 			};
 
 			if (state.data?.formMatrix?.length > 0) {
@@ -111,16 +111,16 @@ export const FormVariant = (): ReactElement => {
 					formActions.setFieldValue({
 						name: "formMatrix",
 						value: [...state.data.formMatrix, newRow],
-						touched: true
-					})
+						touched: true,
+					}),
 				);
 			} else {
 				await dispatch(
 					formActions.setFieldValue({
 						name: "formMatrix",
 						value: [newRow],
-						touched: true
-					})
+						touched: true,
+					}),
 				);
 			}
 		} else {
@@ -136,8 +136,8 @@ export const FormVariant = (): ReactElement => {
 				formActions.setFieldValue({
 					name: "formMatrix",
 					value: currentRows,
-					touched: true
-				})
+					touched: true,
+				}),
 			);
 		}
 
@@ -161,8 +161,8 @@ export const FormVariant = (): ReactElement => {
 						type: "text",
 					},
 				],
-			}
-		})
+			},
+		});
 
 	const gridConfig: DataViewProps = {
 		noResults: (
@@ -192,18 +192,18 @@ export const FormVariant = (): ReactElement => {
 									name: "title",
 									label: "Title",
 									type: "text",
-									defaultValue: rowToEdit[0].title
+									defaultValue: rowToEdit[0].title,
 								},
 								{
 									name: "description",
 									label: "Description",
 									type: "text",
-									defaultValue: rowToEdit[0].description
+									defaultValue: rowToEdit[0].description,
 								},
 							],
 						},
 					});
-				}
+				},
 			},
 			{
 				name: "delete",
@@ -217,11 +217,11 @@ export const FormVariant = (): ReactElement => {
 						formActions.setFieldValue({
 							name: "formMatrix",
 							value: filteredRows,
-							touched: true
-						})
+							touched: true,
+						}),
 					);
-				}
-			}
+				},
+			},
 		],
 		sticky: true,
 		data: state.data.formMatrix,
@@ -233,13 +233,13 @@ export const FormVariant = (): ReactElement => {
 				formActions.setFieldValue({
 					name: "formMatrix",
 					value: rows,
-					touched: true
-				})
+					touched: true,
+				}),
 			);
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-		savedView: defaultView
+		savedView: defaultView,
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -261,13 +261,13 @@ export const FormVariant = (): ReactElement => {
 								onClick: onAddClick,
 								color: "teal",
 								variant: "text",
-								mIcon: AddIcon
+								mIcon: AddIcon,
 							},
-						]
+						],
 					},
 				},
 			],
-		[required, disabled, instructionText, helperText, label, gridConfig, isEditing, indexEdit]
+		[required, disabled, instructionText, helperText, label, gridConfig, isEditing, indexEdit],
 	);
 
 	const mosaicSettings = useMosaicSettings();
@@ -305,8 +305,8 @@ const mappedData = rawData.slice(1, 25).map((data) => {
 	return {
 		...data,
 		created: data.created ? new Date(data.created) : undefined,
-		updated: data.updated ? new Date(data.updated) : undefined
-	}
+		updated: data.updated ? new Date(data.updated) : undefined,
+	};
 });
 
 export const Browse = (): ReactElement => {
@@ -360,8 +360,8 @@ export const Browse = (): ReactElement => {
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
 					alert("Clicked: " + data.id);
-				}
-			}
+				},
+			},
 		],
 		bulkActions: [
 			{
@@ -371,7 +371,7 @@ export const Browse = (): ReactElement => {
 				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
-				}
+				},
 			},
 		],
 		sticky: true,
@@ -383,7 +383,7 @@ export const Browse = (): ReactElement => {
 		checked: rowsChecked,
 		onCheckChange: (checked) => {
 			setCheckedRows(checked);
-		}
+		},
 	};
 
 	const matrixGridConfig: DataViewProps = {
@@ -407,18 +407,18 @@ export const Browse = (): ReactElement => {
 									name: "title",
 									label: "Title",
 									type: "text",
-									defaultValue: rowToEdit[0].title
+									defaultValue: rowToEdit[0].title,
 								},
 								{
 									name: "description",
 									label: "Description",
 									type: "text",
-									defaultValue: rowToEdit[0].description
+									defaultValue: rowToEdit[0].description,
 								},
 							],
 						},
-					})
-				}
+					});
+				},
 			},
 			{
 				name: "delete",
@@ -432,13 +432,13 @@ export const Browse = (): ReactElement => {
 						formActions.setFieldValue({
 							name: "formMatrix",
 							value: filteredRows,
-							touched: true
-						})
+							touched: true,
+						}),
 					);
 
 					updateCheckedOptions(data.id);
-				}
-			}
+				},
+			},
 		],
 		sticky: true,
 		data: state.data.formMatrix,
@@ -450,14 +450,14 @@ export const Browse = (): ReactElement => {
 				formActions.setFieldValue({
 					name: "formMatrix",
 					value: rows,
-					touched: true
-				})
+					touched: true,
+				}),
 			);
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
 		savedView: defaultView,
-		noResults: "No records selected"
+		noResults: "No records selected",
 	};
 
 	const mosaicSettings = useMosaicSettings();
@@ -478,10 +478,10 @@ export const Browse = (): ReactElement => {
 					formActions.setFieldValue({
 						name: "formMatrix",
 						value: selectedRows,
-						touched: true
-					})
+						touched: true,
+					}),
 				);
-				removeDrawer()
+				removeDrawer();
 			},
 			color: "yellow",
 			variant: "contained",
@@ -508,7 +508,7 @@ export const Browse = (): ReactElement => {
 									addDrawer({
 										config: {
 											type: "dataView",
-											gridConfig: dataViewGridConfig
+											gridConfig: dataViewGridConfig,
 										},
 									}),
 								color: "teal",
@@ -527,8 +527,8 @@ export const Browse = (): ReactElement => {
 			label,
 			matrixGridConfig,
 			rowsChecked,
-			indexEdit
-		]
+			indexEdit,
+		],
 	);
 
 	const edit = async (data) => {
@@ -544,8 +544,8 @@ export const Browse = (): ReactElement => {
 			formActions.setFieldValue({
 				name: "formMatrix",
 				value: currentRows,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 
 		removeDrawer();

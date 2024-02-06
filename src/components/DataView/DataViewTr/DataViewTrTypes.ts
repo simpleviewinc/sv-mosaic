@@ -14,7 +14,7 @@ export interface DataViewTrProps {
 	disabled?: DataViewProps["disabled"]
 	originalRowData: MosaicObject;
 	columns: DataViewProps["columns"];
-	row?: {[x: string]: any};
+	row?: { [x: string]: any };
 	style?: CSSProperties;
 	isDragOverlay?: boolean;
 }

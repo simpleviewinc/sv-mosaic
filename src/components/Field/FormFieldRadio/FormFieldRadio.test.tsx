@@ -27,7 +27,7 @@ const options = [
 	},
 ];
 
-const FormFieldRadioExample = (props: {fromDB?: boolean}) => {
+const FormFieldRadioExample = (props: { fromDB?: boolean }) => {
 	const [value, setValue] = useState<MosaicLabelValue>();
 
 	const handleChange = async (value: MosaicLabelValue) => {
@@ -45,7 +45,7 @@ const FormFieldRadioExample = (props: {fromDB?: boolean}) => {
 						label: "Label",
 						inputSettings: {
 							options: options,
-						}
+						},
 					}}
 					onChange={handleChange}
 					value={value}
@@ -57,8 +57,8 @@ const FormFieldRadioExample = (props: {fromDB?: boolean}) => {
 						type: "radio",
 						label: "Label",
 						inputSettings: {
-							getOptions: getOptions
-						}
+							getOptions: getOptions,
+						},
 					}}
 					onChange={handleChange}
 					value={value}
@@ -96,10 +96,10 @@ describe("FormFieldRadio component from DB", () => {
 
 		await waitFor(() => {
 			radioButtons = getAllByRole("radio") as HTMLInputElement[];
-		}, {timeout: 3000});
+		}, { timeout: 3000 });
 
 		await act( async() => {
-			radioButtons[6].dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			radioButtons[6].dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 	});
 
@@ -110,7 +110,7 @@ describe("FormFieldRadio component from DB", () => {
 	it("should check the clicked option", () => {
 		radioButtons.forEach( (radioButton, i) => {
 			i === 6 ? expect(radioButton.checked).toEqual(true)
-				: 	expect(radioButton.checked).toEqual(false)
-		})
+				: 	expect(radioButton.checked).toEqual(false);
+		});
 	});
 });

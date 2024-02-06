@@ -14,7 +14,7 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 			value : val.name,
 			label : val.label,
 			mIcon : val.mIcon,
-		}
+		};
 	});
 
 	const menuContent = (
@@ -23,7 +23,7 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 			onChange={props.onDisplayChange}
 			value={props.display}
 		/>
-	)
+	);
 
 	return (
 		<StyledSpan>
@@ -36,7 +36,7 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 				menuContent={menuContent}
 			/>
 		</StyledSpan>
-	)
+	);
 }
 
 export default memo(DataViewControlDisplay);

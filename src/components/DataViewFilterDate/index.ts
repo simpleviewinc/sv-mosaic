@@ -6,5 +6,5 @@ import { addCoreResourceBundle } from "../../i18n";
 
 addCoreResourceBundle({
 	prefix : "DataViewFilterDate",
-	bundle : localeData
-})
+	bundle : localeData,
+});

@@ -45,11 +45,11 @@ export const Playground = (): ReactElement => {
 						handleSetVideo: withVideoOption ? setVideo : undefined,
 						handleSetLink: withLinkOption ? setLink : undefined,
 						handleRemove,
-						src: withImage && imageVideoSrc
+						src: withImage && imageVideoSrc,
 					},
-				}
+				},
 			],
-		[label, required, disabled, menuOptions, setImage, withLinkOption, setLink, withDocumentOption, setDocument, withVideoOption, setVideo]
+		[label, required, disabled, menuOptions, setImage, withLinkOption, setLink, withDocumentOption, setDocument, withVideoOption, setVideo],
 	);
 
 	return (
@@ -93,7 +93,7 @@ export const KitchenSink = (): ReactElement => {
 						handleSetVideo: setVideo,
 						handleSetLink: setLink,
 						handleRemove,
-						src: imageVideoSrc
+						src: imageVideoSrc,
 					},
 				},
 				{
@@ -106,7 +106,7 @@ export const KitchenSink = (): ReactElement => {
 						options: menuOptions,
 						handleSetImage: setImageWithoutSrc,
 						handleSetVideo: setVideoWithoutSrc,
-						handleRemove: removeImageOrVideo
+						handleRemove: removeImageOrVideo,
 					},
 				},
 				{
@@ -119,7 +119,7 @@ export const KitchenSink = (): ReactElement => {
 						options: menuOptions,
 						handleSetImage: browseImage,
 						handleRemove: removeImage,
-						src: imageVideoSrc
+						src: imageVideoSrc,
 					},
 				},
 				{
@@ -144,7 +144,7 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions,
 						handleSetDocument: browseDocument,
-						handleRemove: removeDocument
+						handleRemove: removeDocument,
 					},
 				},
 				{
@@ -156,7 +156,7 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions,
 						handleSetLink: browseLink,
-						handleRemove: removeLink
+						handleRemove: removeLink,
 					},
 				},
 				{
@@ -177,11 +177,11 @@ export const KitchenSink = (): ReactElement => {
 					disabled: true,
 					inputSettings: {
 						options: menuOptions,
-						handleSetImage: setImageDisabled
+						handleSetImage: setImageDisabled,
 					},
 				},
 			],
-		[menuOptions, setImage, setVideo, setDocument, handleRemove]
+		[menuOptions, setImage, setVideo, setDocument, handleRemove],
 	);
 
 	return (

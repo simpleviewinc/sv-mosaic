@@ -18,7 +18,7 @@ const categoriesHelper = new MultiSelectHelper({
 	api: categoriesApi,
 	labelColumn: "tag",
 	valueColumn: "id",
-	sortColumn: "sort_tag"
+	sortColumn: "sort_tag",
 });
 
 export const Playground = (): ReactElement => {
@@ -65,7 +65,7 @@ export const Playground = (): ReactElement => {
 				onChange={value => onChange(value)}
 			/>
 		</>
-	)
+	);
 };
 
 export const KitchenSink = (): ReactElement => {
@@ -141,5 +141,5 @@ export const KitchenSink = (): ReactElement => {
 				onChange={value => onChangeComparisons(value)}
 			/>
 		</>
-	)
+	);
 };

@@ -56,7 +56,7 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 			expect(dialog.message()).toContain('"width": ' + width);
 			await dialog.dismiss();
 		});
-		const imageName = "image-example.png"
+		const imageName = "image-example.png";
 		const imagePath = `${__dirname}/../../../utils/data/Images/` + imageName;
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerInput.setInputFiles(imagePath);
 		await ffImageUploadPage.imageUploadWithoutSetFocusHandlerDiv.waitFor();

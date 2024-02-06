@@ -5,7 +5,7 @@ function matchTime(date: Date, time: Date | TimeTuple) {
 	const [hr, min, sec] = Array.isArray(time) ? time : [
 		time.getHours(),
 		time.getMinutes(),
-		time.getSeconds()
+		time.getSeconds(),
 	];
 
 	clone.setHours(hr, min, sec, 0);
@@ -13,4 +13,4 @@ function matchTime(date: Date, time: Date | TimeTuple) {
 	return clone;
 }
 
-export default matchTime
+export default matchTime;

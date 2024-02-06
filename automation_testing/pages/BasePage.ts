@@ -95,7 +95,7 @@ export class BasePage {
 		await component.waitFor({ state: "visible" });
 		await component.waitFor({ state: "attached" });
 		await this.loading.waitFor({ state: "detached" });
-		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 })
+		expect(await component.screenshot()).toMatchSnapshot("dataview-" + name + ".png", { threshold: 0.3, maxDiffPixelRatio: 0.3 });
 	}
 
 	async setDialogValidationListener(_message: string): Promise<void> {
@@ -154,7 +154,7 @@ export class BasePage {
 	}
 
 	async selectOptionFromDropdown(dropdown: Locator, option:string): Promise<void> {
-		await dropdown.click({force: true});
+		await dropdown.click({ force: true });
 		await this.page.locator("text=" + option).first().click();
 	}
 
@@ -204,7 +204,7 @@ export class BasePage {
 		expect(elementMargin).toBe(expectedValue);
 	}
 
-	async getSpecificMarginFromElement(element: Locator, margin: "top"|"bottom"|"right"|"left"|"all"): Promise<string> {
+	async getSpecificMarginFromElement(element: Locator, margin: "top" | "bottom" | "right" | "left" | "all"): Promise<string> {
 		switch (margin) {
 		case "top":
 			return await ((element).evaluate(el => getComputedStyle(el).marginTop));
@@ -241,7 +241,7 @@ export class BasePage {
 		return (text.replace(/[^a-zA-Z ]+/g, "")).trim();
 	}
 
-	async getSpecificPaddingFromElement(element: Locator, section?: "all"|"top"|"bottom"|"right"|"left"): Promise<string> {
+	async getSpecificPaddingFromElement(element: Locator, section?: "all" | "top" | "bottom" | "right" | "left"): Promise<string> {
 		switch (section) {
 		case "all":
 			return await ((element).evaluate(el => getComputedStyle(el).padding));
@@ -262,7 +262,7 @@ export class BasePage {
 		return await ((element).evaluate(el => getComputedStyle(el).gap));
 	}
 
-	async getSpecificBorderFromElement(element: Locator, section?: "all"|"right"|"left"|"top"|"bottom"): Promise<string> {
+	async getSpecificBorderFromElement(element: Locator, section?: "all" | "right" | "left" | "top" | "bottom"): Promise<string> {
 		switch (section) {
 		case "all":
 			return await ((element).evaluate(el => getComputedStyle(el).border));
@@ -314,6 +314,6 @@ export class BasePage {
 	}
 
 	async isElementFocused(element: Locator): Promise<boolean> {
-		return await (element).evaluate(el => el === document.activeElement)
+		return await (element).evaluate(el => el === document.activeElement);
 	}
 }

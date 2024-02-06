@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
 import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm, formActions } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
@@ -27,17 +27,17 @@ export default {
 };
 
 const createNewOption = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${additionalOptions.length}`
+	const value = `${newOptionLabel}_${additionalOptions.length}`;
 	const newOption = {
 		label: newOptionLabel,
 		value,
-	}
+	};
 
 	//Insert to db
 	additionalOptions.push(newOption);
 
 	return newOption;
-}
+};
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
@@ -48,7 +48,7 @@ export const Playground = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
@@ -71,25 +71,25 @@ export const Playground = (): ReactElement => {
 		"check": [
 			{
 				label: "Label 1",
-				value: "label_1"
+				value: "label_1",
 			},
 			{
 				label: "Label 2",
-				value: "label_2"
+				value: "label_2",
 			},
 		],
 		"chipSelect": {
 			"label": "Label 1",
-			"value": "label_1"
+			"value": "label_1",
 		},
 		"dropdownSingle": {
 			"label": "The Dark Knight",
-			"value": "2008"
+			"value": "2008",
 		},
 		"phoneSelect": "15205751152",
 		"radio": {
 			label: "Label 2",
-			value: "label_2"
+			value: "label_2",
 		},
 		"toggleSwitch": true,
 		"color": "#a8001791",
@@ -100,46 +100,46 @@ export const Playground = (): ReactElement => {
 				"address1": "8950 N. Oracle Road",
 				"city": "Tuczon",
 				"postalCode": "85704",
-				"country": {label: "United States", value: "US"},
-				"state": {label: "Arizona", value: "AZ"},
+				"country": { label: "United States", value: "US" },
+				"state": { label: "Arizona", value: "AZ" },
 				"types": [
-					{label: "Physical", value: "physical"},
-				]
-			}
+					{ label: "Physical", value: "physical" },
+				],
+			},
 		],
 		"advancedSelection": [
 			{
 				label: "getFormValues 1",
-				value: "getFormValues option 1"
+				value: "getFormValues option 1",
 			},
 			{
 				label: "getFormValues 2",
-				value: "getFormValues option 2"
+				value: "getFormValues option 2",
 			},
 			{
 				label: "getFormValues 3",
-				value: "getFormValues option 3"
+				value: "getFormValues option 3",
 			},
 			{
 				label: "getFormValues 4",
-				value: "getFormValues option 4"
-			}
+				value: "getFormValues option 4",
+			},
 		],
 		"imageVideoDocumentLink": [
 			{
 				"label": "Type",
-				"value": "Image Video Thumbnail"
-			}
+				"value": "Image Video Thumbnail",
+			},
 		],
-		"numberTable": numberTableDefaultValue
+		"numberTable": numberTableDefaultValue,
 	});
 
-	const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
+	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete, onError }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
-					onChunkComplete({percent: (i + 1) * 0.1})
-				), 300)
+					onChunkComplete({ percent: (i + 1) * 0.1 }),
+				), 300),
 			);
 		}
 
@@ -148,13 +148,13 @@ export const Playground = (): ReactElement => {
 			name: file.name,
 			size: file.size,
 			thumbnailUrl: ["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : "",
-			fileUrl: URL.createObjectURL(file)
+			fileUrl: URL.createObjectURL(file),
 		});
 	};
 
-	const onFileDelete = async ({id}) => {
+	const onFileDelete = async ({ id }) => {
 		alert("DELETED FILE: " + id);
-	}
+	};
 
 	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
 
@@ -176,21 +176,21 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						options: checkboxOptions
+						options: checkboxOptions,
 					},
 					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Label 1",
-							value: "label_1"
+							value: "label_1",
 						},
 						{
 							label: "Label 2",
-							value: "label_2"
+							value: "label_2",
 						},
 						{
 							label: "Label 3",
-							value: "label_3"
-						}
+							value: "label_3",
+						},
 					],
 				},
 				{
@@ -201,25 +201,25 @@ export const Playground = (): ReactElement => {
 						options: [
 							{
 								label: "Label 1",
-								value: "label_1"
+								value: "label_1",
 							},
 							{
 								label: "Label 2",
-								value: "label_2"
+								value: "label_2",
 							},
 							{
 								label:
 									"Very long label that should fit: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-								value: "label_3"
-							}
+								value: "label_3",
+							},
 						],
 					},
 					disabled,
 					required,
 					defaultValue: !showDefaultValues ? undefined : {
 						"label": "Very long label that should fit: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-						"value": "label_3"
-					}
+						"value": "label_3",
+					},
 				},
 				{
 					name: "dropdownSingle",
@@ -255,8 +255,8 @@ export const Playground = (): ReactElement => {
 					},
 					defaultValue: !showDefaultValues ? undefined : {
 						label: "The Shawshank Redemption",
-						value: "1994"
-					}
+						value: "1994",
+					},
 				},
 				{
 					name: "phoneSelect",
@@ -264,7 +264,7 @@ export const Playground = (): ReactElement => {
 					type: "phone",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "15205751151"
+					defaultValue: !showDefaultValues ? undefined : "15205751151",
 				},
 				{
 					name: "radio",
@@ -276,22 +276,22 @@ export const Playground = (): ReactElement => {
 						options: [
 							{
 								label: "Label 1",
-								value: "label_1"
+								value: "label_1",
 							},
 							{
 								label: "Label 2",
-								value: "label_2"
+								value: "label_2",
 							},
 							{
 								label: "Label 3",
-								value: "label_3"
-							}
+								value: "label_3",
+							},
 						],
 					},
 					defaultValue: !showDefaultValues ? undefined : {
 						label: "Label 3",
-						value: "label_3"
-					}
+						value: "label_3",
+					},
 				},
 				{
 					name: "toggleSwitch",
@@ -300,9 +300,9 @@ export const Playground = (): ReactElement => {
 					required,
 					type: "toggleSwitch",
 					inputSettings: {
-						toggleLabel: "To the side"
+						toggleLabel: "To the side",
 					},
-					defaultValue: !showDefaultValues ? undefined : true
+					defaultValue: !showDefaultValues ? undefined : true,
 				},
 				{
 					name: "color",
@@ -310,7 +310,7 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
-					defaultValue: !showDefaultValues ? undefined : "#19a80091"
+					defaultValue: !showDefaultValues ? undefined : "#19a80091",
 				},
 				{
 					name: "date",
@@ -318,7 +318,7 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : new Date()
+					defaultValue: !showDefaultValues ? undefined : new Date(),
 				},
 				{
 					name: "time",
@@ -326,7 +326,7 @@ export const Playground = (): ReactElement => {
 					type: "time",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "14:00"
+					defaultValue: !showDefaultValues ? undefined : "14:00",
 				},
 				{
 					name: "address",
@@ -335,7 +335,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						getOptionsCountries,
 						getOptionsStates,
-						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 					},
 					disabled,
 					required,
@@ -345,15 +345,15 @@ export const Playground = (): ReactElement => {
 							"address1": "8950 N. Oracle Road",
 							"city": "Tuczon",
 							"postalCode": "85704",
-							"country": {label: "United States", value: "US"},
-							"state": {label: "Arizona", value: "AZ"},
+							"country": { label: "United States", value: "US" },
+							"state": { label: "Arizona", value: "AZ" },
 							"types": [
-								{label: "Physical", value: "physical"},
-								{label: "Billing", value: "billing"},
-								{label: "Shipping", value: "shipping"}
-							]
-						}
-					]
+								{ label: "Physical", value: "physical" },
+								{ label: "Billing", value: "billing" },
+								{ label: "Shipping", value: "shipping" },
+							],
+						},
+					],
 				},
 				{
 					name: "advancedSelection",
@@ -368,11 +368,11 @@ export const Playground = (): ReactElement => {
 					defaultValue: !showDefaultValues ? undefined : [
 						{
 							label: "Default Value 1",
-							value: "def option 1"
+							value: "def option 1",
 						},
 						{
 							label: "Default Value 2",
-							value: "def option 2"
+							value: "def option 2",
 						},
 						{
 							label: "Option 1",
@@ -402,7 +402,7 @@ export const Playground = (): ReactElement => {
 							label: "Another option of catergory 2",
 							value: "option_3-cat_2",
 						},
-					]
+					],
 				},
 				{
 					name: "imageVideoDocumentLink",
@@ -422,29 +422,29 @@ export const Playground = (): ReactElement => {
 					defaultValue: !showDefaultValues ? undefined : [
 						{
 							"label": "Title",
-							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail"
+							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail",
 						},
 						{
 							"label": "Type",
-							"value": "Image Video Thumbnail"
+							"value": "Image Video Thumbnail",
 						},
 						{
 							"label": "Alt",
-							"value": "-"
+							"value": "-",
 						},
 						{
 							"label": "Size",
-							"value": "1280x720"
+							"value": "1280x720",
 						},
 						{
 							"label": "Focus",
-							"value": "No"
+							"value": "No",
 						},
 						{
 							"label": "Locales",
-							"value": "-"
-						}
-					]
+							"value": "-",
+						},
+					],
 				},
 				{
 					name: "textEditor",
@@ -452,7 +452,7 @@ export const Playground = (): ReactElement => {
 					type: "textEditor",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "Passing default value"
+					defaultValue: !showDefaultValues ? undefined : "Passing default value",
 				},
 				{
 					name: "imageUpload",
@@ -461,15 +461,15 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						options: menuOptions
+						options: menuOptions,
 					},
 					defaultValue: !showDefaultValues ? undefined : {
 						"imgName": "image (2).png",
 						"size": 61571,
 						"type": "image/png",
 						"height": 600,
-						"width": 777
-					}
+						"width": 777,
+					},
 				},
 				{
 					name: "mapCoordinates",
@@ -478,12 +478,12 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					inputSettings: {
-						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 					},
 					defaultValue: !showDefaultValues ? undefined : {
 						"lat": 32.3395031,
-						"lng": -110.9864294
-					}
+						"lng": -110.9864294,
+					},
 				},
 				{
 					name: "upload",
@@ -512,24 +512,24 @@ export const Playground = (): ReactElement => {
 							"name": "SV.png",
 							"size": 151418,
 							"thumbnailUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
-							"downloadUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg"
+							"downloadUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
 						},
 						{
 							"id": "4",
 							"name": "MyHotel-AZ.png",
-							"size": 1447671
+							"size": 1447671,
 						},
 						{
 							"id": "5",
 							"name": "opportunity.pdf",
-							"size": 20842780
+							"size": 20842780,
 						},
 						{
 							"id": "6",
 							"name": "summit.png",
 							"size": 840038,
 							"thumbnailUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
-							"downloadUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg"
+							"downloadUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
 						},
 					],
 				},
@@ -545,11 +545,11 @@ export const Playground = (): ReactElement => {
 						columnTotalLabel: "No. Rooms",
 						topLeftLabel: "Day",
 						rows: rows,
-						columns: columns
+						columns: columns,
 					},
 				},
 			],
-		[additionalOptions, disabled, required, showDefaultValues]
+		[additionalOptions, disabled, required, showDefaultValues],
 	);
 
 	const sections = useMemo(() => {
@@ -565,8 +565,8 @@ export const Playground = (): ReactElement => {
 					[["chipSelect"], ["dropdownSingle"]],
 					[["address"], []],
 					// row 3
-					[["phoneSelect"], ["radio"]]
-				]
+					[["phoneSelect"], ["radio"]],
+				],
 			},
 			{
 				title: text("Title section 2", "Section 2"),
@@ -579,8 +579,8 @@ export const Playground = (): ReactElement => {
 					[["toggleSwitch"], [], ["mapCoordinates"]],
 					[[]],
 					// row 3
-					[[], ["advancedSelection"]]
-				]
+					[[], ["advancedSelection"]],
+				],
 			},
 			{
 				title: text("Title section 3", "Section 3"),
@@ -590,9 +590,9 @@ export const Playground = (): ReactElement => {
 					// row 1
 					[["color"], ["date"], ["time"]],
 					// row 2
-					[["textEditor"], []]
-				]
-			}
+					[["textEditor"], []],
+				],
+			},
 		];
 	}, [collapsed]);
 
@@ -610,7 +610,7 @@ export const Playground = (): ReactElement => {
 			return undefined;
 		} else {
 			return {
-				...prepopulateValues
+				...prepopulateValues,
 			};
 		}
 	}, [prepopulateValues, showGetFormValues, showDefaultValues]);
@@ -624,7 +624,7 @@ export const Playground = (): ReactElement => {
 	}, [prepopulate, showGetFormValues, showDefaultValues]);
 
 	return (
-		<div style={{boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight}}>
+		<div style={{ boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight }}>
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}

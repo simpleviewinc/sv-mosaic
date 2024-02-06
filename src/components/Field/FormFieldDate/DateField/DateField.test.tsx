@@ -15,17 +15,17 @@ describe("DateField component", () => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						showTime: false
-					}
+						showTime: false,
+					},
 				}}
 				value={{
 					date: new Date("2022-01-01T00:00:00.000Z"),
 					validDate: true,
 					time: new Date("2022-01-01T00:00:00.000Z"),
-					validTime: true
+					validTime: true,
 				}}
 
-			/>
+			/>,
 		);
 		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
 
@@ -41,16 +41,16 @@ describe("DateField component", () => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						showTime: true
-					}
+						showTime: true,
+					},
 				}}
 				value={{
 					date: new Date("2022-01-01T13:30:00.000Z"),
 					validDate: true,
 					time: new Date("2022-01-01T13:30:00.000Z"),
-					validTime: true
+					validTime: true,
 				}}
-			/>
+			/>,
 		);
 
 		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();

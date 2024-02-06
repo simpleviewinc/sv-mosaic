@@ -18,14 +18,14 @@ const buttons: ButtonProps[] = [
 		label: "Cancel",
 		onClick: onCancel,
 		color: "gray",
-		variant: "outlined"
+		variant: "outlined",
 	},
 	{
 		label: "Save",
 		onClick: onSubmit,
 		color: "yellow",
-		variant: "contained"
-	}
+		variant: "contained",
+	},
 ];
 
 describe("PageHeader component", () => {

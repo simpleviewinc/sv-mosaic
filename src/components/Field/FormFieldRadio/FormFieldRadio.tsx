@@ -34,9 +34,9 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 				setInternalOptions(newOptions);
 				setOrigin(false);
 			}
-		}
+		};
 		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions]);
 
 	useEffect(() => {
 		if (value && origin === false) {
@@ -61,7 +61,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 	const updateSelectedOption = (option: string) => {
 		const selectedOption: MosaicLabelValue = internalOptions.find(o => o.value === option);
 		onChange(selectedOption);
-	}
+	};
 
 	return (
 		<StyledRadioGroup

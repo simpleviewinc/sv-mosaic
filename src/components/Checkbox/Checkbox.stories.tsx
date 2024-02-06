@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, ReactElement } from "react";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
-import { Meta } from "@storybook/addon-docs/blocks"
+import { Meta } from "@storybook/addon-docs/blocks";
 
 import Checkbox, { CheckboxProps } from "../Checkbox";
 
@@ -15,7 +15,7 @@ export const example = (): ReactElement => {
 
 	const onClick: CheckboxProps["onClick"] = function() {
 		setChecked(!checked);
-	}
+	};
 
 	return (
 		<Checkbox
@@ -25,6 +25,6 @@ export const example = (): ReactElement => {
 			disabled={boolean("Disabled", false)}
 			indeterminate={boolean("Indeterminate", false)}
 		/>
-	)
-}
+	);
+};
 

@@ -41,7 +41,7 @@ export const PopperSx = {
 				borderColor: `${theme.colors.white} transparent transparent transparent`,
 			},
 		},
-	}
+	},
 };
 
 export const Arrow = styled.div`

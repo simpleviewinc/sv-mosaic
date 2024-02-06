@@ -6,7 +6,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { RawInputSettings, FieldDefRawData } from "./FormFieldRawTypes";
 
 const FormFieldRaw = (
-	props: MosaicFieldProps<"raw", RawInputSettings, FieldDefRawData>
+	props: MosaicFieldProps<"raw", RawInputSettings, FieldDefRawData>,
 ): ReactElement => {
 	const {
 		value,

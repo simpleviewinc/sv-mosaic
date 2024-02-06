@@ -106,7 +106,7 @@ test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
 	});
 
 	test("Validate that the decimals format in the table is displayed correctly.", async () => {
-		const numberWithDecimals = [ "12.555", "13.75", "14.24", "15.66", "16.12", "17.56" ];
+		const numberWithDecimals = ["12.555", "13.75", "14.24", "15.66", "16.12", "17.56"];
 		const rowPosition = 2;
 
 		await ffNumberTablePage.visitPageWithNumberFormat("USD");

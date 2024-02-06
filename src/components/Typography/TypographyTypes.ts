@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { MosaicObject } from "../../types"
+import { MosaicObject } from "../../types";
 import { ColorTypes } from "../Button";
-import { Properties } from "csstype"
+import { Properties } from "csstype";
 
 export type TypographyVariant = "title" | "subtitle" | "body" | "none";
 

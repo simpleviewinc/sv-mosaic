@@ -47,7 +47,7 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	 * How far to zoom when a marker is chosen
 	 */
 	focusZoom?: number;
-}
+};
 
 export interface MapProps {
 	/**
@@ -77,12 +77,12 @@ export interface MapProps {
 	googleMapsApiKey: string
 }
 
-export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey">
+export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey">;
 
 export type ResetButtonProps = {
 	show?: boolean,
 	onClick?: () => void
-}
+};
 
 export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "zoom"> & {
 	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void
@@ -115,8 +115,8 @@ export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"
 	handleDialogClose?: (val: boolean) => void;
 
 	googleMapsApiKey: string
-}
+};
 
 export type MapCoordinatesData = MapPosition;
 
-export type FieldDefMapCoordinates = FieldDefBase<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>
+export type FieldDefMapCoordinates = FieldDefBase<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>;

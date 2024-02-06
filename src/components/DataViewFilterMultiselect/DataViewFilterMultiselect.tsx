@@ -9,21 +9,21 @@ const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "Not In", value : "not_in" },
 	{ label : "All", value : "all" },
 	{ label : "Exists", value : "exists" },
-	{ label : "Not Exists", value : "not_exists" }
+	{ label : "Not Exists", value : "not_exists" },
 ];
 
 const comparisonMap = {
 	in : "",
 	not_in : "Not In - ",
-	all : "All - "
-}
+	all : "All - ",
+};
 
 function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 
 	const [state, setState] = useState({
 		anchorEl : null,
 		selected : [],
-		dropdownOpen : false
+		dropdownOpen : false,
 	});
 
 	const value = props.data.value || [];
@@ -36,7 +36,7 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 
 			setState({
 				...state,
-				selected
+				selected,
 			});
 		}
 
@@ -46,36 +46,36 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 
 		return () => {
 			isMouting = false;
-		}
+		};
 	}, [props.data]);
 
 	const onClick = function(event) {
 		setState({
 			...state,
-			anchorEl : event.currentTarget
+			anchorEl : event.currentTarget,
 		});
-	}
+	};
 
 	const onClose = function() {
 		setState({
 			...state,
-			anchorEl : null
+			anchorEl : null,
 		});
-	}
+	};
 
 	const onEntered = function() {
 		setState({
 			...state,
-			dropdownOpen : true
+			dropdownOpen : true,
 		});
-	}
+	};
 
 	const onExited = function() {
 		setState({
 			...state,
-			dropdownOpen : false
+			dropdownOpen : false,
 		});
-	}
+	};
 
 	const onApply = function(data) {
 		if (data.value.length > 0 || data.comparison === "exists" || data.comparison === "not_exists") {

@@ -27,7 +27,7 @@ export const DefaultValues = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -43,7 +43,7 @@ export const DefaultValues = (): ReactElement => {
 					defaultValue: "Passing default value",
 				},
 			],
-		[]
+		[],
 	);
 
 	return (
@@ -51,7 +51,7 @@ export const DefaultValues = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Validators story'

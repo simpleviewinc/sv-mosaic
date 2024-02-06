@@ -35,13 +35,13 @@ export class ButtonPage extends BasePage {
 		return (knob.knobPopoverEvent + size).toString();
 	}
 
-	async getKnobForShow(show: "Undefined"|"True"|"False"|"Function that returns true"|"Function that returns false"|"Array of true values"|
-	"Array with one falsy value"|"Array of functions that return true"|"Array of functions, one returns false"): Promise<string> {
+	async getKnobForShow(show: "Undefined" | "True" | "False" | "Function that returns true" | "Function that returns false" | "Array of true values" |
+	"Array with one falsy value" | "Array of functions that return true" | "Array of functions, one returns false"): Promise<string> {
 		const showWithoutWhitespace = show.split(" ").join("%20");
 		return (knob.knobShow + showWithoutWhitespace).toString();
 	}
 
-	async getKnobForTypeOfLabel(type: "String"|"JSX"): Promise<string> {
+	async getKnobForTypeOfLabel(type: "String" | "JSX"): Promise<string> {
 		return (knob.knobTypeOfLabel + type).toString();
 	}
 

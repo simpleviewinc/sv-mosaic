@@ -8,16 +8,16 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			internalData: {
 				...state.internalData,
-				[action.name]: "internalValue" in action ? action.internalValue : action.value
+				[action.name]: "internalValue" in action ? action.internalValue : action.value,
 			},
 			data: {
 				...state.data,
-				[action.name]: action.value
+				[action.name]: action.value,
 			},
 			touched: action.touched ? {
 				...state.touched,
-				[action.name]: true
-			} : state.touched
+				[action.name]: true,
+			} : state.touched,
 
 		};
 	case "FIELDS_ON_CHANGE":
@@ -25,14 +25,14 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			internalData: {
 				...state.internalData,
-				...action.internalValue
+				...action.internalValue,
 			},
 			data: {
 				...state.data,
-				...action.value
+				...action.value,
 			},
-			errors: action.clearErrors ? {} : state.errors
-		}
+			errors: action.clearErrors ? {} : state.errors,
+		};
 	case "FIELD_TOUCHED": {
 		// Don't return new state if the field touched value is already the incoming one
 		if (Boolean(state.touched[action.name]) === action.value) {
@@ -43,8 +43,8 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			touched: {
 				...state.touched,
-				[action.name]: action.value
-			}
+				[action.name]: action.value,
+			},
 		};
 	}
 	case "FIELD_VALIDATE":
@@ -52,7 +52,7 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			errors: {
 				...state.errors,
-				[action.name]: action.value
+				[action.name]: action.value,
 			},
 		};
 	case "FIELD_UNVALIDATE": {
@@ -60,24 +60,24 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			errors: {
 				...state.errors,
-				[action.name]: undefined
+				[action.name]: undefined,
 			},
 		};
 	}
 	case "FORM_START_DISABLE":
 		return {
 			...state,
-			disabled: action.value
+			disabled: action.value,
 		};
 	case "FORM_END_DISABLE":
 		return {
 			...state,
-			disabled: action.value
+			disabled: action.value,
 		};
 	case "FORM_VALIDATE":
 		return {
 			...state,
-			validForm: action.value
+			validForm: action.value,
 		};
 	case "FORM_RESET":
 		return {
@@ -88,35 +88,35 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			custom: {},
 			validForm: false,
 			disabled: false,
-		}
+		};
 	case "PROPERTY_RESET":
 		return {
 			...state,
-			[action.name]: action.value
-		}
+			[action.name]: action.value,
+		};
 	case "FORM_START_BUSY": {
 		return {
 			...state,
 			busyFields: {
 				...state.busyFields,
-				[action.name]: action.value
-			}
-		}
+				[action.name]: action.value,
+			},
+		};
 	}
 	case "FORM_END_BUSY": {
 		return {
 			...state,
 			busyFields: {
 				...state.busyFields,
-				[action.name]: undefined
-			}
-		}
+				[action.name]: undefined,
+			},
+		};
 	}
 	case "SET_SUBMIT_WARNING": {
 		return {
 			...state,
-			submitWarning: action.value
-		}
+			submitWarning: action.value,
+		};
 	}
 	default:
 		return state;
@@ -131,7 +131,7 @@ export function useForm(): UseFormReturn {
 		mounted: {},
 		internalValidators: {},
 		hasBlurred: {},
-		data: {}
+		data: {},
 	});
 
 	const [state, dispatch] = useThunkReducer(
@@ -147,9 +147,9 @@ export function useForm(): UseFormReturn {
 			touched: {},
 			mounted: {},
 			busyFields: {},
-			submitWarning: ""
+			submitWarning: "",
 		},
-		extraArgs.current
+		extraArgs.current,
 	);
 
 	return { state, dispatch };
@@ -169,7 +169,7 @@ export function useThunkReducer(reducer: FormReducer, initialState: FormState, e
 			lastState.current = newState;
 			return newState;
 		},
-		[reducer]
+		[reducer],
 	);
 
 	const [state, dispatch] = useReducer(enhancedReducer, initialState);
@@ -182,7 +182,7 @@ export function useThunkReducer(reducer: FormReducer, initialState: FormState, e
 				return dispatch(action);
 			}
 		},
-		[getState, extraArgs]
+		[getState, extraArgs],
 	);
 
 	return [state, customDispatch];

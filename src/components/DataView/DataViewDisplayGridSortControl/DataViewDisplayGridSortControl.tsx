@@ -23,8 +23,8 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 		return sortColumns.map(val => {
 			return {
 				label : val.label,
-				value : val.name
-			}
+				value : val.name,
+			};
 		});
 	}, [sortColumns]);
 
@@ -34,7 +34,7 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 	const onColumnChange = useCallback(function(name) {
 		props.onSortChange({
 			name,
-			dir : props.sort.dir
+			dir : props.sort.dir,
 		});
 	}, [props.sort, props.onSortChange]);
 
@@ -43,8 +43,8 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 
 		props.onSortChange({
 			name : props.sort.name,
-			dir : newDir
-		})
+			dir : newDir,
+		});
 	}, [props.sort, props.onSortChange]);
 
 	return (

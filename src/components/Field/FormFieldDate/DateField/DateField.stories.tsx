@@ -26,7 +26,7 @@ export const Playground = (): ReactElement => {
 	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
 		Number(minDateStr.split("/")[2]),
 		Number(minDateStr.split("/")[1]) - 1,
-		Number(minDateStr.split("/")[0])
+		Number(minDateStr.split("/")[0]),
 	) : undefined;
 
 	const fields = useMemo(
@@ -41,11 +41,11 @@ export const Playground = (): ReactElement => {
 				instructionText,
 				inputSettings: {
 					showTime,
-					minDate
-				}
-			}
+					minDate,
+				},
+			},
 		],
-		[label, required, disabled, helperText, instructionText, showTime, minDate]
+		[label, required, disabled, helperText, instructionText, showTime, minDate],
 	);
 
 	return (
@@ -65,7 +65,7 @@ export const Playground = (): ReactElement => {
 
 const getFormValues = async () => {
 	return {
-		dateTimePrefilled: new Date("2023-07-31T14:00:00.000Z")
+		dateTimePrefilled: new Date("2023-07-31T14:00:00.000Z"),
 	};
 };
 
@@ -86,8 +86,8 @@ export const KitchenSink = (): ReactElement => {
 					helperText,
 					instructionText,
 					inputSettings: {
-						showTime: false
-					}
+						showTime: false,
+					},
 				},
 				{
 					name: "dateTime",
@@ -98,8 +98,8 @@ export const KitchenSink = (): ReactElement => {
 					helperText,
 					instructionText,
 					inputSettings: {
-						showTime: true
-					}
+						showTime: true,
+					},
 				},
 				{
 					name: "dateTimePrefilled",
@@ -110,8 +110,8 @@ export const KitchenSink = (): ReactElement => {
 					helperText,
 					instructionText,
 					inputSettings: {
-						showTime: true
-					}
+						showTime: true,
+					},
 				},
 				{
 					name: "requiredDateTime",
@@ -122,11 +122,11 @@ export const KitchenSink = (): ReactElement => {
 					helperText,
 					instructionText,
 					inputSettings: {
-						showTime: true
-					}
-				}
+						showTime: true,
+					},
+				},
 			],
-		[]
+		[],
 	);
 
 	return (

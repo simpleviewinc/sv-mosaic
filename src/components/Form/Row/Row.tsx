@@ -26,7 +26,7 @@ const Row = (props: RowPropTypes) => {
 						colsInRow={row.length}
 						spacing={spacing}
 					/>
-				)
+				);
 			})}
 		</StyledRow>
 	);

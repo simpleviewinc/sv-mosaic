@@ -1,4 +1,4 @@
-import { jsonDateParser } from "json-date-parser"
+import { jsonDateParser } from "json-date-parser";
 
 interface Row {
 	id: string
@@ -6,8 +6,8 @@ interface Row {
 }
 
 class LocalStorageDB {
-	_key: string
-	_data: Row[]
+	_key: string;
+	_data: Row[];
 	constructor(key: string) {
 		const data = localStorage.getItem(key);
 

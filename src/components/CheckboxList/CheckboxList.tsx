@@ -18,7 +18,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 			props.onChange(newChecked);
 			props?.onChangeCb && props.onChangeCb(newChecked);
 		},
-		[checkedRef, props.onChange, props.options]
+		[checkedRef, props.onChange, props.options],
 	);
 
 	const callbacks = useMemo(() => {
@@ -44,5 +44,5 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 			})}
 		</FormGroup>
 	);
-}
+};
 export default CheckboxList;

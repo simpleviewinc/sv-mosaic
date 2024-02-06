@@ -21,7 +21,7 @@ test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
 			expect(dialog.message()).toContain(selectedOptionValue.toLocaleLowerCase().replace(/ /g,"_"));
 			await dialog.dismiss();
 		});
-		const [ selectedOptionNumber, selectedOptionValue] = await formFieldRadioPage.selectRandomRadioButtonOption();
+		const [selectedOptionNumber, selectedOptionValue] = await formFieldRadioPage.selectRandomRadioButtonOption();
 		await expect(formFieldRadioPage.regularRadioButton.locator("input").nth(selectedOptionNumber)).toBeChecked();
 		await formFieldRadioPage.saveBtn.click();
 	});

@@ -19,7 +19,7 @@ export const Playground = () : ReactElement => {
 	const country = text("Country code (e.g., us, mx, etc.)", "");
 	const label = text("Label", "Label");
 	const helperText = text("Helper text", "Helper text");
-	const instructionText = text("Instruction text", "Instruction text")
+	const instructionText = text("Instruction text", "Instruction text");
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -35,10 +35,10 @@ export const Playground = () : ReactElement => {
 						country,
 					},
 					helperText,
-					instructionText
+					instructionText,
 				},
 			],
-		[disabled, required, autoFormat, country, label, helperText, instructionText]
+		[disabled, required, autoFormat, country, label, helperText, instructionText],
 	);
 
 	return (
@@ -54,7 +54,7 @@ export const Playground = () : ReactElement => {
 			/>
 		</>
 	);
-}
+};
 
 export const KitchenSink = (): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -97,7 +97,7 @@ export const KitchenSink = (): ReactElement => {
 					instructionText: "Type a phone number to see the format",
 				},
 			],
-		[]
+		[],
 	);
 
 	return (

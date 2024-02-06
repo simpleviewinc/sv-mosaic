@@ -21,10 +21,10 @@ import {
 const NumberTableExample = ({
 	displaySumColumn = true,
 	displaySumRow = true,
-	useNumberFormatter = false
+	useNumberFormatter = false,
 }: {
-  displaySumColumn?: boolean;
-  displaySumRow?: boolean;
+	displaySumColumn?: boolean;
+	displaySumRow?: boolean;
 	useNumberFormatter?: boolean;
 }): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -35,7 +35,7 @@ const NumberTableExample = ({
 
 		alert(
 			"Form submitted with the following data: " +
-        JSON.stringify(data, null, " ")
+        JSON.stringify(data, null, " "),
 		);
 	};
 
@@ -54,11 +54,11 @@ const NumberTableExample = ({
 					topLeftLabel: "Day",
 					rows: rows,
 					columns: columns,
-					numberFormatOptions: useNumberFormatter && { style: "currency", currency: "USD" }
+					numberFormatOptions: useNumberFormatter && { style: "currency", currency: "USD" },
 				},
 			},
 		],
-		[numberTableDefaultValue, rows, columns]
+		[numberTableDefaultValue, rows, columns],
 	);
 
 	const buttons: ButtonProps[] = [

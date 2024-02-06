@@ -13,7 +13,7 @@ const existsComparisons = ["exists", "not_exists"];
 function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownContentProps) {
 	const [state, setState] = useState({
 		value : props.value,
-		comparison : props.comparison
+		comparison : props.comparison,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -26,7 +26,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		if (existsComparisons.includes(state.comparison)) {
 			// for these the value is not relevant
 			props.onChange({
-				comparison : state.comparison
+				comparison : state.comparison,
 			});
 		} else if (cleanValue === "") {
 			// if the state is empty we wipe the whole object
@@ -35,33 +35,33 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 			// set both values
 			props.onChange({
 				value : cleanValue,
-				comparison : state.comparison
+				comparison : state.comparison,
 			});
 		}
 
 		props.onClose();
-	}
+	};
 
 	const onClear = function() {
 		setState({
 			...state,
 			value : "",
-			comparison : props.comparison
+			comparison : props.comparison,
 		});
-	}
+	};
 
 	const onInputChange = function(event) {
 		setState({
 			...state,
-			value : event.target.value
+			value : event.target.value,
 		});
-	}
+	};
 
 	const onKeyPress = function(event) {
 		if (event.key === "Enter") {
 			onApply();
 		}
-	}
+	};
 
 	const disabled = existsComparisons.includes(state.comparison);
 
@@ -72,7 +72,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 				label : comparison.label,
 				onClick : function() {
 					const stateChange = {
-						...state
+						...state,
 					};
 
 					// for exists and not_exists we want to clear the value
@@ -83,8 +83,8 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 					stateChange.comparison = comparison.value;
 
 					setState(stateChange);
-				}
-			}
+				},
+			};
 		});
 
 		comparisonButton = (
@@ -122,7 +122,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear}/>
 		</StyledContents>
-	)
+	);
 }
 
 export default DataViewFilterTextDropdownContent;

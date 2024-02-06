@@ -22,54 +22,54 @@ import "../../utils/storyBookCssReset.css";
 
 export default {
 	title : "Components/LeftNav",
-	decorators : [withKnobs]
-}
+	decorators : [withKnobs],
+};
 
 const siteMapItems = (site) => [
 	{
 		name : `sitemap.${site}.main`,
-		label : "Main Navigation"
+		label : "Main Navigation",
 	},
 	{
 		name : `sitemap.${site}.secondary`,
-		label : "Secondary Navigation"
+		label : "Secondary Navigation",
 	},
 	{
 		name : `sitemap.${site}.footer`,
-		label : "Footer Navigation"
+		label : "Footer Navigation",
 	},
 	{
 		name : `sitemap.${site}.landing`,
-		label : "Landing Pages"
+		label : "Landing Pages",
 	},
 	{
 		name : `sitemap.${site}.system`,
-		label : "System"
+		label : "System",
 	},
 	{
 		name : `sitemap.${site}.microsites`,
-		label : "Microsites"
-	}
+		label : "Microsites",
+	},
 ];
 
 const blogItems = (blog) => [
 	{
 		name : `modules.blog.${blog}.authors`,
-		label : "Authors"
+		label : "Authors",
 	},
 	{
 		name : `modules.blog.${blog}.categories`,
-		label : "Categories"
+		label : "Categories",
 	},
 	{
 		name : `modules.blog.${blog}.posts`,
-		label : "Posts"
+		label : "Posts",
 	},
 	{
 		name : `modules.blog.${blog}.tags`,
-		label : "Tags"
-	}
-]
+		label : "Tags",
+	},
+];
 
 const navSections = {
 	dynamic : {
@@ -78,13 +78,13 @@ const navSections = {
 		items : [
 			{
 				name : "modules.dynamic.personas",
-				label : "Personas"
+				label : "Personas",
 			},
 			{
 				name : "modules.dynamic.profiles",
-				label : "Profiles"
-			}
-		]
+				label : "Profiles",
+			},
+		],
 	},
 	assetRequest : {
 		name : "modules.asset_request",
@@ -92,25 +92,25 @@ const navSections = {
 		items : [
 			{
 				name : "modules.asset_request.items",
-				label : "Items"
+				label : "Items",
 			},
 			{
 				name : "modules.asset_request.categories",
-				label : "Categories"
+				label : "Categories",
 			},
 			{
 				name : "modules.asset_request.tags",
-				label : "Tags"
+				label : "Tags",
 			},
 			{
 				name : "modules.asset_request.licenses",
-				label : "Licenses"
+				label : "Licenses",
 			},
 			{
 				name : "modules.asset_request.requests",
-				label : "Requests"
-			}
-		]
+				label : "Requests",
+			},
+		],
 	},
 	collections : {
 		name : "modules.collections",
@@ -118,25 +118,25 @@ const navSections = {
 		items : [
 			{
 				name : "modules.collections.blog",
-				label : "Blog Categories"
+				label : "Blog Categories",
 			},
 			{
 				name : "modules.collections.experience",
-				label : "Experience"
+				label : "Experience",
 			},
 			{
 				name : "modules.collections.header",
-				label : "Header Slides"
+				label : "Header Slides",
 			},
 			{
 				name : "modules.collections.header_video",
-				label : "Header Video Slides"
-			}
-		]
+				label : "Header Video Slides",
+			},
+		],
 	},
 	mapPublisher : {
 		name : "modules.map_publisher",
-		label : "Map Publisher"
+		label : "Map Publisher",
 	},
 	mediaGallery : {
 		name : "modules.media_gallery",
@@ -144,21 +144,21 @@ const navSections = {
 		items : [
 			{
 				name : "modules.media_gallery.galleries",
-				label : "Galleries"
+				label : "Galleries",
 			},
 			{
 				name : "modules.media_gallery.albums",
-				label : "Albums"
+				label : "Albums",
 			},
 			{
 				name : "modules.media_gallery.album_items",
-				label : "Album Items"
+				label : "Album Items",
 			},
 			{
 				name : "modules.media_gallery.tags",
-				label : "Tags"
-			}
-		]
+				label : "Tags",
+			},
+		],
 	},
 	assets : {
 		name : "assets",
@@ -166,21 +166,21 @@ const navSections = {
 		items : [
 			{
 				name : "assets.documents",
-				label : "Documents"
+				label : "Documents",
 			},
 			{
 				name : "assets.external",
-				label : "External Links"
+				label : "External Links",
 			},
 			{
 				name : "assets.images",
-				label : "Images"
+				label : "Images",
 			},
 			{
 				name : "assets.videos",
-				label : "Videos"
-			}
-		]
+				label : "Videos",
+			},
+		],
 	},
 	sitemap : {
 		name : "sitemap",
@@ -190,24 +190,24 @@ const navSections = {
 			{
 				name : "sitemap.primary",
 				label : "Primary",
-				items : siteMapItems("primary")
+				items : siteMapItems("primary"),
 			},
 			{
 				name : "sitemap.dutch",
 				label : "Dutch",
-				items : siteMapItems("dutch")
+				items : siteMapItems("dutch"),
 			},
 			{
 				name : "sitemap.french",
 				label : "French",
-				items : siteMapItems("french")
+				items : siteMapItems("french"),
 			},
 			{
 				name : "sitemap.spanish",
 				label : "Spanish",
-				items : siteMapItems("spanish")
-			}
-		]
+				items : siteMapItems("spanish"),
+			},
+		],
 	},
 	settings : {
 		name : "settings",
@@ -220,21 +220,21 @@ const navSections = {
 				items : [
 					{
 						name : "settings.assets.document_categories",
-						label : "Document Categories"
+						label : "Document Categories",
 					},
 					{
 						name : "settings.assets.image_categories",
-						label : "Image Categories"
+						label : "Image Categories",
 					},
 					{
 						name : "settings.assets.video_categories",
-						label : "Video Categories"
-					}
-				]
+						label : "Video Categories",
+					},
+				],
 			},
 			{
 				name : "settings.cms_tags",
-				label : "CMS Tags"
+				label : "CMS Tags",
 			},
 			{
 				name : "settings.field_builder",
@@ -242,25 +242,25 @@ const navSections = {
 				items : [
 					{
 						name : "settings.field_builder.assets_documents",
-						label : "Asset Library - Documents"
+						label : "Asset Library - Documents",
 					},
 					{
 						name : "settings.field_builder.assets_external",
-						label : "Asset Library - External Links"
+						label : "Asset Library - External Links",
 					},
 					{
 						name : "settings.field_builder.assets_images",
-						label : "Asset Library - Images"
+						label : "Asset Library - Images",
 					},
 					{
 						name : "settings.field_builder.assets_videos",
-						label : "Asset Library - Videos"
+						label : "Asset Library - Videos",
 					},
 					{
 						name : "settings.field_builder.core_textbox",
-						label : "Core - Textbox"
-					}
-				]
+						label : "Core - Textbox",
+					},
+				],
 			},
 			{
 				name : "settings.nav",
@@ -268,13 +268,13 @@ const navSections = {
 				items : [
 					{
 						name : "settings.nav.locale_tags",
-						label : "Locale Tags"
+						label : "Locale Tags",
 					},
 					{
 						name : "settings.nav.nav_tags",
-						label : "Nav Tags"
-					}
-				]
+						label : "Nav Tags",
+					},
+				],
 			},
 			{
 				name : "settings.tasks",
@@ -282,9 +282,9 @@ const navSections = {
 				items : [
 					{
 						name : "settings.tasks.categories",
-						label : "Categories"
-					}
-				]
+						label : "Categories",
+					},
+				],
 			},
 			{
 				name : "settings.users",
@@ -292,17 +292,17 @@ const navSections = {
 				items : [
 					{
 						name : "settings.users.manage",
-						label : "Manage Users"
+						label : "Manage Users",
 					},
 					{
 						name : "settings.users.roles",
-						label : "Manage Roles"
+						label : "Manage Roles",
 					},
 					{
 						name : "settings.users.history",
-						label : "User History"
-					}
-				]
+						label : "User History",
+					},
+				],
 			},
 			{
 				name : "settings.visitors",
@@ -310,11 +310,11 @@ const navSections = {
 				items : [
 					{
 						name : "settings.visitors.test_subscription",
-						label : "Test Subscriptions"
-					}
-				]
-			}
-		]
+						label : "Test Subscriptions",
+					},
+				],
+			},
+		],
 	},
 	autoResponder : {
 		name : "modules.auto_responder",
@@ -322,13 +322,13 @@ const navSections = {
 		items : [
 			{
 				name : "modules.auto_responder.content",
-				label : "Content"
+				label : "Content",
 			},
 			{
 				name : "modules.auto_responder.links",
-				label : "Links"
-			}
-		]
+				label : "Links",
+			},
+		],
 	},
 	translation : {
 		name : "modules.translation",
@@ -336,9 +336,9 @@ const navSections = {
 		items : [
 			{
 				name : "modules.translation.static",
-				label : "Static Namespaces"
-			}
-		]
+				label : "Static Namespaces",
+			},
+		],
 	},
 	blog : {
 		name : "modules.blog",
@@ -347,28 +347,28 @@ const navSections = {
 			{
 				name : "modules.blog.articles",
 				label : "Articles",
-				items : blogItems("articles")
+				items : blogItems("articles"),
 			},
 			{
 				name : "modules.blog.blog",
 				label : "Blog",
-				items : blogItems("blog")
+				items : blogItems("blog"),
 			},
 			{
 				name : "modules.blog.meetings",
 				label : "Meetings Blog",
-				items : blogItems("meetings")
-			}
-		]
-	}
-}
+				items : blogItems("meetings"),
+			},
+		],
+	},
+};
 
 const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 	qa : [
 		{
 			name : "short_icon",
 			label : "Short Icon",
-			mIcon : HomeIcon
+			mIcon : HomeIcon,
 		},
 		{
 			name : "short_icon_children",
@@ -377,12 +377,12 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "short_icon_children.short",
-					label : "Short"
+					label : "Short",
 				},
 				{
 					name : "short_icon_children.short_icon",
 					label : "Short Icon",
-					mIcon : HomeIcon
+					mIcon : HomeIcon,
 				},
 				{
 					name : "short_icon_children.short_children",
@@ -390,7 +390,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name :"short_icon_children.short_children.item",
-							label : "Item"
+							label : "Item",
 						},
 						{
 							name : "short_icon_children.short_children.children",
@@ -398,7 +398,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 							items : [
 								{
 									name :"short_icon_children.short_children.children.item",
-									label : "Item"
+									label : "Item",
 								},
 								{
 									name : "short_icon_children.short_children.children.children",
@@ -406,7 +406,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 									items : [
 										{
 											name :"short_icon_children.short_children.children.children.item",
-											label : "Item"
+											label : "Item",
 										},
 										{
 											name : "short_icon_children.short_children.children.children.children",
@@ -414,7 +414,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 											items : [
 												{
 													name :"short_icon_children.short_children.children.children.children.item",
-													label : "Item"
+													label : "Item",
 												},
 												{
 													name : "short_icon_children.short_children.children.children.children.children",
@@ -422,7 +422,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 													items : [
 														{
 															name :"short_icon_children.short_children.children.children.children.children.item",
-															label : "Item"
+															label : "Item",
 														},
 														{
 															name : "short_icon_children.short_children.children.children.children.children.children",
@@ -430,7 +430,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 															items : [
 																{
 																	name :"short_icon_children.short_children.children.children.children.children.children.item",
-																	label : "Item"
+																	label : "Item",
 																},
 																{
 																	name : "short_icon_children.short_children.children.children.children.children.children.children",
@@ -438,7 +438,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 																	items : [
 																		{
 																			name :"short_icon_children.short_children.children.children.children.children.children.children.item",
-																			label : "Item"
+																			label : "Item",
 																		},
 																		{
 																			name : "short_icon_children.short_children.children.children.children.children.children.children.children",
@@ -446,7 +446,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 																			items : [
 																				{
 																					name :"short_icon_children.short_children.children.children.children.children.children.children.children.item",
-																					label : "Item"
+																					label : "Item",
 																				},
 																				{
 																					name : "short_icon_children.short_children.children.children.children.children.children.children.children.children",
@@ -454,7 +454,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 																					items : [
 																						{
 																							name :"short_icon_children.short_children.children.children.children.children.children.children.children.children.item",
-																							label : "Item"
+																							label : "Item",
 																						},
 																						{
 																							name : "short_icon_children.short_children.children.children.children.children.children.children.children.children.children",
@@ -462,27 +462,27 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 																							items : [
 																								{
 																									name :"short_icon_children.short_children.children.children.children.children.children.children.children.children.children.item",
-																									label : "Item"
-																								}
-																							]
-																						}
-																					]
-																				}
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								}
-							]
-						}
-					]
+																									label : "Item",
+																								},
+																							],
+																						},
+																					],
+																				},
+																			],
+																		},
+																	],
+																},
+															],
+														},
+													],
+												},
+											],
+										},
+									],
+								},
+							],
+						},
+					],
 				},
 				{
 					name : "short_icon_children.short_icon_children",
@@ -491,18 +491,18 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "short_icon_children.short_icon_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
 				{
 					name : "short_icon_children.long",
-					label : "Long - lorem ipsum dolor sit amet"
+					label : "Long - lorem ipsum dolor sit amet",
 				},
 				{
 					name : "short_icon_children.long_icon",
 					label : "Long Icon - lorem ipsum dolor sit amet",
-					mIcon : HomeIcon
+					mIcon : HomeIcon,
 				},
 				{
 					name : "short_icon_children.long_children",
@@ -510,9 +510,9 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "short_icon_children.long_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
 				{
 					name : "short_icon_children.long_icon_children",
@@ -521,17 +521,17 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "short_icon_children.long_icon_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
 				// automate 20 entries to create a vertical scroller in the flyout
 				...(
 					new Array(35).fill(0).map((val, i) => {
 						return {
 							name : `short_icon_children.filler_item_${i}`,
-							label : `Filler ${i}`
-						}
+							label : `Filler ${i}`,
+						};
 					})
 				),
 				{
@@ -540,16 +540,16 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "short_icon_children.after_filler.item",
-							label : "Item"
-						}
-					]
-				}
-			]
+							label : "Item",
+						},
+					],
+				},
+			],
 		},
 		{
 			name : "long_icon",
 			label : "Long Icon - lorem ipsum dolor sit amet",
-			mIcon : DashboardIcon
+			mIcon : DashboardIcon,
 		},
 		{
 			name : "long_icon_children",
@@ -558,9 +558,9 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "long_icon_children.item",
-					label : "Item"
-				}
-			]
+					label : "Item",
+				},
+			],
 		},
 		{
 			name : "group_short_icon",
@@ -570,12 +570,12 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "group_short_icon.short",
-					label : "Short"
+					label : "Short",
 				},
 				{
 					name : "group_short_icon.short_icon",
 					label : "Short Icon",
-					mIcon : HomeIcon
+					mIcon : HomeIcon,
 				},
 				{
 					name : "group_short_icon.short_children",
@@ -583,7 +583,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "group_short_icon.short_children.short_children.item",
-							label : "Item"
+							label : "Item",
 						},
 						{
 							name : "group_short_icon.short_children.short_children.children",
@@ -591,7 +591,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 							items : [
 								{
 									name :"group_short_icon.short_children.short_children.children.item",
-									label : "Item"
+									label : "Item",
 								},
 								{
 									name : "group_short_icon.short_children.short_children.children.children",
@@ -599,13 +599,13 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 									items : [
 										{
 											name : "group_short_icon.short_children.short_children.children.children.item",
-											label : "Item"
-										}
-									]
-								}
-							]
-						}
-					]
+											label : "Item",
+										},
+									],
+								},
+							],
+						},
+					],
 				},
 				{
 					name : "group_short_icon.short_icon_children",
@@ -614,18 +614,18 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "group_short_icon.short_icon_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
 				{
 					name : "group_short_icon.long",
-					label : "Long - lorem ipsum dolor sit amet"
+					label : "Long - lorem ipsum dolor sit amet",
 				},
 				{
 					name : "group_short_icon.long_icon",
 					label : "Long Icon - lorem ipsum dolor sit amet",
-					mIcon : HomeIcon
+					mIcon : HomeIcon,
 				},
 				{
 					name : "group_short_icon.long_children",
@@ -633,9 +633,9 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "group_short_icon.long_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
 				{
 					name : "group_short_icon.long_icon_children",
@@ -644,11 +644,11 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "group_short_icon.long_icon_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
-			]
+			],
 		},
 		{
 			name : "group_long_icon",
@@ -658,17 +658,17 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "group_long_icon.item",
-					label : "Item"
-				}
-			]
+					label : "Item",
+				},
+			],
 		},
 		{
 			name : "item_with_attrs",
 			label : "Items With Attrs",
 			mIcon : HomeIcon,
 			attrs : {
-				"data-attr" : "foo"
-			}
+				"data-attr" : "foo",
+			},
 		},
 		{
 			name : "click_variations",
@@ -677,22 +677,22 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "click_variations.default",
-					label : "Default"
+					label : "Default",
 				},
 				{
 					name : "click_variations.default_with_href",
 					label : "Default with href",
 					attrs : {
-						href : "https://www.google.com/"
-					}
+						href : "https://www.google.com/",
+					},
 				},
 				{
 					name : "click_variations.href_only",
 					label : "Href Only",
 					onNav : false,
 					attrs : {
-						href : "https://www.google.com/"
-					}
+						href : "https://www.google.com/",
+					},
 				},
 				{
 					name : "click_variations.href_new_window",
@@ -700,17 +700,17 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					onNav : false,
 					attrs : {
 						href : "https://www.google.com/",
-						target : "_blank"
-					}
+						target : "_blank",
+					},
 				},
 				{
 					name : "click_variations.custom_handler",
 					label : "Custom Handler",
 					onNav : function() {
 						alert("Custom handler!");
-					}
-				}
-			]
+					},
+				},
+			],
 		},
 		{
 			name : "pinned_bottom",
@@ -720,12 +720,12 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			items : [
 				{
 					name : "pinned_bottom.short",
-					label : "Short"
+					label : "Short",
 				},
 				{
 					name : "pinned_bottom.short_icon",
 					label : "Short Icon",
-					mIcon : HomeIcon
+					mIcon : HomeIcon,
 				},
 				{
 					name : "pinned_bottom.short_icon_children",
@@ -734,25 +734,25 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 					items : [
 						{
 							name : "pinned_bottom.short_icon_children.item",
-							label : "Item"
-						}
-					]
+							label : "Item",
+						},
+					],
 				},
-			]
-		}
+			],
+		},
 	],
 	cms_flat : [
 		{
 			name : "home",
 			label : "Home",
-			mIcon : HomeIcon
+			mIcon : HomeIcon,
 		},
 		{
-			...navSections.sitemap
+			...navSections.sitemap,
 		},
 		{
 			...navSections.assets,
-			mIcon : ImageIcon
+			mIcon : ImageIcon,
 		},
 		{
 			name : "modules",
@@ -767,15 +767,15 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 				navSections.mapPublisher,
 				navSections.mediaGallery,
 				navSections.blog,
-				navSections.translation
-			]
+				navSections.translation,
+			],
 		},
 		{
 			...navSections.settings,
-			type : "group"
-		}
-	]
-}
+			type : "group",
+		},
+	],
+};
 
 export const Example = (): ReactElement => {
 	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
@@ -795,5 +795,5 @@ export const Example = (): ReactElement => {
 		<MosaicContext.Provider value={mosaicSettings}>
 			<NavWrapper items={items}/>
 		</MosaicContext.Provider>
-	)
-}
+	);
+};

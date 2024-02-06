@@ -4,7 +4,7 @@ import {
 	render,
 	screen,
 	fireEvent,
-	cleanup
+	cleanup,
 } from "@testing-library/react";
 
 import Checkbox from "./Checkbox";
@@ -91,7 +91,7 @@ describe("Checkbox", function() {
 
 			const onClick = function() {
 				setChecked(!checked);
-			}
+			};
 
 			return (
 				<Checkbox
@@ -99,8 +99,8 @@ describe("Checkbox", function() {
 					onClick={onClick}
 					label="Test checkbox"
 				/>
-			)
-		}
+			);
+		};
 
 		const { getByRole } = render(<C/>);
 

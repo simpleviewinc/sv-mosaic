@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 
-export const EditorWrapper = styled.div<{$error?: boolean}>`
+export const EditorWrapper = styled.div<{ $error?: boolean }>`
   	.jodit-container {
 		width: 620px !important;
 		border: none !important;

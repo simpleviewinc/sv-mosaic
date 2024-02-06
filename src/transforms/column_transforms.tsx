@@ -19,19 +19,19 @@ export function transform_boolean(): DataViewColumnTransform<boolean> {
 		} else {
 			return "No";
 		}
-	}
+	};
 }
 
 export function transform_dateFormat(): DataViewColumnTransform<Date> {
 	return function({ data }): string {
 		return format(data, DATE_FORMAT_SHORT);
-	}
+	};
 }
 
 export function transform_get(path: string | string[]): DataViewColumnTransform<MosaicObject> {
 	return function({ data }): ReactNode {
 		return get(data, path);
-	}
+	};
 }
 
 export function transform_mapGet(path: string | string[]): DataViewColumnTransform<MosaicObject[]> {
@@ -42,13 +42,13 @@ export function transform_mapGet(path: string | string[]): DataViewColumnTransfo
 
 		// filters out undefined, null values
 		return results.filter(val => val);
-	}
+	};
 }
 
 export function transform_join(): DataViewColumnTransform<string[]> {
 	return ({ data }): string => {
 		return data.join(", ");
-	}
+	};
 }
 
 interface TransformThumbnailProps {
@@ -62,11 +62,11 @@ export function transform_thumbnail({ width, height }: TransformThumbnailProps):
 
 		const element = createElement(Image, {
 			src : newUrl,
-			className : "transform_thumbnail"
+			className : "transform_thumbnail",
 		}, null);
 
 		return element;
-	}
+	};
 }
 
 export function transform_chips(): DataViewColumnTransform<MosaicLabelValue[]> {
@@ -81,7 +81,7 @@ export function transform_chips(): DataViewColumnTransform<MosaicLabelValue[]> {
 				))}
 			</ChipsWrapper>
 		);
-	}
+	};
 }
 
 export function transform_colorPicker(): DataViewColumnTransform<string> {
@@ -94,14 +94,14 @@ export function transform_colorPicker(): DataViewColumnTransform<string> {
 				/>
 			</div>
 		);
-	}
+	};
 }
 
 const DataViewWrapper = styled.div`
 	& .viewContainer {
 		padding: 0;
 	}
-`
+`;
 
 export function transform_dataview({ columns }: { columns: DataViewColumn[] }): DataViewColumnTransform {
 	return function TransformedDataView({ data }: { data: any }): ReactNode {
@@ -112,6 +112,6 @@ export function transform_dataview({ columns }: { columns: DataViewColumn[] }): 
 					columns={columns}
 				/>
 			</DataViewWrapper>
-		)
-	}
+		);
+	};
 }

@@ -28,7 +28,7 @@ import {
 import { AssetCard, AssetButtons, AssetCardTop, AssetInfo } from "../FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled";
 
 const FormFieldImageUpload = (
-	props: MosaicFieldProps<"imageUpload", ImageUploadInputSettings, ImageUploadValue>
+	props: MosaicFieldProps<"imageUpload", ImageUploadInputSettings, ImageUploadValue>,
 ): ReactElement => {
 	const { fieldDef, onChange, value, disabled } = props;
 
@@ -250,7 +250,7 @@ const FormFieldImageUpload = (
 								disabled={disabled}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
-								muiAttrs={{disableRipple: true}}
+								muiAttrs={{ disableRipple: true }}
 							></UploadButton>
 						</>
 					)}

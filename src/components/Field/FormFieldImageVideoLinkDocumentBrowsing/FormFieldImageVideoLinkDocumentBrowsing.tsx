@@ -27,7 +27,7 @@ import {
 	AssetImage,
 	TableRow,
 	Td,
-	Th
+	Th,
 } from "./ImageVideoLinkDocumentBrowsing.styled";
 
 // Components
@@ -45,7 +45,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 		"imageVideoDocumentLink",
 		ImageVideoDocumentLinkInputSettings,
 		ImageVideoDocumentLinkData
-	>
+	>,
 ): ReactElement => {
 	const { fieldDef, value, disabled } = props;
 
@@ -65,7 +65,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			try {
 				await fieldDef?.inputSettings?.handleSetDocument();
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 		}
 
@@ -73,7 +73,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			try {
 				await fieldDef?.inputSettings?.handleSetVideo();
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 		}
 
@@ -81,7 +81,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			try {
 				await fieldDef?.inputSettings?.handleSetLink();
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 		}
 
@@ -89,7 +89,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			try {
 				await fieldDef?.inputSettings?.handleSetImage();
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 		}
 
@@ -118,7 +118,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 					<Td>{property.value}</Td>
 				</TableRow>
 			)),
-		[value]
+		[value],
 	);
 
 	// Only show the first four asset's properties on the card
@@ -159,7 +159,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 					</Td>
 				</TableRow>
 			)),
-		[value, moreTextRef, moreOpen]
+		[value, moreTextRef, moreOpen],
 	);
 
 	const hasOptions =

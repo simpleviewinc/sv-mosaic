@@ -13,17 +13,17 @@ const readFile = (filePath, cb) => {
 			return cb && cb(err);
 		}
 	});
-}
+};
 
 const writeFile = (jsonString) => {
 	fs.writeFile("./trimmedCountriesStates.json", jsonString, err => {
 		if (err) {
-			console.log("Error writing file", err)
+			console.log("Error writing file", err);
 		} else {
-			console.log("Successfully wrote file")
+			console.log("Successfully wrote file");
 		}
-	})
-}
+	});
+};
 
 readFile("./countriesStates.json", (err, countriesData) => {
 	if (err) {
@@ -38,7 +38,7 @@ readFile("./countriesStates.json", (err, countriesData) => {
 			const { name, state_code } = state;
 			const stateObj = {
 				name,
-				code: state_code
+				code: state_code,
 			};
 
 			return stateObj;
@@ -48,7 +48,7 @@ readFile("./countriesStates.json", (err, countriesData) => {
 			name,
 			iso2,
 			states: newStates,
-		}
+		};
 
 		return countryObj;
 	});

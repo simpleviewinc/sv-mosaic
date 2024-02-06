@@ -10,7 +10,7 @@ import { CustomPopperProps, DropdownData, DropdownSingleSelectionInputSettings }
 
 // Components
 import InputWrapper from "../../InputWrapper";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
 
@@ -21,7 +21,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		onChange,
 		onBlur,
 		value,
-		disabled
+		disabled,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +40,9 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 				setInternalOptions(newOptions);
 				setOrigin(false);
 			}
-		}
+		};
 		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions])
+	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions]);
 
 	useEffect(() => {
 		if (value && origin === false) {
@@ -64,20 +64,20 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	);
 
 	const handleOpen = () => {
-		setIsOpen(!isOpen)
-	}
+		setIsOpen(!isOpen);
+	};
 
 	const onDropDownChange = async (option: MosaicLabelValue) => {
 		onChange && (await onChange(option ? option : undefined));
-	}
+	};
 
 	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
 		if (value?.value === "") {
 			return true;
 		}
 
-		return option.value === value?.value
-	}
+		return option.value === value?.value;
+	};
 
 	const CustomPopper = (props: CustomPopperProps) => {
 		return <StyledPopper $value={value?.value === ""} {...props} />;
