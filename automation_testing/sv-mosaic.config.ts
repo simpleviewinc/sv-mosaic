@@ -14,11 +14,11 @@ const config: PlaywrightTestConfig = {
 		//video: "retain-on-failure",
 		//screenshot: "only-on-failure"
 		video: "off",
-		screenshot: "off"
+		screenshot: "off",
 	},
 	retries: 0,
 	timeout: 30000,
-	reporter: [ ["html", { open: "never", outputFolder: "./playwright-report"}] ],
+	reporter: [["html", { open: "never", outputFolder: "./playwright-report" }]],
 	workers: process.env.CI ? 2 : 4,
 	projects: [
 		{
@@ -32,8 +32,8 @@ const config: PlaywrightTestConfig = {
 		{
 			name: "Webkit",
 			use: { browserName: "webkit" },
-		}
-	]
-}
+		},
+	],
+};
 
 export default config;

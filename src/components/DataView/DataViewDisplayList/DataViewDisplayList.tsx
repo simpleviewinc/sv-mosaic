@@ -8,16 +8,16 @@ import {
 	Modifier,
 	PointerSensor,
 	useSensor,
-	useSensors
+	useSensors,
 } from "@dnd-kit/core";
 import {
-	restrictToVerticalAxis
+	restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 import {
 	arrayMove,
 	sortableKeyboardCoordinates,
 	SortableContext,
-	verticalListSortingStrategy
+	verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 import DataViewTHead from "../DataViewTHead";
@@ -29,7 +29,7 @@ import { restrictToBoundingRect } from "@root/utils/dom/restrictToBoundingRect";
 const StyledTable = styled.table`
 	width: 100%;
 	border-collapse: collapse;
-`
+`;
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
 	const tBodyRef = useRef<HTMLTableSectionElement>();
@@ -43,14 +43,14 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 		() =>
 			(additionalActions && additionalActions.length > 0) ||
 			(primaryActions && primaryActions.length > 0),
-		[additionalActions, primaryActions]
+		[additionalActions, primaryActions],
 	);
 
 	const sensors = useSensors(
 		useSensor(PointerSensor),
 		useSensor(KeyboardSensor, {
-			coordinateGetter: sortableKeyboardCoordinates
-		})
+			coordinateGetter: sortableKeyboardCoordinates,
+		}),
 	);
 
 	function handleDragEnd(event) {
@@ -62,14 +62,14 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 			props.onReorder(arrayMove(
 				ids,
 				ids.indexOf(active.id),
-				ids.indexOf(over.id)
+				ids.indexOf(over.id),
 			));
 		}
 	}
 
 	const restrictToTBody = useCallback<Modifier>(({
 		draggingNodeRect,
-		transform
+		transform,
 	}) => {
 		if (!draggingNodeRect || !tBodyRef.current) {
 			return transform;
@@ -84,8 +84,8 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 		return restrictToBoundingRect(
 			transform,
 			draggingNodeRect,
-			rect
-		)
+			rect,
+		);
 	}, []);
 
 	return (
@@ -93,7 +93,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 			sensors={sensors}
 			collisionDetection={closestCenter}
 			onDragEnd={handleDragEnd}
-			autoScroll={{layoutShiftCompensation: false}}
+			autoScroll={{ layoutShiftCompensation: false }}
 			modifiers={[restrictToVerticalAxis, restrictToTBody]}
 		>
 			<SortableContext
@@ -140,7 +140,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				</StyledTable>
 			</SortableContext>
 		</DndContext>
-	)
+	);
 }
 
 export default DataViewDisplayList;

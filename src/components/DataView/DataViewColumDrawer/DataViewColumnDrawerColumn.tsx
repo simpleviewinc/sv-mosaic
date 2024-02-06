@@ -10,7 +10,7 @@ function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerCo
 	const column = allColumns.find((c) => c.name === name);
 
 	if (!column) {
-		throw new Error(`Column "${name}" not found in column list: ${allColumns.join(", ")}`)
+		throw new Error(`Column "${name}" not found in column list: ${allColumns.join(", ")}`);
 	}
 
 	const {
@@ -19,13 +19,13 @@ function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerCo
 		setNodeRef,
 		transform,
 		transition,
-		isDragging
-	} = useSortable({id: column.name});
+		isDragging,
+	} = useSortable({ id: column.name });
 
 	const style = {
 		transform: CSS.Translate.toString(transform),
-		transition
-	}
+		transition,
+	};
 
 	return (
 		<ColumnItem
@@ -38,7 +38,7 @@ function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerCo
 			<DragIndicatorIcon />
 			<span>{column.label}</span>
 		</ColumnItem>
-	)
+	);
 }
 
-export default DataViewColumnDrawerColumn
+export default DataViewColumnDrawerColumn;

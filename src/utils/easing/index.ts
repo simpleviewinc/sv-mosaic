@@ -5,11 +5,11 @@ import { default as easeInOutCubic } from "./easeInOutCubic";
 export {
 	easeInOutQuart,
 	easeOutBack,
-	easeInOutCubic
+	easeInOutCubic,
 };
 
 export default {
 	easeInOutQuart,
 	easeOutBack,
-	easeInOutCubic
-}
+	easeInOutCubic,
+};

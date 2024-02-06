@@ -32,7 +32,7 @@ const Map = (props: MapProps): ReactElement => {
 		zoom = 0,
 		focusZoom = 11,
 		onCoordinatesChange,
-		googleMapsApiKey
+		googleMapsApiKey,
 	} = props;
 
 	// State variables
@@ -72,13 +72,13 @@ const Map = (props: MapProps): ReactElement => {
 		const lng = latLng.lng();
 
 		onCoordinatesChange({ lat, lng });
-	}
+	};
 
 	useEffect(() => {
 		if (value === undefined || (value.lat === undefined && value.lng === undefined)) {
 			clearValue();
 		}
-	}, [value])
+	}, [value]);
 
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey,
@@ -101,7 +101,7 @@ const Map = (props: MapProps): ReactElement => {
 								<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
 							</InputAdornment>
 						),
-					}
+					},
 				}}
 			/>
 			{isLoaded && !loadError && (

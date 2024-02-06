@@ -6,7 +6,7 @@ export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
 
 	return new Promise(resolve => {
 		setTimeout(() => {
-			resolve(internalOptionsArr)
+			resolve(internalOptionsArr);
 		}, 500);
-	})
+	});
 };

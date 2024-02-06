@@ -56,8 +56,8 @@ function LeftNav(props: LeftNavProps): ReactElement {
 			zIndex,
 			leaveTimeout,
 			enterTimeout,
-			onNav
-		}
+			onNav,
+		};
 
 		return context;
 	}, [props.variant, zIndex, props.active]);

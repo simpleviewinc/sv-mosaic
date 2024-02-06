@@ -20,7 +20,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 		if (props.onExited) {
 			props.onExited();
 		}
-	}
+	};
 
 	// avoid processing the content of the dropdown until we have been invoked
 	if (exists === false) {
@@ -35,7 +35,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 			TransitionProps={
 				{
 					onExited,
-					onEntered : props.onEntered
+					onEntered : props.onEntered,
 				}
 			}
 		>
@@ -43,7 +43,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 				{props.children}
 			</StyledWrapper>
 		</StyledPopover>
-	)
+	);
 }
 
 export default DataViewFilterDropdown;

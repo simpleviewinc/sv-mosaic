@@ -43,16 +43,16 @@ const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 		font-family: ${theme.fontFamily};
 		font-size: 14px;
 		color: ${theme.newColors.grey4["100"]};
-		${({$truncateText}) => $truncateText && `
+		${({ $truncateText }) => $truncateText && `
 			overflow: hidden;
 			text-overflow: ellipsis;
 		`}
 	}
-`
+`;
 
 const StyledIcon = styled.div`
 	display: inline-flex;
-`
+`;
 
 const iconTypes = {
 	blue : styled(StyledIcon)`
@@ -64,8 +64,8 @@ const iconTypes = {
 		& svg {
 			color: ${theme.newColors.darkRed["100"]};
 		}
-	`
-}
+	`,
+};
 
 export default function MenuItem({
 	mIcon,
@@ -76,7 +76,7 @@ export default function MenuItem({
 	onClick,
 	disabled,
 	selected,
-	truncateText
+	truncateText,
 }: MenuItemProps): ReactElement {
 	const Icon = mIcon;
 	const MyIcon = color !== undefined ? iconTypes[color] : StyledIcon;
@@ -107,5 +107,5 @@ export default function MenuItem({
 				<span>{label}</span>
 			</div>
 		</StyledMenuItem>
-	)
+	);
 }

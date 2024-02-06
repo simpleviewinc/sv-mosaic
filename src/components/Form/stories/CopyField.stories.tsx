@@ -27,7 +27,7 @@ export const CopyField = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -46,16 +46,16 @@ export const CopyField = (): ReactElement => {
 					label: "Slug",
 					type: "text",
 					required: true,
-					helperText: "The text for this field will be populated with a slugified version the name field, but only if this field hasn't been touched"
+					helperText: "The text for this field will be populated with a slugified version the name field, but only if this field hasn't been touched",
 				},
 			],
-		[]
+		[],
 	);
 
 	useEffect(() => {
 		if (!state.touched.slug) {
 			const transformedLabel = state.data.name?.trim().toLowerCase().replace(/ {1,}/g, "_").replace(/[^a-z_]/g, "");
-			dispatch(formActions.setFieldValue({ name: "slug", value: transformedLabel }))
+			dispatch(formActions.setFieldValue({ name: "slug", value: transformedLabel }));
 		}
 	}, [state.data.name, state.touched]);
 
@@ -64,7 +64,7 @@ export const CopyField = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Validators story'

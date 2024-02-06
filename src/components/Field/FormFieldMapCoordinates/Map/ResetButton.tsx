@@ -9,7 +9,7 @@ import Button from "@root/components/Button/Button";
 
 function ResetButton({
 	show,
-	onClick
+	onClick,
 }: ResetButtonProps) {
 	return show && (
 		<ResetButtonContainer>
@@ -21,7 +21,7 @@ function ResetButton({
 				onClick={onClick}
 			/>
 		</ResetButtonContainer>
-	)
+	);
 }
 
-export default ResetButton
+export default ResetButton;

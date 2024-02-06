@@ -30,7 +30,7 @@ test.describe.parallel("Components - Data View - Columns", () => {
 		expect((await columns.getRightItemsText()).toString()).toBe(columns_data.defaultColumnsOrder.toString());
 		expect((await columns.getColumnsChecked()).toString()).toBe(columns_data.defaultColumnsChecked.toString());
 		await columns.cancelBtn.click();
-	})
+	});
 
 	test("Add column", async () => {
 		await columns.columnsBtn.click();

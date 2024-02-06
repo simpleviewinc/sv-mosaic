@@ -11,15 +11,15 @@ const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Equals", value : "equals" },
 	{ label : "Not Equal", value : "not_equals" },
 	{ label : "Exists", value : "exists" },
-	{ label : "Not Exists", value : "not_exists" }
+	{ label : "Not Exists", value : "not_exists" },
 ];
 
 const comparisonMap = {
 	equals : "",
 	not_equals : "!=",
 	contains : "~",
-	not_contains : "!~"
-}
+	not_contains : "!~",
+};
 
 function DataViewFilterText(props: DataViewFilterTextProps) {
 	if (props.args.comparisonDefault && validComparisons.find( validComparison => validComparison.value === props.args.comparisonDefault) === undefined)
@@ -50,11 +50,11 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 
 	const onClick = function(event) {
 		setAnchorEl(event.currentTarget);
-	}
+	};
 
 	const onClose = function() {
 		setAnchorEl(null);
-	}
+	};
 
 
 	// based on the state lets figure out what our value should be
@@ -66,7 +66,7 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 	} else if (value === "") {
 		valueString = "";
 	} else {
-		valueString = `${comparisonMap[comparison]} "${value}"`
+		valueString = `${comparisonMap[comparison]} "${value}"`;
 	}
 
 	// filter the valid comparisons based on what the developer is allowing

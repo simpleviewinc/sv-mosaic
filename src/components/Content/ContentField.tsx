@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactNode } from "react";
-import { ContentFieldProps} from "./ContentTypes";
+import { ContentFieldProps } from "./ContentTypes";
 
 // Components
 import {
@@ -12,7 +12,7 @@ import {
  * Renders the content created either by the transform funcion or the
  * raw data in case the transform function is not defined for the current field.
  */
-const ContentField = ({label, content}: ContentFieldProps) => {
+const ContentField = ({ label, content }: ContentFieldProps) => {
 	return (
 		<>
 			<FieldTerm>{label}</FieldTerm>
@@ -20,7 +20,7 @@ const ContentField = ({label, content}: ContentFieldProps) => {
 				{content as ReactNode}
 			</FieldDefinition>
 		</>
-	)
+	);
 };
 
-export default ContentField
+export default ContentField;

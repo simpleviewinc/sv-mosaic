@@ -63,11 +63,11 @@ describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 					type: "phone",
 					label: "Label",
 				}}
-			/>
+			/>,
 		);
 
 		const phoneInput = container.querySelector(
-			".form-control"
+			".form-control",
 		) as HTMLInputElement;
 
 		expect(phoneInput.value).toBe("+1");
@@ -84,11 +84,11 @@ describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 						country: "mx",
 					},
 				}}
-			/>
+			/>,
 		);
 
 		const phoneInput = container.querySelector(
-			".form-control"
+			".form-control",
 		) as HTMLInputElement;
 
 		expect(phoneInput.value).toBe("+52");

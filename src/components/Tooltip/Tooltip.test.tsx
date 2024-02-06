@@ -13,7 +13,7 @@ function TooltipTest({ text }: { text: string }) {
 			<MoreVertIcon {...anchorProps} />
 			<Tooltip {...tooltipProps}>{text}</Tooltip>
 		</>
-	)
+	);
 }
 
 beforeEach(() => {
@@ -36,13 +36,13 @@ afterEach(cleanup);
 describe("Tooltip component", () => {
 	it("should render a regular tooltip", async () => {
 		const tooltip = render(
-			<TooltipTest text='Default tooltip test' />
+			<TooltipTest text='Default tooltip test' />,
 		);
 
 		fireEvent.mouseOver(tooltip.getByTestId("MoreVertIcon"));
 
 		expect(
-			await tooltip.findByText("Default tooltip test")
+			await tooltip.findByText("Default tooltip test"),
 		).toBeInTheDocument();
 	});
 });

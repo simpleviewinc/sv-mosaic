@@ -13,7 +13,7 @@ const MarkerFollower = ({
 	onDragMarkerEnd,
 	zoom: initialZoom = 7,
 	focusZoom = 11,
-	shouldPanRef
+	shouldPanRef,
 }: MapFocusProps): ReactElement => {
 	const map = useGoogleMap();
 	const currentTarget = React.useRef<google.maps.LatLng | null>(null);
@@ -49,7 +49,7 @@ const MarkerFollower = ({
 					map.setZoom(focusZoom);
 				}
 			} else {
-				map.setZoom(initialZoom)
+				map.setZoom(initialZoom);
 			}
 		})();
 	}, [initialZoom, map, value, shouldPanRef.current]);
@@ -64,7 +64,7 @@ const MarkerFollower = ({
 			position={value}
 			onDragEnd={onDragMarkerEnd}
 		/>
-	)
-}
+	);
+};
 
-export default MarkerFollower
+export default MarkerFollower;

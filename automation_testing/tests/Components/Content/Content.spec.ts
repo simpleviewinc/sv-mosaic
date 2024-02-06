@@ -73,7 +73,7 @@ test.describe.parallel("Components - Content - Playground", () => {
 		await contentPage.detailsButton.click();
 
 		const field = contentPage.page.locator("[data-testid=\"mos:Content:field\"]", {
-			has: contentPage.page.getByText("Toggle using transform_boolean()")
+			has: contentPage.page.getByText("Toggle using transform_boolean()"),
 		}).getByRole("definition");
 
 		await expect(field).toHaveText("No");

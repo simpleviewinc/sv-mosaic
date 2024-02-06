@@ -1,4 +1,4 @@
-import { DataViewOnSkipChange } from "../DataViewTypes"
+import { DataViewOnSkipChange } from "../DataViewTypes";
 
 export interface DataViewPagerPopoverProps {
 	currentPage: number

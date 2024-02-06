@@ -1,58 +1,58 @@
-import { ReactNode} from "react"
+import { ReactNode } from "react";
 import { FieldDefBase } from "@root/components/Field";
 
 export type NumberTableInputSettings = {
-  /**
+	/**
    * Columns definition.
    */
-  columns: Col[];
-  /**
+	columns: Col[];
+	/**
    * Label shown on the column that displays the totals.
    */
-  columnTotalLabel?: ReactNode;
-  /**
+	columnTotalLabel?: ReactNode;
+	/**
    * Shows or hides the column that cointains the totals sums.
    */
-  displaySumColumn?: boolean;
-  /**
+	displaySumColumn?: boolean;
+	/**
    * Shows or hides the total sums for each row.
    */
-  displaySumRow?: boolean;
-  /**
+	displaySumRow?: boolean;
+	/**
    * Configuration for the formatter, see more at:
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
    */
-  numberFormatOptions?: Intl.NumberFormatOptions;
-  /**
+	numberFormatOptions?: Intl.NumberFormatOptions;
+	/**
    * Rows definition.
    */
-  rows: Row[];
-  /**
+	rows: Row[];
+	/**
    * Label shown on the total row.
    */
-  rowTotalLabel?: ReactNode;
-  /**
+	rowTotalLabel?: ReactNode;
+	/**
    * 	Label placed on the top left corner i.e the first column.
    */
-  topLeftLabel?: ReactNode;
+	topLeftLabel?: ReactNode;
 };
 
 export interface Col {
-  /**
+	/**
    * Used to know the position of a column or row.
    */
-  name: string;
-  /**
+	name: string;
+	/**
    * Label displayed on the table.
    */
-  title: ReactNode;
+	title: ReactNode;
 }
 
 export interface Row extends Col {
-  /**
+	/**
    * Optional label shown below the title of the row.
    */
-  subtitle?: ReactNode;
+	subtitle?: ReactNode;
 }
 
 /**
@@ -60,13 +60,13 @@ export interface Row extends Col {
  * placed at that coordinates.
  */
 export type NumberTableData = {
-  [rowName: string]: {
-    [columnName: string]: string;
-  };
+	[rowName: string]: {
+		[columnName: string]: string;
+	};
 };
 
 export type FieldDefNumberTable = FieldDefBase<
-  "numberTable",
-  NumberTableInputSettings,
-  NumberTableData
+	"numberTable",
+	NumberTableInputSettings,
+	NumberTableData
 >;

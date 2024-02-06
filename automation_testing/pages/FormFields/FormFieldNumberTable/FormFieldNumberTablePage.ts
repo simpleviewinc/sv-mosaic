@@ -49,7 +49,7 @@ export class FormFieldNumberTablePage extends BasePage {
 	 * * Types of Currency: `USD` - `EUR`, `JPY`- `GBP`, `No-format`
 	 * @param format: Type of currency.
 	 */
-	async visitPageWithNumberFormat(format: "USD"|"EUR"|"JPY"|"GBP"|"No-format"|string): Promise<void> {
+	async visitPageWithNumberFormat(format: "USD" | "EUR" | "JPY" | "GBP" | "No-format" | string): Promise<void> {
 		const option = format === "No-format" ? "{}" : `{"style":"currency","currency":"${format}"}`;
 		// const encodedOption = decodeURI(option);
 		await this.visit(this.page_path, [knob.knobNumberFormatOptions + option]);
@@ -60,7 +60,7 @@ export class FormFieldNumberTablePage extends BasePage {
 	 * * Types of Currency: `USD` - `EUR`, `JPY`- `GBP`, `No-format`
 	 * @param currency: Type of currency.
 	 */
-	async getExpectedFormatNumber(currency: "USD"|"EUR"|"JPY"|"GBP"|"No-format"|string): Promise<string> {
+	async getExpectedFormatNumber(currency: "USD" | "EUR" | "JPY" | "GBP" | "No-format" | string): Promise<string> {
 		switch (currency) {
 		case "USD":
 			return "$";

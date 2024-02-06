@@ -1,7 +1,7 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 
-export const StyledFileCard = styled.div<{$error?: boolean}>`
+export const StyledFileCard = styled.div<{ $error?: boolean }>`
 	display: flex;
 	flex-direction: row;
 	background-color: ${theme.colors.white};

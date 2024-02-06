@@ -1,5 +1,5 @@
 import * as React from "react";
-import {MapWithMarkerProps } from "../MapCoordinatesTypes";
+import { MapWithMarkerProps } from "../MapCoordinatesTypes";
 
 // Components
 import Map from "@root/components/Field/FormFieldMapCoordinates/Map";
@@ -11,7 +11,7 @@ function MapWithMarker({
 	initialCenter,
 	onCoordinatesChange,
 	value,
-	googleMapsApiKey
+	googleMapsApiKey,
 }: MapWithMarkerProps) {
 
 	return (
@@ -28,7 +28,7 @@ function MapWithMarker({
 				Click on the map to update the latitude and longitude coordinates
 			</StyledSpan>
 		</>
-	)
+	);
 }
 
-export default MapWithMarker
+export default MapWithMarker;

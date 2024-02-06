@@ -20,11 +20,11 @@ export default {
 export const Example = (): ReactElement => {
 	const label = text(
 		"Label",
-		"Good communication and feedback from the different actions will provide a much better experience. A toaster for creating a form, for example, or dialog to alert are part of the components when making a form."
+		"Good communication and feedback from the different actions will provide a much better experience. A toaster for creating a form, for example, or dialog to alert are part of the components when making a form.",
 	);
 	const autoHideDuration = number(
 		"Autohide duration, value should be in a range of 4000 - 10000 milliseconds, if is less than the minimun is set to 4000ms and if is more than the maximun is set to 10000ms",
-		4000
+		4000,
 	);
 	const withAction = boolean("Show snackbar with action", false);
 	const withIcon = boolean("Show snackbar with icon", false);
@@ -56,7 +56,7 @@ export const Example = (): ReactElement => {
 				variant="contained"
 				label="Open snackbar"
 				onClick={handleClickOpen}
-				muiAttrs={{disableRipple: true}}
+				muiAttrs={{ disableRipple: true }}
 			></Button>
 			<Snackbar
 				action={withAction && action}

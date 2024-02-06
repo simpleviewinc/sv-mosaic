@@ -6,7 +6,7 @@ import xor from "lodash/xor";
 
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DataViewFilterDropdown from "../../DataViewFilterDropdown";
-import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect"
+import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
 import Button from "../../Button";
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
@@ -24,7 +24,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 
 	const [state, setState] = useState({
 		anchorEl : null,
-		dropdownOpen : false
+		dropdownOpen : false,
 	});
 
 	const activeFilters = useMemo(() => props.activeFilters || [], [props.activeFilters]);
@@ -37,41 +37,41 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	const optionsSelected = useMemo(() => {
 		return activeFilters
 			.map(value => options.find(option => option.value === value) || null)
-			.filter(Boolean)
+			.filter(Boolean);
 	}, [options, activeFilters]);
 
 	const onRemove = (name: string) => () => {
 		const activeFilters = xor(props.activeFilters, [name]);
 		onActiveFiltersChange({ value: activeFilters });
-	}
+	};
 
 	const onClick = (event) => {
 		setState({
 			...state,
-			anchorEl : event.currentTarget
+			anchorEl : event.currentTarget,
 		});
-	}
+	};
 
 	const onClose = () => {
 		setState({
 			...state,
-			anchorEl : null
+			anchorEl : null,
 		});
-	}
+	};
 
 	const onEntered = () => {
 		setState({
 			...state,
-			dropdownOpen : true
+			dropdownOpen : true,
 		});
-	}
+	};
 
 	const onExited = function() {
 		setState({
 			...state,
-			dropdownOpen : false
+			dropdownOpen : false,
 		});
-	}
+	};
 
 	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"], comparison?: string }) {
 		const cleanFilter = Object.fromEntries(Object.entries(props.filter).filter(value => value[1]));
@@ -82,7 +82,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 
 		props.onActiveFiltersChange({
 			activeFilters: activeFiltersParam.value,
-			filter : setFilter === true ? filter : props.filter
+			filter : setFilter === true ? filter : props.filter,
 		});
 
 		onClose();
@@ -94,8 +94,8 @@ function DataViewFilters(props: DataViewFiltersProps) {
 
 		return {
 			docs: results,
-			hasMore: false
-		}
+			hasMore: false,
+		};
 	};
 
 	const onClearFilters = () => {
@@ -165,7 +165,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 												onRemove={onRemove(filter.name)}
 												onChange={value => onChange(value, filter)}
 											/>
-										)
+										);
 									})
 								}
 							</>
@@ -184,7 +184,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 				}
 			</div>
 		</>
-	)
+	);
 }
 
 export default DataViewFilters;

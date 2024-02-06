@@ -29,7 +29,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test.skip("Validate that you can save when completing all required fields", async () => {
 		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
-		await playgroundPage.wait()
+		await playgroundPage.wait();
 		await playgroundPage.saveBtn.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
@@ -116,7 +116,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.locator("label[for='advancedSelection']"), playgroundPage.page.locator("label[for='imageVideoDocumentLink']"),
 			playgroundPage.page.locator("label[for='textEditor']"),
 			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
-			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
+			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']")];
 		for (let i = 0; i < labels.length; i++) {
 			expect(await playgroundPage.getColorFromElement(labels[i].first()), `Checking Font Color of the Label ${i}`).toBe(theme.newColors.grey4["100"]);
 		}

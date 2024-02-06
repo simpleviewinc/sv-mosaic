@@ -14,17 +14,17 @@ describe("DataViewFilterText component", () => {
 				data = {{}}
 				args = {{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
-					comparisonDefault: ""
+					comparisonDefault: "",
 				}}
 				onRemove = {jest.fn()}
 				onChange = {jest.fn()}
-			/>
+			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
 		const filter = await screen.findByText("Equals");
-		expect(filter).toBeTruthy()
-	})
+		expect(filter).toBeTruthy();
+	});
 
 	it("Should display Not Equal comparison filter when the developer has passed as not_equals string in comparisonDefault", async () => {
 		render(
@@ -33,17 +33,17 @@ describe("DataViewFilterText component", () => {
 				data = {{}}
 				args = {{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
-					comparisonDefault: "not_equals"
+					comparisonDefault: "not_equals",
 				}}
 				onRemove = {jest.fn()}
 				onChange = {jest.fn()}
-			/>
+			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
 		const filter = await screen.findByText("Not Equal");
-		expect(filter).toBeTruthy()
-	})
+		expect(filter).toBeTruthy();
+	});
 
 	it("Should display Equals comparison filter when the developer has not passed the comparisonDefault prop", async () => {
 		render(
@@ -51,17 +51,17 @@ describe("DataViewFilterText component", () => {
 				label = "Title with Comparisons:"
 				data = {{}}
 				args = {{
-					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 				}}
 				onRemove = {jest.fn()}
 				onChange = {jest.fn()}
-			/>
+			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
 		const filter = await screen.findByText("Equals");
-		expect(filter).toBeTruthy()
-	})
+		expect(filter).toBeTruthy();
+	});
 
 	it("Should throw an error when the developer has passed an invalid comparisonDefault prop", async () => {
 		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
@@ -71,17 +71,17 @@ describe("DataViewFilterText component", () => {
 				data = {{}}
 				args = {{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
-					comparisonDefault: "invalid_comparison"
+					comparisonDefault: "invalid_comparison",
 				}}
 				onRemove = {jest.fn()}
 				onChange = {jest.fn()}
-			/>
+			/>,
 		)).toThrow("The selected comparison is not a valid comparison");
-	})
+	});
 
 	it("Should not show bulk action download if more than 5 items are checked", async () => {
 		render(
-			<Playground />
+			<Playground />,
 		);
 
 		await waitFor(() => expect(screen.getAllByRole("checkbox").length).toBeGreaterThan(1));
@@ -108,7 +108,7 @@ describe("DataViewFilterText component", () => {
 
 	it("Should not show bulk action delete if items across all pages are checked", async () => {
 		render(
-			<Playground />
+			<Playground />,
 		);
 
 		await waitFor(() => expect(screen.getAllByRole("checkbox").length).toBeGreaterThan(1));
@@ -119,7 +119,7 @@ describe("DataViewFilterText component", () => {
 			for (let i = 1; i < checkboxes.length; i++) {
 				fireEvent.click(checkboxes[i]);
 			}
-		})
+		});
 
 		const selectAllButton = screen.queryByText("Select All 304 Records");
 
@@ -128,7 +128,7 @@ describe("DataViewFilterText component", () => {
 
 		act(() => {
 			fireEvent.click(selectAllButton);
-		})
+		});
 
 		expect(screen.queryByTitle("Delete checked")).toBeNull();
 	});

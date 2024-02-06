@@ -10,7 +10,7 @@ export type FormSpacing = "normal" | "compact";
 export interface Section {
 	title?: string;
 	id?: string;
-  }
+}
 
 export interface SectionDef extends Section {
 	title?: string;
@@ -44,6 +44,6 @@ export interface FieldError {
 	message: string
 }
 
-export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any, value: any }
+export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any, value: any };
 
 export { FieldDef, FieldDefCustom };

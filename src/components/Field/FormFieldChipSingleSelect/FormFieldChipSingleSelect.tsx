@@ -54,7 +54,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 			}
 			if (origin === false) {
 				if (!internalOptions.find((o) => o.value === value.value)) {
-					setInternalOptions([...internalOptions, {...value, selected: true}])
+					setInternalOptions([...internalOptions, { ...value, selected: true }]);
 				} else {
 					findSelectedOption(value);
 				}
@@ -69,7 +69,7 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 		newOptions = newOptions.map((o) =>
 			o?.value === option?.value
 				? { ...o, selected: required && o.selected ? o.selected : !o.selected }
-				: { ...o, selected: false }
+				: { ...o, selected: false },
 		);
 
 		const selectedOption = newOptions.find(o => o.selected === true);
@@ -83,9 +83,9 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 		const selectedOption = findSelectedOption(option);
 		setPrepouplated(true);
 		onChange(selectedOption ?
-			{label: selectedOption.label, value: selectedOption.value}
+			{ label: selectedOption.label, value: selectedOption.value }
 			: undefined);
-	}
+	};
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 

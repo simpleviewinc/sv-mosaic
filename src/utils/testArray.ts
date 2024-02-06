@@ -38,5 +38,5 @@ export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T>)
 
 			val.after !== undefined &&  await val.after(test);
 		}, val.timeout);
-	})
+	});
 }

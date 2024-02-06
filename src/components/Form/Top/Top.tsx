@@ -24,7 +24,7 @@ import {
 	ActiveCheckboxWrapper,
 	TopWrapper,
 	SmallDescription,
-	LargeDescription
+	LargeDescription,
 } from "./TopStyled";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { Title } from "@root/components/Title/TitleWrapper.styled";
@@ -40,7 +40,7 @@ const Top = (props: TopProps): ReactElement => {
 		onBack,
 		backLabel,
 		bottomBorder,
-		collapse
+		collapse,
 	} = props;
 
 	// State variables
@@ -60,7 +60,7 @@ const Top = (props: TopProps): ReactElement => {
 				/>
 			</ActiveCheckboxWrapper>
 		),
-		[activeChecked, handleActiveClick]
+		[activeChecked, handleActiveClick],
 	);
 
 	return (

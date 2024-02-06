@@ -20,7 +20,7 @@ const TitleBackButton = ({
 			color="gray"
 			variant="icon"
 			mIcon={ChevronLeftIcon}
-			muiAttrs={{"aria-label": label}}
+			muiAttrs={{ "aria-label": label }}
 		/>
 	);
 };

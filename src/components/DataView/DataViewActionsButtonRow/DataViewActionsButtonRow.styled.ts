@@ -5,4 +5,4 @@ export const StyledButtonRow = styled(ButtonRow)<{ $hidden?: boolean }>`
     ${({ $hidden }) => $hidden && `
         visibility: hidden;
     `}
-`
+`;

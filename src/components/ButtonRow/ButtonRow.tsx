@@ -6,7 +6,7 @@ import { Item, Row } from "./ButtonRow.styled";
 import Button from "../Button";
 import { useToggle } from "@root/utils/toggle";
 
-function ButtonRowWrapper({className, wrap, children, separator}: ButtonsRowWrapperProps) {
+function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWrapperProps) {
 	if (!children.length) {
 		return null;
 	}
@@ -19,7 +19,7 @@ function ButtonRowWrapper({className, wrap, children, separator}: ButtonsRowWrap
 				</Item>
 			))}
 		</Row>
-	)
+	);
 }
 
 function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
@@ -28,14 +28,14 @@ function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	const children = useMemo(() => shownButtons.map((button, i) => {
 		return (
 			<Button key={i} {...button} />
-		)
+		);
 	}), [shownButtons]);
 
 	return (
 		<ButtonRowWrapper {...props}>
 			{children}
 		</ButtonRowWrapper>
-	)
+	);
 }
 
 function ButtonRowWithChildren(props: Omit<ButtonRowProps, "buttons">) {
@@ -45,7 +45,7 @@ function ButtonRowWithChildren(props: Omit<ButtonRowProps, "buttons">) {
 		<ButtonRowWrapper {...props}>
 			{children}
 		</ButtonRowWrapper>
-	)
+	);
 }
 
 function ButtonRow(props: ButtonRowProps) {
@@ -54,10 +54,10 @@ function ButtonRow(props: ButtonRowProps) {
 	}
 
 	if (props.buttons) {
-		return <ButtonRowWithDef {...props} />
+		return <ButtonRowWithDef {...props} />;
 	}
 
-	return <ButtonRowWithChildren {...props} />
+	return <ButtonRowWithChildren {...props} />;
 }
 
 export default memo(ButtonRow);

@@ -153,35 +153,35 @@ test.describe.parallel("Components - Button - Playground", () => {
 	test("Validate miconcolor all different variants.", async () => {
 		// black
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("black")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(0, 0, 0)");
 		// blue
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("blue")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(0, 0, 255)");
 		// lightBlue
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("lightBlue")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(173, 216, 230)");
 		// red
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("red")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(255, 0, 0)");
 		// yellow
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("yellow")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(255, 255, 0)");
 		// teal
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("teal")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(0, 128, 128)");
 		// gray
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("gray")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect.soft(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(128, 128, 128)");
 		// white
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("white")]);
-		await buttonPage.button.waitFor({state: "visible"});
+		await buttonPage.button.waitFor({ state: "visible" });
 		expect(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(255, 255, 255)");
 	});
 

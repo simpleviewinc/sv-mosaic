@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
@@ -28,7 +28,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -41,29 +41,29 @@ export const RuntimeBehaviours = (): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					instructionText: "testing",
-					validators: [validateEmail, validateSlow]
+					validators: [validateEmail, validateSlow],
 				},
 				{
 					name: "text2",
 					label: "Text with validators and dynamic help",
 					type: "text",
 					helperText: state.data.text2,
-					validators: [validateEmail, validateSlow]
+					validators: [validateEmail, validateSlow],
 				},
 				{
 					name: "text3",
 					label: "Text that copies to the next input",
-					type: "text"
+					type: "text",
 				},
 				{
 					name: "text4",
 					label: "Text that receives copy",
-					type: "text"
+					type: "text",
 				},
 				{
 					name: "text5",
 					label: "Text that enables another field",
-					type: "text"
+					type: "text",
 				},
 				{
 					name: "text6",
@@ -71,22 +71,22 @@ export const RuntimeBehaviours = (): ReactElement => {
 					type: "text",
 					instructionText: "Type \"ENABLE\" into the previous field to enable this field",
 					disabled: [
-						({data}) => data?.text5 !== "ENABLE",
+						({ data }) => data?.text5 !== "ENABLE",
 						true,
-						() => true
+						() => true,
 					],
-					required: true
+					required: true,
 				},
 			],
-		[]
+		[],
 	);
 
 	useEffect(() => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text4",
-				value: state.data.text3
-			})
+				value: state.data.text3,
+			}),
 		);
 	}, [state.data.text3]);
 
@@ -94,8 +94,8 @@ export const RuntimeBehaviours = (): ReactElement => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text1",
-				value: "test@test.com"
-			})
+				value: "test@test.com",
+			}),
 		);
 	};
 
@@ -103,8 +103,8 @@ export const RuntimeBehaviours = (): ReactElement => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text2",
-				value: "notanemail"
-			})
+				value: "notanemail",
+			}),
 		);
 	};
 
@@ -113,7 +113,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Runtime behaviors'

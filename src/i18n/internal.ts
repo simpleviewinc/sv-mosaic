@@ -30,10 +30,10 @@ export const defaulti18n = i18next.createInstance();
 defaulti18n.init({
 	resources : {},
 	lng : "en",
-	fallbackLng : "en"
+	fallbackLng : "en",
 });
 
 addCoreResourceBundle({
 	prefix : "common",
-	bundle : common
+	bundle : common,
 });

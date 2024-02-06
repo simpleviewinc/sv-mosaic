@@ -11,7 +11,7 @@ export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldD
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
-  width: ${({$isMobileView, $isModalOpen}) => $isMobileView || !$isModalOpen ? "" : "620px"};
+  width: ${({ $isMobileView, $isModalOpen }) => $isMobileView || !$isModalOpen ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;

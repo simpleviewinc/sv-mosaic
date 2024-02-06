@@ -13,7 +13,7 @@ const StyledMUIMenu = styled(MUIMenu)`
 		box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
 		margin-top: 4px;
 	}
-`
+`;
 
 export default function MenuBase(props: MenuBaseProps): ReactElement {
 	return (
@@ -22,5 +22,5 @@ export default function MenuBase(props: MenuBaseProps): ReactElement {
 				{props.children}
 			</MenuBaseContext.Provider>
 		</StyledMUIMenu>
-	)
+	);
 }

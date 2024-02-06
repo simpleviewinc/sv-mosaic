@@ -24,7 +24,7 @@ const options = [
 		label: "Option 3",
 		value: "Option_3",
 	},
-]
+];
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -37,7 +37,7 @@ export const Playground = (): ReactElement => {
 	const optionsOrigin = select(
 		"Options Origin",
 		["Local", "DB"],
-		"Local"
+		"Local",
 	);
 
 	const fields = useMemo(
@@ -55,9 +55,9 @@ export const Playground = (): ReactElement => {
 						options: optionsOrigin === "Local" ? options : undefined,
 						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
 					},
-				}
+				},
 			] as FieldDef[],
-		[label, helperText, instructionText, required, disabled, optionsOrigin]
+		[label, helperText, instructionText, required, disabled, optionsOrigin],
 	);
 
 	return (
@@ -91,7 +91,7 @@ export const KitchenSink = (): ReactElement => {
 						options,
 					},
 					helperText: "Helper text",
-					instructionText: "Instruction text"
+					instructionText: "Instruction text",
 				},
 				{
 					name: "chipDisable",
@@ -103,7 +103,7 @@ export const KitchenSink = (): ReactElement => {
 						options,
 					},
 					helperText: "Helper text",
-					instructionText: "Instruction text"
+					instructionText: "Instruction text",
 				},
 				{
 					name: "chipRequired",
@@ -115,7 +115,7 @@ export const KitchenSink = (): ReactElement => {
 						options,
 					},
 					helperText: "Helper text",
-					instructionText: "Instruction text"
+					instructionText: "Instruction text",
 				},
 				{
 					name: "chipDB",
@@ -124,13 +124,13 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						getOptions
+						getOptions,
 					},
 					helperText: "Helper text",
-					instructionText: "Instruction text"
-				}
+					instructionText: "Instruction text",
+				},
 			],
-		[]
+		[],
 	);
 
 	return (

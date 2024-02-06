@@ -7,7 +7,7 @@ import { useState } from "react";
 
 afterEach(cleanup);
 
-const DataViewFilterDateExample = ({showOptions}: {showOptions?: boolean}) => {
+const DataViewFilterDateExample = ({ showOptions }: { showOptions?: boolean }) => {
 	const [state, setState] = useState({});
 	const options: MosaicLabelValue[] = [
 		{
@@ -33,12 +33,12 @@ const DataViewFilterDateExample = ({showOptions}: {showOptions?: boolean}) => {
 		{
 			label: "Last 3 years",
 			value: "last_3_years",
-		}
+		},
 	];
 
 	const onChange = function(data) {
 		setState(data);
-	}
+	};
 
 	const onRemove = () => undefined;
 
@@ -46,12 +46,12 @@ const DataViewFilterDateExample = ({showOptions}: {showOptions?: boolean}) => {
 		<DataViewFilterDate
 			label="Date filter example"
 			data={state}
-			args={{ options: showOptions ? options : undefined}}
+			args={{ options: showOptions ? options : undefined }}
 			onRemove={onRemove}
 			onChange={onChange}
 		/>
-	)
-}
+	);
+};
 
 describe("DataViewFilterDate", () => {
 	it("Should select a from date", async () => {
@@ -63,7 +63,7 @@ describe("DataViewFilterDate", () => {
 		expect(filterButton).toBeInTheDocument();
 
 		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
@@ -76,7 +76,7 @@ describe("DataViewFilterDate", () => {
 
 		const applyButton = await screen.findByText("Apply");
 		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
@@ -93,7 +93,7 @@ describe("DataViewFilterDate", () => {
 		expect(filterButton).toBeInTheDocument();
 
 		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
@@ -106,7 +106,7 @@ describe("DataViewFilterDate", () => {
 
 		const applyButton = await screen.findByText("Apply");
 		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
@@ -123,7 +123,7 @@ describe("DataViewFilterDate", () => {
 		expect(filterButton).toBeInTheDocument();
 
 		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
@@ -141,7 +141,7 @@ describe("DataViewFilterDate", () => {
 
 		const applyButton = await screen.findByText("Apply");
 		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;
@@ -158,7 +158,7 @@ describe("DataViewFilterDate", () => {
 		expect(filterButton).toBeInTheDocument();
 
 		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
@@ -195,7 +195,7 @@ describe("DataViewFilterDate", () => {
 		expect(filterButton).toBeInTheDocument();
 
 		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
@@ -206,7 +206,7 @@ describe("DataViewFilterDate", () => {
 		const magicValueSelected = magicValues[randomMagicValueIdx];
 
 		await act(async () => {
-			magicValueSelected.dispatchEvent(new MouseEvent("click", {bubbles: true}))
+			magicValueSelected.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const actualResult = (await screen.findByRole("button")).textContent;

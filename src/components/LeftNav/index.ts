@@ -6,5 +6,5 @@ import { addCoreResourceBundle } from "@root/i18n";
 
 addCoreResourceBundle({
 	prefix : "LeftNav",
-	bundle : localeData
+	bundle : localeData,
 });

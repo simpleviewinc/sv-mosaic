@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Theme
 import theme from "@root/theme";
 
-export const PhoneInputWrapper = styled.div<{$error?: boolean, $disabled?: boolean}>`
+export const PhoneInputWrapper = styled.div<{ $error?: boolean, $disabled?: boolean }>`
   .react-tel-input {
     .form-control {
       border-radius: 0px;
@@ -19,13 +19,13 @@ export const PhoneInputWrapper = styled.div<{$error?: boolean, $disabled?: boole
       border-width: 1px;
       border-style: solid;
 
-      ${({$error}) => $error ? `
+      ${({ $error }) => $error ? `
         border-color: ${theme.newColors.darkRed["100"]};
       ` : `
         border-color: ${theme.newColors.simplyGrey["100"]};
       `}
 
-      ${({$disabled}) => !$disabled ? `
+      ${({ $disabled }) => !$disabled ? `
 			  background-color: ${theme.newColors.grey1["100"]};
         color: ${theme.newColors.almostBlack["100"]};
         &:hover {
@@ -73,7 +73,7 @@ export const PhoneInputWrapper = styled.div<{$error?: boolean, $disabled?: boole
         border-radius: 2px;
       }
 
-      ${({$disabled}) => $disabled && `
+      ${({ $disabled }) => $disabled && `
         .flag{
           opacity: 0.25;
         }

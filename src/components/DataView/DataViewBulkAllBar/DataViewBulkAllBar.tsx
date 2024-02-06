@@ -35,7 +35,7 @@ function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 			</span>
 			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select All ${props.count} Records` : "Clear Selection"} onClick={props.onCheckAllPagesClick}/>
 		</StyledDiv>
-	)
+	);
 }
 
 export default memo(DataViewBulkAllBar);

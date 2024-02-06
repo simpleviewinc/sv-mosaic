@@ -7,7 +7,7 @@ import { MosaicLabelValue } from "@root/types";
 export default {
 	title : "Components/DataViewFilterDate",
 	decorators: [withKnobs],
-}
+};
 const optionLibrary: MosaicLabelValue[] = [
 	{
 		label: "Today",
@@ -71,7 +71,7 @@ export const Playground = (): ReactElement => {
 
 	const onChange = function(data) {
 		setState(data);
-	}
+	};
 
 	const onRemove = () => undefined;
 
@@ -83,8 +83,8 @@ export const Playground = (): ReactElement => {
 			onRemove={onRemove}
 			onChange={onChange}
 		/>
-	)
-}
+	);
+};
 
 export const KitchenSink = (): ReactElement => {
 	const [state, setState] = useState({
@@ -116,7 +116,7 @@ export const KitchenSink = (): ReactElement => {
 		{
 			label: "Last 3 years",
 			value: "last_3_years",
-		}
+		},
 	];
 
 	const onChange = function(type, data) {
@@ -125,12 +125,12 @@ export const KitchenSink = (): ReactElement => {
 			[type]: data,
 		};
 		setState(newState);
-	}
+	};
 
 	const onRemove = () => undefined;
 
 	return (
-		<div style={{display: "flex", flexDirection: "column", gap: "16px"}}>
+		<div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 			<DataViewFilterDate
 				label="Regular Date filter"
 				data={state.regular}
@@ -146,5 +146,5 @@ export const KitchenSink = (): ReactElement => {
 				onChange={(data) => onChange("options", data)}
 			/>
 		</div>
-	)
-}
+	);
+};

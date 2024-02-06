@@ -9,4 +9,4 @@ export type TextEditorInputSettings = {
 
 export type TextEditorData = string;
 
-export type FieldDefTextEditor = FieldDefBase<"textEditor", TextEditorInputSettings, TextEditorData>
+export type FieldDefTextEditor = FieldDefBase<"textEditor", TextEditorInputSettings, TextEditorData>;

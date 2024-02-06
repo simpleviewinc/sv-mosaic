@@ -39,6 +39,6 @@ export type TextFieldInputSettings = {
 	maxRows?: number;
 };
 
-export type TextFieldData = string | number
+export type TextFieldData = string | number;
 
-export type FieldDefText = FieldDefBase<"text", TextFieldInputSettings, TextFieldData>
+export type FieldDefText = FieldDefBase<"text", TextFieldInputSettings, TextFieldData>;

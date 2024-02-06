@@ -24,7 +24,7 @@ const StyledTBody = styled.tbody`
 	& > tr > td > div > .transform_thumbnail {
 		display: block;
 	}
-`
+`;
 
 const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((props, ref) => (
 	<StyledTBody ref={ref}>

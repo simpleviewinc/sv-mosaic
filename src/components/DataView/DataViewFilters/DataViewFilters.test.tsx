@@ -37,7 +37,7 @@ const filters = [
 		label: "Categories with Comparisons",
 		component: DataViewFilterMultiselect,
 		args: {
-			comparisons: ["in", "not_in", "all", "exists", "not_exists"]
+			comparisons: ["in", "not_in", "all", "exists", "not_exists"],
 		},
 		column: "categories_ids",
 		onChange: () => undefined,
@@ -66,10 +66,10 @@ const filters = [
 		component: DataViewFilterText,
 		column: "title",
 		args: {
-			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
+			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 		},
 		onChange: () => undefined,
-	}
+	},
 ];
 
 const activeFilters = ["updated", "title", "keyword"];
@@ -82,7 +82,7 @@ describe("DataViewFilters", () => {
 				filters={filters}
 				filter={{}}
 				onActiveFiltersChange={jest.fn}
-			/>
+			/>,
 		);
 
 		const buttons = await screen.findAllByRole("button");

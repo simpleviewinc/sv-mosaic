@@ -34,11 +34,11 @@ export const BackButton = styled(Button)<TransientProps<TitleWrapperProps, "coll
 		margin-right: 0 !important;
 	}
 
-	${({$collapse}) => $collapse && `
+	${({ $collapse }) => $collapse && `
 		display: none;
 
 		${containerQuery($collapse.minWidth, $collapse.name)} {
 			display: block;
 		}
 	`}
-`
+`;

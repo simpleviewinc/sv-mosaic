@@ -27,7 +27,7 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	}
 `;
 
-const CharCounterWrapper = styled.div<{$invalid?: boolean}>`
+const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: auto;
@@ -53,10 +53,10 @@ const StyledInputLabel = styled(InputLabel)`
 
 const StyledRequiredIndicator = styled.span`
 	color: ${theme.newColors.darkRed["100"]};
-`
+`;
 
-const StyledTooltipWrapper = styled.div<{$colsInRow?: number}>`
-  	${({$colsInRow = 1}) => $colsInRow === 1 && `
+const StyledTooltipWrapper = styled.div<{ $colsInRow?: number }>`
+  	${({ $colsInRow = 1 }) => $colsInRow === 1 && `
 		${containerQuery("sm", "FORM_COL")} {
 			display: none;
 		}
@@ -65,17 +65,17 @@ const StyledTooltipWrapper = styled.div<{$colsInRow?: number}>`
 	svg {
 		vertical-align: middle;
 	}
-`
+`;
 
 interface LabelProps {
-  className?: string;
-  required?: boolean;
-  htmlFor?: string;
-  children?: ReactNode;
-  value?: string;
-  maxCharacters?: number;
-  instructionText?: string;
-  colsInRow?: number
+	className?: string;
+	required?: boolean;
+	htmlFor?: string;
+	children?: ReactNode;
+	value?: string;
+	maxCharacters?: number;
+	instructionText?: string;
+	colsInRow?: number
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -87,7 +87,7 @@ const Label = (props: LabelProps): ReactElement => {
 		value,
 		maxCharacters,
 		instructionText,
-		colsInRow
+		colsInRow,
 	} = props;
 
 	const { anchorProps, tooltipProps } = useTooltip();

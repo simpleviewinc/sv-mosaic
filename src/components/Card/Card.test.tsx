@@ -17,7 +17,7 @@ const content = [
 	<div key="div-element">
 		<p>Paragraph</p>
 		<button>Button</button>
-	</div>
+	</div>,
 ];
 
 describe("Card component", () => {
@@ -33,7 +33,7 @@ describe("Card component", () => {
 						variant: "icon",
 						onClick: () => topAction(),
 						mIcon: AddIcon,
-					}
+					},
 				]}
 				bottomActions={[
 					{
@@ -42,9 +42,9 @@ describe("Card component", () => {
 						variant: "text",
 						onClick: () => bottomAction(),
 						mIcon: AddIcon,
-					}
+					},
 				]}
-			/>
+			/>,
 		);
 	});
 
@@ -81,7 +81,7 @@ describe("Card component without title icon", () => {
 						variant: "icon",
 						onClick: () => topAction(),
 						mIcon: AddIcon,
-					}
+					},
 				]}
 				bottomActions={[
 					{
@@ -90,9 +90,9 @@ describe("Card component without title icon", () => {
 						variant: "text",
 						onClick: () => bottomAction(),
 						mIcon: AddIcon,
-					}
+					},
 				]}
-			/>
+			/>,
 		);
 
 		expect(queryByTestId("contacts-icon-test")).toBe(null);
