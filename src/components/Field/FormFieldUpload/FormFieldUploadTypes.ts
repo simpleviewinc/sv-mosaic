@@ -27,7 +27,7 @@ export type UploadFieldInputSettings = {
 	maxTotalSize?: number;
 };
 
-export type UploadData =  {
+export type UploadData = {
 	/**
 	 * A unique identifier, used as React "key"
 	 */

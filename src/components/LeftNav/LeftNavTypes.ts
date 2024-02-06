@@ -24,7 +24,7 @@ export interface LeftNavProps {
 	/** Handler for when the user chooses a nav item */
 	onNav: LeftNavOnNav
 	/** Handler for when the user changes the display format for the nav */
-	onVariantChange(variant: Variant): void 
+	onVariantChange(variant: Variant): void
 }
 
 export interface LeftNavItemDef {

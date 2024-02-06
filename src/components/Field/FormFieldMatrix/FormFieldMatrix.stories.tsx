@@ -179,7 +179,7 @@ export const FormVariant = (): ReactElement => {
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: async ({ data }) => {
-					const rowToEdit =  state.data.formMatrix.filter(row => row.id === data.id);
+					const rowToEdit = state.data.formMatrix.filter(row => row.id === data.id);
 					const pos = state.data.formMatrix.map(e => e.id).indexOf(data.id);
 					setIndexEdit(pos);
 					setIsEditing(true);
@@ -211,7 +211,7 @@ export const FormVariant = (): ReactElement => {
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
-					const filteredRows =  state.data.formMatrix.filter(row => row.id !== data.id);
+					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
 					await dispatch(
 						formActions.setFieldValue({
@@ -395,7 +395,7 @@ export const Browse = (): ReactElement => {
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: async ({ data }) => {
-					const rowToEdit =  state.data.formMatrix.filter(row => row.id === data.id);
+					const rowToEdit = state.data.formMatrix.filter(row => row.id === data.id);
 					const pos = state.data.formMatrix.map(e => e.id).indexOf(data.id);
 					setIndexEdit(pos);
 					addDrawer({
@@ -426,7 +426,7 @@ export const Browse = (): ReactElement => {
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
-					const filteredRows =  state.data.formMatrix.filter(row => row.id !== data.id);
+					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
 					await dispatch(
 						formActions.setFieldValue({

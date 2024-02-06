@@ -59,7 +59,7 @@ test.describe.parallel("Components - LeftNav - Example", () => {
 	});
 
 	test("Validate menu double", async () => {
-		const item =  await leftNavPage.getSpecificMenuItem("Public Relations");
+		const item = await leftNavPage.getSpecificMenuItem("Public Relations");
 		const titleItem = await item.textContent();
 		await item.click();
 		const submenu = await leftNavPage.getSubmenu(titleItem);

@@ -57,7 +57,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					label: "City",
 					type: "text",
 				},
-			] ,
+			],
 		[],
 	);
 

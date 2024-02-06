@@ -225,7 +225,7 @@ export const KitchenSink = (): ReactElement => {
 			color: "teal",
 			variant: "text",
 			label: "More Details",
-			onClick: () => alert("More details") ,
+			onClick: () => alert("More details"),
 		},
 	];
 
