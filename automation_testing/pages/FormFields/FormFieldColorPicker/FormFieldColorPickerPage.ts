@@ -24,7 +24,7 @@ export class FormFieldColorPickerPage extends BasePage {
 	}
 
 	async clickRandomColorInSketchPicker(): Promise<void> {
-		const rndXPosition  = randomIntFromInterval(0, (await this.colorSketchPicker.boundingBox()).width);
+		const rndXPosition = randomIntFromInterval(0, (await this.colorSketchPicker.boundingBox()).width);
 		const rndYPosition = randomIntFromInterval(0, (await this.colorSketchPicker.boundingBox()).height);
 		await this.colorSketchPicker.click({
 			position: {

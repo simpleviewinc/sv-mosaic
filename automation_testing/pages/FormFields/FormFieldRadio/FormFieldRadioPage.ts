@@ -17,7 +17,7 @@ export class FormFieldRadioPage extends BasePage {
 		this.disabledRadioButton = page.locator("#radio-disabled");
 	}
 
-	async selectRandomRadioButtonOption(): Promise<([number , string])> {
+	async selectRandomRadioButtonOption(): Promise<([number, string])> {
 		const randomOptionNumber = randomIntFromInterval(1, await this.regularRadioButton.locator("input").count()) - 1;
 		const optionSelected = await this.regularRadioButton.locator("input").nth(randomOptionNumber).inputValue();
 		await this.regularRadioButton.locator("input").nth(randomOptionNumber).check();

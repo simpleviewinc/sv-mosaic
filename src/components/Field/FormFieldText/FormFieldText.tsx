@@ -42,7 +42,7 @@ const TextField = (
 		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
 	};
 
-	const errorWithMessage = typeof error === "string" ?  error?.trim().length > 0 : false;
+	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 
 	return (
 		<StyledTextField

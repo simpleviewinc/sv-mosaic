@@ -18,7 +18,7 @@ const tooltipContentOptions = ["text", "image"];
 export const Example = (): ReactElement => {
 	const { anchorProps, tooltipProps } = useTooltip();
 	const tooltipContent = select("Tooltip content", tooltipContentOptions, "text");
-	const tooltipText = text("Tooltip text","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque");
+	const tooltipText = text("Tooltip text", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque");
 	const tooltipImage = text("Tooltip image", "http://placekitten.com/200/300");
 	const maxWidth = text("Max Width", "");
 

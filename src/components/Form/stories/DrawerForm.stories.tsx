@@ -123,7 +123,7 @@ const options = {
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const fields  = useMemo<FieldDef[]>(() => [
+	const fields = useMemo<FieldDef[]>(() => [
 		{
 			...baseTextField,
 			name: "text-xs",

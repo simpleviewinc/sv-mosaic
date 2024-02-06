@@ -110,7 +110,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 					return { internalValue: value, value: undefined };
 				}
 
-				return { internalValue: value , value: matchTime(value.date, value.time) };
+				return { internalValue: value, value: matchTime(value.date, value.time) };
 			}
 		},
 	},
@@ -152,7 +152,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 					String(value.time.getMinutes()).padStart(2, "0")
 				}`;
 
-				return { internalValue: value , value: time };
+				return { internalValue: value, value: time };
 			}
 		},
 	},

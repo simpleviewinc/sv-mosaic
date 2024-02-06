@@ -64,7 +64,7 @@ export class FormWithLayout extends BasePage {
 		const stringFlag = dataType == "string" ? true : false;
 		let indexOfSection = 0;
 		const result: string[] = [];
-		for (let i = 0; i <  amount; i++) {
+		for (let i = 0; i < amount; i++) {
 			if (stringFlag) {
 				const textContent = await locator.nth(i).textContent();
 				result.push(textContent || "");

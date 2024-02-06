@@ -55,7 +55,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
-					const filteredRows =  state.data.formMatrix.filter(row => row.id !== data.id);
+					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
 					await dispatch(
 						formActions.setFieldValue({
