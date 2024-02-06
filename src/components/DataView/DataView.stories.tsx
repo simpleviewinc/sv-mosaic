@@ -617,7 +617,9 @@ export const Playground = (): ReactElement => {
 				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
-				}
+				},
+				show: ({ data }) => data.length <= 5,
+				muiAttrs: { title: "Download checked" }
 			},
 			{
 				name: "delete",
@@ -629,7 +631,9 @@ export const Playground = (): ReactElement => {
 				},
 				onAllClick: bulkAllActions ? function () {
 					alert("DELETE ALL");
-				} : undefined
+				} : undefined,
+				show: ({ checkedAllPages }) => !checkedAllPages,
+				muiAttrs: { title: "Delete checked" }
 			}
 		] : [],
 		buttons: [

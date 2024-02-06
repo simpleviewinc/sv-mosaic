@@ -96,7 +96,7 @@ export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "sh
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick
 	onAllClick?: MosaicCallback,
-	show?: MosaicToggle
+	show?: MosaicToggle<{ checkedAllPages: DataViewProps["checkedAllPages"], data: DataViewProps["data"] }>
 }
 
 export interface DataViewSort {
