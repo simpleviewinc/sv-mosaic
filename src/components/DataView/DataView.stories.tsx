@@ -560,7 +560,7 @@ export const Playground = (): ReactElement => {
 	useEffect(() => {
 		setCheckedState({
 			...checkedState,
-			checked : state.data.map(val => false),
+			checked : state.data.map(() => false),
 		});
 	}, [state.data]);
 

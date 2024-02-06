@@ -32,7 +32,7 @@ const MENU_ITEMS = [
 ];
 
 export const example = (): ReactElement => {
-	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val, i) => {
+	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val) => {
 		return {
 			...val,
 			onClick : function() {

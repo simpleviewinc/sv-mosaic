@@ -34,15 +34,15 @@ function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement {
 	// On a desktop device, a touch or swipe triggers onPointerEnter and possibly onClick if it lingers long enough
 	// because of this we can cancel the onPointerMove, and rely on the onClick event picking it up.
 	// On a mobile device, we're relying on onClick anyways, we can cancel the event without harm.
-	const onTouchStart: React.TouchEventHandler = function(e) {
+	const onTouchStart: React.TouchEventHandler = function() {
 		onPointerMove.cancel();
 	};
 
-	const onOpenChildrenClick: React.MouseEventHandler = function(e) {
+	const onOpenChildrenClick: React.MouseEventHandler = function() {
 		onOpen(item.name);
 	};
 
-	const onPointerLeave: React.PointerEventHandler = function(e) {
+	const onPointerLeave: React.PointerEventHandler = function() {
 		onPointerMove.cancel();
 	};
 

@@ -26,7 +26,7 @@ interface TestRunner<T extends Test> {
 }
 
 export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T>): void {
-	tests.forEach((val, i) => {
+	tests.forEach((val) => {
 		const testAction = val.skip ? it.skip : val.only ? it.only : it;
 
 		testAction(val.name, async () => {

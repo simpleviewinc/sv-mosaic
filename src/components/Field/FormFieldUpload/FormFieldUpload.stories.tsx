@@ -110,7 +110,7 @@ export const Playground = (): ReactElement => {
 		error,
 	]);
 
-	const onFileDelete = async ({ id }) => {
+	const onFileDelete = async () => {
 		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
 	};
 

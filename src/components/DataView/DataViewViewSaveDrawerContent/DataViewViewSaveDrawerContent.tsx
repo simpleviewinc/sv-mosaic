@@ -56,7 +56,7 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 		});
 	};
 
-	const handleSwitch = name => event => {
+	const handleSwitch = () => event => {
 		setState({
 			...state,
 			type : event.target.checked ? "shared" : "mine",
@@ -96,7 +96,7 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 								control={
 									<Switch
 										checked={state.type === "shared"}
-										onChange={handleSwitch("shared")}
+										onChange={handleSwitch()}
 										value="what"
 										color="primary"
 									/>

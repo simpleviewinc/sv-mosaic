@@ -38,6 +38,7 @@ module.exports = {
 		"constructor-super": "error",
 		"for-direction": "error",
 		"getter-return": "error",
+		"no-unused-vars": "error",
 		"no-async-promise-executor": "error",
 		"no-case-declarations": "error",
 		"no-class-assign": "error",
@@ -98,6 +99,8 @@ module.exports = {
 			"rules": {
 				"no-redeclare": "off",
 				"@typescript-eslint/no-redeclare": "error",
+				"no-unused-vars": "off",
+				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
 			},
 		},
 	],

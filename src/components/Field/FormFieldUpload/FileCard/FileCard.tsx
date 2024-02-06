@@ -117,7 +117,7 @@ const FileCard = (props: FileCardProps) => {
 								color="gray"
 								variant="icon"
 								mIcon={DeleteIcon}
-								onClick={(e) => onFileDelete({ id: id })}
+								onClick={() => onFileDelete({ id: id })}
 							/>
 						</div>
 					}
