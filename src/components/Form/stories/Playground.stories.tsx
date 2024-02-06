@@ -134,7 +134,7 @@ export const Playground = (): ReactElement => {
 		"numberTable": numberTableDefaultValue,
 	});
 
-	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete, onError }) => {
+	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(

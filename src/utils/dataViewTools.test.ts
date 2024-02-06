@@ -49,7 +49,7 @@ describe(__filename, function() {
 					column : {
 						name : "foo",
 						transforms : [
-							({ data }) => {
+							() => {
 								throw new Error("should not get here");
 							},
 						],

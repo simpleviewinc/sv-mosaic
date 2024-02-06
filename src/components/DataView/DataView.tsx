@@ -123,7 +123,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	const onCheckAllClick = function() {
 		const allChecked = props.checked.every(val => val === true);
-		const checked = props.checked.map(val => !allChecked);
+		const checked = props.checked.map(() => !allChecked);
 		props.onCheckChange(checked);
 		props.onCheckAllPagesChange?.(false);
 	};
@@ -137,7 +137,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	const onCheckAllPagesClick = function() {
 		// if the checkedAllPages was previously clicked we also uncheck all of the checkboxes
-		const checked = props.checkedAllPages ? props.checked.map(val => false) : props.checked;
+		const checked = props.checkedAllPages ? props.checked.map(() => false) : props.checked;
 		props.onCheckChange?.(checked);
 		props.onCheckAllPagesChange?.(!props.checkedAllPages);
 	};
