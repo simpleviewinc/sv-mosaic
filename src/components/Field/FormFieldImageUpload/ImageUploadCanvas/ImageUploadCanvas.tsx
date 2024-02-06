@@ -48,7 +48,7 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 		}
 
 		function setMousePosition(e: MouseEvent) {
-			mouseX = e.pageX  - canvasPos.x;
+			mouseX = e.pageX - canvasPos.x;
 			mouseY = e.pageY - canvasPos.y;
 		}
 
@@ -82,7 +82,7 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 	const setMouseCoordinates = (event) => {
 		const rect = event.target.getBoundingClientRect();
 		const x = event.clientX - rect.left; //x position within the element.
-		const y = event.clientY - rect.top;  //y position within the element.
+		const y = event.clientY - rect.top; //y position within the element.
 
 		mousePosition({ x, y });
 		setIsFocus(!isFocus);

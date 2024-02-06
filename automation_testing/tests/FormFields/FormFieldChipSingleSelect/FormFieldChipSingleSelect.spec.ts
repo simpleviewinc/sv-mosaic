@@ -24,7 +24,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	test("Validate the selection Regular Chip Single Select", async () => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(regularOptionLabel);
-			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g,"_"));
+			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g, "_"));
 			await dialog.dismiss();
 		});
 		const regularOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.regularChipSingleSelectDiv);
@@ -35,7 +35,7 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	test("Validate the selection Required Chip Single Select", async () => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(requiredOptionLabel);
-			expect(dialog.message()).toContain(requiredOptionLabel.replace(/ /g,"_"));
+			expect(dialog.message()).toContain(requiredOptionLabel.replace(/ /g, "_"));
 			await dialog.dismiss();
 		});
 		const requiredOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.requiredChipSingleSelectDiv);
@@ -46,9 +46,9 @@ test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", 
 	test("Validate saving the selection for Chip Single Select", async () => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(regularOptionLabel);
-			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g,"_"));
+			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g, "_"));
 			expect(dialog.message()).toContain(requiredOptionLabel);
-			expect(dialog.message()).toContain(requiredOptionLabel.replace(/ /g,"_"));
+			expect(dialog.message()).toContain(requiredOptionLabel.replace(/ /g, "_"));
 			await dialog.dismiss();
 		});
 		const regularOptionSelected = await ffChipSingleSelectPage.selectRandomChipOption(ffChipSingleSelectPage.regularChipSingleSelectDiv);

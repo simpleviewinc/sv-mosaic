@@ -135,7 +135,7 @@ export class DataviewPage extends BasePage {
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
 		const data = [];
 		let locator: Locator;
-		
+
 		switch (dataName) {
 		case "Title":
 			locator = this.ariaLabelRowTitleLocator;

@@ -19,7 +19,7 @@ import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/F
 import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
-import { ElementType, HTMLAttributes,  MutableRefObject,  ReactNode } from "react";
+import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
 import { FormState } from "../Form/state/types";
 

@@ -156,7 +156,7 @@ const Form = (props: FormProps) => {
 		return () => {
 			isMounted = false;
 		};
-	},[fields]);
+	}, [fields]);
 
 	useEffect(() => {
 		const loadFormValues = async () => {

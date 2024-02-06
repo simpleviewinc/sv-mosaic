@@ -55,7 +55,7 @@ const StyledWrapper = styled.div`
 	}
 `;
 
-const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement  {
+const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement {
 	/**
 	 * Checks if a provided active filter is a
 	 * valid filter based on the name.

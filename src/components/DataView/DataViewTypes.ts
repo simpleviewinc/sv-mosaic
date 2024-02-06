@@ -224,7 +224,7 @@ export interface DataViewProps {
 	onSortChange?: DataViewOnSortChange
 	onSkipChange?: DataViewOnSkipChange
 	onLimitChange?: DataViewOnLimitChange
-	onSavedViewChange?:  DataViewOnSavedViewChange
+	onSavedViewChange?: DataViewOnSavedViewChange
 	onDisplayChange?: DataViewOnDisplayChange
 	onActiveFiltersChange?: DataViewOnActiveFiltersChange
 	onColumnsChange?: DataViewOnColumnsChange

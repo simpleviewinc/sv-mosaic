@@ -10,7 +10,7 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { customTheme } from "./TimePicker.styled";
 import { DatePickerWrapper } from "../../FormFieldDate/DatePicker/DatePicker.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { TimePickerDef, TimePickerData  } from "./TimePickerTypes";
+import { TimePickerDef, TimePickerData } from "./TimePickerTypes";
 import { ThemeProvider } from "@mui/material/styles";
 
 const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {
