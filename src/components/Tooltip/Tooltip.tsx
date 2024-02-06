@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import { ReactElement, useMemo } from "react";
 import { TooltipProps } from ".";
 import { TooltipArrow, TooltipPopper } from "./Tooltip.styled";
 
@@ -18,19 +18,22 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		open,
 		placement = "bottom-start",
 		anchorEl,
-		id
+		id,
+		maxWidth
 	} = props;
+
+	const style = useMemo(() => ({ maxWidth }), [maxWidth]);
 
 	return (
 		<TooltipPopper
 			open={open}
 			anchorEl={anchorEl}
-			style={{ zIndex: 1500, pointerEvents: "none" }}
 			placement={placement}
 			modifiers={tooltipOffset}
 			role="tooltip"
 			id={id}
 			data-testid="tooltip-test-id"
+			style={style}
 		>
 			<TooltipArrow className="arrow" />
 			{children}
