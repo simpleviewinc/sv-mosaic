@@ -99,7 +99,9 @@ export const formActions: FormActionThunks = {
 		return async function (dispatch, getState, extraArgs) {
 			const { errors } = getState();
 			const field = getFieldFromExtra(extraArgs, name);
-			const { internalValue, value } = field.getResolvedValue(providedValue);
+
+			const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.data[name]) : providedValue;
+			const { internalValue, value } = field.getResolvedValue(providedValueResolved);
 
 			extraArgs.data[name] = value;
 
