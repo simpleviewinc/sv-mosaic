@@ -6,12 +6,13 @@ export const TooltipPopper: any = styled(Popper)`
 	z-index: 1500;
 	background: ${theme.newColors.almostBlack["100"]};
 	color: white;
-	padding: 4px 8px;
+	padding: 8px;
 	border-radius: 4px;
 	color: white;
 	font-family: ${theme.fontFamily};
 	font-size: 12px;
-	max-width: 12rem;
+	max-width: 500px;
+	pointer-events: none;
 
 	&[data-popper-placement="bottom-start"] .arrow,
 	&[data-popper-placement="bottom"] .arrow,
@@ -77,8 +78,6 @@ export const TooltipPopper: any = styled(Popper)`
 		bottom: 5px;
 	}
 `;
-
-//"bottom" | "top" | "left" | "right" | "bottom-end" | "bottom-start" | "left-end" | "left-start" | "right-end" | "right-start" | "top-end" | "top-start"
 
 export const TooltipArrow = styled.div`
 	border: 5px solid transparent;

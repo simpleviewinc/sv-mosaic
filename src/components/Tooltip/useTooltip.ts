@@ -1,5 +1,5 @@
 import { useId, useMemo, useState } from "react";
-import { AnchorProps, TooltipProps } from "./TooltipTypes";
+import { AnchorElement, AnchorProps, TooltipProps } from "./TooltipTypes";
 
 type HookTooltipProps = Required<Pick<TooltipProps, "anchorEl" | "open" | "id">>;
 
@@ -9,7 +9,7 @@ export interface UseTooltipResult {
 }
 
 function useTooltip(): UseTooltipResult {
-	const [ref, setRef] = useState(null);
+	const [ref, setRef] = useState<AnchorElement | null>(null);
 	const [open, setOpen] = useState(false);
 
 	const id = useId();
