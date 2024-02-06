@@ -17,6 +17,10 @@ module.exports = {
 		"react",
 		"react-hooks",
 	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+	],
 	rules: {
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "warn",
@@ -102,6 +106,11 @@ module.exports = {
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
 			},
+			"extends": [
+				"eslint:recommended",
+				"plugin:react/recommended",
+				"plugin:@typescript-eslint/recommended",
+			],
 		},
 	],
 	"env": {
@@ -110,5 +119,11 @@ module.exports = {
 		"es6": true,
 		"mocha": true,
 		"jest": true,
+	},
+	"settings": {
+		"react": {
+			"pragma": "React",
+			"version": "detect",
+		},
 	},
 };
