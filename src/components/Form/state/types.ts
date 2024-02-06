@@ -65,7 +65,7 @@ export type FormActionThunks = {
 	}>;
 	setFieldValue: FormActionThunk<{
 		name: string;
-		value: unknown;
+		value: unknown | ((current: unknown) => unknown);
 		validate?: boolean;
 		touched?: boolean;
 	}>;
