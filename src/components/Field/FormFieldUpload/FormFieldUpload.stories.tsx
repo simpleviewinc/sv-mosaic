@@ -67,6 +67,8 @@ export const Playground = (): ReactElement => {
 	const maxFileSize = text("Max file size (KB)", "");
 	const maxTotalSize = text("Max total size (KB)", "");
 
+	// One line change
+
 	const accept = acceptCsv.trim() ? acceptCsv.split(",") : undefined;
 
 	const [loadReady, setLoadReady] = useState(false);
