@@ -6,9 +6,9 @@ export type TitleWrapperProps = {
 	onBack?: (() => void) | ((e: any) => void)
 	backLabel?: TitleBackButtonProps["label"];
 	collapse?: MosaicCSSContainer
-}
+};
 
 export type TitleBackButtonProps = Pick<TitleWrapperProps, "collapse"> & {
-    onClick: TitleWrapperProps["onBack"]
+	onClick: TitleWrapperProps["onBack"]
 	label?: string;
-}
+};

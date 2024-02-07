@@ -1,6 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
-import { randomIntFromInterval } from "../../../utils/helpers/helper"
+import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
 export class FormFieldCheckboxPage extends BasePage {
 

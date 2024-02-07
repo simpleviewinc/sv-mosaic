@@ -7,4 +7,4 @@ function textIsValidDate(text: string, dateFormat: string) {
 	return isValid(date) && format(date, dateFormat) === text;
 }
 
-export default textIsValidDate
+export default textIsValidDate;

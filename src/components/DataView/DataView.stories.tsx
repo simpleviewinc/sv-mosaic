@@ -5,7 +5,7 @@ import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
-import AccessibleIcon from "@mui/icons-material/Accessible"
+import AccessibleIcon from "@mui/icons-material/Accessible";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
@@ -30,7 +30,7 @@ import {
 	useMosaicSettings,
 	MosaicContext,
 	DataViewFilterDef,
-	DataViewColumn
+	DataViewColumn,
 } from "../../";
 import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./example/SingleSelectHelper";
@@ -39,8 +39,8 @@ import "./example/DataViewPlayground.css";
 
 export default {
 	title : "Components/DataView",
-	decorators : [withKnobs]
-}
+	decorators : [withKnobs],
+};
 
 // set an artificial delay of 500ms to simulate DB queries
 const ARTIFICIAL_DELAY = 500;
@@ -53,18 +53,18 @@ const mappedData = rawData.map(function (data) {
 	return {
 		...data,
 		created: data.created ? new Date(data.created) : undefined,
-		updated: data.updated ? new Date(data.updated) : undefined
-	}
-})
+		updated: data.updated ? new Date(data.updated) : undefined,
+	};
+});
 const api = new JSONDB(mappedData, {
 	relationships: [
 		{
 			api: categoriesApi,
 			key: "categories",
 			left_key: "categories_ids",
-			right_key: "id"
-		}
-	]
+			right_key: "id",
+		},
+	],
 });
 
 const processStringFilter = function ({ name, data, output }) {
@@ -87,7 +87,7 @@ const processStringFilter = function ({ name, data, output }) {
 			output[name] = { $ne: data.value };
 		}
 	}
-}
+};
 
 const processDateFilter = function ({ name, data, output }) {
 	if (data.rangeStart === undefined && data.rangeEnd === undefined) { return; }
@@ -107,13 +107,13 @@ const processDateFilter = function ({ name, data, output }) {
 	if (Object.keys(outputFilter).length > 0) {
 		output[name] = outputFilter;
 	}
-}
+};
 
 const processArrayFilter = function ({ name, data, output }) {
 	if (data.comparison === "exists") {
-		output[name] = { $exists: true }
+		output[name] = { $exists: true };
 	} else if (data.comparison === "not_exists") {
-		output[name] = { $exists: false }
+		output[name] = { $exists: false };
 	} else if (data.value === undefined || data.value.length === 0) {
 		return;
 	} else if (data.comparison === "in") {
@@ -123,25 +123,25 @@ const processArrayFilter = function ({ name, data, output }) {
 	} else if (data.comparison === "all") {
 		output[name] = { $all: data.value };
 	}
-}
+};
 
 const processSingleSelectFilter = function ({ name, data, output }) {
 	if (data.value === undefined) { return; }
 	output[name] = { $in: [data.value] };
-}
+};
 
 const categoriesHelper = new MultiSelectHelper({
 	api: categoriesApi,
 	labelColumn: "tag",
 	valueColumn: "id",
-	sortColumn: "sort_tag"
+	sortColumn: "sort_tag",
 });
 
 const singleSelectCategoriesHelper = new SingleSelectHelper({
 	api: categoriesApi,
 	labelColumn: "tag",
 	valueColumn: "id",
-	sortColumn: "sort_tag"
+	sortColumn: "sort_tag",
 });
 
 const filters: {
@@ -150,7 +150,7 @@ const filters: {
 	component: DataViewFilterDef["component"];
 	args?: DataViewFilterDef["args"];
 	column?: DataViewFilterDef["column"];
-	toFilter?: (val: {name: string; data: any; output: any}) => void;
+	toFilter?: (val: { name: string; data: any; output: any }) => void;
 }[] = [
 	{
 		name: "keyword",
@@ -161,9 +161,9 @@ const filters: {
 			processStringFilter({
 				name,
 				data: { value: data.value, comparison: "contains" },
-				output
+				output,
 			});
-		}
+		},
 	},
 	{
 		name: "categories",
@@ -174,7 +174,7 @@ const filters: {
 			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 		},
 		column: "categories_ids",
-		toFilter: processArrayFilter
+		toFilter: processArrayFilter,
 	},
 	{
 		name: "single_select_category",
@@ -182,10 +182,10 @@ const filters: {
 		component: DataViewFilterSingleSelect,
 		args: {
 			getOptions: singleSelectCategoriesHelper.getOptions.bind(singleSelectCategoriesHelper),
-			getSelected: singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper)
+			getSelected: singleSelectCategoriesHelper.getSelected.bind(singleSelectCategoriesHelper),
 		},
 		column: "categories_ids",
-		toFilter: processSingleSelectFilter
+		toFilter: processSingleSelectFilter,
 	},
 	{
 		name: "categories_with_comparisons",
@@ -194,28 +194,28 @@ const filters: {
 		args: {
 			getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 			getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
-			comparisons: ["in", "not_in", "all", "exists", "not_exists"]
+			comparisons: ["in", "not_in", "all", "exists", "not_exists"],
 		},
 		column: "categories_ids",
-		toFilter: processArrayFilter
+		toFilter: processArrayFilter,
 	},
 	{
 		name: "title",
 		label: "Title",
 		component: DataViewFilterText,
-		toFilter: processStringFilter
+		toFilter: processStringFilter,
 	},
 	{
 		name: "created",
 		label: "Created",
 		component: DataViewFilterDate,
-		toFilter: processDateFilter
+		toFilter: processDateFilter,
 	},
 	{
 		name: "updated",
 		label: "Updated",
 		component: DataViewFilterDate,
-		toFilter: processDateFilter
+		toFilter: processDateFilter,
 	},
 	{
 		name: "title_with_comparisons",
@@ -224,9 +224,9 @@ const filters: {
 		toFilter: processStringFilter,
 		column: "title",
 		args: {
-			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"]
-		}
-	}
+			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
+		},
+	},
 ];
 
 const rootDefaultView: DataViewProps["savedView"] = {
@@ -239,63 +239,63 @@ const rootDefaultView: DataViewProps["savedView"] = {
 		filter: {},
 		sort: {
 			name: "title",
-			dir: "asc"
+			dir: "asc",
 		},
 		display: "list",
 		activeFilters: [],
-		activeColumns: ["image", "title", "categories", "created"]
-	}
+		activeColumns: ["image", "title", "categories", "created"],
+	},
 };
 
 const listColumns: DataViewColumn[] = [
 	{
 		name: "id",
-		label: "ID"
+		label: "ID",
 	},
 	{
 		name: "image",
 		label: "Image",
 		transforms: [
 			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width: 75, height: 75 })
-		]
+			transform_thumbnail({ width: 75, height: 75 }),
+		],
 	},
 	{
 		name: "title",
 		label: "Title",
-		sortable: true
+		sortable: true,
 	},
 	{
 		name: "description",
-		label: "Description"
+		label: "Description",
 	},
 	{
 		name: "content_owner",
-		label: "Content Owner"
+		label: "Content Owner",
 	},
 	{
 		name: "categories",
 		label: "Categories",
 		transforms: [
 			transform_mapGet("tag"),
-			transform_join()
-		]
+			transform_join(),
+		],
 	},
 	{
 		name: "image_title",
 		label: "Image Title",
 		column: "image",
 		transforms: [
-			transform_get(["title"])
-		]
+			transform_get(["title"]),
+		],
 	},
 	{
 		name: "image_notes",
 		label: "Image Notes",
 		column: "image",
 		transforms: [
-			transform_get(["notes"])
-		]
+			transform_get(["notes"]),
+		],
 	},
 	{
 		name: "image_deleted",
@@ -303,56 +303,56 @@ const listColumns: DataViewColumn[] = [
 		column: "image",
 		transforms: [
 			transform_get(["deleted"]),
-			transform_boolean()
-		]
+			transform_boolean(),
+		],
 	},
 	{
 		name: "created",
 		label: "Created",
 		sortable: true,
 		transforms: [
-			transform_dateFormat()
-		]
+			transform_dateFormat(),
+		],
 	},
 	{
 		name: "updated",
 		label: "Updated",
 		sortable: true,
 		transforms: [
-			transform_dateFormat()
-		]
+			transform_dateFormat(),
+		],
 	},
 	{
 		name: "bold",
 		label: "Style - bold",
 		column: "content_owner",
 		style: {
-			bold: true
-		}
+			bold: true,
+		},
 	},
 	{
 		name: "italic",
 		label: "Style - italic",
 		column: "content_owner",
 		style: {
-			italic: true
-		}
+			italic: true,
+		},
 	},
 	{
 		name: "strike_through",
 		label: "Style - strikeThrough",
 		column: "content_owner",
 		style: {
-			strikeThrough: true
-		}
+			strikeThrough: true,
+		},
 	},
 	{
 		name: "noWrap",
 		label: "Style - noWrap",
 		column: "title",
 		style: {
-			noWrap: true
-		}
+			noWrap: true,
+		},
 	},
 	{
 		name: "ellipsis",
@@ -361,25 +361,25 @@ const listColumns: DataViewColumn[] = [
 		style: {
 			noWrap: true,
 			ellipsis: true,
-			maxWidth: "100px"
-		}
+			maxWidth: "100px",
+		},
 	},
 	{
 		name: "textTransform",
 		label: "Style - textTransform",
 		column: "content_owner",
 		style: {
-			textTransform: "uppercase"
-		}
+			textTransform: "uppercase",
+		},
 	},
 	{
 		name: "textTransformLargeText",
 		label: "Style - Text Transform with large field text to order column",
 		column: "content_owner",
 		style: {
-			textTransform: "uppercase"
-		}
-	}
+			textTransform: "uppercase",
+		},
+	},
 ];
 
 const gridColumns = [
@@ -390,16 +390,16 @@ const gridColumns = [
 		label: "Image",
 		transforms: [
 			transform_get(["resource_raw", "secure_url"]),
-			transform_thumbnail({ width: 275, height: 200 })
-		]
-	}
-]
+			transform_thumbnail({ width: 275, height: 200 }),
+		],
+	},
+];
 
 const gridColumnsMap = {
 	image: "image_grid",
 	primary: "title",
-	secondary: "created"
-}
+	secondary: "created",
+};
 
 const StyledDiv = styled.div`
 	padding: 0px 16px;
@@ -427,9 +427,9 @@ export const Playground = (): ReactElement => {
 		...rootDefaultView,
 		state: {
 			...rootDefaultView.state,
-			display: displayList ? "list" : displayGrid ? "grid" : undefined
-		}
-	}
+			display: displayList ? "list" : displayGrid ? "grid" : undefined,
+		},
+	};
 
 	const [state, setState] = useState({
 		data: [],
@@ -439,17 +439,17 @@ export const Playground = (): ReactElement => {
 		loading: false,
 		savedView: defaultView,
 		...defaultView.state,
-		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : []
+		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : [],
 	});
 
 	useEffect(() => {
 		if (preloadedActiveFilters && state.activeFilters.length === 0)
-			setState(prev => ({...prev, activeFilters: ["updated", "title", "keyword"]}));
+			setState(prev => ({ ...prev, activeFilters: ["updated", "title", "keyword"] }));
 	}, [preloadedActiveFilters, state.activeFilters]);
 
 	const [checkedState, setCheckedState] = useState({
 		checked: [],
-		checkedAllPages: false
+		checkedAllPages: false,
 	});
 
 	const mosaicSettings = useMosaicSettings();
@@ -468,11 +468,11 @@ export const Playground = (): ReactElement => {
 			...prev,
 			filter: {
 				...prev.filter,
-				[name]: value
+				[name]: value,
 			},
-			skip: 0
+			skip: 0,
 		}));
-	}
+	};
 
 	const convertFilter = function (filter) {
 		const queryFilter = {};
@@ -482,13 +482,13 @@ export const Playground = (): ReactElement => {
 				filterObj.toFilter({
 					name: filterObj.column || filterObj.name,
 					data: filter[filterObj.name],
-					output: queryFilter
+					output: queryFilter,
 				});
 			}
 		}
 
 		return queryFilter;
-	}
+	};
 
 	// in order to support the sticky boolean we need to add a class to the html root
 	// then we use the css off that class to apply the proper css to ensure the parent hierarchy will be correct for sticky mechanics
@@ -501,7 +501,7 @@ export const Playground = (): ReactElement => {
 
 		return () => {
 			document.body.parentElement.classList.remove("stickyHtml");
-		}
+		};
 	}, [sticky]);
 
 	useEffect(() => {
@@ -513,11 +513,11 @@ export const Playground = (): ReactElement => {
 				limit: state.limit,
 				sort: state.sort,
 				skip: state.skip,
-				filter: converted
+				filter: converted,
 			});
 
 			const count = await api.count({
-				filter: converted
+				filter: converted,
 			});
 
 			if (isMounted) {
@@ -525,11 +525,11 @@ export const Playground = (): ReactElement => {
 					...state,
 					data: newData,
 					count: count,
-					loading: false
+					loading: false,
 				});
 			}
 
-		}
+		};
 
 		setTimeout(function () {
 			fetchData();
@@ -537,18 +537,18 @@ export const Playground = (): ReactElement => {
 
 		setState({
 			...state,
-			loading: true
+			loading: true,
 		});
 
 		return () => {
 			isMounted = false;
-		}
+		};
 	}, [state.limit, state.sort, state.skip, state.filter]);
 
 	// transpose our display knobs into the displayOptions
 	const knobOptions = [
 		displayList ? "list" : undefined,
-		displayGrid ? "grid" : undefined
+		displayGrid ? "grid" : undefined,
 	].filter(val => val);
 	const displayOptions = knobOptions.length > 0 ? knobOptions : undefined;
 	const display =
@@ -560,7 +560,7 @@ export const Playground = (): ReactElement => {
 	useEffect(() => {
 		setCheckedState({
 			...checkedState,
-			checked : state.data.map(val => false)
+			checked : state.data.map(() => false),
 		});
 	}, [state.data]);
 
@@ -578,7 +578,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
 				},
-				show: ({row}) => row.title !== "Accessibility"
+				show: ({ row }) => row.title !== "Accessibility",
 			},
 			{
 				name: "accessibility",
@@ -588,8 +588,8 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`ACCESSIBLE ${data.id}`);
 				},
-				show: ({row}) => row.title === "Accessibility"
-			}
+				show: ({ row }) => row.title === "Accessibility",
+			},
 		] : undefined,
 		additionalActions: additionalActions ? [
 			{
@@ -598,7 +598,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
 				},
-				show: ({row}) => row.title !== "Accessibility"
+				show: ({ row }) => row.title !== "Accessibility",
 			},
 			{
 				name: "history",
@@ -606,8 +606,8 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
 				},
-				show: ({row}) => row.title !== "Accessibility"
-			}
+				show: ({ row }) => row.title !== "Accessibility",
+			},
 		] : undefined,
 		bulkActions: bulkActions ? [
 			{
@@ -619,7 +619,7 @@ export const Playground = (): ReactElement => {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				},
 				show: ({ data }) => data.length <= 5,
-				muiAttrs: { title: "Download checked" }
+				muiAttrs: { title: "Download checked" },
 			},
 			{
 				name: "delete",
@@ -633,8 +633,8 @@ export const Playground = (): ReactElement => {
 					alert("DELETE ALL");
 				} : undefined,
 				show: ({ checkedAllPages }) => !checkedAllPages,
-				muiAttrs: { title: "Delete checked" }
-			}
+				muiAttrs: { title: "Delete checked" },
+			},
 		] : [],
 		buttons: [
 			{
@@ -645,52 +645,52 @@ export const Playground = (): ReactElement => {
 				variant: "contained",
 				onClick: function () {
 					alert("CREATE NEW");
-				}
-			}
+				},
+			},
 		],
 		filters: filters.map((filter): DataViewFilterDef => {
 			return {
 				name: filter.name,
 				label: filter.label,
 				component: filter.component,
-				args: {...filter.args, comparisonDefault},
+				args: { ...filter.args, comparisonDefault },
 				onChange: function (value) {
 					filterChange(filter.name, value);
-				}
-			}
+				},
+			};
 		}),
 		displayOptions,
 		sticky,
 		onColumnsChange: function (data) {
 			setState({
 				...state,
-				activeColumns: data
+				activeColumns: data,
 			});
 		},
 		onSkipChange: useCallback(function ({ skip }) {
 			setState({
 				...stateRef.current,
-				skip
+				skip,
 			});
 		}, [stateRef]),
 		onLimitChange: useCallback(function ({ limit }) {
 			setState({
 				...stateRef.current,
 				limit,
-				skip: 0
+				skip: 0,
 			});
 		}, [stateRef]),
 		onSortChange: useCallback(function (data) {
 			setState({
 				...stateRef.current,
 				sort: data,
-				skip: 0
+				skip: 0,
 			});
 		}, [stateRef]),
 		onDisplayChange: function (data) {
 			setState({
 				...state,
-				display: data
+				display: data,
 			});
 		},
 		onSavedViewSave: function (data: DataViewProps["savedView"]) {
@@ -705,7 +705,7 @@ export const Playground = (): ReactElement => {
 				...state,
 				...data.state,
 				savedView: data,
-				skip: 0
+				skip: 0,
 			});
 		},
 		onSavedViewRemove: function (data) {
@@ -719,7 +719,7 @@ export const Playground = (): ReactElement => {
 			setState({
 				...state,
 				activeFilters,
-				filter
+				filter,
 			});
 		},
 		checked: showCheckboxes ? checkedState.checked : undefined,
@@ -727,13 +727,13 @@ export const Playground = (): ReactElement => {
 		onCheckChange: showCheckboxes ? (checked) => {
 			setCheckedState((prev) => ({
 				...prev,
-				checked
+				checked,
 			}));
 		} : undefined,
 		onCheckAllPagesChange: (checkedAllPages) => {
 			setCheckedState((prev) => ({
 				...prev,
-				checkedAllPages
+				checkedAllPages,
 			}));
 		},
 		savedViewAllowSharedViewSave,
@@ -743,19 +743,19 @@ export const Playground = (): ReactElement => {
 		filter: state.filter,
 		activeFilters: state.activeFilters,
 		onReorder: draggableRows ? async (newRows) => {
-			setState({...state, loading: true});
+			setState({ ...state, loading: true });
 
 			const newData = await api.find({
-				reorderedList: newRows
+				reorderedList: newRows,
 			});
 
 			setState({
 				...state,
 				data: newData,
-				loading: false
+				loading: false,
 			});
 		} : undefined,
-		disabled: disabled || undefined
+		disabled: disabled || undefined,
 	};
 
 	return (
@@ -769,9 +769,9 @@ export const Playground = (): ReactElement => {
 					loading={state.loading}
 					savedView={state.savedView}
 					activeColumns={state.activeColumns}
-					attrs={{"data-testid": "My DataView"}}
+					attrs={{ "data-testid": "My DataView" }}
 				/>
 			</MosaicContext.Provider>
 		</StyledDiv>
 	);
-}
+};

@@ -6,5 +6,5 @@ module.exports = {
 		...config.rules,
 		"react-hooks/rules-of-hooks": "off",
 		"react-hooks/exhaustive-deps": "off",
-	}
+	},
 };

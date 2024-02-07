@@ -16,13 +16,13 @@ const startingState = {
 		id: "",
 		label: "",
 		type: "",
-		state: {}
-	}
-}
+		state: {},
+	},
+};
 
 function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 	const [state, setState] = useState({
-		...startingState
+		...startingState,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -33,7 +33,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 			setState({
 				...state,
 				loading : false,
-				options : results
+				options : results,
 			});
 		}
 
@@ -42,9 +42,9 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 
 	const closeForm = function() {
 		setState({
-			...startingState
+			...startingState,
 		});
-	}
+	};
 
 	const canAct = function(row) {
 		if (row.type === "default") {
@@ -54,7 +54,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 		} else {
 			return true;
 		}
-	}
+	};
 
 	const DataViewConfig: DataViewProps = {
 		primaryActions : [
@@ -66,7 +66,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 				onClick : async function({ data }) {
 					await props.onChange(data);
 					props.onClose();
-				}
+				},
 			},
 			{
 				name : "edit",
@@ -76,14 +76,14 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 				variant : "icon",
 				color : "black",
 				mIcon : CreateIcon,
-				onClick : function({ data }: {data: Required<SavedViewDef>}) {
+				onClick : function({ data }: { data: Required<SavedViewDef> }) {
 					setState({
 						...state,
 						formOpen : true,
-						formData : data
+						formData : data,
 					});
-				}
-			}
+				},
+			},
 		],
 		additionalActions : [
 			{
@@ -92,37 +92,37 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 					return canAct(row);
 				},
 				label : t("mosaic:common.remove"),
-				onClick : async function({ data }: {data: Required<SavedViewDef>}) {
+				onClick : async function({ data }: { data: Required<SavedViewDef> }) {
 					await props.onRemove(data);
 					setState({
 						...state,
 						options : undefined,
-						loading : true
+						loading : true,
 					});
-				}
-			}
+				},
+			},
 		],
 		data : state.options,
 		loading : state.loading,
 		columns : [
 			{
 				name : "id",
-				label : "ID"
+				label : "ID",
 			},
 			{
 				name : "label",
-				label : t("mosaic:common.label")
+				label : t("mosaic:common.label"),
 			},
 			{
 				name : "type",
 				label : t("mosaic:common.type"),
 				style : {
-					textTransform : "capitalize"
-				}
-			}
+					textTransform : "capitalize",
+				},
+			},
 		],
-		activeColumns : ["label", "type"]
-	}
+		activeColumns : ["label", "type"],
+	};
 
 	return (
 		<DrawerContent
@@ -144,7 +144,7 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</DrawerContent>
-	)
+	);
 }
 
 export default DataViewViewDrawerContent;

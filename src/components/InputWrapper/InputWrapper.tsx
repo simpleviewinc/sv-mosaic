@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import { StyledInputWrapper } from "./InputWrapper.styled";
 
 interface InputWrapperProps {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 const InputWrapper = ({ children }: InputWrapperProps): ReactElement => {

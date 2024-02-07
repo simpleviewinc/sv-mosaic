@@ -28,7 +28,7 @@ export const Playground = (): ReactElement => {
 	const optionsOrigin = select(
 		"Options Origin",
 		["Local", "DB"],
-		"Local"
+		"Local",
 	);
 
 	const fields = useMemo(
@@ -48,7 +48,7 @@ export const Playground = (): ReactElement => {
 					instructionText,
 				},
 			] as FieldDef[],
-		[required, disabled, label, instructionText, helperText, optionsOrigin]
+		[required, disabled, label, instructionText, helperText, optionsOrigin],
 	);
 
 	return (
@@ -99,7 +99,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			getOptions
+			getOptions,
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",

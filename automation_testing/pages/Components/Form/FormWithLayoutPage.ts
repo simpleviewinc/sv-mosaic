@@ -30,7 +30,7 @@ export class FormWithLayout extends BasePage {
 		this.formLayout = page.locator("[data-testid='form-layout-test-id']");
 		this.sections = page.locator(".form-nav-wrapper");
 		this.panelContentLocator = page.locator("#panel1a-content");
-		this.expandMoreIconLocator = page.locator("[data-testid='ExpandMoreIcon']")
+		this.expandMoreIconLocator = page.locator("[data-testid='ExpandMoreIcon']");
 		this.toggleLocator = page.locator("#toggleSwitch").locator("[type='checkbox']");
 	}
 
@@ -64,7 +64,7 @@ export class FormWithLayout extends BasePage {
 		const stringFlag = dataType == "string" ? true : false;
 		let indexOfSection = 0;
 		const result: string[] = [];
-		for (let i = 0; i <  amount; i++) {
+		for (let i = 0; i < amount; i++) {
 			if (stringFlag) {
 				const textContent = await locator.nth(i).textContent();
 				result.push(textContent || "");
@@ -113,7 +113,7 @@ export class FormWithLayout extends BasePage {
 	}
 
 	async isSectionVisible(section:string):Promise<boolean> {
-		return await this.sectionContainer.locator("h1", {hasText: section}).isVisible();
+		return await this.sectionContainer.locator("h1", { hasText: section }).isVisible();
 	}
 
 	async scrollToSection(section:string):Promise<void> {

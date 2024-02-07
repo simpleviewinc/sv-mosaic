@@ -6,13 +6,13 @@ import { boolean, select, withKnobs } from "@storybook/addon-knobs";
 export default {
 	title : "Components/DataViewFilterSingleSelect",
 	decorators: [withKnobs],
-}
+};
 
 const options = [
 	{ label : "Option A", value : "a" },
 	{ label : "Option B", value : "b" },
 	{ label : "Option C", value : "c" },
-	{ label : "Option D", value : "d" }
+	{ label : "Option D", value : "d" },
 ];
 
 const optionLabels = ["Option A", "Option B", "Option C", "Option D"];
@@ -22,36 +22,36 @@ export const Playground = (): ReactElement => {
 	const defaultValue = select(
 		"Default Value",
 		optionLabels,
-		"Option A"
+		"Option A",
 	);
 
 	const required = boolean("Required", false);
 
 	const [state, setState] = useState({
-		value: undefined
+		value: undefined,
 	});
 
 	useEffect(() => {
 		const selectedOption = options.find(option => option.label === defaultValue);
-		setState({value: selectedOption.value})
+		setState({ value: selectedOption.value });
 	}, [defaultValue]);
 
 	const onChange = function(data) {
 		setState(data);
-	}
+	};
 
 	const onRemove = () => undefined;
 
 	const getOptions = function() {
 		return {
 			docs : options,
-			hasMore : false
-		}
-	}
+			hasMore : false,
+		};
+	};
 
 	const getSelected = function(id) {
 		return options.filter(val => val.value === id)[0];
-	}
+	};
 
 	return (
 		<DataViewFilterSingleSelect
@@ -61,40 +61,40 @@ export const Playground = (): ReactElement => {
 			onRemove={onRemove}
 			onChange={onChange}
 		/>
-	)
-}
+	);
+};
 
 export const KitchenSink = (): ReactElement => {
 
 	const [state, setState] = useState({
-		value :  undefined
+		value :  undefined,
 	});
 
 	const [stateRequired, setStateRequired] = useState({
-		value :  "a"
+		value :  "a",
 	});
 
 
 	const onChange = function(data) {
 		setState(data);
-	}
+	};
 
 	const onChangeRequired = function(data) {
 		setStateRequired(data);
-	}
+	};
 
 	const onRemove = () => undefined;
 
 	const getOptions = function() {
 		return {
 			docs : options,
-			hasMore : false
-		}
-	}
+			hasMore : false,
+		};
+	};
 
 	const getSelected = function(id) {
 		return options.filter(val => val.value === id)[0];
-	}
+	};
 
 	return (
 		<>
@@ -115,5 +115,5 @@ export const KitchenSink = (): ReactElement => {
 				onChange={onChange}
 			/>
 		</>
-	)
-}
+	);
+};

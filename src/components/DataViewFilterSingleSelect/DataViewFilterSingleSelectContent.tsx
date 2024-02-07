@@ -10,5 +10,5 @@ export default function DataViewFilterSingleSelectContent(props: DataViewFilterS
 		<MenuBase anchorEl={props.anchorEl} open={Boolean(props.anchorEl)} onClose={props.onClose}>
 			{props.children}
 		</MenuBase>
-	)
+	);
 }

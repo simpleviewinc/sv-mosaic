@@ -9,7 +9,7 @@ import {
 	CardWrapper,
 	StyledHr,
 	TitleWrapper,
-	TitleBar
+	TitleBar,
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { SubtitleText } from "../Typography";

@@ -9,7 +9,7 @@ import {
 	BodyText,
 	SubtitleText,
 	TitleText,
-	TypographyVariant
+	TypographyVariant,
 } from "./";
 import styled from "styled-components";
 import Typography from "./Typography";
@@ -24,7 +24,7 @@ export default {
 
 const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis, nulla et iaculis semper, turpis massa faucibus sem, et egestas purus leo ut mauris. Nam ac ex porttitor, tempus eros eu, rhoncus libero. Integer risus lacus, ultrices at turpis id, suscipit vulputate nulla. Cras tincidunt ante quis mi accumsan.";
 const contentShort = content.substring(0, 93);
-const contentUrl = "https://www.google.com/?q=46503807498226023045874012183575071093022671901587285495525521941359381308429902926377654197863336467166861936857990937433143015269066983394795324415786553093224671668619368579909374331430152690669833947"
+const contentUrl = "https://www.google.com/?q=46503807498226023045874012183575071093022671901587285495525521941359381308429902926377654197863336467166861936857990937433143015269066983394795324415786553093224671668619368579909374331430152690669833947";
 
 const variants: TypographyVariant[] = ["title", "subtitle", "body"];
 
@@ -36,7 +36,7 @@ const colors: ColorTypes[] = [
 	"yellow",
 	"teal",
 	"gray",
-	"white"
+	"white",
 ];
 
 const whiteSpaceOptions: Properties["whiteSpace"][] = [
@@ -62,7 +62,7 @@ const BackDrop = styled.div`
 	flex-direction: column;
 	padding: 4rem 2rem 0;
 	min-height: 100vh
-`
+`;
 
 const Wrapper = styled.div`
 	background: white;
@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 	border-bottom: 0;
 	box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 	flex-grow: 1;
-`
+`;
 
 const Heading = styled.h2`
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -95,14 +95,14 @@ const Heading = styled.h2`
 		margin-left: 16px;
 		margin-top: 4px;
 	}
-`
+`;
 
 const MyBodyText = styled(BodyText)`
 	&& {
 		font-size: 12px;
 		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 	}
-`
+`;
 
 export function Playground(): ReactElement {
 	const variant = select("Variant", variants, "title");
@@ -125,7 +125,7 @@ export function Playground(): ReactElement {
 			children={children}
 			color={color}
 		/>
-	)
+	);
 }
 
 export function KitchenSink(): ReactElement {
@@ -185,7 +185,7 @@ export function KitchenSink(): ReactElement {
 
 				</Wrapper>
 			</BackDrop>
-			<style dangerouslySetInnerHTML={{__html: ".sb-show-main{margin: 0}"}} />
+			<style dangerouslySetInnerHTML={{ __html: ".sb-show-main{margin: 0}" }} />
 		</>
-	)
+	);
 }

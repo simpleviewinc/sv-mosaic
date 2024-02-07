@@ -45,7 +45,7 @@ export const Playground = (): ReactElement => {
 	const size = select(
 		"Size",
 		["xs", "sm", "md", "lg"],
-		"sm"
+		"sm",
 	);
 	const placeholder = text("Placeholder", "placeholder");
 	const disabled = boolean("Disabled", false);
@@ -56,7 +56,7 @@ export const Playground = (): ReactElement => {
 	const optionsOrigin = select(
 		"Options Origin",
 		["Local", "DB"],
-		"Local"
+		"Local",
 	);
 
 	const fields = useMemo(
@@ -72,7 +72,7 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: optionsOrigin === "Local" ? options : undefined,
 						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
-						placeholder
+						placeholder,
 					},
 					helperText,
 					instructionText,
@@ -87,8 +87,8 @@ export const Playground = (): ReactElement => {
 			helperText,
 			instructionText,
 			label,
-			optionsOrigin
-		]
+			optionsOrigin,
+		],
 	);
 
 	return (
@@ -114,7 +114,7 @@ const kitchenSinkFields: FieldDef[] = [
 		size: "md",
 		inputSettings: {
 			options,
-			placeholder: "placeholder"
+			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -126,7 +126,7 @@ const kitchenSinkFields: FieldDef[] = [
 		size: "md",
 		inputSettings: {
 			getOptions,
-			placeholder: "placeholder"
+			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -139,7 +139,7 @@ const kitchenSinkFields: FieldDef[] = [
 		size: "md",
 		inputSettings: {
 			options,
-			placeholder: "placeholder"
+			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",

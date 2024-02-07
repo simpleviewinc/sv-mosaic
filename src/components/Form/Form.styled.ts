@@ -4,7 +4,7 @@ import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
 import { FormSpacing } from "./FormTypes";
 
-export const StyledContainerForm = styled.div<{$fullHeight?: boolean}>`
+export const StyledContainerForm = styled.div<{ $fullHeight?: boolean }>`
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -45,7 +45,7 @@ export const StyledFormPrimary = styled.div`
 	${containerQuery("xl", "FORM")} {
 		flex-direction: row;
 	}
-`
+`;
 
 export const StyledSideNav = styled(SideNav)`
 	display: none;

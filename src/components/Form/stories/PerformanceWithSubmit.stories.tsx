@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
@@ -29,7 +29,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const hundredFields = [];
@@ -40,8 +40,8 @@ export const PerformanceWithSubmit = (): ReactElement => {
 			label: `Simple Text ${i}`,
 			type: "text",
 			instructionText: "testing",
-			validators: [required]
-		})
+			validators: [required],
+		});
 	}
 
 	const fields = useMemo(() : FieldDef[] => hundredFields, []);
@@ -51,7 +51,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					state={state}

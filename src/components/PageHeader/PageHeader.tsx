@@ -10,7 +10,7 @@ const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 		title,
 		buttons,
 		onBack,
-		backLabel
+		backLabel,
 	} = props;
 
 	return (
@@ -28,7 +28,7 @@ const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 				<ButtonRow buttons={buttons} />
 			}
 		</StyledPageHeader>
-	)
+	);
 });
 
 PageHeader.displayName = "PageHeader";

@@ -5,20 +5,20 @@ export interface ScrollSpyProps<E extends HTMLElement>{
 	 * the elements appear on the page
 	 */
 	refs: HTMLElement[],
-    /**
+	/**
      * The DOM element that is the scrollable viewport
      */
 	container: E
-    /**
+	/**
      * The amount of the page that the top of each section should
      * intersect to be considered active
      *
      * default = 0.4
      */
-    threshold?: number
+	threshold?: number
 }
 
 export interface ScrollSpyResult{
 	activeSection: number,
-    setActiveSection: (index: number) => void
+	setActiveSection: (index: number) => void
 }

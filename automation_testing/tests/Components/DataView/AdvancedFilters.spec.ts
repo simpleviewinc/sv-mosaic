@@ -55,7 +55,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
 		expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
-	}
+	};
 
 	test("Validate Single select category", async () => {
 		await advancedFilters.selectFilter("singleSelectCategory");
@@ -249,7 +249,7 @@ test.describe.parallel("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.waitForElementLoad();
 
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${advanced_filter_data.createdFilterResults} of ${advanced_filter_data.createdFilterResults}`);
-		const createdValues = await _dataviewPage.getAllRowData("Created", dataview_data.resultPerPageDefault,);
+		const createdValues = await _dataviewPage.getAllRowData("Created", dataview_data.resultPerPageDefault);
 		const result = isACorrentDateRange(createdValues, startDate, endDate);
 		expect(result.length).toBe(0);
 	});

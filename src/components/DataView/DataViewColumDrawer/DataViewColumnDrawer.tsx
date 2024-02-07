@@ -17,7 +17,7 @@ function DataViewColumnDrawer(props: DataViewColumnDrawerProps) {
 				onClose={props.onClose}
 			/>
 		</Drawer>
-	)
+	);
 }
 
 export default DataViewColumnDrawer;

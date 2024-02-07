@@ -50,7 +50,7 @@ const ComponentExample = (props: {
 		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
 		<Button
 			key={4}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[0].label}
@@ -60,7 +60,7 @@ const ComponentExample = (props: {
 		/>,
 		<Button
 			key={5}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[1].label}
@@ -70,7 +70,7 @@ const ComponentExample = (props: {
 		/>,
 		<Button
 			key={6}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[2].label}
@@ -86,14 +86,14 @@ const ComponentExample = (props: {
 			mIcon: Mail,
 			onClick: jest.fn(),
 			color: "black",
-			variant: "text"
+			variant: "text",
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
 			onClick: jest.fn(),
 			color: "black",
-			variant: "text"
+			variant: "text",
 		},
 		{
 			label: "Button 3",
@@ -101,7 +101,7 @@ const ComponentExample = (props: {
 			onClick: jest.fn(),
 			color: "black",
 			variant: "text",
-		}
+		},
 	];
 
 	const title = "Title";
@@ -114,12 +114,12 @@ const ComponentExample = (props: {
 		additionalActions = [
 			{
 				label : "Edit",
-				onClick : jest.fn()
+				onClick : jest.fn(),
 			},
 			{
 				label : "Download",
-				onClick : jest.fn()
-			}
+				onClick : jest.fn(),
+			},
 		];
 	}
 
@@ -143,7 +143,7 @@ const ComponentExample = (props: {
 describe("SummaryPageTopComponent", () => {
 	it("Should display the image", async () => {
 		await act(async () => {
-			render(<ComponentExample />)
+			render(<ComponentExample />);
 		});
 
 		const image = await screen.findByRole("img");
@@ -152,7 +152,7 @@ describe("SummaryPageTopComponent", () => {
 
 	it("Should display the title", async () => {
 		await act(async () => {
-			render(<ComponentExample />)
+			render(<ComponentExample />);
 		});
 
 		const title = await screen.findByText("Title");
@@ -162,7 +162,7 @@ describe("SummaryPageTopComponent", () => {
 	it("Should display favorite icon", async () => {
 		let element;
 		await act(async () => {
-			element = render(<ComponentExample />)
+			element = render(<ComponentExample />);
 		});
 
 		const iconButtons = await screen.findAllByTestId("icon-button-test");
@@ -171,7 +171,7 @@ describe("SummaryPageTopComponent", () => {
 		expect(element.container.getElementsByClassName("unchecked").length).toBe(1);
 
 		await act(async () => {
-			starButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			starButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		expect(element.container.getElementsByClassName("checked").length).toBe(1);
@@ -179,7 +179,7 @@ describe("SummaryPageTopComponent", () => {
 
 	it("Should display 3 main action buttons", async () => {
 		await act(async () => {
-			render(<ComponentExample />)
+			render(<ComponentExample />);
 		});
 
 		const mainActionButtons = await screen.findAllByTestId("btn-main-action");
@@ -188,7 +188,7 @@ describe("SummaryPageTopComponent", () => {
 
 	it("Should not display the menu that contains the additional actions", async () => {
 		await act(async () => {
-			render(<ComponentExample showAdditionalActions={false} />)
+			render(<ComponentExample showAdditionalActions={false} />);
 		});
 
 		const additionalActions = screen.queryByTestId("btn-additional-action");
@@ -204,14 +204,14 @@ describe("SummaryPageTopComponent", () => {
 				mIcon: Mail,
 				onClick: jest.fn(),
 				color: "black",
-				variant: "text"
+				variant: "text",
 			},
 			{
 				label: "Button 2",
 				mIcon: Mail,
 				onClick: jest.fn(),
 				color: "black",
-				variant: "text"
+				variant: "text",
 			},
 			{
 				label: "Edit",
@@ -225,14 +225,14 @@ describe("SummaryPageTopComponent", () => {
 				mIcon: Mail,
 				onClick: jest.fn(),
 				color: "black",
-				variant: "text"
+				variant: "text",
 			},
 			{
 				label: "Button 2",
 				mIcon: Mail,
 				onClick: jest.fn(),
 				color: "black",
-				variant: "text"
+				variant: "text",
 			},
 			{
 				label: "Edit",
@@ -240,22 +240,22 @@ describe("SummaryPageTopComponent", () => {
 				onClick: jest.fn(),
 				color: "black",
 				variant: "text",
-			}
-		]
+			},
+		];
 
 		expect(() => render(<ComponentExample mainActions={newMainActions} />)).toThrow("mainActions prop must receive 3 elements or less.");
 	});
 
 	it("Should display additional action button", async () => {
 		await act(async () => {
-			render(<ComponentExample />)
+			render(<ComponentExample />);
 		});
 
 		const kebabAdditionalActions = await screen.findByTestId("btn-additional-action");
 		expect(kebabAdditionalActions).toBeInTheDocument();
 
 		await act(async () => {
-			kebabAdditionalActions.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			kebabAdditionalActions.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const editButton = await screen.findByText("Edit");
@@ -264,7 +264,7 @@ describe("SummaryPageTopComponent", () => {
 
 	it("Should display 6 description items", async () => {
 		await act(async () => {
-			render(<ComponentExample />)
+			render(<ComponentExample />);
 		});
 
 		const descriptionItems = await screen.findAllByTestId("description-item");

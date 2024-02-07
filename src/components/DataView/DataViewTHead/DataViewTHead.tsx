@@ -88,7 +88,7 @@ const StyledTh = styled.th`
 	&.bulk {
 		width: 52px;
 	}
-`
+`;
 
 function flipDir(sort) {
 	return sort === "asc" ? "desc" : "asc";
@@ -142,7 +142,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 						const onClick = function() {
 							props.onSortChange({
 								name : column.name,
-								dir : clickDir
+								dir : clickDir,
 							});
 						};
 
@@ -193,7 +193,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				</tr>
 			}
 		</StyledWrapper>
-	)
+	);
 }
 
 export default DataViewTHead;

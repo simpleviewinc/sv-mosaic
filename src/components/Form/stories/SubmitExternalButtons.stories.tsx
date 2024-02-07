@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
@@ -27,7 +27,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -45,7 +45,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 					name: "text2",
 					label: "Email",
 					type: "text",
-					validators: [required, validateEmail]
+					validators: [required, validateEmail],
 				},
 				{
 					name: "text3",
@@ -55,10 +55,10 @@ export const SubmitExternalButtons = (): ReactElement => {
 				{
 					name: "text4",
 					label: "City",
-					type: "text"
-				}
-			] ,
-		[]
+					type: "text",
+				},
+			],
+		[],
 	);
 
 	const clickHandler = async () => {
@@ -73,7 +73,7 @@ export const SubmitExternalButtons = (): ReactElement => {
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
 			<p>Here is the form</p>
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					state={state}
 					fields={fields}

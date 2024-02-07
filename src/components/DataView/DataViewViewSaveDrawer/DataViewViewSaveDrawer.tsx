@@ -17,7 +17,7 @@ function DataViewViewSaveDrawer(props: DataViewViewSaveDrawerProps) {
 				allowSharedViewSave={props.allowSharedViewSave}
 			/>
 		</Drawer>
-	)
+	);
 }
 
 export default DataViewViewSaveDrawer;

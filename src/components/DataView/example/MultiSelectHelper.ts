@@ -1,5 +1,5 @@
 import JSONDB from "../../../utils/JSONDB";
-import { MosaicLabelValue } from "../../../types"
+import { MosaicLabelValue } from "../../../types";
 
 export interface MultiSelectHelperGetOptionsArgs {
 	limit: number
@@ -38,26 +38,26 @@ class MultiSelectHelper {
 			limit : filter.limit + 1,
 			skip : filter.skip,
 			sort : { name : this.sortColumn, dir : "asc" },
-			filter : undefined
+			filter : undefined,
 		};
 
 		if (filter.keyword !== undefined) {
 			query.filter = {
-				[this.labelColumn] : new RegExp(filter.keyword, "i")
-			}
+				[this.labelColumn] : new RegExp(filter.keyword, "i"),
+			};
 		}
 
 		const results = await this.api.find(query);
 
 		return {
 			docs : results.slice(0, filter.limit).map(val => this.mapOptions(val)),
-			hasMore : results.length > filter.limit
+			hasMore : results.length > filter.limit,
 		};
 	}
 	async getSelected(ids: string[]): Promise<MosaicLabelValue[]> {
 		const results = await this.api.find({
 			filter : { [this.valueColumn] : { $in : ids } },
-			sort : { name : this.sortColumn, dir : "asc" }
+			sort : { name : this.sortColumn, dir : "asc" },
 		});
 
 		return results.length >= 1

@@ -54,12 +54,12 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 	const mobileRoot: LeftNavItemDef = useMemo(() => ({
 		name : "root",
 		label : "Main Menu",
-		items : props.items
+		items : props.items,
 	}), [props.items]);
 
 	const defaultState = {
-		history : [mobileRoot]
-	}
+		history : [mobileRoot],
+	};
 
 	const [state, setState] = useState(defaultState);
 
@@ -72,42 +72,42 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 		setState(defaultState);
 
 		props.onClose();
-	}
+	};
 
 	const onNav: LeftNavOnNav = function(args) {
 		setState(defaultState);
 
 		leftNavContext.onNav(args);
-	}
+	};
 
 	const onOpen = function(name) {
 		const allItems = [
 			...current.items,
-			...current.items.filter(val => val.type === "group").map(val => val.items).flat()
+			...current.items.filter(val => val.type === "group").map(val => val.items).flat(),
 		];
 
 		const item = allItems.find(val => val.name === name);
 
 		setState({
 			...state,
-			history : [...state.history, item]
+			history : [...state.history, item],
 		});
-	}
+	};
 
 	const onBack = function() {
 		const newHistory = state.history.slice(0, -1);
 
 		setState({
 			...state,
-			history : newHistory
-		})
-	}
+			history : newHistory,
+		});
+	};
 
 	const newContext = {
 		...leftNavContext,
 		onNav,
-		ItemComponent : LeftNavItemMobile
-	}
+		ItemComponent : LeftNavItemMobile,
+	};
 
 	return (
 		<LeftNavDrawer
@@ -139,7 +139,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 				</RootDiv>
 			</LeftNavContext.Provider>
 		</LeftNavDrawer>
-	)
+	);
 }
 
 export default LeftNavMobile;

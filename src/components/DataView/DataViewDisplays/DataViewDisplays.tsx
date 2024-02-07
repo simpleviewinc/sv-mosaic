@@ -9,12 +9,12 @@ export const DataViewDisplayList: DataViewDisplay = {
 	name : "list",
 	label : "List",
 	component : List,
-	mIcon : FormatListBulletedIcon
-}
+	mIcon : FormatListBulletedIcon,
+};
 
 export const DataViewDisplayGrid: DataViewDisplay = {
 	name : "grid",
 	label : "Grid",
 	component : Grid,
-	mIcon : GridOnIcon
-}
+	mIcon : GridOnIcon,
+};

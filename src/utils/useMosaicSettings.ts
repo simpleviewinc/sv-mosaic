@@ -22,17 +22,17 @@ export default function useMosaicSettings({
 		const i18n = defaulti18n.cloneInstance({
 			lng : i18nInitialLocale,
 			ns,
-			defaultNS : i18nNamespace
+			defaultNS : i18nNamespace,
 		});
-	
+
 		return i18n;
 	}, []);
-	
+
 	const returnObj = useMemo(() => {
 		return {
-			i18n
+			i18n,
 		};
 	}, [i18n]);
-	
+
 	return returnObj;
 }

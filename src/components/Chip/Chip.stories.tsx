@@ -35,7 +35,7 @@ export const Playground = (): ReactElement => {
 				selected={boolean("Selected", false)}
 				onClick={clickable ? () => alert("onClick") : null}
 			/>
-	)
+	);
 };
 
 export const KitchenSink = (): ReactElement => {

@@ -40,7 +40,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
 		/>
-	)
+	);
 }
 
 export default DataViewPrimaryFilter;

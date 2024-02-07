@@ -28,18 +28,18 @@ export const CustomFields = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
-		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />
-	}
+		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />;
+	};
 
 	const CustomTextArea = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
-		return <textarea rows={4} value={value} cols={20} onChange={(e) => onChange(e.target.value)} />
-	}
+		return <textarea rows={4} value={value} cols={20} onChange={(e) => onChange(e.target.value)} />;
+	};
 
 	const CustomCheckbox = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
 		return (
@@ -54,8 +54,8 @@ export const CustomFields = (): ReactElement => {
 				/>
 				<label htmlFor="vehicle1"> I have a bike</label><br />
 			</div>
-		)
-	}
+		);
+	};
 
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -66,7 +66,7 @@ export const CustomFields = (): ReactElement => {
 					type: CustomText,
 					instructionText: "testing",
 					helperText: "helper text bottom",
-					validators: [required]
+					validators: [required],
 				},
 				{
 					name: "textarea",
@@ -74,7 +74,7 @@ export const CustomFields = (): ReactElement => {
 					type: CustomTextArea,
 					instructionText: "testing",
 					helperText: "helper text bottom",
-					validators: [required]
+					validators: [required],
 				},
 				{
 					name: "checkbox",
@@ -82,18 +82,18 @@ export const CustomFields = (): ReactElement => {
 					type: CustomCheckbox,
 					instructionText: "testing",
 					helperText: "helper text bottom",
-					validators: [required]
+					validators: [required],
 				},
 			],
-		[]
+		[],
 	);
 
 	const setText1Value = function () {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text1",
-				value: "My New Value"
-			})
+				value: "My New Value",
+			}),
 		);
 	};
 
@@ -102,7 +102,7 @@ export const CustomFields = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Custom components'

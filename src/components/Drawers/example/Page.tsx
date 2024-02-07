@@ -4,20 +4,20 @@ import Grid from "./Grid";
 import { PageConfig, PageCallbacks } from "./ExampleTypes";
 
 interface ConfigableMethod {
-  (config: any): JSX.Element;
+	(config: any): JSX.Element;
 }
 
 const componentMap: Record<PageConfig["type"], ConfigableMethod> = {
 	form: Form,
-	grid: Grid
+	grid: Grid,
 };
 
 function Page({
 	config,
-	callbacks
+	callbacks,
 }: {
-  config: PageConfig;
-  callbacks: PageCallbacks;
+	config: PageConfig;
+	callbacks: PageCallbacks;
 }) {
 	const Component = componentMap[config.type];
 

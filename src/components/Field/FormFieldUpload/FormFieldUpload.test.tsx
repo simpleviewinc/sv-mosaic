@@ -13,8 +13,8 @@ const fieldDef: FieldDef = {
 		limit: undefined,
 		onFileAdd: jest.fn(),
 		onFileDelete: jest.fn(),
-	}
-}
+	},
+};
 
 const fieldDefWithLimit: FieldDef = {
 	name: "uploadTest",
@@ -24,8 +24,8 @@ const fieldDefWithLimit: FieldDef = {
 		limit: 2,
 		onFileAdd: jest.fn(),
 		onFileDelete: jest.fn(),
-	}
-}
+	},
+};
 
 /**
  * All other tests related to progress bar, deleting files, etc
@@ -38,7 +38,7 @@ describe("FormFieldUpload", () => {
 			<FormFieldUpload
 				fieldDef={fieldDef}
 				onChange={jest.fn()}
-			/>
+			/>,
 		);
 
 		const file = new File(["hello"], "hello.png", { type: "image/png" });
@@ -57,7 +57,7 @@ describe("FormFieldUpload", () => {
 				fieldDef={fieldDef}
 				value={defaultValues.uploadField}
 				onChange={jest.fn()}
-			/>
+			/>,
 		);
 
 		const uploadedFiles = screen.getAllByTestId("file-card-container");
@@ -69,7 +69,7 @@ describe("FormFieldUpload", () => {
 			<FormFieldUpload
 				fieldDef={fieldDefWithLimit}
 				onChange={jest.fn()}
-			/>
+			/>,
 		);
 
 		const files = [

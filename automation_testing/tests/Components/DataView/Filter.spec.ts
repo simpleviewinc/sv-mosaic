@@ -42,7 +42,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 
 	test("Filter title with a valid keyword and no results", async () => {
 		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
-		await expect(filter._dataviewPage.noResults).toBeVisible()
+		await expect(filter._dataviewPage.noResults).toBeVisible();
 		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.keywordNoResultsFilter);
 	});
 
@@ -201,7 +201,7 @@ test.describe.parallel("Components - Data View - Filter", () => {
 	});
 
 	test("Validate the alingment of the No results message.", async () => {
-		const expectedMargin = "0px 20px"
+		const expectedMargin = "0px 20px";
 		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
 		await expect(filter._dataviewPage.noResults).toBeVisible();
 		expect(await filter.getSpecificMarginFromElement(filter._dataviewPage.noResults, "all")).toContain(expectedMargin);

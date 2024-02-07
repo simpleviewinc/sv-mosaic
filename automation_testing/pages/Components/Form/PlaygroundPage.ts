@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
-import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData"
+import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData";
 
 export class PlaygroundPage extends BasePage {
 
@@ -64,7 +64,7 @@ export class PlaygroundPage extends BasePage {
 		this.colorSelectorExample = page.locator("#color [data-testid='colordiv-test']");
 		this.colorSelector = page.locator(".flexbox-fix");
 		this.singleDatePickerIcon = page.locator("button [data-testid='CalendarIcon']");
-		this.singleDatePickerInput = page.locator("#date input")
+		this.singleDatePickerInput = page.locator("#date input");
 		this.addressFieldButton = page.locator("text=ADD ADDRESS");
 		this.advancedSelectionChip = page.locator("#advancedSelection [data-testid='as-chiplist'] [role='button']");
 		this.advancedSelectionFieldButton = page.locator("#advancedSelection button");
@@ -84,7 +84,7 @@ export class PlaygroundPage extends BasePage {
 		this.statesDropdown = page.locator("input[role='combobox']").nth(2);
 		this.postalCode = page.locator("input#postalCode");
 		this.drawerButtons = page.locator("[type='DRAWER']");
-		this.saveDrawerButton = page.locator("[type='DRAWER'] button", { hasText: "Save"});
+		this.saveDrawerButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
 		//Advanced Selection options
 		this.advancedSelectionTitle = page.locator(".advancedSelection h1");
 		this.advancedSelectionOptions = page.locator("[data-testid='label-test-id']", { hasText: "Option 1 category 2" });
@@ -156,7 +156,7 @@ export class PlaygroundPage extends BasePage {
 		}
 	}
 
-	async validateDefaultValuesExpectedResults(expectBgColor: string): Promise<void> {
+	async validateDefaultValuesExpectedResults(): Promise<void> {
 		expect(await this.simpleText.inputValue()).toBe(getFormAndDefaultValuesExpected.simpleTextDefaultValues);
 		for (let i = 0; i < await this.checkboxInput.count(); i++) {
 			expect(await this.checkboxInput.nth(i).isChecked()).toBeTruthy();

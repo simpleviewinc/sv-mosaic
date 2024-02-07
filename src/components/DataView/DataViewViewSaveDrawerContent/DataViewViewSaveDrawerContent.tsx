@@ -18,50 +18,50 @@ const StyledForm = styled.form`
 `;
 
 const InputLabelProps = {
-	className: "font16"
-}
+	className: "font16",
+};
 
 const inputProps = {
-	className: "font16"
-}
+	className: "font16",
+};
 
 const classes = {
-	label : "font16"
-}
+	label : "font16",
+};
 
 function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps) {
 	const [state, setState] = useState({
 		...props.data,
-		type: (props.allowSharedViewSave === true) ? props.data.type as SavedViewDef["type"] : "mine"
+		type: (props.allowSharedViewSave === true) ? props.data.type as SavedViewDef["type"] : "mine",
 	});
 
 	const { t } = useMosaicTranslation();
 
 	const onSave = async function() {
 		await props.onSave({
-			...state
+			...state,
 		});
 		props.onClose();
-	}
+	};
 
 	const onSubmit = function(event) {
 		event.preventDefault();
 		onSave();
-	}
+	};
 
 	const handleChange = name => event => {
 		setState({
 			...state,
-			[name] : event.target.value
+			[name] : event.target.value,
 		});
-	}
+	};
 
-	const handleSwitch = name => event => {
+	const handleSwitch = () => event => {
 		setState({
 			...state,
-			type : event.target.checked ? "shared" : "mine"
+			type : event.target.checked ? "shared" : "mine",
 		});
-	}
+	};
 
 	return (
 		<DrawerContent
@@ -96,7 +96,7 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 								control={
 									<Switch
 										checked={state.type === "shared"}
-										onChange={handleSwitch("shared")}
+										onChange={handleSwitch()}
 										value="what"
 										color="primary"
 									/>
@@ -108,7 +108,7 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 				}
 			</StyledForm>
 		</DrawerContent>
-	)
+	);
 }
 
 export default DataViewViewSaveDrawerContent;

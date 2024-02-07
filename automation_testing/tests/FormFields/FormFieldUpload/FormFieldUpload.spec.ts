@@ -45,7 +45,7 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 
 	test("Validate that when trying to upload more than the allowed limit of files at the same time, a snack bar message is displayed.", async () => {
 		const fileLimit = 2;
-		const expectedSnackbar = "Upload limited to only " + fileLimit + " files."
+		const expectedSnackbar = "Upload limited to only " + fileLimit + " files.";
 		const knobTriggerErrorsWhenLoading = uploadKnobs.knobTriggerErrorsWhenLoading + "false";
 		const knobUploadLimit = uploadKnobs.knobUploadLimit + fileLimit;
 		await ffUpload.visit(ffUpload.page_path, [knobTriggerErrorsWhenLoading, knobUploadLimit]);
@@ -60,8 +60,8 @@ test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
 
 	test("Validate that the delete icons are not visible when the knob disabled is active.", async () => {
 		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobSimulateInitialFieldValue + "true", commonKnobs.knobDisabled + true]);
-		await ffUpload.fileCardContainerLocator.first().waitFor({state: "attached"});
-		await ffUpload.fileCardContainerLocator.first().waitFor({state: "visible"});
+		await ffUpload.fileCardContainerLocator.first().waitFor({ state: "attached" });
+		await ffUpload.fileCardContainerLocator.first().waitFor({ state: "visible" });
 		await ffUpload.wait(1000);
 		await expect(ffUpload.fileDeleteButton).toHaveCount(0);
 	});

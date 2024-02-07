@@ -46,7 +46,7 @@ test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", 
 
 	test("Validate that the padding and margin in the Multiselect selected items.", async () => {
 		const expectedMargin = "16px";
-		const expectedPadding = "0px 16px 0px 32px"
+		const expectedPadding = "0px 16px 0px 32px";
 		await multiSelectComponent.showComparisonSelectorButton.click();
 		expect(await multiSelectComponent.getSpecificMarginFromElement(multiSelectComponent.topBlockLocator, "top")).toBe(expectedMargin);
 		expect(await multiSelectComponent.getSpecificPaddingFromElement(multiSelectComponent.topBlockLocator, "left")).toBe(expectedMargin);

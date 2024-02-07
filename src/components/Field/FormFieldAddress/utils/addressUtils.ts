@@ -8,8 +8,8 @@ export const components = ["route", "locality", "postal_town", "postal_code", "a
 
 export const initalAddressComponent = {
 	label: "",
-	value: ""
-}
+	value: "",
+};
 
 
 /**
@@ -23,4 +23,4 @@ export const componentsToAddress = {
 	administrative_area_level_1: "state",
 	postal_code: "postal code",
 	street_number: "street number",
-}
+};

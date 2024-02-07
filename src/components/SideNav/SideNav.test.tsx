@@ -37,7 +37,7 @@ export const SideNavExample = (): ReactElement => {
 				icon: AccountCircleIcon,
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Accounts Content</h1>)
+					setContent(<h1>Accounts Content</h1>);
 				},
 			},
 		],
@@ -48,7 +48,7 @@ export const SideNavExample = (): ReactElement => {
 				badge: "00",
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1>Assets Content</h1>)
+					setContent(<h1>Assets Content</h1>);
 				},
 			},
 		],
@@ -92,7 +92,7 @@ const { getByText, getByTestId, getAllByTestId } = screen;
 
 describe("SideNav component", () => {
 	beforeEach(() => {
-		render(<SideNavExample />)
+		render(<SideNavExample />);
 	});
 
 	it("should displays the items labels", () => {

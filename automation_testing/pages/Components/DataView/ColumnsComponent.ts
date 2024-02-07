@@ -22,7 +22,7 @@ export class ColumnsComponent extends BasePage {
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
 		this.columnCheckbox = page.locator(".left [data-testid='checkbox-test-id']");
-		this.columnDrawerTitle = page.locator("[data-testid='page-header-test-id'] h1")
+		this.columnDrawerTitle = page.locator("[data-testid='page-header-test-id'] h1");
 	}
 
 	async getRightItemsText(): Promise<string[]> {

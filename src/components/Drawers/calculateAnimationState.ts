@@ -3,7 +3,7 @@
  */
 export default function calculateAnimationState(
 	bools: boolean[],
-	animating: boolean
+	animating: boolean,
 ): string[] {
 	if (bools.length === 0) {
 		return [];

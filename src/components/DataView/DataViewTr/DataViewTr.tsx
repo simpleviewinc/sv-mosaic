@@ -41,7 +41,7 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 						color="black"
 						variant="icon"
 						mIcon={DragIndicatorIcon}
-						muiAttrs={{...props}}
+						muiAttrs={{ ...props }}
 						component={TableRowDragHandle}
 					/>
 				</DataViewTd>
@@ -98,13 +98,13 @@ export function DataViewTrSortable(props: DataViewTrDndProps) {
 		setNodeRef,
 		transform,
 		transition,
-		isDragging
-	} = useSortable({id: props.originalRowData.id as string});
+		isDragging,
+	} = useSortable({ id: props.originalRowData.id as string });
 
 	const style = {
 		transform: CSS.Translate.toString(transform),
-		transition
-	}
+		transition,
+	};
 
 	return (
 		<DataViewTrStatic
@@ -115,15 +115,15 @@ export function DataViewTrSortable(props: DataViewTrDndProps) {
 			style={style}
 			isDragOverlay={isDragging}
 		/>
-	)
+	);
 }
 
 function DataViewTr(props: DataViewTrProps) {
 	if (!props.onReorder) {
-		return <DataViewTrStatic {...props} />
+		return <DataViewTrStatic {...props} />;
 	}
 
-	return <DataViewTrSortable {...props} />
+	return <DataViewTrSortable {...props} />;
 }
 
 export default DataViewTr;

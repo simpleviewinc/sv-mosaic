@@ -150,7 +150,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		await this.waitForElementLoad();
 		await this.fromCalendarButton.click();
 		await this.datepicker.selectDate(startDate);
-		await this.datepicker.datepickerDiv.waitFor({state: "detached"});
+		await this.datepicker.datepickerDiv.waitFor({ state: "detached" });
 		await this.toCalendarButton.click();
 		await this.datepicker.selectDate(endDate);
 	}

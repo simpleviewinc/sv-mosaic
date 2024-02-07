@@ -9,7 +9,7 @@ import { DataViewColumnControlProps } from "./DataViewColumnControlTypes";
 
 export default function DataViewColumnControl(props: DataViewColumnControlProps) {
 	const [state, setState] = useState({
-		open : false
+		open : false,
 	});
 
 	const { t } = useMosaicTranslation();
@@ -17,9 +17,9 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 	const gearClick = function() {
 		setState({
 			...state,
-			open : !state.open
+			open : !state.open,
 		});
-	}
+	};
 
 	return (
 		<div>
@@ -44,5 +44,5 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 				/>
 			}
 		</div>
-	)
+	);
 }

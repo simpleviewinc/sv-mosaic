@@ -2,7 +2,7 @@ import { execSync } from "child_process";
 import ghPages from "gh-pages";
 
 const {
-	CIRCLE_BRANCH
+	CIRCLE_BRANCH,
 } = process.env;
 
 if (!CIRCLE_BRANCH) {
@@ -20,13 +20,13 @@ ghPages.publish("docs", {
 	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
 	user: {
 		name: "Owen Allen",
-		email: "owenallenaz@gmail.com"
-	}
+		email: "owenallenaz@gmail.com",
+	},
 }, function(err) {
 	if (err) {
 		console.error("Error publishing GitHub Pages:");
 		console.error(err);
-		throw err
+		throw err;
 	}
 
 	console.log("Storybook publish complete");

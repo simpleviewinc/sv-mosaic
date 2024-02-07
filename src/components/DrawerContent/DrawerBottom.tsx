@@ -24,7 +24,7 @@ function DrawerBottom(props: DrawerBottomProps) {
 		`}>
 			{props.children}
 		</StyledDiv>
-	)
+	);
 }
 
 export default DrawerBottom;

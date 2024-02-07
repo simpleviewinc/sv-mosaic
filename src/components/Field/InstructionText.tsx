@@ -5,12 +5,12 @@ import {
 	StyledInstructionText,
 } from "./InstructionText.styled";
 
-interface InstructionText {
+interface InstructionTextProps {
 	children: ReactNode;
 	colsInRow?: number
 }
 
-const InstructionText = (props: InstructionText): ReactElement => {
+const InstructionText = (props: InstructionTextProps): ReactElement => {
 	const { children, colsInRow } = props;
 	return (
 		<InstructionTextWrapper $colsInRow={colsInRow}>

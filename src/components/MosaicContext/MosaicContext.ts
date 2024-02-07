@@ -7,5 +7,5 @@ export interface MosaicContextProps {
 }
 
 export default createContext<MosaicContextProps>({
-	i18n: defaulti18n
+	i18n: defaulti18n,
 });

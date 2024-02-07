@@ -16,7 +16,7 @@ export const generateLayout = ({ sections, fields }: { sections?: SectionDef[], 
 
 		return {
 			...section,
-			fields: rows
+			fields: rows,
 		};
 	});
 };

@@ -18,7 +18,7 @@ export const Example = (): ReactElement => {
   sed numquam. Sed ut ex ex et eius sunt nisi eum adipisci. Animi quaerat
   expedita. Aut quis quas minus sed asperiores dolores asperiores
   excepturi. Non corporis qui doloremque ea voluptas voluptatem repellat.
-  Address Information`
+  Address Information`,
 	);
 	const dialogTitle = text("Dialog title", "Dialog title");
 	const primaryBtnLabel = text("Primary button label", "Apply");
@@ -61,7 +61,7 @@ export const Example = (): ReactElement => {
 				variant="contained"
 				onClick={handleClickOpen}
 				label="Open Dialog"
-				muiAttrs={{disableRipple: true}}
+				muiAttrs={{ disableRipple: true }}
 			></Button>
 			<Dialog
 				dialogTitle={dialogTitle}

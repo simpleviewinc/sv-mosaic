@@ -1,6 +1,6 @@
 import { BasePage } from "../../BasePage";
 import { Locator, Page } from "@playwright/test";
-import { dataviewKnobs as knob} from "../../../utils/data/knobs";
+import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 export class DataViewFilterTextComponent extends BasePage {
 
@@ -27,7 +27,7 @@ export class DataViewFilterTextComponent extends BasePage {
 	async searchForWord(word: string): Promise<void> {
 		await this.filterTextButton.click();
 		await this.inputLocator.fill(word);
-		await this.applyBtn.click({force: true});
+		await this.applyBtn.click({ force: true });
 		await this.filterTextButton.waitFor();
 	}
 
@@ -36,18 +36,18 @@ export class DataViewFilterTextComponent extends BasePage {
 		await this.menuItem.locator(":scope", { hasText: comparison }).first().click({ force: true });
 	}
 
-	async searchWithComparison(word: string, comparison: "Contains"|"Not Contains"|"Equals"|"Not Equal"|"Exists"|"Not Exists"): Promise<void> {
+	async searchWithComparison(word: string, comparison: "Contains" | "Not Contains" | "Equals" | "Not Equal" | "Exists" | "Not Exists"): Promise<void> {
 		await this.filterTextButton.click();
 		await this.selectComparison(comparison);
 		if (comparison == "Contains" || comparison == "Not Contains" || comparison == "Equals" || comparison == "Not Equal") {
 			await this.inputLocator.fill(word);
 		}
 		await this.wait();
-		await this.applyBtn.click({force: true});
+		await this.applyBtn.click({ force: true });
 		await this.filterTextButton.waitFor();
 	}
 
-	async visitPageWithDefaultComparison(comparison: "Equals"|"Not Equal"|"Contains"|"Not Contains"|"Exists"|"Not Exists"|string): Promise<void> {
+	async visitPageWithDefaultComparison(comparison: "Equals" | "Not Equal" | "Contains" | "Not Contains" | "Exists" | "Not Exists" | string): Promise<void> {
 		let comparisonOption: string;
 		switch (comparison) {
 		case "Equals":

@@ -5,13 +5,13 @@ import {
 	StyledInstructionText,
 } from "./InstructionText.styled";
 
-interface InstructionText {
-  children: ReactNode;
+interface InstructionTextProps {
+	children: ReactNode;
 }
 
 const InstructionText = ({
 	children,
-}: InstructionText): ReactElement => {
+}: InstructionTextProps): ReactElement => {
 	return (
 		<InstructionTextWrapper>
 			<StyledInstructionText>{children}</StyledInstructionText>

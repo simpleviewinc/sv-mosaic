@@ -29,12 +29,12 @@ const Content = (props: ContentProps): ReactElement => {
 	 * @returns the sections that contains the names of the fields
 	 */
 	const sectionsToRender = useMemo(() => {
-		const newSections: MosaicGridConfig = []
+		const newSections: MosaicGridConfig = [];
 
 		if (!sections) {
 			fields.forEach(field => {
 				const fieldName = field?.column ? field.column : field.name;
-				newSections.push([[ fieldName ]])
+				newSections.push([[fieldName]]);
 			});
 
 			return newSections;

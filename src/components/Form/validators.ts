@@ -20,7 +20,7 @@ export function validateEmail(str: string): string | undefined {
 	const isValidEmail = str
 		.toLowerCase()
 		.match(
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		);
 
 	if (isValidEmail) return;
@@ -173,7 +173,7 @@ export function validateMinDate(value: any, data: any, { min, max }: { min?: Dat
 	}
 }
 
-export function validateCharacterCount(value: string, data: any, options: {max?: number}): string | undefined {
+export function validateCharacterCount(value: string, data: any, options: { max?: number }): string | undefined {
 	if (!options.max) {
 		return;
 	}
@@ -222,11 +222,11 @@ export function mapsValidators(validators): Validator[] {
 		validateNumber: validateNumber,
 		validateSlow: validateSlow,
 		validateURL: validateURL,
-	}
+	};
 
 	return validators.map(validator => {
 		if (typeof validator === "string") return { fn: validatorsMap[validator], options: {} };
 		else if (typeof validator === "function") return { fn: validator, options: {} };
 		else return { fn: validatorsMap[validator.fn], options: validator.options };
-	})
+	});
 }

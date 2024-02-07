@@ -4,7 +4,7 @@ import {
 	ReactElement,
 	useCallback,
 	useEffect,
-	useState
+	useState,
 } from "react";
 
 // Types
@@ -74,7 +74,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 	const deleteSelectedOption = useCallback(async (options: MosaicLabelValue[]) => {
 		await onChange(options);
 		await onBlur();
-	}, [onChange])
+	}, [onChange]);
 
 	return (
 		<>

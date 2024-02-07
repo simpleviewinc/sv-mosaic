@@ -10,7 +10,7 @@ const MAX_SCROLL_DURATION = 1500;
 export default function useScrollSpy<E extends HTMLElement>({
 	refs,
 	container,
-	threshold = 0.2
+	threshold = 0.2,
 }: ScrollSpyProps<E>): ScrollSpyResult {
 	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
 	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
@@ -47,7 +47,7 @@ export default function useScrollSpy<E extends HTMLElement>({
 	useEffect(() => {
 		const section = getScrollActiveSection();
 		setScrollActiveSection(section);
-	}, [refs])
+	}, [refs]);
 
 	useEffect(() => {
 		if (!container) {
@@ -57,7 +57,7 @@ export default function useScrollSpy<E extends HTMLElement>({
 		const onMouseWheel = () => {
 			animation.stop();
 			isProgramScroll.current = false;
-		}
+		};
 
 		container.addEventListener("wheel", onMouseWheel, { passive: true });
 		return () => container.removeEventListener("wheel", onMouseWheel);
@@ -72,19 +72,19 @@ export default function useScrollSpy<E extends HTMLElement>({
 			clearIsProgramScrollDebounced.current();
 
 			if (!isProgramScroll.current) {
-				setUserActiveSection(null)
+				setUserActiveSection(null);
 			}
 
 			const section = getScrollActiveSection();
 			setScrollActiveSection(section);
-		}
+		};
 
-		container.addEventListener("scroll", onScroll, { passive: true })
+		container.addEventListener("scroll", onScroll, { passive: true });
 
 		return () => container.removeEventListener("scroll", onScroll);
 	}, [container, getScrollActiveSection]);
 
-	const animation = useAnimate()
+	const animation = useAnimate();
 
 	const setActiveSection = useCallback((refIndex: number) => {
 		const [first] = refs;
@@ -120,20 +120,20 @@ export default function useScrollSpy<E extends HTMLElement>({
 		animation.start({
 			fn: (n) => {
 				container.scrollTo({
-					top: n
+					top: n,
 				});
 			},
 			valueStart,
 			valueEnd,
 			duration: clamp(Math.abs(valueEnd - valueStart) * 0.75, {
 				min: MIN_SCROLL_DURATION,
-				max: MAX_SCROLL_DURATION
-			})
+				max: MAX_SCROLL_DURATION,
+			}),
 		});
 	}, [container, refs]);
 
 	return {
 		activeSection,
-		setActiveSection
-	}
+		setActiveSection,
+	};
 }

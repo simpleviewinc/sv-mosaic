@@ -42,7 +42,7 @@ test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - K
 		await validateCardInformation(type, "Image Video Thumbnail", titles, expectedTitles);
 	});
 
-	test("Validate dialog when pressing the Video with src.", async ({ page }) => {
+	test("Validate dialog when pressing the Video with src.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.browseAllVideoWithSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set video is called");
 	});
@@ -98,7 +98,7 @@ test.describe.parallel("FormFields - FormFieldImageVideoLinkDocumentBrowsing - K
 		await validateCardInformation(type, "Image Video Thumbnail", titles, expectedTitles);
 	});
 
-	test("Validate dialog when pressing the Video without src.", async ({ page }) => {
+	test("Validate dialog when pressing the Video without src.", async () => {
 		await ffImageVideoLinkDocumentBrowsingPage.videoWithoutSrcButton.click();
 		await ffImageVideoLinkDocumentBrowsingPage.setDialogValidationListener("Set video is called");
 	});

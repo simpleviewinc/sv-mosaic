@@ -27,7 +27,7 @@ function DrawerContent(props: DrawerContentProps) {
 					label: t("mosaic:common.cancel"),
 					color: "gray",
 					variant: "outlined",
-					onClick: props.onCancel
+					onClick: props.onCancel,
 				},
 			];
 		if (props.onSave)
@@ -37,8 +37,8 @@ function DrawerContent(props: DrawerContentProps) {
 					label: t("mosaic:common.save"),
 					color: "yellow",
 					variant: "contained",
-					onClick: props.onSave
-				}
+					onClick: props.onSave,
+				},
 			];
 		if (props.onApply)
 			buttons = [
@@ -47,8 +47,8 @@ function DrawerContent(props: DrawerContentProps) {
 					label: t("mosaic:common.apply"),
 					color: "yellow",
 					variant: "contained",
-					onClick: props.onApply
-				}
+					onClick: props.onApply,
+				},
 			];
 
 		return buttons;
@@ -69,7 +69,7 @@ function DrawerContent(props: DrawerContentProps) {
 				{props.children}
 			</DrawerBottom>
 		</StyledDiv>
-	)
+	);
 }
 
 export default DrawerContent;

@@ -11,7 +11,7 @@ type FormFieldChipSingleSelectLocalOptions = {
 	* Function to be executed as callback when an option is selected
 	*/
 	onSelect?: (...args) => void;
-}
+};
 
 type FormFieldChipSingleSelectExternalOptions = {
 	/**
@@ -22,10 +22,10 @@ type FormFieldChipSingleSelectExternalOptions = {
 	* Function to be executed as callback when an option is selected
 	*/
 	onSelect?: (...args) => void;
-}
+};
 
 export type FormFieldChipSingleSelectInputSettings = StrictUnion<FormFieldChipSingleSelectLocalOptions | FormFieldChipSingleSelectExternalOptions>;
 
 export type ChipData = MosaicLabelValue;
 
-export type FieldDefChip = FieldDefBase<"chip", FormFieldChipSingleSelectInputSettings, ChipData>
+export type FieldDefChip = FieldDefBase<"chip", FormFieldChipSingleSelectInputSettings, ChipData>;

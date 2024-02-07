@@ -8,7 +8,7 @@ import {
 // Components
 import Button from "@root/components/Button";
 
-export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
+export const DragAndDropContainer = styled.div<{ $isOver?: boolean }>`
   align-items: center;
   border: ${({ $isOver }) => ($isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : "")};
   background-color: ${({ $isOver }) => ($isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"])};
@@ -19,7 +19,7 @@ export const DragAndDropContainer = styled.div<{$isOver?: boolean}>`
   position: relative;
 `;
 
-export const DragAndDropSpan = styled.span<{$isOver?: boolean}>`
+export const DragAndDropSpan = styled.span<{ $isOver?: boolean }>`
   color: ${({ $isOver }) => ($isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"])};
   font-size: 16px;
   margin-bottom: ${({ $isOver }) => ($isOver ? "" : "24px")};

@@ -7,8 +7,8 @@ import {
 } from "./HelperText.styled";
 
 interface HelperTextProps {
-  children: ReactNode;
-  error?: boolean;
+	children: ReactNode;
+	error?: boolean;
 }
 
 const HelperText = ({

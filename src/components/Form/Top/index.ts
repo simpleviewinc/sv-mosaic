@@ -1,2 +1,2 @@
 export { default } from "./Top";
-export * from "./TopTypes"
+export * from "./TopTypes";

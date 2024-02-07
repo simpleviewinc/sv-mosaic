@@ -6,4 +6,4 @@ export const RawValueWrapper = styled.div`
     color: white;
     padding: 1rem 2rem;
     border-radius: 99999em;
-`
+`;

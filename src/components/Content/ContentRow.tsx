@@ -26,12 +26,12 @@ const ContentRow = ({ fields, field, rowIndex, data }: ContentRowProps) => {
 	if (!field) {
 		return (
 			<FieldContainer data-testid={testIds.CONTENT_FIELD} />
-		)
+		);
 	}
 
 	if (!currentField && field) {
 		throw new Error(
-			`No field declared for field name '${field}' in the ${rowIndex + 1} row.`
+			`No field declared for field name '${field}' in the ${rowIndex + 1} row.`,
 		);
 	}
 
@@ -40,7 +40,7 @@ const ContentRow = ({ fields, field, rowIndex, data }: ContentRowProps) => {
 	if (!shouldShow) {
 		return (
 			<FieldContainer data-testid={testIds.CONTENT_FIELD} />
-		)
+		);
 	}
 
 	const fieldName = currentField?.column ? currentField?.column : currentField?.name;
@@ -51,7 +51,7 @@ const ContentRow = ({ fields, field, rowIndex, data }: ContentRowProps) => {
 			<FieldContainer data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={<Blank />} />
 			</FieldContainer>
-		)
+		);
 	}
 
 	if (currentField && !currentField?.transforms) {
@@ -59,18 +59,18 @@ const ContentRow = ({ fields, field, rowIndex, data }: ContentRowProps) => {
 			<FieldContainer key={`value-${currentField.name}`} data-testid={testIds.CONTENT_FIELD}>
 				<ContentField label={currentField.label} content={data[fieldName]} />
 			</FieldContainer>
-		)
+		);
 	}
 
 	currentField?.transforms.forEach(transform => {
 		fieldValue = transform({ data: fieldValue });
-	})
+	});
 
 	return (
 		<FieldContainer key={`transformed-${currentField.name}`} data-testid={testIds.CONTENT_FIELD}>
 			<ContentField label={currentField.label} content={fieldValue} />
 		</FieldContainer>
-	)
-}
+	);
+};
 
 export default ContentRow;

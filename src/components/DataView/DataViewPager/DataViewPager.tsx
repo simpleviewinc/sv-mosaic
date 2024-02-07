@@ -21,7 +21,7 @@ function DataViewPager(props: DataViewPagerProps) {
 
 	const skipClick = (skip) => () => {
 		props.onSkipChange({ skip });
-	}
+	};
 
 	const previousDisabled = currentPage === 1;
 	const nextDisabled = currentPage === totalPages;
@@ -64,7 +64,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				disabled={nextDisabled}
 			/>
 		</StyledSpan>
-	)
+	);
 }
 
 export default memo(DataViewPager);

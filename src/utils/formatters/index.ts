@@ -1,1 +1,1 @@
-export { default as pretty } from "./prettyBytes"
+export { default as pretty } from "./prettyBytes";

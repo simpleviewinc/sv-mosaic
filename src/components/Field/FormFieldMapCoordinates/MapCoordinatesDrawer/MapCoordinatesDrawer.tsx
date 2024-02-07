@@ -20,9 +20,9 @@ const sections = [
 	{
 		fields: [
 			[["placesList"]],
-			[["lat"], ["lng"], ["resetButton"]]
-		]
-	}
+			[["lat"], ["lng"], ["resetButton"]],
+		],
+	},
 ];
 
 const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement => {
@@ -35,7 +35,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		handleDialogClose,
 		handleUnsavedChanges,
 		initialCenter = defaultMapPosition,
-		googleMapsApiKey
+		googleMapsApiKey,
 	} = props;
 
 	const getFormValues = useCallback(async () => {
@@ -51,10 +51,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 	const latLng = useMemo(() => {
 		const unsanitized = { lat: Number(state.data.lat), lng: Number(state.data.lng) };
-		return isValidLatLng(unsanitized) ? unsanitized : undefined
+		return isValidLatLng(unsanitized) ? unsanitized : undefined;
 	}, [
 		state.data.lat,
-		state.data.lng
+		state.data.lng,
 	]);
 
 	// If it looks like the user is trying to paste full coordinates
@@ -73,12 +73,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		dispatch(formActions.setFormValues({
 			values: {
 				lat: parts[0].trim(),
-				lng: parts[1].trim()
-			}
+				lng: parts[1].trim(),
+			},
 		}));
 	}, [
 		state.data.lat,
-		state.data.lng
+		state.data.lng,
 	]);
 
 	// Sync up the lat and lng form values with the reset button
@@ -91,12 +91,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		dispatch(formActions.setFieldValue({
 			name: "resetButton",
-			value: shouldShowReset
+			value: shouldShowReset,
 		}));
 	}, [
 		state.data.lat,
 		state.data.lng,
-		state.data.reset
+		state.data.reset,
 	]);
 
 	// Sync up the lat and lng form values with placesList,
@@ -105,7 +105,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		if (!latLng) {
 			dispatch(formActions.setFieldValue({
 				name: "placesList",
-				value: undefined
+				value: undefined,
 			}));
 
 			return;
@@ -119,12 +119,12 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		dispatch(formActions.setFieldValue({
 			name: "placesList",
-			value: { lat: latLng.lat, lng: latLng.lng }
+			value: { lat: latLng.lat, lng: latLng.lng },
 		}));
 	}, [
 		state.data.placesList,
-		latLng
-	])
+		latLng,
+	]);
 
 	// If the local lat/lng is different to the parent form,
 	// show the unsaved changes prompt
@@ -144,8 +144,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 
 		const latLngValue = {
 			...value,
-			...latLng
-		}
+			...latLng,
+		};
 
 		await onChange(latLngValue);
 		handleClose(true);
@@ -160,9 +160,9 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				values: {
 					placesList: { lat, lng },
 					lat: String(lat),
-					lng: String(lng)
-				}
-			})
+					lng: String(lng),
+				},
+			}),
 		);
 	}, [dispatch]);
 
@@ -174,7 +174,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			[
 				{
 					name: "placesList",
-					type: ({value}) => (
+					type: ({ value }) => (
 						<MapWithMarker
 							zoom={zoom}
 							focusZoom={focusZoom}
@@ -183,35 +183,35 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 							value={value}
 							googleMapsApiKey={googleMapsApiKey}
 						/>
-					)
+					),
 				},
 				{
 					name: "lat",
 					label: "Latitude",
 					type: "text",
-					validators: [isLatitude]
+					validators: [isLatitude],
 				},
 				{
 					name: "lng",
 					label: "Longitude",
 					type: "text",
-					validators: [isLongitude]
+					validators: [isLongitude],
 				},
 				{
 					name: "resetButton",
 					label: "Reset",
-					type: ({value}) => (
+					type: ({ value }) => (
 						<ResetButton
 							show={value}
 							onClick={() => dispatch(formActions.setFormValues({
 								values: {
 									lat: undefined,
 									lng: undefined,
-									placesList: undefined
-								}
+									placesList: undefined,
+								},
 							}))}
 						/>
-					)
+					),
 				},
 			],
 		[
@@ -219,8 +219,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			focusZoom,
 			initialCenter,
 			onCoordinatesChange,
-			dispatch
-		]
+			dispatch,
+		],
 	);
 
 	const buttons: ButtonProps[] = [
@@ -228,15 +228,15 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			label: "Cancel",
 			onClick: () => handleClose(),
 			color: "gray",
-			variant: "outlined"
+			variant: "outlined",
 		},
 		{
 			label: "Save Coordinates",
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained",
-			disabled: !latLng
-		}
+			disabled: !latLng,
+		},
 	];
 
 	return (

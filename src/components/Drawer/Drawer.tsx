@@ -11,9 +11,9 @@ const StyledDrawerContent = styled.div`
 	flex-direction: column;
 	height: 100%;
 	font-size: 14px;
-`
+`;
 
-const MUIDrawerStyled = styled(MUIDrawer)<{$anchorStyle: {currentStyle: AnchorStyle, previousStyle: AnchorStyle}, $display?: boolean}>`
+const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle, previousStyle: AnchorStyle }, $display?: boolean }>`
 	z-index: 1100;
 	${({ $anchorStyle, $display }) => $anchorStyle &&
 		`.MuiDrawer-paper {
@@ -42,7 +42,7 @@ ${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left"
 }
 		}`
 }
-`
+`;
 
 type AnchorStyle = "left" | "right";
 
@@ -69,7 +69,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		display,
 		anchorstyle,
 		exitCB,
-		backdropCloseHandler = true
+		backdropCloseHandler = true,
 	} = props;
 
 	const prevStyleRef = useRef<typeof anchorstyle>();
@@ -78,14 +78,14 @@ const Drawer = (props: DrawerProps): ReactElement => {
 	}, [anchorstyle]);
 
 	const [state, setState] = useState({
-		open: false
+		open: false,
 	});
 
 	useEffect(() => {
 		if (open === true) {
 			setState({
 				...state,
-				open: true
+				open: true,
 			});
 		}
 	}, [open]);
@@ -96,7 +96,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 			open: false,
 		});
 		if (exitCB) exitCB();
-	}
+	};
 
 	const onDrawClose = (e, r) => {
 		if (!backdropCloseHandler && r === "backdropClick") {
@@ -104,13 +104,13 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		}
 
 		onClose();
-	}
+	};
 
 	return (
 		<>
 			<MUIDrawerStyled
 				key={idx}
-				$anchorStyle={{currentStyle: anchorstyle, previousStyle: prevStyleRef.current}}
+				$anchorStyle={{ currentStyle: anchorstyle, previousStyle: prevStyleRef.current }}
 				anchor={anchor}
 				$display={display}
 				open={open}
@@ -127,7 +127,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 				}
 			</MUIDrawerStyled>
 		</>
-	)
-}
+	);
+};
 
 export default Drawer;

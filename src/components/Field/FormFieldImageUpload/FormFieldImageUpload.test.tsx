@@ -32,7 +32,7 @@ const options = [
 const FormFieldImageUploadExample = ({
 	useFocusHandler = true,
 }: {
-  useFocusHandler?: boolean;
+	useFocusHandler?: boolean;
 }) => {
 	return (
 		<FormFieldImageUpload
@@ -86,7 +86,7 @@ describe("FormFieldImageUpload disabled state", () => {
 					label: "",
 				}}
 				disabled
-			/>
+			/>,
 		);
 
 		const uploadButton = getByText("UPLOAD FILES");
@@ -104,7 +104,7 @@ describe("FormFieldImageUpload when menu options are not received", () => {
 					label: "",
 					disabled: false,
 				}}
-			/>
+			/>,
 		);
 
 		expect(queryByTestId("menu-container-test")).toBe(null);

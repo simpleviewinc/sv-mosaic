@@ -5,7 +5,7 @@ export const TitleBarWrapper = styled.div`
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
 	padding: 24px 24px 16px 24px;
 	width: 100%;
-`
+`;
 
 export const StyledWrapper = styled.div`
 	display: flex;

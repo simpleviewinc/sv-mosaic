@@ -6,7 +6,7 @@ import pkg from "../package.json";
 const {
 	CIRCLE_BRANCH,
 	CIRCLE_SHA1,
-	NPM_TOKEN
+	NPM_TOKEN,
 } = process.env;
 
 if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {

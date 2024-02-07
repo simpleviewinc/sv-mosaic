@@ -12,7 +12,7 @@ function RawValue() {
 		<RawValueWrapper role="presentation">
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 		</RawValueWrapper>
-	)
+	);
 }
 
 const FormFieldRawExample = () => {
@@ -21,7 +21,7 @@ const FormFieldRawExample = () => {
 			fieldDef={{
 				label: "Field label",
 				type: "raw",
-				name: "raw"
+				name: "raw",
 			}}
 			value={<RawValue />}
 		/>

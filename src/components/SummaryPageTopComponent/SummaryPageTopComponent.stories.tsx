@@ -41,7 +41,7 @@ export const Example = (): ReactElement => {
 			onClick: () => alert("Button 1 Click"),
 			color: "black",
 			variant: "text",
-			show: () => Number(showMainActions) > 0
+			show: () => Number(showMainActions) > 0,
 		},
 		{
 			label: "Button 2",
@@ -49,7 +49,7 @@ export const Example = (): ReactElement => {
 			onClick: () => alert("Button 2 Click"),
 			color: "black",
 			variant: "text",
-			show: () => Number(showMainActions) > 1
+			show: () => Number(showMainActions) > 1,
 		},
 		{
 			label: "Button 3",
@@ -57,7 +57,7 @@ export const Example = (): ReactElement => {
 			onClick: () => alert("Button 3 Click"),
 			color: "black",
 			variant: "text",
-			show: () => Number(showMainActions) > 2
+			show: () => Number(showMainActions) > 2,
 		},
 	];
 
@@ -73,7 +73,7 @@ export const Example = (): ReactElement => {
 			onClick : function() {
 				alert("DOWNLOAD CLICK");
 			},
-		}
+		},
 	];
 
 	const slicedAdditionalActions = useMemo(() => {
@@ -107,7 +107,7 @@ export const Example = (): ReactElement => {
 		<DescriptionItemParagraph key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</DescriptionItemParagraph>,
 		<Button
 			key={4}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[0].label}
@@ -117,7 +117,7 @@ export const Example = (): ReactElement => {
 		/>,
 		<Button
 			key={5}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[1].label}
@@ -127,7 +127,7 @@ export const Example = (): ReactElement => {
 		/>,
 		<Button
 			key={6}
-			attrs={{$linkButton: true}}
+			attrs={{ $linkButton: true }}
 			color="black"
 			variant="text"
 			label={textLinks[2].label}
@@ -140,7 +140,7 @@ export const Example = (): ReactElement => {
 	const favorite = {
 		checked: checked,
 		onClick: (val) => {alert(`Star changed to ${val ? "checked" : "unchecked"}`); setChecked(val);},
-	}
+	};
 
 	return (
 		<SummaryPageTopComponent

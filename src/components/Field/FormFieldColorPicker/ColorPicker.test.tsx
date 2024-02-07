@@ -16,9 +16,9 @@ describe("ColorPicker component", () => {
 		render(
 			<FormFieldColorPicker
 				value={value}
-				fieldDef={{ name: "colorPicker", label: "", type: "color", }}
+				fieldDef={{ name: "colorPicker", label: "", type: "color" }}
 				disabled
-			/>
+			/>,
 		);
 
 		fireEvent.click(getByTestId("colordiv-test"));
@@ -32,9 +32,9 @@ describe("ColorPicker component", () => {
 			r: 48,
 			g: 113,
 			b: 124,
-			a: 0.5
+			a: 0.5,
 		};
 
-		expect(RGBAToHexA(rgbaColor)).toBe("#30717c80")
+		expect(RGBAToHexA(rgbaColor)).toBe("#30717c80");
 	});
 });

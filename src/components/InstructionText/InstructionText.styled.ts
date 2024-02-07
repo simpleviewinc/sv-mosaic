@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import theme from "@root/theme";
 
 export const InstructionTextWrapper = styled.div`

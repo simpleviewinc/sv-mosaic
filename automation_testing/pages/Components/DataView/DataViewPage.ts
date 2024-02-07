@@ -129,13 +129,13 @@ export class DataviewPage extends BasePage {
 		return position;
 	}
 
-	async getAllRowData(dataName: "Title"|"Category"|"Created"|"Updated", resultsPerPage = 25): Promise<string[]> {
+	async getAllRowData(dataName: "Title" | "Category" | "Created" | "Updated", resultsPerPage = 25): Promise<string[]> {
 		await this.waitForDataviewIsVisible();
 		await this.wait();
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
 		const data = [];
 		let locator: Locator;
-		
+
 		switch (dataName) {
 		case "Title":
 			locator = this.ariaLabelRowTitleLocator;

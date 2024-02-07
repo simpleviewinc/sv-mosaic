@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState, useMemo} from "react";
+import { ReactElement, useState, useMemo } from "react";
 import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 // Utils
@@ -32,7 +32,7 @@ const baseTextField = {
 	required: true,
 	inputSettings: {
 		maxCharacters: 20,
-	}
+	},
 };
 
 const baseAddressField = {
@@ -41,17 +41,17 @@ const baseAddressField = {
 	inputSettings: {
 		getOptionsCountries: getOptionsCountries,
 		getOptionsStates: getOptionsStates,
-		googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
-	}
+		googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+	},
 };
 
 const baseMapCoordinatesField = {
 	type: "mapCoordinates",
 	instructionText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras venenatis arcu sed rutrum maximus.",
 	inputSettings: {
-		googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
-	}
-}
+		googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+	},
+};
 
 const Heading = styled.h2`
 	font-family: ${theme.museoFont};
@@ -72,7 +72,7 @@ const Heading = styled.h2`
 		margin-left: 16px;
 		margin-top: 4px;
 	}
-`
+`;
 
 async function getFormValues() {
 	return {
@@ -80,8 +80,8 @@ async function getFormValues() {
 		destinationsHeading: <Heading>Destinations</Heading>,
 		novaScotia: { lat: 44.64933472911243, lng: -63.615047475871876 },
 		eiffelTower: { lat: 48.858348895100555, lng: 2.294492026111051 },
-		lochNessMonster: { lat: 57.27050873488408, lng: -4.493444954407284 }
-	}
+		lochNessMonster: { lat: 57.27050873488408, lng: -4.493444954407284 },
+	};
 }
 
 const sections: SectionDef[] = [
@@ -93,7 +93,7 @@ const sections: SectionDef[] = [
 			[["text-sm"]],
 			[["text-md"]],
 			[["text-lg"]],
-		]
+		],
 	},
 	{
 		title: "Fields with grid layout",
@@ -107,9 +107,9 @@ const sections: SectionDef[] = [
 			[["whereToGo"]],
 			[["availableStart"], ["availableEnd"]],
 			[["novaScotia"], ["eiffelTower"], ["lochNessMonster"]],
-		]
-	}
-]
+		],
+	},
+];
 
 const options = {
 	default: `${parseInt(BREAKPOINTS.sm, 10) - 160}px`,
@@ -123,7 +123,7 @@ const options = {
 export const DrawerForm = (): ReactElement => {
 	const { state, dispatch } = useForm();
 
-	const fields  = useMemo<FieldDef[]>(() => [
+	const fields = useMemo<FieldDef[]>(() => [
 		{
 			...baseTextField,
 			name: "text-xs",
@@ -147,17 +147,17 @@ export const DrawerForm = (): ReactElement => {
 			name: "text-lg",
 			label: "Email address",
 			size: Sizes.lg,
-			validators: [validateEmail]
+			validators: [validateEmail],
 		},
 		{
 			...baseTextField,
 			name: "firstName",
-			label: "First Name"
+			label: "First Name",
 		},
 		{
 			...baseTextField,
 			name: "lastName",
-			label: "Last Name"
+			label: "Last Name",
 		},
 		{
 			type: "date",
@@ -169,12 +169,12 @@ export const DrawerForm = (): ReactElement => {
 			label: "Profile Picture",
 			type: "upload",
 			inputSettings: {
-				onFileAdd: async ({onUploadComplete, file}) => {
-					onUploadComplete({name: "Test", fileUrl: "https://www.google.com", id: uniqueId(), size: 1098})
+				onFileAdd: async ({ onUploadComplete }) => {
+					onUploadComplete({ name: "Test", fileUrl: "https://www.google.com", id: uniqueId(), size: 1098 });
 				},
 				onFileDelete: async () => {
 					// This is fine
-				}
+				},
 			},
 			required: true,
 		},
@@ -185,12 +185,12 @@ export const DrawerForm = (): ReactElement => {
 			size: Sizes.lg,
 			inputSettings: {
 				multiline: true,
-				minRows: 8
-			}
+				minRows: 8,
+			},
 		},
 		({
 			name: "petsHeading",
-			type: "raw"
+			type: "raw",
 		} as any),
 		{
 			label: "Favourite Pet",
@@ -198,8 +198,8 @@ export const DrawerForm = (): ReactElement => {
 			required: true,
 			type: "dropdown",
 			inputSettings: {
-				options: [{value: "dog", label: "Dog"}, {value: "cat", label: "Cat"}, {value: "rabbit", label: "Rabbit"}]
-			}
+				options: [{ value: "dog", label: "Dog" }, { value: "cat", label: "Cat" }, { value: "rabbit", label: "Rabbit" }],
+			},
 		},
 		{
 			label: "First Pet",
@@ -207,8 +207,8 @@ export const DrawerForm = (): ReactElement => {
 			required: true,
 			type: "dropdown",
 			inputSettings: {
-				options: [{value: "dog", label: "Dog"}, {value: "cat", label: "Cat"}, {value: "rabbit", label: "Rabbit"}]
-			}
+				options: [{ value: "dog", label: "Dog" }, { value: "cat", label: "Cat" }, { value: "rabbit", label: "Rabbit" }],
+			},
 		},
 		{
 			label: "Desired Pet",
@@ -216,8 +216,8 @@ export const DrawerForm = (): ReactElement => {
 			required: true,
 			type: "chip",
 			inputSettings: {
-				options: [{value: "kangaroo", label: "Kangaroo"}, {value: "cow", label: "Cow"}, {value: "duckbillPlatypus", label: "Duckbill Platypus"}, {value: "raccoon", label: "Raccoon"}, {value: "hog", label: "Hog"}, {value: "madagascarHissingCockroach", label: "Madagascar Hissing Cockroach"}, {value: "pronghorn", label: "Pronghorn"}, {value: "alligator", label: "Alligator"}]
-			}
+				options: [{ value: "kangaroo", label: "Kangaroo" }, { value: "cow", label: "Cow" }, { value: "duckbillPlatypus", label: "Duckbill Platypus" }, { value: "raccoon", label: "Raccoon" }, { value: "hog", label: "Hog" }, { value: "madagascarHissingCockroach", label: "Madagascar Hissing Cockroach" }, { value: "pronghorn", label: "Pronghorn" }, { value: "alligator", label: "Alligator" }],
+			},
 		},
 		{
 			...baseAddressField,
@@ -244,12 +244,12 @@ export const DrawerForm = (): ReactElement => {
 			label: "Books read",
 			type: "advancedSelection",
 			inputSettings: {
-				options: [{value: "the", label: "The Great Gatsby"}, {value: "cow", label: "To Kill a Mockingbird"}, {value: "duckbillPlatypus", label: "Pride and Prejudice"}, {value: "raccoon", label: "The Book Thief"}, {value: "hog", label: "Lord of the Flies"}, {value: "madagascarHissingCockroach", label: "The Catcher in the Rye"}]
-			}
+				options: [{ value: "the", label: "The Great Gatsby" }, { value: "cow", label: "To Kill a Mockingbird" }, { value: "duckbillPlatypus", label: "Pride and Prejudice" }, { value: "raccoon", label: "The Book Thief" }, { value: "hog", label: "Lord of the Flies" }, { value: "madagascarHissingCockroach", label: "The Catcher in the Rye" }],
+			},
 		},
 		({
 			name: "destinationsHeading",
-			type: "raw"
+			type: "raw",
 		} as any),
 		{
 			name: "whereToGo",
@@ -260,9 +260,9 @@ export const DrawerForm = (): ReactElement => {
 				dataView: {
 					columns: [{
 						name: "name",
-						label: "Name"
+						label: "Name",
 					}],
-					data: [{ id: 1, name: "Australia" }, { id: 2, name: "Japan" }]
+					data: [{ id: 1, name: "Australia" }, { id: 2, name: "Japan" }],
 				},
 				buttons: [
 					{
@@ -270,9 +270,9 @@ export const DrawerForm = (): ReactElement => {
 						onClick: () => null,
 						color: "teal",
 						variant: "text",
-						mIcon: AddCircleOutline
+						mIcon: AddCircleOutline,
 					},
-				]
+				],
 			},
 		},
 		{
@@ -281,8 +281,8 @@ export const DrawerForm = (): ReactElement => {
 			type: "date",
 			instructionText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras venenatis arcu sed rutrum maximus.",
 			inputSettings: {
-				showTime: true
-			}
+				showTime: true,
+			},
 		},
 		{
 			name: "availableEnd",
@@ -290,8 +290,8 @@ export const DrawerForm = (): ReactElement => {
 			type: "date",
 			instructionText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras venenatis arcu sed rutrum maximus.",
 			inputSettings: {
-				showTime: true
-			}
+				showTime: true,
+			},
 		},
 		{
 			...baseMapCoordinatesField,
@@ -299,8 +299,8 @@ export const DrawerForm = (): ReactElement => {
 			label: "Where is the Eiffel tower?",
 			inputSettings: {
 				...baseMapCoordinatesField.inputSettings,
-				initialCenter: { lat: 57.27050873488408, lng: -4.493444954407284 }
-			}
+				initialCenter: { lat: 57.27050873488408, lng: -4.493444954407284 },
+			},
 		},
 		{
 			...baseMapCoordinatesField,
@@ -308,8 +308,8 @@ export const DrawerForm = (): ReactElement => {
 			label: "Where's the Loch Ness monster?",
 			inputSettings: {
 				...baseMapCoordinatesField.inputSettings,
-				initialCenter: { lat: 48.858348895100555, lng: 2.294492026111051 }
-			}
+				initialCenter: { lat: 48.858348895100555, lng: 2.294492026111051 },
+			},
 		},
 		{
 			...baseMapCoordinatesField,
@@ -317,9 +317,9 @@ export const DrawerForm = (): ReactElement => {
 			label: "Where is Nova Scotia?",
 			inputSettings: {
 				...baseMapCoordinatesField.inputSettings,
-				initialCenter: { lat: 48.858348895100555, lng: 2.294492026111051 }
-			}
-		}
+				initialCenter: { lat: 48.858348895100555, lng: 2.294492026111051 },
+			},
+		},
 	], []);
 
 	const showSections = boolean("Show sections", false, "Layout");
@@ -357,7 +357,7 @@ export const DrawerForm = (): ReactElement => {
 					sx: { width: "90%" },
 				}}
 			>
-				<div style={{width: drawWidth}}>
+				<div style={{ width: drawWidth }}>
 					<Form
 						buttons={buttons}
 						title='Drawer form example'

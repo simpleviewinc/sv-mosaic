@@ -7,6 +7,6 @@ export type TimeData = {
 	validTime: boolean
 };
 
-export type FieldDefTime = FieldDefBase<"time", TimeFieldInputSettings, TimeData | string>
+export type FieldDefTime = FieldDefBase<"time", TimeFieldInputSettings, TimeData | string>;
 
 export type TimeTuple = [number, number, number, number];

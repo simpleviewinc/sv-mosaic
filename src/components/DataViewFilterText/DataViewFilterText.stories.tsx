@@ -6,7 +6,7 @@ import DataViewFilterText from "./DataViewFilterText";
 export default {
 	title : "Components/DataViewFilterText",
 	decorators: [withKnobs],
-}
+};
 
 export const Playground = (): ReactElement => {
 	const [state, setState] = useState({});
@@ -16,12 +16,12 @@ export const Playground = (): ReactElement => {
 	const comparisonDefault = select(
 		"Default comparison",
 		["contains", "not_contains", "equals", "not_equals", "exists", "not_exists", "undefined"],
-		"undefined"
+		"undefined",
 	);
 
 	const onChange = function(data) {
 		setState(data ?? {});
-	}
+	};
 
 	const onRemove = () => undefined;
 
@@ -37,8 +37,8 @@ export const Playground = (): ReactElement => {
 			onRemove={onRemove}
 			onChange={onChange}
 		/>
-	)
-}
+	);
+};
 
 export const KitchenSink = (): ReactElement => {
 	const [state, setState] = useState({
@@ -52,12 +52,12 @@ export const KitchenSink = (): ReactElement => {
 			[type]: data ?? {},
 		};
 		setState(newState);
-	}
+	};
 
 	const onRemove = () => undefined;
 
 	return (
-		<div style={{display: "flex", flexDirection: "column", gap: "16px"}}>
+		<div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 			<DataViewFilterText
 				label="Filter text example"
 				data={state.regular}
@@ -75,5 +75,5 @@ export const KitchenSink = (): ReactElement => {
 				onChange={(data) => onChange("comparisons", data)}
 			/>
 		</div>
-	)
-}
+	);
+};

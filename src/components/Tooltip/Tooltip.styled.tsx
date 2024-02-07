@@ -82,4 +82,4 @@ export const TooltipPopper: any = styled(Popper)`
 export const TooltipArrow = styled.div`
 	border: 5px solid transparent;
 	position: absolute;
-`
+`;

@@ -43,7 +43,7 @@ function LeftNavTitle(props: Props): ReactElement {
 			}
 			<span>{props.label}</span>
 		</StyledH3>
-	)
+	);
 }
 
 export default LeftNavTitle;

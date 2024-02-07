@@ -28,13 +28,13 @@ export const Playground = (): ReactElement => {
 					disabled,
 				},
 			],
-		[label, required, disabled]
+		[label, required, disabled],
 	);
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title={text("Title", "Form Title")}
@@ -69,13 +69,13 @@ export const KitchenSink = (): ReactElement => {
 					disabled: true,
 				},
 			] as FieldDef[],
-		[]
+		[],
 	);
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Form Title'

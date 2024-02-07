@@ -4,7 +4,7 @@ import {
 	memo,
 	ReactElement,
 	useState,
-	forwardRef
+	forwardRef,
 } from "react";
 import { ChipListPropsTypes } from ".";
 import {
@@ -12,7 +12,7 @@ import {
 	OptionsCheckedModalWrapper,
 	ShowHideSpan,
 	StyledExpandLessIcon,
-	StyledExpandMoreIcon
+	StyledExpandMoreIcon,
 } from "./AdvancedSelection.styled";
 
 const MAX_CHIPS_TO_SHOW = 8;
@@ -20,7 +20,7 @@ const MAX_CHIPS_TO_SHOW = 8;
 const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): ReactElement => {
 	const {
 		fieldDef,
-		value
+		value,
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
@@ -87,8 +87,8 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 			)}
 		</OptionsCheckedModalWrapper>
 	);
-})
+});
 
-ChipList.displayName = "ChipList"
+ChipList.displayName = "ChipList";
 
 export default memo(ChipList);

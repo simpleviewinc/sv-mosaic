@@ -47,7 +47,7 @@ export class FormFieldAddressPage extends BasePage {
 		this.titleAddAddressDrawerWrapper = this.formTestIDLocator.nth(1).locator("form div").first();
 	}
 
-	async fillAddresInformation(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
+	async fillAddresInformation(type:"physical" | "billing" | "shipping" | "all"): Promise<void> {
 		await this.wait(1000);
 		await this.firstAddressField.fill(us_address.address);
 		await this.selectOptionFromDropdown(this.countryDropdownButton, us_address.country);
@@ -58,7 +58,7 @@ export class FormFieldAddressPage extends BasePage {
 		await this.saveBtn.last().click();
 	}
 
-	async selectTypeOfAddress(type:"physical"|"billing"|"shipping"|"all"): Promise<void> {
+	async selectTypeOfAddress(type:"physical" | "billing" | "shipping" | "all"): Promise<void> {
 		switch (type) {
 		case "physical":
 			await this.physicalCheckboxOption.click();

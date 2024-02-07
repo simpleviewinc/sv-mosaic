@@ -17,19 +17,19 @@ function useTooltip(): UseTooltipResult {
 	const tooltipProps = useMemo<HookTooltipProps>(() => ({
 		open,
 		anchorEl: ref,
-		id: `tooltip-${id}`
-	}), [open, ref, id])
+		id: `tooltip-${id}`,
+	}), [open, ref, id]);
 
 	const anchorProps = useMemo<AnchorProps>(() => ({
 		ref: setRef,
 		onMouseEnter: () => setOpen(true),
 		onMouseLeave: () => setOpen(false),
-		"aria-describedby": `tooltip-${id}`
+		"aria-describedby": `tooltip-${id}`,
 	}), [id]);
 
 	return {
 		tooltipProps,
-		anchorProps
+		anchorProps,
 	};
 }
 

@@ -23,12 +23,12 @@ function useStoryBookCssReset() {
 
 		return () => {
 			document.body.parentElement.classList.remove("resetHtml");
-		}
+		};
 	}, []);
 }
 
 export {
 	countRenders,
 	useStateRef,
-	useStoryBookCssReset
-}
+	useStoryBookCssReset,
+};
