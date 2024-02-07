@@ -19,13 +19,13 @@ describe("Layout logic", () => {
 		{
 			name: "text3",
 			label: "Text that copies to the next input",
-			type: "text"
+			type: "text",
 		},
 		{
 			name: "text4",
 			label: "Text that receives copy",
-			type: "text"
-		}
+			type: "text",
+		},
 	];
 
 	const sections = [
@@ -36,7 +36,7 @@ describe("Layout logic", () => {
 				// row 2
 				[["text3"], ["text4"], ["text1"]],
 				[[]],
-			]
+			],
 		},
 		{
 			fields: [
@@ -45,9 +45,9 @@ describe("Layout logic", () => {
 				// row 2
 				[[], [], []],
 				[[]],
-			]
-		}
-	]
+			],
+		},
+	];
 
 	const tests = [
 		{
@@ -57,10 +57,10 @@ describe("Layout logic", () => {
 				data: fields,
 				result: [
 					{
-						"fields": [[["text1"]], [["text2"]], [["text3"]], [["text4"]]]
-					}
-				]
-			}
+						"fields": [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
+					},
+				],
+			},
 		},
 		{
 			name: "Ignore empty positions",
@@ -71,16 +71,16 @@ describe("Layout logic", () => {
 					{
 						fields: [
 							[["text1"], ["text2"], ["text3"]],
-							[["text3"], ["text4"], ["text1"]]
-						]
+							[["text3"], ["text4"], ["text1"]],
+						],
 					},
 					{
 						fields: [
 							[[], ["text2"], ["text3"]],
-						]
+						],
 					},
-				]
-			}
+				],
+			},
 		},
 		{
 			name: "No sections",
@@ -94,7 +94,7 @@ describe("Layout logic", () => {
 							// row 2
 							[[], [], []],
 							[[]],
-						]
+						],
 					},
 					{
 						fields: [
@@ -103,21 +103,21 @@ describe("Layout logic", () => {
 							// row 2
 							[[], [], []],
 							[[]],
-						]
-					}
+						],
+					},
 				],
 				result: [
 					{
 						fields: [
-							[[], ["text1"], []]
-						]
+							[[], ["text1"], []],
+						],
 					},
 					{
-						fields: []
+						fields: [],
 					},
-				]
-			}
-		}
+				],
+			},
+		},
 	];
 
 	testArray(tests, test => {
@@ -125,7 +125,7 @@ describe("Layout logic", () => {
 		test.type === "fields" ?
 			result = generateLayout({ fields })
 			:
-			result = generateLayout({ fields, sections: test.data as SectionDef[] })
+			result = generateLayout({ fields, sections: test.data as SectionDef[] });
 
 		assert.deepStrictEqual(result, test.result);
 	});

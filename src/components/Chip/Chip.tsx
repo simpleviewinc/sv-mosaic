@@ -35,7 +35,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			onClick={onClick}
 			data-testid="chip-testid"
 		/>
-	)
+	);
 };
 
 export default Chip;

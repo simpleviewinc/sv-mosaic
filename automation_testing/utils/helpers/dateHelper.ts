@@ -8,23 +8,23 @@ export const getDateFormatted = (date: Date) : string => {
 	const yyyy = date.getFullYear();
 	const dateFormatted = mm + "/" + dd + "/" + yyyy;
 	return dateFormatted;
-}
+};
 
 export const getMonthFullName = (date: Date) : string => {
 	return fullMonthNames[date.getMonth()];
-}
+};
 
 export const getMonthShortName = (date: Date) : string => {
 	return shortMonthNames[date.getMonth()];
-}
+};
 
 export const getDateFormattedForDatePicker = (date: Date) : string => {
 	const dd = String(date.getDate());
 	const mm = getMonthShortName(date);
 	const yyyy = date.getFullYear();
 	return mm + " " + dd + ", " + yyyy;
-}
+};
 
 export const getMonthNumber = (month: string) : number => {
 	return fullMonthNames.indexOf(month) + 1;
-}
+};

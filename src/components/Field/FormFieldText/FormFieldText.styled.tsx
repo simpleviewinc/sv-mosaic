@@ -11,7 +11,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	<TextField {...rest} />
 ))`
 	&.MuiFormControl-root {
-		${({disabled}) => !disabled ? (`
+		${({ disabled }) => !disabled ? (`
 			background-color: ${theme.newColors.grey1["100"]};
 			&:hover {
 				& fieldset {
@@ -40,7 +40,7 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	.MuiOutlinedInput-input {
 		font-family: ${theme.fontFamily};
 
-		${({disabled}) => !disabled ? `
+		${({ disabled }) => !disabled ? `
 			color: ${theme.newColors.almostBlack["100"]};
 		` : `
 			color: ${theme.colors.disabledTextColor};

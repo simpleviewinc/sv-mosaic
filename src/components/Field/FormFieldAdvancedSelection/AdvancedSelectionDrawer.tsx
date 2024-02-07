@@ -4,7 +4,7 @@ import {
 	memo,
 	ReactElement,
 	useCallback,
-	useState
+	useState,
 } from "react";
 import { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
 import { FormDrawerWrapper } from "../../../forms/shared/styledComponents";
@@ -43,14 +43,14 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 			label: "Cancel",
 			onClick: () => handleClose(),
 			color: "gray",
-			variant: "outlined"
+			variant: "outlined",
 		},
 		{
 			label: "Save",
 			onClick: onSubmit,
 			color: "yellow",
-			variant: "contained"
-		}
+			variant: "contained",
+		},
 	];
 
 	const getSyncOptions: GetOptions = ({ keyword }) => {
@@ -58,13 +58,13 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		const regSearchKeyword = new RegExp(keyword, "i");
 		if (keyword !== undefined && localOptions.options !== undefined) {
 			newOptions = localOptions?.options.filter(option => {
-				return regSearchKeyword.exec(option.label)
-			})
+				return regSearchKeyword.exec(option.label);
+			});
 		}
 		return {
 			docs: newOptions,
-			hasMore: false
-		}
+			hasMore: false,
+		};
 	};
 
 	return (

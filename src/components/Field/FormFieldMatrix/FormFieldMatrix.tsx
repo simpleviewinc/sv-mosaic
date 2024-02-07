@@ -9,7 +9,7 @@ import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 
 const FormFieldMatrix = (
-	props: MosaicFieldProps<"matrix", MatrixInputSettings, MatrixData>
+	props: MosaicFieldProps<"matrix", MatrixInputSettings, MatrixData>,
 ): ReactElement => {
 	const {
 		value,
@@ -37,7 +37,7 @@ const FormFieldMatrix = (
 			{hasValue && (
 				<DataView
 					data={[]}
-					{...{...dataView, disabled, data}}
+					{...{ ...dataView, disabled, data }}
 				/>
 			)}
 		</MatrixWrapper>

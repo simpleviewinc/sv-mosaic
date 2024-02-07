@@ -14,10 +14,10 @@ describe("TextField component", () => {
 				instructionText: "Instruction text",
 				inputSettings: {
 					placeholder: "placeholder",
-				}
+				},
 			}}
 
-		/>)
+		/>);
 		const placeholderElement = screen.getByPlaceholderText("placeholder");
 		expect(placeholderElement).toBeDefined();
 	});
@@ -34,11 +34,11 @@ describe("TextField multiline behaviour", () => {
 					helperText: "Helper text",
 					inputSettings: {
 						placeholder: "placeholder",
-						multiline: false
+						multiline: false,
 					},
 				}}
 
-			/>
+			/>,
 		);
 		const textField = screen.getByPlaceholderText("placeholder");
 
@@ -55,11 +55,11 @@ describe("TextField multiline behaviour", () => {
 					helperText: "Helper text",
 					inputSettings: {
 						placeholder: "placeholder",
-						multiline: true
+						multiline: true,
 					},
 				}}
 
-			/>
+			/>,
 		);
 
 		const textField = screen.getByPlaceholderText("placeholder");

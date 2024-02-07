@@ -5,43 +5,43 @@ import Button from "../Button";
 import MenuSelect from "./";
 
 export default {
-	title : "Components/MenuSelect"
-}
+	title : "Components/MenuSelect",
+};
 
 const MENU_OPTIONS = [
 	{
 		label : "Item A",
-		value : "a"
+		value : "a",
 	},
 	{
 		label : "Item B",
-		value : "b"
+		value : "b",
 	},
 	{
 		label : "Item C",
-		value : "c"
+		value : "c",
 	},
 	{
 		label : "Item D",
-		value : "d"
+		value : "d",
 	},
 	{
 		label : "Item E",
-		value : "e"
-	}
-]
+		value : "e",
+	},
+];
 
 export const example = (): ReactElement => {
 	const [state, setState] = useState({
-		value : ""
+		value : "",
 	});
 
 	const onChange = function(value) {
 		setState({
 			...state,
-			value
-		})
-	}
+			value,
+		});
+	};
 
 	return (
 		<Fragment>
@@ -59,20 +59,20 @@ export const example = (): ReactElement => {
 				}
 			/>
 		</Fragment>
-	)
-}
+	);
+};
 
 export const withPlaceholder = (): ReactElement => {
 	const [state, setState] = useState({
-		value : ""
+		value : "",
 	});
 
 	const onChange = function(value) {
 		setState({
 			...state,
-			value
-		})
-	}
+			value,
+		});
+	};
 
 	return (
 		<Fragment>
@@ -91,5 +91,5 @@ export const withPlaceholder = (): ReactElement => {
 				}
 			/>
 		</Fragment>
-	)
-}
+	);
+};

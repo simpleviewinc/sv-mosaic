@@ -34,19 +34,19 @@ const buttonList = [
 ];
 
 const FormFieldTextEditor = (
-	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>
+	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>,
 ): ReactElement => {
 	const { fieldDef, onBlur, onChange, value, disabled, error } = props;
 
 	const {
-		inputSettings = {}
+		inputSettings = {},
 	} = fieldDef;
 
 	const {
 		spellcheck = false,
 		direction = "ltr",
 		language = "en",
-		maxCharacters
+		maxCharacters,
 	} = inputSettings;
 
 	const textArea = useRef(null);
@@ -55,7 +55,7 @@ const FormFieldTextEditor = (
 
 	const config = useMemo(() => ({
 		cleanHTML: {
-			fillEmptyParagraph: false
+			fillEmptyParagraph: false,
 		},
 		namespace: "",
 		disabled,
@@ -73,7 +73,7 @@ const FormFieldTextEditor = (
 		spellcheck,
 		direction,
 		language,
-		maxCharacters
+		maxCharacters,
 	]);
 
 	useEffect(() => {
@@ -89,12 +89,12 @@ const FormFieldTextEditor = (
 
 		jodit.current.events.on("blur", () => {
 			const value = jodit.current.value === "<p><br></p>" ? "" : jodit.current.value;
-			blurHandler(value)
+			blurHandler(value);
 		});
 
 		jodit.current.events.on("change", () => {
 			const value = jodit.current.value === "<p><br></p>" ? "" : jodit.current.value;
-			changeHandler(value)
+			changeHandler(value);
 		});
 
 		return () => jodit.current.destruct();

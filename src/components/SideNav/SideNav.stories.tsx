@@ -69,19 +69,19 @@ export const Example = (): ReactElement => {
 				name: "sv_link",
 				icon: Link,
 				attrs: {
-					href: "https://www.simpleviewinc.com/"
-				}
+					href: "https://www.simpleviewinc.com/",
+				},
 			},
 			{
 				label: "SV Link - Custom",
 				name: "sv_link-custom",
 				icon: Link,
 				attrs: {
-					href: "https://www.simpleviewinc.com/"
+					href: "https://www.simpleviewinc.com/",
 				},
 				onNav: (args) => {
 					setActive(args.item.name);
-					setContent(<h1 style={{background: "#444", color: "white", padding: 10}}>This is the custom link page. It uses its own onNav handler instead of the one provided to the SideNav</h1>);
+					setContent(<h1 style={{ background: "#444", color: "white", padding: 10 }}>This is the custom link page. It uses its own onNav handler instead of the one provided to the SideNav</h1>);
 				},
 			},
 			{
@@ -89,9 +89,9 @@ export const Example = (): ReactElement => {
 				name: "google",
 				icon: Link,
 				attrs: {
-					href: "https://www.google.co.uk"
+					href: "https://www.google.co.uk",
 				},
-				onNav: false
+				onNav: false,
 			},
 			{
 				label: "Google (New Tab)",
@@ -99,9 +99,9 @@ export const Example = (): ReactElement => {
 				icon: OpenInNew,
 				attrs: {
 					href: "https://www.google.co.uk",
-					target: "_blank"
+					target: "_blank",
 				},
-				onNav: false
+				onNav: false,
 			},
 		],
 		[

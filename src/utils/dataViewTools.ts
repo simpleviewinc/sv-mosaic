@@ -10,21 +10,21 @@ export function transformColumn(row: MosaicObject, column: DataViewColumn): unkn
 			}
 		}
 	}
-	
+
 	return data;
 }
 
 export function transformRows(rows: MosaicObject[], columns: DataViewColumn[]): MosaicObject[] {
 	const newRows = rows.map((row) => {
 		const newRow = {
-			...row
+			...row,
 		};
 		columns.forEach(column => {
 			newRow[column.name] = transformColumn(row, column);
 		});
-		
+
 		return newRow;
 	});
-	
+
 	return newRows;
 }

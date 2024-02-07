@@ -23,61 +23,61 @@ function Menu(props: MenuProps) {
 					schema : [
 						{
 							name : "label",
-							type : "string"
+							type : "string",
 						},
 						{
 							name : "color",
 							type : "string",
-							enum : ["blue", "red", "black"]
+							enum : ["blue", "red", "black"],
 						},
 						{
 							name : "mIcon",
-							type : "object"
+							type : "object",
 						},
 						{
 							name : "disabled",
-							type : "boolean"
+							type : "boolean",
 						},
 						{
 							name : "selected",
-							type : "boolean"
+							type : "boolean",
 						},
 						{
 							name : "onClick",
-							type : "function"
+							type : "function",
 						},
 						{
 							name : "attrs",
-							type : "object"
-						}
+							type : "object",
+						},
 					],
-					allowExtraKeys : false
-				}
+					allowExtraKeys : false,
+				},
 			},
 			{
 				name : "anchorEl",
-				type : "object"
+				type : "object",
 			},
 			{
 				name : "open",
 				type : "boolean",
-				required : true
+				required : true,
 			},
 			{
 				name : "onClose",
 				type : "function",
-				required : true
-			}
+				required : true,
+			},
 		],
 		allowExtraKeys : false,
-		throwOnInvalid : true
+		throwOnInvalid : true,
 	});
 
 	const menuItems = props.items.map((item, i) => {
 		const onClick = function() {
 			item.onClick();
 			props.onClose();
-		}
+		};
 
 		return (
 			<MenuItem
@@ -85,7 +85,7 @@ function Menu(props: MenuProps) {
 				{...item}
 				onClick={onClick}
 			/>
-		)
+		);
 	});
 
 	return (
@@ -96,7 +96,7 @@ function Menu(props: MenuProps) {
 		>
 			{menuItems}
 		</MenuBase>
-	)
+	);
 }
 
 export default Menu;

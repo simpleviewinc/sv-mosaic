@@ -25,6 +25,6 @@ export const renderButtons = (dispatch: unknown, show = { showCancel: true, show
 		onClick: () => onSubmit(dispatch),
 		color: "yellow",
 		variant: "contained",
-		show: show.showSave
+		show: show.showSave,
 	},
 ];

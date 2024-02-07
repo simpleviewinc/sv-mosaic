@@ -3,7 +3,7 @@ import {
 	memo,
 	ReactElement,
 	useState,
-	useMemo
+	useMemo,
 } from "react";
 import {
 	MapCoordinatesData,
@@ -85,7 +85,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			await handleClose(true);
 		}
 		setIsDialogOpen(false);
-	}
+	};
 
 	/**
 	 * Clear values for the entered location.

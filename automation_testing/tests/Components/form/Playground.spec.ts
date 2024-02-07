@@ -29,7 +29,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test.skip("Validate that you can save when completing all required fields", async () => {
 		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
-		await playgroundPage.wait()
+		await playgroundPage.wait();
 		await playgroundPage.saveBtn.click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
@@ -71,7 +71,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate that when getFormValues() is undefined, and default values exists, it should only use the default values.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
-		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.wait();
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
@@ -80,7 +80,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate that when getFormValues() exists is undefined, and default values don't exist, the form should be empty.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionReturnUndefined;
-		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
@@ -88,7 +88,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate that when getFormValues() doesn't exist, and default values exist, it should only use the default values.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionHasDefaultValues;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
-		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.wait();
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateDefaultValuesExpectedResults(simplyGoldColor);
@@ -97,7 +97,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 	test("Validate that when getFormValues() doesn't exist, and default values don't exist, it should be blank.", async () => {
 		const defaultValuesKnob = playgroundKnobs.knobDefaultValues + playgroundKnobs.optionNone;
 		const getFormValuesKnob = playgroundKnobs.knobGetFormValues + playgroundKnobs.optionNone;
-		await playgroundPage.visit(playgroundPage.page_path,[defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
+		await playgroundPage.visit(playgroundPage.page_path, [defaultValuesKnob, getFormValuesKnob, prepopulateKnob]);
 		await playgroundPage.simpleText.waitFor();
 		await playgroundPage.validateFormIsEmpty(grey2Color);
 	});
@@ -116,7 +116,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.locator("label[for='advancedSelection']"), playgroundPage.page.locator("label[for='imageVideoDocumentLink']"),
 			playgroundPage.page.locator("label[for='textEditor']"),
 			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
-			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']") ];
+			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']")];
 		for (let i = 0; i < labels.length; i++) {
 			expect(await playgroundPage.getColorFromElement(labels[i].first()), `Checking Font Color of the Label ${i}`).toBe(theme.newColors.grey4["100"]);
 		}

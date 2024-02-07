@@ -12,8 +12,8 @@ class SingleSelectHelper {
 	async getOptions(): Promise<MultiSelectHelperGetOptionsReturn> {
 		return this.multiHelper.getOptions({
 			limit : Infinity,
-			skip : 0
-		})
+			skip : 0,
+		});
 	}
 	async getSelected(id: string): Promise<MosaicLabelValue> {
 		const items = await this.multiHelper.getSelected([id]);

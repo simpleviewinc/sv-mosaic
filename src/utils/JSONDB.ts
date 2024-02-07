@@ -10,8 +10,8 @@ interface Relationship {
 }
 
 class JSONDB {
-	data: {[key: string]: any}[]
-	relationships: Relationship[]
+	data: { [key: string]: any }[];
+	relationships: Relationship[];
 	constructor(data, { relationships }: { relationships?: Relationship[] } = {}) {
 		this.data = data;
 		this.relationships = relationships;
@@ -46,9 +46,9 @@ class JSONDB {
 					const items = await relationship.api.find({
 						filter : {
 							[relationship.right_key] : {
-								$in : ids
-							}
-						}
+								$in : ids,
+							},
+						},
 					});
 
 					row[relationship.key] = items;
@@ -57,7 +57,7 @@ class JSONDB {
 		}
 
 		if (query.reorderedList !== undefined) {
-			data = query.reorderedList.map(reorderedElement => data.find(element => element.id === reorderedElement))
+			data = query.reorderedList.map(reorderedElement => data.find(element => element.id === reorderedElement));
 		}
 
 		return data;
@@ -112,7 +112,7 @@ function filterData(data, filter: FilterObj) {
 						: intersection(row[key], val.$not_in).length === 0;
 				} else {
 					return val.$in ? val.$in.includes(row[key])
-						: !val.$not_in.includes(row[key])
+						: !val.$not_in.includes(row[key]);
 				}
 			});
 		}

@@ -3,7 +3,7 @@ import * as assert from "assert";
 
 import {
 	transformColumn,
-	transformRows
+	transformRows,
 } from "./dataViewTools";
 
 describe(__filename, function() {
@@ -18,11 +18,11 @@ describe(__filename, function() {
 						transforms : [
 							({ data }) => {
 								return data * 2;
-							}
-						]
+							},
+						],
 					},
-					result : 4
-				}
+					result : 4,
+				},
 			},
 			{
 				name : "multiple transforms",
@@ -36,11 +36,11 @@ describe(__filename, function() {
 							},
 							({ data }) => {
 								return data * 3;
-							}
-						]
+							},
+						],
 					},
-					result : 12
-				}
+					result : 12,
+				},
 			},
 			{
 				name : "transform with no data return undefined",
@@ -49,13 +49,13 @@ describe(__filename, function() {
 					column : {
 						name : "foo",
 						transforms : [
-							({ data }) => {
+							() => {
 								throw new Error("should not get here");
-							}
-						]
+							},
+						],
 					},
-					result : undefined
-				}
+					result : undefined,
+				},
 			},
 			{
 				name : "transform access another column",
@@ -66,18 +66,18 @@ describe(__filename, function() {
 						transforms : [
 							({ data, row }) => {
 								return `${data}_${row.id}`;
-							}
-						]
+							},
+						],
 					},
-					result : "fooValue_2"
-				}
-			}
+					result : "fooValue_2",
+				},
+			},
 		];
 
 		testArray(tests, function(test) {
 			const result = transformColumn(test.data, test.column);
 			assert.strictEqual(result, test.result);
-		})
+		});
 	});
 
 	describe("transformRows", function() {
@@ -87,7 +87,7 @@ describe(__filename, function() {
 				args : {
 					data : [
 						{ id : 1, foo : "fooValue" },
-						{ id : 2, foo : "fooValue2" }
+						{ id : 2, foo : "fooValue2" },
 					],
 					columns : [
 						{
@@ -95,29 +95,29 @@ describe(__filename, function() {
 							transforms : [
 								({ data }) => {
 									return `id_${data}`;
-								}
-							]
+								},
+							],
 						},
 						{
 							name : "foo",
 							transforms : [
 								({ data, row }) => {
 									return `${data}_${row.id}`;
-								}
-							]
-						}
+								},
+							],
+						},
 					],
 					result : [
 						{ id : "id_1", foo : "fooValue_1" },
-						{ id : "id_2", foo : "fooValue2_2" }
-					]
-				}
-			}
-		]
+						{ id : "id_2", foo : "fooValue2_2" },
+					],
+				},
+			},
+		];
 
 		testArray(tests, async function(test) {
 			const result = transformRows(test.data, test.columns);
 			assert.deepStrictEqual(result, test.result);
-		})
-	})
-})
+		});
+	});
+});

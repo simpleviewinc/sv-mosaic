@@ -54,8 +54,8 @@ export const Playground = (): ReactElement => {
 			instructionText,
 			maxCharacters,
 			spellcheck,
-			language
-		]
+			language,
+		],
 	);
 
 	return (

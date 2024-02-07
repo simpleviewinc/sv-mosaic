@@ -33,7 +33,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		onSortChange,
 		sort,
 		allChecked,
-		anyChecked
+		anyChecked,
 	} = props;
 
 	const limitOptionsValue = useMemo(() => {

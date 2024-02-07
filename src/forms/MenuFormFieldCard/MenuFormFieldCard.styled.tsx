@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "@root/theme"
+import theme from "@root/theme";
 
 // Material UI
 import Menu from "@mui/material/Menu";

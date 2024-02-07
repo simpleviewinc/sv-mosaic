@@ -34,7 +34,7 @@ export const SuggestionsContainer = styled.div`
   box-shadow: 0 1px 3px rgba(0,0,0,.05);
 `;
 
-export const SuggestionsDescriptionContainer = styled.div<{$isSuggestionActive?: boolean}>`
+export const SuggestionsDescriptionContainer = styled.div<{ $isSuggestionActive?: boolean }>`
   	background-color: ${({ $isSuggestionActive }) => $isSuggestionActive ? theme.colors.gray200 : "white"};
   	cursor: pointer;
 	padding: 6px 16px;

@@ -86,7 +86,7 @@ export const linkExample = [
 		label: "URL",
 		value: "https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg",
 	},
-]
+];
 
 /**
  * Custom hook that abstracts the logic of setting an asset type.
@@ -97,7 +97,7 @@ export const linkExample = [
  */
 export const useImageVideoLinkDocumentBrowsing = (
 	dispatch: (action: unknown) => void,
-	fieldName : string
+	fieldName : string,
 ) : UseImageVideoLinkDocumentBrowsingReturn => {
 	const setImage = async () => {
 		await dispatch(
@@ -105,8 +105,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 				name: fieldName,
 				value: imageAssetExample,
 				validate: true,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 		alert("Set image is called");
 	};
@@ -116,8 +116,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: videoAssetExample,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 		alert("Set video is called");
 	};
@@ -127,8 +127,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: documentExample,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 		alert("Set document is called");
 	};
@@ -138,8 +138,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: linkExample,
-				touched: true
-			})
+				touched: true,
+			}),
 		);
 		alert("Set Link has been called");
 	};
@@ -149,13 +149,13 @@ export const useImageVideoLinkDocumentBrowsing = (
 			formActions.setFieldValue({
 				name: fieldName,
 				value: [],
-			})
+			}),
 		);
 
 		dispatch(
 			formActions.validateField({
-				name: fieldName
-			})
+				name: fieldName,
+			}),
 		);
 	};
 
@@ -164,6 +164,6 @@ export const useImageVideoLinkDocumentBrowsing = (
 		setVideo,
 		setDocument,
 		setLink,
-		handleRemove
-	}
+		handleRemove,
+	};
 };

@@ -5,7 +5,7 @@ const leftnav_data = {
 	hidden: "Hidden",
 	active: "(Active)",
 	publicRelations: "Public Relations",
-	sitemap: "Sitemap"
-}
+	sitemap: "Sitemap",
+};
 
-export { leftnav_data }
+export { leftnav_data };

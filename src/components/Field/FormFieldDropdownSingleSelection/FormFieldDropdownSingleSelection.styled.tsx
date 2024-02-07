@@ -7,12 +7,12 @@ import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
 import Popper from "@mui/material/Popper";
 import { FieldDef } from "@root/components/Field";
 
-export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
+export const StyledAutocomplete = styled(MUIAutocomplete)<{ $error?: boolean }>`
   & .MuiFormControl-root .MuiInputBase-root {
     font-family: ${theme.fontFamily};
     color: ${theme.newColors.almostBlack["100"]};
 
-    ${({disabled}) => !disabled ? (`
+    ${({ disabled }) => !disabled ? (`
       background-color: ${theme.newColors.grey1["100"]};
 			&:hover {
 				& fieldset {
@@ -25,7 +25,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
   }
 
   & .MuiFormControl-root .MuiInputBase-root .MuiOutlinedInput-notchedOutline {
-    ${({disabled, $error}) => disabled ? `
+    ${({ disabled, $error }) => disabled ? `
       border-color: ${theme.colors.disableBorder};
     ` : $error ? `
       ${theme.borders.error};
@@ -79,7 +79,7 @@ export const StyledAutocomplete = styled(MUIAutocomplete)<{$error?: boolean}>`
   }
 `;
 
-export const SingleDropdownWrapper = styled.div<{$innerWidth: FieldDef["size"]}>`
+export const SingleDropdownWrapper = styled.div<{ $innerWidth: FieldDef["size"] }>`
   margin: 0;
   padding: 0;
 
@@ -93,7 +93,7 @@ export const SingleDropdownWrapper = styled.div<{$innerWidth: FieldDef["size"]}>
   }
 `;
 
-export const StyledPopper = styled(Popper)<{$value?: boolean}>`
+export const StyledPopper = styled(Popper)<{ $value?: boolean }>`
   z-index: 999999999 !important;
   .MuiAutocomplete-listbox .MuiAutocomplete-option {
     font-family: ${theme.fontFamily};

@@ -15,7 +15,7 @@ const ColField = ({
 	sectionIdx,
 	dispatch,
 	state,
-	spacing
+	spacing,
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -38,7 +38,7 @@ const ColField = ({
 		dispatch(formActions.setFieldValue({
 			name: field.name,
 			value,
-			touched: true
+			touched: true,
 		}));
 	}, [field.name]);
 
@@ -46,8 +46,8 @@ const ColField = ({
 		field.onBlurCb && field.onBlurCb();
 
 		dispatch(formActions.setFieldBlur({
-			name: field.name
-		}))
+			name: field.name,
+		}));
 	}, [field.name]);
 
 	const value = state?.internalData[field.name];
@@ -55,12 +55,12 @@ const ColField = ({
 
 	const size = sanitizeFieldSize(
 		field.size,
-		field.type
+		field.type,
 	);
 
 	const shouldShow = useWrappedToggle(field, state, "show");
 
-	const sanitizedFieldDef = useMemo(() => ({ ...field, size, }), [field, size])
+	const sanitizedFieldDef = useMemo(() => ({ ...field, size }), [field, size]);
 
 	const children = useMemo(() => (
 		<Component
@@ -95,6 +95,6 @@ const ColField = ({
 			{children}
 		</Field>
 	);
-}
+};
 
 export default memo(ColField);

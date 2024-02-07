@@ -52,22 +52,22 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 		mIcon: MoreVert,
 		menuItems: shownAdditionalActions,
 		muiAttrs: {
-			"data-testid": "btn-additional-action"
-		}
+			"data-testid": "btn-additional-action",
+		},
 	} : null, [shownAdditionalActions]);
 
 	const buttons: ButtonProps[] = useMemo(() => [
 		...mainActions.map<ButtonProps>(mainAction => ({
 			...mainAction,
-			attrs: {$smallText: true},
+			attrs: { $smallText: true },
 			size: "small",
 			muiAttrs: {
-				"data-testid": "btn-main-action"
+				"data-testid": "btn-main-action",
 			},
 		})),
 		...(additionActionsButton ? [
-			additionActionsButton
-		] : [])
+			additionActionsButton,
+		] : []),
 	], [mainActions, additionActionsButton]);
 
 	return (

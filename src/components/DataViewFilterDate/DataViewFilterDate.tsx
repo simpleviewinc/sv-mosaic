@@ -17,7 +17,7 @@ const StyledWrapper = styled.span``;
 function isSame(dateLeft, dateRight) {
 	return [isSameDay, isSameMonth, isSameYear].every(fn => {
 		return fn(dateLeft, dateRight);
-	})
+	});
 }
 
 export default function DataViewFilterDate(props: DataViewFilterDateProps): ReactElement {
@@ -25,13 +25,13 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 
 	const onClick = function(evt) {
 		setAnchorEl(evt.currentTarget);
-	}
+	};
 
 	const onClose = function() {
 		setAnchorEl(null);
-	}
+	};
 
-	let valueString: string | undefined = undefined
+	let valueString: string | undefined = undefined;
 
 	if (props.data)
 		if ("rangeStart" in props.data || "rangeEnd" in props.data) {

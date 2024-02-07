@@ -31,54 +31,54 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	text: {
 		Component: FormFieldText,
 		validate: "onBlurAmend",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	checkbox: {
 		Component: FormFieldCheckbox,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	chip: {
 		Component: FormFieldChipSingleSelect,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	dropdown: {
 		Component: FormFieldDropdownSingleSelection,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	phone: {
 		Component: FormFieldPhoneSelectionDropdown,
 		validate: "onBlurAmend",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	radio: {
 		Component: FormFieldRadio,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	toggleSwitch: {
 		Component: FormFieldToggleSwitch,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	imageVideoDocumentLink: {
 		Component: FormFieldImageVideoLinkDocumentBrowsing,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	color: {
 		Component: FormFieldColorPicker,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	date: {
 		Component: FormFieldDate,
 		validate: "onBlurChange",
 		getResolvedValue: (
 			value: DateData | Date | undefined,
-			fieldDef: FieldDefDate
+			fieldDef: FieldDefDate,
 		): {
 			internalValue: DateData | undefined,
 			value: Date | undefined
@@ -86,15 +86,15 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 			if (value instanceof Date ) {
 				return {
 					internalValue: { date: value, validDate: true, time: value, validTime: true },
-					value
-				}
+					value,
+				};
 			} else {
 				const fixedTime = fieldDef?.inputSettings?.fixedTime || [0, 0, 0, 0];
 
 				if (!value) {
 					return {
 						internalValue: undefined,
-						value: undefined
+						value: undefined,
 					};
 				}
 
@@ -110,15 +110,15 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 					return { internalValue: value, value: undefined };
 				}
 
-				return { internalValue: value , value: matchTime(value.date, value.time) };
+				return { internalValue: value, value: matchTime(value.date, value.time) };
 			}
-		}
+		},
 	},
 	time: {
 		Component: FormFieldTime,
 		validate: "onBlur",
 		getResolvedValue: (
-			value: TimeData | string | undefined
+			value: TimeData | string | undefined,
 		): {
 			internalValue: TimeData | undefined,
 			value: string | undefined
@@ -132,13 +132,13 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 
 				return {
 					internalValue: { time: date, validTime: true },
-					value
-				}
+					value,
+				};
 			} else {
 				if (!value) {
 					return {
 						internalValue: undefined,
-						value: undefined
+						value: undefined,
 					};
 				}
 
@@ -152,55 +152,55 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 					String(value.time.getMinutes()).padStart(2, "0")
 				}`;
 
-				return { internalValue: value , value: time };
+				return { internalValue: value, value: time };
 			}
-		}
+		},
 	},
 	address: {
 		Component: FormFieldAddress,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	textEditor: {
 		Component: FormFieldTextEditor,
 		validate: "onBlurAmend",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	advancedSelection: {
 		Component: FormFieldAdvancedSelection,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	mapCoordinates: {
 		Component: FormFieldMapCoordinates,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	imageUpload: {
 		Component: FormFieldImageUpload,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	matrix: {
 		Component: FormFieldMatrix,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	upload: {
 		Component: FormFieldUpload,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	numberTable: {
 		Component: FormFieldNumberTable,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
+		getResolvedValue: defaultResolver,
 	},
 	raw: {
 		Component: FormFieldRaw,
 		validate: "onChange",
-		getResolvedValue: defaultResolver
-	}
+		getResolvedValue: defaultResolver,
+	},
 };
 
 export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
@@ -208,7 +208,7 @@ export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
 		return {
 			Component: type,
 			validate: "onBlur",
-			getResolvedValue: defaultResolver
+			getResolvedValue: defaultResolver,
 		};
 	}
 
@@ -216,7 +216,7 @@ export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
 		return {
 			Component: null,
 			validate: "onBlur",
-			getResolvedValue: defaultResolver
+			getResolvedValue: defaultResolver,
 		};
 	}
 

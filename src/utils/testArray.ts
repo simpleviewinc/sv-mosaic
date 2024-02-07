@@ -26,17 +26,17 @@ interface TestRunner<T extends Test> {
 }
 
 export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T>): void {
-	tests.forEach((val, i) => {
+	tests.forEach((val) => {
 		const testAction = val.skip ? it.skip : val.only ? it.only : it;
 
 		testAction(val.name, async () => {
 			const test = val.args instanceof Function ? await val.args() : val.args;
-	
+
 			val.before !== undefined && await val.before(test);
 
 			await fn(test as TestArgs<T["args"]>);
 
-			val.after !== undefined &&  await val.after(test);
+			val.after !== undefined && await val.after(test);
 		}, val.timeout);
-	})
+	});
 }

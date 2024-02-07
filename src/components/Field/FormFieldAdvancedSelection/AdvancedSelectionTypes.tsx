@@ -9,7 +9,7 @@ export type optionsWithCategory = {
 type AdvancedSelectionBasic = {
 	createNewOption?: (filter: string) => Promise<MosaicLabelValue>;
 	selectLimit?: number;
-}
+};
 
 export type AdvancedSelectionLocalOptions = {
 	/**
@@ -51,4 +51,4 @@ export interface AdvanceSelectionDrawerPropTypes {
 
 export type AdvancedSelectionData = MosaicLabelValue[];
 
-export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>
+export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>;

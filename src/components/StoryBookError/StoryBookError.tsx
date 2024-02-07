@@ -10,12 +10,12 @@ interface ErrorState {
 }
 
 export default class StoryBookError extends Component<Props, ErrorState> {
-	errorRendered: boolean
+	errorRendered: boolean;
 
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			error : undefined
+			error : undefined,
 		};
 
 		// store a value to determine if we've rendered the error to the screen
@@ -27,8 +27,8 @@ export default class StoryBookError extends Component<Props, ErrorState> {
 			// if we've rendered with the error already, clear the error
 			this.errorRendered = false;
 			this.setState({
-				error : undefined
-			})
+				error : undefined,
+			});
 		}
 
 		if (this.state.error) {
@@ -38,7 +38,7 @@ export default class StoryBookError extends Component<Props, ErrorState> {
 
 	componentDidCatch(error: Error): void {
 		this.setState({
-			error
+			error,
 		});
 	}
 

@@ -1,146 +1,129 @@
 module.exports = {
-	"parserOptions": {
-		"ecmaVersion": 11,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
-		}
+	parserOptions: {
+		ecmaVersion: 11,
+		sourceType: "module",
+		ecmaFeatures: {
+			jsx: true,
+		},
+	},
+	globals: {
+		google: true,
+		React: true,
+		JSX: true,
+	},
+	plugins: [
+		"@typescript-eslint",
+		"@stylistic",
+		"react",
+		"react-hooks",
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+	],
+	rules: {
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"@stylistic/indent": ["error", "tab", { "flatTernaryExpressions": true }],
+		"@stylistic/quotes": ["error", "double", { "avoidEscape": true }],
+		"@stylistic/semi": ["error", "always"],
+		"@stylistic/no-extra-semi": "error",
+		"@stylistic/no-mixed-spaces-and-tabs": "error",
+		"@stylistic/one-var-declaration-per-line": "error",
+		"@stylistic/space-infix-ops": "error",
+		"@stylistic/keyword-spacing": "error",
+		"@stylistic/comma-dangle": ["error", "always-multiline"],
+		"@stylistic/eol-last": ["error", "always"],
+		"@stylistic/object-curly-spacing": ["error", "always"],
+		"@stylistic/array-bracket-spacing": ["error", "never"],
+		"@stylistic/comma-spacing": ["error", { "before": false, "after": true }],
+		"@stylistic/no-trailing-spaces": ["error"],
+		"@stylistic/no-multi-spaces": ["error"],
+		"constructor-super": "error",
+		"for-direction": "error",
+		"getter-return": "error",
+		"no-unused-vars": "error",
+		"no-async-promise-executor": "error",
+		"no-case-declarations": "error",
+		"no-class-assign": "error",
+		"no-compare-neg-zero": "error",
+		"no-cond-assign": "error",
+		"no-const-assign": "error",
+		"no-constant-condition": "error",
+		"no-control-regex": "error",
+		"no-debugger": "error",
+		"no-delete-var": "error",
+		"no-dupe-args": "error",
+		"no-dupe-class-members": "error",
+		"no-dupe-keys": "error",
+		"no-duplicate-case": "error",
+		"no-empty": "error",
+		"no-empty-character-class": "error",
+		"no-empty-pattern": "error",
+		"no-ex-assign": "error",
+		"no-extra-boolean-cast": "error",
+		"no-fallthrough": "error",
+		"no-func-assign": "error",
+		"no-global-assign": "error",
+		"no-inner-declarations": "error",
+		"no-invalid-regexp": "error",
+		"no-irregular-whitespace": "error",
+		"no-misleading-character-class": "error",
+		"no-new-symbol": "error",
+		"no-obj-calls": "error",
+		"no-octal": "error",
+		"no-prototype-builtins": "error",
+		"no-redeclare": "error",
+		"no-regex-spaces": "error",
+		"no-self-assign": "error",
+		"no-shadow-restricted-names": "error",
+		"no-sparse-arrays": "error",
+		"no-this-before-super": "error",
+		"no-undef": "error",
+		"no-unexpected-multiline": "error",
+		"no-unreachable": "error",
+		"no-unsafe-finally": "error",
+		"no-unsafe-negation": "error",
+		"no-unused-labels": "error",
+		"no-useless-catch": "error",
+		"no-useless-escape": "error",
+		"no-with": "error",
+		"require-yield": "error",
+		"use-isnan": "error",
+		"valid-typeof": "error",
+		"no-var": "error",
 	},
 	"overrides": [
 		{
+			"parser": "@typescript-eslint/parser",
 			"files": [
 				"**/*.ts",
-				"**/*.tsx"
+				"**/*.tsx",
 			],
-			"parser": "@typescript-eslint/parser",
 			"rules": {
+				"no-redeclare": "off",
+				"@typescript-eslint/no-redeclare": "error",
 				"no-unused-vars": "off",
-				"@typescript-eslint/no-unused-vars": [
-					2,
-					{
-						"vars": "all",
-						"args": "none",
-						"ignoreRestSiblings": true
-					}
-				],
-				"@typescript-eslint/no-explicit-any": "off"
+				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
 			},
 			"extends": [
 				"eslint:recommended",
 				"plugin:react/recommended",
-				"plugin:@typescript-eslint/recommended"
+				"plugin:@typescript-eslint/recommended",
 			],
-			"plugins": [
-				"@typescript-eslint",
-				"react",
-				"react-hooks"
-			]
-		}
-	],
-	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended"
-	],
-	"rules": {
-		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn",
-		"prefer-const": 2,
-		"no-unused-vars": [
-			2,
-			{
-				"vars": "all",
-				"args": "none",
-				"ignoreRestSiblings": true
-			}
-		],
-		"indent": [
-			"error",
-			"tab",
-			{
-				"flatTernaryExpressions": true
-			}
-		],
-		"space-before-blocks": 2,
-		"quotes": [
-			2,
-			"double",
-			{
-				"avoidEscape": true
-			}
-		],
-		"constructor-super": 2,
-		"for-direction": 2,
-		"getter-return": 2,
-		"no-async-promise-executor": 2,
-		"no-case-declarations": 2,
-		"no-class-assign": 2,
-		"no-compare-neg-zero": 2,
-		"no-cond-assign": 2,
-		"no-const-assign": 2,
-		"no-constant-condition": 2,
-		"no-control-regex": 2,
-		"no-debugger": 2,
-		"no-delete-var": 2,
-		"no-dupe-args": 2,
-		"no-dupe-class-members": 2,
-		"no-dupe-keys": 2,
-		"no-duplicate-case": 2,
-		"no-empty": 2,
-		"no-empty-character-class": 2,
-		"no-empty-pattern": 2,
-		"no-ex-assign": 2,
-		"no-extra-boolean-cast": 2,
-		"no-extra-semi": 2,
-		"no-fallthrough": 2,
-		"no-func-assign": 2,
-		"no-global-assign": 2,
-		"no-inner-declarations": 2,
-		"no-invalid-regexp": 2,
-		"no-irregular-whitespace": 2,
-		"no-misleading-character-class": 2,
-		"no-mixed-spaces-and-tabs": 2,
-		"no-new-symbol": 2,
-		"no-obj-calls": 2,
-		"no-octal": 2,
-		"no-prototype-builtins": 2,
-		"no-redeclare": 2,
-		"no-regex-spaces": 2,
-		"no-self-assign": 2,
-		"no-shadow-restricted-names": 2,
-		"no-sparse-arrays": 2,
-		"no-this-before-super": 2,
-		"no-undef": 2,
-		"no-unexpected-multiline": 2,
-		"no-unreachable": 2,
-		"no-unsafe-finally": 2,
-		"no-unsafe-negation": 2,
-		"no-unused-labels": 2,
-		"no-useless-catch": 2,
-		"no-useless-escape": 2,
-		"no-with": 2,
-		"require-yield": 2,
-		"use-isnan": 2,
-		"valid-typeof": 2,
-		"no-var": 2,
-		"one-var-declaration-per-line": 2,
-		"space-infix-ops": 2,
-		"keyword-spacing": 2
-	},
-	"plugins": [
-		"react",
-		"react-hooks"
+		},
 	],
 	"env": {
 		"browser": true,
 		"node": true,
 		"es6": true,
 		"mocha": true,
-		"jest": true
+		"jest": true,
 	},
 	"settings": {
 		"react": {
 			"pragma": "React",
-			"version": "detect"
-		}
-	}
-}
+			"version": "detect",
+		},
+	},
+};

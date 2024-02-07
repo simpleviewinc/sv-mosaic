@@ -78,9 +78,9 @@ const address: IAddress = {
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
 	postalCode: "85704",
-	country: {label: "United States", value: "US"},
-	state: {label: "Arizona", value: "AZ"},
-	types: [{label: "Physical", value: "physical"}, {label: "Billing", value: "billing"}]
+	country: { label: "United States", value: "US" },
+	state: { label: "Arizona", value: "AZ" },
+	types: [{ label: "Physical", value: "physical" }, { label: "Billing", value: "billing" }],
 };
 
 export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
@@ -96,7 +96,7 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInp
 			name: "address",
 			type: "address",
 			inputSettings: props.inputSettings,
-		}
+		},
 	];
 
 	return (
@@ -110,11 +110,11 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInp
 
 const {
 	getByText,
-	getByTestId
+	getByTestId,
 } = screen;
 
-const mockOnChange = jest.fn()
-const mockOnSelect = jest.fn()
+const mockOnChange = jest.fn();
+const mockOnSelect = jest.fn();
 const mockClear = jest.fn();
 
 beforeAll(() => {
@@ -126,7 +126,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 jest.setTimeout(60000);
@@ -160,9 +160,9 @@ describe("AddressAutocomplete component", () => {
 								<StyledClearIcon onClick={mockClear} />
 							</InputAdornment>
 						),
-					}
+					},
 				}}
-			/>
+			/>,
 		);
 
 		const inputElement = getByTestId("location-search-input") as HTMLInputElement;

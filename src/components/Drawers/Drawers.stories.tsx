@@ -36,7 +36,7 @@ export const Example = (): ReactElement => {
 			addDrawer,
 			removeDrawer,
 		}),
-		[addDrawer, removeDrawer]
+		[addDrawer, removeDrawer],
 	);
 
 	return (

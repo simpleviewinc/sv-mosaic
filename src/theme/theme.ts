@@ -10,21 +10,21 @@ export const BREAKPOINTS = {
 	topComponent : {
 		responsiveView: 1075,
 		bigScreenView: 1200,
-	}
+	},
 };
 
 export const CONTAINERS = {
 	ASSET_CARD: "asset_card",
 	FORM: "form",
-	FORM_COL: "form_column"
-}
+	FORM_COL: "form_column",
+};
 
 export enum Views {
 	bigDesktop = "BIG_DESKTOP",
 	desktop = "DESKTOP",
 	drawer = "DRAWER",
 	mobile = "MOBILE",
-	responsive = "RESPONSIVE"
+	responsive = "RESPONSIVE",
 }
 
 const colorMap = {
@@ -42,12 +42,12 @@ const colorMap = {
 	simplyBlue: "0,164,239",
 	simplyGold: "253,185,36",
 	simplyGreen: "141,198,63",
-}
+};
 
-type MY_OBJECT_KEYS = keyof typeof colorMap
+type MY_OBJECT_KEYS = keyof typeof colorMap;
 type Color = {
 	[key: string]: string
-}
+};
 
 const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
 	almostBlack: {},
@@ -63,7 +63,7 @@ const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
 	simplyGrey: {},
 	simplyBlue: {},
 	simplyGold: {},
-	simplyGreen: {}
+	simplyGreen: {},
 };
 
 const opacities = [1, 0.8, 0.6, 0.4, 0.2, 0.05];
@@ -81,7 +81,7 @@ const rgbaToRGB = (color: string, opacity: number) => {
 	const b = Math.round((1 - alpha) * 255 + alpha * bNum);
 
 	return `rgb(${r}, ${g}, ${b})`;
-}
+};
 
 for (const [name, rgb] of Object.entries(colorMap)) {
 	newColors[name] = {};
@@ -148,7 +148,7 @@ const colors = {
 	white: "#FFFFFF",
 	whiteIntense: "#EEEEEE",
 	whiteWashed: "rgba(255,255,255,.2)",
-	blackDisabled: "rgba(0, 0, 0, 0.26)"
+	blackDisabled: "rgba(0, 0, 0, 0.26)",
 };
 
 const borders = {
@@ -157,7 +157,7 @@ const borders = {
 	gray : "1px solid rgba(0, 0, 0, .15)",
 	fieldGray : "1px solid #CCCCCC",
 	error : "1px solid #B10000",
-	simplyGrey: `1px solid ${newColors.simplyGrey["100"]}`
+	simplyGrey: `1px solid ${newColors.simplyGrey["100"]}`,
 };
 
 export default {
@@ -175,7 +175,7 @@ export default {
 		normal: 400,
 		medium: 500,
 		semiBold: 600,
-		bold: 700
+		bold: 700,
 	},
 	colors,
 	newColors,
@@ -183,10 +183,10 @@ export default {
 	fontFamily : "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	museoFont: "Museo-Sans, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Ubuntu, Arial, sans-serif",
 	animations : {
-		backgroundMs : "250ms"
+		backgroundMs : "250ms",
 	},
 	breakpoints : {
-		mobile : `${BREAKPOINTS.mobile}px`
+		mobile : `${BREAKPOINTS.mobile}px`,
 	},
 	fieldSpecs: {
 		inputText: {
@@ -208,4 +208,4 @@ export default {
 			fieldPadding: "15px",
 		},
 	},
-}
+};

@@ -24,13 +24,13 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 					const checkedData = props.data.filter((val, i) => props.checked?.[i] === true);
 					onClick({ data : checkedData });
 				}
-			}
-		}
+			},
+		};
 	});
 
 	return (
 		<ButtonRow buttons={buttons}/>
-	)
+	);
 }
 
 export default memo(DataViewBulkActionsButtonsRow);

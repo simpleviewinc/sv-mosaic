@@ -5,20 +5,20 @@ export type PageConfig = FormConfig | GridConfig;
 export type AnyFunc = (...args: any) => any;
 
 export interface FormConfig {
-  type: "form";
-  title: string;
-  fields: FieldDef[];
+	type: "form";
+	title: string;
+	fields: FieldDef[];
 }
 
 export interface GridConfig {
-  type: "grid";
-  title: string;
-  data: Record<string, string>[];
+	type: "grid";
+	title: string;
+	data: Record<string, string>[];
 }
 
 export interface DrawerDef {
-  config: PageConfig;
-  callbacks?: PageCallbacks;
+	config: PageConfig;
+	callbacks?: PageCallbacks;
 }
 
 export type PageCallbacks = Record<string, AnyFunc>;

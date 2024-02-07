@@ -15,7 +15,7 @@ export const StyledFieldContainer = styled.div`
 	}
 `;
 
-export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormSpacing}>`
+export const StyledFieldWrapper = styled.div<{ $error?: boolean, $spacing?: FormSpacing }>`
 	font-family: ${theme.fontFamily};
 	position: relative;
 	min-width: 0;
@@ -34,12 +34,12 @@ export const StyledFieldWrapper = styled.div<{$error?: boolean, $spacing?: FormS
 export const StyledLabelControlWrapper = styled.div<{ $fullWidth?: boolean }>`
 	max-width: 100%;
 
-	${({$fullWidth}) => $fullWidth && `
+	${({ $fullWidth }) => $fullWidth && `
 		width: 100%;
 	`}
-`
+`;
 
-export const StyledControlWrapper = styled.div<{$size?: string}>`
+export const StyledControlWrapper = styled.div<{ $size?: string }>`
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;

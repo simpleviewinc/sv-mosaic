@@ -14,12 +14,12 @@ afterEach(cleanup);
 
 const { getAllByRole, getByText } = screen;
 
-const FormFieldCheckboxExample = (props: {fromDB?: boolean}) => {
+const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 	const [checked, setChecked] = useState([]);
 
 	const onChange = async (checked) => {
 		setChecked(checked);
-	}
+	};
 
 	return (
 		<>
@@ -30,7 +30,7 @@ const FormFieldCheckboxExample = (props: {fromDB?: boolean}) => {
 						type: "checkbox",
 						label: "test",
 						inputSettings: {
-							options: checkboxOptions
+							options: checkboxOptions,
 						},
 					}}
 					value={checked}
@@ -43,7 +43,7 @@ const FormFieldCheckboxExample = (props: {fromDB?: boolean}) => {
 						type: "checkbox",
 						label: "test",
 						inputSettings: {
-							getOptions: getOptions
+							getOptions: getOptions,
 						},
 					}}
 					value={checked}
@@ -57,7 +57,7 @@ const FormFieldCheckboxExample = (props: {fromDB?: boolean}) => {
 describe("FormFieldCheckbox component", () => {
 	beforeEach(() => {
 		render(<FormFieldCheckboxExample fromDB={false} />);
-	})
+	});
 
 	it("should display the list of options", () => {
 		expect(getByText("Label 1")).toBeTruthy();
@@ -86,6 +86,6 @@ describe("FormFieldCheckbox component with options from DB", () => {
 			expect(getByText("Option 2")).toBeTruthy();
 			expect(getByText("Option 3")).toBeTruthy();
 			expect(getByText("Option 4")).toBeTruthy();
-		}, {timeout: 1000});
+		}, { timeout: 1000 });
 	});
 });

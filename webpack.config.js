@@ -7,25 +7,25 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(ts|tsx)$/,
-				loader : "ts-loader"
+				loader : "ts-loader",
 			},
 			{
 				test : /\.css$/,
-				loader : ["style-loader", "css-loader"]
+				loader : ["style-loader", "css-loader"],
 			},
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
 				loader: "babel-loader",
-				options: { presets: ["@babel/env"] }
-			}
-		]
+				options: { presets: ["@babel/env"] },
+			},
+		],
 	},
 	resolve: {
 		extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
 		alias : {
-			"react-dom": "@hot-loader/react-dom"
-		}
+			"react-dom": "@hot-loader/react-dom",
+		},
 	},
 	output: {
 		path: path.resolve(__dirname, "docs/dist/"),
@@ -41,8 +41,8 @@ module.exports = {
 		disableHostCheck : true,
 		watchOptions : {
 			aggregateTimeout: 300,
-			poll: 1000
-		}
+			poll: 1000,
+		},
 	},
-	plugins: [new webpack.HotModuleReplacementPlugin()]
+	plugins: [new webpack.HotModuleReplacementPlugin()],
 };

@@ -1,10 +1,10 @@
 import React, { useCallback, useState, ReactElement } from "react";
 import CloudDownload from "@mui/icons-material/CloudDownload";
-import { DownloaderProps } from "./DownloaderTypes"
+import { DownloaderProps } from "./DownloaderTypes";
 import Button from "../Button";
 import Spinner from "../Spinner";
 
-const Downloader = ({url, ...props}: DownloaderProps): ReactElement => {
+const Downloader = ({ url, ...props }: DownloaderProps): ReactElement => {
 	const [loading, setLoading] = useState(false);
 
 	const startDownload = useCallback(() => {
@@ -15,7 +15,7 @@ const Downloader = ({url, ...props}: DownloaderProps): ReactElement => {
 		const finish = () => {
 			document.body.removeChild(iframe);
 			setLoading(false);
-		}
+		};
 
 		iframe.onload = finish;
 		iframe.onerror = finish;
@@ -29,7 +29,7 @@ const Downloader = ({url, ...props}: DownloaderProps): ReactElement => {
 		<Spinner />
 	) : (
 		<Button {...props} mIcon={CloudDownload} onClick={startDownload} />
-	)
-}
+	);
+};
 
-export default Downloader
+export default Downloader;

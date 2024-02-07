@@ -27,7 +27,7 @@ export const Playground = (): ReactElement => {
 	const optionsOrigin = select(
 		"Options Origin",
 		["Local", "DB"],
-		"Local"
+		"Local",
 	);
 	const getOptionsLimit = number("Get options limit", 5);
 	const createNewOptionsKnob = boolean("Create new option", true);
@@ -39,7 +39,7 @@ export const Playground = (): ReactElement => {
 		api: categoriesApi,
 		labelColumn: "tag",
 		valueColumn: "id",
-		sortColumn: "sort_tag"
+		sortColumn: "sort_tag",
 	});
 
 	const createNewOption = async (newOptionLabel) => {
@@ -50,11 +50,11 @@ export const Playground = (): ReactElement => {
 			"sort_tag": newOptionLabel,
 			"updated": new Date(),
 			"created": new Date(),
-			"id": value
+			"id": value,
 		};
 
 		//Insert to db
-		additionalOptions.push({label: newOption.tag, value: newOption.id});
+		additionalOptions.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 
@@ -62,7 +62,7 @@ export const Playground = (): ReactElement => {
 
 		await categoriesApi.setData(newData);
 
-		return {label: newOption.tag, value: newOption.id};
+		return { label: newOption.tag, value: newOption.id };
 	};
 
 	const fields = useMemo(
@@ -84,7 +84,7 @@ export const Playground = (): ReactElement => {
 							? getOptionsLimit
 							: undefined,
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
-						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined
+						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined,
 					},
 				},
 			],
@@ -98,8 +98,8 @@ export const Playground = (): ReactElement => {
 			options,
 			optionsOrigin,
 			createNewOptionsKnob,
-			selectLimit
-		]
+			selectLimit,
+		],
 	);
 
 	return (
@@ -127,7 +127,7 @@ export const KitchenSink = (): ReactElement => {
 		api: categoriesApi,
 		labelColumn: "tag",
 		valueColumn: "id",
-		sortColumn: "sort_tag"
+		sortColumn: "sort_tag",
 	});
 
 	const createNewOption = async (newOptionLabel) => {
@@ -138,11 +138,11 @@ export const KitchenSink = (): ReactElement => {
 			"sort_tag": newOptionLabel,
 			"updated": new Date(),
 			"created": new Date(),
-			"id": value
+			"id": value,
 		};
 
 		//Insert to db
-		additionalOptions.push({label: newOption.tag, value: newOption.id});
+		additionalOptions.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 
@@ -150,7 +150,7 @@ export const KitchenSink = (): ReactElement => {
 
 		await categoriesApi.setData(newData);
 
-		return {label: newOption.tag, value: newOption.id};
+		return { label: newOption.tag, value: newOption.id };
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -162,7 +162,7 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						options,
-					}
+					},
 				},
 				{
 					name: "getOptions",
@@ -170,8 +170,8 @@ export const KitchenSink = (): ReactElement => {
 					type: "advancedSelection",
 					inputSettings: {
 						getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
-						getOptionsLimit: 5
-					}
+						getOptionsLimit: 5,
+					},
 				},
 
 				{
@@ -181,8 +181,8 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 						getOptionsLimit: 10,
-						createNewOption
-					}
+						createNewOption,
+					},
 				},
 				{
 					name: "selectLimitOfOptions",
@@ -191,11 +191,11 @@ export const KitchenSink = (): ReactElement => {
 					inputSettings: {
 						options,
 						getOptionsLimit: 10,
-						selectLimit: 2
-					}
+						selectLimit: 2,
+					},
 				},
 			],
-		[options]
+		[options],
 	);
 
 	return (

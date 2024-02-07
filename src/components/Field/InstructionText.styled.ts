@@ -1,8 +1,8 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import theme from "@root/theme";
 import { containerQuery } from "@root/utils/css";
 
-export const InstructionTextWrapper = styled.div<{$colsInRow?: number}>`
+export const InstructionTextWrapper = styled.div<{ $colsInRow?: number }>`
 	padding-left: 20px;
 	border-left: 2px solid ${theme.newColors.grey2["100"]};
 	flex: none;
@@ -11,7 +11,7 @@ export const InstructionTextWrapper = styled.div<{$colsInRow?: number}>`
 	display: none;
 	width: 180px;
 
-	${({$colsInRow = 1}) => $colsInRow === 1 && `
+	${({ $colsInRow = 1 }) => $colsInRow === 1 && `
 		${containerQuery("sm", "FORM_COL")} {
 			display: block;
 		}

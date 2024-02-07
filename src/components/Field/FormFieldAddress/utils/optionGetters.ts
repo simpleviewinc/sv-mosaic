@@ -10,7 +10,7 @@ export const getOptionsCountries = async (): Promise<MosaicLabelValue[]> => {
 
 export const getOptionsStates = async (countryValue: string | undefined): Promise<MosaicLabelValue[]> => {
 	const selectedCountry = countriesWithStates?.find(
-		(c) => c.iso2 === countryValue
+		(c) => c.iso2 === countryValue,
 	);
 
 	if (selectedCountry) {

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean, object } from "@storybook/addon-knobs";
 
 // Utils
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils"
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm, formActions } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
@@ -28,14 +28,14 @@ export default {
 const initialSection1Fields = [
 	[["text1"], ["textarea"], ["text2"]],
 	[["text3"], [], ["text4"]],
-	[["toggleSwitch"], ["color"], ["formMatrix"]]
+	[["toggleSwitch"], ["color"], ["formMatrix"]],
 ];
 
 function randomNumber(min: number, max: number) {
-	return Math.floor(Math.random() * (max - min + 1) + min)
+	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export const FormWithLayout = (props: {height?: string}): ReactElement => {
+export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	useEffect(() => {
@@ -43,11 +43,11 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const gridConfig: DataViewProps = {
-		columns: [{name: "id", label: "ID"}, {name: "title", label: "Title"}, {name: "description", label: "Description"}],
+		columns: [{ name: "id", label: "ID" }, { name: "title", label: "Title" }, { name: "description", label: "Description" }],
 		primaryActions: [
 			{
 				name: "delete",
@@ -55,17 +55,17 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
-					const filteredRows =  state.data.formMatrix.filter(row => row.id !== data.id);
+					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
 					await dispatch(
 						formActions.setFieldValue({
 							name: "formMatrix",
 							value: filteredRows,
-							touched: true
-						})
+							touched: true,
+						}),
 					);
-				}
-			}
+				},
+			},
 		],
 		data: state.data.formMatrix,
 		limit: 25,
@@ -75,8 +75,8 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 
 	const showState = boolean("Show state", false);
 	const collapsed = boolean("Collapse sections", false);
-	const section1Fields = object("Section 1 Fields", initialSection1Fields)
-	const {height = "100vh"} = props;
+	const section1Fields = object("Section 1 Fields", initialSection1Fields);
+	const { height = "100vh" } = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
 			[
@@ -92,8 +92,8 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					type: "text",
 					instructionText: "Instruction text text1",
 					inputSettings: {
-						multiline: true
-					}
+						multiline: true,
+					},
 				},
 				{
 					name: "text2",
@@ -101,7 +101,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					type: "text",
 					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
-					validators: [validateEmail, validateSlow]
+					validators: [validateEmail, validateSlow],
 				},
 				{
 					name: "text3",
@@ -114,7 +114,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					name: "text4",
 					label: "Text that receives copy",
 					type: "text",
-					instructionText: "Instruction text text1"
+					instructionText: "Instruction text text1",
 				},
 				{
 					name: "color",
@@ -127,7 +127,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					type: "checkbox",
 					required: true,
 					inputSettings: {
-						options: checkboxOptions
+						options: checkboxOptions,
 					},
 				},
 				{
@@ -135,22 +135,22 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 					label: "Toggle field",
 					type: "toggleSwitch",
 					inputSettings: {
-						toggleLabel: "To the side"
-					}
+						toggleLabel: "To the side",
+					},
 				},
 				{
 					name: "imageUpload",
 					label: "Image Upload example",
 					type: "imageUpload",
 					inputSettings: {
-						options: menuOptions
-					}
+						options: menuOptions,
+					},
 				},
 				{
 					name: "textEditor",
 					label: "Text Editor field",
 					type: "textEditor",
-					required: true
+					required: true,
 				},
 				{
 					name: "formMatrix",
@@ -163,25 +163,25 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 							{
 								label: "Add",
 								onClick: () => {
-									const id = randomNumber(1, 1000)
+									const id = randomNumber(1, 1000);
 
 									dispatch(
 										formActions.setFieldValue({
 											name: "formMatrix",
-											value: [...(state.data.formMatrix || []), {id, title: `Title ${id}`, description: `Description ${id}`}],
-											touched: true
-										})
-									)
+											value: [...(state.data.formMatrix || []), { id, title: `Title ${id}`, description: `Description ${id}` }],
+											touched: true,
+										}),
+									);
 								},
 								color: "teal",
 								variant: "text",
-								mIcon: AddIcon
+								mIcon: AddIcon,
 							},
-						]
+						],
 					},
 				},
 			],
-		[state.data.formMatrix, gridConfig, dispatch]
+		[state.data.formMatrix, gridConfig, dispatch],
 	);
 
 	const sections = useMemo(() => [
@@ -189,7 +189,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			title: "Section 1",
 			description: "Description for section 1",
 			collapsed,
-			fields: section1Fields
+			fields: section1Fields,
 		},
 		{
 			title: "Section 2",
@@ -203,9 +203,9 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				// row 3
 				[[]],
 				// row 4
-				[[], ["textEditor"]]
+				[[], ["textEditor"]],
 			],
-			show: ({data}) => data?.toggleSwitch === true
+			show: ({ data }) => data?.toggleSwitch === true,
 		},
 		{
 			title: "Section 3",
@@ -215,7 +215,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 				// row 1
 				[["imageUpload"], [], []],
 			],
-			show: ({data}) => data?.toggleSwitch === true
+			show: ({ data }) => data?.toggleSwitch === true,
 		},
 		{
 			title: "Section 4",
@@ -224,7 +224,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			fields: [
 				// row 1
 				[["imageUpload"], [], []],
-			]
+			],
 		},
 		{
 			title: "Section 5",
@@ -233,7 +233,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			fields: [
 				// row 1
 				[["imageUpload"], [], []],
-			]
+			],
 		},
 	], [fields, collapsed, section1Fields]);
 
@@ -241,8 +241,8 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 		dispatch(
 			formActions.setFieldValue({
 				name: "text4",
-				value: state.data.text3
-			})
+				value: state.data.text3,
+			}),
 		);
 	}, [state.data.text3]);
 
@@ -251,7 +251,7 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: height}}>
+			<div style={{ height: height }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title="Form Title"
@@ -264,4 +264,4 @@ export const FormWithLayout = (props: {height?: string}): ReactElement => {
 			</div>
 		</>
 	);
-}
+};

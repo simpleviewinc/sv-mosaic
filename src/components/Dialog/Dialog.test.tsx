@@ -91,8 +91,8 @@ describe("Dialog component", () => {
 	it("should trigger all buttons actions", () => {
 		const secondaryButton = screen.getByText("Close");
 		const primaryButton = screen.getByText("Apply");
-		const thirdButton = screen.getByText("Third Button")
-		const fourthButton = screen.getByText("Fourth Button")
+		const thirdButton = screen.getByText("Third Button");
+		const fourthButton = screen.getByText("Fourth Button");
 
 		fireEvent.click(secondaryButton);
 		fireEvent.click(primaryButton);

@@ -32,8 +32,8 @@ const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 			name: "preventOverflow",
 			enabled : true,
 			options: {
-				rootBoundary: "viewport"
-			}
+				rootBoundary: "viewport",
+			},
 		},
 		{
 			name: "computeStyles",
@@ -42,7 +42,7 @@ const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 			},
 		},
 	],
-}
+};
 
 interface Props {
 	parent: LeftNavItemDef
@@ -51,7 +51,7 @@ interface Props {
 
 function LeftNavFlyout(props: Props): ReactElement {
 	const [state, setState] = useState({
-		openName : undefined
+		openName : undefined,
 	});
 
 	const leftNavContext = useContext(LeftNavContext);
@@ -59,9 +59,9 @@ function LeftNavFlyout(props: Props): ReactElement {
 	const onOpen = openName => {
 		setState({
 			...state,
-			openName
-		})
-	}
+			openName,
+		});
+	};
 
 	const onScroll = throttle(function(e) {
 		// this scroll listener is being triggered when a scroll occurs within a child, which we don't want
@@ -72,16 +72,16 @@ function LeftNavFlyout(props: Props): ReactElement {
 
 		setState({
 			...state,
-			openName : undefined
+			openName : undefined,
 		});
 	}, 100, { leading : true, trailing : false });
 
 	const scrollerAttrs = {
-		onScroll
-	}
+		onScroll,
+	};
 
 	const style = useMemo(() => ({
-		zIndex : leftNavContext.zIndex + 1
+		zIndex : leftNavContext.zIndex + 1,
 	}), [leftNavContext.zIndex]);
 
 	return (
@@ -101,7 +101,7 @@ function LeftNavFlyout(props: Props): ReactElement {
 				</LeftNavScroller>
 			</Paper>
 		</Popper>
-	)
+	);
 }
 
 export default LeftNavFlyout;

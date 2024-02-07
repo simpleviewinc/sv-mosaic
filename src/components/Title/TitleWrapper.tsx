@@ -12,7 +12,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 		title,
 		description,
 		collapse,
-		backLabel
+		backLabel,
 	} = props;
 
 	return (

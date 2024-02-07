@@ -73,8 +73,8 @@ const data = {
 	undefinedValue: undefined,
 	emptyStringValue: "",
 	emptyArrayValue: [],
-	animals: [{id: 1, species: "Dog", color: "Brown"}, {id: 2, species: "Cat", color: "White"}],
-	cars: [{id: 1, make: "BMW", model: "M3"}, {id: 2, make: "Volkswagen", model: "Golf"}],
+	animals: [{ id: 1, species: "Dog", color: "Brown" }, { id: 2, species: "Cat", color: "White" }],
+	cars: [{ id: 1, make: "BMW", model: "M3" }, { id: 2, make: "Volkswagen", model: "Golf" }],
 };
 
 const sectionConfigs = {
@@ -86,13 +86,13 @@ const sectionConfigs = {
 		[["thumbnail"]],
 		[["chipsAsValue"]],
 		[["animals"]],
-		[["cars"]]
+		[["cars"]],
 	],
 	"Multiple Columns": [
 		[["tags"], ["colorPicker"]],
 		[["toggle"], ["date"]],
 		[["thumbnail"], ["chipsAsValue"]],
-		[["animals"], ["cars"]]
+		[["animals"], ["cars"]],
 	],
 };
 
@@ -105,7 +105,7 @@ export const Playground = (): ReactElement => {
 	const amountContent = select(
 		"Amount of contents",
 		[1, 2],
-		1
+		1,
 	);
 	const [showMore, setShowMore] = useState(false);
 
@@ -126,7 +126,7 @@ export const Playground = (): ReactElement => {
 			show: [showButtons !== "undefined", Number(showButtons) >= 1],
 			onClick: function () {
 				alert("Edit button clicked");
-			}
+			},
 		},
 		{
 			name: "showDetails",
@@ -136,7 +136,7 @@ export const Playground = (): ReactElement => {
 			onClick: showDetails,
 			show: [useSections, showButtons !== "undefined", Number(showButtons) >= 2],
 		},
-	]
+	];
 
 	const fields: ContentField[] = [
 		{
@@ -168,17 +168,17 @@ export const Playground = (): ReactElement => {
 		},
 		{
 			name: "chipsAsValue",
-			label: "Chips with no transform only value"
+			label: "Chips with no transform only value",
 		},
 		{
 			name: "animals",
 			label: "Animals",
-			transforms: [transform_dataview({ columns: [{ name: "species", label: "Species" }, { name: "color", label: "Color" }] })]
+			transforms: [transform_dataview({ columns: [{ name: "species", label: "Species" }, { name: "color", label: "Color" }] })],
 		},
 		{
 			name: "cars",
 			label: "Cars",
-			transforms: [transform_dataview({ columns: [{ name: "make", label: "Make" }, { name: "model", label: "Model" }] })]
+			transforms: [transform_dataview({ columns: [{ name: "make", label: "Make" }, { name: "model", label: "Model" }] })],
 		},
 	];
 
@@ -218,16 +218,16 @@ export const KitchenSink = (): ReactElement => {
 			variant: "icon",
 			onClick: function () {
 				alert("Edit button clicked");
-			}
+			},
 		},
 		{
 			name: "showDetails",
 			color: "teal",
 			variant: "text",
 			label: "More Details",
-			onClick: () => alert("More details") ,
+			onClick: () => alert("More details"),
 		},
-	]
+	];
 
 	const fields: ContentField[] = [
 		{
@@ -259,27 +259,27 @@ export const KitchenSink = (): ReactElement => {
 		},
 		{
 			name: "chipsAsValue",
-			label: "Chips with no transform only value"
+			label: "Chips with no transform only value",
 		},
 		{
 			name: "undefinedValue",
-			label: "Field with undefined value"
+			label: "Field with undefined value",
 		},
 		{
 			name: "emptyStringValue",
-			label: "Field with empty string value"
+			label: "Field with empty string value",
 		},
 		{
 			name: "emptyArrayValue",
-			label: "Field with empty array value"
+			label: "Field with empty array value",
 		},
 	];
 
 	const columns = [
 		[["tags"], ["colorPicker"], []],
-		[["toggle"], ["date"], ["colorPicker"],],
+		[["toggle"], ["date"], ["colorPicker"]],
 		[["thumbnail"], ["chipsAsValue"], ["thumbnail"]],
-		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]]
+		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]],
 	];
 
 	return (

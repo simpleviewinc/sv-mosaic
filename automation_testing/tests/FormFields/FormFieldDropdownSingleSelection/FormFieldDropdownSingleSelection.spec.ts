@@ -67,7 +67,7 @@ test.describe.parallel("FormFields - FormFieldDropdownSingleSelection - Kitchen 
 	});
 
 	test("Validate padding of the input fields.", async () => {
-		const inputCount = await formFieldDropdownSingleSelectionPage.inputLocator.count()
+		const inputCount = await formFieldDropdownSingleSelectionPage.inputLocator.count();
 		for (let i = 0; i < inputCount; i++) {
 			expect(await formFieldDropdownSingleSelectionPage.getSpecificPaddingFromElement(formFieldDropdownSingleSelectionPage.inputLocator.nth(i), "all")).toBe(theme.fieldSpecs.inputText.padding);
 		}

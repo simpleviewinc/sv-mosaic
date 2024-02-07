@@ -1,5 +1,5 @@
 import { AnimateParams, AnimateStart, AnimateState, AnimateStop } from "./animateTypes";
-import easingFns from "../easing"
+import easingFns from "../easing";
 
 export default function animate(params: AnimateParams = {}) {
 	const state: AnimateState = {
@@ -9,7 +9,7 @@ export default function animate(params: AnimateParams = {}) {
 		valueStart: 0,
 		valueEnd: 0,
 		duration: 0,
-		easing: "easeInOutCubic"
+		easing: "easeInOutCubic",
 	};
 
 	const _applyParams = (params: AnimateParams) => {
@@ -38,7 +38,7 @@ export default function animate(params: AnimateParams = {}) {
 	};
 
 	const start: AnimateStart = (params = {}) => {
-		_applyParams(params)
+		_applyParams(params);
 
 		state.preventNext = false;
 		state.startTimestamp = 0;
@@ -51,6 +51,6 @@ export default function animate(params: AnimateParams = {}) {
 
 	return {
 		start,
-		stop
-	}
+		stop,
+	};
 }

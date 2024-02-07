@@ -13,8 +13,8 @@ export type PhoneSelectionInputSettings = {
 	 * Input state value
 	 */
 	value?: string;
-}
+};
 
 export type PhoneDropdownData = string;
 
-export type FieldDefPhoneSelection = FieldDefBase<"phone", PhoneSelectionInputSettings, PhoneDropdownData>
+export type FieldDefPhoneSelection = FieldDefBase<"phone", PhoneSelectionInputSettings, PhoneDropdownData>;

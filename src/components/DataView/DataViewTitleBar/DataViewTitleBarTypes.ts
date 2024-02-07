@@ -1,7 +1,7 @@
 import {
 	DataViewProps,
 	StateViewDef,
-	SavedViewCallbacks
+	SavedViewCallbacks,
 } from "../DataViewTypes";
 
 export interface DataViewTitleBarProps {

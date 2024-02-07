@@ -2,6 +2,6 @@ import { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewColumnControlProps {
 	onChange?: DataViewProps["onColumnsChange"];
-	columns:  DataViewProps["columns"];
+	columns: DataViewProps["columns"];
 	allColumns: DataViewProps["columns"];
 }

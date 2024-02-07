@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
@@ -28,7 +28,7 @@ export const ConditionalFields = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -41,7 +41,7 @@ export const ConditionalFields = (): ReactElement => {
 					label: "Dependency",
 					type: "text",
 					instructionText: `Type "${KEY_PHRASE}" to show another field`,
-					required: true
+					required: true,
 				},
 				{
 					name: "dependent",
@@ -49,12 +49,12 @@ export const ConditionalFields = (): ReactElement => {
 					type: "text",
 					helperText: state.data.text2,
 					show: ({ data }) => {
-						return data?.dependency === KEY_PHRASE
+						return data?.dependency === KEY_PHRASE;
 					},
-					required: true
-				}
+					required: true,
+				},
 			],
-		[]
+		[],
 	);
 
 	return (
@@ -62,7 +62,7 @@ export const ConditionalFields = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Runtime behaviors'

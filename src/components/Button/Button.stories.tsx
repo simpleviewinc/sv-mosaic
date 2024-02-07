@@ -32,15 +32,15 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 		mIcon : CreateIcon,
 		onClick : function() {
 			alert("EDIT CLICK");
-		}
+		},
 	},
 	{
 		label : "Download",
 		mIcon : CloudDownloadIcon,
 		onClick : function() {
 			alert("DOWNLOAD CLICK");
-		}
-	}
+		},
+	},
 ];
 
 const menuContent = (
@@ -55,7 +55,7 @@ export const Playground = (): ReactElement => {
 	const buttonVariant = select(
 		"Variant",
 		["text", "outlined", "contained", "icon"],
-		"contained"
+		"contained",
 	);
 	const buttonColor = select(
 		"Color",
@@ -67,9 +67,9 @@ export const Playground = (): ReactElement => {
 			"yellow",
 			"teal",
 			"gray",
-			"white"
+			"white",
 		],
-		"black"
+		"black",
 	);
 	const backgroundColor = select("Background", [
 		"light",
@@ -81,7 +81,7 @@ export const Playground = (): ReactElement => {
 			"small",
 			"medium",
 		],
-		"medium"
+		"medium",
 	);
 	const showOptions = select(
 		"Show",
@@ -94,12 +94,12 @@ export const Playground = (): ReactElement => {
 			"Array of true values",
 			"Array with one falsy value",
 			"Array of functions that return true",
-			"Array of functions, one returns false"
+			"Array of functions, one returns false",
 		],
 		"Undefined",
 	);
-	const label = select("Type of label", ["String", "JSX"], "String")
-	const labelText = text("Label Text", "Text")
+	const label = select("Type of label", ["String", "JSX"], "String");
+	const labelText = text("Label Text", "Text");
 	const showIcon = boolean("Show icon", false);
 	const iconColor = select(
 		"mIconColor",
@@ -111,9 +111,9 @@ export const Playground = (): ReactElement => {
 			"yellow",
 			"teal",
 			"gray",
-			"white"
+			"white",
 		],
-		"black"
+		"black",
 	);
 	const iconPosition = select("Icon position", ["left", "right"], "left");
 	const fullWidth = boolean("Full Width", false);
@@ -144,8 +144,8 @@ export const Playground = (): ReactElement => {
 		onClick: () => alert("Clicked"),
 		show: show[showOptions],
 		color: buttonColor,
-		variant: buttonVariant
-	}
+		variant: buttonVariant,
+	};
 
 	const showButton = useToggle(action, "show");
 
@@ -153,10 +153,10 @@ export const Playground = (): ReactElement => {
 
 	return (
 		<StoryBookError>
-			<div style={{backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20}}>
+			<div style={{ backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20 }}>
 				{showButton &&
 					<Button
-						attrs={{$smallText: smallText}}
+						attrs={{ $smallText: smallText }}
 						label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon/>}
 						variant={buttonVariant}
 						color={buttonColor}
@@ -188,7 +188,7 @@ export const KitchenSink = (): ReactElement => {
 
 	const openDropdown = function(event) {
 		setAnchorEl(event.currentTarget);
-	}
+	};
 
 	const dropdownWithColoredIcons: ButtonProps["menuItems"] = [
 		{
@@ -197,7 +197,7 @@ export const KitchenSink = (): ReactElement => {
 			color : "blue",
 			onClick : function() {
 				alert("EDIT CLICK");
-			}
+			},
 		},
 		{
 			label : "Download",
@@ -205,7 +205,7 @@ export const KitchenSink = (): ReactElement => {
 			color : "blue",
 			onClick : function() {
 				alert("DOWNLOAD CLICK");
-			}
+			},
 		},
 		{
 			label : "Delete",
@@ -213,15 +213,15 @@ export const KitchenSink = (): ReactElement => {
 			color : "red",
 			onClick : function() {
 				alert("DELETE CLICK");
-			}
+			},
 		},
 		{
 			label : "Cancel",
 			mIcon : ChevronLeftIcon,
 			onClick : function() {
 				alert("CANCEL CLICK");
-			}
-		}
+			},
+		},
 	];
 
 	const dropdownWithText: ButtonProps["menuItems"] = [
@@ -229,14 +229,14 @@ export const KitchenSink = (): ReactElement => {
 			label : "Edit",
 			onClick : function() {
 				alert("EDIT CLICK");
-			}
+			},
 		},
 		{
 			label : "Download",
 			onClick : function() {
 				alert("DOWNLOAD CLICK");
-			}
-		}
+			},
+		},
 	];
 
 	return (
@@ -337,14 +337,14 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Small Text</h2>
 			<div>
 				<ButtonRow>
-					<Button attrs={{$smallText: true}} color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{$smallText: true}} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
 				</ButtonRow>
 			</div>
 
@@ -540,7 +540,7 @@ export const KitchenSink = (): ReactElement => {
 						variant="outlined"
 						label="With Link and click handler"
 						href="https://www.bing.com/"
-						onClick={function(e) { e.preventDefault(); alert("Click handler") }}
+						onClick={function(e) { e.preventDefault(); alert("Click handler"); }}
 					/>
 					<Button
 						color="blue"
@@ -553,5 +553,5 @@ export const KitchenSink = (): ReactElement => {
 				</ButtonRow>
 			</div>
 		</div>
-	)
-}
+	);
+};
