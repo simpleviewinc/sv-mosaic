@@ -10,8 +10,8 @@ const drawerProps: Pick<DrawerProps, "anchor" | "variant" | "ModalProps" | "Pape
 	anchor : "left",
 	variant : "temporary",
 	ModalProps : { disableEnforceFocus : true },
-	PaperProps : { style : { borderRight : "0px", zIndex : "auto" } }
-}
+	PaperProps : { style : { borderRight : "0px", zIndex : "auto" } },
+};
 
 interface Props {
 	open: boolean
@@ -24,7 +24,7 @@ function LeftNavDrawer(props: Props): ReactElement {
 	const leftNavContext = useContext(LeftNavContext);
 
 	const drawerStyle = useMemo(() => ({
-		zIndex : leftNavContext.zIndex
+		zIndex : leftNavContext.zIndex,
 	}), [leftNavContext.zIndex]);
 
 	return (

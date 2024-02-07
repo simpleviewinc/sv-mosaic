@@ -32,7 +32,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: imageAssetExample,
-			})
+			}),
 		);
 	};
 
@@ -42,7 +42,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: videoAssetExample,
-			})
+			}),
 		);
 	};
 
@@ -51,7 +51,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: documentExample,
-			})
+			}),
 		);
 		setDocumentCallback();
 	};
@@ -60,8 +60,8 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		await dispatch(
 			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
-				value: linkExample
-			})
+				value: linkExample,
+			}),
 		);
 		setLinkCallback();
 	};
@@ -71,7 +71,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 			formActions.setFieldValue({
 				name: "imageVideoLinkDocumentBrowsing",
 				value: [],
-			})
+			}),
 		);
 	};
 
@@ -129,7 +129,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 
@@ -158,12 +158,12 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 	it("should trigger the setImage function twice since the browse button executes it when is clicked", async () => {
 		const browseTestId = await findByTestId("browse-image-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const browseButton = await findByText("Browse");
 		await act(async () => {
-			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -174,7 +174,7 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 	it("should show only the first 4 labels and values of the asset loaded", async() => {
 		const browseTestId = await findByTestId("browse-image-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -207,7 +207,7 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 		});
 		const browseTestId = await findByTestId("browse-image-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const moreButton = await findByText("More");
@@ -222,12 +222,12 @@ describe("ImageVideoLinkDocumentBrowsing when an image is loaded", () => {
 	it("should remove the image loaded and return to the inital step where the browsing options are shown", async () => {
 		const browseTestId = await findByTestId("browse-image-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const removeButton = await findByText("Remove");
 		await act(async () => {
-			removeButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			removeButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -250,12 +250,12 @@ describe("ImageVideoLinkDocumentBrowsing when a link is loaded", () => {
 	it("should trigger the setLink function twice since the browse button also executes it when is clicked", async () => {
 		const browseTestId = await findByTestId("browse-link-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const browseButton = await findByText("Browse");
 		await act(async () => {
-			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -266,7 +266,7 @@ describe("ImageVideoLinkDocumentBrowsing when a link is loaded", () => {
 	it("should show labels and values of the link loaded", async () => {
 		const browseTestId = await findByTestId("browse-link-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -291,12 +291,12 @@ describe("ImageVideoLinkDocumentBrowsing when a document is loaded", () => {
 	it("should trigger the setLink function twice since the browse button also executes it when is clicked", async () => {
 		const browseTestId = await findByTestId("browse-document-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const browseButton = await findByText("Browse");
 		await act(async () => {
-			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -307,7 +307,7 @@ describe("ImageVideoLinkDocumentBrowsing when a document is loaded", () => {
 	it("should show the labels and values of the document loaded", async () => {
 		const browseTestId = await findByTestId("browse-document-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -332,12 +332,12 @@ describe("ImageVideoLinkDocumentBrowsing when a video is loaded", () => {
 	it("should trigger the setVideo function twice since the browse button also executes it when is clicked", async () => {
 		const browseTestId = await findByTestId("browse-video-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		const browseButton = await findByText("Browse");
 		await act(async () => {
-			browseButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
@@ -348,7 +348,7 @@ describe("ImageVideoLinkDocumentBrowsing when a video is loaded", () => {
 	it("should show the labels and values of the video loaded", async () => {
 		const browseTestId = await findByTestId("browse-video-test");
 		await act(async () => {
-			browseTestId.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			browseTestId.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {

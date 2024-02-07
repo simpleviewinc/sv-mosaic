@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
-import { Property } from "csstype"
+import { Property } from "csstype";
 
 import { DataViewTdProps } from "./DataViewTdTypes";
 
@@ -73,7 +73,7 @@ function DataViewTd(props: DataViewTdProps) {
 				{props.children}
 			</div>
 		</StyledTd>
-	)
+	);
 }
 
 export default memo(DataViewTd);

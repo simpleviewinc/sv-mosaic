@@ -24,10 +24,10 @@ import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 
 const FormFieldNumberTable = (
 	props: MosaicFieldProps<
-    "numberTable",
-    NumberTableInputSettings,
-    NumberTableData
-  >
+		"numberTable",
+		NumberTableInputSettings,
+		NumberTableData
+	>,
 ): ReactElement => {
 	const { fieldDef, onChange, value, disabled } = props;
 
@@ -65,7 +65,7 @@ const FormFieldNumberTable = (
 
 		if (displaySumColumn) {
 			totals["mos_col_totals"] = Object.values(totals).reduce(
-				(acc: number, current: number) => acc + current
+				(acc: number, current: number) => acc + current,
 			);
 			setColumnsTotals(totals);
 		}
@@ -83,7 +83,7 @@ const FormFieldNumberTable = (
 	const onChangeCell = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 		rowName: string,
-		colName: string
+		colName: string,
 	) => {
 		const typedValue = e.target.value?.trim() === "" ? undefined : e.target.value;
 		let copyValue = { ...value };
@@ -93,17 +93,17 @@ const FormFieldNumberTable = (
 			copyValue = {
 				...copyValue,
 				[rowName]: {
-					[colName]: typedValue
-				}
-			}
+					[colName]: typedValue,
+				},
+			};
 		}
 
 		if (typedValue === undefined) {
 			if (Object.values(copyValue[rowName]).every(col => col === undefined)) {
 				copyValue = {
 					...copyValue,
-					[rowName]: undefined
-				}
+					[rowName]: undefined,
+				};
 			}
 
 			if (Object.values(copyValue).every(row => row === undefined)) {
@@ -123,7 +123,7 @@ const FormFieldNumberTable = (
 		if (value) {
 			return new Intl.NumberFormat(
 				navigator.language,
-				inputSettings.numberFormatOptions
+				inputSettings.numberFormatOptions,
 			).format(value);
 		}
 
@@ -153,7 +153,7 @@ const FormFieldNumberTable = (
 		}
 
 
-	}
+	};
 
 	return (
 		<StyledTable>

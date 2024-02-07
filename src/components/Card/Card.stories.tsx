@@ -41,7 +41,7 @@ const content = [
 	<div key="div-key">
 		<p key="div-p-key-1">Paragraph</p>
 		<button key="div-button-key-1">Button</button>
-	</div>
+	</div>,
 ];
 
 
@@ -144,7 +144,7 @@ export const RecentActivity = (): ReactElement => {
 					label: "Show All",
 					variant: "text",
 					onClick: () => alert("Show all clicked"),
-				}
+				},
 			]}
 		/>
 	);

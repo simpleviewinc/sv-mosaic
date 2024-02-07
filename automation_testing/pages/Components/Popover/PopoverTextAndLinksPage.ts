@@ -17,7 +17,7 @@ export class PopoverPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.openPopoverButton = page.locator("button", { hasText: "Open Popover"});
+		this.openPopoverButton = page.locator("button", { hasText: "Open Popover" });
 		this.popoverTooltip = page.locator("[role='tooltip']");
 		this.clickableTitle = this.popoverTooltip.locator("span", { hasText: "Clickable Title" });
 		this.mail = this.popoverTooltip.locator("span", { hasText: "mail@gmail.com" });

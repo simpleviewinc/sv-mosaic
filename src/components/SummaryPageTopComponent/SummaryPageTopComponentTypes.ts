@@ -3,37 +3,37 @@ import { ButtonProps } from "../Button";
 import { MenuItemProps } from "../MenuItem";
 
 export interface SummaryPageTopComponentTypes {
-    /**
+	/**
 	 * Mandatory title.
 	 */
-    title: string;
-    /**
+	title: string;
+	/**
 	 * Optional favorite to show favorite icon or no favorite icon.
 	 */
 	favorite?: {
 		checked: boolean;
 		onClick: (checked: boolean) => void;
 	};
-    /**
+	/**
 	 * Optional src to show an image.
 	 */
-    img?: string;
-    /**
+	img?: string;
+	/**
 	 * Optional array of buttons, max three items.
 	 */
 	mainActions?: ButtonProps[];
-    /**
+	/**
 	 * Optional array of buttons, could have infinite items.
 	 */
-    additionalActions?: MenuItemProps[];
-    /**
+	additionalActions?: MenuItemProps[];
+	/**
 	 * Optional array of strings.
 	 */
-    descriptionItems?: JSX.Element[];
-    // /**
+	descriptionItems?: JSX.Element[];
+	// /**
 	//  * Optional array of buttons, max three items.
 	//  */
-    // textLinks?: {
+	// textLinks?: {
 	// 	label: string;
 	// 	mIcon?: ButtonProps["mIcon"];
 	// 	href: ButtonProps["href"];
@@ -45,4 +45,4 @@ export interface SummaryPageTopComponentTypes {
 	onBack?: () => void;
 
 	backLabel?: TitleWrapperProps["backLabel"]
-  }
+}

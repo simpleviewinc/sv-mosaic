@@ -1,11 +1,11 @@
 import { FieldDefBase } from "@root/components/Field";
 
 export type TransformedFile = {
-		data: UploadData,
-		percent: number,
-		error: string | undefined,
-		rawData: File,
-}
+	data: UploadData,
+	percent: number,
+	error: string | undefined,
+	rawData: File,
+};
 
 export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
 
@@ -27,7 +27,7 @@ export type UploadFieldInputSettings = {
 	maxTotalSize?: number;
 };
 
-export type UploadData =  {
+export type UploadData = {
 	/**
 	 * A unique identifier, used as React "key"
 	 */
@@ -69,17 +69,17 @@ type OnError = (message: string) => Promise<void>;
 
 type OnFileAddData = {
 	file: File;
-	onChunkComplete: (data: {percent: number}) => Promise<void>;
+	onChunkComplete: (data: { percent: number }) => Promise<void>;
 	onUploadComplete: (data: UploadData) => Promise<void>;
 	/**
 	 * @deprecated - Throw an error within `onFileAdd` callback instead.
 	 */
 	onError: OnError;
-}
+};
 
 type OnFileDeleteData = {
 	id: UploadData["id"];
-}
+};
 
 export interface QueuedFile {
 	id: string;

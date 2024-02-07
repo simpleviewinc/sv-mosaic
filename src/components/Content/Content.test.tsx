@@ -27,13 +27,13 @@ const fields: ContentField[] = [
 		label: "Chips",
 		transforms: [transform_chips()],
 		column: "tags",
-		show: [true, true, () => true]
+		show: [true, true, () => true],
 	},
 	{
 		name: "toggle",
 		label: "Toggle",
 		transforms: [transform_boolean()],
-		show: [false, false, () => false]
+		show: [false, false, () => false],
 	},
 	{
 		name: "date",
@@ -53,7 +53,7 @@ const fields: ContentField[] = [
 	},
 	{
 		name: "header",
-		label: "Header with no transforms"
+		label: "Header with no transforms",
 	},
 ];
 
@@ -100,7 +100,7 @@ const buttons: ButtonProps[] = [
 		mIcon: EditIcon,
 		color: "gray",
 		variant: "icon",
-		onClick: onClickEdit
+		onClick: onClickEdit,
 	},
 	{
 		name: "add",
@@ -108,7 +108,7 @@ const buttons: ButtonProps[] = [
 		mIcon: AddIcon,
 		color: "gray",
 		variant: "icon",
-		onClick: onClickAdd
+		onClick: onClickAdd,
 	},
 	{
 		name: "hidden",
@@ -116,9 +116,9 @@ const buttons: ButtonProps[] = [
 		color: "teal",
 		variant: "text",
 		onClick: onClickAdd,
-		show: false
+		show: false,
 	},
-]
+];
 
 describe("Content component", () => {
 	beforeEach(() => {
@@ -129,7 +129,7 @@ describe("Content component", () => {
 				fields={fields}
 				sections={sections}
 				buttons={buttons}
-			/>
+			/>,
 		);
 	});
 
@@ -177,7 +177,7 @@ describe("Content componenent with no sections", () => {
 				data={data}
 				fields={fields}
 				buttons={buttons}
-			/>
+			/>,
 		);
 
 		const chips = screen.getAllByTestId("chip-testid");
@@ -202,7 +202,7 @@ describe("Content componenent with no buttons", () => {
 				data={data}
 				fields={fields}
 				buttons={undefined}
-			/>
+			/>,
 		);
 
 		const chips = screen.getAllByTestId("chip-testid");

@@ -10,7 +10,7 @@ import {
 	StyledForm,
 	StyledContainerForm,
 	StyledFormPrimary,
-	StyledSideNav
+	StyledSideNav,
 } from "./Form.styled";
 import Layout from "./Layout";
 import Top from "./Top";
@@ -24,13 +24,13 @@ import { generateLayout } from "./Layout/layoutUtils";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
-	minWidth: "sm"
-}
+	minWidth: "sm",
+};
 
 const sidebarCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
-	minWidth: "xl"
-}
+	minWidth: "xl",
+};
 
 const Form = (props: FormProps) => {
 	const {
@@ -49,7 +49,7 @@ const Form = (props: FormProps) => {
 		showActive,
 		scrollSpyThreshold = 0.15,
 		fullHeight = true,
-		spacing = "normal"
+		spacing = "normal",
 	} = props;
 
 	/**
@@ -65,7 +65,7 @@ const Form = (props: FormProps) => {
 	} = useScrollSpy({
 		refs: sectionRefs,
 		container: formContentRef.current,
-		threshold: scrollSpyThreshold
+		threshold: scrollSpyThreshold,
 	});
 
 	const layout = useMemo(() => {
@@ -79,7 +79,7 @@ const Form = (props: FormProps) => {
 
 		return () => {
 			setSectionRefs(refs => refs.filter(r => r !== ref));
-		}
+		};
 	}, []);
 
 	/**
@@ -144,10 +144,10 @@ const Form = (props: FormProps) => {
 		const registerFields = async () => {
 			await dispatch(
 				formActions.init({
-					fields
-				})
+					fields,
+				}),
 			);
-		}
+		};
 
 		if (isMounted) {
 			registerFields();
@@ -155,8 +155,8 @@ const Form = (props: FormProps) => {
 
 		return () => {
 			isMounted = false;
-		}
-	},[fields])
+		};
+	}, [fields]);
 
 	useEffect(() => {
 		const loadFormValues = async () => {
@@ -170,7 +170,7 @@ const Form = (props: FormProps) => {
 					if ("defaultValue" in field) {
 						values = {
 							...values,
-							[field.name]: field.defaultValue
+							[field.name]: field.defaultValue,
 						};
 					}
 				});
@@ -180,13 +180,13 @@ const Form = (props: FormProps) => {
 			if (values) {
 				await dispatch(
 					formActions.setFormValues({
-						values
-					})
+						values,
+					}),
 				);
 			}
 
 			await dispatch(formActions.disableForm({ disabled: false }));
-		}
+		};
 
 		loadFormValues();
 	}, [getFormValues]);
@@ -252,6 +252,6 @@ const Form = (props: FormProps) => {
 			/>
 		</>
 	);
-}
+};
 
 export default memo(Form);

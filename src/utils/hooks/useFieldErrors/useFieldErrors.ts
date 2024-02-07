@@ -5,12 +5,12 @@ import { arrayIntersect, arrayDifference } from "@root/utils/array";
 type AddError = {
 	type: "ADD_ERROR",
 	error: FieldError | FieldError[]
-}
+};
 
 type RemoveError = {
 	type: "REMOVE_ERROR",
 	error: FieldError | FieldError[]
-}
+};
 
 type Action = AddError | RemoveError;
 
@@ -31,7 +31,7 @@ function reducer(state: FieldError[], action: Action) {
 
 		return [
 			...state,
-			...errorsToAdd
+			...errorsToAdd,
 		];
 	}
 	case "REMOVE_ERROR": {
@@ -55,7 +55,7 @@ function reducer(state: FieldError[], action: Action) {
 	}
 }
 
-type UseFieldErrorState = FieldError[]
+type UseFieldErrorState = FieldError[];
 
 interface UseFieldErrorParams {
 	dispatch: any;
@@ -74,14 +74,14 @@ function useFieldErrors({ dispatch: formDispatch, name }: UseFieldErrorParams): 
 	const addError = useCallback((error: FieldError | FieldError[]) => {
 		dispatch({
 			type: "ADD_ERROR",
-			error
+			error,
 		});
 	}, [dispatch]);
 
 	const removeError = useCallback((error: FieldError | FieldError[]) => {
 		dispatch({
 			type: "REMOVE_ERROR",
-			error
+			error,
 		});
 	}, [dispatch]);
 
@@ -92,23 +92,23 @@ function useFieldErrors({ dispatch: formDispatch, name }: UseFieldErrorParams): 
 
 		const validator = () => {
 			return error && error.message;
-		}
+		};
 
 		formDispatch(formActions.addValidator({
 			name,
-			validator
+			validator,
 		}));
 
 		return () => formDispatch(formActions.removeValidator({
 			name,
-			validator
+			validator,
 		}));
 	}, [error]);
 
 	return {
 		addError,
-		removeError
-	}
+		removeError,
+	};
 }
 
 export default useFieldErrors;

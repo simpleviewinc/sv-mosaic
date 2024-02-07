@@ -3,13 +3,13 @@ import { useState, ReactElement } from "react";
 
 import {
 	CheckboxList,
-	MosaicLabelValue
+	MosaicLabelValue,
 } from "@root/index";
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 
 export default {
-	title: "Components/CheckboxList"
-}
+	title: "Components/CheckboxList",
+};
 
 export const example = (): ReactElement => {
 	const [checked, setChecked] = useState<MosaicLabelValue[]>([]);
@@ -27,5 +27,5 @@ export const example = (): ReactElement => {
 				onChange={onChange}
 			/>
 		</div>
-	)
-}
+	);
+};

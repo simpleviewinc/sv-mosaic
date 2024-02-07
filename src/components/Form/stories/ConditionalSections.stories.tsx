@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo} from "react";
+import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
@@ -28,7 +28,7 @@ export const ConditionalSections = (): ReactElement => {
 
 		return () => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
-		}
+		};
 	}, []);
 
 	const showState = boolean("Show state", false);
@@ -43,7 +43,7 @@ export const ConditionalSections = (): ReactElement => {
 					[["dependency"]],
 					// row 2
 					[["section_show"]],
-				]
+				],
 			},
 			{
 				title: "Section 2",
@@ -51,9 +51,9 @@ export const ConditionalSections = (): ReactElement => {
 				fields: [
 					[["dependent"]],
 				],
-				show: ({data}) => data?.dependency === KEY_PHRASE && data?.section_show
+				show: ({ data }) => data?.dependency === KEY_PHRASE && data?.section_show,
 			},
-		]
+		];
 	}, []);
 
 	const fields = useMemo(
@@ -64,14 +64,14 @@ export const ConditionalSections = (): ReactElement => {
 					label: "Dependency",
 					type: "text",
 					instructionText: `Type "${KEY_PHRASE}" to show another field`,
-					required: true
+					required: true,
 				},
 				{
 					name: "section_show",
 					label: "Show another section",
 					type: "toggleSwitch",
 					show: ({ data }) => {
-						return data?.dependency === KEY_PHRASE
+						return data?.dependency === KEY_PHRASE;
 					},
 				},
 				{
@@ -79,10 +79,10 @@ export const ConditionalSections = (): ReactElement => {
 					label: "Dependent",
 					type: "text",
 					helperText: state.data.text2,
-					required: true
-				}
+					required: true,
+				},
 			],
-		[]
+		[],
 	);
 
 	return (
@@ -90,7 +90,7 @@ export const ConditionalSections = (): ReactElement => {
 			{
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
-			<div style={{height: "100vh"}}>
+			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
 					title='Runtime behaviors'

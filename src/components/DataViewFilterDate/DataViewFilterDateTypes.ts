@@ -36,4 +36,4 @@ export type DataViewFilterDateDropdownContentProps = {
 	onChange: DataViewFilterDateOnChange
 	onClose: () => void
 	minDate?: Date
-} & (DataViewFilterDateDropdownContentOptions | DataViewFilterDateDropdownContentRange)
+} & (DataViewFilterDateDropdownContentOptions | DataViewFilterDateDropdownContentRange);

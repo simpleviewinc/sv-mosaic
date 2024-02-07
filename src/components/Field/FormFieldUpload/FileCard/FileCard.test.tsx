@@ -12,7 +12,7 @@ const fileCards = [
 		size: 123,
 		attachmentUrl: "myurl.com",
 		thumbnailUrl: "myurl.com",
-		onFileDelete
+		onFileDelete,
 	},
 	{ // Uploaded without img
 		id: "1",
@@ -30,7 +30,7 @@ const fileCards = [
 		id: "1",
 		name: "MyCard.jpg",
 		size: 123,
-		error: "File size exceeded"
+		error: "File size exceeded",
 	},
 ];
 
@@ -85,7 +85,7 @@ describe("File card", () => {
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
 		const errorIcon = screen.getByTestId("DoNotDisturbIcon");
-		const errorMessage = screen.getByText("File size exceeded")
+		const errorMessage = screen.getByText("File size exceeded");
 
 		expect(name.textContent).toBe(fileCards[3].name);
 		expect(size.textContent).toBe(`${fileCards[3].size} B`);

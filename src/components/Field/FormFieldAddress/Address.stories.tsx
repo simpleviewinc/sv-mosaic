@@ -17,8 +17,8 @@ const amountOptions = [
 	2,
 	3,
 	4,
-	5
-]
+	5,
+];
 
 export const Playground = (): ReactElement => {
 	const { state, dispatch } = useForm();
@@ -47,7 +47,7 @@ export const Playground = (): ReactElement => {
 						amountBilling: amountBilling === "undefined" ? undefined : Number(amountBilling),
 						getOptionsCountries,
 						getOptionsStates,
-						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac"
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 					},
 				},
 			]
@@ -61,8 +61,8 @@ export const Playground = (): ReactElement => {
 			amountPhysical,
 			amountBilling,
 			getOptionsCountries,
-			getOptionsStates
-		]
+			getOptionsStates,
+		],
 	);
 
 	return (

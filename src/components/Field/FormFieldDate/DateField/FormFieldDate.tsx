@@ -20,12 +20,12 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		onChange,
 		value = {
 			validDate: false,
-			validTime: false
+			validTime: false,
 		},
 		onBlur,
 		disabled,
 		error,
-		dispatch
+		dispatch,
 	} = props;
 
 	const showTime = fieldDef?.inputSettings?.showTime;
@@ -33,7 +33,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 	const { addError, removeError } = useFieldErrors({
 		dispatch,
-		name: fieldDef.name
+		name: fieldDef.name,
 	});
 
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
@@ -56,7 +56,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				date,
-				validDate: true
+				validDate: true,
 			});
 		} else {
 			if (keyboardInputValue && !validKeyboardInput) {
@@ -68,10 +68,10 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				date,
-				validDate: false
+				validDate: false,
 			});
 		}
-	}
+	};
 
 	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
 		const isKeyboardEvent = keyboardInputValue !== undefined;
@@ -84,7 +84,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				time,
-				validTime: false
+				validTime: false,
 			});
 		} else if (isKeyboardEvent && !validKeyboardInput) {
 			// This handler was caused by keyboard input, but it's not a valid date
@@ -94,7 +94,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				time,
-				validTime: false
+				validTime: false,
 			});
 
 			return;
@@ -104,10 +104,10 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				time,
-				validTime: true
+				validTime: true,
 			});
 		}
-	}
+	};
 
 	const onBlurProxy = (type: "date" | "time") => async () => {
 		blurred.current[type] = true;
@@ -133,7 +133,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 						inputSettings: {
 							placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
 							minDate: fieldDef?.inputSettings?.minDate,
-							maxDate: fieldDef?.inputSettings?.maxDate
+							maxDate: fieldDef?.inputSettings?.maxDate,
 						},
 						required: fieldDef?.required,
 					}}
@@ -153,7 +153,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 							label: "",
 							type: "timePicker",
 							inputSettings: {
-								placeholder: TIME_FORMAT_FULL_PLACEHOLDER
+								placeholder: TIME_FORMAT_FULL_PLACEHOLDER,
 							},
 						}}
 						value={value?.time}

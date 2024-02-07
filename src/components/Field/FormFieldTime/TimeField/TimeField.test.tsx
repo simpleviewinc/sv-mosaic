@@ -13,14 +13,14 @@ describe("TimeField component", () => {
 					type: "time",
 					label: "Time Input",
 					required: false,
-					disabled: false
+					disabled: false,
 				}}
 				value={{
 					time: new Date("2022-01-01T18:30:00.000Z"),
-					validTime: true
+					validTime: true,
 				}}
 
-			/>
+			/>,
 		);
 		expect(screen.getByDisplayValue("06:30 pm")).toBeInTheDocument();
 	});

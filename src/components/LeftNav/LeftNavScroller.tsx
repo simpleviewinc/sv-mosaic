@@ -32,12 +32,12 @@ interface Props {
 
 function LeftNavScroller(props: Props): ReactElement {
 	const {
-		attrs = {}
+		attrs = {},
 	} = props;
 
 	return (
 		<StyledDiv {...attrs} className={props.className}>{props.children}</StyledDiv>
-	)
+	);
 }
 
 export default LeftNavScroller;

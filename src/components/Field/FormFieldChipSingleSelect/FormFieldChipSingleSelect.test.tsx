@@ -14,7 +14,7 @@ afterEach(cleanup);
 
 const { getByText } = screen;
 
-const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement => {
+const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
 	const { state, dispatch } = useForm();
 
 	const options = useMemo( ()=> [
@@ -41,11 +41,11 @@ const FormFieldChipSingleSelectExample = (props:{fromDB: boolean}): ReactElement
 					type: "chip",
 					inputSettings: {
 						options: !props.fromDB ? options : undefined,
-						getOptions: props.fromDB ? getOptions : undefined
+						getOptions: props.fromDB ? getOptions : undefined,
 					},
-				}
+				},
 			] as FieldDef[],
-		[]
+		[],
 	);
 
 	const onSubmit = async () => {
@@ -83,7 +83,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 
@@ -112,6 +112,6 @@ describe("FormFieldChipSingleSelect component with options from DB", () => {
 			expect(getByText("Option 2")).toBeTruthy();
 			expect(getByText("Option 3")).toBeTruthy();
 			expect(getByText("Option 4")).toBeTruthy();
-		}, {timeout: 1000});
+		}, { timeout: 1000 });
 	});
 });

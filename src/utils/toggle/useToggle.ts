@@ -11,8 +11,8 @@ import getToggle from "./getToggle";
  *
  * @param items The item or items containing the show property
  */
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T[], key: K, defaultToggle?: boolean): T[]
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T, key: K, defaultToggle?: boolean): boolean
+function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T[], key: K, defaultToggle?: boolean): T[];
+function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T, key: K, defaultToggle?: boolean): boolean;
 function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T | T[], key: K, defaultToggle = true): boolean | T[] {
 	const isArray = Array.isArray(items);
 	const itemsAsArray = isArray ? items : [items];

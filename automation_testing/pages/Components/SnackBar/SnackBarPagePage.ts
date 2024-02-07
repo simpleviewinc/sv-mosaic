@@ -13,7 +13,7 @@ export class SnackBarPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.openSnackbarButton = page.locator("button", { hasText: "Open snackbar"});
+		this.openSnackbarButton = page.locator("button", { hasText: "Open snackbar" });
 		this.snackbar = page.locator("[role='presentation']");
 		this.closeSnackbarButton = page.locator("[data-testid='close-icon'] [data-testid='CloseIcon']");
 	}

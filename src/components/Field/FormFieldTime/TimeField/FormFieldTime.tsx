@@ -17,17 +17,17 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		fieldDef,
 		onChange,
 		value = {
-			validTime: false
+			validTime: false,
 		},
 		onBlur,
 		disabled,
 		error,
-		dispatch
+		dispatch,
 	} = props;
 
 	const { addError, removeError } = useFieldErrors({
 		dispatch,
-		name: fieldDef.name
+		name: fieldDef.name,
 	});
 
 	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
@@ -41,7 +41,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			onChange({
 				...value,
 				time,
-				validTime: false
+				validTime: false,
 			});
 
 			return;
@@ -51,10 +51,10 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			onChange({
 				...value,
 				time,
-				validTime: true
+				validTime: true,
 			});
 		}
-	}
+	};
 
 	return (
 		<TimePicker
@@ -65,7 +65,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 				label: "",
 				type: "timePicker",
 				inputSettings: {
-					placeholder: TIME_FORMAT_FULL_PLACEHOLDER
+					placeholder: TIME_FORMAT_FULL_PLACEHOLDER,
 				},
 			}}
 			value={value?.time}

@@ -7,7 +7,7 @@ import { StyledSwitch } from "./ToggleSwitch.styled";
 import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 
 const ToggleSwitch = (
-	props: ToggleSwitchProps
+	props: ToggleSwitchProps,
 ): ReactElement => {
 	const {
 		checked,

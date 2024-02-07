@@ -81,22 +81,22 @@ export const StyledWrapper = styled.div`
 			color: ${theme.newColors.realTeal[100]};
 		}
 	}
-`
+`;
 
 export const StyledComparisonHeader = styled.div`
 	margin-bottom: 1rem;
-`
+`;
 
 export const PopoverP = styled.p`
 	margin: 0px;
-`
+`;
 
-export const StyledHr = styled.hr<{$margin?: string}>`
+export const StyledHr = styled.hr<{ $margin?: string }>`
 	border: 2px solid ${theme.newColors.grey2[100]};
 	margin:  ${({ $margin }) => $margin ? $margin : "0px -16px"};
 `;
 
-export const StyledVerticalHr = styled.hr<{$margin?: string}>`
+export const StyledVerticalHr = styled.hr<{ $margin?: string }>`
 	border: 2px solid ${theme.newColors.grey2[100]};
 	margin: ${({ $margin }) => $margin ? $margin : "-32px 0px 0px 0px"};
 `;

@@ -29,7 +29,7 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 
 	const [state, setState] = useState({
 		currentPage : props.currentPage,
-		invalid : false
+		invalid : false,
 	});
 
 	const onChange = function(e) {
@@ -40,9 +40,9 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 		setState({
 			...state,
 			invalid,
-			currentPage : e.currentTarget.value
+			currentPage : e.currentTarget.value,
 		});
-	}
+	};
 
 	const onSubmit = () => {
 		if (state.invalid === true) {
@@ -51,13 +51,13 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 
 		buttonPopoverContext.onClose();
 		props.onSkipChange({ skip : (state.currentPage - 1) * props.limit });
-	}
+	};
 
 	const onKeyDown = (e) => {
 		if (e.key === "Enter") {
 			return onSubmit();
 		}
-	}
+	};
 
 	return (
 		<PopoverDiv
@@ -82,7 +82,7 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 				label="Go"
 			/>
 		</PopoverDiv>
-	)
+	);
 }
 
 export default memo(DataViewPagerPopover);

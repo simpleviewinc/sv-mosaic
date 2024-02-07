@@ -47,7 +47,7 @@ export const Playground = (): ReactElement => {
 					},
 				},
 			],
-		[required, disabled, showMenu, instructionText, helperText, label]
+		[required, disabled, showMenu, instructionText, helperText, label],
 	);
 
 	return (

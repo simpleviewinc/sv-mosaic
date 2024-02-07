@@ -1,2 +1,2 @@
-export { default } from "./Col"
-export * from "./ColTypes"
+export { default } from "./Col";
+export * from "./ColTypes";

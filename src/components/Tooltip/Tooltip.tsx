@@ -19,7 +19,7 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 		placement = "bottom-start",
 		anchorEl,
 		id,
-		maxWidth
+		maxWidth,
 	} = props;
 
 	const style = useMemo(() => ({ maxWidth }), [maxWidth]);
@@ -39,6 +39,6 @@ const Tooltip = (props: TooltipProps): ReactElement => {
 			{children}
 		</TooltipPopper>
 	);
-}
+};
 
 export default Tooltip;

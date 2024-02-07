@@ -2,7 +2,7 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
-import Popover from "@mui/material/Popover"
+import Popover from "@mui/material/Popover";
 import { useLoadScript } from "@react-google-maps/api";
 import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 
@@ -24,7 +24,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		onSelect,
 		textField,
 		placeholder,
-		googleMapsApiKey
+		googleMapsApiKey,
 	} = props;
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -44,11 +44,11 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 
 	const inputProps = {
 		...textField,
-		inputProps: {"data-testid": "location-search-input"},
+		inputProps: { "data-testid": "location-search-input" },
 		variant: "outlined",
 		value,
 		onFocus: handleFocus,
-		onBlur: handleBlur
+		onBlur: handleBlur,
 	};
 
 	if (!isLoaded || loadError) {
@@ -58,14 +58,14 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 				fieldSize="lg"
 				onChange={({ target: { value } }) => onChange(value)}
 			/>
-		)
+		);
 	}
 
 	return (
 		<LocationSearchInputWrapper className={className}>
 			<PlacesAutocomplete value={value} onChange={onChange} onSelect={onSelect}>
 				{({ getInputProps, suggestions, getSuggestionItemProps }) => (
-					<div style={{position: "relative"}}>
+					<div style={{ position: "relative" }}>
 						<StyledInputSearch
 							{...inputProps}
 							{...getInputProps({

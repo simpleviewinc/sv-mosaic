@@ -23,7 +23,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 
 	const checkboxClick = (i) => () => {
 		props.onCheckboxClick(i);
-	}
+	};
 
 	return (
 		<StyledDiv>
@@ -93,12 +93,12 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 									</div>
 								</div>
 							</div>
-						)
+						);
 					})
 				}
 			</div>
 		</StyledDiv>
-	)
+	);
 }
 
 export default DataViewDisplayGrid;

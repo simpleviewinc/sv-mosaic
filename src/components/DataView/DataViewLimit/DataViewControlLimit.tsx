@@ -17,8 +17,8 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 		return props.options.map(val => {
 			return {
 				label : val.toString(),
-				value : val.toString()
-			}
+				value : val.toString(),
+			};
 		});
 	}, [props.options]);
 
@@ -28,7 +28,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			onChange={onChange}
 			value={props.limit.toString()}
 		/>
-	)
+	);
 
 	return (
 		<StyledButton
@@ -41,7 +41,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			mIconColor={theme.newColors.almostBlack["100"]}
 			menuContent={menuContent}
 		/>
-	)
+	);
 }
 
 export default memo(DataViewLimit);

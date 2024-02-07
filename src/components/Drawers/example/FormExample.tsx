@@ -9,8 +9,8 @@ function FormExample({
 	config,
 	callbacks,
 }: {
-config: FormConfig;
-callbacks: PageCallbacks;
+	config: FormConfig;
+	callbacks: PageCallbacks;
 }) {
 	const appContext = useContext(AppContext);
 	const { state, dispatch } = useForm();
@@ -27,7 +27,7 @@ callbacks: PageCallbacks;
 			onClick: () => callbacks.save(state.data),
 			color: "yellow" as ButtonProps["color"],
 			variant: "contained" as ButtonProps["variant"],
-			show: callbacks.save ? true : false
+			show: callbacks.save ? true : false,
 		},
 		{
 			label: "Open new form",
@@ -64,8 +64,8 @@ callbacks: PageCallbacks;
 							dispatch(
 								formActions.setFieldValue({
 									name: "from_parent",
-									value: JSON.stringify(data)
-								})
+									value: JSON.stringify(data),
+								}),
 							);
 
 							appContext.removeDrawer();
@@ -74,9 +74,9 @@ callbacks: PageCallbacks;
 				}),
 			color: "teal" as ButtonProps["color"],
 			variant: "outlined" as ButtonProps["variant"],
-			tooltip: "Clicking opens form in a new drawer"
+			tooltip: "Clicking opens form in a new drawer",
 		},
-	]
+	];
 
 	return (
 		<div>

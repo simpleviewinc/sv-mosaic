@@ -37,7 +37,7 @@ export const RGBAToHexA = (rgbaColor: RGBColor) => {
 };
 
 const FormFieldColorPicker = (
-	props: MosaicFieldProps<"color", unknown, ColorData>
+	props: MosaicFieldProps<"color", unknown, ColorData>,
 ): ReactElement => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 	const {

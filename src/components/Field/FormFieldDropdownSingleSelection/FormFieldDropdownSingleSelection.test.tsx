@@ -3,7 +3,7 @@ import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 
 import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
 import { getOptions } from "@root/utils/getOptions";
-import "@testing-library/jest-dom"
+import "@testing-library/jest-dom";
 import { additionalOptions } from "../FormFieldAdvancedSelection";
 
 const topFilms = [
@@ -28,10 +28,10 @@ describe("DropdownSingleSelection component", () => {
 					inputSettings: {
 						options: topFilms,
 						placeholder: "Placeholder test",
-					}
+					},
 				}}
 				value={topFilms[0]}
-			/>
+			/>,
 		);
 
 		/**
@@ -55,9 +55,9 @@ describe("DropdownSingleSelection component as a form field", () => {
 					inputSettings: {
 						options: topFilms,
 						placeholder: "Placeholder test",
-					}
+					},
 				}}
-			/>
+			/>,
 		);
 	});
 
@@ -88,7 +88,7 @@ describe("DropdownSingleSelection component with options from DB", () => {
 		await waitFor(() => {
 			const inputDropdown = getByRole("combobox") as HTMLInputElement;
 			expect(inputDropdown.value).toEqual(additionalOptions[7].label);
-		}, {timeout: 3000});
+		}, { timeout: 3000 });
 	});
 
 	it("should render on the screen with options from DB", async () => {
@@ -108,12 +108,12 @@ describe("DropdownSingleSelection component with options from DB", () => {
 
 		await act( async() => {
 			const moreIconButton = screen.getByTestId("ExpandMoreIcon");
-			moreIconButton.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+			moreIconButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 		});
 
 		await waitFor(() => {
 			const singleSelectOptions = screen.getAllByRole("option");
 			expect(singleSelectOptions[0]).toHaveTextContent(additionalOptions[0].label);
-		}, {timeout: 1000});
+		}, { timeout: 1000 });
 	});
 });

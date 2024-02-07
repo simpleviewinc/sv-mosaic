@@ -85,7 +85,7 @@ export class FilterComponent extends BasePage {
 
 	async getCategorySelectedOptionValues(): Promise<string[]> {
 		const itemsNumber = await this.selectedOptions.count();
-		const selectedOptions = []
+		const selectedOptions = [];
 		for (let i = 0; i < itemsNumber; i++) {
 			selectedOptions.push(await this.selectedOptions.nth(i).locator("span").nth(0).textContent());
 		}
@@ -128,7 +128,7 @@ export class FilterComponent extends BasePage {
 		}
 	}
 
-	async selectFilter(filter: "keyword"|"categories"|"categoriesWithComparisons"|"singleSelectCategory"|"created"|"title"|"titleWithComparisons"|"updated")
+	async selectFilter(filter: "keyword" | "categories" | "categoriesWithComparisons" | "singleSelectCategory" | "created" | "title" | "titleWithComparisons" | "updated")
 		: Promise<void> {
 		await this._dataviewPage.waitForDataviewIsVisible();
 		await this._dataviewPage.filtersBtn.click();
@@ -140,7 +140,7 @@ export class FilterComponent extends BasePage {
 			await this.categoryFilterOption.first().click();
 			break;
 		case "singleSelectCategory":
-			await this.singleSelectCategoryOption.click({force: true});
+			await this.singleSelectCategoryOption.click({ force: true });
 			break;
 		case "categoriesWithComparisons":
 			await this.categoryWithComparisonOption.first().click();

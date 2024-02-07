@@ -2,9 +2,8 @@ import PageHeader from "@root/components/PageHeader";
 import * as React from "react";
 import { useContext } from "react";
 import AppContext from "./AppContext";
-import { GridConfig } from "./ExampleTypes";
 
-function Grid({ config }: { config: GridConfig }) {
+function Grid() {
 	const appContext = useContext(AppContext);
 
 	return (

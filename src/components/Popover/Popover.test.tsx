@@ -67,7 +67,7 @@ describe("Popover component", () => {
 		expect(getByTestId("bottom-content-split"));
 	});
 
-	it("should close the Popover",  async () => {
+	it("should close the Popover", async () => {
 		fireEvent.click(getByText("Close Popover"));
 
 		await waitFor(() => {

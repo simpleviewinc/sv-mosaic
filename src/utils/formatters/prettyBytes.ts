@@ -101,11 +101,11 @@ export default function prettyBytes(number: number, options: PrettyBytesOptions 
 	let localeOptions;
 
 	if (options.minimumFractionDigits !== undefined) {
-		localeOptions = {minimumFractionDigits: options.minimumFractionDigits};
+		localeOptions = { minimumFractionDigits: options.minimumFractionDigits };
 	}
 
 	if (options.maximumFractionDigits !== undefined) {
-		localeOptions = {maximumFractionDigits: options.maximumFractionDigits, ...localeOptions};
+		localeOptions = { maximumFractionDigits: options.maximumFractionDigits, ...localeOptions };
 	}
 
 	if (number < 1) {

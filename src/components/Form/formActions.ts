@@ -7,11 +7,11 @@ import { getToggle, wrapToggle } from "@root/utils/toggle";
 async function runValidators(
 	validators: Validator[],
 	value: unknown,
-	data: unknown
+	data: unknown,
 ): Promise<{
-	errorMessage?: string | undefined;
-	validator: Validator;
-}> {
+		errorMessage?: string | undefined;
+		validator: Validator;
+	}> {
 	for (const validator of validators) {
 		const result = await validator.fn(value, data, validator.options);
 		if (result) {
@@ -27,15 +27,15 @@ async function runValidators(
 
 const isValidValue = (value: any) => {
 	if (value === "" || value?.length === 0) {
-		return false
+		return false;
 	}
 
 	return true;
-}
+};
 
 function getFieldFromExtra(extraArgs: FormExtraArgs, name: string) {
 	if (!extraArgs.fieldMap[name]) {
-		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fieldMap).map(name => `\`${name}\``).join(", ")}`)
+		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fieldMap).map(name => `\`${name}\``).join(", ")}`);
 	}
 
 	return extraArgs.fieldMap[name];
@@ -46,13 +46,13 @@ export const formActions: FormActionThunks = {
 		return async function (_dispatch, _getState, extraArgs) {
 			extraArgs.fields = fields.map(field => {
 				const fieldConfig = getFieldConfig(field.type);
-				const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue
+				const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
 
 				const result: FieldDefSanitized = {
 					...field,
 					validateOn: field.validateOn || fieldConfig.validate,
-					getResolvedValue: (value) => valueResolver(value, field)
-				}
+					getResolvedValue: (value) => valueResolver(value, field),
+				};
 
 				return result;
 			});
@@ -69,15 +69,15 @@ export const formActions: FormActionThunks = {
 		return async function (dispatch) {
 			return dispatch({
 				type: "SET_SUBMIT_WARNING",
-				value
-			})
-		}
+				value,
+			});
+		};
 	},
 	setFormValues({ values }) {
 		return async function (dispatch, _getState, extraArgs) {
 			const internalValues = Object.keys(values).reduce((acc, curr) => ({
 				...acc,
-				[curr]: getFieldFromExtra(extraArgs, curr).getResolvedValue(values[curr]).internalValue
+				[curr]: getFieldFromExtra(extraArgs, curr).getResolvedValue(values[curr]).internalValue,
 			}), {});
 
 			extraArgs.data = values;
@@ -86,9 +86,9 @@ export const formActions: FormActionThunks = {
 				type: "FIELDS_ON_CHANGE",
 				value: values,
 				internalValue: internalValues,
-				clearErrors: true
+				clearErrors: true,
 			});
-		}
+		};
 	},
 	setFieldValue({
 		name,
@@ -108,13 +108,13 @@ export const formActions: FormActionThunks = {
 				name,
 				internalValue,
 				value: isValidValue(value) ? value : undefined,
-				touched
+				touched,
 			});
 
 			if (validate || field.validateOn === "onChange") {
 				await dispatch(formActions.validateField({
 					name,
-					validateLinkedFields: true
+					validateLinkedFields: true,
 				}));
 			}
 
@@ -124,7 +124,7 @@ export const formActions: FormActionThunks = {
 			) {
 				await dispatch(formActions.validateField({
 					name,
-					validateLinkedFields: true
+					validateLinkedFields: true,
 				}));
 			}
 
@@ -136,13 +136,13 @@ export const formActions: FormActionThunks = {
 				delete extraArgs.hasBlurred[name];
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
-					name
+					name,
 				});
 			}
 		};
 	},
 	setFieldBlur({
-		name
+		name,
 	}) {
 		return async function(dispatch, _getState, extraArgs) {
 			const field = getFieldFromExtra(extraArgs, name);
@@ -155,11 +155,11 @@ export const formActions: FormActionThunks = {
 			) {
 				await dispatch(formActions.validateField({
 					name,
-					validateLinkedFields: true
-				}))
+					validateLinkedFields: true,
+				}));
 			}
 
-		}
+		};
 	},
 	validateField({ name, validateLinkedFields }) {
 		return async function (dispatch, getState, extraArgs) {
@@ -179,7 +179,7 @@ export const formActions: FormActionThunks = {
 			if (validateLinkedFields && field.validates) {
 				field.validates.forEach(linkedFieldName => {
 					dispatch(formActions.validateField({
-						name: linkedFieldName
+						name: linkedFieldName,
 					}));
 				});
 			}
@@ -195,7 +195,7 @@ export const formActions: FormActionThunks = {
 			if (disabled) {
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
-					name
+					name,
 				});
 
 				return;
@@ -215,7 +215,7 @@ export const formActions: FormActionThunks = {
 			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters > 0) {
 				validators.push({
 					fn: "validateCharacterCount",
-					options: { max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters }
+					options: { max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters },
 				});
 			}
 
@@ -224,8 +224,8 @@ export const formActions: FormActionThunks = {
 					fn: "validateMinDate",
 					options: {
 						min: extraArgs?.fieldMap[name]?.inputSettings?.minDate,
-						max: extraArgs?.fieldMap[name]?.inputSettings?.maxDate
-					}
+						max: extraArgs?.fieldMap[name]?.inputSettings?.maxDate,
+					},
 				});
 			}
 
@@ -240,12 +240,12 @@ export const formActions: FormActionThunks = {
 				await dispatch({
 					type: "FIELD_VALIDATE",
 					name,
-					value: result?.errorMessage
+					value: result?.errorMessage,
 				});
 			} else {
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
-					name
+					name,
 				});
 			}
 		};
@@ -264,7 +264,7 @@ export const formActions: FormActionThunks = {
 				(!!touchedFields[currFieldName] === false ||
 					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
 					(await dispatch(
-						formActions.validateField({ name: currFieldName })
+						formActions.validateField({ name: currFieldName }),
 					));
 			}
 
@@ -310,12 +310,12 @@ export const formActions: FormActionThunks = {
 			if (!dispatch(formActions.isSubmittable())) {
 				return {
 					valid: false,
-					data: null
+					data: null,
 				};
 			}
 
 			const valid = await dispatch(
-				formActions.validateForm()
+				formActions.validateForm(),
 			);
 
 			const cleanData = Object.keys(data).reduce((acc, curr) => {
@@ -325,33 +325,33 @@ export const formActions: FormActionThunks = {
 				if (!mounted[curr] || disabled) {
 					return {
 						...acc,
-						[curr]: undefined
+						[curr]: undefined,
 					};
 				}
 
 				return {
 					...acc,
-					[curr]: data[curr]
+					[curr]: data[curr],
 				};
 			}, {});
 
 			extraArgs.hasBlurred = Object.keys(extraArgs.fieldMap).reduce((prev, curr) => ({
 				...prev,
-				[curr]: true
+				[curr]: true,
 			}), {});
 
 			return {
 				valid,
-				data: cleanData
-			}
-		}
+				data: cleanData,
+			};
+		};
 	},
 	resetForm() {
 		return async function (dispatch) {
 			await dispatch({
 				type: "FORM_RESET",
 			});
-		}
+		};
 	},
 	disableForm({ disabled = false }) {
 		return async function (dispatch) {
@@ -359,16 +359,16 @@ export const formActions: FormActionThunks = {
 				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
 				value: disabled,
 			});
-		}
+		};
 	},
 	startBusy({ name, value }) {
 		return async function (dispatch) {
 			await dispatch({
 				type: "FORM_START_BUSY",
 				name,
-				value
+				value,
 			});
-		}
+		};
 	},
 	endBusy({ name }) {
 		return async function (dispatch) {
@@ -376,12 +376,12 @@ export const formActions: FormActionThunks = {
 				type: "FORM_END_BUSY",
 				name,
 			});
-		}
+		};
 	},
 	mountField({ name }) {
 		return async function (dispatch, _, extraArgs) {
 			extraArgs.mounted[name] = true;
-		}
+		};
 	},
 	unmountField({ name }) {
 		return async function (dispatch, _, extraArgs) {
@@ -389,9 +389,9 @@ export const formActions: FormActionThunks = {
 
 			dispatch({
 				type: "FIELD_UNVALIDATE",
-				name
-			})
-		}
+				name,
+			});
+		};
 	},
 	isSubmittable() {
 		return async function (dispatch, getState) {
@@ -403,7 +403,7 @@ export const formActions: FormActionThunks = {
 				// but we'll keep it here for consistency
 				dispatch({
 					type: "SET_SUBMIT_WARNING",
-					value: "The form cannot be submitted whilst it is disabled"
+					value: "The form cannot be submitted whilst it is disabled",
 				});
 
 				return false;
@@ -415,15 +415,15 @@ export const formActions: FormActionThunks = {
 					type: "SET_SUBMIT_WARNING",
 					value: {
 						lead: "The form cannot be submitted at this time:",
-						reasons: busyMessages
-					}
+						reasons: busyMessages,
+					},
 				});
 
 				return false;
 			}
 
 			return true;
-		}
+		};
 	},
 	addValidator({ name, validator }) {
 		return async function (_dispatch, _getState, extraArgs) {
@@ -438,9 +438,9 @@ export const formActions: FormActionThunks = {
 
 			extraArgs.internalValidators[name] = [
 				...current,
-				validator
+				validator,
 			];
-		}
+		};
 	},
 	removeValidator({ name, validator }) {
 		return async function (_dispatch, _getState, extraArgs) {
@@ -454,7 +454,7 @@ export const formActions: FormActionThunks = {
 			}
 
 			extraArgs.internalValidators[name] = current.filter(item => item !== validator);
-		}
+		};
 	},
 };
 

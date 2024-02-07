@@ -9,7 +9,7 @@ interface ImageProps {
 function Image(props: ImageProps): ReactElement {
 	return (
 		<img className={props.className} src={props.src}/>
-	)
+	);
 }
 
 export default memo(Image);

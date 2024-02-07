@@ -6,7 +6,7 @@ export const DateTimePickerWrapper = styled.div`
 	flex-direction: column;
 `;
 
-export const DateTimeInputRow = styled.div<{$hasTimeField?: boolean}>`
+export const DateTimeInputRow = styled.div<{ $hasTimeField?: boolean }>`
 	${({ $hasTimeField }) => $hasTimeField && `
 		display: grid;
 		grid-template-columns: repeat(1,minmax(0,1fr));

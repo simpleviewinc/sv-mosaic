@@ -24,7 +24,7 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const context = canvas.getContext("2d");
-		let animationFrameId
+		let animationFrameId;
 		const canvasPos = getPosition(canvas);
 		let mouseX = 0;
 		let mouseY = 0;
@@ -41,14 +41,14 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 			context.stroke();
 			context.closePath();
 
-			animationFrameId = window.requestAnimationFrame(update)
-		}
+			animationFrameId = window.requestAnimationFrame(update);
+		};
 		if (isFocus) {
 			update();
 		}
 
 		function setMousePosition(e: MouseEvent) {
-			mouseX = e.pageX  - canvasPos.x;
+			mouseX = e.pageX - canvasPos.x;
 			mouseY = e.pageY - canvasPos.y;
 		}
 
@@ -63,7 +63,7 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 			}
 			return {
 				x: xPosition,
-				y: yPosition
+				y: yPosition,
 			};
 		}
 
@@ -74,19 +74,19 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 				canvasRef.current.removeEventListener("mousemove", setMousePosition);
 				window.cancelAnimationFrame(animationFrameId);
 			}
-		}
+		};
 
-	}, [isFocus])
+	}, [isFocus]);
 
 
 	const setMouseCoordinates = (event) => {
 		const rect = event.target.getBoundingClientRect();
 		const x = event.clientX - rect.left; //x position within the element.
-		const y = event.clientY - rect.top;  //y position within the element.
+		const y = event.clientY - rect.top; //y position within the element.
 
-		mousePosition({ x, y })
-		setIsFocus(!isFocus)
-	}
+		mousePosition({ x, y });
+		setIsFocus(!isFocus);
+	};
 
 	return (
 		<CanvasContainer onClick={setMouseCoordinates}>

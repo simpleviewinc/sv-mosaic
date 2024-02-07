@@ -16,7 +16,7 @@ test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", (
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
-	test.afterAll(async ({ browser }) => {
+	test.afterAll(async () => {
 		// browser.close;
 	});
 

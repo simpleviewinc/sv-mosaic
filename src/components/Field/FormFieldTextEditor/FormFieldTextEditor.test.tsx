@@ -13,7 +13,7 @@ import { act } from "react-dom/test-utils";
 afterEach(cleanup);
 
 const TextEditorExample = (
-	props: TextEditorInputSettings & { disabled?: boolean }
+	props: TextEditorInputSettings & { disabled?: boolean },
 ): ReactElement => {
 	const {
 		direction = "ltr",
@@ -59,7 +59,7 @@ const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
-	disconnect: () => null
+	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
 

@@ -19,13 +19,13 @@ const popoverProps: Pick<PopoverProps, "anchorOrigin" | "transformOrigin"> = {
 	transformOrigin: {
 		vertical: "top",
 		horizontal: "left",
-	}
+	},
 };
 
 const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase(props, ref) {
 	const Icon = props.mIcon;
 	const isIconButton = props.variant === "icon";
-	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{color: props.mIconColor}} />;
+	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{ color: props.mIconColor }} />;
 
 	const buttonProps = {
 		$variant: props.variant,
@@ -40,8 +40,8 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		href: props.href,
 		name: props.name,
 		ref,
-		...props.muiAttrs
-	}
+		...props.muiAttrs,
+	};
 
 	const iconPosition = props.iconPosition || "left";
 	const Component = props.component || (isIconButton ? StyledIconButton : StyledButton) as any;

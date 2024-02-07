@@ -8,14 +8,14 @@ import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { MosaicLabelValue } from "@root/types";
 
 const FormFieldCheckbox = (
-	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>
+	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>,
 ): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
 		onBlur,
 		value,
-		disabled
+		disabled,
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
@@ -32,19 +32,19 @@ const FormFieldCheckbox = (
 				setInternalOptions(newOptions);
 				setOrigin(false);
 			}
-		}
+		};
 		populateOptions();
 	}, [
 		fieldDef?.inputSettings?.options,
-		fieldDef?.inputSettings?.getOptions
-	])
+		fieldDef?.inputSettings?.getOptions,
+	]);
 
 	useEffect(() => {
 		if (value && origin === false) {
 			value.forEach((optionValue) => {
 				if (!internalOptions.find((o) => o?.value === optionValue?.value))
 					setInternalOptions([...internalOptions, optionValue]);
-			})
+			});
 		}
 		setChecked(value);
 
@@ -53,9 +53,9 @@ const FormFieldCheckbox = (
 	const internalOnChange = (checkedOptions: MosaicLabelValue[], cb:(val:MosaicLabelValue[]) => void) => {
 		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option?.value === checkedOption.value));
 		if (cb) {
-			cb(newCheckedOptions)
+			cb(newCheckedOptions);
 		}
-	}
+	};
 
 	return (
 		<StyledCheckboxList

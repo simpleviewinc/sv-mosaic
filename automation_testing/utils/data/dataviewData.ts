@@ -3,8 +3,8 @@ const dataview_data = {
 	resultPerPageDefault: 25,
 	resultPerPage50: 50,
 	resultPerPage100: 100,
-	totalRecords: 304
-}
+	totalRecords: 304,
+};
 
 const saveAs_data = {
 	defaultView: "All",
@@ -15,8 +15,8 @@ const saveAs_data = {
 	defaultType: "default",
 	viewNotSharedType: "mine",
 	viewSharedType: "shared",
-	defaultColumnHeadersList: 4
-}
+	defaultColumnHeadersList: 4,
+};
 
 const columns_data = {
 	columnsTitle: "Table Settings",
@@ -25,27 +25,27 @@ const columns_data = {
 		"Categories",
 		"Created",
 		"Image",
-		"Title"
+		"Title",
 	],
 	defaultColumnsOrder: [
 		"Image",
 		"Title",
 		"Categories",
-		"Created"
+		"Created",
 	],
 	changeItemDown: "Image",
 	changeColumnsOrderDown: [
 		"Title",
 		"Categories",
 		"Image",
-		"Created"
+		"Created",
 	],
 	changeItemUp: "Categories",
 	changeColumnsOrderUp: [
 		"Categories",
 		"Image",
 		"Title",
-		"Created"
+		"Created",
 	],
 	addItem: "Content Owner",
 	addItemOrder: [
@@ -53,14 +53,14 @@ const columns_data = {
 		"Title",
 		"Categories",
 		"Created",
-		"Content Owner"
+		"Content Owner",
 	],
 	addColumnHeadersCount: 5,
 	removeItem: "Categories",
 	removeItemOrder: [
 		"Image",
 		"Title",
-		"Created"
+		"Created",
 	],
 	removeColumnHeadersCount: 3,
 	removeAllItemsCount: 0,
@@ -82,7 +82,7 @@ const columns_data = {
 		"Style - Text Transform with large field text to order column",
 		"Style - textTransform",
 		"Title",
-		"Updated"
+		"Updated",
 	],
 	allItemsOrder: [
 		"Image",
@@ -102,10 +102,10 @@ const columns_data = {
 		"Style - strikeThrough",
 		"Style - Text Transform with large field text to order column",
 		"Style - textTransform",
-		"Updated"
+		"Updated",
 	],
-	allItemsCount: 18
-}
+	allItemsCount: 18,
+};
 
 const filter_data = {
 	validKeywordFilter: "Accessibility",
@@ -127,8 +127,8 @@ const filter_data = {
 	categoryFilterLoadMore: "Cool City",
 	categoryFilterLoadMoreNumber: 5,
 	categoryFilterMoreMessage: "(1 more)",
-	categoryFilterMoreThanTwoNumber: 16
-}
+	categoryFilterMoreThanTwoNumber: 16,
+};
 
 const advanced_filter_data = {
 	searchedTitleSimple: "Ada",
@@ -140,7 +140,7 @@ const advanced_filter_data = {
 	errorMessageDates: "End of range cannot be before start of range.",
 	updatedOptionFilter: "Updated",
 	updateFilterResults: 3,
-	noResults: "No results were found."
-}
+	noResults: "No results were found.",
+};
 
 export { dataview_data, saveAs_data, columns_data, filter_data, advanced_filter_data };

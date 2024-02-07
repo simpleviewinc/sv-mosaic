@@ -14,10 +14,10 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 	const [state, setState] = useState<DataViewFilterSingleSelectState>({
 		anchorEl : null,
 		selected : undefined,
-		options: []
+		options: [],
 	});
 
-	if (props.args.required && !props.data.value) throw new Error("Invalid use-case, a value is required but none was provided")
+	if (props.args.required && !props.data.value) throw new Error("Invalid use-case, a value is required but none was provided");
 
 	const value = props.data?.value;
 
@@ -30,7 +30,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 			setState({
 				...state,
 				options : options.docs,
-				selected
+				selected,
 			});
 		}
 
@@ -40,22 +40,22 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 
 		return () => {
 			isMounted = false;
-		}
+		};
 	}, [props.data]);
 
 	const onClick = function (evt) {
 		setState({
 			...state,
-			anchorEl : evt.currentTarget
-		})
-	}
+			anchorEl : evt.currentTarget,
+		});
+	};
 
 	const onClose = function () {
 		setState({
 			...state,
-			anchorEl : null
-		})
-	}
+			anchorEl : null,
+		});
+	};
 
 	let valueString: string;
 	if (state.selected !== undefined) {
@@ -67,7 +67,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 			props.onChange(undefined);
 		} else {
 			props.onChange({
-				value : value
+				value : value,
 			});
 		}
 		onClose();

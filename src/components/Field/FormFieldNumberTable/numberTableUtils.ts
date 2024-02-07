@@ -53,4 +53,4 @@ export const numberTableDefaultValue = {
 
 export const isValidRowCol = (rowCol: string, rowsCols: Col[] | Row[]) => {
 	return rowsCols.map(rowValue => rowValue.name).includes(rowCol);
-}
+};

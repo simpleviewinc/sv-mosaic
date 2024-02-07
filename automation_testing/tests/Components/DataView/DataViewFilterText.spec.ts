@@ -59,7 +59,7 @@ test.describe.parallel("Components - DataViewFilterText - Playground", () => {
 	});
 
 	test("Validate that the padding in the input row.", async () => {
-		const expectedPadding = "16px 16px 0px"
+		const expectedPadding = "16px 16px 0px";
 		await dvFilterComponent.filterTextButton.click();
 		expect(await dvFilterComponent.getSpecificPaddingFromElement(dvFilterComponent.inputRowLocator, "all")).toBe(expectedPadding);
 	});
