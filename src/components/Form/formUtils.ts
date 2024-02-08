@@ -1,6 +1,8 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, UseFormReturn } from "./state/types";
-import formActions from "./formActions";
+import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, UseFormReturn, ValidateField } from "./state/types";
+import { runValidators } from "./formActions";
+import { getToggle, wrapToggle } from "@root/utils/toggle";
+import { mapsValidators, required, validatePhoneNumber } from "./validators";
 
 export function coreReducer(state: FormState, action: FormAction): FormState {
 	console.log(`DISPATCH ${action.type}`);
@@ -125,7 +127,7 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 	}
 }
 
-const cleanValue = (value: any) => {
+const cleanValue = (value: unknown) => {
 	if (value === "" || (Array.isArray(value) && value.length === 0)){
 		return undefined;
 	}
@@ -169,6 +171,96 @@ export function useForm(): UseFormReturn {
 		return extraArgs.current.fields[name];
 	};
 
+	const validateField = useCallback<ValidateField>(async ({
+		name,
+		validateLinkedFields,
+	}) => {
+		const { data, mounted, internalValidators } = extraArgs.current;
+		const field = getFieldFromExtra(name);
+
+		if (!mounted[name]) {
+			return;
+		}
+
+		/**
+		 * @TODO This is not pretty, but it'll do for now. Ideally we would
+		 * only commit one dispatch after validating all fields, instead of
+		 * a dispatch for each field
+		 */
+		if (validateLinkedFields && field.validates) {
+			field.validates.forEach(linkedFieldName => {
+				validateField({
+					name: linkedFieldName,
+				});
+			});
+		}
+
+		const disabledWrapped = wrapToggle(field.disabled, state, false);
+		const disabled = getToggle(disabledWrapped);
+
+		/**
+		 * We dispatch an undefined so that way, if by any reason
+		 * the field had an error message and then became disabled,
+		 * the error would get removed from the state.
+		 */
+		if (disabled) {
+			dispatch({
+				type: "FIELD_UNVALIDATE",
+				name,
+			});
+
+			return;
+		}
+
+		const requiredFlag = field.required;
+		const validators = field.validators || [];
+
+		if (requiredFlag) {
+			validators.unshift(required);
+		}
+
+		if (field.type === "phone") {
+			validators.push(validatePhoneNumber);
+		}
+
+		if (field.inputSettings?.maxCharacters > 0) {
+			validators.push({
+				fn: "validateCharacterCount",
+				options: { max: field.inputSettings.maxCharacters },
+			});
+		}
+
+		if (field.inputSettings?.minDate || field.inputSettings?.maxDate) {
+			validators.push({
+				fn: "validateMinDate",
+				options: {
+					min: field.inputSettings?.minDate,
+					max: field.inputSettings?.maxDate,
+				},
+			});
+		}
+
+		const validatorsMap = mapsValidators([
+			...(internalValidators[name] || []),
+			...validators,
+		]);
+
+		const result = await runValidators(validatorsMap, data[name], data);
+
+		if (result?.errorMessage) {
+			dispatch({
+				type: "FIELD_VALIDATE",
+				name,
+				value: result?.errorMessage,
+			});
+		} else {
+			dispatch({
+				type: "FIELD_UNVALIDATE",
+				name,
+			});
+		}
+	}, [dispatch, state]);
+
 	const methods = useMemo<FormMethods>(() => ({
 		setFieldValue: ({
 			name,
@@ -193,20 +285,20 @@ export function useForm(): UseFormReturn {
 			});
 
 			if (validate || field.validateOn === "onChange") {
-				dispatch(formActions.validateField({
+				validateField({
 					name,
 					validateLinkedFields: true,
-				}));
+				});
 			}
 
 			if (
 				field.validateOn === "onBlurChange" &&
 				extraArgs.current.hasBlurred[name]
 			) {
-				dispatch(formActions.validateField({
+				validateField({
 					name,
 					validateLinkedFields: true,
-				}));
+				});
 			}
 
 			if (
@@ -221,7 +313,7 @@ export function useForm(): UseFormReturn {
 				});
 			}
 		},
-	}), [dispatch, state]);
+	}), [dispatch, state, validateField]);
 
 	return {
 		state,

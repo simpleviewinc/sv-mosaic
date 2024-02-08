@@ -200,7 +200,6 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		const loadFormValues = async () => {
-			return;
 			let values: MosaicObject;
 			await dispatch(formActions.disableForm({ disabled: true }));
 
