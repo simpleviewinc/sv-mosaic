@@ -20,7 +20,8 @@ export default {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -75,9 +76,8 @@ export const SubmitExternalButtons = (): ReactElement => {
 			<p>Here is the form</p>
 			<div style={{ height: "100vh" }}>
 				<Form
-					state={state}
+					{...controller}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 			<button onClick={clickHandler}>Submit</button>

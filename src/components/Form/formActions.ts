@@ -34,17 +34,17 @@ const isValidValue = (value: any) => {
 };
 
 function getFieldFromExtra(extraArgs: FormExtraArgs, name: string) {
-	if (!extraArgs.fieldMap[name]) {
-		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fieldMap).map(name => `\`${name}\``).join(", ")}`);
+	if (!extraArgs.fields[name]) {
+		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fields).map(name => `\`${name}\``).join(", ")}`);
 	}
 
-	return extraArgs.fieldMap[name];
+	return extraArgs.fields[name];
 }
 
 export const formActions: FormActionThunks = {
 	init({ fields }) {
 		return async function (_dispatch, _getState, extraArgs) {
-			extraArgs.fields = fields.map(field => {
+			extraArgs.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field) => {
 				const fieldConfig = getFieldConfig(field.type);
 				const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
 
@@ -54,15 +54,11 @@ export const formActions: FormActionThunks = {
 					getResolvedValue: (value) => valueResolver(value, field),
 				};
 
-				return result;
-			});
-
-			const fieldMap = extraArgs.fields.reduce((prev, curr) => {
-				prev[curr.name] = curr;
-				return prev;
+				return {
+					...prev,
+					[field.name]: result,
+				};
 			}, {});
-
-			extraArgs.fieldMap = fieldMap;
 		};
 	},
 	setSubmitWarning({ value }) {
@@ -90,6 +86,9 @@ export const formActions: FormActionThunks = {
 			});
 		};
 	},
+	/**
+	 * @deprecated Use form controller's method.setFieldValue instead
+	 */
 	setFieldValue({
 		name,
 		value: providedValue,
@@ -97,6 +96,8 @@ export const formActions: FormActionThunks = {
 		touched = false,
 	}) {
 		return async function (dispatch, getState, extraArgs) {
+			console.warn("Using `dispatch(formActions.setFieldValue(...)) is deprecated. Use `methods.setFieldValue(...)` instead which is available on the controller returned from `useForm`.");
+
 			const { errors } = getState();
 			const field = getFieldFromExtra(extraArgs, name);
 
@@ -186,7 +187,7 @@ export const formActions: FormActionThunks = {
 				});
 			}
 
-			const disabledWrapped = wrapToggle(extraArgs?.fieldMap[name]?.disabled, state, false);
+			const disabledWrapped = wrapToggle(extraArgs.fields[name]?.disabled, state, false);
 			const disabled = getToggle(disabledWrapped);
 
 			/**
@@ -203,30 +204,30 @@ export const formActions: FormActionThunks = {
 				return;
 			}
 
-			const requiredFlag = extraArgs?.fieldMap[name]?.required;
-			const validators = extraArgs?.fieldMap[name]?.validators ? extraArgs?.fieldMap[name]?.validators : [];
+			const requiredFlag = extraArgs.fields[name]?.required;
+			const validators = extraArgs.fields[name]?.validators ? extraArgs.fields[name]?.validators : [];
 
 			if (requiredFlag) {
 				validators.unshift(required);
 			}
 
-			if (extraArgs?.fieldMap[name].type === "phone") {
+			if (extraArgs.fields[name].type === "phone") {
 				validators.push(validatePhoneNumber);
 			}
 
-			if (extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters > 0) {
+			if (extraArgs.fields[name]?.inputSettings?.maxCharacters > 0) {
 				validators.push({
 					fn: "validateCharacterCount",
-					options: { max: extraArgs?.fieldMap[name]?.inputSettings?.maxCharacters },
+					options: { max: extraArgs.fields[name]?.inputSettings?.maxCharacters },
 				});
 			}
 
-			if (extraArgs?.fieldMap[name]?.inputSettings?.minDate || extraArgs?.fieldMap[name]?.inputSettings?.maxDate) {
+			if (extraArgs.fields[name]?.inputSettings?.minDate || extraArgs.fields[name]?.inputSettings?.maxDate) {
 				validators.push({
 					fn: "validateMinDate",
 					options: {
-						min: extraArgs?.fieldMap[name]?.inputSettings?.minDate,
-						max: extraArgs?.fieldMap[name]?.inputSettings?.maxDate,
+						min: extraArgs.fields[name]?.inputSettings?.minDate,
+						max: extraArgs.fields[name]?.inputSettings?.maxDate,
 					},
 				});
 			}
@@ -261,8 +262,8 @@ export const formActions: FormActionThunks = {
 
 			const touchedFields = data;
 
-			for (let i = 0; i < fields.length; i++) {
-				const currFieldName = fields[i].name;
+			for (const [, field] of Object.entries(fields)) {
+				const currFieldName = field.name;
 				(!!touchedFields[currFieldName] === false ||
 					Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
 					(await dispatch(
@@ -321,7 +322,7 @@ export const formActions: FormActionThunks = {
 			);
 
 			const cleanData = Object.keys(data).reduce((acc, curr) => {
-				const disabledWrapped = wrapToggle(extraArgs?.fieldMap[curr]?.disabled, state, false);
+				const disabledWrapped = wrapToggle(extraArgs.fields[curr]?.disabled, state, false);
 				const disabled = getToggle(disabledWrapped);
 
 				if (!mounted[curr] || disabled) {
@@ -337,7 +338,7 @@ export const formActions: FormActionThunks = {
 				};
 			}, {});
 
-			extraArgs.hasBlurred = Object.keys(extraArgs.fieldMap).reduce((prev, curr) => ({
+			extraArgs.hasBlurred = Object.keys(extraArgs.fields).reduce((prev, curr) => ({
 				...prev,
 				[curr]: true,
 			}), {});

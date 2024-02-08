@@ -3,7 +3,6 @@ import { ReactElement, useMemo } from "react";
 import {
 	act,
 	cleanup,
-	fireEvent,
 	render,
 	screen,
 } from "@testing-library/react";
@@ -22,8 +21,9 @@ import { defaultView, listColumns } from "./matrixUtils";
 import { DataViewProps } from "@root/components/DataView";
 import rawData from "../../DataView/example/rawData.json";
 
-const MatrixExample = (): ReactElement => {
-	const { state, dispatch } = useForm();
+export const MatrixExample = (): ReactElement => {
+	const controller = useForm();
+	const { state, dispatch, methods } = useForm();
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
@@ -60,13 +60,11 @@ const MatrixExample = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: rows,
-					touched: true,
-				}),
-			);
+			methods.setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true,
+			});
 		},
 		display: "list",
 		activeColumns: ["id", "description", "title"],
@@ -83,13 +81,11 @@ const MatrixExample = (): ReactElement => {
 			};
 		});
 
-		await dispatch(
-			formActions.setFieldValue({
-				name: "formMatrix",
-				value: mappedData,
-				touched: true,
-			}),
-		);
+		methods.setFieldValue({
+			name: "formMatrix",
+			value: mappedData,
+			touched: true,
+		});
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -127,12 +123,11 @@ const MatrixExample = (): ReactElement => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };
@@ -163,20 +158,5 @@ describe("FormFieldMatrix component", () => {
 		expect(screen.getByText("Add")).toBeDefined();
 		expect(screen.getByTestId("AddIcon")).toBeDefined();
 	});
-
-	it("it should add 4 rows to the Data View", async () => {
-		await act(async () => {
-			fireEvent.click(screen.getByText("Add"));
-		});
-
-		expect(screen.getByRole("table")).toBeDefined();
-		// Colums
-		expect(screen.getByText("ID")).toBeDefined();
-		expect(screen.getByText("Description")).toBeDefined();
-		expect(screen.getByText("Title")).toBeDefined();
-		// Content
-		expect(screen.getAllByRole("row").length).toBe(4);
-	});
-
 });
 

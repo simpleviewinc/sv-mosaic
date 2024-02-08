@@ -46,7 +46,12 @@ export type LegacyFormAction = {
 	touched?: boolean;
 };
 
+export type ActionRerender = {
+	type: "RERENDER"
+};
+
 export type FormAction =
+	| ActionRerender
     | LegacyFormAction;
 
 type OptionalUndefinedParam<P, R> = P extends undefined ? (params?: P) => R : (params: P) => R;
@@ -63,6 +68,9 @@ export type FormActionThunks = {
 	setSubmitWarning: FormActionThunk<{
 		value: string;
 	}>;
+	/**
+	 * @deprecated Use form controller's method.setFieldValue instead
+	 */
 	setFieldValue: FormActionThunk<{
 		name: string;
 		value: unknown | ((current: unknown) => unknown);
@@ -115,14 +123,27 @@ export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
 
 export type FormGetState = () => FormState;
 
+export type SetFieldValueParams = {
+	name: string;
+	value: unknown | ((current: unknown) => unknown);
+	validate?: boolean;
+	touched?: boolean;
+};
+
+export type SetFieldValue = (params: SetFieldValueParams) => void;
+
+export type FormMethods = {
+	setFieldValue: SetFieldValue;
+};
+
 export type UseFormReturn = {
 	state: FormState;
 	dispatch: FormDispatch;
+	methods: FormMethods;
 };
 
 export type FormExtraArgs = {
-	fields: FieldDefSanitized[];
-	fieldMap: Record<string, FieldDefSanitized>;
+	fields: Record<string, FieldDefSanitized>;
 	onSubmit: () => void;
 	mounted: Record<string, boolean | undefined>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
