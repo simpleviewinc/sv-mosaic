@@ -18,7 +18,8 @@ export default {
 } as Meta;
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -55,12 +56,11 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);
@@ -117,18 +117,18 @@ const kitchenSinkFields: FieldDef[] = [
 ];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={renderButtons(dispatch)}
 				title="Form Title"
 				description="This is a description example"
-				state={state}
 				fields={kitchenSinkFields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

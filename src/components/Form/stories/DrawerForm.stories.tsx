@@ -121,7 +121,8 @@ const options = {
 };
 
 export const DrawerForm = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { dispatch } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{
@@ -359,10 +360,9 @@ export const DrawerForm = (): ReactElement => {
 			>
 				<div style={{ width: drawWidth }}>
 					<Form
+						{...controller}
 						buttons={buttons}
 						title="Drawer form example"
-						state={state}
-						dispatch={dispatch}
 						fields={fields}
 						onBack={onCancel}
 						sections={showSections ? sections : undefined}

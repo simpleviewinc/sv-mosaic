@@ -1,7 +1,9 @@
-import { useRef, useCallback, useReducer } from "react";
-import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormReducer, FormState, UseFormReturn } from "./state/types";
+import { useRef, useCallback, useMemo, useReducer } from "react";
+import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, UseFormReturn } from "./state/types";
+import formActions from "./formActions";
 
 export function coreReducer(state: FormState, action: FormAction): FormState {
+	console.log(`DISPATCH ${action.type}`);
 	switch (action.type) {
 	case "FIELD_ON_CHANGE":
 		return {
@@ -123,10 +125,17 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 	}
 }
 
+const cleanValue = (value: any) => {
+	if (value === "" || (Array.isArray(value) && value.length === 0)){
+		return undefined;
+	}
+
+	return value;
+};
+
 export function useForm(): UseFormReturn {
 	const extraArgs = useRef<FormExtraArgs>({
-		fields: [],
-		fieldMap: {},
+		fields: {},
 		onSubmit: () => undefined,
 		mounted: {},
 		internalValidators: {},
@@ -143,7 +152,7 @@ export function useForm(): UseFormReturn {
 			validating: {},
 			custom: {},
 			validForm: false,
-			disabled: true,
+			disabled: false,
 			touched: {},
 			mounted: {},
 			busyFields: {},
@@ -152,7 +161,73 @@ export function useForm(): UseFormReturn {
 		extraArgs.current,
 	);
 
-	return { state, dispatch };
+	const getFieldFromExtra = (name: string) => {
+		if (!extraArgs.current.fields[name]) {
+			throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.current.fields).map(name => `\`${name}\``).join(", ")}`);
+		}
+
+		return extraArgs.current.fields[name];
+	};
+
+	const methods = useMemo<FormMethods>(() => ({
+		setFieldValue: ({
+			name,
+			value: providedValue,
+			touched,
+			validate,
+		}) => {
+			const { errors } = state;
+			const field = getFieldFromExtra(name);
+
+			const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.current.data[name]) : providedValue;
+			const { internalValue, value } = field.getResolvedValue(providedValueResolved);
+
+			extraArgs.current.data[name] = value;
+
+			dispatch({
+				type: "FIELD_ON_CHANGE",
+				name,
+				internalValue,
+				value: cleanValue(value),
+				touched,
+			});
+
+			if (validate || field.validateOn === "onChange") {
+				dispatch(formActions.validateField({
+					name,
+					validateLinkedFields: true,
+				}));
+			}
+
+			if (
+				field.validateOn === "onBlurChange" &&
+				extraArgs.current.hasBlurred[name]
+			) {
+				dispatch(formActions.validateField({
+					name,
+					validateLinkedFields: true,
+				}));
+			}
+
+			if (
+				field.validateOn === "onBlurAmend" &&
+				extraArgs.current.hasBlurred[name] &&
+				errors[name]
+			) {
+				delete extraArgs.current.hasBlurred[name];
+				dispatch({
+					type: "FIELD_UNVALIDATE",
+					name,
+				});
+			}
+		},
+	}), [dispatch, state]);
+
+	return {
+		state,
+		dispatch,
+		methods,
+	};
 }
 
 export function useThunkReducer(reducer: FormReducer, initialState: FormState, extraArgs: FormExtraArgs): [FormState, FormDispatch] {
@@ -174,16 +249,15 @@ export function useThunkReducer(reducer: FormReducer, initialState: FormState, e
 
 	const [state, dispatch] = useReducer(enhancedReducer, initialState);
 
-	const customDispatch: FormDispatch = useCallback(
-		(action) => {
-			if (typeof action === "function") {
-				return action(customDispatch, getState, extraArgs);
-			} else {
-				return dispatch(action);
-			}
-		},
-		[getState, extraArgs],
-	);
+	const customDispatch: FormDispatch = useCallback((action) => {
+
+
+		if (typeof action === "function") {
+			return action(customDispatch, getState, extraArgs);
+		}
+
+		return dispatch(action);
+	}, [getState, extraArgs]);
 
 	return [state, customDispatch];
 }

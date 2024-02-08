@@ -1,4 +1,5 @@
 import { FieldDef, FormSpacing } from "../FormTypes";
+import { FormMethods } from "../state/types";
 
 export interface ColPropsTypes {
 	col: string[];
@@ -11,6 +12,7 @@ export interface ColPropsTypes {
 	rowIdx?: number;
 	sectionIdx?: number;
 	spacing?: FormSpacing;
+	methods: FormMethods;
 }
 
 export interface ColFieldProps {
@@ -23,4 +25,5 @@ export interface ColFieldProps {
 	rowIdx?: number;
 	sectionIdx?: number;
 	spacing?: FormSpacing;
+	methods: FormMethods;
 }
