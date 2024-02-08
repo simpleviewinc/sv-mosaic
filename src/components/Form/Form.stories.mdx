@@ -640,13 +640,6 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`minDate`** | `Date` | optional - The minimum date that can be chosen using the datepicker or entered into the input. Defaults to 01/01/1900. If used in a form component, will automatically register a minimum date validator |
 | **`maxDate`** | `Date` | optional - The maximum date that can be chosen using the datepicker or entered into the input. If used in a form component, will automatically register a minimum date validator |
 
-## FormFieldTimeField
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
-- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
-- Data: `string` - Time in `HH:MM` 24 hour format.
-
 ### How to use in a form?
 ```ts
 const fields = useMemo(
@@ -659,6 +652,30 @@ const fields = useMemo(
 				inputSettings: {
 					showTime: false,
 				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
+
+## FormFieldTimeField
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
+- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
+- Data: `string` - Time in `HH:MM` 24 hour format.
+- This field accepts no inputSettings
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "time",
 			},
 			//...other fields
 		],
