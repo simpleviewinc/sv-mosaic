@@ -4,7 +4,7 @@ import { getFieldConfig } from "./Col/fieldConfigMap";
 import { FieldDefSanitized } from "../Field";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 
-async function runValidators(
+export async function runValidators(
 	validators: Validator[],
 	value: unknown,
 	data: unknown,

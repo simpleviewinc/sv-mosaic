@@ -47,7 +47,7 @@ export type LegacyFormAction = {
 };
 
 export type ActionRerender = {
-	type: "RERENDER"
+	type: "RERENDER";
 };
 
 export type FormAction =
@@ -81,6 +81,12 @@ export type FormActionThunks = {
 		name: string;
 		validate?: boolean;
 	}>;
+	/**
+	 * @deprecated Now internal use only. There should never be a need
+	 * for consumers to invoke validateField. If you are looking to validate
+	 * a field when it is changed, use the `validate` property when invoking
+	 * `setFieldValue`
+	 */
 	validateField: FormActionThunk<{
 		name: string;
 		validateLinkedFields?: boolean;
@@ -122,6 +128,13 @@ export type FormActionThunks = {
 export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
 
 export type FormGetState = () => FormState;
+
+export type ValidateFieldParams = {
+	name: string;
+	validateLinkedFields?: boolean;
+};
+
+export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
 
 export type SetFieldValueParams = {
 	name: string;
