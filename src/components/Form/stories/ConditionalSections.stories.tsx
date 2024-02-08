@@ -20,7 +20,8 @@ export default {
 };
 
 export const ConditionalSections = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 	const KEY_PHRASE = "SHOW";
 
 	useEffect(() => {
@@ -92,12 +93,11 @@ export const ConditionalSections = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title="Runtime behaviors"
-					state={state}
 					fields={fields}
 					sections={sections}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

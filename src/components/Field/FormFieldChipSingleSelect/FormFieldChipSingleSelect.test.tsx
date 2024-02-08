@@ -15,7 +15,8 @@ afterEach(cleanup);
 const { getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	const options = useMemo( ()=> [
 		{
@@ -68,12 +69,11 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={buttons}
 				title="Form Title"
 				description="This is a description example"
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

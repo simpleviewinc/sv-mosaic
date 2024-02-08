@@ -41,7 +41,8 @@ const createNewOption = async (newOptionLabel) => {
 
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch, methods } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -51,7 +52,7 @@ export const Playground = (): ReactElement => {
 		};
 	}, []);
 
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoDocumentLink");
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
 	const onBack = boolean("onBack", false);
@@ -629,12 +630,11 @@ export const Playground = (): ReactElement => {
 				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
 			}
 			<Form
+				{...controller}
 				title={text("Title", "Form Title")}
 				onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={renderButtons(dispatch, { showCancel, showSave })}

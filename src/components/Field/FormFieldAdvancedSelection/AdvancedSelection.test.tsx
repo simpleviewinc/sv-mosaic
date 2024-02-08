@@ -22,7 +22,8 @@ const externalOptions = [
 ];
 
 const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local" }) => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { dispatch } = controller;
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -114,12 +115,11 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };

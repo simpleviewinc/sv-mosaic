@@ -39,12 +39,14 @@ const DrawerEditForm = ({
 	title: string;
 	fields: FieldDef[];
 }): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state } = controller;
 
 	const onSaveClick = () => onSave(state.data);
 
 	return (
 		<Form
+			{...controller}
 			buttons={[
 				{
 					label: "Cancel",
@@ -60,9 +62,7 @@ const DrawerEditForm = ({
 				},
 			]}
 			title={title}
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 			onBack={onClose}
 		/>
 	);
@@ -77,7 +77,9 @@ export const FormVariant = (): ReactElement => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [indexEdit, setIndexEdit] = useState(null);
 
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch, methods } = controller;
+
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
 	});
@@ -107,21 +109,17 @@ export const FormVariant = (): ReactElement => {
 			};
 
 			if (state.data?.formMatrix?.length > 0) {
-				await dispatch(
-					formActions.setFieldValue({
-						name: "formMatrix",
-						value: [...state.data.formMatrix, newRow],
-						touched: true,
-					}),
-				);
+				methods.setFieldValue({
+					name: "formMatrix",
+					value: [...state.data.formMatrix, newRow],
+					touched: true,
+				});
 			} else {
-				await dispatch(
-					formActions.setFieldValue({
-						name: "formMatrix",
-						value: [newRow],
-						touched: true,
-					}),
-				);
+				methods.setFieldValue({
+					name: "formMatrix",
+					value: [newRow],
+					touched: true,
+				});
 			}
 		} else {
 			const editedRow = {
@@ -132,13 +130,11 @@ export const FormVariant = (): ReactElement => {
 			const currentRows = [...state.data.formMatrix];
 			currentRows.splice(indexEdit, 1, editedRow);
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: currentRows,
-					touched: true,
-				}),
-			);
+			methods.setFieldValue({
+				name: "formMatrix",
+				value: currentRows,
+				touched: true,
+			});
 		}
 
 		removeDrawer();
@@ -219,13 +215,11 @@ export const FormVariant = (): ReactElement => {
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
-					await dispatch(
-						formActions.setFieldValue({
-							name: "formMatrix",
-							value: filteredRows,
-							touched: true,
-						}),
-					);
+					methods.setFieldValue({
+						name: "formMatrix",
+						value: filteredRows,
+						touched: true,
+					});
 				},
 			},
 		],
@@ -235,13 +229,11 @@ export const FormVariant = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: rows,
-					touched: true,
-				}),
-			);
+			methods.setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true,
+			});
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
@@ -282,12 +274,11 @@ export const FormVariant = (): ReactElement => {
 		<>
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -324,7 +315,9 @@ export const Browse = (): ReactElement => {
 	const [indexEdit, setIndexEdit] = useState(null);
 	const [rowsChecked, setCheckedRows] = useState<boolean[]>([]);
 
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch, methods } = controller;
+
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
 	});
@@ -434,13 +427,11 @@ export const Browse = (): ReactElement => {
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
-					await dispatch(
-						formActions.setFieldValue({
-							name: "formMatrix",
-							value: filteredRows,
-							touched: true,
-						}),
-					);
+					methods.setFieldValue({
+						name: "formMatrix",
+						value: filteredRows,
+						touched: true,
+					});
 
 					updateCheckedOptions(data.id);
 				},
@@ -452,13 +443,11 @@ export const Browse = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: rows,
-					touched: true,
-				}),
-			);
+			methods.setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true,
+			});
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
@@ -480,13 +469,11 @@ export const Browse = (): ReactElement => {
 			onClick: async () => {
 				const selectedRows = mappedData.filter((_, idx) => rowsChecked[idx]);
 
-				await dispatch(
-					formActions.setFieldValue({
-						name: "formMatrix",
-						value: selectedRows,
-						touched: true,
-					}),
-				);
+				methods.setFieldValue({
+					name: "formMatrix",
+					value: selectedRows,
+					touched: true,
+				});
 				removeDrawer();
 			},
 			color: "yellow",
@@ -546,13 +533,11 @@ export const Browse = (): ReactElement => {
 		const currentRows = [...state.data.formMatrix];
 		currentRows.splice(indexEdit, 1, editedRow);
 
-		await dispatch(
-			formActions.setFieldValue({
-				name: "formMatrix",
-				value: currentRows,
-				touched: true,
-			}),
-		);
+		methods.setFieldValue({
+			name: "formMatrix",
+			value: currentRows,
+			touched: true,
+		});
 
 		removeDrawer();
 	};
@@ -561,12 +546,11 @@ export const Browse = (): ReactElement => {
 		<>
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -595,5 +579,122 @@ export const Browse = (): ReactElement => {
 				}}
 			</Drawers>
 		</>
+	);
+};
+
+
+export const MatrixExample = (): ReactElement => {
+	const controller = useForm();
+	const { state, dispatch, methods: { setFieldValue } } = useForm();
+
+	const onSubmit = async () => {
+		const { valid, data } = await dispatch(formActions.submitForm());
+		if (!valid) return;
+
+		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
+	};
+
+	const gridConfig: DataViewProps = useMemo(() => ({
+		columns: listColumns,
+		primaryActions: [
+			{
+				name: "edit",
+				color: "black",
+				variant: "icon",
+				mIcon: CreateIcon,
+				onClick: function ({ data }) {
+					alert(`EDIT ${data.id}`);
+				},
+			},
+			{
+				name: "delete",
+				color: "black",
+				variant: "icon",
+				mIcon: DeleteIcon,
+				onClick: function ({ data }) {
+					alert(`EDIT ${data.id}`);
+				},
+			},
+		],
+		sticky: true,
+		data: state.data.formMatrix,
+		limit: 25,
+		onReorder: async (newRows) => {
+			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
+
+			setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true,
+			});
+		},
+		display: "list",
+		activeColumns: ["id", "description", "title"],
+		savedView: defaultView,
+	}), [setFieldValue, state.data.formMatrix]);
+
+	const addRow = useCallback(async () => {
+		const mappedData = rawData.slice(1, 4).map((data) => {
+			// convert the date columns to dates, since they are ISOStrings in the file
+			return {
+				...data,
+				created: data.created ? new Date(data.created) : undefined,
+				updated: data.updated ? new Date(data.updated) : undefined,
+			};
+		});
+
+		setFieldValue({
+			name: "formMatrix",
+			value: mappedData,
+			touched: true,
+		});
+	}, [setFieldValue]);
+
+	const fields: FieldDef[] = useMemo(
+		() =>
+			[
+				{
+					label: "Test",
+					name: "test",
+					type: "text",
+				},
+				{
+					label: "Matrix",
+					name: "formMatrix",
+					type: "matrix",
+					inputSettings: {
+						dataView: gridConfig,
+						buttons: [
+							{
+								label: "Add",
+								onClick: addRow,
+								color: "teal",
+								variant: "text",
+								mIcon: AddIcon,
+							},
+						] as ButtonProps[],
+					},
+				},
+			],
+		[gridConfig, addRow],
+	);
+
+	const buttons: ButtonProps[] = [
+		{
+			label: "Save",
+			onClick: onSubmit,
+			color: "yellow",
+			variant: "contained",
+		},
+	];
+
+	return (
+		<Form
+			{...controller}
+			buttons={buttons}
+			title="Form Title"
+			description="This is a description example"
+			fields={fields}
+		/>
 	);
 };

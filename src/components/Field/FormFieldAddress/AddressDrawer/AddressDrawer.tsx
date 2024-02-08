@@ -32,7 +32,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		googleMapsApiKey,
 	} = props;
 
-	const { dispatch, state } = useForm();
+	const controller = useForm();
+	const { dispatch, state, methods } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
@@ -40,10 +41,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
 	const setFieldValue = useCallback(async (name: string, value: string | MosaicLabelValue, validate = false) => {
-		await dispatch(formActions.setFieldValue({
+		methods.setFieldValue({
 			name,
 			value,
-		}));
+		});
 
 		if (validate === true) {
 			await dispatch(formActions.validateField({ name }));
@@ -120,7 +121,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [apiState, setFieldValue]);
 
 	const autocompleteAddress = useCallback(async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
-		console.log(addressComponents);
 		let componentsNotFound = "";
 		const addressComponentsMap = {
 			route: initalAddressComponent, // => address
@@ -194,7 +194,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			const results = await geocodeByAddress(value);
 			autocompleteAddress(results[0].address_components);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	}, [autocompleteAddress]);
 
@@ -390,12 +390,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				title="Address Information"
 				buttons={buttons}
 				data-testid="address-testid"
-				state={state}
-				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
+				{...controller}
 			/>
 			<Snackbar
 				autoHideDuration={4000}

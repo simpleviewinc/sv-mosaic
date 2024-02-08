@@ -1,4 +1,5 @@
 import { FieldDef, FormSpacing } from "../FormTypes";
+import { FormMethods } from "../state/types";
 
 export interface RowPropTypes {
 	row: string[][];
@@ -9,4 +10,5 @@ export interface RowPropTypes {
 	sectionIdx?: number;
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
+	methods: FormMethods;
 }

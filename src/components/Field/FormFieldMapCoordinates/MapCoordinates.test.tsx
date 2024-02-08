@@ -38,7 +38,8 @@ const fields: FieldDef[] = [
 ];
 
 const MapCoordinatesExample = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { dispatch } = controller;
 
 	const onSubmit = async () => {
 		const { valid, data } = await dispatch(formActions.submitForm());
@@ -58,12 +59,11 @@ const MapCoordinatesExample = (): ReactElement => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };

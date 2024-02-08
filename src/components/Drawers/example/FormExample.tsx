@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext } from "react";
 import { FormConfig, PageCallbacks } from "./ExampleTypes";
 import AppContext from "./AppContext";
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { ButtonProps } from "@root/components/Button";
 
 function FormExample({
@@ -13,7 +13,8 @@ function FormExample({
 	callbacks: PageCallbacks;
 }) {
 	const appContext = useContext(AppContext);
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods } = controller;
 
 	const buttons = [
 		{
@@ -61,12 +62,10 @@ function FormExample({
 					},
 					callbacks: {
 						save: (data) => {
-							dispatch(
-								formActions.setFieldValue({
-									name: "from_parent",
-									value: JSON.stringify(data),
-								}),
-							);
+							methods.setFieldValue({
+								name: "from_parent",
+								value: JSON.stringify(data),
+							});
 
 							appContext.removeDrawer();
 						},
@@ -82,11 +81,10 @@ function FormExample({
 		<div>
 			<Form
 				title={config.title}
-				state={state}
-				dispatch={dispatch}
 				fields={config.fields}
 				buttons={buttons}
 				onBack={appContext.removeDrawer}
+				{...controller}
 			/>
 			<p>
 				Data:

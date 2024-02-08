@@ -3,7 +3,7 @@ import { FieldDef } from "@root/components/Field";
 import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
-import { FormState } from "./state/types";
+import { FormMethods, FormState } from "./state/types";
 
 export type FormSpacing = "normal" | "compact";
 
@@ -40,6 +40,7 @@ export interface FormProps {
 	spacing?: FormSpacing;
 	useSectionHash?: string | false;
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
+	methods: FormMethods;
 }
 
 export interface FieldError {

@@ -11,7 +11,8 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -36,12 +37,11 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<div style={{ height: "100vh" }}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>
@@ -49,7 +49,8 @@ export const Playground = (): ReactElement => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	const fields = useMemo(
 		() =>
@@ -77,12 +78,11 @@ export const KitchenSink = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<div style={{ height: "100vh" }}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title="Form Title"
 					description="This is a description example"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

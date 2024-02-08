@@ -83,10 +83,7 @@ const address: IAddress = {
 };
 
 export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings }): ReactElement => {
-	const {
-		state,
-		dispatch,
-	} = useForm();
+	const controller = useForm();
 
 	const fields: FieldDef[] = [
 		{
@@ -100,9 +97,8 @@ export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInp
 
 	return (
 		<Form
-			state={state}
+			{...controller}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };

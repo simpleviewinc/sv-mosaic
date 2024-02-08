@@ -45,7 +45,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		return { lat, lng, placesList: { lat, lng } };
 	}, [value]);
 
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch, methods } = controller;
 
 	const parentLatLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
 
@@ -89,10 +90,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions.setFieldValue({
+		methods.setFieldValue({
 			name: "resetButton",
 			value: shouldShowReset,
-		}));
+		});
 	}, [
 		state.data.lat,
 		state.data.lng,
@@ -103,10 +104,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	// TODO Why can't these be the same state?
 	useEffect(() => {
 		if (!latLng) {
-			dispatch(formActions.setFieldValue({
+			methods.setFieldValue({
 				name: "placesList",
 				value: undefined,
-			}));
+			});
 
 			return;
 		}
@@ -117,10 +118,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions.setFieldValue({
+		methods.setFieldValue({
 			name: "placesList",
 			value: { lat: latLng.lat, lng: latLng.lng },
-		}));
+		});
 	}, [
 		state.data.placesList,
 		latLng,
@@ -243,11 +244,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	return (
 		<FormDrawerWrapper className="mapCoordinates">
 			<Form
+				{...controller}
 				onBack={handleClose}
 				title="Map Coordinates"
 				buttons={buttons}
-				state={state}
-				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
 				dialogOpen={dialogOpen}

@@ -16,6 +16,7 @@ const ColField = ({
 	dispatch,
 	state,
 	spacing,
+	methods,
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -35,12 +36,12 @@ const ColField = ({
 	const onChange = useCallback((value: any) => {
 		field.onChangeCb && field.onChangeCb();
 
-		dispatch(formActions.setFieldValue({
+		methods.setFieldValue({
 			name: field.name,
 			value,
 			touched: true,
-		}));
-	}, [field.name]);
+		});
+	}, [field, methods]);
 
 	const onBlur = useCallback(() => {
 		field.onBlurCb && field.onBlurCb();

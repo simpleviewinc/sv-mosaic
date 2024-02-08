@@ -55,7 +55,8 @@ const sections: SectionDef[] = [
 ];
 
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 	const { rangeStart, rangeEnd } = state.data;
 
 	const [selectedOption, setSelectedOption] = useState("selectedOption" in props ? props.selectedOption : undefined);
@@ -158,8 +159,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			<StyledMainContent>
 				<div data-testid="dataview-filter-date-inputs">
 					<Form
-						state={state}
-						dispatch={dispatch}
+						{...controller}
 						fields={fields}
 						sections={sections}
 						fullHeight={false}

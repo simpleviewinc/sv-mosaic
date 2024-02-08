@@ -24,55 +24,46 @@ const setVideoCallback = jest.fn();
 const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
-	const {	state, dispatch	} = useForm();
+	const controller = useForm();
+	const {	dispatch, methods } = controller;
 
 	const setImage = async () => {
 		setImageCallback();
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: imageAssetExample,
-			}),
-		);
+		methods.setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: imageAssetExample,
+		});
 	};
 
 	const setVideo = async () => {
 		setVideoCallback();
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: videoAssetExample,
-			}),
-		);
+		methods.setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: videoAssetExample,
+		});
 	};
 
 	const setDocument = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: documentExample,
-			}),
-		);
+		methods.setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: documentExample,
+		});
 		setDocumentCallback();
 	};
 
 	const setLink = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: linkExample,
-			}),
-		);
+		methods.setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: linkExample,
+		});
 		setLinkCallback();
 	};
 
 	const handleRemove = () => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: [],
-			}),
-		);
+		methods.setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: [],
+		});
 	};
 
 	const fields: FieldDef[] = [
@@ -112,12 +103,11 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="Description"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };

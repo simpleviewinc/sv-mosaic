@@ -9,7 +9,15 @@ import { LayoutProps } from "./LayoutTypes";
 import { StyledLayout } from "./LayoutStyles";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
-	const { state, dispatch, fields, sections, registerRef, spacing } = props;
+	const {
+		state,
+		dispatch,
+		fields,
+		sections,
+		registerRef,
+		spacing,
+		methods,
+	} = props;
 
 	return (
 		<StyledLayout data-testid="form-layout-test-id" className="layout">
@@ -27,6 +35,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 					collapsed={section.collapsed}
 					gridMinWidth={section.gridMinWidth}
 					spacing={spacing}
+					methods={methods}
 				/>
 			))}
 		</StyledLayout>

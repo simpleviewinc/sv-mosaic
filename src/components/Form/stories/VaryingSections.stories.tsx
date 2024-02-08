@@ -20,7 +20,8 @@ export default {
 const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const VaryingSections = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -121,12 +122,11 @@ export const VaryingSections = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title="Varying Sections"
-					state={state}
 					fields={fields}
 					sections={sections}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm, formActions } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { renderButtons } from "@root/utils/storyUtils";
 
@@ -21,7 +21,8 @@ export default {
 };
 
 export const RuntimeBehaviours = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch, methods } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -82,30 +83,24 @@ export const RuntimeBehaviours = (): ReactElement => {
 	);
 
 	useEffect(() => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "text4",
-				value: state.data.text3,
-			}),
-		);
+		methods.setFieldValue({
+			name: "text4",
+			value: state.data.text3,
+		});
 	}, [state.data.text3]);
 
 	const setText1Value = function () {
-		dispatch(
-			formActions.setFieldValue({
-				name: "text1",
-				value: "test@test.com",
-			}),
-		);
+		methods.setFieldValue({
+			name: "text1",
+			value: "test@test.com",
+		});
 	};
 
 	const setText2Value = function () {
-		dispatch(
-			formActions.setFieldValue({
-				name: "text2",
-				value: "notanemail",
-			}),
-		);
+		methods.setFieldValue({
+			name: "text2",
+			value: "notanemail",
+		});
 	};
 
 	return (
@@ -115,11 +110,10 @@ export const RuntimeBehaviours = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
+					{...controller}
 					buttons={renderButtons(dispatch)}
 					title="Runtime behaviors"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 			<div>

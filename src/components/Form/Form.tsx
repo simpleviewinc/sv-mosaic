@@ -52,6 +52,7 @@ const Form = (props: FormProps) => {
 		spacing = "normal",
 		useSectionHash = "section",
 		onSubmit,
+		methods,
 	} = props;
 
 	/**
@@ -199,6 +200,7 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		const loadFormValues = async () => {
+			return;
 			let values: MosaicObject;
 			await dispatch(formActions.disableForm({ disabled: true }));
 
@@ -276,6 +278,7 @@ const Form = (props: FormProps) => {
 								fields={fields}
 								sections={shownSections}
 								spacing={spacing}
+								methods={methods}
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>

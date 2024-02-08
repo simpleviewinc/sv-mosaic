@@ -1,4 +1,5 @@
 import { FieldDef, FormSpacing, SectionDef } from "../FormTypes";
+import { FormMethods } from "../state/types";
 
 export interface LayoutProps {
 	state: any;
@@ -7,4 +8,5 @@ export interface LayoutProps {
 	sections: SectionDef[];
 	registerRef?: (ref: HTMLElement) => () => void;
 	spacing?: FormSpacing;
+	methods: FormMethods;
 }

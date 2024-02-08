@@ -1,5 +1,6 @@
 import { MosaicGridConfig, MosaicToggle } from "@root/types";
 import { FieldDef, FormSpacing } from "../FormTypes";
+import { FormMethods } from "../state/types";
 
 export interface SectionPropTypes {
 	title: string;
@@ -14,4 +15,5 @@ export interface SectionPropTypes {
 	registerRef?: (ref: HTMLElement) => () => void;
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
+	methods: FormMethods;
 }

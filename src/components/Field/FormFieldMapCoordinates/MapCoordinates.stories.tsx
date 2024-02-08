@@ -25,7 +25,8 @@ const getFormValues = async () => ({
 // Niagra Falls: 43.08280759102605, -79.07415774620223
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Map Coordinates Example");
@@ -58,12 +59,11 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<Form
+				{...controller}
 				buttons={renderButtons(dispatch)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 				getFormValues={prepopulate ? getFormValues : undefined}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -118,18 +118,18 @@ const kitchenSinkFields: FieldDef[] = [
 ];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, dispatch } = controller;
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={renderButtons(dispatch)}
 				title="Form Title"
 				description="This is a description example"
-				state={state}
 				fields={kitchenSinkFields}
-				dispatch={dispatch}
 			/>
 		</>
 	);
