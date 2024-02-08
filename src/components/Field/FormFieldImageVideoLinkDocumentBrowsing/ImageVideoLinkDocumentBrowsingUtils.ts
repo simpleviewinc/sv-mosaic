@@ -1,5 +1,4 @@
 // Utils
-import { formActions } from "@root/components/Form";
 import { UseImageVideoLinkDocumentBrowsingReturn } from "./ImageVideoLinkDocumentBrowsingTypes";
 import { FormMethods } from "@root/components/Form/state/types";
 
@@ -142,13 +141,8 @@ export const useImageVideoLinkDocumentBrowsing = (
 		methods.setFieldValue({
 			name: fieldName,
 			value: [],
+			validate: true,
 		});
-
-		dispatch(
-			formActions.validateField({
-				name: fieldName,
-			}),
-		);
 	};
 
 	return {

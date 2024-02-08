@@ -44,11 +44,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		methods.setFieldValue({
 			name,
 			value,
+			validate,
 		});
-
-		if (validate === true) {
-			await dispatch(formActions.validateField({ name }));
-		}
 	}, [dispatch]);
 
 	useEffect(() => {
