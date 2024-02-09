@@ -1,5 +1,5 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, SubmitForm, UseFormReturn, ValidateField, ValidateForm } from "./state/types";
+import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, ValidateForm } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
@@ -415,60 +415,81 @@ export function useForm(): UseFormReturn {
 		};
 	}, [dispatch, state, validateForm]);
 
-	const methods = useMemo<FormMethods>(() => ({
-		setFieldValue: ({
+	const setFieldValue = useCallback<SetFieldValue>(({
+		name,
+		value: providedValue,
+		touched,
+		validate,
+	}) => {
+		const { errors } = state;
+		const field = getFieldFromExtra(name);
+
+		const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.current.data[name]) : providedValue;
+		const { internalValue, value } = field.getResolvedValue(providedValueResolved);
+
+		extraArgs.current.data[name] = value;
+
+		dispatch({
+			type: "FIELD_ON_CHANGE",
 			name,
-			value: providedValue,
+			internalValue,
+			value: cleanValue(value),
 			touched,
-			validate,
-		}) => {
-			const { errors } = state;
-			const field = getFieldFromExtra(name);
+		});
 
-			const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.current.data[name]) : providedValue;
-			const { internalValue, value } = field.getResolvedValue(providedValueResolved);
-
-			extraArgs.current.data[name] = value;
-
-			dispatch({
-				type: "FIELD_ON_CHANGE",
+		if (validate || field.validateOn === "onChange") {
+			validateField({
 				name,
-				internalValue,
-				value: cleanValue(value),
-				touched,
+				validateLinkedFields: true,
 			});
+		}
 
-			if (validate || field.validateOn === "onChange") {
-				validateField({
-					name,
-					validateLinkedFields: true,
-				});
-			}
+		if (
+			field.validateOn === "onBlurChange" &&
+			extraArgs.current.hasBlurred[name]
+		) {
+			validateField({
+				name,
+				validateLinkedFields: true,
+			});
+		}
 
-			if (
-				field.validateOn === "onBlurChange" &&
-				extraArgs.current.hasBlurred[name]
-			) {
-				validateField({
-					name,
-					validateLinkedFields: true,
-				});
-			}
+		if (
+			field.validateOn === "onBlurAmend" &&
+			extraArgs.current.hasBlurred[name] &&
+			errors[name]
+		) {
+			delete extraArgs.current.hasBlurred[name];
+			dispatch({
+				type: "FIELD_UNVALIDATE",
+				name,
+			});
+		}
+	}, [dispatch, getFieldFromExtra, state, validateField]);
 
-			if (
-				field.validateOn === "onBlurAmend" &&
-				extraArgs.current.hasBlurred[name] &&
-				errors[name]
-			) {
-				delete extraArgs.current.hasBlurred[name];
-				dispatch({
-					type: "FIELD_UNVALIDATE",
-					name,
-				});
-			}
-		},
+	const setFieldBlur = useCallback<SetFieldBlur>(({
+		name,
+	}) => {
+		const field = getFieldFromExtra(name);
+		extraArgs.current.hasBlurred[name] = true;
+
+		if (
+			field.validateOn === "onBlur" ||
+			field.validateOn === "onBlurAmend" ||
+			field.validateOn === "onBlurChange"
+		) {
+			validateField({
+				name,
+				validateLinkedFields: true,
+			});
+		}
+	}, [getFieldFromExtra, validateField]);
+
+	const methods = useMemo<FormMethods>(() => ({
+		setFieldValue,
+		setFieldBlur,
 		submitForm,
-	}), [dispatch, getFieldFromExtra, state, submitForm, validateField]);
+	}), [setFieldBlur, setFieldValue, submitForm]);
 
 	return {
 		state,
