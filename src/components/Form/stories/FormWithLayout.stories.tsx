@@ -37,7 +37,7 @@ function randomNumber(min: number, max: number) {
 
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, dispatch, methods, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -249,7 +249,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 			<div style={{ height: height }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title="Form Title"
 					description="This is a description example"
 					sections={sections}

@@ -21,7 +21,7 @@ const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const VaryingSections = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -123,7 +123,7 @@ export const VaryingSections = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title="Varying Sections"
 					fields={fields}
 					sections={sections}

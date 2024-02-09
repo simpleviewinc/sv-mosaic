@@ -25,7 +25,7 @@ const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
 	const controller = useForm();
-	const {	methods } = controller;
+	const {	methods, handleSubmit } = controller;
 
 	const setImage = async () => {
 		setImageCallback();
@@ -85,12 +85,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		},
 	];
 
-	const onSubmit = async () => {
-		const { valid, data } = await methods.submitForm();
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{

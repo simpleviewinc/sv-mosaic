@@ -21,7 +21,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { methods, state } = controller;
+	const { handleSubmit, state } = controller;
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const type = select("Type", ["password", "text"], "text");
@@ -80,7 +80,7 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<Form
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
@@ -209,14 +209,14 @@ const kitchenSinkfields: FieldDef[] = [
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title="Form Title"
 				description="Form description"
 				fields={kitchenSinkfields}
@@ -268,13 +268,13 @@ const validationStrategyFields: FieldDef[] = [
 
 export const ValidationStrategies = (): ReactElement => {
 	const controller = useForm();
-	const { methods } = controller;
+	const { handleSubmit } = controller;
 
 	return (
 		<>
 			<Form
 				{...controller}
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title="Validation Strategies"
 				fields={validationStrategyFields}
 			/>

@@ -12,7 +12,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -38,7 +38,7 @@ export const Playground = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
@@ -50,7 +50,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
 		() =>
@@ -79,7 +79,7 @@ export const KitchenSink = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title="Form Title"
 					description="This is a description example"
 					fields={fields}
