@@ -637,7 +637,7 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 				sections={showSections > 0 ? sectionsAmount : undefined}
-				buttons={renderButtons(dispatch, { showCancel, showSave })}
+				buttons={renderButtons(methods, { showCancel, showSave })}
 				showActive={showActive}
 			/>
 		</div>

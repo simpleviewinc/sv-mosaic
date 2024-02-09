@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 
 // Components
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -78,7 +78,7 @@ export const FormVariant = (): ReactElement => {
 	const [indexEdit, setIndexEdit] = useState(null);
 
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, methods } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -275,7 +275,7 @@ export const FormVariant = (): ReactElement => {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
@@ -316,7 +316,7 @@ export const Browse = (): ReactElement => {
 	const [rowsChecked, setCheckedRows] = useState<boolean[]>([]);
 
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, methods } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -547,7 +547,7 @@ export const Browse = (): ReactElement => {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
@@ -585,10 +585,10 @@ export const Browse = (): ReactElement => {
 
 export const MatrixExample = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods: { setFieldValue } } = useForm();
+	const { state, methods: { setFieldValue, submitForm } } = useForm();
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

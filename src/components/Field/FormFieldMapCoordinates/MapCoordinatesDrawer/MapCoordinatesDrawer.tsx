@@ -140,7 +140,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * happends.
 	 */
 	const onSubmit = async () => {
-		const { valid } = await dispatch(formActions.submitForm());
+		const { valid } = await methods.submitForm();
 		if (!valid) return;
 
 		const latLngValue = {

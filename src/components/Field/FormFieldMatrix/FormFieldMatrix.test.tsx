@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 
 // Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,10 +23,10 @@ import rawData from "../../DataView/example/rawData.json";
 
 export const MatrixExample = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods } = useForm();
+	const { state, methods } = useForm();
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

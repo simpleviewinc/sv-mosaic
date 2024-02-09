@@ -21,7 +21,7 @@ const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const DefaultValues = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -55,7 +55,7 @@ export const DefaultValues = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					title="Validators story"
 					fields={fields}
 				/>
