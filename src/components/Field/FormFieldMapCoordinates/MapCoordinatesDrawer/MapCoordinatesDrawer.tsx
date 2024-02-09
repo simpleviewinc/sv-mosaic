@@ -46,7 +46,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	}, [value]);
 
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, dispatch, methods, handleSubmit } = controller;
 
 	const parentLatLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
 
@@ -139,18 +139,15 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	 * the form that is contained inside the modal
 	 * happends.
 	 */
-	const onSubmit = async () => {
-		const { valid } = await methods.submitForm();
-		if (!valid) return;
-
+	const onSubmit = handleSubmit(() => {
 		const latLngValue = {
 			...value,
 			...latLng,
 		};
 
-		await onChange(latLngValue);
+		onChange(latLngValue);
 		handleClose(true);
-	};
+	});
 
 	const onCoordinatesChange = useCallback((coords: MapPosition | undefined) => {
 		const lat = coords ? coords.lat : undefined;

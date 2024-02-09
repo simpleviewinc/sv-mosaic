@@ -23,7 +23,7 @@ const externalOptions = [
 
 const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local" }) => {
 	const controller = useForm();
-	const { methods } = controller;
+	const { handleSubmit } = controller;
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -97,12 +97,7 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 		],
 	);
 
-	const onSubmit = async () => {
-		const { valid, data } = await methods.submitForm();
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{

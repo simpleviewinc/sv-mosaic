@@ -19,7 +19,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
@@ -57,7 +57,7 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
@@ -118,14 +118,14 @@ const kitchenSinkFields: FieldDef[] = [
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title="Form Title"
 				description="This is a description example"
 				fields={kitchenSinkFields}

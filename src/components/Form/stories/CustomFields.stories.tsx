@@ -22,7 +22,7 @@ export default {
 
 export const CustomFields = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, methods, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -105,7 +105,7 @@ export const CustomFields = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title="Custom components"
 					fields={fields}
 				/>

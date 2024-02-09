@@ -21,7 +21,7 @@ const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const CopyField = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, methods, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -68,7 +68,7 @@ export const CopyField = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title="Validators story"
 					fields={fields}
 				/>

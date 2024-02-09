@@ -78,7 +78,7 @@ export const FormVariant = (): ReactElement => {
 	const [indexEdit, setIndexEdit] = useState(null);
 
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, methods, handleSubmit } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -275,7 +275,7 @@ export const FormVariant = (): ReactElement => {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
@@ -316,7 +316,7 @@ export const Browse = (): ReactElement => {
 	const [rowsChecked, setCheckedRows] = useState<boolean[]>([]);
 
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, methods, handleSubmit } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -547,7 +547,7 @@ export const Browse = (): ReactElement => {
 			<MosaicContext.Provider value={mosaicSettings}>
 				<Form
 					{...controller}
-					buttons={renderButtons(methods)}
+					buttons={renderButtons(handleSubmit)}
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}

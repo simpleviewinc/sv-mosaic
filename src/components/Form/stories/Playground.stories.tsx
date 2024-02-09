@@ -42,7 +42,7 @@ const createNewOption = async (newOptionLabel) => {
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, dispatch, methods, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -637,7 +637,7 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 				sections={showSections > 0 ? sectionsAmount : undefined}
-				buttons={renderButtons(methods, { showCancel, showSave })}
+				buttons={renderButtons(handleSubmit, { showCancel, showSave })}
 				showActive={showActive}
 			/>
 		</div>

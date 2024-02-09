@@ -22,7 +22,7 @@ const amountOptions = [
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -71,7 +71,7 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(methods)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}

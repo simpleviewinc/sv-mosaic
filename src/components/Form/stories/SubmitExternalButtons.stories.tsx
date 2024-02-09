@@ -21,7 +21,7 @@ export default {
 
 export const SubmitExternalButtons = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -62,11 +62,9 @@ export const SubmitExternalButtons = (): ReactElement => {
 		[],
 	);
 
-	const clickHandler = async () => {
-		const { data } = await methods.submitForm();
-
+	const clickHandler = handleSubmit((data) => {
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	});
 
 	return (
 		<>

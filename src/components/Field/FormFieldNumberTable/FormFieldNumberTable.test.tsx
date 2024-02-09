@@ -28,17 +28,9 @@ const NumberTableExample = ({
 	useNumberFormatter?: boolean;
 }): ReactElement => {
 	const controller = useForm();
-	const { methods } = controller;
+	const { handleSubmit } = controller;
 
-	const onSubmit = async () => {
-		const { valid, data } = await methods.submitForm();
-		if (!valid) return;
-
-		alert(
-			"Form submitted with the following data: " +
-        JSON.stringify(data, null, " "),
-		);
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const fields = useMemo(
 		(): FieldDef[] => [

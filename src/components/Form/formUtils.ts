@@ -1,8 +1,9 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, ValidateForm } from "./state/types";
+import { FieldCanBeValidated, FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
+import { MosaicObject } from "@root/types";
 
 export function coreReducer(state: FormState, action: FormAction): FormState {
 	switch (action.type) {
@@ -96,14 +97,7 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			data: {},
 			errors: {},
-			validating: {},
-			custom: {},
 			disabled: false,
-		};
-	case "PROPERTY_RESET":
-		return {
-			...state,
-			[action.name]: action.value,
 		};
 	case "FORM_START_BUSY": {
 		return {
@@ -158,8 +152,6 @@ export function useForm(): UseFormReturn {
 			internalData: {},
 			data: {},
 			errors: {},
-			validating: {},
-			custom: {},
 			disabled: false,
 			touched: {},
 			mounted: {},
@@ -219,64 +211,16 @@ export function useForm(): UseFormReturn {
 		const result = await runValidators(validatorsMap, data[name], data);
 
 		if (!result){
-			return;
+			return undefined;
 		}
 
 		return result.errorMessage;
 	}, [getFieldFromExtra]);
 
-	const validateField = useCallback<ValidateField>(async ({
-		name,
-		validateLinkedFields,
+	const getFieldErrors = useCallback<GetFieldErrors>(async ({
+		names,
 	}) => {
-		const { mounted } = extraArgs.current;
-		const field = getFieldFromExtra(name);
-
-		/**
-		 * @TODO This is not pretty, but it'll do for now. Ideally we would
-		 * only commit one dispatch after validating all fields, instead of
-		 * a dispatch for each field
-		 */
-		if (validateLinkedFields && field.validates) {
-			field.validates.forEach(linkedFieldName => {
-				validateField({
-					name: linkedFieldName,
-				});
-			});
-		}
-
-		if (!mounted[name]) {
-			dispatch({
-				type: "SET_FIELD_ERRORS",
-				errors: { [name]: undefined },
-				merge: true,
-			});
-
-			return;
-		}
-
-		const disabledWrapped = wrapToggle(field.disabled, state, false);
-		const disabled = getToggle(disabledWrapped);
-
-		const error = disabled ? undefined : (await getFieldError({ name }));
-
-		dispatch({
-			type: "SET_FIELD_ERRORS",
-			errors: { [name]: error },
-			merge: true,
-		});
-	}, [dispatch, getFieldError, getFieldFromExtra, state]);
-
-	const validateForm = useCallback<ValidateForm>(async () => {
-		const { fields } = extraArgs.current;
-
-		await dispatch({
-			type: "FORM_START_DISABLE",
-			value: true,
-		});
-
-		const fieldNames = Object.entries(fields).map(([, field]) => field.name);
-		const fieldErrorList = await Promise.all(fieldNames.map(async name => {
+		const list = await Promise.all(names.map(async name => {
 			const error = await getFieldError({ name });
 
 			return {
@@ -285,135 +229,61 @@ export function useForm(): UseFormReturn {
 			};
 		}));
 
-		const errors = fieldErrorList
-			.filter(({ error }) => error)
+		const errors = list
 			.reduce((acc, { name, error }) => ({
 				...acc,
 				[name]: error,
 			}), {});
-		const errorCount = Object.keys(errors).length;
 
-		if (!errorCount) {
-			await dispatch({
-				type: "FORM_END_DISABLE",
-				value: false,
-			});
+		const count = Object.values(errors).filter(Boolean).length;
 
-			return true;
+		return { errors, count };
+	}, [getFieldError]);
+
+	const fieldCanBeValidated = useCallback<FieldCanBeValidated>(({
+		name,
+	}) => {
+		const { mounted } = extraArgs.current;
+
+		if (!mounted[name]) {
+			return false;
+		}
+
+		const field = getFieldFromExtra(name);
+
+		const disabledWrapped = wrapToggle(field.disabled, state, false);
+		const disabled = getToggle(disabledWrapped);
+
+		if (disabled) {
+			return false;
+		}
+
+		return true;
+	}, [getFieldFromExtra, state]);
+
+	const validateField = useCallback<ValidateField>(async ({
+		name,
+		validateLinkedFields,
+	}) => {
+		const field = getFieldFromExtra(name);
+
+		const errors: MosaicObject<string | undefined> = {
+			[name]: !fieldCanBeValidated({ name }) ? undefined : (await getFieldError({ name })),
+		};
+
+		if (validateLinkedFields && field.validates) {
+			const linkedFieldNames = field.validates.filter(name => fieldCanBeValidated({ name }));
+			const { errors: linkedFieldErrors } = await getFieldErrors({ names: linkedFieldNames });
+
+			Object.assign(errors, linkedFieldErrors);
 		}
 
 		dispatch({
 			type: "SET_FIELD_ERRORS",
 			errors,
+			merge: true,
 		});
-
-		await dispatch({
-			type: "FORM_END_DISABLE",
-			value: false,
-		});
-
-		return false;
-
-		// const touchedFields = data;
-
-		// for (const [, field] of Object.entries(fields)) {
-		// 	const currFieldName = field.name;
-		// 	(!!touchedFields[currFieldName] === false ||
-		// 		Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
-		// 		(await validateField({ name: currFieldName }));
-		// }
-
-		// let validForm = true;
-		// let firstInvalidField: string | undefined = undefined;
-
-		// const entries = Object.entries(errors);
-
-		// for (const [key, value] of entries) {
-		// 	if (value !== undefined) {
-		// 		validForm = false;
-		// 		firstInvalidField = key;
-		// 		break;
-		// 	}
-		// }
-
-		// if (!validForm && firstInvalidField !== undefined) {
-		// 	setTimeout(() => {
-		// 		document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
-		// 	}, 500);
-		// }
-
-		// await dispatch({
-		// 	type: "FORM_END_DISABLE",
-		// 	value: false,
-		// });
-
-		// return validForm;
-	}, [dispatch, getFieldError]);
-
-	const submitForm = useCallback<SubmitForm>(async () => {
-		const { data, mounted, fields } = extraArgs.current;
-		const { disabled, busyFields } = state;
-
-		if (disabled) {
-			// The user should never hit this since they shouldn't
-			// be able to physically submit whilst the form is disabled,
-			// but we'll keep it here for consistency
-			dispatch({
-				type: "SET_SUBMIT_WARNING",
-				value: "The form cannot be submitted whilst it is disabled",
-			});
-
-			return {
-				valid: false,
-				data: null,
-			};
-		}
-
-		const busyMessages = Object.values(busyFields).filter(Boolean);
-		if (busyMessages.length > 0) {
-			dispatch({
-				type: "SET_SUBMIT_WARNING",
-				value: {
-					lead: "The form cannot be submitted at this time:",
-					reasons: busyMessages,
-				},
-			});
-
-			return {
-				valid: false,
-				data: null,
-			};
-		}
-
-		const valid = await validateForm();
-
-		const cleanData = Object.keys(data).reduce((acc, curr) => {
-			const disabledWrapped = wrapToggle(fields[curr]?.disabled, state, false);
-			const disabled = getToggle(disabledWrapped);
-
-			if (!mounted[curr] || disabled) {
-				return {
-					...acc,
-					[curr]: undefined,
-				};
-			}
-
-			return {
-				...acc,
-				[curr]: data[curr],
-			};
-		}, {});
-
-		extraArgs.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
-			...prev,
-			[curr]: true,
-		}), {});
-
-		return {
-			valid,
-			data: cleanData,
-		};
-	}, [dispatch, state, validateForm]);
+	}, [dispatch, fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
 
 	const setFieldValue = useCallback<SetFieldValue>(({
 		name,
@@ -485,16 +355,96 @@ export function useForm(): UseFormReturn {
 		}
 	}, [getFieldFromExtra, validateField]);
 
+	const submitForm = useCallback<SubmitForm>(async () => {
+		const { data, fields } = extraArgs.current;
+		const { busyFields } = state;
+
+		const names = Object.entries(fields)
+			.map(([, field]) => field.name)
+			.filter(name => fieldCanBeValidated({ name }));
+
+		const { count, errors } = await getFieldErrors({ names });
+
+		if (count) {
+			dispatch({
+				type: "SET_FIELD_ERRORS",
+				errors,
+			});
+
+			// TODO This sucks. Use references instead.
+
+			// if (!validForm && firstInvalidField !== undefined) {
+			// 	setTimeout(() => {
+			// 		document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
+			// 	}, 500);
+			// }
+
+			return {
+				valid: false,
+				data: null,
+			};
+		}
+
+		const busyMessages = Object.values(busyFields).filter(Boolean);
+		if (busyMessages.length > 0) {
+			dispatch({
+				type: "SET_SUBMIT_WARNING",
+				value: {
+					lead: "The form cannot be submitted at this time:",
+					reasons: busyMessages,
+				},
+			});
+
+			return {
+				valid: false,
+				data: null,
+			};
+		}
+
+		const activeFields = Object.keys(fields).filter(name => fieldCanBeValidated({ name }));
+		const activeDataList = activeFields.map(name => ({
+			name,
+			value: data[name],
+		}));
+
+		const cleanData = activeDataList.reduce((acc, { name, value }) => ({
+			...acc,
+			[name]: value,
+		}), {});
+
+		extraArgs.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
+			...prev,
+			[curr]: true,
+		}), {});
+
+		return {
+			valid: true,
+			data: cleanData,
+		};
+	}, [dispatch, fieldCanBeValidated, getFieldErrors, state]);
+
 	const methods = useMemo<FormMethods>(() => ({
 		setFieldValue,
 		setFieldBlur,
 		submitForm,
 	}), [setFieldBlur, setFieldValue, submitForm]);
 
+	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {
+		const { data, valid } = await submitForm();
+
+		if (!valid) {
+			onError && onError(data);
+			return;
+		}
+
+		onSuccess(data);
+	}, [submitForm]);
+
 	return {
 		state,
 		dispatch,
 		methods,
+		handleSubmit,
 	};
 }
 

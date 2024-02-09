@@ -16,7 +16,7 @@ const { getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, handleSubmit } = controller;
 
 	const options = useMemo( ()=> [
 		{
@@ -49,12 +49,7 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 		[],
 	);
 
-	const onSubmit = async () => {
-		const { valid, data } = await methods.submitForm();
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{

@@ -122,7 +122,7 @@ const options = {
 
 export const DrawerForm = (): ReactElement => {
 	const controller = useForm();
-	const { methods } = controller;
+	const { handleSubmit } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{
@@ -332,13 +332,10 @@ export const DrawerForm = (): ReactElement => {
 
 	const onCancel = () => setOpen(false);
 
-	const onDrawerSubmit = async () => {
-		const { data, valid } = await methods.submitForm();
-		if (!valid) return;
-
+	const onDrawerSubmit = handleSubmit((data) => {
 		setOpen(false);
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	});
 
 	const buttons: ButtonProps[] = [
 		{

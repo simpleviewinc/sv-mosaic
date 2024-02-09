@@ -7,8 +7,6 @@ export type FormState = {
 	internalData: MosaicObject<any>;
 	data: MosaicObject<any>;
 	errors: MosaicObject<string>;
-	validating: MosaicObject;
-	custom: unknown;
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	mounted: MosaicObject<boolean>;
@@ -24,12 +22,7 @@ export type ActionTypes =
     | "FIELD_UNVALIDATE"
     | "FORM_START_DISABLE"
     | "FORM_END_DISABLE"
-    | "FORM_START_DISABLE"
-    | "FORM_END_DISABLE"
     | "FORM_RESET"
-    | "PROPERTY_RESET"
-    | "MOUNT_FIELD"
-    | "UNMOUNT_FIELD"
     | "FORM_START_BUSY"
     | "FORM_END_BUSY"
     | "SET_SUBMIT_WARNING";
@@ -98,7 +91,8 @@ export type FormActionThunks = {
 	 */
 	validateForm: FormActionThunk<undefined, boolean>;
 	/**
-	 * @deprecated Use form controller's method.submitForm instead
+	 * @deprecated Use form controller's `handleSubmit` instead which wraps a
+	 * callback that should be invoked upon successful submission.
 	 */
 	submitForm: FormActionThunk<undefined, {
 		valid: boolean;
@@ -141,7 +135,24 @@ export type GetFieldErrorParams = {
 	name: string;
 };
 
-export type GetFieldError = (params: GetFieldErrorParams) => Promise<void | string>;
+export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | undefined>;
+
+export type GetFieldErrorsParams = {
+	names: string[];
+};
+
+export type GetFieldErrorsResult = {
+	errors: MosaicObject<string | undefined>;
+	count: number;
+};
+
+export type GetFieldErrors = (params: GetFieldErrorsParams) => Promise<GetFieldErrorsResult>;
+
+export type FieldCanBeValidatedParams = {
+	name: string;
+};
+
+export type FieldCanBeValidated = (params: FieldCanBeValidatedParams) => boolean;
 
 export type ValidateFieldParams = {
 	name: string;
@@ -153,6 +164,11 @@ export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
 export type ValidateForm = () => Promise<boolean>;
 
 export type SubmitForm = () => Promise<{ valid: boolean; data: any }>;
+
+export type OnSubmitSuccess = (data: any) => void;
+export type OnSubmitError = (data: any) => void;
+
+export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>;
 
 export type SetFieldValueParams = {
 	name: string;
@@ -179,6 +195,7 @@ export type UseFormReturn = {
 	state: FormState;
 	dispatch: FormDispatch;
 	methods: FormMethods;
+	handleSubmit: FormHandleSubmit;
 };
 
 export type FormExtraArgs = {

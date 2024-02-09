@@ -33,7 +33,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	} = props;
 
 	const controller = useForm();
-	const { dispatch, state, methods } = controller;
+	const { dispatch, state, methods, handleSubmit } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
@@ -73,15 +73,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	 * It adds a new address or edits an existing one and then
 	 * closes the Drawer.
 	 */
-	const onSubmit = useCallback(async () => {
-		const { valid } = await methods.submitForm();
-
-		console.log(valid);
-
-		if (!valid) {
-			return;
-		}
-
+	const onSubmit = handleSubmit(useCallback(async () => {
 		onSave({
 			address1: state.data.address1,
 			address2: state.data.address2,
@@ -95,7 +87,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 		handleClose(true);
 	}, [
-		dispatch,
 		handleClose,
 		onSave,
 		state.data.address1,
@@ -106,7 +97,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		state.data.postalCode,
 		state.data.country,
 		state.data.types,
-	]);
+	]));
 
 	useEffect(() => {
 		const handleApiStateChange = async () => {
