@@ -24,84 +24,48 @@ functionality and not how to make a form work.
 * **useSectionHash** - `string | false` - optional - The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely.
 
 ## useForm Hook
-- In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
-- This hook returns a state and a dispatcher, which will be explained in the following subsections.
+The `Form` component should be used in conjunction with the `useForm` hook which provides a form controller instance for the form and its fields to work with. The form controller contains a number of methods that can be used to manipulate the state of the form as well as the state object itself to provide a way of performing side effects based on changes.
 
 ```ts
-// We recommend placing the useForm hook at the top of your component.
-const App = (props) => {
-	const { state, dispatch } = useForm;
 
-	//...rest of App.tsx
+const App = (props) => {
+	const controller = useForm;
+	const { state, methods, handleSubmit } = controller;
+
+	<Form
+		{...controller}
+		// Other Form properties
+	/>
 }
 ```
 ### State
 The state is an object that contains the following structure:
 * **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
 * **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
-* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur per field or when clicking on the save button.
 * **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
 
-### Dispatch
-The dispatch function allows developers to update the state through the following formActions:
-* **init** - `({fields}) => Promise<void>` - This action registers the fields internally so the Form builder can process their data.
-	* **name** - init.
-	* **arguments** - `object`
-		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-	* **return** - `Promise<void>`
-* **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
-	* **name** - setFieldValue
-	* **arguments** - `object`
-		* **name** - `string` - Name of the field.
-		* **value** - `string` - Value to assign to the field.
-		* **validate** - `boolean` - Whether the field should be validated when finishing executing the onChange.
-	* **return** - `Promise<void>`
-* **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
-	* **name** - validateField
-		* **arguments** - `object`
-			* **name** - `string` - Name of the field.
-		* **return** - `Promise<void>`
-* **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
-	* **name** - validateForm
-	* **arguments** - `object`
-		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-	* **return** - `Promise<void>`
-* **submitForm** - `() => Promise<{valid, data}>` - This action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time.
-	* **name** - submitForm
-	* **arguments** - `none`
-	* **return** - `Promise<{valid: boolean, data: any}>`
-* **resetForm** - `() => Promise<void>` - This action completely empties the state.
-	* **name** - resetForm
-	* **arguments** - `none`
-	* **return** - `Promise<void>`
-* **setFormValues** - `({values}) => Promise<void>` - This action prepopulates the fields with the values being passed.
-	* **name** - setFormValues
-	* **arguments** - `object`
-		* **values** - `MosaicObject` - Object containing all fields and their values.
-	* **return** - `Promise<void>`
+## Methods
+The methods object that contains a number of methods that can be used to manipulate the form state:
+* **setFieldValue** - Updates the value of any single field by name and optionally validates the field and marks it as touched. Parameters are `{ name: string, value: any, validate?: boolean, touched?: boolean }`
 
-```ts
-import { formActions } from "sv-mosaic";
-
-const App = (props) => {
-	const updateValueExample = async () => {
-		await dispatch(
-			formActions.name(arguments)
-		);
-	}
-	//...rest of App
-}
-```
+## Other
+* `handleSubmit` - Should be used to wrap a callback that will be invoked when the form is successfully submitted after validation. Takes an optional second callback to be invoked when validation fails. You should invoke the callback that is returned when you'd like submission to be triggered.
 
 ### Submit
-How the form submission process will be executed is responsible for who is instantiating a Form component and also the definition of the button that will trigger it.
-The submit function should dispatch a form action of type submitForm that will return if the form is valid and also its data which could be handled in any way during the submit process.
-Take a look at the [How to create a form?](#how-to-create-a-form) section for more details.
+You are responsible for triggering the submission process, either by providing the `Form` component with an `onSubmit` property, or by invoking the `onSubmit` function another way.
+Your `onSubmit` function should be a callback that is wrapped with the `handleSubmit` method available on the form controller. This ensures your callback will only be called if form validation is successful.
+`handleSubmit` accepts an optional second callback that will be invoked if validation fails.
 
 ```ts
-const onSubmit = handleSubmit(useCallback((data) => {
-	// DO SOMETHING WITH THE DATA
-}, []));
+const onSubmitSuccess = useCallback((data) => {
+	alert("Submission was successful! The data submitted was: " + JSON.stringify(data));
+}, []);
+
+const onSubmitError = useCallback((data) => {
+	alert("Submission failed! The data submitted was: " + JSON.stringify(data));
+}, []);
+
+const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
 
 const buttons: ButtonProps[] = [
 		{
@@ -166,12 +130,15 @@ const App = (props) => {
 		return values;
 	});
 
-	const onSubmit = useCallback(async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
+	const onSubmitSuccess = useCallback((data) => {
+		alert("Submission was successful! The data submitted was: " + JSON.stringify(data));
+	}, []);
 
-		// DO SOMETHING WITH THE DATA
-	}, [dispatch]);
+	const onSubmitError = useCallback((data) => {
+		alert("Submission failed! The data submitted was: " + JSON.stringify(data));
+	}, []);
+
+	const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
 
 	const buttons: ButtonProps[] = [
 		{
