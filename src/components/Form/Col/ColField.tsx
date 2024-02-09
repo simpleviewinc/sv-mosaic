@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo } from "react";
 import { FieldDef } from "../FormTypes";
 import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
-import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
 import { useWrappedToggle } from "@root/utils/toggle";
 
@@ -46,10 +45,8 @@ const ColField = ({
 	const onBlur = useCallback(() => {
 		field.onBlurCb && field.onBlurCb();
 
-		dispatch(formActions.setFieldBlur({
-			name: field.name,
-		}));
-	}, [field.name]);
+		methods.setFieldBlur({ name: field.name });
+	}, [field, methods]);
 
 	const value = state?.internalData[field.name];
 	const error = !disabled ? state.errors[field.name] : "";

@@ -144,6 +144,9 @@ export const formActions: FormActionThunks = {
 			}
 		};
 	},
+	/**
+	 * @deprecated Use form controller's method.setFieldBlur instead
+	 */
 	setFieldBlur({
 		name,
 	}) {
