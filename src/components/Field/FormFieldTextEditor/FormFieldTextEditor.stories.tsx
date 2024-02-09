@@ -13,7 +13,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	const disabled = boolean("Disabled", false);
 	const label = text("Label", "Label");
@@ -67,7 +67,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 			/>
 		</>
 	);
@@ -130,7 +130,7 @@ const fields: FieldDef[] = [
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	return (
 		<>
@@ -140,7 +140,7 @@ export const KitchenSink = (): ReactElement => {
 				title="Text Editor Kitchen Sink"
 				description="This is a description example"
 				fields={fields}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 			/>
 		</>
 	);

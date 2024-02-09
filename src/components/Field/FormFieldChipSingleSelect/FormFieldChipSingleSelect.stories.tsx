@@ -28,7 +28,7 @@ const options = [
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	const label = text("Label", "Label");
 	const helperText = text("Helper Text", "Helper Text");
@@ -66,7 +66,7 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
@@ -77,7 +77,7 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -139,7 +139,7 @@ export const KitchenSink = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title="Form Regular Example"
 				description="This is a description example"
 				fields={fields}

@@ -14,7 +14,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	const label = text("Label", "Date Field Picker");
 	const helperText = text("Helper text", "Helper text");
@@ -54,7 +54,7 @@ export const Playground = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
@@ -71,7 +71,7 @@ const getFormValues = async () => {
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 	const helperText = "Helper text";
 	const instructionText = "Instruction text";
 
@@ -134,7 +134,7 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<Form
 				{...controller}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title="Date Field Calendar"
 				description="This is a description example"
 				fields={fields}
