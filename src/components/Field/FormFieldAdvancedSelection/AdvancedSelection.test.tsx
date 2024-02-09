@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
 import { optionsWithCategory } from ".";
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { additionalOptions } from "./advancedSelectionUtils";
 import JSONDB from "@root/utils/JSONDB";
 import categories from "@root/components/DataView/example/categories.json";
@@ -23,7 +23,7 @@ const externalOptions = [
 
 const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local" }) => {
 	const controller = useForm();
-	const { dispatch } = controller;
+	const { methods } = controller;
 	const options: optionsWithCategory[] = externalOptions ? externalOptions : [];
 
 	const groupByCategory = false;
@@ -98,7 +98,7 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	);
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

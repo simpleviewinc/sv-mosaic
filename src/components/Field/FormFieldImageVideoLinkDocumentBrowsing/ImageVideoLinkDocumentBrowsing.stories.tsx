@@ -57,7 +57,7 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
@@ -189,7 +189,7 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}

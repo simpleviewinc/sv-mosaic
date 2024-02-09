@@ -293,11 +293,6 @@ export const formActions: FormActionThunks = {
 			}
 
 			await dispatch({
-				type: "FORM_VALIDATE",
-				value: validForm,
-			});
-
-			await dispatch({
 				type: "FORM_END_DISABLE",
 				value: false,
 			});

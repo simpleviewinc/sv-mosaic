@@ -249,7 +249,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 			<div style={{ height: height }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					title="Form Title"
 					description="This is a description example"
 					sections={sections}

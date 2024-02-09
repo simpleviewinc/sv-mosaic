@@ -40,7 +40,6 @@ The state is an object that contains the following structure:
 * **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
 * **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
 * **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur per field or when clicking on the save button.
-* **validForm** - `boolean` - Flag that indicates whether the field is valid or not, this is affected by the errors object".
 * **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
 
 ### Dispatch

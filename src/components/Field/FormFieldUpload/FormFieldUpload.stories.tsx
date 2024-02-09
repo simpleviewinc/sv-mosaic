@@ -46,7 +46,7 @@ const initialValues = {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, dispatch, methods } = controller;
 
 	const limit = select(
 		"Limit",
@@ -160,7 +160,7 @@ export const Playground = (): ReactElement => {
 		<>
 			<Form
 				{...controller}
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(methods)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}

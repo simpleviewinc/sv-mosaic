@@ -4,7 +4,7 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
 // Components
-import Form, { SectionDef, formActions, useForm } from "@root/components/Form";
+import Form, { SectionDef, useForm } from "@root/components/Form";
 
 // Utils
 import { AddressDrawerProps } from "../AddressTypes";
@@ -74,7 +74,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	 * closes the Drawer.
 	 */
 	const onSubmit = useCallback(async () => {
-		const { valid } = await dispatch(formActions.submitForm());
+		const { valid } = await methods.submitForm();
+
+		console.log(valid);
 
 		if (!valid) {
 			return;

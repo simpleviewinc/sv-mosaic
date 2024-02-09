@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { ButtonProps } from "@root/components/Button";
 import { getOptions } from "@root/utils/getOptions";
@@ -16,7 +16,7 @@ const { getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 
 	const options = useMemo( ()=> [
 		{
@@ -50,7 +50,7 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 	);
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

@@ -3,7 +3,7 @@ import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/re
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import { menuOptions } from "../../../forms/MenuFormFieldCard/MenuFormFieldUtils";
@@ -25,7 +25,7 @@ const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
 	const controller = useForm();
-	const {	dispatch, methods } = controller;
+	const {	methods } = controller;
 
 	const setImage = async () => {
 		setImageCallback();
@@ -86,7 +86,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	];
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

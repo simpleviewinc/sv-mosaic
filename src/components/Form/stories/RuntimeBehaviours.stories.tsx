@@ -22,7 +22,7 @@ export default {
 
 export const RuntimeBehaviours = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods } = controller;
+	const { state, methods } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -111,7 +111,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					title="Runtime behaviors"
 					fields={fields}
 				/>

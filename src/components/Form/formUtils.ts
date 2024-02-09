@@ -1,12 +1,25 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, UseFormReturn, ValidateField } from "./state/types";
+import { FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, SubmitForm, UseFormReturn, ValidateField, ValidateForm } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
 
 export function coreReducer(state: FormState, action: FormAction): FormState {
-	console.log(`DISPATCH ${action.type}`);
 	switch (action.type) {
+	// NEW
+	case "SET_FIELD_ERRORS": {
+		return {
+			...state,
+			errors: action.merge ?
+				{
+					...state.errors,
+					...action.errors,
+				} :
+				action.errors
+			,
+		};
+	}
+	// LEGACY
 	case "FIELD_ON_CHANGE":
 		return {
 			...state,
@@ -78,11 +91,6 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			...state,
 			disabled: action.value,
 		};
-	case "FORM_VALIDATE":
-		return {
-			...state,
-			validForm: action.value,
-		};
 	case "FORM_RESET":
 		return {
 			...state,
@@ -90,7 +98,6 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 			errors: {},
 			validating: {},
 			custom: {},
-			validForm: false,
 			disabled: false,
 		};
 	case "PROPERTY_RESET":
@@ -153,7 +160,6 @@ export function useForm(): UseFormReturn {
 			errors: {},
 			validating: {},
 			custom: {},
-			validForm: false,
 			disabled: false,
 			touched: {},
 			mounted: {},
@@ -163,54 +169,19 @@ export function useForm(): UseFormReturn {
 		extraArgs.current,
 	);
 
-	const getFieldFromExtra = (name: string) => {
+	const getFieldFromExtra = useCallback((name: string) => {
 		if (!extraArgs.current.fields[name]) {
 			throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.current.fields).map(name => `\`${name}\``).join(", ")}`);
 		}
 
 		return extraArgs.current.fields[name];
-	};
+	}, []);
 
-	const validateField = useCallback<ValidateField>(async ({
+	const getFieldError = useCallback<GetFieldError>(async ({
 		name,
-		validateLinkedFields,
 	}) => {
-		const { data, mounted, internalValidators } = extraArgs.current;
+		const { data, internalValidators } = extraArgs.current;
 		const field = getFieldFromExtra(name);
-
-		if (!mounted[name]) {
-			return;
-		}
-
-		/**
-		 * @TODO This is not pretty, but it'll do for now. Ideally we would
-		 * only commit one dispatch after validating all fields, instead of
-		 * a dispatch for each field
-		 */
-		if (validateLinkedFields && field.validates) {
-			field.validates.forEach(linkedFieldName => {
-				validateField({
-					name: linkedFieldName,
-				});
-			});
-		}
-
-		const disabledWrapped = wrapToggle(field.disabled, state, false);
-		const disabled = getToggle(disabledWrapped);
-
-		/**
-		 * We dispatch an undefined so that way, if by any reason
-		 * the field had an error message and then became disabled,
-		 * the error would get removed from the state.
-		 */
-		if (disabled) {
-			dispatch({
-				type: "FIELD_UNVALIDATE",
-				name,
-			});
-
-			return;
-		}
 
 		const requiredFlag = field.required;
 		const validators = field.validators || [];
@@ -247,19 +218,202 @@ export function useForm(): UseFormReturn {
 
 		const result = await runValidators(validatorsMap, data[name], data);
 
-		if (result?.errorMessage) {
-			dispatch({
-				type: "FIELD_VALIDATE",
-				name,
-				value: result?.errorMessage,
-			});
-		} else {
-			dispatch({
-				type: "FIELD_UNVALIDATE",
-				name,
+		if (!result){
+			return;
+		}
+
+		return result.errorMessage;
+	}, [getFieldFromExtra]);
+
+	const validateField = useCallback<ValidateField>(async ({
+		name,
+		validateLinkedFields,
+	}) => {
+		const { mounted } = extraArgs.current;
+		const field = getFieldFromExtra(name);
+
+		/**
+		 * @TODO This is not pretty, but it'll do for now. Ideally we would
+		 * only commit one dispatch after validating all fields, instead of
+		 * a dispatch for each field
+		 */
+		if (validateLinkedFields && field.validates) {
+			field.validates.forEach(linkedFieldName => {
+				validateField({
+					name: linkedFieldName,
+				});
 			});
 		}
-	}, [dispatch, state]);
+
+		if (!mounted[name]) {
+			dispatch({
+				type: "SET_FIELD_ERRORS",
+				errors: { [name]: undefined },
+				merge: true,
+			});
+
+			return;
+		}
+
+		const disabledWrapped = wrapToggle(field.disabled, state, false);
+		const disabled = getToggle(disabledWrapped);
+
+		const error = disabled ? undefined : (await getFieldError({ name }));
+
+		dispatch({
+			type: "SET_FIELD_ERRORS",
+			errors: { [name]: error },
+			merge: true,
+		});
+	}, [dispatch, getFieldError, getFieldFromExtra, state]);
+
+	const validateForm = useCallback<ValidateForm>(async () => {
+		const { fields } = extraArgs.current;
+
+		await dispatch({
+			type: "FORM_START_DISABLE",
+			value: true,
+		});
+
+		const fieldNames = Object.entries(fields).map(([, field]) => field.name);
+		const fieldErrorList = await Promise.all(fieldNames.map(async name => {
+			const error = await getFieldError({ name });
+
+			return {
+				name,
+				error,
+			};
+		}));
+
+		const errors = fieldErrorList
+			.filter(({ error }) => error)
+			.reduce((acc, { name, error }) => ({
+				...acc,
+				[name]: error,
+			}), {});
+		const errorCount = Object.keys(errors).length;
+
+		if (!errorCount) {
+			await dispatch({
+				type: "FORM_END_DISABLE",
+				value: false,
+			});
+
+			return true;
+		}
+
+		dispatch({
+			type: "SET_FIELD_ERRORS",
+			errors,
+		});
+
+		await dispatch({
+			type: "FORM_END_DISABLE",
+			value: false,
+		});
+
+		return false;
+
+		// const touchedFields = data;
+
+		// for (const [, field] of Object.entries(fields)) {
+		// 	const currFieldName = field.name;
+		// 	(!!touchedFields[currFieldName] === false ||
+		// 		Array.isArray(touchedFields[currFieldName]) || typeof touchedFields[currFieldName] === "object") &&
+		// 		(await validateField({ name: currFieldName }));
+		// }
+
+		// let validForm = true;
+		// let firstInvalidField: string | undefined = undefined;
+
+		// const entries = Object.entries(errors);
+
+		// for (const [key, value] of entries) {
+		// 	if (value !== undefined) {
+		// 		validForm = false;
+		// 		firstInvalidField = key;
+		// 		break;
+		// 	}
+		// }
+
+		// if (!validForm && firstInvalidField !== undefined) {
+		// 	setTimeout(() => {
+		// 		document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
+		// 	}, 500);
+		// }
+
+		// await dispatch({
+		// 	type: "FORM_END_DISABLE",
+		// 	value: false,
+		// });
+
+		// return validForm;
+	}, [dispatch, getFieldError]);
+
+	const submitForm = useCallback<SubmitForm>(async () => {
+		const { data, mounted, fields } = extraArgs.current;
+		const { disabled, busyFields } = state;
+
+		if (disabled) {
+			// The user should never hit this since they shouldn't
+			// be able to physically submit whilst the form is disabled,
+			// but we'll keep it here for consistency
+			dispatch({
+				type: "SET_SUBMIT_WARNING",
+				value: "The form cannot be submitted whilst it is disabled",
+			});
+
+			return {
+				valid: false,
+				data: null,
+			};
+		}
+
+		const busyMessages = Object.values(busyFields).filter(Boolean);
+		if (busyMessages.length > 0) {
+			dispatch({
+				type: "SET_SUBMIT_WARNING",
+				value: {
+					lead: "The form cannot be submitted at this time:",
+					reasons: busyMessages,
+				},
+			});
+
+			return {
+				valid: false,
+				data: null,
+			};
+		}
+
+		const valid = await validateForm();
+
+		const cleanData = Object.keys(data).reduce((acc, curr) => {
+			const disabledWrapped = wrapToggle(fields[curr]?.disabled, state, false);
+			const disabled = getToggle(disabledWrapped);
+
+			if (!mounted[curr] || disabled) {
+				return {
+					...acc,
+					[curr]: undefined,
+				};
+			}
+
+			return {
+				...acc,
+				[curr]: data[curr],
+			};
+		}, {});
+
+		extraArgs.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
+			...prev,
+			[curr]: true,
+		}), {});
+
+		return {
+			valid,
+			data: cleanData,
+		};
+	}, [dispatch, state, validateForm]);
 
 	const methods = useMemo<FormMethods>(() => ({
 		setFieldValue: ({
@@ -313,7 +467,8 @@ export function useForm(): UseFormReturn {
 				});
 			}
 		},
-	}), [dispatch, state, validateField]);
+		submitForm,
+	}), [dispatch, getFieldFromExtra, state, submitForm, validateField]);
 
 	return {
 		state,

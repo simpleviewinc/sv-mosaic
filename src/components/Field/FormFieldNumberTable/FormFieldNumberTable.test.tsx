@@ -8,7 +8,7 @@ import {
 	render,
 	screen,
 } from "@testing-library/react";
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 import {
@@ -28,10 +28,10 @@ const NumberTableExample = ({
 	useNumberFormatter?: boolean;
 }): ReactElement => {
 	const controller = useForm();
-	const { dispatch } = controller;
+	const { methods } = controller;
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert(

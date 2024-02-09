@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 
 // Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
@@ -39,10 +39,10 @@ const fields: FieldDef[] = [
 
 const MapCoordinatesExample = (): ReactElement => {
 	const controller = useForm();
-	const { dispatch } = controller;
+	const { methods } = controller;
 
 	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
+		const { valid, data } = await methods.submitForm();
 		if (!valid) return;
 
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));

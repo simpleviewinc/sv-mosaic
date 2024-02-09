@@ -9,7 +9,6 @@ export type FormState = {
 	errors: MosaicObject<string>;
 	validating: MosaicObject;
 	custom: unknown;
-	validForm: boolean;
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	mounted: MosaicObject<boolean>;
@@ -25,10 +24,8 @@ export type ActionTypes =
     | "FIELD_UNVALIDATE"
     | "FORM_START_DISABLE"
     | "FORM_END_DISABLE"
-    | "FORM_VALIDATE"
     | "FORM_START_DISABLE"
     | "FORM_END_DISABLE"
-    | "FORM_VALIDATE"
     | "FORM_RESET"
     | "PROPERTY_RESET"
     | "MOUNT_FIELD"
@@ -46,12 +43,14 @@ export type LegacyFormAction = {
 	touched?: boolean;
 };
 
-export type ActionRerender = {
-	type: "RERENDER";
+export type ActionSetFieldErrors = {
+	type: "SET_FIELD_ERRORS";
+	errors: MosaicObject<string>;
+	merge?: boolean;
 };
 
 export type FormAction =
-	| ActionRerender
+	| ActionSetFieldErrors
     | LegacyFormAction;
 
 type OptionalUndefinedParam<P, R> = P extends undefined ? (params?: P) => R : (params: P) => R;
@@ -91,7 +90,16 @@ export type FormActionThunks = {
 		name: string;
 		validateLinkedFields?: boolean;
 	}>;
+	/**
+	 * @deprecated Now internal use only. There should never be a need
+	 * for consumers to invoke validateForm. If you are looking to validate
+	 * fields when they are changed, use the `validate` property when invoking
+	 * `setFormValues`
+	 */
 	validateForm: FormActionThunk<undefined, boolean>;
+	/**
+	 * @deprecated Use form controller's method.submitForm instead
+	 */
 	submitForm: FormActionThunk<undefined, {
 		valid: boolean;
 		data: any;
@@ -129,12 +137,22 @@ export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
 
 export type FormGetState = () => FormState;
 
+export type GetFieldErrorParams = {
+	name: string;
+};
+
+export type GetFieldError = (params: GetFieldErrorParams) => Promise<void | string>;
+
 export type ValidateFieldParams = {
 	name: string;
 	validateLinkedFields?: boolean;
 };
 
 export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
+
+export type ValidateForm = () => Promise<boolean>;
+
+export type SubmitForm = () => Promise<{ valid: boolean; data: any }>;
 
 export type SetFieldValueParams = {
 	name: string;
@@ -147,6 +165,7 @@ export type SetFieldValue = (params: SetFieldValueParams) => void;
 
 export type FormMethods = {
 	setFieldValue: SetFieldValue;
+	submitForm: SubmitForm;
 };
 
 export type UseFormReturn = {

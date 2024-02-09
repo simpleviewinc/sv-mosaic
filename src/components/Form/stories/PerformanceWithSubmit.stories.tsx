@@ -22,7 +22,7 @@ export default {
 
 export const PerformanceWithSubmit = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch } = controller;
+	const { state, methods } = controller;
 	const showState = boolean("Show state", false);
 
 	useEffect(() => {
@@ -55,7 +55,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					{...controller}
-					buttons={renderButtons(dispatch)}
+					buttons={renderButtons(methods)}
 					fields={fields}
 					title="Performance with submit"
 				/>

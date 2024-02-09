@@ -3,7 +3,7 @@ import { ReactElement, useState, useMemo } from "react";
 import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm, formActions, SectionDef } from "@root/components/Form";
+import { useForm, SectionDef } from "@root/components/Form";
 
 // Components
 import Form from "../Form";
@@ -122,7 +122,7 @@ const options = {
 
 export const DrawerForm = (): ReactElement => {
 	const controller = useForm();
-	const { dispatch } = controller;
+	const { methods } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{
@@ -333,7 +333,7 @@ export const DrawerForm = (): ReactElement => {
 	const onCancel = () => setOpen(false);
 
 	const onDrawerSubmit = async () => {
-		const { data, valid } = await dispatch(formActions.submitForm());
+		const { data, valid } = await methods.submitForm();
 		if (!valid) return;
 
 		setOpen(false);
