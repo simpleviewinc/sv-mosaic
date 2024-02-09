@@ -163,8 +163,15 @@ export type SetFieldValueParams = {
 
 export type SetFieldValue = (params: SetFieldValueParams) => void;
 
+export type SetFieldBlurParams = {
+	name: string;
+};
+
+export type SetFieldBlur = (params: SetFieldBlurParams) => void;
+
 export type FormMethods = {
 	setFieldValue: SetFieldValue;
+	setFieldBlur: SetFieldBlur;
 	submitForm: SubmitForm;
 };
 
