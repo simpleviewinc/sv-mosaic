@@ -23,14 +23,9 @@ import rawData from "../../DataView/example/rawData.json";
 
 export const MatrixExample = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods } = useForm();
+	const { state, methods, handleSubmit } = useForm();
 
-	const onSubmit = async () => {
-		const { valid, data } = await methods.submitForm();
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const gridConfig: DataViewProps = {
 		columns: listColumns,

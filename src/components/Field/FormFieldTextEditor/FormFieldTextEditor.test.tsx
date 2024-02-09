@@ -24,7 +24,7 @@ const TextEditorExample = (
 	} = props;
 
 	const controller = useForm();
-	const { methods } = controller;
+	const { handleSubmit } = controller;
 
 	const fields: FieldDef[] = [
 		{
@@ -47,7 +47,7 @@ const TextEditorExample = (
 			title="Title"
 			description="Description"
 			fields={fields}
-			buttons={renderButtons(methods)}
+			buttons={renderButtons(handleSubmit)}
 		/>
 	);
 };

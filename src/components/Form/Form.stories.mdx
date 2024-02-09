@@ -99,12 +99,9 @@ The submit function should dispatch a form action of type submitForm that will r
 Take a look at the [How to create a form?](#how-to-create-a-form) section for more details.
 
 ```ts
-const onSubmit = useCallback(async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		// DO SOMETHING WITH THE DATA
-	}, [dispatch]);
+const onSubmit = handleSubmit(useCallback((data) => {
+	// DO SOMETHING WITH THE DATA
+}, []));
 
 const buttons: ButtonProps[] = [
 		{
