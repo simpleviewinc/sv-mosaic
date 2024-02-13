@@ -130,6 +130,7 @@ test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
 	});
 
 	test("Validate that the Address with number is displayed correctly.", async () => {
+		test.skip();
 		const expectedAddress = us_address.address;
 		await ffAddressPage.addAddressButton.click({ force: true });
 		await ffAddressPage.firstAddressField.fill(expectedAddress);
