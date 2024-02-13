@@ -24,7 +24,6 @@ const Checkbox = (props: CheckboxProps) => (
 					checked={props.checked}
 					onClick={props.onClick}
 					indeterminate={props.indeterminate}
-					disableRipple
 				/>
 			}
 		/>
