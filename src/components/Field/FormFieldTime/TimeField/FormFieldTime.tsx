@@ -34,9 +34,13 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		const isKeyboardEvent = keyboardInputValue !== undefined;
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
 
-		if (isKeyboardEvent && !validKeyboardInput) {
+		if ((isKeyboardEvent && !validKeyboardInput) || !time) {
 			// This handler was caused by keyboard input, but it's not a valid date
-			addError(INVALID_TIME);
+			// or the time is invalid (the input field is blank)
+
+			if (time) {
+				addError(INVALID_TIME);
+			}
 
 			onChange({
 				...value,
