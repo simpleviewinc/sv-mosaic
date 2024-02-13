@@ -1,3 +1,11 @@
+const styledComponentArrowFn =
+  "TaggedTemplateExpression > TemplateLiteral > ArrowFunctionExpression";
+
+const ignoredNodes = [
+	styledComponentArrowFn,
+	`${styledComponentArrowFn} > BlockStatement`,
+];
+
 module.exports = {
 	parserOptions: {
 		ecmaVersion: 11,
@@ -24,7 +32,7 @@ module.exports = {
 	rules: {
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "warn",
-		"@stylistic/indent": ["error", "tab", { "flatTernaryExpressions": true }],
+		"@stylistic/indent": ["error", "tab", { "flatTernaryExpressions": true, ignoredNodes }],
 		"@stylistic/quotes": ["error", "double", { "avoidEscape": true }],
 		"@stylistic/semi": ["error", "always"],
 		"@stylistic/no-extra-semi": "error",
