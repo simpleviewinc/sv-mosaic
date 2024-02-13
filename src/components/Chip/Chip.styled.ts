@@ -3,6 +3,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import { TransientProps } from "@root/types";
 import { ChipsProps } from "./ChipTypes";
+import { ComponentProps } from "react";
 
 const chipFont = `
 	font-size: 14px;
@@ -40,31 +41,57 @@ export const StyledDeletableChip = styled(Chip)`
 	}
 `;
 
-export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "disabled" | "selected">>`
-	&.MuiChip-root {
-		background-color: ${({ $selected, $disabled }) => {
-		if ($selected && !$disabled) {
-			return theme.newColors.simplyGold["100"];
-		} else if ($selected && $disabled) {
-			return theme.newColors.simplyGold["60"];
+function getChipBackground({ $selected, disabled, onClick }: Pick<ComponentProps<typeof StyledChip>, "$selected" | "disabled" | "onClick">) {
+	if ($selected) {
+		if (disabled) {
+			return { base: theme.newColors.simplyGold["60"] };
 		}
-		return theme.newColors.grey2["100"];
-	}};
-	max-width: 186px;
 
+		return {
+			base: theme.newColors.simplyGold["100"],
+			focus: onClick && theme.newColors.darkerSimplyGold["100"],
+			hover: onClick && theme.newColors.darkerSimplyGold["100"],
+		};
+	}
+
+	return {
+		base: theme.newColors.grey2["100"],
+		focus: onClick && theme.newColors.simplyGrey["100"],
+		hover: onClick && theme.newColors.simplyGrey["100"],
+	};
+}
+
+export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected">>`
+	&.MuiChip-root {
+		max-width: 186px;
 		color: ${theme.newColors.almostBlack["100"]};
-
-		${({ $selected, onClick }) => onClick ?
-		`	&:hover {
-				background-color: ${$selected	? theme.newColors.darkerSimplyGold["100"] : theme.newColors.simplyGrey["100"]};
-			}
-
-			&:focus {
-				background-color: ${$selected ? theme.newColors.simplyGold["100"] : theme.newColors.grey2["100"]};
-			}
-			` : ""};
-
 		padding: 8px 16px;
+
+		&:focus{
+			box-shadow: none;
+			outline: 1px solid white;
+			outline-offset: -2px;
+		}
+
+		${({ $selected, disabled, onClick }) => {
+			const { base, focus, hover } = getChipBackground({ $selected, disabled, onClick });
+
+			return `
+				background-color: ${base};
+
+				${focus && `
+					&:focus{
+						background-color: ${focus}
+					}
+				`}
+
+				${hover && `
+					&:hover{
+						background-color: ${hover}
+					}
+				`}
+			`;
+		}}
 	}
 
 	& .MuiChip-label {
