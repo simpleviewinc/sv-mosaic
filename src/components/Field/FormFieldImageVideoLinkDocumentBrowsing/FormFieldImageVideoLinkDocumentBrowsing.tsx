@@ -213,8 +213,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			) : (
 				<AssetCard>
 					<AssetCardTop>
-						{fieldDef?.inputSettings?.src &&
-							!(assetType === DOCUMENT || assetType === LINK) && (
+						{fieldDef?.inputSettings?.src && !(assetType === DOCUMENT || assetType === LINK) && (
 							<Column>
 								<AssetImage
 									src={fieldDef?.inputSettings?.src}

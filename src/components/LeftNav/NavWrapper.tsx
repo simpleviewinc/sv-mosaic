@@ -44,9 +44,9 @@ const FakeTopBar = function(props: { variant: string; openNav : MouseEventHandle
 		<StyledTopBar>
 			{
 				["hidden", "mobile"].includes(variant) &&
-				<span title="Open Navigation" className="menuButton">
-					<MenuIcon onClick={props.openNav}/>
-				</span>
+					<span title="Open Navigation" className="menuButton">
+						<MenuIcon onClick={props.openNav}/>
+					</span>
 			}
 			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
 		</StyledTopBar>

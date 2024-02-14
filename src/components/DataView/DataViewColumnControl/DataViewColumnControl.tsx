@@ -35,13 +35,13 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 			/>
 			{
 				props.onChange !== undefined &&
-				<DataViewColumnDrawer
-					open={state.open}
-					columns={props.columns}
-					allColumns={props.allColumns}
-					onChange={props.onChange}
-					onClose={gearClick}
-				/>
+					<DataViewColumnDrawer
+						open={state.open}
+						columns={props.columns}
+						allColumns={props.allColumns}
+						onChange={props.onChange}
+						onClose={gearClick}
+					/>
 			}
 		</div>
 	);
