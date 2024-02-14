@@ -120,7 +120,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 				)}
 				{comparisonButton}
 			</div>
-			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear}/>
+			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} />
 		</StyledContents>
 	);
 }

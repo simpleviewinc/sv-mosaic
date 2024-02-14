@@ -170,7 +170,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 					/>
 				</div>
 				<StyledFooter>
-					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply}/>
+					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply} />
 				</StyledFooter>
 			</StyledMainContent>
 		</StyledFilterDate>

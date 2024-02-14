@@ -169,7 +169,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 								>
 									{column.label}
 									{column.sortable && (
-										<Icon className="icon"/>
+										<Icon className="icon" />
 									)}
 								</span>
 							</StyledTh>

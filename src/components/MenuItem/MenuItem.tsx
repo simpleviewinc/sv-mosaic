@@ -100,7 +100,7 @@ export default function MenuItem({
 		>
 			{mIcon && (
 				<MyIcon className="icon">
-					<Icon/>
+					<Icon />
 				</MyIcon>
 			)}
 			<div className="menuLabel">
