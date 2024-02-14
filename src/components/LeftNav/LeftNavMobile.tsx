@@ -121,7 +121,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 						<CloseIcon onClick={onClose} className="closeIcon" />
 					</div>
 					{
-						previous !== undefined &&
+						previous !== undefined && (
 							<Fragment>
 								<div className="backButton" onClick={onBack}>
 									<KeyboardBackspaceIcon />
@@ -129,6 +129,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 								</div>
 								<LeftNavTitle label={current.label} />
 							</Fragment>
+						)
 					}
 					<LeftNavScroller>
 						<LeftNavItems

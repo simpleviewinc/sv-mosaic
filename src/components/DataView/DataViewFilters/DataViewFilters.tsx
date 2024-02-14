@@ -124,7 +124,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		<>
 			<div className="filterRow">
 				{
-					props?.filters?.length > 0 &&
+					props?.filters?.length > 0 && (
 						<FiltersRow>
 							<Button
 								label={t("mosaic:DataView.filters")}
@@ -151,7 +151,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 								/>
 							</DataViewFilterDropdown>
 							{
-								active?.length > 0 &&
+								active?.length > 0 && (
 									<>
 										{
 											active.map(filter => {
@@ -169,9 +169,10 @@ function DataViewFilters(props: DataViewFiltersProps) {
 											})
 										}
 									</>
+								)
 							}
 							{
-								active?.length > 0 &&
+								active?.length > 0 && (
 									<Button
 										label={t("mosaic:DataView.clear_filters")}
 										variant="text"
@@ -179,8 +180,10 @@ function DataViewFilters(props: DataViewFiltersProps) {
 										color="teal"
 										onClick={onClearFilters}
 									/>
+								)
 							}
 						</FiltersRow>
+					)
 				}
 			</div>
 		</>

@@ -25,7 +25,7 @@ function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 		<StyledDiv>
 			<span className="bulkText">
 				{
-					props.checkedAllPages &&
+					props.checkedAllPages && (
 						<Fragment>
 							All
 							{" "}
@@ -33,9 +33,10 @@ function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 							{" "}
 							records are selected.
 						</Fragment>
+					)
 				}
 				{
-					!props.checkedAllPages &&
+					!props.checkedAllPages && (
 						<Fragment>
 							All
 							{" "}
@@ -43,6 +44,7 @@ function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 							{" "}
 							records on this page are selected.
 						</Fragment>
+					)
 				}
 			</span>
 			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select All ${props.count} Records` : "Clear Selection"} onClick={props.onCheckAllPagesClick} />

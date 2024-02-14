@@ -22,19 +22,21 @@ export const Playground = (): ReactElement => {
 	const clickable = boolean("onClick", false);
 
 	return (
-		deletable ?
+		deletable ? (
 			<Chip
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				selected={boolean("Selected", false)}
 				onDelete={() => alert("Deleted")}
-			/> :
+			/>
+		) : (
 			<Chip
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				selected={boolean("Selected", false)}
 				onClick={clickable ? () => alert("onClick") : null}
 			/>
+		)
 	);
 };
 

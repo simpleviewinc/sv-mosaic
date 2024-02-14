@@ -119,10 +119,11 @@ function LeftNavItem(props: Props, ref): ReactElement {
 				}
 			</span>
 			{
-				showLabel &&
+				showLabel && (
 					<span className="right">
 						<ChevronRightIcon className="arrow" />
 					</span>
+				)
 			}
 		</StyledA>
 	);

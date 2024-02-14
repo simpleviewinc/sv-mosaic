@@ -17,13 +17,13 @@ const RadioButton = (
 			labelPlacement="end"
 			value={value}
 			disabled={disabled}
-			control={
+			control={(
 				<StyledRadioButton
 					data-testid="radio-button-test"
 					disabled={disabled}
 					required={required}
 				/>
-			}
+			)}
 		/>
 	);
 };

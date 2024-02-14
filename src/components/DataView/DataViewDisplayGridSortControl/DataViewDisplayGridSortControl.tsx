@@ -54,13 +54,13 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 				variant="text"
 				color="black"
 				size="small"
-				menuContent={
+				menuContent={(
 					<MenuSelect
 						options={labelOptions}
 						value={props.sort.name}
 						onChange={onColumnChange}
 					/>
-				}
+				)}
 			/>
 			<Button
 				className="directionButton"
