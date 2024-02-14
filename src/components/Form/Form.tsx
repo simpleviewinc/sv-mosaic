@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 import { FormProps } from "./FormTypes";
-import { MosaicCSSContainer, MosaicObject } from "@root/types";
+import { MosaicCSSContainer } from "@root/types";
 
 import { formActions } from "./formActions";
 
@@ -54,6 +54,8 @@ const Form = (props: FormProps) => {
 		onSubmit,
 		methods,
 	} = props;
+
+	const { setFormValues, disableForm } = methods;
 
 	/**
 	 * Sections/layout and scroll spying
@@ -196,18 +198,19 @@ const Form = (props: FormProps) => {
 		return () => {
 			isMounted = false;
 		};
-	}, [fields]);
+	}, [dispatch, fields]);
 
 	useEffect(() => {
 		const loadFormValues = async () => {
-			let values: MosaicObject;
-			await dispatch(formActions.disableForm({ disabled: true }));
+			disableForm({ disabled: true });
 
-			values = getFormValues ? await getFormValues() : undefined;
+			let values = getFormValues ? await getFormValues() : undefined;
 
 			if (values === undefined) {
 				fields.forEach(field => {
 					if ("defaultValue" in field) {
+						console.warn("`FieldDef.defaultValue` is deprecated. You should provide an initial value for this field (`" + field.name + "`) to the result of the `getFormValues` callback instead.");
+
 						values = {
 							...values,
 							[field.name]: field.defaultValue,
@@ -218,18 +221,14 @@ const Form = (props: FormProps) => {
 			}
 
 			if (values) {
-				await dispatch(
-					formActions.setFormValues({
-						values,
-					}),
-				);
+				setFormValues({ values });
 			}
 
-			await dispatch(formActions.disableForm({ disabled: false }));
+			disableForm({ disabled: false });
 		};
 
 		loadFormValues();
-	}, [getFormValues]);
+	}, [disableForm, getFormValues, setFormValues]);
 
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();

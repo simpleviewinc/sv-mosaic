@@ -61,7 +61,7 @@ export type FormActionThunks = {
 		value: string;
 	}>;
 	/**
-	 * @deprecated Use form controller's method.setFieldValue instead
+	 * @deprecated Use form controller's `methods.setFieldValue` instead
 	 */
 	setFieldValue: FormActionThunk<{
 		name: string;
@@ -99,7 +99,13 @@ export type FormActionThunks = {
 		data: any;
 	}>;
 	resetForm: FormActionThunk;
+	/**
+	 * @deprecated Use form controller's `methods.setFormValues` instead
+	 */
 	setFormValues: FormActionThunk<MosaicObject>;
+	/**
+	 * @deprecated Use form controller's `methods.disableForm` instead
+	 */
 	disableForm: FormActionThunk<{
 		disabled?: boolean;
 	}>;
@@ -170,6 +176,12 @@ export type OnSubmitError = (data: any) => void;
 
 export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>;
 
+export type SetFormValuesParams = {
+	values: MosaicObject<any>;
+};
+
+export type SetFormValues = (params: SetFormValuesParams) => void;
+
 export type SetFieldValueParams = {
 	name: string;
 	value: unknown | ((current: unknown) => unknown);
@@ -185,9 +197,17 @@ export type SetFieldBlurParams = {
 
 export type SetFieldBlur = (params: SetFieldBlurParams) => void;
 
+export type DisableFormParams = {
+	disabled?: boolean;
+};
+
+export type DisableForm = (params: DisableFormParams) => void;
+
 export type FormMethods = {
+	setFormValues: SetFormValues;
 	setFieldValue: SetFieldValue;
 	setFieldBlur: SetFieldBlur;
+	disableForm: DisableForm;
 	submitForm: SubmitForm;
 };
 

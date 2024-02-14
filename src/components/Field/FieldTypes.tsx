@@ -156,6 +156,8 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	id?: string;
 	/**
 	 * Optional value that devs can define for a field to begin with.
+	 *
+	 * @deprecated Use getFormValues instead.
 	 */
 	defaultValue?: U;
 	/**
