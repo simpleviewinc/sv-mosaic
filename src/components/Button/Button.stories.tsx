@@ -424,14 +424,16 @@ export const KitchenSink = (): ReactElement => {
 					<Button color="blue" variant="contained" label="Medium (default)"/>
 				</ButtonRow>
 			</div>
-			<br/><br/>
+			<br/>
+			<br/>
 			<div>
 				<ButtonRow>
 					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon}/>
 					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon}/>
 				</ButtonRow>
 			</div>
-			<br/><br/>
+			<br/>
+			<br/>
 			<div>
 				<ButtonRow>
 					<Button color="black" variant="icon" size="small" mIcon={AddIcon}/>

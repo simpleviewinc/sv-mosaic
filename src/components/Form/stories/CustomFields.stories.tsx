@@ -52,7 +52,8 @@ export const CustomFields = (): ReactElement => {
 					onChange={(e) => onChange(value ? undefined : e.target.value)}
 					checked={value === "Bike"}
 				/>
-				<label htmlFor="vehicle1"> I have a bike</label><br />
+				<label htmlFor="vehicle1"> I have a bike</label>
+				<br />
 			</div>
 		);
 	};
