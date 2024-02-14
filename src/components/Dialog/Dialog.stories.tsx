@@ -62,7 +62,8 @@ export const Example = (): ReactElement => {
 				onClick={handleClickOpen}
 				label="Open Dialog"
 				muiAttrs={{ disableRipple: true }}
-			></Button>
+			>
+			</Button>
 			<Dialog
 				dialogTitle={dialogTitle}
 				open={open}

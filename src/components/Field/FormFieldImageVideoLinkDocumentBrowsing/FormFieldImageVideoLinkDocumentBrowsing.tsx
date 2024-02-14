@@ -249,7 +249,8 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={async (e) => await handleBrowse(e, assetType)}
-						></Button>
+						>
+						</Button>
 						<Button
 							color="red"
 							variant="text"
@@ -257,7 +258,8 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={(e) => handleRemove(e)}
-						></Button>
+						>
+						</Button>
 					</AssetButtons>
 				</AssetCard>
 			)}
