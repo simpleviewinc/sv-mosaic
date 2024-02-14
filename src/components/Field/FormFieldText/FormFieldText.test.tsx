@@ -6,18 +6,19 @@ import TextField from "./FormFieldText";
 
 describe("TextField component", () => {
 	it("should display the placeholder", () => {
-		render(<TextField
-			fieldDef={{
-				name: "textField",
-				type: "text",
-				label: "Label test",
-				instructionText: "Instruction text",
-				inputSettings: {
-					placeholder: "placeholder",
-				},
-			}}
-
-		/>);
+		render(
+			<TextField
+				fieldDef={{
+					name: "textField",
+					type: "text",
+					label: "Label test",
+					instructionText: "Instruction text",
+					inputSettings: {
+						placeholder: "placeholder",
+					},
+				}}
+			/>,
+		);
 		const placeholderElement = screen.getByPlaceholderText("placeholder");
 		expect(placeholderElement).toBeDefined();
 	});

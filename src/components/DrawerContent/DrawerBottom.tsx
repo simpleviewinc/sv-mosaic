@@ -21,7 +21,8 @@ function DrawerBottom(props: DrawerBottomProps) {
 	return (
 		<StyledDiv className={`
 			${props.background ? `background-${props.background}` : ""}
-		`}>
+		`}
+		>
 			{props.children}
 		</StyledDiv>
 	);

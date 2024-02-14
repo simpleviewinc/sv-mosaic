@@ -72,18 +72,20 @@ describe("DropdownSingleSelection component with options from DB", () => {
 
 	it("should render on the screen prepopulated with options from DB", async () => {
 		await act( async () => {
-			render(<DropdownSingleSelection
-				fieldDef={{
-					name: "dropdownSingleSelect",
-					type: "dropdown",
-					label: "Label test",
-					inputSettings: {
-						getOptions,
-						placeholder: "Placeholder test",
-					},
-				}}
-				value={additionalOptions[7]}
-			/>);
+			render(
+				<DropdownSingleSelection
+					fieldDef={{
+						name: "dropdownSingleSelect",
+						type: "dropdown",
+						label: "Label test",
+						inputSettings: {
+							getOptions,
+							placeholder: "Placeholder test",
+						},
+					}}
+					value={additionalOptions[7]}
+				/>,
+			);
 		});
 		await waitFor(() => {
 			const inputDropdown = getByRole("combobox") as HTMLInputElement;
@@ -93,17 +95,19 @@ describe("DropdownSingleSelection component with options from DB", () => {
 
 	it("should render on the screen with options from DB", async () => {
 		await act( async () => {
-			render(<DropdownSingleSelection
-				fieldDef={{
-					name: "dropdownSingleSelect",
-					type: "dropdown",
-					label: "Label test",
-					inputSettings: {
-						getOptions,
-						placeholder: "Placeholder test",
-					},
-				}}
-			/>);
+			render(
+				<DropdownSingleSelection
+					fieldDef={{
+						name: "dropdownSingleSelect",
+						type: "dropdown",
+						label: "Label test",
+						inputSettings: {
+							getOptions,
+							placeholder: "Placeholder test",
+						},
+					}}
+				/>,
+			);
 		});
 
 		await act( async() => {

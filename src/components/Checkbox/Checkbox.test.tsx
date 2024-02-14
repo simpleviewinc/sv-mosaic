@@ -13,10 +13,12 @@ afterEach(cleanup);
 
 describe("Checkbox", function() {
 	it("should render on the screen", () => {
-		const { getByRole } = render(<Checkbox
-			label="Test checkbox"
-			checked={false}
-		/>);
+		const { getByRole } = render(
+			<Checkbox
+				label="Test checkbox"
+				checked={false}
+			/>,
+		);
 
 		const checkbox = getByRole("checkbox") as HTMLInputElement;
 
@@ -24,20 +26,24 @@ describe("Checkbox", function() {
 	});
 
 	it("should render a checkbox with a label", () => {
-		render(<Checkbox
-			label="Label test"
-			checked={false}
-		/>);
+		render(
+			<Checkbox
+				label="Label test"
+				checked={false}
+			/>,
+		);
 
 		expect(screen.getByText("Label test")).toBeDefined();
 	});
 
 	it("should render a checkbox disabled and unchecked", () => {
-		const { getByRole } = render(<Checkbox
-			label="Example label"
-			checked={false}
-			disabled={true}
-		/>);
+		const { getByRole } = render(
+			<Checkbox
+				label="Example label"
+				checked={false}
+				disabled={true}
+			/>,
+		);
 
 		const checkbox = getByRole("checkbox") as HTMLInputElement;
 
@@ -46,11 +52,13 @@ describe("Checkbox", function() {
 	});
 
 	it("should render a checkbox disabled and checked", () => {
-		const { getByRole } = render(<Checkbox
-			label="Example label"
-			checked={true}
-			disabled={true}
-		/>);
+		const { getByRole } = render(
+			<Checkbox
+				label="Example label"
+				checked={true}
+				disabled={true}
+			/>,
+		);
 
 		const checkbox = getByRole("checkbox") as HTMLInputElement;
 
@@ -59,11 +67,13 @@ describe("Checkbox", function() {
 	});
 
 	it("should render a checkbox enabled and indeterminate", () => {
-		const { getByTestId } = render(<Checkbox
-			label="Example label"
-			checked={false}
-			indeterminate={true}
-		/>);
+		const { getByTestId } = render(
+			<Checkbox
+				label="Example label"
+				checked={false}
+				indeterminate={true}
+			/>,
+		);
 
 		const checkbox = getByTestId("checkbox-test-id") as HTMLInputElement;
 
@@ -71,12 +81,14 @@ describe("Checkbox", function() {
 	});
 
 	it("should render a checkbox disabled and indeterminate", () => {
-		const { getByTestId, getByRole } = render(<Checkbox
-			label="Example label"
-			checked={false}
-			disabled={true}
-			indeterminate={true}
-		/>);
+		const { getByTestId, getByRole } = render(
+			<Checkbox
+				label="Example label"
+				checked={false}
+				disabled={true}
+				indeterminate={true}
+			/>,
+		);
 
 		const checkboxByRole = getByRole("checkbox") as HTMLInputElement;
 		const checkboxTestId = getByTestId("checkbox-test-id") as HTMLInputElement;

@@ -33,6 +33,7 @@ export const Playground = (): ReactElement => {
 					},
 				]
 			}
-			onBack={onBackBool && onCancel} />
+			onBack={onBackBool && onCancel}
+		/>
 	);
 };
