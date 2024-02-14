@@ -2,7 +2,7 @@ import { EasingName } from "../easing/easingTypes";
 
 export type AnimateCallback = (n: number, state: AnimateState) => void;
 
-export interface AnimateState{
+export interface AnimateState {
 	/**
 	 * **Internal**
 	 * The timestamp as it was when the animation
