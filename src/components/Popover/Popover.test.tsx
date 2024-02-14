@@ -32,15 +32,13 @@ const PopoverExample = () => {
 				variant="contained"
 				label="Open Popover"
 				onClick={onClick}
-			>
-			</Button>
+			/>
 			<Button
 				color="yellow"
 				variant="contained"
 				label="Close Popover"
 				onClick={handleClose}
-			>
-			</Button>
+			/>
 			<Popover
 				anchorEl={anchorEl}
 				topContent={<p>Top Content</p>}

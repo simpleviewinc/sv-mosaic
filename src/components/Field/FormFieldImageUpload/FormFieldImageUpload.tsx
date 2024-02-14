@@ -251,8 +251,7 @@ const FormFieldImageUpload = (
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
 								muiAttrs={{ disableRipple: true }}
-							>
-							</UploadButton>
+							/>
 						</>
 					)}
 					<FileInput

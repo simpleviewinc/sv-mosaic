@@ -44,8 +44,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					disabled={disabled}
 					muiAttrs={buttonMuiAttrs}
 					onClick={() => onEdit(address)}
-				>
-				</Button>
+				/>
 				<Button
 					color="red"
 					variant="text"
@@ -53,8 +52,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					disabled={disabled}
 					label="Remove"
 					onClick={() => onRemoveAddress(address)}
-				>
-				</Button>
+				/>
 			</ButtonsWrapper>
 		</StyledAddressCard>
 	);
