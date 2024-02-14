@@ -1,4 +1,4 @@
-export interface ScrollSpyProps<E extends HTMLElement>{
+export interface ScrollSpyProps<E extends HTMLElement> {
 	/**
 	 * Array of references to the sections to spy on. The references
 	 * should DOM elements and the array should be in the order that
@@ -18,7 +18,7 @@ export interface ScrollSpyProps<E extends HTMLElement>{
 	threshold?: number;
 }
 
-export interface ScrollSpyResult{
+export interface ScrollSpyResult {
 	activeSection: number;
 	setActiveSection: (index: number) => void;
 }
