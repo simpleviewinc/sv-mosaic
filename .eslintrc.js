@@ -53,6 +53,7 @@ module.exports = {
 		"@stylistic/jsx-quotes": ["error"],
 		"@stylistic/jsx-child-element-spacing": ["error"],
 		"@stylistic/jsx-closing-bracket-location": ["error"],
+		"@stylistic/jsx-closing-tag-location": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
