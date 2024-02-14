@@ -61,8 +61,7 @@ const ButtonBottomContent = (
 			label="Add"
 			mIcon={AddIcon}
 			onClick={() => alert("Add button clicked")}
-		>
-		</Button>
+		/>
 	</div>
 );
 
@@ -98,8 +97,7 @@ export const Example = (): ReactElement => {
 							variant="contained"
 							label="Open Popover"
 							onClick={handleClick}
-						>
-						</Button>
+						/>
 						<Popover
 							anchorEl={anchorEl}
 							topContent={ExampleTopContent}
@@ -149,8 +147,7 @@ export const Input = (): ReactElement => {
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
-			>
-			</Button>
+			/>
 			<Popover
 				anchorEl={anchorEl}
 				topContent={withInputTopContent}
@@ -265,8 +262,7 @@ export const TextAndLinks = (): ReactElement => {
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
-			>
-			</Button>
+			/>
 			<Popover
 				anchorEl={anchorEl}
 				topContent={TopContent}

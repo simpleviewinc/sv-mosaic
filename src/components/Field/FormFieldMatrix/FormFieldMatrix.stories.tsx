@@ -579,7 +579,7 @@ export const Browse = (): ReactElement => {
 									buttons={drawerButtons}
 									onBack={removeDrawer}
 								/>
-								<DataView {...dataViewGridConfig}></DataView>
+								<DataView {...dataViewGridConfig} />
 							</MosaicContext.Provider>
 						);
 					} else {

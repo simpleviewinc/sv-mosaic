@@ -245,176 +245,176 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Contained</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="contained" label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="contained" label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler} />
 					<Button color="lightBlue" variant="contained" label="Save" onClick={clickHandler}/>
 					<Button color="lightBlue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler}/>
-					<Button color="red" variant="contained" label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="contained" label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="contained" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" label="Save" onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="red" variant="contained" label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="contained" label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="contained" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="yellow" variant="contained" label="Save" onClick={clickHandler} />
+					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Contained - disabled</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="contained" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="contained" disabled label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
 					<Button color="lightBlue" variant="contained" disabled label="Save" onClick={clickHandler}/>
 					<Button color="lightBlue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler}/>
-					<Button color="red" variant="contained" disabled label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="contained" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="contained" disabled label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="contained" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="red" variant="contained" disabled label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="contained" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="contained" disabled label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="contained" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="yellow" variant="contained" disabled label="Save" onClick={clickHandler} />
+					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Outlined</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="outlined" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="red" variant="outlined" label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="outlined" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="outlined" label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="outlined" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" label="Save" onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="outlined" label="Save" onClick={clickHandler}></Button>
-					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="outlined" label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="outlined" label="Save" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="red" variant="outlined" label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="outlined" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="outlined" label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="outlined" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="gray" variant="outlined" label="Save" onClick={clickHandler} />
+					<Button color="gray" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="teal" variant="outlined" label="Save" onClick={clickHandler} />
+					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Outlined - disabled</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="outlined" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="outlined" disabled label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="red" variant="outlined" disabled label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="outlined" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="outlined" disabled label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="outlined" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="gray" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="outlined" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="outlined" disabled label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="outlined" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="red" variant="outlined" disabled label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="outlined" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="outlined" disabled label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="outlined" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="gray" variant="outlined" disabled label="Save" onClick={clickHandler} />
+					<Button color="gray" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="teal" variant="outlined" disabled label="Save" onClick={clickHandler} />
+					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Text</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="text" label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="red" variant="text" label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="text" label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="teal" variant="text" label="Save" onClick={clickHandler} />
+					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Text - disabled</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="text" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="blue" variant="text" disabled label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="red" variant="text" disabled label="Delete" onClick={clickHandler}></Button>
-					<Button color="red" variant="text" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button color="black" variant="text" disabled label="Cancel" onClick={clickHandler}></Button>
-					<Button color="black" variant="text" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" disabled label="Save" onClick={clickHandler}></Button>
-					<Button color="teal" variant="text" disabled label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="text" disabled label="Save" onClick={clickHandler} />
+					<Button color="blue" variant="text" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="red" variant="text" disabled label="Delete" onClick={clickHandler} />
+					<Button color="red" variant="text" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button color="black" variant="text" disabled label="Cancel" onClick={clickHandler} />
+					<Button color="black" variant="text" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button color="teal" variant="text" disabled label="Save" onClick={clickHandler} />
+					<Button color="teal" variant="text" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Small Text</h2>
 			<div>
 				<ButtonRow>
-					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Save" onClick={clickHandler}></Button>
-					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Save" onClick={clickHandler} />
+					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Icon Positions</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="contained" label="Save" iconPosition="left" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="blue" variant="contained" label="Save" iconPosition="right" mIcon={AddIcon} onClick={clickHandler}></Button>
+					<Button color="blue" variant="contained" label="Save" iconPosition="left" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="blue" variant="contained" label="Save" iconPosition="right" mIcon={AddIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Multi-Icon buttons</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler}></Button>
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler}></Button>
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler}></Button>
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler}></Button>
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="text" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler}></Button>
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler}></Button>
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="text" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
 			<h2>Icon Buttons</h2>
 			<div>
-				<Button color="blue" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="red" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="black" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="teal" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="teal" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="teal" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="teal" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="yellow" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="yellow" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="yellow" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="yellow" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="blue" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="red" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="black" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="teal" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="teal" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="teal" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="teal" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="yellow" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="yellow" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="yellow" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="yellow" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
 				<div style={{ background: "black", display: "inline-block" }}>
-					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler}></Button>
-					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler}></Button>
-					<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-					<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
+					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
+					<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
+					<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
 				</div>
 			</div>
 
 			<h2>Icon Buttons - disabled</h2>
 			<div>
-				<Button color="blue" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="blue" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="red" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="red" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
-				<Button color="black" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler}></Button>
-				<Button color="black" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown}></Button>
+				<Button color="blue" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="blue" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="red" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="red" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
+				<Button color="black" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
+				<Button color="black" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
 			</div>
 
 			<h2>Button Sizes</h2>
