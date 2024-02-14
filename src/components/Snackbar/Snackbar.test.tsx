@@ -40,7 +40,8 @@ const SnackbarExample = () => {
 				variant="contained"
 				label="Open snackbar"
 				onClick={handleClickOpen}
-			></Button>
+			>
+			</Button>
 			<Snackbar
 				action={action}
 				autoHideDuration={5000}

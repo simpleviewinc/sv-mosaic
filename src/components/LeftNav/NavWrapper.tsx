@@ -192,10 +192,12 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 					/>
 				</div>
 				<div className="content" ref={contentRef}>
-					{ !props.onlyContent && <>
-						<h1>{state.label}</h1>
-						<h2>{state.name}</h2>
-					</> }
+					{!props.onlyContent && (
+						<>
+							<h1>{state.label}</h1>
+							<h2>{state.name}</h2>
+						</>
+					)}
 
 					{props.children ? props.children : lorem}
 				</div>
