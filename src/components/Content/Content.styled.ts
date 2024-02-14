@@ -57,7 +57,6 @@ export const ChipsWrapper = styled.div`
 	}
 `;
 
-
 export const ColorValue = styled.p`
 	color: ${theme.newColors.grey3["100"]};
 	font-size: 14px;

@@ -57,5 +57,3 @@ readFile("./countriesStates.json", (err, countriesData) => {
 	writeFile(jsonString);
 });
 
-
-

@@ -92,7 +92,6 @@ describe("DataViewFilterText component", () => {
 			fireEvent.click(checkboxes[1]);
 		});
 
-
 		expect(screen.queryByTitle("Download checked")).not.toBeNull();
 
 		act(() => {

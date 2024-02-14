@@ -3,7 +3,6 @@ import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { FilterComponent } from "../../Components/DataView/FilterComponent";
 
-
 export class AdvancedFiltersComponent extends FilterComponent {
 	readonly page: Page;
 	readonly datepicker: DatePickerComponent;
@@ -53,7 +52,6 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.titleWithComparisonBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Title with Comparisons" }).first();
 		this.createdBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Created" }).first();
 		this.updatedBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Updated" }).first();
-
 
 		this.categoriesSearchBar = page.locator("div.searchBar");
 		this.createdFilterDiv = page.locator(".MuiPaper-elevation");

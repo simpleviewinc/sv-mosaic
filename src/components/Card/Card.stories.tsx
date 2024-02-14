@@ -44,7 +44,6 @@ const content = [
 	</div>,
 ];
 
-
 export const Playground = (): ReactElement => {
 	const showTitleIcon = boolean("Show title icon ", true);
 	const showTopAction = boolean("Show top action", true);

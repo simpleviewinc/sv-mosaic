@@ -19,7 +19,6 @@ import AddressAutocomplete from "./AddressAutocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "./AddressAutocomplete/AddressAutocomplete.styled";
 
-
 const mockGeoCoder = jest
 	.fn()
 	.mockImplementation(() => ({ geocode: jest.fn() }));

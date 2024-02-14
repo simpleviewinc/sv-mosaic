@@ -7,7 +7,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { default as MenuSelect, MenuSelectProps } from "../../MenuSelect";
 import { StyledButton } from "./DataViewControlLimit.styled";
 
-
 function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
 		props.onLimitChange({ limit : Number(val) });

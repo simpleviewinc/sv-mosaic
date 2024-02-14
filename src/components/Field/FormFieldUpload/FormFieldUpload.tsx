@@ -54,7 +54,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		prevValueRef.current = value;
 	}, [value]);
 
-
 	/**
 	 * Executed when a file that's being
 	 * dragged is over the drop zone.
@@ -134,7 +133,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			}));
 		}
 	}, [pendingWithoutError]);
-
 
 	const onUploadComplete = async ({ uuid, data }) => {
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);

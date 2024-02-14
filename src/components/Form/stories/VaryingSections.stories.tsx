@@ -44,8 +44,6 @@ export const VaryingSections = (): ReactElement => {
 		[],
 	);
 
-
-
 	const sections = useMemo(() => [
 		{
 			title: "Section 1",
