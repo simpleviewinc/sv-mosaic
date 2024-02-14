@@ -43,7 +43,10 @@ export const Example = (): ReactElement => {
 		<AppContext.Provider value={appContext}>
 			<div className="App">
 				<h1>Drawer Demo</h1>
-				<p>From Form: {JSON.stringify(state.content)}</p>
+				<p>
+					From Form:
+					{JSON.stringify(state.content)}
+				</p>
 				<button
 					onClick={() => addDrawer({
 						config: {

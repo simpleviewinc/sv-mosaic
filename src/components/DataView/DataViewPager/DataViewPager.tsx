@@ -36,7 +36,17 @@ function DataViewPager(props: DataViewPagerProps) {
 				variant="text"
 				size="small"
 				tooltip={t("mosaic:DataView.jump_to_page")}
-				label={<span>{startItem}-{endItem} <StyledLabel>of</StyledLabel> {props.count}</span>}
+				label={
+					<span>
+						{startItem}
+						-
+						{endItem}
+						{" "}
+						<StyledLabel>of</StyledLabel>
+						{" "}
+						{props.count}
+					</span>
+				}
 				popover={
 					<DataViewPagerPopover
 						currentPage={currentPage}

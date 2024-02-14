@@ -45,7 +45,10 @@ export const example = (): ReactElement => {
 
 	return (
 		<Fragment>
-			<p>Chosen: {state.value}</p>
+			<p>
+				Chosen:
+				{state.value}
+			</p>
 			<Button
 				label="Open"
 				color="blue"
@@ -76,7 +79,10 @@ export const withPlaceholder = (): ReactElement => {
 
 	return (
 		<Fragment>
-			<p>Chosen: {state.value}</p>
+			<p>
+				Chosen:
+				{state.value}
+			</p>
 			<Button
 				label="Open"
 				color="blue"

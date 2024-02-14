@@ -61,6 +61,7 @@ module.exports = {
 		"@stylistic/jsx-first-prop-new-line": ["error"],
 		"@stylistic/jsx-indent": ["error", "tab", { checkAttributes: true, indentLogicalExpressions: true }],
 		"@stylistic/jsx-indent-props": ["error", "tab"],
+		"@stylistic/jsx-one-expression-per-line": ["error", { "allow": "single-child" }],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",

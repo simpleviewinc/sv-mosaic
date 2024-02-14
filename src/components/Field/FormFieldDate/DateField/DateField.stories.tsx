@@ -141,7 +141,16 @@ export const KitchenSink = (): ReactElement => {
 				getFormValues={getFormValues}
 			/>
 			<h3>Date.toString()</h3>
-			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
+			<pre>
+				{Object.keys(state.data).map((key, index) => (
+					<div key={index}>
+						{key}
+						:
+						{" "}
+						{state.data[key] && state.data[key].toString()}
+					</div>
+				))}
+			</pre>
 			<h3>State</h3>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
