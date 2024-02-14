@@ -17,15 +17,15 @@ export interface SectionDef extends Section {
 	description?: string | JSX.Element;
 	fields: MosaicGridConfig;
 	collapsed?: boolean;
-	show?: MosaicToggle<FormState>
-	gridMinWidth?: string
+	show?: MosaicToggle<FormState>;
+	gridMinWidth?: string;
 }
 
 export interface FormProps {
 	state: any;
 	title?: string;
 	onBack?: (() => void) | ((...args: any) => void);
-	backLabel?: TitleWrapperProps["backLabel"]
+	backLabel?: TitleWrapperProps["backLabel"];
 	fields: FieldDef[];
 	sections?: SectionDef[];
 	dispatch: any;
@@ -36,14 +36,14 @@ export interface FormProps {
 	buttons?: ButtonProps[];
 	showActive?: boolean;
 	scrollSpyThreshold?: number;
-	fullHeight?: boolean
+	fullHeight?: boolean;
 	spacing?: FormSpacing;
 }
 
 export interface FieldError {
-	message: string
+	message: string;
 }
 
-export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any, value: any };
+export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any; value: any };
 
 export { FieldDef, FieldDefCustom };

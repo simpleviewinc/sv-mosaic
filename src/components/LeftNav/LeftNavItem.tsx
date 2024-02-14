@@ -73,9 +73,9 @@ const StyledA = styled.a`
 `;
 
 interface Props {
-	item: LeftNavItemDef
-	showLabel?: boolean
-	attrs?: MosaicObject
+	item: LeftNavItemDef;
+	showLabel?: boolean;
+	attrs?: MosaicObject;
 }
 
 function LeftNavItem(props: Props, ref): ReactElement {

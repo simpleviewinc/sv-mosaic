@@ -42,8 +42,8 @@ export type LegacyFormAction = {
 	value: any;
 	internalValue?: any;
 	name?: string;
-	clearErrors?: boolean
-	touched?: boolean
+	clearErrors?: boolean;
+	touched?: boolean;
 };
 
 export type FormAction =
@@ -58,10 +58,10 @@ export type FormActionThunk<P = undefined, R = void> = OptionalUndefinedParam<
 
 export type FormActionThunks = {
 	init: FormActionThunk<{
-		fields: FieldDef[]
+		fields: FieldDef[];
 	}>;
 	setSubmitWarning: FormActionThunk<{
-		value: string
+		value: string;
 	}>;
 	setFieldValue: FormActionThunk<{
 		name: string;
@@ -72,10 +72,10 @@ export type FormActionThunks = {
 	setFieldBlur: FormActionThunk<{
 		name: string;
 		validate?: boolean;
-	}>
+	}>;
 	validateField: FormActionThunk<{
-		name: string,
-		validateLinkedFields?: boolean
+		name: string;
+		validateLinkedFields?: boolean;
 	}>;
 	validateForm: FormActionThunk<undefined, boolean>;
 	submitForm: FormActionThunk<undefined, {
@@ -85,30 +85,30 @@ export type FormActionThunks = {
 	resetForm: FormActionThunk;
 	setFormValues: FormActionThunk<MosaicObject>;
 	disableForm: FormActionThunk<{
-		disabled?: boolean
+		disabled?: boolean;
 	}>;
 	startBusy: FormActionThunk<{
-		name: string,
-		value: string
+		name: string;
+		value: string;
 	}>;
 	endBusy: FormActionThunk<{
-		name: string
+		name: string;
 	}>;
 	mountField: FormActionThunk<{
-		name: string
+		name: string;
 	}>;
 	unmountField: FormActionThunk<{
-		name: string
+		name: string;
 	}>;
-	isSubmittable: FormActionThunk<undefined, boolean>
+	isSubmittable: FormActionThunk<undefined, boolean>;
 	addValidator: FormActionThunk<{
 		name: string;
-		validator: any
-	}>
+		validator: any;
+	}>;
 	removeValidator: FormActionThunk<{
 		name: string;
-		validator: any
-	}>
+		validator: any;
+	}>;
 };
 
 export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
@@ -125,9 +125,9 @@ export type FormExtraArgs = {
 	fieldMap: Record<string, FieldDefSanitized>;
 	onSubmit: () => void;
 	mounted: Record<string, boolean | undefined>;
-	internalValidators: Record<string, ((value: any) => string | undefined)[]>
+	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
-	data: MosaicObject<any>
+	data: MosaicObject<any>;
 };
 
 export type FormReducer = (state: FormState, action: FormAction) => FormState;

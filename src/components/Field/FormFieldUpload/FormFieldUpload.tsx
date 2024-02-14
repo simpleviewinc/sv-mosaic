@@ -34,7 +34,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 
 	const [isOver, setIsOver] = useState(false);
 	const [pendingFiles, setPendingFiles] = useState<MosaicObject<TransformedFile>>({});
-	const [snackbar, setSnackbar] = useState<{ open: boolean, text: string }>({
+	const [snackbar, setSnackbar] = useState<{ open: boolean; text: string }>({
 		open: false,
 		text: "",
 	});

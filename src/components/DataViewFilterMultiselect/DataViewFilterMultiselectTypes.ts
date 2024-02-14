@@ -10,14 +10,14 @@ interface DataViewFilterMultiselectData {
 }
 
 export interface GetOptionsArgs {
-	limit?: number
-	skip?: number
-	keyword?: string
+	limit?: number;
+	skip?: number;
+	keyword?: string;
 }
 
 export interface GetOptionsReturn {
-	docs: MosaicLabelValue[]
-	hasMore?: boolean
+	docs: MosaicLabelValue[];
+	hasMore?: boolean;
 }
 
 export type GetOptions = (val: GetOptionsArgs) => Promise<DataViewFilterGetOptionsReturn> | DataViewFilterGetOptionsReturn;
@@ -25,12 +25,12 @@ export type GetOptions = (val: GetOptionsArgs) => Promise<DataViewFilterGetOptio
 export interface DataViewFilterMultiselectProps extends DataViewFilterProps {
 	data: DataViewFilterMultiselectData;
 	args: {
-		getOptions: GetOptions
+		getOptions: GetOptions;
 		getSelected(val: any): Promise<any> | any;
 		comparisons?: MultiSelectComparison[];
 		placeholder?: string;
 		limit?: number;
-	}
+	};
 	onChange(val: DataViewFilterMultiselectData): void;
 }
 
@@ -39,7 +39,7 @@ export interface DataViewFilterMultiselectDropdownContentProps {
 	comparison: DataViewFilterMultiselectProps["data"]["comparison"];
 	comparisons?: { label: string; value: DataViewFilterMultiselectProps["data"]["comparison"] }[];
 	getOptions: DataViewFilterMultiselectProps["args"]["getOptions"];
-	onApply: ({ value, comparison }: { value: string[], comparison: DataViewFilterMultiselectProps["data"]["comparison"] }) => void;
+	onApply: ({ value, comparison }: { value: string[]; comparison: DataViewFilterMultiselectProps["data"]["comparison"] }) => void;
 	isOpen: boolean;
 	placeholder?: DataViewFilterMultiselectProps["args"]["placeholder"];
 	limit?: DataViewFilterMultiselectProps["args"]["limit"];

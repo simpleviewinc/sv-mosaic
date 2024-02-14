@@ -9,28 +9,28 @@ export type DateFieldInputSettings = {
 	 * The minimum date to allow,
 	 * defaults to 1st January 1900
 	 */
-	minDate?: Date
+	minDate?: Date;
 	/**
 	 * The maximum date to allow
 	 */
-	maxDate?: Date
+	maxDate?: Date;
 	/**
 	 * The placeholder
 	 */
-	placeholder?: string
+	placeholder?: string;
 	/**
 	 * The time to assign to the date if a
 	 * time field is not shown. Defaults to
 	 * midnight
 	 */
-	fixedTime?: TimeTuple
+	fixedTime?: TimeTuple;
 };
 
 export type DateData = {
-	date?: Date
-	validDate: boolean
-	time?: Date
-	validTime: boolean
+	date?: Date;
+	validDate: boolean;
+	time?: Date;
+	validTime: boolean;
 };
 
 export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings, DateData | Date>;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { containerQuery } from "@root/utils/css";
 import { FormSpacing } from "../FormTypes";
 
-export const StyledRow = styled.div<{ $columns?: number, $gridMinWidth?: string, $spacing?: FormSpacing }>`
+export const StyledRow = styled.div<{ $columns?: number; $gridMinWidth?: string; $spacing?: FormSpacing }>`
 	${({ $columns, $gridMinWidth, $spacing }) => $columns && `
 		display: grid;
 		grid-template-columns: repeat(1,minmax(0,1fr));

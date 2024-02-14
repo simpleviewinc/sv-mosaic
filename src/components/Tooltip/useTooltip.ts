@@ -4,8 +4,8 @@ import { AnchorElement, AnchorProps, TooltipProps } from "./TooltipTypes";
 type HookTooltipProps = Required<Pick<TooltipProps, "anchorEl" | "open" | "id">>;
 
 export interface UseTooltipResult {
-	tooltipProps: HookTooltipProps,
-	anchorProps: AnchorProps
+	tooltipProps: HookTooltipProps;
+	anchorProps: AnchorProps;
 }
 
 function useTooltip(): UseTooltipResult {

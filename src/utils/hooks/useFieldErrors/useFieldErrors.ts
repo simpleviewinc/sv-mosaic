@@ -3,13 +3,13 @@ import { FieldError, formActions } from "@root/components/Form";
 import { arrayIntersect, arrayDifference } from "@root/utils/array";
 
 type AddError = {
-	type: "ADD_ERROR",
-	error: FieldError | FieldError[]
+	type: "ADD_ERROR";
+	error: FieldError | FieldError[];
 };
 
 type RemoveError = {
-	type: "REMOVE_ERROR",
-	error: FieldError | FieldError[]
+	type: "REMOVE_ERROR";
+	error: FieldError | FieldError[];
 };
 
 type Action = AddError | RemoveError;
@@ -59,7 +59,7 @@ type UseFieldErrorState = FieldError[];
 
 interface UseFieldErrorParams {
 	dispatch: any;
-	name: string
+	name: string;
 }
 
 interface UseFieldErrorsResult {

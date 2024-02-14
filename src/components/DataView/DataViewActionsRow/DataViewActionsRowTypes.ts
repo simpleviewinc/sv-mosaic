@@ -29,5 +29,5 @@ export interface DataViewActionsRowProps {
 	columns?: DataViewColumn[];
 	anyChecked?: boolean;
 	allChecked?: boolean;
-	disabled?: DataViewProps["disabled"]
+	disabled?: DataViewProps["disabled"];
 }

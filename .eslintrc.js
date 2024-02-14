@@ -48,6 +48,7 @@ module.exports = {
 		"@stylistic/no-trailing-spaces": ["error"],
 		"@stylistic/no-multi-spaces": ["error"],
 		"@stylistic/jsx-quotes": ["error"],
+		"@stylistic/member-delimiter-style": ["error"],
 		"constructor-super": "error",
 		"for-direction": "error",
 		"getter-return": "error",

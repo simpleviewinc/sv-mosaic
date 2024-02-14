@@ -46,7 +46,7 @@ const colorMap = {
 
 type MY_OBJECT_KEYS = keyof typeof colorMap;
 type Color = {
-	[key: string]: string
+	[key: string]: string;
 };
 
 const newColors: { [key in MY_OBJECT_KEYS]: Color } = {

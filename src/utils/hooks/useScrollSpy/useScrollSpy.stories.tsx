@@ -64,7 +64,7 @@ const StyledThreshold = styled.div<{ $threshold: number }>`
 	pointer-events: none;
 `;
 
-function Section({ registerRef, title, content }: { registerRef: (ref: HTMLElement) => () => void, title: string, content: React.ReactNode }) {
+function Section({ registerRef, title, content }: { registerRef: (ref: HTMLElement) => () => void; title: string; content: React.ReactNode }) {
 	const ref = React.useRef<HTMLElement>();
 
 	React.useEffect(() => {
