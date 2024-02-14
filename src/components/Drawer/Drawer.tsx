@@ -120,10 +120,11 @@ const Drawer = (props: DrawerProps): ReactElement => {
 				}}
 			>
 				{
-					state.open &&
+					state.open && (
 						<StyledDrawerContent>
 							{children}
 						</StyledDrawerContent>
+					)
 				}
 			</MUIDrawerStyled>
 		</>
