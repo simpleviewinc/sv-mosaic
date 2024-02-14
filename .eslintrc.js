@@ -63,6 +63,7 @@ module.exports = {
 		"@stylistic/jsx-indent-props": ["error", "tab"],
 		"@stylistic/jsx-one-expression-per-line": ["error", { "allow": "single-child" }],
 		"@stylistic/jsx-pascal-case": ["error"],
+		"@stylistic/jsx-props-no-multi-spaces": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
