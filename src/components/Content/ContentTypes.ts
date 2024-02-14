@@ -61,7 +61,7 @@ export interface ContentProps {
 	variant?: "standard" | "card";
 }
 
-export interface ContentFieldProps{
+export interface ContentFieldProps {
 	/**
    * Text positioned above each field
    */
@@ -72,7 +72,7 @@ export interface ContentFieldProps{
 	content?: unknown;
 }
 
-export interface ContentRowProps{
+export interface ContentRowProps {
 	fields: ContentField[];
 	/**
    * The name of the field specified in the sections array
