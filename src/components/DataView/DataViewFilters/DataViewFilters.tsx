@@ -125,62 +125,62 @@ function DataViewFilters(props: DataViewFiltersProps) {
 			<div className="filterRow">
 				{
 					props?.filters?.length > 0 &&
-					<FiltersRow>
-						<Button
-							label={t("mosaic:DataView.filters")}
-							variant="text"
-							color="black"
-							size="small"
-							iconPosition="left"
-							mIcon={FilterListIcon}
-							mIconColor={theme.newColors.almostBlack["100"]}
-							onClick={onClick}
-						/>
-						<DataViewFilterDropdown
-							anchorEl={state.anchorEl}
-							onClose={onClose}
-							onEntered={onEntered}
-							onExited={onExited}
-						>
-							<DataViewFilterMultiselectDropdownContent
-								comparison=""
-								selected={optionsSelected}
-								getOptions={getOptions}
-								isOpen={state.dropdownOpen}
-								onApply={onActiveFiltersChange}
-							/>
-						</DataViewFilterDropdown>
-						{
-							active?.length > 0 &&
-							<>
-								{
-									active.map(filter => {
-										const Component = filter.component;
-										return (
-											<Component
-												key={filter.name}
-												label={filter.label}
-												args={filter.args || {}}
-												data={props.filter[filter.name] || {}}
-												onRemove={onRemove(filter.name)}
-												onChange={value => onChange(value, filter)}
-											/>
-										);
-									})
-								}
-							</>
-						}
-						{
-							active?.length > 0 &&
+						<FiltersRow>
 							<Button
-								label={t("mosaic:DataView.clear_filters")}
+								label={t("mosaic:DataView.filters")}
 								variant="text"
+								color="black"
 								size="small"
-								color="teal"
-								onClick={onClearFilters}
+								iconPosition="left"
+								mIcon={FilterListIcon}
+								mIconColor={theme.newColors.almostBlack["100"]}
+								onClick={onClick}
 							/>
-						}
-					</FiltersRow>
+							<DataViewFilterDropdown
+								anchorEl={state.anchorEl}
+								onClose={onClose}
+								onEntered={onEntered}
+								onExited={onExited}
+							>
+								<DataViewFilterMultiselectDropdownContent
+									comparison=""
+									selected={optionsSelected}
+									getOptions={getOptions}
+									isOpen={state.dropdownOpen}
+									onApply={onActiveFiltersChange}
+								/>
+							</DataViewFilterDropdown>
+							{
+								active?.length > 0 &&
+									<>
+										{
+											active.map(filter => {
+												const Component = filter.component;
+												return (
+													<Component
+														key={filter.name}
+														label={filter.label}
+														args={filter.args || {}}
+														data={props.filter[filter.name] || {}}
+														onRemove={onRemove(filter.name)}
+														onChange={value => onChange(value, filter)}
+													/>
+												);
+											})
+										}
+									</>
+							}
+							{
+								active?.length > 0 &&
+									<Button
+										label={t("mosaic:DataView.clear_filters")}
+										variant="text"
+										size="small"
+										color="teal"
+										onClick={onClearFilters}
+									/>
+							}
+						</FiltersRow>
 				}
 			</div>
 		</>

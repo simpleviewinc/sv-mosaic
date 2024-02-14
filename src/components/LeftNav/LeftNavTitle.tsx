@@ -39,7 +39,7 @@ function LeftNavTitle(props: Props): ReactElement {
 		<StyledH3 title={props.label}>
 			{
 				props.mIcon &&
-				<props.mIcon className="icon"/>
+					<props.mIcon className="icon"/>
 			}
 			<span>{props.label}</span>
 		</StyledH3>

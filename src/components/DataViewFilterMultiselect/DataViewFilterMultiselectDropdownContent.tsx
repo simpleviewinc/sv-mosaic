@@ -266,28 +266,28 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					/>
 					{
 						!showList &&
-						<Spinner className="spinner"/>
+							<Spinner className="spinner"/>
 					}
 					{
 						showList &&
-						<CheckboxList
-							checked={optionsDisabled ? [] : state.listOfChips}
-							options={state.options}
-							onChange={onChange}
-							disabled={disabled}
-						/>
+							<CheckboxList
+								checked={optionsDisabled ? [] : state.listOfChips}
+								options={state.options}
+								onChange={onChange}
+								disabled={disabled}
+							/>
 					}
 					{
 						state.hasMore &&
-						<div className="loadContainer">
-							<Button
-								label={t("mosaic:common.load_more___")}
-								color="blue"
-								variant="outlined"
-								fullWidth={true}
-								onClick={loadMore}
-							/>
-						</div>
+							<div className="loadContainer">
+								<Button
+									label={t("mosaic:common.load_more___")}
+									color="blue"
+									variant="outlined"
+									fullWidth={true}
+									onClick={loadMore}
+								/>
+							</div>
 					}
 				</div>
 				<StyledVerticalHr/>
@@ -295,11 +295,11 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					{comparisonDropdown}
 					{
 						!optionsDisabled &&
-						<>
-							<p className="selected-options-title">{t("mosaic:DataView.selected_options")}</p>
-							<div className="chips">
-								{
-									showList &&
+							<>
+								<p className="selected-options-title">{t("mosaic:DataView.selected_options")}</p>
+								<div className="chips">
+									{
+										showList &&
 									state.listOfChips?.length > 0 &&
 									state.listOfChips.map(option => (
 										<Chip
@@ -309,21 +309,21 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 											onDelete={handleToggle(option)}
 										/>
 									))
-								}
-							</div>
-						</>
+									}
+								</div>
+							</>
 					}
 				</div>
 			</div>
 			{
 				!props.hideButtons &&
-				<>
-					<StyledHr/>
-					<DataViewFilterDropdownButtons
-						onApply={onApply}
-						onClear={onClear}
-					/>
-				</>
+					<>
+						<StyledHr/>
+						<DataViewFilterDropdownButtons
+							onApply={onApply}
+							onClear={onClear}
+						/>
+					</>
 			}
 		</StyledWrapper>
 	);

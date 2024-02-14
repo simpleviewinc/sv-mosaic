@@ -122,13 +122,13 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 					</div>
 					{
 						previous !== undefined &&
-						<Fragment>
-							<div className="backButton" onClick={onBack}>
-								<KeyboardBackspaceIcon/>
-								<div className="buttonLabel">{previous.label}</div>
-							</div>
-							<LeftNavTitle label={current.label}/>
-						</Fragment>
+							<Fragment>
+								<div className="backButton" onClick={onBack}>
+									<KeyboardBackspaceIcon/>
+									<div className="buttonLabel">{previous.label}</div>
+								</div>
+								<LeftNavTitle label={current.label}/>
+							</Fragment>
 					}
 					<LeftNavScroller>
 						<LeftNavItems
