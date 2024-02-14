@@ -18,7 +18,7 @@ export interface AnimateState{
 	 * The function to run at each step of the animation,
 	 * recieves the current animated value and state
 	 */
-	fn: AnimateCallback,
+	fn: AnimateCallback;
 	/**
 	 * The value to start animating from
 	 */

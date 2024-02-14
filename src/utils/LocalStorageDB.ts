@@ -1,8 +1,8 @@
 import { jsonDateParser } from "json-date-parser";
 
 interface Row {
-	id: string
-	[key: string]: any
+	id: string;
+	[key: string]: any;
 }
 
 class LocalStorageDB {

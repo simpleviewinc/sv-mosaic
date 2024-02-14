@@ -8,7 +8,7 @@ export interface DataViewFilterTextProps extends DataViewFilterProps{
 		comparisons?: FilterTextComparison[];
 		placeholder?: string;
 		comparisonDefault?: string;
-	}
+	};
 	onChange: (value?: any) => void;
 }
 

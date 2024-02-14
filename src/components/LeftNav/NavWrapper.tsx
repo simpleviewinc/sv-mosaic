@@ -36,7 +36,7 @@ const StyledTopBar = styled.div`
 	}
 `;
 
-const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandler }): ReactElement {
+const FakeTopBar = function(props: { variant: string; openNav : MouseEventHandler }): ReactElement {
 	const isMobile = Math.max(window.innerHeight, window.innerWidth) < 1024;
 	const variant = isMobile ? "mobile" : props.variant;
 
@@ -93,9 +93,9 @@ function isMobile() {
 const noop = () => undefined;
 
 interface NavWrapperProps {
-	children?: ReactElement,
-	items : LeftNavItemRootDef[],
-	onlyContent?: boolean
+	children?: ReactElement;
+	items : LeftNavItemRootDef[];
+	onlyContent?: boolean;
 }
 
 export const NavWrapper = function(props: NavWrapperProps): ReactElement {
