@@ -57,8 +57,7 @@ export const Example = (): ReactElement => {
 				label="Open snackbar"
 				onClick={handleClickOpen}
 				muiAttrs={{ disableRipple: true }}
-			>
-			</Button>
+			/>
 			<Snackbar
 				action={withAction && action}
 				autoHideDuration={autoHideDuration}

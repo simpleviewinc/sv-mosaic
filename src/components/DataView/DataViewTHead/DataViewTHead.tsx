@@ -105,8 +105,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 			<tr className="row-header">
 				{
 					props.onReorder &&
-						<StyledTh key="_draggable" className="bulk">
-						</StyledTh>
+						<StyledTh key="_draggable" className="bulk" />
 				}
 				{
 					props.onCheckAllClick &&

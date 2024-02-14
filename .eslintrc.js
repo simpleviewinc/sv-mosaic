@@ -64,6 +64,7 @@ module.exports = {
 		"@stylistic/jsx-one-expression-per-line": ["error", { "allow": "single-child" }],
 		"@stylistic/jsx-pascal-case": ["error"],
 		"@stylistic/jsx-props-no-multi-spaces": ["error"],
+		"@stylistic/jsx-self-closing-comp": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",

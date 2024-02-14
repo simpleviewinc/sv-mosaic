@@ -115,7 +115,7 @@ const FormFieldTextEditor = (
 
 	return (
 		<EditorWrapper $error={!!error} data-testid="text-editor-testid">
-			<textarea ref={textArea}></textarea>
+			<textarea ref={textArea} />
 		</EditorWrapper>
 	);
 };

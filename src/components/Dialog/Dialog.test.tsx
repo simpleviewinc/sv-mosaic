@@ -53,8 +53,7 @@ const DialogExample = () => {
 				variant="contained"
 				onClick={handleClickOpen}
 				label="Open dialog"
-			>
-			</Button>
+			/>
 			<Dialog
 				dialogTitle="Dialog title"
 				open={open}

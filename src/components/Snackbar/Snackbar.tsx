@@ -58,8 +58,7 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 								onClick={action.function}
 								label={action.label}
 								muiAttrs={{ disableRipple: true }}
-							>
-							</Button>
+							/>
 						</ActionWrapper>
 					)}
 				</MessageWrapper>
