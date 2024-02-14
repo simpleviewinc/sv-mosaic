@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useCallback, useMemo } from "react";
 import "@testing-library/jest-dom";
 import {
 	act,
@@ -38,7 +38,6 @@ const NumberTableExample = ({
 				name: "numberTable",
 				label: "Label",
 				type: "numberTable",
-				defaultValue: numberTableDefaultValue,
 				inputSettings: {
 					displaySumColumn: displaySumColumn,
 					displaySumRow: displaySumRow,
@@ -63,6 +62,10 @@ const NumberTableExample = ({
 		},
 	];
 
+	const getFormValues = useCallback(async () => ({
+		numberTable: numberTableDefaultValue,
+	}), []);
+
 	return (
 		<Form
 			{...controller}
@@ -70,6 +73,7 @@ const NumberTableExample = ({
 			title="Form Title"
 			description="This is a description example"
 			fields={fields}
+			getFormValues={getFormValues}
 		/>
 	);
 };
@@ -94,7 +98,7 @@ afterEach(cleanup);
 
 describe("FormFieldNumberTable component", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample />);
 		});
 	});
@@ -150,7 +154,7 @@ describe("FormFieldNumberTable component", () => {
 
 describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample displaySumColumn={false} displaySumRow={false} />);
 		});
 	});
@@ -163,7 +167,7 @@ describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled"
 
 describe("FormFieldNumberTable with formatted values", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample useNumberFormatter={true} />);
 		});
 	});
