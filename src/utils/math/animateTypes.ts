@@ -44,3 +44,9 @@ export type AnimateParams = Partial<Pick<AnimateState, "fn" | "valueStart" | "va
 export type AnimateStart = (params?: Partial<AnimateParams>) => void;
 
 export type AnimateStop = () => void;
+
+export type Animation = {
+	start: AnimateStart;
+	stop: AnimateStop;
+	inProgress: () => boolean;
+};
