@@ -65,7 +65,7 @@ describe("Field component error text and the helper text", () => {
 						label: "Label",
 						helperText: "Helper text",
 					}}
-					error={"Error text"}
+					error="Error text"
 
 				/>
 			</Field>,

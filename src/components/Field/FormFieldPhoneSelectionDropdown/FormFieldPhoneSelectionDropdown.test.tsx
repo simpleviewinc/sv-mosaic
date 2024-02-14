@@ -26,7 +26,7 @@ const FormFieldPhoneSelectionDropdownExample = () => {
 					label: "Label",
 					disabled: false,
 				}}
-				error={"Error text"}
+				error="Error text"
 				onChange={handleOnChange}
 				value={value}
 			/>

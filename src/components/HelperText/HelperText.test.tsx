@@ -9,7 +9,7 @@ afterEach(cleanup);
 
 describe("HelperText component", () => {
 	it("should display the error message with the alert icon", () => {
-		render(<HelperText error>{"Error text"}</HelperText>);
+		render(<HelperText error>Error text</HelperText>);
 
 		const errorHelperText = screen.getByText("Error text");
 		const errorIcon = screen.getByTestId("error-icon-test-id");
@@ -19,7 +19,7 @@ describe("HelperText component", () => {
 	});
 
 	it("should display only the helper text", () => {
-		render(<HelperText>{"Helper text"}</HelperText>);
+		render(<HelperText>Helper text</HelperText>);
 
 		const helperText = screen.getByText("Helper text");
 		const errorIcon = screen.queryByTestId("error-icon-test-id");

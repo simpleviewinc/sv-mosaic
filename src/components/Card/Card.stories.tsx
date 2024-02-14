@@ -135,7 +135,7 @@ const recentActivityContent = [
 export const RecentActivity = (): ReactElement => {
 	return (
 		<Card
-			title={"Recent Activity"}
+			title="Recent Activity"
 			content={recentActivityContent}
 			topActions={[
 				{

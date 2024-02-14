@@ -60,7 +60,7 @@ const DialogExample = () => {
 				open={open}
 				buttons={buttons}
 			>
-				{"Test content"}
+				Test content
 			</Dialog>
 		</>
 	);

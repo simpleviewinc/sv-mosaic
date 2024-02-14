@@ -196,7 +196,7 @@ export const Playground = (): ReactElement => {
 			/>
 			{amountContent === 2 &&
 				<Content
-					title={"Second content"}
+					title="Second content"
 					data={data}
 					fields={fields}
 					sections={sections}
@@ -285,7 +285,7 @@ export const KitchenSink = (): ReactElement => {
 	return (
 		<>
 			<Content
-				title={"Standard content"}
+				title="Standard content"
 				data={data}
 				fields={fields}
 				sections={columns}
@@ -293,12 +293,12 @@ export const KitchenSink = (): ReactElement => {
 			/>
 			<br/>
 			<Content
-				title={"Card content"}
+				title="Card content"
 				data={data}
 				fields={fields}
 				sections={columns}
 				buttons={buttons}
-				variant={"card"}
+				variant="card"
 			/>
 		</>
 	);
