@@ -58,6 +58,7 @@ module.exports = {
 		"@stylistic/jsx-curly-newline": ["error"],
 		"@stylistic/jsx-curly-spacing": ["error"],
 		"@stylistic/jsx-equals-spacing": ["error"],
+		"@stylistic/jsx-first-prop-new-line": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
