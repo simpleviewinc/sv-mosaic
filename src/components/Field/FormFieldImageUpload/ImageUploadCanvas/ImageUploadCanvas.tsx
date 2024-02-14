@@ -91,7 +91,7 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 	return (
 		<CanvasContainer onClick={setMouseCoordinates}>
 			<StyledCanvas
-				data-testid='canvas-el-test'
+				data-testid="canvas-el-test"
 				width={261}
 				height={172}
 				ref={canvasRef}

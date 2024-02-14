@@ -29,28 +29,28 @@ export const Group = (): ReactElement => {
 
 	return (
 		<RadioGroup
-			aria-label='gender'
-			name='gender1'
+			aria-label="gender"
+			name="gender1"
 			value={value}
 			onChange={handleChange}
 		>
 			<RadioButton
-				label='Male'
+				label="Male"
 				disabled={false}
 				required={false}
-				value='male'
+				value="male"
 			/>
 			<RadioButton
-				label='Female'
+				label="Female"
 				disabled={false}
 				required={false}
-				value='female'
+				value="female"
 			/>
 			<RadioButton
-				label='(Disabled option)'
+				label="(Disabled option)"
 				disabled={true}
 				required={false}
-				value='disabled'
+				value="disabled"
 			/>
 		</RadioGroup>
 	);

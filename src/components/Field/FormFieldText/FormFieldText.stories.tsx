@@ -215,8 +215,8 @@ export const KitchenSink = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title='Form Title'
-				description='Form description'
+				title="Form Title"
+				description="Form description"
 				state={state}
 				fields={kitchenSinkfields}
 				dispatch={dispatch}
@@ -273,7 +273,7 @@ export const ValidationStrategies = (): ReactElement => {
 		<>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title='Validation Strategies'
+				title="Validation Strategies"
 				state={state}
 				fields={validationStrategyFields}
 				dispatch={dispatch}

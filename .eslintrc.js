@@ -47,6 +47,7 @@ module.exports = {
 		"@stylistic/comma-spacing": ["error", { "before": false, "after": true }],
 		"@stylistic/no-trailing-spaces": ["error"],
 		"@stylistic/no-multi-spaces": ["error"],
+		"@stylistic/jsx-quotes": ["error"],
 		"constructor-super": "error",
 		"for-direction": "error",
 		"getter-return": "error",

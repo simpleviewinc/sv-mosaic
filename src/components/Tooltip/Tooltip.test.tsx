@@ -36,7 +36,7 @@ afterEach(cleanup);
 describe("Tooltip component", () => {
 	it("should render a regular tooltip", async () => {
 		const tooltip = render(
-			<TooltipTest text='Default tooltip test' />,
+			<TooltipTest text="Default tooltip test" />,
 		);
 
 		fireEvent.mouseOver(tooltip.getByTestId("MoreVertIcon"));

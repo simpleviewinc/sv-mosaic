@@ -135,8 +135,8 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				title='Text Editor Kitchen Sink'
-				description='This is a description example'
+				title="Text Editor Kitchen Sink"
+				description="This is a description example"
 				state={state}
 				fields={fields}
 				dispatch={dispatch}

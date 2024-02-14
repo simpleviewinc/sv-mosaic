@@ -49,7 +49,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 			<ChipsWrapper
 				$isModalOpen={fieldDef?.inputSettings?.isModalOpen}
 				$isMobileView={fieldDef?.inputSettings?.isMobileView}
-				data-testid='as-chiplist'
+				data-testid="as-chiplist"
 			>
 				{showMore ?
 					value?.map((option, idx) => (

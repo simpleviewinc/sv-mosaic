@@ -243,7 +243,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		<FormDrawerWrapper className="mapCoordinates">
 			<Form
 				onBack={handleClose}
-				title='Map Coordinates'
+				title="Map Coordinates"
 				buttons={buttons}
 				state={state}
 				dispatch={dispatch}

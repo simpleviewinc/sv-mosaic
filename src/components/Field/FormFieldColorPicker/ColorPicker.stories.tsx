@@ -78,8 +78,8 @@ export const KitchenSink = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
-					title='Form Title'
-					description='This is a description example'
+					title="Form Title"
+					description="This is a description example"
 					state={state}
 					fields={fields}
 					dispatch={dispatch}

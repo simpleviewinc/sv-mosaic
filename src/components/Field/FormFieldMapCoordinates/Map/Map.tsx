@@ -97,7 +97,7 @@ const Map = (props: MapProps): ReactElement => {
 				textField={{
 					InputProps: {
 						endAdornment: (
-							<InputAdornment position='end'>
+							<InputAdornment position="end">
 								<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
 							</InputAdornment>
 						),
