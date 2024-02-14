@@ -32,12 +32,10 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 			anchorEl={props.anchorEl}
 			onClose={props.onClose}
 			open={Boolean(props.anchorEl)}
-			TransitionProps={
-				{
-					onExited,
-					onEntered : props.onEntered,
-				}
-			}
+			TransitionProps={{
+				onExited,
+				onEntered : props.onEntered,
+			}}
 		>
 			<StyledWrapper>
 				{props.children}

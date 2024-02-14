@@ -75,10 +75,10 @@ function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement {
 			/>
 			{
 				item.items && open &&
-				<LeftNavFlyout
-					parent={item}
-					anchorEl={aRef.current}
-				/>
+					<LeftNavFlyout
+						parent={item}
+						anchorEl={aRef.current}
+					/>
 			}
 		</Fragment>
 	);

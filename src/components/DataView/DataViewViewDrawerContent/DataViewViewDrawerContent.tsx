@@ -132,9 +132,9 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 		>
 			{
 				state.options &&
-				<DataView
-					{...DataViewConfig}
-				/>
+					<DataView
+						{...DataViewConfig}
+					/>
 			}
 			<DataViewViewSaveDrawer
 				open={state.formOpen}
