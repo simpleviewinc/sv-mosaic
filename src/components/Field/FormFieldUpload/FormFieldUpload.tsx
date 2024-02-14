@@ -318,7 +318,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			 * We'll have 2 FileGrids, 1 for the successfully
 			 * uploaded files, and 1 for the pending / errors.
 			 */}
-			{value?.length > 0 &&
+			{value?.length > 0 && (
 				<StyledFileGrid>
 					{value.map(file => (
 						<FileCard
@@ -334,8 +334,8 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						/>
 					))}
 				</StyledFileGrid>
-			}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled &&
+			)}
+			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled && (
 				<StyledFileGrid>
 					{Object.entries(pendingFiles).map(([key, file]) => {
 						return (
@@ -354,7 +354,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						);
 					})}
 				</StyledFileGrid>
-			}
+			)}
 			<Snackbar
 				autoHideDuration={6000}
 				label={snackbar.text}

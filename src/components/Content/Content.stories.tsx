@@ -194,7 +194,7 @@ export const Playground = (): ReactElement => {
 				buttons={buttons}
 				variant={variant}
 			/>
-			{amountContent === 2 &&
+			{amountContent === 2 && (
 				<Content
 					title="Second content"
 					data={data}
@@ -202,7 +202,7 @@ export const Playground = (): ReactElement => {
 					sections={sections}
 					variant={variant}
 				/>
-			}
+			)}
 		</>
 	);
 };
