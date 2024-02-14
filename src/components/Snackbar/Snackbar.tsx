@@ -68,7 +68,8 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 					disableRipple
 					key="close"
 					onClick={onClose}
-					size="large">
+					size="large"
+				>
 					<StyledCloseIcon />
 				</IconButton>
 			</ContentWrapper>
