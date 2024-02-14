@@ -31,7 +31,17 @@ const Section = (props: SectionPropTypes) => {
 		spacing,
 	} = props;
 
-	const [expanded, setExpanded] = useState<boolean>(!collapsed);
+	const defaultExpanded = useMemo(() => {
+		const fieldNames = rows.flat(2);
+
+		if (fieldNames.some(name => state.errors[name])){
+			return true;
+		}
+
+		return !collapsed;
+	}, [collapsed, rows, state.errors]);
+
+	const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
@@ -42,25 +52,6 @@ const Section = (props: SectionPropTypes) => {
 		setExpanded(newExpandVal);
 	};
 
-	const fieldsInSection = useMemo(() => {
-		const fieldNames = [];
-
-		for (const row of rows) {
-			fieldNames.push(...row);
-		}
-
-		return fieldNames;
-	}, [rows]);
-
-	useEffect(() => {
-		for (let i = 0; i < fieldsInSection.length; i++) {
-			if (state.errors?.[fieldsInSection[i]]) {
-				setExpanded(true);
-				break;
-			}
-		}
-	}, [state.errors, fieldsInSection.length]);
-
 	useEffect(() => {
 		const unregister = registerRef(ref.current);
 		return unregister;
@@ -69,6 +60,7 @@ const Section = (props: SectionPropTypes) => {
 	return (
 		<StyledAccordion
 			data-testid="section-test-id"
+			defaultExpanded={defaultExpanded}
 			expanded={expanded}
 			onChange={onExpandChange}
 			square={true}
