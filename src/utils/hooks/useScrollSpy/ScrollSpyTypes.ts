@@ -1,3 +1,5 @@
+import { Animation } from "@root/utils/math/animateTypes";
+
 export interface ScrollSpyProps<E extends HTMLElement> {
 	/**
 	 * Array of references to the sections to spy on. The references
@@ -21,4 +23,5 @@ export interface ScrollSpyProps<E extends HTMLElement> {
 export interface ScrollSpyResult {
 	activeSection: number;
 	setActiveSection: (index: number) => void;
+	animation: Animation;
 }
