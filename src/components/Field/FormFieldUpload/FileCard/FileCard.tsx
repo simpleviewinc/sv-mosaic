@@ -111,7 +111,7 @@ const FileCard = (props: FileCardProps) => {
 							)}
 						</div>
 					)}
-					{onFileDelete && !disabled &&
+					{onFileDelete && !disabled && (
 						<div className="file-delete-btn">
 							<Button
 								color="gray"
@@ -120,12 +120,12 @@ const FileCard = (props: FileCardProps) => {
 								onClick={() => onFileDelete({ id: id })}
 							/>
 						</div>
-					}
+					)}
 				</ButtonRow>
 			</StyledFileCard>
-			{error &&
+			{error && (
 				<HelperText error={error !== undefined}>{error}</HelperText>
-			}
+			)}
 		</div>
 	);
 };

@@ -24,9 +24,9 @@ const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 					/>
 				)}
 			</StyledTitleRow>
-			{buttons &&
+			{buttons && (
 				<ButtonRow buttons={buttons} />
-			}
+			)}
 		</StyledPageHeader>
 	);
 });
