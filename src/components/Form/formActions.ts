@@ -69,6 +69,9 @@ export const formActions: FormActionThunks = {
 			});
 		};
 	},
+	/**
+	 * @deprecated Use form controller's method.setFormValues instead
+	 */
 	setFormValues({ values }) {
 		return async function (dispatch, _getState, extraArgs) {
 			const internalValues = Object.keys(values).reduce((acc, curr) => ({
@@ -354,6 +357,9 @@ export const formActions: FormActionThunks = {
 			});
 		};
 	},
+	/**
+	 * @deprecated Use form controller's `methods.disableForm` instead
+	 */
 	disableForm({ disabled = false }) {
 		return async function (dispatch) {
 			await dispatch({

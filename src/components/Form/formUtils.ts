@@ -1,5 +1,5 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FieldCanBeValidated, FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField } from "./state/types";
+import { FieldCanBeValidated, FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, SetFormValues, DisableForm } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
@@ -11,13 +11,10 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 	case "SET_FIELD_ERRORS": {
 		return {
 			...state,
-			errors: action.merge ?
-				{
-					...state.errors,
-					...action.errors,
-				} :
-				action.errors
-			,
+			errors: (action.merge ? {
+				...state.errors,
+				...action.errors,
+			} : action.errors),
 		};
 	}
 	// LEGACY
@@ -285,6 +282,24 @@ export function useForm(): UseFormReturn {
 		});
 	}, [dispatch, fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
 
+	const setFormValues = useCallback<SetFormValues>(({
+		values,
+	}) => {
+		const internalValues = Object.keys(values).reduce((acc, curr) => ({
+			...acc,
+			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
+		}), {});
+
+		extraArgs.current.data = values;
+
+		return dispatch({
+			type: "FIELDS_ON_CHANGE",
+			value: values,
+			internalValue: internalValues,
+			clearErrors: true,
+		});
+	}, [dispatch, getFieldFromExtra]);
+
 	const setFieldValue = useCallback<SetFieldValue>(({
 		name,
 		value: providedValue,
@@ -355,6 +370,15 @@ export function useForm(): UseFormReturn {
 		}
 	}, [getFieldFromExtra, validateField]);
 
+	const disableForm = useCallback<DisableForm>(({
+		disabled,
+	}) => {
+		dispatch({
+			type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
+			value: disabled,
+		});
+	}, [dispatch]);
+
 	const submitForm = useCallback<SubmitForm>(async () => {
 		const { data, fields } = extraArgs.current;
 		const { busyFields } = state;
@@ -424,10 +448,18 @@ export function useForm(): UseFormReturn {
 	}, [dispatch, fieldCanBeValidated, getFieldErrors, state]);
 
 	const methods = useMemo<FormMethods>(() => ({
+		setFormValues,
 		setFieldValue,
 		setFieldBlur,
 		submitForm,
-	}), [setFieldBlur, setFieldValue, submitForm]);
+		disableForm,
+	}), [
+		setFieldBlur,
+		setFormValues,
+		setFieldValue,
+		submitForm,
+		disableForm,
+	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {
 		const { data, valid } = await submitForm();
