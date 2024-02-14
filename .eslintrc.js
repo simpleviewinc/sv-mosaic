@@ -51,6 +51,7 @@ module.exports = {
 		"@stylistic/member-delimiter-style": ["error"],
 		"@stylistic/no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1, maxBOF: 0 }],
 		"@stylistic/space-before-blocks": ["error"],
+		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
 		"getter-return": "error",
