@@ -165,7 +165,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
@@ -195,7 +195,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
@@ -226,7 +226,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
