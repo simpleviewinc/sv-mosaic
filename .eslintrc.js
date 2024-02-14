@@ -60,6 +60,7 @@ module.exports = {
 		"@stylistic/jsx-equals-spacing": ["error"],
 		"@stylistic/jsx-first-prop-new-line": ["error"],
 		"@stylistic/jsx-indent": ["error", "tab", { checkAttributes: true, indentLogicalExpressions: true }],
+		"@stylistic/jsx-indent-props": ["error", "tab"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
