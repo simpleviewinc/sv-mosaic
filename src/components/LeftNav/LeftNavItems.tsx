@@ -5,10 +5,10 @@ import LeftNavGroup from "./LeftNavGroup";
 import { LeftNavItemDef, LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
 
 interface Props {
-	items: LeftNavItemDef[]
-	showLabel?: boolean
-	openName?: string
-	onOpen: LeftNavBlockProps["onOpen"]
+	items: LeftNavItemDef[];
+	showLabel?: boolean;
+	openName?: string;
+	onOpen: LeftNavBlockProps["onOpen"];
 }
 
 /** Renders an array of navigation items. */

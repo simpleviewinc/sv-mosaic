@@ -14,14 +14,15 @@ const StyledDiv = styled.div`
 
 export interface DrawerBottomProps {
 	background?: string;
-	children: ReactNode
+	children: ReactNode;
 }
 
 function DrawerBottom(props: DrawerBottomProps) {
 	return (
 		<StyledDiv className={`
 			${props.background ? `background-${props.background}` : ""}
-		`}>
+		`}
+		>
 			{props.children}
 		</StyledDiv>
 	);

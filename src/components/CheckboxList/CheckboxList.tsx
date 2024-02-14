@@ -12,7 +12,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 	const checkedRef = useStateRef(props.checked);
 
 	const handleToggle = useCallback(
-		(value: MosaicLabelValue | { [key: string]: unknown; }) => () => {
+		(value: MosaicLabelValue | { [key: string]: unknown }) => () => {
 			// toggle the item in the array
 			const newChecked = xorBy(checkedRef.current, [value], (option) => option.value);
 			props.onChange(newChecked);

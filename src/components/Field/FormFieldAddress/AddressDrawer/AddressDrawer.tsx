@@ -387,9 +387,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		<FormDrawerWrapper className="address">
 			<Form
 				onBack={handleClose}
-				title='Address Information'
+				title="Address Information"
 				buttons={buttons}
-				data-testid={"address-testid"}
+				data-testid="address-testid"
 				state={state}
 				dispatch={dispatch}
 				sections={sections}

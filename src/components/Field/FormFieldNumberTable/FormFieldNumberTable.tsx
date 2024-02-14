@@ -152,7 +152,6 @@ const FormFieldNumberTable = (
 			break;
 		}
 
-
 	};
 
 	return (
@@ -190,7 +189,7 @@ const FormFieldNumberTable = (
 										placeholder="0"
 										value={strValue}
 										onChange={(e) => onChangeCell(e, row.name, column.name)}
-										fieldSize={"90px"}
+										fieldSize="90px"
 										disabled={disabled}
 										inputRef={(el) => {
 											if (cellRefs?.current) {

@@ -13,5 +13,5 @@ export interface SectionPropTypes {
 	show?: MosaicToggle;
 	registerRef?: (ref: HTMLElement) => () => void;
 	gridMinWidth?: string;
-	spacing?: FormSpacing
+	spacing?: FormSpacing;
 }

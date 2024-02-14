@@ -20,7 +20,10 @@ export const example = (): ReactElement => {
 
 	return (
 		<div>
-			<div>checked: {JSON.stringify(checked)}</div>
+			<div>
+				checked:
+				{JSON.stringify(checked)}
+			</div>
 			<CheckboxList
 				checked={checked}
 				options={checkboxOptions}

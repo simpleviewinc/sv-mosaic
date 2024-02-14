@@ -5,5 +5,5 @@ export interface PageHeaderProps {
 	title?: string;
 	buttons?: ButtonProps[];
 	onBack?: TitleWrapperProps["onBack"];
-	backLabel?: TitleWrapperProps["backLabel"]
+	backLabel?: TitleWrapperProps["backLabel"];
 }

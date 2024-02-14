@@ -2,14 +2,14 @@ import JSONDB from "../../../utils/JSONDB";
 import { MosaicLabelValue } from "../../../types";
 
 export interface MultiSelectHelperGetOptionsArgs {
-	limit: number
-	skip: number
-	keyword?: string
+	limit: number;
+	skip: number;
+	keyword?: string;
 }
 
 export interface MultiSelectHelperGetOptionsReturn {
-	docs: MosaicLabelValue[]
-	hasMore: boolean
+	docs: MosaicLabelValue[];
+	hasMore: boolean;
 }
 
 export interface MultiSelectHelperArgs {

@@ -22,7 +22,7 @@ export type AdvancedSelectionExternalOptions = {
 	/**
 	 * Used to get the selected options on the parent component.
 	 */
-	getOptions: GetOptions
+	getOptions: GetOptions;
 	getOptionsLimit?: number;
 } & AdvancedSelectionBasic;
 
@@ -36,7 +36,7 @@ export interface ChipListPropsTypes {
 			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
 		};
 		disabled: boolean;
-	},
+	};
 	value: MosaicLabelValue[];
 }
 

@@ -17,5 +17,5 @@ export interface MenuItemProps {
 	 * If a string is provided, that will be used as the title
 	 * instead.
 	 */
-	title?: boolean | string
+	title?: boolean | string;
 }

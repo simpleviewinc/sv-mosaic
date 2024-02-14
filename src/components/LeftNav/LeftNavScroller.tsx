@@ -25,9 +25,9 @@ const StyledDiv = styled.div`
 `;
 
 interface Props {
-	className?: string
-	children?: React.ReactNode
-	attrs?: MosaicObject
+	className?: string;
+	children?: React.ReactNode;
+	attrs?: MosaicObject;
 }
 
 function LeftNavScroller(props: Props): ReactElement {

@@ -34,7 +34,7 @@ export const CustomFields = (): ReactElement => {
 	const showState = boolean("Show state", false);
 
 	const CustomText = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
-		return <input type='text' value={value} onChange={(e) => onChange(e.target.value)} />;
+		return <input type="text" value={value} onChange={(e) => onChange(e.target.value)} />;
 	};
 
 	const CustomTextArea = ({ onChange, value }: { onChange: (e: string) => void; value: string }) => {
@@ -52,7 +52,8 @@ export const CustomFields = (): ReactElement => {
 					onChange={(e) => onChange(value ? undefined : e.target.value)}
 					checked={value === "Bike"}
 				/>
-				<label htmlFor="vehicle1"> I have a bike</label><br />
+				<label htmlFor="vehicle1"> I have a bike</label>
+				<br />
 			</div>
 		);
 	};
@@ -105,7 +106,7 @@ export const CustomFields = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
-					title='Custom components'
+					title="Custom components"
 					state={state}
 					fields={fields}
 					dispatch={dispatch}

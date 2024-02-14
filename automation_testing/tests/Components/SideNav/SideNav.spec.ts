@@ -41,7 +41,6 @@ test.describe.parallel("Components - SideNav - Example", () => {
 		expect(await sideNavPage.getBackgroundColorFromElement(selectedLocator)).toBe(expectedColor);
 	});
 
-
 	test("Validate that the nav height can be modified", async () => {
 		const firstExpectedHeight = "800";
 		const secondExpectedHeight = "1000";

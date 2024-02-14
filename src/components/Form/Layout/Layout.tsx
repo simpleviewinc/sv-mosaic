@@ -12,7 +12,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 	const { state, dispatch, fields, sections, registerRef, spacing } = props;
 
 	return (
-		<StyledLayout data-testid="form-layout-test-id" className='layout'>
+		<StyledLayout data-testid="form-layout-test-id" className="layout">
 			{sections.map((section, i) => (
 				<Section
 					registerRef={registerRef}

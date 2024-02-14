@@ -57,7 +57,7 @@ export const PerformanceWithSubmit = (): ReactElement => {
 					state={state}
 					fields={fields}
 					dispatch={dispatch}
-					title='Performance with submit'
+					title="Performance with submit"
 				/>
 			</div>
 		</>

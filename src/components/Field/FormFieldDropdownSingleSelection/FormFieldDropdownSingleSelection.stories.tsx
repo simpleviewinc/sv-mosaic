@@ -198,8 +198,8 @@ export const KitchenSink = (): ReactElement => {
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title='Form title'
-				description='Form description'
+				title="Form title"
+				description="Form description"
 				state={state}
 				fields={kitchenSinkFields}
 				dispatch={dispatch}

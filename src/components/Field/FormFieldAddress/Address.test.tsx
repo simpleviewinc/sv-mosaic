@@ -19,7 +19,6 @@ import AddressAutocomplete from "./AddressAutocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "./AddressAutocomplete/AddressAutocomplete.styled";
 
-
 const mockGeoCoder = jest
 	.fn()
 	.mockImplementation(() => ({ geocode: jest.fn() }));
@@ -83,7 +82,7 @@ const address: IAddress = {
 	types: [{ label: "Physical", value: "physical" }, { label: "Billing", value: "billing" }],
 };
 
-export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings }): ReactElement => {
 	const {
 		state,
 		dispatch,
@@ -156,7 +155,7 @@ describe("AddressAutocomplete component", () => {
 				textField={{
 					InputProps: {
 						endAdornment: (
-							<InputAdornment position='end'>
+							<InputAdornment position="end">
 								<StyledClearIcon onClick={mockClear} />
 							</InputAdornment>
 						),

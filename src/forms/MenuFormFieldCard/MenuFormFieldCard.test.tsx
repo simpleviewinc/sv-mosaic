@@ -22,7 +22,7 @@ const options = [
 
 describe("MenuFormFieldCard menu options callbacks", () => {
 	beforeEach(() => {
-		const { container } = render(<MenuFormFieldCard options={options}/>);
+		const { container } = render(<MenuFormFieldCard options={options} />);
 		const moreIcon = container.querySelector(".MuiButtonBase-root");
 		fireEvent.click(moreIcon);
 	});

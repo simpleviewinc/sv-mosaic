@@ -58,7 +58,7 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 								onClick={action.function}
 								label={action.label}
 								muiAttrs={{ disableRipple: true }}
-							></Button>
+							/>
 						</ActionWrapper>
 					)}
 				</MessageWrapper>
@@ -68,7 +68,8 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 					disableRipple
 					key="close"
 					onClick={onClose}
-					size="large">
+					size="large"
+				>
 					<StyledCloseIcon />
 				</IconButton>
 			</ContentWrapper>

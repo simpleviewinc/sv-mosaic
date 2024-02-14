@@ -90,7 +90,7 @@ export default function MenuItem({
 
 	return (
 		<StyledMenuItem
-			{ ...attrs }
+			{...attrs}
 			onClick={onClick}
 			disabled={disabled}
 			selected={selected}
@@ -100,7 +100,7 @@ export default function MenuItem({
 		>
 			{mIcon && (
 				<MyIcon className="icon">
-					<Icon/>
+					<Icon />
 				</MyIcon>
 			)}
 			<div className="menuLabel">
