@@ -75,7 +75,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
-							{"Hide"} <StyledExpandLessIcon />
+							Hide <StyledExpandLessIcon />
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>

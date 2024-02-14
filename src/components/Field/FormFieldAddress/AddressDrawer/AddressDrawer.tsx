@@ -389,7 +389,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				onBack={handleClose}
 				title="Address Information"
 				buttons={buttons}
-				data-testid={"address-testid"}
+				data-testid="address-testid"
 				state={state}
 				dispatch={dispatch}
 				sections={sections}

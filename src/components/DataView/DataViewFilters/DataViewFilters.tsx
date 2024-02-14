@@ -143,7 +143,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 							onExited={onExited}
 						>
 							<DataViewFilterMultiselectDropdownContent
-								comparison={""}
+								comparison=""
 								selected={optionsSelected}
 								getOptions={getOptions}
 								isOpen={state.dropdownOpen}

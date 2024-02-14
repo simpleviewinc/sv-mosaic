@@ -88,7 +88,7 @@ const Map = (props: MapProps): ReactElement => {
 	return (
 		<MapContainer>
 			<AddressAutocomplete
-				className={"mapCoordinates"}
+				className="mapCoordinates"
 				value={addressValue}
 				onChange={setAddressValue}
 				onSelect={onSelect}
@@ -98,7 +98,7 @@ const Map = (props: MapProps): ReactElement => {
 					InputProps: {
 						endAdornment: (
 							<InputAdornment position="end">
-								<StyledClearIcon data-testid={"location-search-clear-icon"} onClick={clearValue} />
+								<StyledClearIcon data-testid="location-search-clear-icon" onClick={clearValue} />
 							</InputAdornment>
 						),
 					},
