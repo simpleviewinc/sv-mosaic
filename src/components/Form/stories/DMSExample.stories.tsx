@@ -2,7 +2,6 @@ import * as React from "react";
 import { ReactElement } from "react";
 import { FormWithLayout } from "./FormWithLayout.stories";
 
-
 import HomeIcon from "@mui/icons-material/Home";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 

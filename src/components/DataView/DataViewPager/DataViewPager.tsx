@@ -10,7 +10,6 @@ import { useMosaicTranslation } from "@root/i18n";
 import { DataViewPagerProps } from "./DataViewPagerTypes";
 import { StyledSpan, StyledLabel, StyledButton } from "./DataViewPager.styled";
 
-
 function DataViewPager(props: DataViewPagerProps) {
 	const { t } = useMosaicTranslation();
 

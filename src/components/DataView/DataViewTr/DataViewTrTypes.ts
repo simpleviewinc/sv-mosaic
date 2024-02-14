@@ -1,4 +1,3 @@
-
 import { CSSProperties } from "react";
 import { MosaicObject } from "@root/types";
 import { DataViewProps } from "../DataViewTypes";

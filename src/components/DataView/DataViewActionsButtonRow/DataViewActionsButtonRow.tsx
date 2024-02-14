@@ -28,7 +28,6 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 				onClick({ data : props.originalRowData });
 			};
 
-
 			const disabled = [buttonArgs.disabled, props.disabled, props.actionsHidden].some(disabled => disabled);
 
 			return (

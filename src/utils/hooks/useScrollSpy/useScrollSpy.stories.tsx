@@ -80,7 +80,6 @@ function Section({ registerRef, title, content }: { registerRef: (ref: HTMLEleme
 	);
 }
 
-
 const randomSections = Array(100).fill(null).map((_, i) => ({
 	title: `Section ${i + 1}`,
 	content: <div style={{ height: Math.floor(Math.random() * (600 - 50 + 1) + 50) }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo faucibus accumsan. Fusce placerat augue orci, ac feugiat sem mollis quis. Aenean ultrices sem et commodo faucibus. Nulla id laoreet sem, id tempus felis. Etiam vulputate ullamcorper nunc, eget rutrum sem pretium ac. Sed egestas risus ut semper dignissim. Aenean feugiat sit amet ex vitae scelerisque. Etiam viverra sapien eu tellus lobortis, non pellentesque felis aliquet.</div>,
@@ -129,7 +128,6 @@ export const Playground = (): ReactElement => {
 	const onNav = React.useCallback((args: SideNavArgs) => {
 		setActiveSection(Number(args.item.name));
 	}, [setActiveSection]);
-
 
 	return (
 		<StyledMain>

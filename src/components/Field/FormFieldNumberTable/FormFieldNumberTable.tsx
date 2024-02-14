@@ -152,7 +152,6 @@ const FormFieldNumberTable = (
 			break;
 		}
 
-
 	};
 
 	return (
