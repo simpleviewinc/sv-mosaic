@@ -169,10 +169,9 @@ function DataViewTHead(props: DataViewTHeadProps) {
 									onClick={column.sortable ? onClick : undefined}
 								>
 									{column.label}
-
-									{ column.sortable &&
+									{column.sortable && (
 										<Icon className="icon"/>
-									}
+									)}
 								</span>
 							</StyledTh>
 						);

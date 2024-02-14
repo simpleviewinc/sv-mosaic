@@ -103,7 +103,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				{!disabled ?
+				{!disabled ? (
 					<StyledTextField
 						autoComplete="off"
 						autoFocus
@@ -115,9 +115,9 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						onKeyPress={onKeyPress}
 						fieldSize=""
 					/>
-					:
+				) : (
 					<StyledDisabledText className="disabled">{state.value || t("mosaic:common.filter___")}</StyledDisabledText>
-				}
+				)}
 				{comparisonButton}
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear}/>

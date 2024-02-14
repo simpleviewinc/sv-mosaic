@@ -25,13 +25,13 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 		<TitleBarWrapper>
 			<StyledWrapper>
 				<div className="left">
-					{props.title &&
+					{props.title && (
 						<TitleWrapper
 							title={props.title}
 							onBack={props.onBack}
 							backLabel={props.backLabel}
 						/>
-					}
+					)}
 					{props.savedViewEnabled && (
 						<DataViewViewControls
 							savedView={props.savedView}

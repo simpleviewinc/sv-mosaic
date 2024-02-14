@@ -143,7 +143,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 				/>
 			</DateTimePickerWrapper>
-			{showTime &&
+			{showTime && (
 				<DateTimePickerWrapper>
 					<TimePicker
 						error={error}
@@ -161,7 +161,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 						disabled={disabled}
 					/>
 				</DateTimePickerWrapper>
-			}
+			)}
 		</DateTimeInputRow>
 	);
 };

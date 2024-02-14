@@ -154,7 +154,7 @@ export const Playground = (): ReactElement => {
 	return (
 		<StoryBookError>
 			<div style={{ backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20 }}>
-				{showButton &&
+				{showButton && (
 					<Button
 						attrs={{ $smallText: smallText }}
 						label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon/>}
@@ -173,7 +173,7 @@ export const Playground = (): ReactElement => {
 						menuItems={menuItems && dropdownWithIcons}
 						menuContent={showMenuContent && menuContent}
 					/>
-				}
+				)}
 			</div>
 		</StoryBookError>
 	);

@@ -47,14 +47,14 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 			{
 				display === "grid" && (
 					<LeftControlsContainer>
-						{onCheckAllClick &&
+						{onCheckAllClick && (
 							<Checkbox
 								checked={allChecked}
 								indeterminate={!allChecked && anyChecked}
 								onClick={onCheckAllClick}
 								disabled={props.disabled}
 							/>
-						}
+						)}
 						{
 							anyChecked && (
 								<DataViewBulkActionsButtonsRow
