@@ -289,7 +289,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							savedView={props.savedView}
 							savedViewState={savedViewState}
 							savedViewCallbacks={savedViewCallbacks}
-							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false }
+							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false}
 							filter={props.filter}
 							filters={props.filters}
 							activeFilters={props.activeFilters}
