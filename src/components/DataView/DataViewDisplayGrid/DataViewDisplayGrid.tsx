@@ -85,7 +85,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 											primaryActions={props.primaryActions}
 											additionalActions={props.additionalActions}
 											actionsHidden={props.actionsHidden}
-											originalRowData={ row }
+											originalRowData={row}
 											activeDisplay="grid"
 											disabled={props.disabled}
 										/>

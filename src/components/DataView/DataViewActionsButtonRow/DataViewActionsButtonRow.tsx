@@ -32,7 +32,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 
 			return (
 				<Button
-					{ ...buttonArgs }
+					{...buttonArgs}
 					disabled={disabled}
 					key={`primary_${name}`}
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}

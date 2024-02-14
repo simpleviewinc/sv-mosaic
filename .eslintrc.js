@@ -56,6 +56,7 @@ module.exports = {
 		"@stylistic/jsx-closing-tag-location": ["error"],
 		"@stylistic/jsx-curly-brace-presence": ["error", { propElementValues: "always" }],
 		"@stylistic/jsx-curly-newline": ["error"],
+		"@stylistic/jsx-curly-spacing": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",

@@ -90,7 +90,7 @@ export default function MenuItem({
 
 	return (
 		<StyledMenuItem
-			{ ...attrs }
+			{...attrs}
 			onClick={onClick}
 			disabled={disabled}
 			selected={selected}
