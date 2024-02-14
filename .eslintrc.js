@@ -65,6 +65,7 @@ module.exports = {
 		"@stylistic/jsx-pascal-case": ["error"],
 		"@stylistic/jsx-props-no-multi-spaces": ["error"],
 		"@stylistic/jsx-self-closing-comp": ["error"],
+		"@stylistic/jsx-tag-spacing": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",

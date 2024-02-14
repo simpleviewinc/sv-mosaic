@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
 function LeftNavGroup(props: LeftNavBlockProps): ReactElement {
 	return (
 		<StyledDiv>
-			<LeftNavTitle label={props.item.label} mIcon={props.item.mIcon}/>
+			<LeftNavTitle label={props.item.label} mIcon={props.item.mIcon} />
 			<LeftNavItems
 				items={props.item.items}
 				onOpen={props.onOpen}

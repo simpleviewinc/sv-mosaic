@@ -153,7 +153,7 @@ describe("FormFieldMatrix component", () => {
 	beforeEach(async () => {
 		await act(() => {
 			render(
-				<MatrixExample/>,
+				<MatrixExample />,
 			);
 		});
 	});

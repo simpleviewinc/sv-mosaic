@@ -121,7 +121,7 @@ const StyledInput = styled.input`
 
 const withInputTopContent = (
 	<div>
-		<StyledInput/>
+		<StyledInput />
 		<Title>Title</Title>
 		<Subtitle>Subtitle</Subtitle>
 	</div>
