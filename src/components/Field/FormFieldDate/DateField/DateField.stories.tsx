@@ -133,8 +133,8 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title={"Date Field Calendar"}
-				description={"This is a description example"}
+				title="Date Field Calendar"
+				description="This is a description example"
 				state={state}
 				fields={fields}
 				dispatch={dispatch}

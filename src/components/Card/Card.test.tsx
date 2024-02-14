@@ -25,7 +25,7 @@ describe("Card component", () => {
 		render(
 			<Card
 				content={content}
-				title={"Title"}
+				title="Title"
 				titleIcon={ContactsIcon}
 				topActions={[
 					{
@@ -74,7 +74,7 @@ describe("Card component without title icon", () => {
 		render(
 			<Card
 				content={content}
-				title={"Title"}
+				title="Title"
 				topActions={[
 					{
 						color: "black",
