@@ -64,7 +64,7 @@ function LeftNav(props: LeftNavProps): ReactElement {
 
 	return (
 		<LeftNavContext.Provider value={contextValue}>
-			<Component {...props}/>
+			<Component {...props} />
 		</LeftNavContext.Provider>
 	);
 }

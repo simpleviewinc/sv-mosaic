@@ -59,15 +59,15 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 				<ButtonRow>
 					{
 						props.onCancel &&
-							<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
+							<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel} />
 					}
 					{
 						props.onSave &&
-							<Button label={t("mosaic:common.save")} color="blue" variant="contained" onClick={props.onSave}/>
+							<Button label={t("mosaic:common.save")} color="blue" variant="contained" onClick={props.onSave} />
 					}
 					{
 						props.onApply &&
-							<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply}/>
+							<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply} />
 					}
 				</ButtonRow>
 			</div>

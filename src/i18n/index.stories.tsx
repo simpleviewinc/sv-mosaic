@@ -103,15 +103,15 @@ export function example(): ReactElement {
 					language:
 					{" "}
 					{locale}
-					<br/>
+					<br />
 					fallbackLng:
 					{" "}
 					{mosaicSettings.i18n.options.fallbackLng}
 				</>
 			</div>
-			<hr/>
-			<InnerComponent/>
-			<hr/>
+			<hr />
+			<InnerComponent />
+			<hr />
 			<div>Test Data</div>
 			<pre>
 				{JSON.stringify(localeData, null, "\t")}

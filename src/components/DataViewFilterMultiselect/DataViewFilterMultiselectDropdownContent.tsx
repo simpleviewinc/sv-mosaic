@@ -209,7 +209,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 											{" "}
 											-
 											{popoverP[item.label]}
-											<br/>
+											<br />
 										</span>
 									))
 								}
@@ -246,7 +246,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<SearchIcon/>
+									<SearchIcon />
 								</InputAdornment>
 							),
 							endAdornment: showCreateOptionButton && (
@@ -270,7 +270,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					/>
 					{
 						!showList &&
-							<Spinner className="spinner"/>
+							<Spinner className="spinner" />
 					}
 					{
 						showList &&
@@ -294,7 +294,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 							</div>
 					}
 				</div>
-				<StyledVerticalHr/>
+				<StyledVerticalHr />
 				<div className="selected">
 					{comparisonDropdown}
 					{
@@ -322,7 +322,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			{
 				!props.hideButtons &&
 					<>
-						<StyledHr/>
+						<StyledHr />
 						<DataViewFilterDropdownButtons
 							onApply={onApply}
 							onClear={onClear}

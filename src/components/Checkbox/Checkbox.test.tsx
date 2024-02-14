@@ -114,7 +114,7 @@ describe("Checkbox", function() {
 			);
 		};
 
-		const { getByRole } = render(<C/>);
+		const { getByRole } = render(<C />);
 
 		const checkbox = getByRole("checkbox") as HTMLInputElement;
 

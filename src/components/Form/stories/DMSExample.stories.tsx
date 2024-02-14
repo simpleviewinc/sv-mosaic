@@ -14,7 +14,7 @@ export const DMSExample = (): ReactElement => {
 
 	return (
 		<NavWrapper items={items} onlyContent={true}>
-			<FormWithLayout height="100%"/>
+			<FormWithLayout height="100%" />
 		</NavWrapper>
 	);
 };

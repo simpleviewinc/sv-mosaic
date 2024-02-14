@@ -291,7 +291,7 @@ export const KitchenSink = (): ReactElement => {
 				sections={columns}
 				buttons={buttons}
 			/>
-			<br/>
+			<br />
 			<Content
 				title="Card content"
 				data={data}

@@ -111,7 +111,7 @@ function LeftNavItem(props: Props, ref): ReactElement {
 			<span className="left">
 				{
 					item.mIcon &&
-						<item.mIcon className="icon"/>
+						<item.mIcon className="icon" />
 				}
 				{
 					showLabel &&
@@ -121,7 +121,7 @@ function LeftNavItem(props: Props, ref): ReactElement {
 			{
 				showLabel &&
 					<span className="right">
-						<ChevronRightIcon className="arrow"/>
+						<ChevronRightIcon className="arrow" />
 					</span>
 			}
 		</StyledA>

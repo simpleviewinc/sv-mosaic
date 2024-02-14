@@ -45,10 +45,10 @@ const FakeTopBar = function(props: { variant: string; openNav : MouseEventHandle
 			{
 				["hidden", "mobile"].includes(variant) &&
 					<span title="Open Navigation" className="menuButton">
-						<MenuIcon onClick={props.openNav}/>
+						<MenuIcon onClick={props.openNav} />
 					</span>
 			}
-			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
+			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo" />
 		</StyledTopBar>
 	);
 };
@@ -144,7 +144,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 	};
 
 	const lorem = useMemo(() => {
-		return <LoremIpsum p={10}/>;
+		return <LoremIpsum p={10} />;
 	}, []);
 
 	// add a resize listener for handling whether or not we are currently in mobile
@@ -178,7 +178,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 
 	return (
 		<AppDiv onClick={noop} $onlyContent={props.onlyContent}>
-			<FakeTopBar variant={variant} openNav={onClick}/>
+			<FakeTopBar variant={variant} openNav={onClick} />
 			<div className="main">
 				<div className="left">
 					<LeftNav

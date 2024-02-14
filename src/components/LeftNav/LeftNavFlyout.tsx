@@ -92,7 +92,7 @@ function LeftNavFlyout(props: Props): ReactElement {
 		>
 			<Paper elevation={3} component={StyledDiv} className="paper">
 				<LeftNavScroller attrs={scrollerAttrs}>
-					<LeftNavTitle label={props.parent.label}/>
+					<LeftNavTitle label={props.parent.label} />
 					<LeftNavItems
 						items={props.parent.items}
 						openName={state.openName}

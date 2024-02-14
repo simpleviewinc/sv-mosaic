@@ -66,7 +66,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 													</div>
 											}
 											<div className="imageContainer">
-												<div className="overlay"/>
+												<div className="overlay" />
 												{image}
 											</div>
 										</div>

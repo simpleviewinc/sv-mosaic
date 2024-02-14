@@ -157,7 +157,7 @@ export const Playground = (): ReactElement => {
 				{showButton && (
 					<Button
 						attrs={{ $smallText: smallText }}
-						label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon/>}
+						label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
 						variant={buttonVariant}
 						color={buttonColor}
 						fullWidth={fullWidth}
@@ -247,8 +247,8 @@ export const KitchenSink = (): ReactElement => {
 				<ButtonRow>
 					<Button color="blue" variant="contained" label="Save" onClick={clickHandler} />
 					<Button color="blue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" label="Save" onClick={clickHandler}/>
-					<Button color="lightBlue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler}/>
+					<Button color="lightBlue" variant="contained" label="Save" onClick={clickHandler} />
+					<Button color="lightBlue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler} />
 					<Button color="red" variant="contained" label="Delete" onClick={clickHandler} />
 					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
 					<Button color="black" variant="contained" label="Cancel" onClick={clickHandler} />
@@ -263,8 +263,8 @@ export const KitchenSink = (): ReactElement => {
 				<ButtonRow>
 					<Button color="blue" variant="contained" disabled label="Save" onClick={clickHandler} />
 					<Button color="blue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" disabled label="Save" onClick={clickHandler}/>
-					<Button color="lightBlue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler}/>
+					<Button color="lightBlue" variant="contained" disabled label="Save" onClick={clickHandler} />
+					<Button color="lightBlue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
 					<Button color="red" variant="contained" disabled label="Delete" onClick={clickHandler} />
 					<Button color="red" variant="contained" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
 					<Button color="black" variant="contained" disabled label="Cancel" onClick={clickHandler} />
@@ -359,12 +359,12 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Multi-Icon buttons</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="contained" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="outlined" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon/>} variant="text" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon/>} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="contained" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon />} variant="contained" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="outlined" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon />} variant="outlined" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
+					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="text" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
+					<Button color="blue" label={<GridOnOutlinedIcon />} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
 				</ButtonRow>
 			</div>
 
@@ -420,34 +420,34 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Button Sizes</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="contained" label="Small" size="small"/>
-					<Button color="blue" variant="contained" label="Medium (default)"/>
+					<Button color="blue" variant="contained" label="Small" size="small" />
+					<Button color="blue" variant="contained" label="Medium (default)" />
 				</ButtonRow>
 			</div>
-			<br/>
-			<br/>
+			<br />
+			<br />
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon}/>
-					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon}/>
+					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon} />
+					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon} />
 				</ButtonRow>
 			</div>
-			<br/>
-			<br/>
+			<br />
+			<br />
 			<div>
 				<ButtonRow>
-					<Button color="black" variant="icon" size="small" mIcon={AddIcon}/>
-					<Button color="black" variant="icon" mIcon={AddIcon}/>
+					<Button color="black" variant="icon" size="small" mIcon={AddIcon} />
+					<Button color="black" variant="icon" mIcon={AddIcon} />
 				</ButtonRow>
 			</div>
 
 			<h2>Buttons that open menus</h2>
 			<div>
 				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Dropdown with Icons" menuItems={dropdownWithIcons}/>
-					<Button color="blue" variant="outlined" label="Dropdown with text" menuItems={dropdownWithText}/>
-					<Button color="blue" variant="outlined" label="Dropdown with colored icons" menuItems={dropdownWithColoredIcons}/>
-					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons}/>
+					<Button color="blue" variant="outlined" label="Dropdown with Icons" menuItems={dropdownWithIcons} />
+					<Button color="blue" variant="outlined" label="Dropdown with text" menuItems={dropdownWithText} />
+					<Button color="blue" variant="outlined" label="Dropdown with colored icons" menuItems={dropdownWithColoredIcons} />
+					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons} />
 				</ButtonRow>
 			</div>
 

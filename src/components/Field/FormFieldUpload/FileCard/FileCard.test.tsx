@@ -36,7 +36,7 @@ const fileCards = [
 
 describe("File card", () => {
 	it("Should render an uploaded card with img", () => {
-		render(<FileCard {...fileCards[0]}/>);
+		render(<FileCard {...fileCards[0]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
@@ -52,7 +52,7 @@ describe("File card", () => {
 	});
 
 	it("Should render an uploaded card without img", () => {
-		render(<FileCard {...fileCards[1]}/>);
+		render(<FileCard {...fileCards[1]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
@@ -68,7 +68,7 @@ describe("File card", () => {
 	});
 
 	it("Should render a pending card", () => {
-		render(<FileCard {...fileCards[2]}/>);
+		render(<FileCard {...fileCards[2]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
@@ -80,7 +80,7 @@ describe("File card", () => {
 	});
 
 	it("Should render an uploaded card with img", () => {
-		render(<FileCard {...fileCards[3]}/>);
+		render(<FileCard {...fileCards[3]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
