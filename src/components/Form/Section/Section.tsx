@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useRef, useState, useEffect, useMemo } from "react";
+import { memo, useRef, useCallback, useState, useEffect, useMemo } from "react";
 
 // Components
 import Row from "../Row";
@@ -31,18 +31,34 @@ const Section = (props: SectionPropTypes) => {
 		spacing,
 	} = props;
 
-	const defaultExpanded = useMemo(() => {
+	const fieldsHaveErrors = useCallback(() => {
 		const fieldNames = rows.flat(2);
 
 		if (fieldNames.some(name => state.errors[name])){
 			return true;
 		}
 
+		return false;
+	}, [rows, state.errors]);
+
+	const defaultExpanded = useMemo(() => {
+		if (fieldsHaveErrors()) {
+			return true;
+		}
+
 		return !collapsed;
-	}, [collapsed, rows, state.errors]);
+	}, [collapsed, fieldsHaveErrors]);
 
 	const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 	const ref = useRef<HTMLDivElement>();
+
+	useEffect(() => {
+		if (!fieldsHaveErrors()){
+			return;
+		}
+
+		setExpanded(true);
+	}, [fieldsHaveErrors]);
 
 	useEffect(() => {
 		setExpanded(!collapsed);
