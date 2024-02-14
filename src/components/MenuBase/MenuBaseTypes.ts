@@ -1,10 +1,10 @@
 export interface MenuBaseContextProps {
-	onClose(): void
+	onClose(): void;
 }
 
 export interface MenuBaseProps {
-	open: boolean
-	anchorEl?: HTMLElement
-	onClose(): void
-	children: React.ReactNode
+	open: boolean;
+	anchorEl?: HTMLElement;
+	onClose(): void;
+	children: React.ReactNode;
 }

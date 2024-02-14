@@ -73,7 +73,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 		});
 	};
 
-	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"], comparison?: string }) {
+	const onActiveFiltersChange = function(activeFiltersParam: { value: DataViewProps["activeFilters"]; comparison?: string }) {
 		const cleanFilter = Object.fromEntries(Object.entries(props.filter).filter(value => value[1]));
 		const filter = pick(cleanFilter, [...activeFiltersParam.value]);
 

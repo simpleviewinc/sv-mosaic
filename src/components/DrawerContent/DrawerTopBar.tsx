@@ -33,7 +33,7 @@ const StyledWrapper = styled.div`
 export interface DrawerTopBarProps {
 	title: string | JSX.Element;
 	onBack: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	backLabel?: TitleWrapperProps["backLabel"]
+	backLabel?: TitleWrapperProps["backLabel"];
 	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

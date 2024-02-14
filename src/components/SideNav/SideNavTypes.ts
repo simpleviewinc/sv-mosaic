@@ -2,12 +2,12 @@ import { MosaicCSSContainer, SvgIconComponent } from "@root/types";
 import { AnchorHTMLAttributes, MouseEvent } from "react";
 
 export interface SideNavArgs {
-	item: Item,
+	item: Item;
 	event: MouseEvent;
 }
 
 export interface SideNavOnNav {
-	(args: SideNavArgs): void
+	(args: SideNavArgs): void;
 }
 
 export interface SideNavProps {
@@ -24,9 +24,9 @@ export interface SideNavProps {
 	 */
 	onNav?: SideNavOnNav;
 
-	className?: string
+	className?: string;
 
-	collapse?: MosaicCSSContainer
+	collapse?: MosaicCSSContainer;
 }
 
 export type Item = {

@@ -34,10 +34,10 @@ const DrawerEditForm = ({
 	title,
 	fields,
 }: {
-	onClose: () => void,
-	onSave: (data: any) => void,
-	title: string,
-	fields: FieldDef[]
+	onClose: () => void;
+	onSave: (data: any) => void;
+	title: string;
+	fields: FieldDef[];
 }): ReactElement => {
 	const { state, dispatch } = useForm();
 

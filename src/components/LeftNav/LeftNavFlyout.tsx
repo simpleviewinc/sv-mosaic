@@ -45,8 +45,8 @@ const popperProps: Pick<PopperProps, "open" | "placement" | "modifiers"> = {
 };
 
 interface Props {
-	parent: LeftNavItemDef
-	anchorEl: HTMLElement
+	parent: LeftNavItemDef;
+	anchorEl: HTMLElement;
 }
 
 function LeftNavFlyout(props: Props): ReactElement {

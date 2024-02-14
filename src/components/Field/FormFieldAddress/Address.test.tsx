@@ -83,7 +83,7 @@ const address: IAddress = {
 	types: [{ label: "Physical", value: "physical" }, { label: "Billing", value: "billing" }],
 };
 
-export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings; }): ReactElement => {
+export const AddressFormFieldExample = (props: { inputSettings?: AddressFieldInputSettings }): ReactElement => {
 	const {
 		state,
 		dispatch,

@@ -2,8 +2,8 @@ import * as React from "react";
 import { memo, ReactElement } from "react";
 
 interface ImageProps {
-	className: string
-	src: string
+	className: string;
+	src: string;
 }
 
 function Image(props: ImageProps): ReactElement {

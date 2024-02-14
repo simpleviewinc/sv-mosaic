@@ -75,7 +75,7 @@ interface LabelProps {
 	value?: string;
 	maxCharacters?: number;
 	instructionText?: string;
-	colsInRow?: number
+	colsInRow?: number;
 }
 
 const Label = (props: LabelProps): ReactElement => {

@@ -1,10 +1,10 @@
 import { FieldDefBase } from "@root/components/Field";
 
 export type TransformedFile = {
-	data: UploadData,
-	percent: number,
-	error: string | undefined,
-	rawData: File,
+	data: UploadData;
+	percent: number;
+	error: string | undefined;
+	rawData: File;
 };
 
 export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
@@ -54,7 +54,7 @@ export type UploadData = {
 	 * If this property is omitted, the downloadStrategy will be "anchor"
 	 * if no downloadUrl is provided, or "iframe" if it is.
 	 */
-	downloadStrategy?: "anchor" | "iframe"
+	downloadStrategy?: "anchor" | "iframe";
 	/**
 	 * The numerical size of the file in bytes
 	 */
@@ -89,7 +89,7 @@ export interface QueuedFile {
 	};
 	percent: number;
 	error?: string;
-	file: File
+	file: File;
 }
 
 export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings, UploadData[]>;

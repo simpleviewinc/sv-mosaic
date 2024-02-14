@@ -6,7 +6,7 @@ import { SvgIconComponent } from "@root/types";
 import theme from "../../theme";
 
 interface Props {
-	label: string
+	label: string;
 	mIcon?: SvgIconComponent;
 }
 

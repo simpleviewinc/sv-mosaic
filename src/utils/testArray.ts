@@ -2,7 +2,7 @@ import { MosaicObject } from "../types";
 
 // basic function that returns anything
 interface ArgsFunc {
-	(): MosaicObject
+	(): MosaicObject;
 }
 
 // Returns the type of the Promise return, if it's not a promise return, it just returns the original type
@@ -12,17 +12,17 @@ type Unpacked<T> = T extends Promise<infer U> ? U : T;
 type TestArgs<T> = T extends ArgsFunc ? Unpacked<ReturnType<T>> : T;
 
 export interface Test {
-	name: string
-	timeout?: number
-	before?: (test: MosaicObject) => void
-	after?: (test: MosaicObject) => void
-	only?: boolean
-	skip?: boolean
-	args: MosaicObject | (() => Promise<MosaicObject>)
+	name: string;
+	timeout?: number;
+	before?: (test: MosaicObject) => void;
+	after?: (test: MosaicObject) => void;
+	only?: boolean;
+	skip?: boolean;
+	args: MosaicObject | (() => Promise<MosaicObject>);
 }
 
 interface TestRunner<T extends Test> {
-	(test: TestArgs<T["args"]>): void
+	(test: TestArgs<T["args"]>): void;
 }
 
 export default function testArray<T extends Test>(tests: T[], fn: TestRunner<T>): void {

@@ -7,7 +7,7 @@ export interface AddressAutocompleteProps {
 	className?: string;
 	onSelect: (value: any) => Promise<void>;
 	textField?: TextFieldProps;
-	placeholder?: string
+	placeholder?: string;
 	googleMapsApiKey: string;
 }
 
@@ -17,5 +17,5 @@ export interface InputSettings {
 	className?: string;
 	onSelect: (value: any) => Promise<void>;
 	textField?: TextFieldProps;
-	placeholder?: string
+	placeholder?: string;
 }

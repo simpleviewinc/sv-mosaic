@@ -54,7 +54,7 @@ export const popperSx = {
 	},
 };
 
-export const DatePickerWrapper = styled.div<{ $isPickerOpen?: boolean, $disabled?: boolean }>`
+export const DatePickerWrapper = styled.div<{ $isPickerOpen?: boolean; $disabled?: boolean }>`
 	min-width: 0;
 
   	.MuiOutlinedInput-root {

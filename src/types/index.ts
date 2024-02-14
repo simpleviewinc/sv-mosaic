@@ -3,17 +3,17 @@ import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
 
 /** Simple object with { label, value } strings */
 export interface MosaicLabelValue {
-	label: string
-	value: string
+	label: string;
+	value: string;
 }
 
 /** Javascript object than can have any keys and any data */
 export interface MosaicObject<T = unknown> {
-	[key: string]: T
+	[key: string]: T;
 }
 
 export interface MosaicCallback {
-	(): void
+	(): void;
 }
 
 export type SvgIconComponent = typeof SvgIcon;
@@ -30,7 +30,7 @@ export type MosaicGridConfig = string[][][];
 
 export type MosaicCSSContainer = {
 	name?: keyof typeof CONTAINERS;
-	minWidth: keyof typeof BREAKPOINTS
+	minWidth: keyof typeof BREAKPOINTS;
 };
 
 // Util

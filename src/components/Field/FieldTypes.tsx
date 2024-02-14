@@ -62,15 +62,15 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	/**
 	 * Form action dispatcher
 	 */
-	dispatch?: any
+	dispatch?: any;
 	/**
 	 * Spacing type
 	 */
-	spacing?: FormSpacing
+	spacing?: FormSpacing;
 	/**
 	 * Whether or not the field is disabled
 	 */
-	disabled?: boolean
+	disabled?: boolean;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -132,9 +132,9 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * @deprecated
 	 */
 	layout?: {
-		section?: number,
-		row?: number,
-		col?: number,
+		section?: number;
+		row?: number;
+		col?: number;
 	};
 	/**
 	 * Array of validators to be executed by the form when on blur or
@@ -144,12 +144,12 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * When to validate the field
 	 */
-	validateOn?: FieldValidateOn
+	validateOn?: FieldValidateOn;
 	/**
 	 * An array of other field names to validate when
 	 * this one gets validated
 	 */
-	validates?: string[]
+	validates?: string[];
 	/**
 	 * Identifier passed by the developer
 	 */
@@ -169,12 +169,12 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	/**
 	 * Whether or not to show this field
 	 */
-	show?: MosaicToggle<FormState>
+	show?: MosaicToggle<FormState>;
 	/**
 	 * How to resolve the field's value from the internal value. Defaults
 	 * to an function that returns a like-for-like value
 	 */
-	getResolvedValue?: FieldValueResolver
+	getResolvedValue?: FieldValueResolver;
 }
 
 export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>;
@@ -207,7 +207,7 @@ export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : an
 export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
 
 export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
-	getResolvedValue: DropParam<FieldValueResolver>
+	getResolvedValue: DropParam<FieldValueResolver>;
 };
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";

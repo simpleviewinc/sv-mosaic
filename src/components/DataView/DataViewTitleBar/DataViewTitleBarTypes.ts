@@ -13,10 +13,10 @@ export interface DataViewTitleBarProps {
 	savedViewCallbacks?: SavedViewCallbacks;
 	savedViewAllowSharedViewSave?: DataViewProps["savedViewAllowSharedViewSave"];
 	filter?: DataViewProps["filter"];
-	filters?: DataViewProps["filters"]
+	filters?: DataViewProps["filters"];
 	activeFilters?: DataViewProps["activeFilters"];
 	onActiveFiltersChange?: DataViewProps["onActiveFiltersChange"];
 	onBack?: DataViewProps["onBack"];
-	backLabel?: DataViewProps["backLabel"]
-	disabled?: DataViewProps["disabled"]
+	backLabel?: DataViewProps["backLabel"];
+	disabled?: DataViewProps["disabled"];
 }

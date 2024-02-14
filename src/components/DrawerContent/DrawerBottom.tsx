@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
 
 export interface DrawerBottomProps {
 	background?: string;
-	children: ReactNode
+	children: ReactNode;
 }
 
 function DrawerBottom(props: DrawerBottomProps) {

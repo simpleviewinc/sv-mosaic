@@ -155,7 +155,7 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	return undefined;
 }
 
-export function validateMinDate(value: any, data: any, { min, max }: { min?: Date, max?: Date }): string | undefined {
+export function validateMinDate(value: any, data: any, { min, max }: { min?: Date; max?: Date }): string | undefined {
 	if (!(value instanceof Date)) {
 		return;
 	}
@@ -202,7 +202,7 @@ export function validatePhoneNumber(value: string) {
 	return "Phone number must be exactly 10 numbers excluding the country code";
 }
 
-export type Validator = { fn: any, options: any };
+export type Validator = { fn: any; options: any };
 /**
  * Creates an object from a given validator that contains
  * a fn property that could be a string a function or another
