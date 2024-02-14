@@ -74,11 +74,12 @@ function LeftNavItemDesktop(props: LeftNavBlockProps): ReactElement {
 				attrs={attrs}
 			/>
 			{
-				item.items && open &&
+				item.items && open && (
 					<LeftNavFlyout
 						parent={item}
 						anchorEl={aRef.current}
 					/>
+				)
 			}
 		</Fragment>
 	);

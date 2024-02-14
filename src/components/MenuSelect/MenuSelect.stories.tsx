@@ -53,13 +53,13 @@ export const example = (): ReactElement => {
 				label="Open"
 				color="blue"
 				variant="contained"
-				menuContent={
+				menuContent={(
 					<MenuSelect
 						value={state.value}
 						options={MENU_OPTIONS}
 						onChange={onChange}
 					/>
-				}
+				)}
 			/>
 		</Fragment>
 	);
@@ -87,14 +87,14 @@ export const withPlaceholder = (): ReactElement => {
 				label="Open"
 				color="blue"
 				variant="contained"
-				menuContent={
+				menuContent={(
 					<MenuSelect
 						placeholder="Any..."
 						value={state.value}
 						options={MENU_OPTIONS}
 						onChange={onChange}
 					/>
-				}
+				)}
 			/>
 		</Fragment>
 	);

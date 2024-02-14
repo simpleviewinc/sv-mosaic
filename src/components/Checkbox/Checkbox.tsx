@@ -12,7 +12,7 @@ const Checkbox = (props: CheckboxProps) => (
 			data-testid="label-test-id"
 			value={props.value}
 			disabled={props.disabled}
-			control={
+			control={(
 				<StyledCheckbox
 					data-testid="checkbox-test-id"
 					className={`
@@ -25,7 +25,7 @@ const Checkbox = (props: CheckboxProps) => (
 					onClick={props.onClick}
 					indeterminate={props.indeterminate}
 				/>
-			}
+			)}
 		/>
 	</>
 );

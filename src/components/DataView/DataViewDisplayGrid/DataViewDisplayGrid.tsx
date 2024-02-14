@@ -27,7 +27,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	return (
 		<StyledDiv>
 			{
-				props.showBulkAll &&
+				props.showBulkAll && (
 					<div className="topRowBulkAll">
 						<DataViewBulkAllBar
 							rowCount={props.rowCount}
@@ -36,6 +36,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 							onCheckAllPagesClick={props.onCheckAllPagesClick}
 						/>
 					</div>
+				)
 			}
 			<div className="grid">
 				{
@@ -53,10 +54,10 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 								key={i}
 							>
 								{
-									image &&
+									image && (
 										<div className="image">
 											{
-												props.onCheckboxClick &&
+												props.onCheckboxClick && (
 													<div className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}>
 														<Checkbox
 															className="checkbox"
@@ -64,12 +65,14 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 															onClick={checkboxClick(i)}
 														/>
 													</div>
+												)
 											}
 											<div className="imageContainer">
 												<div className="overlay" />
 												{image}
 											</div>
 										</div>
+									)
 								}
 								<div className="info">
 									<div className="left">

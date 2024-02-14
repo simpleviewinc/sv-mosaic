@@ -34,7 +34,7 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 				tooltip="Update columns and their order."
 			/>
 			{
-				props.onChange !== undefined &&
+				props.onChange !== undefined && (
 					<DataViewColumnDrawer
 						open={state.open}
 						columns={props.columns}
@@ -42,6 +42,7 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 						onChange={props.onChange}
 						onClose={gearClick}
 					/>
+				)
 			}
 		</div>
 	);

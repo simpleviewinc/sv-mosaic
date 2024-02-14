@@ -278,7 +278,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			{...(props.attrs || {})}
 		>
 			{
-				shouldRenderTitleBar &&
+				shouldRenderTitleBar && (
 					<div className="headerRow title">
 						<DataViewTitleBar
 							title={props.title}
@@ -297,9 +297,10 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							disabled={props.disabled}
 						/>
 					</div>
+				)
 			}
 			{
-				shouldRenderActionsRow &&
+				shouldRenderActionsRow && (
 					<div className="headerActions">
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
@@ -328,6 +329,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							disabled={props.disabled}
 						/>
 					</div>
+				)
 			}
 			<div
 				ref={viewContainerRef}

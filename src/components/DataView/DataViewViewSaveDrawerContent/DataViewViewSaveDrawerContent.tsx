@@ -88,23 +88,24 @@ function DataViewViewSaveDrawerContent(props: DataViewViewSaveDrawerContentProps
 					/>
 				</FormGroup>
 				{
-					props.allowSharedViewSave &&
+					props.allowSharedViewSave && (
 						<FormGroup row>
 							<FormControl margin="normal">
 								<FormControlLabel
 									classes={classes}
-									control={
+									control={(
 										<Switch
 											checked={state.type === "shared"}
 											onChange={handleSwitch()}
 											value="what"
 											color="primary"
 										/>
-									}
+									)}
 									label={t("mosaic:DataView.show_for_all_users")}
 								/>
 							</FormControl>
 						</FormGroup>
+					)
 				}
 			</StyledForm>
 		</DrawerContent>
