@@ -29,7 +29,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	} = props;
 
 	const showTime = fieldDef?.inputSettings?.showTime;
-	const blurred = useRef<{ date: boolean, time: boolean }>({ date: false, time: false });
+	const blurred = useRef<{ date: boolean; time: boolean }>({ date: false, time: false });
 
 	const { addError, removeError } = useFieldErrors({
 		dispatch,
@@ -143,7 +143,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 				/>
 			</DateTimePickerWrapper>
-			{showTime &&
+			{showTime && (
 				<DateTimePickerWrapper>
 					<TimePicker
 						error={error}
@@ -161,7 +161,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 						disabled={disabled}
 					/>
 				</DateTimePickerWrapper>
-			}
+			)}
 		</DateTimeInputRow>
 	);
 };

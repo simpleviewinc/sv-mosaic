@@ -49,7 +49,7 @@ export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const LinkWrapper = styled.a<{ $isActive?: boolean, $collapse?: MosaicCSSContainer }>`
+export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSSContainer }>`
 	cursor: pointer;
 	padding-bottom: 16px;
 	display: flex;

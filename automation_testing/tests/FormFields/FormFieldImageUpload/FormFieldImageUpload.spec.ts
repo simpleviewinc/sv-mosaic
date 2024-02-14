@@ -7,7 +7,6 @@ test.describe.parallel("FormFields - FormFieldImageUpload - Kitchen Sink", () =>
 	let ffImageUploadPage: FormFieldImageUploadPage;
 	const imagePath = `${__dirname}/../../../utils/data/Images/image-example.png`;
 
-
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		ffImageUploadPage = new FormFieldImageUploadPage(page);

@@ -11,7 +11,6 @@ export const initalAddressComponent = {
 	value: "",
 };
 
-
 /**
  * Maps the address components object response of the autocomplete API to string values used
  * to display a message with  missing components on a snackback.

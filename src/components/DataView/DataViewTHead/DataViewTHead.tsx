@@ -105,36 +105,38 @@ function DataViewTHead(props: DataViewTHeadProps) {
 			<tr className="row-header">
 				{
 					props.onReorder &&
-					<StyledTh key="_draggable" className="bulk">
-					</StyledTh>
+						<StyledTh key="_draggable" className="bulk" />
 				}
 				{
-					props.onCheckAllClick &&
-					<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
-						<Checkbox
-							checked={props.allChecked}
-							indeterminate={!props.allChecked && props.anyChecked}
-							onClick={props.onCheckAllClick}
-							disabled={props.disabled}
-						/>
-					</StyledTh>
+					props.onCheckAllClick && (
+						<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
+							<Checkbox
+								checked={props.allChecked}
+								indeterminate={!props.allChecked && props.anyChecked}
+								onClick={props.onCheckAllClick}
+								disabled={props.disabled}
+							/>
+						</StyledTh>
+					)
 				}
 				{
-					props.bulkActions?.length > 0 && props.anyChecked &&
-					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
-						<DataViewBulkActionsButtonsRow
-							data={props.data}
-							checked={props.checked}
-							checkedAllPages={props.checkedAllPages}
-							bulkActions={props.bulkActions}
-						/>
-					</StyledTh>
+					props.bulkActions?.length > 0 && props.anyChecked && (
+						<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
+							<DataViewBulkActionsButtonsRow
+								data={props.data}
+								checked={props.checked}
+								checkedAllPages={props.checkedAllPages}
+								bulkActions={props.bulkActions}
+							/>
+						</StyledTh>
+					)
 				}
 				{
-					!props.anyChecked && props.hasActions &&
-					<StyledTh key="_actions">
-						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
-					</StyledTh>
+					!props.anyChecked && props.hasActions && (
+						<StyledTh key="_actions">
+							<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
+						</StyledTh>
+					)
 				}
 				{
 					!props.anyChecked &&
@@ -169,10 +171,9 @@ function DataViewTHead(props: DataViewTHeadProps) {
 									onClick={column.sortable ? onClick : undefined}
 								>
 									{column.label}
-
-									{ column.sortable &&
-										<Icon className="icon"/>
-									}
+									{column.sortable && (
+										<Icon className="icon" />
+									)}
 								</span>
 							</StyledTh>
 						);
@@ -180,17 +181,18 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				}
 			</tr>
 			{
-				props.showBulkAll &&
-				<tr>
-					<th colSpan={columnCount}>
-						<DataViewBulkAllBar
-							rowCount={props.rowCount}
-							count={props.count}
-							checkedAllPages={props.checkedAllPages}
-							onCheckAllPagesClick={props.onCheckAllPagesClick}
-						/>
-					</th>
-				</tr>
+				props.showBulkAll && (
+					<tr>
+						<th colSpan={columnCount}>
+							<DataViewBulkAllBar
+								rowCount={props.rowCount}
+								count={props.count}
+								checkedAllPages={props.checkedAllPages}
+								onCheckAllPagesClick={props.onCheckAllPagesClick}
+							/>
+						</th>
+					</tr>
+				)
 			}
 		</StyledWrapper>
 	);

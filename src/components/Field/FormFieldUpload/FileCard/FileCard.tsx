@@ -68,28 +68,28 @@ const FileCard = (props: FileCardProps) => {
 	return (
 		<div data-testid="file-card-container">
 			<StyledFileCard $error={!!error}>
-				<div className='file-img' data-testid="file-img">
+				<div className="file-img" data-testid="file-img">
 					{fileUrl ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank">{renderImg}</a>
 					) : (
 						renderImg
 					)}
 				</div>
-				<div className='file-data' data-testid="file-data">
+				<div className="file-data" data-testid="file-data">
 					{fileUrl ? (
-						<a href={fileUrl} rel="noreferrer" target="_blank" className='file-name' data-testid="file-name">
+						<a href={fileUrl} rel="noreferrer" target="_blank" className="file-name" data-testid="file-name">
 							<Typography maxLines={1} breakAll>
 								{name ?? "File title"}
 							</Typography>
 						</a>
 					) : (
-						<p className='file-name' data-testid="file-name">
+						<p className="file-name" data-testid="file-name">
 							<Typography maxLines={1} breakAll>
 								{name ?? "File title"}
 							</Typography>
 						</p>
 					)}
-					<p className='file-size' data-testid="file-size">{sizeHuman ?? "File size"}</p>
+					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
 				<ButtonRow separator>
 					{(downloadUrl || fileUrl) && (
@@ -111,8 +111,8 @@ const FileCard = (props: FileCardProps) => {
 							)}
 						</div>
 					)}
-					{onFileDelete && !disabled &&
-						<div className='file-delete-btn'>
+					{onFileDelete && !disabled && (
+						<div className="file-delete-btn">
 							<Button
 								color="gray"
 								variant="icon"
@@ -120,12 +120,12 @@ const FileCard = (props: FileCardProps) => {
 								onClick={() => onFileDelete({ id: id })}
 							/>
 						</div>
-					}
+					)}
 				</ButtonRow>
 			</StyledFileCard>
-			{error &&
+			{error && (
 				<HelperText error={error !== undefined}>{error}</HelperText>
-			}
+			)}
 		</div>
 	);
 };

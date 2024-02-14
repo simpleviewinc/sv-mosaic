@@ -75,7 +75,7 @@ interface LabelProps {
 	value?: string;
 	maxCharacters?: number;
 	instructionText?: string;
-	colsInRow?: number
+	colsInRow?: number;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -100,7 +100,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputLabel>
 			{instructionText && (
 				<StyledTooltipWrapper $colsInRow={colsInRow}>
-					<StyledInfoOutlinedIcon {...anchorProps}/>
+					<StyledInfoOutlinedIcon {...anchorProps} />
 					<Tooltip {...tooltipProps}>
 						{instructionText}
 					</Tooltip>

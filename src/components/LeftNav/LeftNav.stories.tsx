@@ -793,7 +793,7 @@ export const Example = (): ReactElement => {
 
 	return (
 		<MosaicContext.Provider value={mosaicSettings}>
-			<NavWrapper items={items}/>
+			<NavWrapper items={items} />
 		</MosaicContext.Provider>
 	);
 };

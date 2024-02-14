@@ -200,17 +200,21 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						variant="icon"
 						color="blue"
 						mIcon={HelpIcon}
-						popover={
+						popover={(
 							<PopoverP>
 								{
 									menuItems.map((item, id) => (
 										<span key={id}>
-											<b>{item.label}</b> - {popoverP[item.label]}<br/>
+											<b>{item.label}</b>
+											{" "}
+											-
+											{popoverP[item.label]}
+											<br />
 										</span>
 									))
 								}
 							</PopoverP>
-						}
+						)}
 					/>
 				</ButtonRow>
 			</div>
@@ -242,16 +246,16 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						InputProps={{
 							startAdornment: (
 								<InputAdornment position="start">
-									<SearchIcon/>
+									<SearchIcon />
 								</InputAdornment>
 							),
 							endAdornment: showCreateOptionButton && (
 								<InputAdornment position="end">
 									<Button
-										label='Create'
-										variant='text'
-										color='teal'
-										className='realTeal-icon'
+										label="Create"
+										variant="text"
+										color="teal"
+										className="realTeal-icon"
 										mIcon={AddIcon}
 										onClick={createOption}
 									/>
@@ -266,40 +270,42 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					/>
 					{
 						!showList &&
-						<Spinner className="spinner"/>
+							<Spinner className="spinner" />
 					}
 					{
-						showList &&
-						<CheckboxList
-							checked={optionsDisabled ? [] : state.listOfChips}
-							options={state.options}
-							onChange={onChange}
-							disabled={disabled}
-						/>
-					}
-					{
-						state.hasMore &&
-						<div className="loadContainer">
-							<Button
-								label={t("mosaic:common.load_more___")}
-								color="blue"
-								variant="outlined"
-								fullWidth={true}
-								onClick={loadMore}
+						showList && (
+							<CheckboxList
+								checked={optionsDisabled ? [] : state.listOfChips}
+								options={state.options}
+								onChange={onChange}
+								disabled={disabled}
 							/>
-						</div>
+						)
+					}
+					{
+						state.hasMore && (
+							<div className="loadContainer">
+								<Button
+									label={t("mosaic:common.load_more___")}
+									color="blue"
+									variant="outlined"
+									fullWidth={true}
+									onClick={loadMore}
+								/>
+							</div>
+						)
 					}
 				</div>
-				<StyledVerticalHr/>
+				<StyledVerticalHr />
 				<div className="selected">
 					{comparisonDropdown}
 					{
-						!optionsDisabled &&
-						<>
-							<p className='selected-options-title'>{t("mosaic:DataView.selected_options")}</p>
-							<div className="chips">
-								{
-									showList &&
+						!optionsDisabled && (
+							<>
+								<p className="selected-options-title">{t("mosaic:DataView.selected_options")}</p>
+								<div className="chips">
+									{
+										showList &&
 									state.listOfChips?.length > 0 &&
 									state.listOfChips.map(option => (
 										<Chip
@@ -309,21 +315,23 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 											onDelete={handleToggle(option)}
 										/>
 									))
-								}
-							</div>
-						</>
+									}
+								</div>
+							</>
+						)
 					}
 				</div>
 			</div>
 			{
-				!props.hideButtons &&
-				<>
-					<StyledHr/>
-					<DataViewFilterDropdownButtons
-						onApply={onApply}
-						onClear={onClear}
-					/>
-				</>
+				!props.hideButtons && (
+					<>
+						<StyledHr />
+						<DataViewFilterDropdownButtons
+							onApply={onApply}
+							onClear={onClear}
+						/>
+					</>
+				)
 			}
 		</StyledWrapper>
 	);

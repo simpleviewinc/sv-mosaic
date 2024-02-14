@@ -61,7 +61,7 @@ const ButtonBottomContent = (
 			label="Add"
 			mIcon={AddIcon}
 			onClick={() => alert("Add button clicked")}
-		></Button>
+		/>
 	</div>
 );
 
@@ -97,7 +97,7 @@ export const Example = (): ReactElement => {
 							variant="contained"
 							label="Open Popover"
 							onClick={handleClick}
-						></Button>
+						/>
 						<Popover
 							anchorEl={anchorEl}
 							topContent={ExampleTopContent}
@@ -121,7 +121,7 @@ const StyledInput = styled.input`
 
 const withInputTopContent = (
 	<div>
-		<StyledInput/>
+		<StyledInput />
 		<Title>Title</Title>
 		<Subtitle>Subtitle</Subtitle>
 	</div>
@@ -147,7 +147,7 @@ export const Input = (): ReactElement => {
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
-			></Button>
+			/>
 			<Popover
 				anchorEl={anchorEl}
 				topContent={withInputTopContent}
@@ -228,7 +228,10 @@ const BottomContent = (): ReactElement => {
 			{options.map((option, idx) => {
 				return (
 					<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
-						<Label>{option.label}:</Label>
+						<Label>
+							{option.label}
+							:
+						</Label>
 						<Value>{option.value}</Value>
 					</div>
 				);
@@ -259,7 +262,7 @@ export const TextAndLinks = (): ReactElement => {
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
-			></Button>
+			/>
 			<Popover
 				anchorEl={anchorEl}
 				topContent={TopContent}

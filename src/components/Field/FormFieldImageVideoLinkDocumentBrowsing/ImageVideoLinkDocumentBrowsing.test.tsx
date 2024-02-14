@@ -113,8 +113,8 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	return (
 		<Form
 			buttons={buttons}
-			title='Form Title'
-			description='Description'
+			title="Form Title"
+			description="Description"
 			state={state}
 			fields={fields}
 			dispatch={dispatch}

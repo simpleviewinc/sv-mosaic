@@ -159,7 +159,7 @@ describe("FormFieldNumberTable component", () => {
 describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled", () => {
 	beforeEach(async () => {
 		await act(() => {
-			render(<NumberTableExample displaySumColumn={false} displaySumRow={false}/>);
+			render(<NumberTableExample displaySumColumn={false} displaySumRow={false} />);
 		});
 	});
 
@@ -172,7 +172,7 @@ describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled"
 describe("FormFieldNumberTable with formatted values", () => {
 	beforeEach(async () => {
 		await act(() => {
-			render(<NumberTableExample useNumberFormatter={true}/>);
+			render(<NumberTableExample useNumberFormatter={true} />);
 		});
 	});
 

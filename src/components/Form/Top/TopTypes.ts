@@ -19,7 +19,7 @@ export type TopProps = {
 	 * Optional. If present, the Back icon is displayed on the left side of the title.
 	*/
 	onBack?: FormProps["onBack"];
-	backLabel?: FormProps["backLabel"]
+	backLabel?: FormProps["backLabel"];
 	/**
 	 * If present, the active checkbox is displayed.
 	 */
@@ -30,7 +30,7 @@ export type TopProps = {
 	 */
 	helpIcon?: JSX.Element;
 
-	bottomBorder?: boolean
+	bottomBorder?: boolean;
 
-	collapse?: MosaicCSSContainer
+	collapse?: MosaicCSSContainer;
 };

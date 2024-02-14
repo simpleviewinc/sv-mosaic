@@ -20,7 +20,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	 * external callback that is sent from the parent.
 	 * @param link The clicked link
 	 */
-	const onLinkClicked = (args: { item: Item, event?: MouseEvent }) => {
+	const onLinkClicked = (args: { item: Item; event?: MouseEvent }) => {
 		const { item, event } = args;
 		const hasModifier = event.ctrlKey || event.metaKey || event.shiftKey || event.altKey;
 

@@ -47,14 +47,14 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 			{
 				display === "grid" && (
 					<LeftControlsContainer>
-						{onCheckAllClick &&
+						{onCheckAllClick && (
 							<Checkbox
 								checked={allChecked}
 								indeterminate={!allChecked && anyChecked}
 								onClick={onCheckAllClick}
 								disabled={props.disabled}
 							/>
-						}
+						)}
 						{
 							anyChecked && (
 								<DataViewBulkActionsButtonsRow
@@ -77,12 +77,13 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 			)}
 			<ButtonRow separator>
 				{
-					hasSortControl && display === "grid" &&
+					hasSortControl && display === "grid" && (
 						<DataViewDisplayGridSortControl
 							columns={columns}
 							sort={sort}
 							onSortChange={onSortChange}
 						/>
+					)
 				}
 				{displayControlEnabled && (
 					<DataViewControlDisplay

@@ -2,11 +2,11 @@ import * as React from "react";
 import { ReactNode, Component } from "react";
 
 interface Props {
-	children: ReactNode
+	children: ReactNode;
 }
 
 interface ErrorState {
-	error : Error
+	error : Error;
 }
 
 export default class StoryBookError extends Component<Props, ErrorState> {

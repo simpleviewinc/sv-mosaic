@@ -69,8 +69,8 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				buttons={buttons}
-				title={"Form Title"}
-				description={"This is a description example"}
+				title="Form Title"
+				description="This is a description example"
 				state={state}
 				fields={fields}
 				dispatch={dispatch}

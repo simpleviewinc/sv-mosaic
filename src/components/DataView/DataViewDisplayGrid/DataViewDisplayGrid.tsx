@@ -10,7 +10,6 @@ import { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
 import Typography from "@root/components/Typography";
 
-
 function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	if (!props.gridColumnsMap) {
 		throw new Error("You must specify gridColumnsMap in order to use the grid view.");
@@ -28,15 +27,16 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	return (
 		<StyledDiv>
 			{
-				props.showBulkAll &&
-				<div className="topRowBulkAll">
-					<DataViewBulkAllBar
-						rowCount={props.rowCount}
-						count={props.count}
-						checkedAllPages={props.checkedAllPages}
-						onCheckAllPagesClick={props.onCheckAllPagesClick}
-					/>
-				</div>
+				props.showBulkAll && (
+					<div className="topRowBulkAll">
+						<DataViewBulkAllBar
+							rowCount={props.rowCount}
+							count={props.count}
+							checkedAllPages={props.checkedAllPages}
+							onCheckAllPagesClick={props.onCheckAllPagesClick}
+						/>
+					</div>
+				)
 			}
 			<div className="grid">
 				{
@@ -54,23 +54,25 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 								key={i}
 							>
 								{
-									image &&
-									<div className="image">
-										{
-											props.onCheckboxClick &&
-											<div className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}>
-												<Checkbox
-													className="checkbox"
-													checked={props.checked[i]}
-													onClick={checkboxClick(i)}
-												/>
+									image && (
+										<div className="image">
+											{
+												props.onCheckboxClick && (
+													<div className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}>
+														<Checkbox
+															className="checkbox"
+															checked={props.checked[i]}
+															onClick={checkboxClick(i)}
+														/>
+													</div>
+												)
+											}
+											<div className="imageContainer">
+												<div className="overlay" />
+												{image}
 											</div>
-										}
-										<div className="imageContainer">
-											<div className="overlay"/>
-											{image}
 										</div>
-									</div>
+									)
 								}
 								<div className="info">
 									<div className="left">
@@ -86,7 +88,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 											primaryActions={props.primaryActions}
 											additionalActions={props.additionalActions}
 											actionsHidden={props.actionsHidden}
-											originalRowData={ row }
+											originalRowData={row}
 											activeDisplay="grid"
 											disabled={props.disabled}
 										/>

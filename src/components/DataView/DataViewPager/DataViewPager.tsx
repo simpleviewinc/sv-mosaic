@@ -10,7 +10,6 @@ import { useMosaicTranslation } from "@root/i18n";
 import { DataViewPagerProps } from "./DataViewPagerTypes";
 import { StyledSpan, StyledLabel, StyledButton } from "./DataViewPager.styled";
 
-
 function DataViewPager(props: DataViewPagerProps) {
 	const { t } = useMosaicTranslation();
 
@@ -37,15 +36,25 @@ function DataViewPager(props: DataViewPagerProps) {
 				variant="text"
 				size="small"
 				tooltip={t("mosaic:DataView.jump_to_page")}
-				label={<span>{startItem}-{endItem} <StyledLabel>of</StyledLabel> {props.count}</span>}
-				popover={
+				label={(
+					<span>
+						{startItem}
+						-
+						{endItem}
+						{" "}
+						<StyledLabel>of</StyledLabel>
+						{" "}
+						{props.count}
+					</span>
+				)}
+				popover={(
 					<DataViewPagerPopover
 						currentPage={currentPage}
 						totalPages={totalPages}
 						limit={props.limit}
 						onSkipChange={props.onSkipChange}
 					/>
-				}
+				)}
 			/>
 			<StyledButton
 				color="gray"

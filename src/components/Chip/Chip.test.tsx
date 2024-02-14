@@ -8,7 +8,7 @@ describe("Chip component", () => {
 	beforeEach(() => {
 		render(
 			<Chip
-				label='Label test'
+				label="Label test"
 				disabled={false}
 				selected={false}
 			/>,
@@ -28,7 +28,7 @@ describe("The deletable Chip component", () => {
 		const DeletableChip = () => {
 			return (
 				<Chip
-					label='Label test'
+					label="Label test"
 					disabled={false}
 					onDelete={handleDelete}
 				/>
@@ -51,7 +51,7 @@ describe("A selected Chip component", () => {
 		render(
 			<Chip
 				onClick={handleClick}
-				label='Label'
+				label="Label"
 				disabled={false}
 				selected={true}
 			/>,

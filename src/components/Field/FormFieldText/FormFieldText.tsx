@@ -24,7 +24,7 @@ const TextField = (
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position='start'>{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
+				<InputAdornment position="start">{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
 			),
 		}
 		: null;
@@ -51,7 +51,7 @@ const TextField = (
 			value={value ?? ""}
 			onChange={onFieldChange}
 			onBlur={onFieldBlur}
-			variant='outlined'
+			variant="outlined"
 			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
 			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}

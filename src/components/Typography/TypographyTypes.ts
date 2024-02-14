@@ -11,15 +11,15 @@ export interface TypographyProps {
 	/**
 	 * Controls the look of the typography
 	 */
-	variant?: TypographyVariant,
+	variant?: TypographyVariant;
 	/**
 	 * @deprecated Use "tag" prop instead
 	 */
-	as?: TypographyTag
+	as?: TypographyTag;
 	/**
 	 * The HTML element to use.
 	 */
-	tag?: TypographyTag
+	tag?: TypographyTag;
 	/**
 	 * If provided, text will be truncated at the given number of lines
 	 */
@@ -35,25 +35,25 @@ export interface TypographyProps {
 	/**
 	 * @deprecated use attrs
 	 */
-	style?: MosaicObject
+	style?: MosaicObject;
 	/**
 	 * The content, usually text, of the Typography component
 	 */
-	children: ReactNode
+	children: ReactNode;
 	/**
 	 * Pass custom classes to the wrapping element
 	 */
-	className?: string
+	className?: string;
 	/**
 	 * Provides a title attribute to the Typography element
 	 */
-	title?: string
+	title?: string;
 	/**
 	 * Additional attributes to be provided to the Typography element
 	 */
-	attrs?: MosaicObject
+	attrs?: MosaicObject;
 	/**
 	 * The text colour of the typography
 	 */
-	color?: ColorTypes
+	color?: ColorTypes;
 }

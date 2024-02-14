@@ -33,7 +33,7 @@ const StyledWrapper = styled.div`
 export interface DrawerTopBarProps {
 	title: string | JSX.Element;
 	onBack: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	backLabel?: TitleWrapperProps["backLabel"]
+	backLabel?: TitleWrapperProps["backLabel"];
 	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -59,15 +59,15 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 				<ButtonRow>
 					{
 						props.onCancel &&
-						<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel}/>
+							<Button label={t("mosaic:common.cancel")} color="black" variant="text" onClick={props.onCancel} />
 					}
 					{
 						props.onSave &&
-						<Button label={t("mosaic:common.save")} color="blue" variant="contained" onClick={props.onSave}/>
+							<Button label={t("mosaic:common.save")} color="blue" variant="contained" onClick={props.onSave} />
 					}
 					{
 						props.onApply &&
-						<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply}/>
+							<Button label={t("mosaic:common.apply")} color="blue" variant="contained" onClick={props.onApply} />
 					}
 				</ButtonRow>
 			</div>

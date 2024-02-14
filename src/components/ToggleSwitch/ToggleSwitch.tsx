@@ -24,14 +24,14 @@ const ToggleSwitch = (
 			label={label}
 			labelPlacement={labelPlacement}
 			disabled={disabled}
-			control={
+			control={(
 				<StyledSwitch
 					onBlur={(e) => onBlur && onBlur(e.target.checked)}
 					checked={!!checked}
 					onChange={(e) => onChange && onChange(e.target.checked)}
 					required={required}
 				/>
-			}
+			)}
 		/>
 	);
 };

@@ -29,7 +29,7 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 	});
 
 	return (
-		<ButtonRow buttons={buttons}/>
+		<ButtonRow buttons={buttons} />
 	);
 }
 

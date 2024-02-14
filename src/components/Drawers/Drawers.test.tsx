@@ -40,46 +40,44 @@ const DrawersExample = () => {
 			<div className="App">
 				<p>{JSON.stringify(state.content)}</p>
 				<button
-					onClick={() =>
-						addDrawer({
-							config: {
-								type: "form",
-								title: "New Form",
-								fields: [
-									{
-										name: "foo",
-										label: "Foo",
-										type: "text",
-									},
-									{
-										name: "bar",
-										label: "Bar",
-										type: "text",
-									},
-									{
-										name: "baz",
-										label: "Baz",
-										type: "text",
-									},
-									{
-										name: "from_parent",
-										label: "From Parent",
-										type: "text",
-									},
-								],
-							},
-							callbacks: {
-								save: (data) => {
-									setState((state) => ({
-										...state,
-										content: data,
-									}));
-
-									removeDrawer();
+					onClick={() => addDrawer({
+						config: {
+							type: "form",
+							title: "New Form",
+							fields: [
+								{
+									name: "foo",
+									label: "Foo",
+									type: "text",
 								},
+								{
+									name: "bar",
+									label: "Bar",
+									type: "text",
+								},
+								{
+									name: "baz",
+									label: "Baz",
+									type: "text",
+								},
+								{
+									name: "from_parent",
+									label: "From Parent",
+									type: "text",
+								},
+							],
+						},
+						callbacks: {
+							save: (data) => {
+								setState((state) => ({
+									...state,
+									content: data,
+								}));
+
+								removeDrawer();
 							},
-						})
-					}
+						},
+					})}
 				>
 					Add Form
 				</button>

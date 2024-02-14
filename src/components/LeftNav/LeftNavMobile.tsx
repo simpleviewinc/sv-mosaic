@@ -117,18 +117,19 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 			<LeftNavContext.Provider value={newContext}>
 				<RootDiv aria-label="Main">
 					<div className="header">
-						<TridentIcon/>
-						<CloseIcon onClick={onClose} className="closeIcon"/>
+						<TridentIcon />
+						<CloseIcon onClick={onClose} className="closeIcon" />
 					</div>
 					{
-						previous !== undefined &&
-						<Fragment>
-							<div className="backButton" onClick={onBack}>
-								<KeyboardBackspaceIcon/>
-								<div className="buttonLabel">{previous.label}</div>
-							</div>
-							<LeftNavTitle label={current.label}/>
-						</Fragment>
+						previous !== undefined && (
+							<Fragment>
+								<div className="backButton" onClick={onBack}>
+									<KeyboardBackspaceIcon />
+									<div className="buttonLabel">{previous.label}</div>
+								</div>
+								<LeftNavTitle label={current.label} />
+							</Fragment>
+						)
 					}
 					<LeftNavScroller>
 						<LeftNavItems

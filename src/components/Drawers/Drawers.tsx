@@ -11,8 +11,6 @@ import calculateAnimationState from "./calculateAnimationState";
 import { DrawersProps } from "./DrawersTypes";
 import { ANIMATION_DURATION, PaperDiv } from "./Drawers.styled";
 
-
-
 function Drawers<T>(props: DrawersProps<T>) {
 	// For each drawer we store a boolean indicating whether that drawer is open (true) or closed (false)
 	const [bools, setBools] = useState<boolean[]>([]);

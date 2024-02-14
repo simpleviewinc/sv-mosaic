@@ -1,4 +1,4 @@
-export default function clamp(n: number, { min, max }: { min?: number, max?: number }) {
+export default function clamp(n: number, { min, max }: { min?: number; max?: number }) {
 	if (min !== undefined && n < min ) {
 		return min;
 	}

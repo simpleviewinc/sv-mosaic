@@ -16,7 +16,7 @@ const ToggleSwitchExample = () => {
 
 	return (
 		<ToggleSwitch
-			label='Label test'
+			label="Label test"
 			disabled={false}
 			onChange={handleChange}
 			checked={isChecked}

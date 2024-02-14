@@ -19,7 +19,10 @@ export const Example = (): ReactElement => {
 	};
 	return (
 		<>
-			<p>Is toggle checked? {`${isChecked}`}</p>
+			<p>
+				Is toggle checked?
+				{`${isChecked}`}
+			</p>
 			<ToggleSwitch
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}

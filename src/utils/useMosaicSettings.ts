@@ -3,12 +3,12 @@ import { defaulti18n } from "../i18n";
 import { i18n } from "i18next";
 
 interface UseMosaicSettingsProps {
-	i18nNamespace?: string
-	i18nInitialLocale?: string
+	i18nNamespace?: string;
+	i18nInitialLocale?: string;
 }
 
 interface MosaicSettings {
-	i18n : i18n
+	i18n : i18n;
 }
 
 export default function useMosaicSettings({

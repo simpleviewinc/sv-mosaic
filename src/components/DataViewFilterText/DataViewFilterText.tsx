@@ -56,7 +56,6 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 		setAnchorEl(null);
 	};
 
-
 	// based on the state lets figure out what our value should be
 	let valueString: string;
 	if (comparison === "exists") {

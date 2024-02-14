@@ -18,7 +18,10 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 					{props.multiselect?.length > 1 && (
 						<>
 							<MultiselectCounter {...anchorProps}>
-								<Count>+{props.multiselect.length - 1}</Count>
+								<Count>
+									+
+									{props.multiselect.length - 1}
+								</Count>
 							</MultiselectCounter>
 							<Tooltip {...tooltipProps}>
 								{props.multiselect.slice(1).map(val => val.label).join(", ")}

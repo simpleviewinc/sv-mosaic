@@ -133,15 +133,24 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<Form
 				buttons={renderButtons(dispatch)}
-				title={"Date Field Calendar"}
-				description={"This is a description example"}
+				title="Date Field Calendar"
+				description="This is a description example"
 				state={state}
 				fields={fields}
 				dispatch={dispatch}
 				getFormValues={getFormValues}
 			/>
 			<h3>Date.toString()</h3>
-			<pre>{Object.keys(state.data).map((key, index) => <div key={index}>{key}: {state.data[key] && state.data[key].toString()}</div>)}</pre>
+			<pre>
+				{Object.keys(state.data).map((key, index) => (
+					<div key={index}>
+						{key}
+						:
+						{" "}
+						{state.data[key] && state.data[key].toString()}
+					</div>
+				))}
+			</pre>
 			<h3>State</h3>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

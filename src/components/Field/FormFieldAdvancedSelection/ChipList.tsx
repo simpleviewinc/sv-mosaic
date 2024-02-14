@@ -49,9 +49,9 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 			<ChipsWrapper
 				$isModalOpen={fieldDef?.inputSettings?.isModalOpen}
 				$isMobileView={fieldDef?.inputSettings?.isMobileView}
-				data-testid='as-chiplist'
+				data-testid="as-chiplist"
 			>
-				{showMore ?
+				{showMore ? (
 					value?.map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
@@ -60,7 +60,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 							onDelete={() => onChipDelete(option?.value)}
 						/>
 					))
-					:
+				) : (
 					value?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
 						<Chip
 							disabled={fieldDef?.disabled}
@@ -69,13 +69,15 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 							onDelete={() => onChipDelete(option?.value)}
 						/>
 					))
-				}
+				)}
 			</ChipsWrapper>
 			{value.length > MAX_CHIPS_TO_SHOW && (
 				<div onClick={handleShowMore}>
 					{showMore ? (
 						<ShowHideSpan>
-							{"Hide"} <StyledExpandLessIcon />
+							Hide
+							{" "}
+							<StyledExpandLessIcon />
 						</ShowHideSpan>
 					) : (
 						<ShowHideSpan>

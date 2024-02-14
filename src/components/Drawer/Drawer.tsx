@@ -13,7 +13,7 @@ const StyledDrawerContent = styled.div`
 	font-size: 14px;
 `;
 
-const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle, previousStyle: AnchorStyle }, $display?: boolean }>`
+const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle; previousStyle: AnchorStyle }; $display?: boolean }>`
 	z-index: 1100;
 	${({ $anchorStyle, $display }) => $anchorStyle &&
 		`.MuiDrawer-paper {
@@ -56,7 +56,7 @@ interface DrawerProps extends MUIDrawerProps {
 	exitCB?: () => void;
 	anchorstyle?: AnchorStyle;
 	display?: boolean;
-	backdropCloseHandler?: boolean
+	backdropCloseHandler?: boolean;
 }
 
 const Drawer = (props: DrawerProps): ReactElement => {
@@ -120,10 +120,11 @@ const Drawer = (props: DrawerProps): ReactElement => {
 				}}
 			>
 				{
-					state.open &&
-					<StyledDrawerContent>
-						{children}
-					</StyledDrawerContent>
+					state.open && (
+						<StyledDrawerContent>
+							{children}
+						</StyledDrawerContent>
+					)
 				}
 			</MUIDrawerStyled>
 		</>

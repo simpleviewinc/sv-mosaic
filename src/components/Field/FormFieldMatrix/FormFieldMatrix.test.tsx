@@ -137,7 +137,6 @@ const MatrixExample = (): ReactElement => {
 	);
 };
 
-
 const mockResizeObserver = jest.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
@@ -148,14 +147,13 @@ window.ResizeObserver = mockResizeObserver;
 const scrollIntoViewMock = jest.fn();
 window.HTMLElement.prototype.scrollTo = scrollIntoViewMock;
 
-
 afterEach(cleanup);
 
 describe("FormFieldMatrix component", () => {
 	beforeEach(async () => {
 		await act(() => {
 			render(
-				<MatrixExample/>,
+				<MatrixExample />,
 			);
 		});
 	});
@@ -181,6 +179,4 @@ describe("FormFieldMatrix component", () => {
 	});
 
 });
-
-
 

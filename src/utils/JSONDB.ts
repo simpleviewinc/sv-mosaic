@@ -3,10 +3,10 @@ import isEqual from "lodash/isEqual";
 import sortBy from "lodash/sortBy";
 
 interface Relationship {
-	api: JSONDB
-	key: string
-	left_key: string
-	right_key: string
+	api: JSONDB;
+	key: string;
+	left_key: string;
+	right_key: string;
 }
 
 class JSONDB {
@@ -83,19 +83,19 @@ class JSONDB {
 }
 
 interface FilterKey {
-	$in: unknown[]
-	$not_in: unknown[]
-	$all: unknown[]
-	$gte: number
-	$lte: number
-	$ne: unknown
-	$contains: string
-	$not_contains: string
-	$exists: boolean
+	$in: unknown[];
+	$not_in: unknown[];
+	$all: unknown[];
+	$gte: number;
+	$lte: number;
+	$ne: unknown;
+	$contains: string;
+	$not_contains: string;
+	$exists: boolean;
 }
 
 interface FilterObj {
-	[key: string]: FilterKey
+	[key: string]: FilterKey;
 }
 
 function filterData(data, filter: FilterObj) {

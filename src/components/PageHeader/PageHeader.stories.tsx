@@ -16,8 +16,7 @@ export const Playground = (): ReactElement => {
 	return (
 		<PageHeader
 			title={title}
-			buttons={
-				buttonsBool &&
+			buttons={buttonsBool && (
 				[
 					{
 						label: "Cancel",
@@ -32,7 +31,8 @@ export const Playground = (): ReactElement => {
 						variant: "contained",
 					},
 				]
-			}
-			onBack={onBackBool && onCancel} />
+			)}
+			onBack={onBackBool && onCancel}
+		/>
 	);
 };

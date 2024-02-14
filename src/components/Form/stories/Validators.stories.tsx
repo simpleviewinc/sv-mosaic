@@ -134,7 +134,7 @@ export const Validators = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
-					title='Validators story'
+					title="Validators story"
 					state={state}
 					fields={fields}
 					dispatch={dispatch}

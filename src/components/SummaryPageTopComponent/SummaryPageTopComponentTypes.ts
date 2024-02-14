@@ -44,5 +44,5 @@ export interface SummaryPageTopComponentTypes {
 	*/
 	onBack?: () => void;
 
-	backLabel?: TitleWrapperProps["backLabel"]
+	backLabel?: TitleWrapperProps["backLabel"];
 }

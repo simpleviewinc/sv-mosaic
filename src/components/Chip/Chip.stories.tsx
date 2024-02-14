@@ -22,19 +22,21 @@ export const Playground = (): ReactElement => {
 	const clickable = boolean("onClick", false);
 
 	return (
-		deletable ?
+		deletable ? (
 			<Chip
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				selected={boolean("Selected", false)}
 				onDelete={() => alert("Deleted")}
-			/> :
+			/>
+		) : (
 			<Chip
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				selected={boolean("Selected", false)}
 				onClick={clickable ? () => alert("onClick") : null}
 			/>
+		)
 	);
 };
 
@@ -48,39 +50,39 @@ export const KitchenSink = (): ReactElement => {
 			<h1>Chip</h1>
 			<h2>Basic Chip with onClick</h2>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={false}
 				onClick={() => alert("onClick")}
 			/>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={false}
 				selected={true}
 				onClick={() => alert("onClick")}
 			/>
 			<h2>Basic Chip without onClick</h2>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={false}
 			/>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={false}
 				selected={true}
 			/>
 			<h2>Deletable Chip</h2>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={false}
 				onDelete={handleDelete}
 			/>
 			<h2>Disabled</h2>
 			<Chip
-				label={"Label"}
+				label="Label"
 				disabled={true}
 			/>
 			<Chip
-				label={"Label"}
+				label="Label"
 				selected={true}
 				disabled={true}
 			/>

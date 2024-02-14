@@ -4,11 +4,11 @@ import { MosaicObject } from "../types";
 import common from "./common.json";
 
 interface AddResourceBundleProps {
-	namespace: string
-	prefix: string
+	namespace: string;
+	prefix: string;
 	bundle: {
-		[lang: string]: MosaicObject
-	}
+		[lang: string]: MosaicObject;
+	};
 }
 
 type AddCoreResourceBundle = Omit<AddResourceBundleProps, "namespace">;

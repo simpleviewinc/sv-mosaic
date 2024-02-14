@@ -34,10 +34,10 @@ const DrawerEditForm = ({
 	title,
 	fields,
 }: {
-	onClose: () => void,
-	onSave: (data: any) => void,
-	title: string,
-	fields: FieldDef[]
+	onClose: () => void;
+	onSave: (data: any) => void;
+	title: string;
+	fields: FieldDef[];
 }): ReactElement => {
 	const { state, dispatch } = useForm();
 
@@ -167,7 +167,13 @@ export const FormVariant = (): ReactElement => {
 	const gridConfig: DataViewProps = {
 		noResults: (
 			<div style={{ padding: "1rem 0.5rem", alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "column", gap: 10 }}>
-				<div>Custom <em>no results</em> component.</div>
+				<div>
+					Custom
+					{" "}
+					<em>no results</em>
+					{" "}
+					component.
+				</div>
 				<Button variant="outlined" color="gray" label="Create one" onClick={onAddClick} />
 			</div>
 		),
@@ -573,7 +579,7 @@ export const Browse = (): ReactElement => {
 									buttons={drawerButtons}
 									onBack={removeDrawer}
 								/>
-								<DataView {...dataViewGridConfig}></DataView>
+								<DataView {...dataViewGridConfig} />
 							</MosaicContext.Provider>
 						);
 					} else {

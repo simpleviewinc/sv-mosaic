@@ -31,7 +31,7 @@ export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	 * the reset button is clicked. Defaults to
 	 * Simpleview HQ in Tucson if not provided
 	 */
-	initialCenter?: MapPosition
+	initialCenter?: MapPosition;
 	/**
 	 * Google Maps API key needed to consume the Maps JavaScript API
 	 * and Places API
@@ -55,7 +55,7 @@ export interface MapProps {
 	 * the reset button is clicked. Defaults to
 	 * Simpleview HQ in Tucson if not provided
 	 */
-	initialCenter?: MapPosition
+	initialCenter?: MapPosition;
 	/**
 	 * Location of the marker
 	 */
@@ -72,31 +72,31 @@ export interface MapProps {
 	 * This is fired when the marker coordinates change, either by dragging
 	 * an existing marker, clicking the map or selecting an address
 	 */
-	onCoordinatesChange?: (coords: MapPosition) => void
+	onCoordinatesChange?: (coords: MapPosition) => void;
 
-	googleMapsApiKey: string
+	googleMapsApiKey: string;
 }
 
 export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey">;
 
 export type ResetButtonProps = {
-	show?: boolean,
-	onClick?: () => void
+	show?: boolean;
+	onClick?: () => void;
 };
 
 export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "zoom"> & {
-	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void
+	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void;
 
 	/**
 	 * The zoom at which to set the map when a marker is set
 	 */
-	focusZoom?: number
+	focusZoom?: number;
 
 	/**
 	 * The map should pan to the new marker if it is within
 	 * the current map bounds
 	 */
-	shouldPanRef?: React.MutableRefObject<boolean>
+	shouldPanRef?: React.MutableRefObject<boolean>;
 };
 
 export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"> & {
@@ -104,7 +104,7 @@ export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"
 
 	handleClose: (save?: boolean) => Promise<void>;
 
-	onChange: (e: MapPosition) => Promise<void>
+	onChange: (e: MapPosition) => Promise<void>;
 
 	hasUnsavedChanges?: boolean;
 
@@ -114,7 +114,7 @@ export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"
 
 	handleDialogClose?: (val: boolean) => void;
 
-	googleMapsApiKey: string
+	googleMapsApiKey: string;
 };
 
 export type MapCoordinatesData = MapPosition;

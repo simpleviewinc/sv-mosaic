@@ -14,7 +14,6 @@ export type ImageUploadInputSettings = {
 	options?: Options[];
 } & ImageUploadCanvasProps;
 
-
 /**
  * Describes the structure of the value argument received by
  * the onChange function used by the form.

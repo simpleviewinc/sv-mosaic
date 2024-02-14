@@ -213,8 +213,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 			) : (
 				<AssetCard>
 					<AssetCardTop>
-						{fieldDef?.inputSettings?.src &&
-							!(assetType === DOCUMENT || assetType === LINK) && (
+						{fieldDef?.inputSettings?.src && !(assetType === DOCUMENT || assetType === LINK) && (
 							<Column>
 								<AssetImage
 									src={fieldDef?.inputSettings?.src}
@@ -249,7 +248,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={async (e) => await handleBrowse(e, assetType)}
-						></Button>
+						/>
 						<Button
 							color="red"
 							variant="text"
@@ -257,7 +256,7 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={(e) => handleRemove(e)}
-						></Button>
+						/>
 					</AssetButtons>
 				</AssetCard>
 			)}

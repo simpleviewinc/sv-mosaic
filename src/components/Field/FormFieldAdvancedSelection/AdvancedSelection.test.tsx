@@ -115,8 +115,8 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	return (
 		<Form
 			buttons={buttons}
-			title='Form Title'
-			description='This is a description example'
+			title="Form Title"
+			description="This is a description example"
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
@@ -134,7 +134,7 @@ window.ResizeObserver = mockResizeObserver;
 
 describe("AdvancedSelection component", () => {
 	it("should select an option and display its chip", async () => {
-		render(<AdvancedSelectExample optionsOrigin="db"/>);
+		render(<AdvancedSelectExample optionsOrigin="db" />);
 
 		const addButton = screen.getByText("ADD");
 		await act(async () => {
@@ -151,7 +151,7 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should remove a selected option", async () => {
-		render(<AdvancedSelectExample optionsOrigin="db"/>);
+		render(<AdvancedSelectExample optionsOrigin="db" />);
 
 		const addButton = screen.getByText("ADD");
 		await act(async () => {
@@ -175,7 +175,7 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should filter the options", async () => {
-		render(<AdvancedSelectExample optionsOrigin="db"/>);
+		render(<AdvancedSelectExample optionsOrigin="db" />);
 
 		const addButton = screen.getByText("ADD");
 		await act(async () => {
@@ -195,7 +195,7 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should create a new option", async () => {
-		render(<AdvancedSelectExample optionsOrigin="local"/>);
+		render(<AdvancedSelectExample optionsOrigin="local" />);
 
 		const addButton = screen.getByText("ADD");
 		await act(async () => {
@@ -212,7 +212,7 @@ describe("AdvancedSelection component", () => {
 	});
 
 	it("should only select three options, then the checkbokList should be disabled", async () => {
-		render(<AdvancedSelectExample optionsOrigin="db"/>);
+		render(<AdvancedSelectExample optionsOrigin="db" />);
 
 		const addButton = screen.getByText("ADD");
 		await act(async () => {

@@ -88,7 +88,10 @@ function FormExample({
 				buttons={buttons}
 				onBack={appContext.removeDrawer}
 			/>
-			<p>Data: {JSON.stringify(state.data)}</p>
+			<p>
+				Data:
+				{JSON.stringify(state.data)}
+			</p>
 		</div>
 	);
 }

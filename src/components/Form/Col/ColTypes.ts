@@ -10,7 +10,7 @@ export interface ColPropsTypes {
 	colIdx?: number;
 	rowIdx?: number;
 	sectionIdx?: number;
-	spacing?: FormSpacing
+	spacing?: FormSpacing;
 }
 
 export interface ColFieldProps {
@@ -22,5 +22,5 @@ export interface ColFieldProps {
 	colIdx?: number;
 	rowIdx?: number;
 	sectionIdx?: number;
-	spacing?: FormSpacing
+	spacing?: FormSpacing;
 }

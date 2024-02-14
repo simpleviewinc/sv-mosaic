@@ -19,7 +19,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			title={typeof label === "string" ? label : undefined}
 			ref={ref}
 			disabled={disabled}
-			deleteIcon={<ClearIcon data-testid='delete-icon-test-id' />}
+			deleteIcon={<ClearIcon data-testid="delete-icon-test-id" />}
 			onDelete={onDelete}
 			data-testid="delete-chip-testid"
 		/>

@@ -74,7 +74,6 @@ export const KitchenSink = (): ReactElement => {
 		value :  "a",
 	});
 
-
 	const onChange = function(data) {
 		setState(data);
 	};

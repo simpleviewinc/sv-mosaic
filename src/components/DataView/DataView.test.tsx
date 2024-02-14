@@ -10,14 +10,14 @@ describe("DataViewFilterText component", () => {
 	it("Should display Equals comparison filter when the developer has passed an empty string in comparisonDefault", async () => {
 		render(
 			<DataViewFilterText
-				label = "Title with Comparisons:"
-				data = {{}}
-				args = {{
+				label="Title with Comparisons:"
+				data={{}}
+				args={{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "",
 				}}
-				onRemove = {jest.fn()}
-				onChange = {jest.fn()}
+				onRemove={jest.fn()}
+				onChange={jest.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -29,14 +29,14 @@ describe("DataViewFilterText component", () => {
 	it("Should display Not Equal comparison filter when the developer has passed as not_equals string in comparisonDefault", async () => {
 		render(
 			<DataViewFilterText
-				label = "Title with Comparisons:"
-				data = {{}}
-				args = {{
+				label="Title with Comparisons:"
+				data={{}}
+				args={{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "not_equals",
 				}}
-				onRemove = {jest.fn()}
-				onChange = {jest.fn()}
+				onRemove={jest.fn()}
+				onChange={jest.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -48,13 +48,13 @@ describe("DataViewFilterText component", () => {
 	it("Should display Equals comparison filter when the developer has not passed the comparisonDefault prop", async () => {
 		render(
 			<DataViewFilterText
-				label = "Title with Comparisons:"
-				data = {{}}
-				args = {{
+				label="Title with Comparisons:"
+				data={{}}
+				args={{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 				}}
-				onRemove = {jest.fn()}
-				onChange = {jest.fn()}
+				onRemove={jest.fn()}
+				onChange={jest.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -67,14 +67,14 @@ describe("DataViewFilterText component", () => {
 		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
 		expect(() => render(
 			<DataViewFilterText
-				label = "Title with Comparisons:"
-				data = {{}}
-				args = {{
+				label="Title with Comparisons:"
+				data={{}}
+				args={{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "invalid_comparison",
 				}}
-				onRemove = {jest.fn()}
-				onChange = {jest.fn()}
+				onRemove={jest.fn()}
+				onChange={jest.fn()}
 			/>,
 		)).toThrow("The selected comparison is not a valid comparison");
 	});
@@ -91,7 +91,6 @@ describe("DataViewFilterText component", () => {
 		act(() => {
 			fireEvent.click(checkboxes[1]);
 		});
-
 
 		expect(screen.queryByTitle("Download checked")).not.toBeNull();
 

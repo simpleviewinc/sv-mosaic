@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import MosaicContext from "../components/MosaicContext";
 
 interface MosaicTranslation {
-	i18n: i18n,
-	t : (key: string) => string
+	i18n: i18n;
+	t : (key: string) => string;
 }
 
 export default function useMosaicTranslation(): MosaicTranslation {

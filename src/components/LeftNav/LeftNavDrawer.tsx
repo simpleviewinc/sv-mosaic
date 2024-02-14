@@ -14,9 +14,9 @@ const drawerProps: Pick<DrawerProps, "anchor" | "variant" | "ModalProps" | "Pape
 };
 
 interface Props {
-	open: boolean
-	onClose(): void
-	children?: React.ReactNode
+	open: boolean;
+	onClose(): void;
+	children?: React.ReactNode;
 }
 
 /** Renders the drawer used in all variants of the LeftNav. */

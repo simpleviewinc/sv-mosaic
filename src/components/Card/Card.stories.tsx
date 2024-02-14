@@ -44,7 +44,6 @@ const content = [
 	</div>,
 ];
 
-
 export const Playground = (): ReactElement => {
 	const showTitleIcon = boolean("Show title icon ", true);
 	const showTopAction = boolean("Show top action", true);
@@ -136,7 +135,7 @@ const recentActivityContent = [
 export const RecentActivity = (): ReactElement => {
 	return (
 		<Card
-			title={"Recent Activity"}
+			title="Recent Activity"
 			content={recentActivityContent}
 			topActions={[
 				{

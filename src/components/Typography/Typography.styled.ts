@@ -6,9 +6,9 @@ import { ColorTypes } from "../Button";
 import { Properties } from "csstype";
 
 interface BaseProps {
-	$maxLines?: number
-	$color?: ColorTypes,
-	$breakAll?: boolean
+	$maxLines?: number;
+	$color?: ColorTypes;
+	$breakAll?: boolean;
 	$whiteSpace?: Properties["whiteSpace"];
 }
 

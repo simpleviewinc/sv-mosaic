@@ -75,14 +75,14 @@ const Section = (props: SectionPropTypes) => {
 			$title={title}
 			ref={ref}
 		>
-			{title &&
+			{title && (
 				<StyledSectionHeader
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel1a-content"
 				>
 					<StyledTitle className="section-title">{title}</StyledTitle>
 				</StyledSectionHeader>
-			}
+			)}
 			<StyledSectionContent>
 				{description && <StyledDescription>{description}</StyledDescription>}
 				{rows && (
