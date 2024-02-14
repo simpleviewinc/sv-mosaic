@@ -156,7 +156,7 @@ describe("AddressAutocomplete component", () => {
 				textField={{
 					InputProps: {
 						endAdornment: (
-							<InputAdornment position='end'>
+							<InputAdornment position="end">
 								<StyledClearIcon onClick={mockClear} />
 							</InputAdornment>
 						),

@@ -124,7 +124,7 @@ export const VaryingSections = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
-					title='Varying Sections'
+					title="Varying Sections"
 					state={state}
 					fields={fields}
 					sections={sections}

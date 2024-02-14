@@ -248,10 +248,10 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 							endAdornment: showCreateOptionButton && (
 								<InputAdornment position="end">
 									<Button
-										label='Create'
-										variant='text'
-										color='teal'
-										className='realTeal-icon'
+										label="Create"
+										variant="text"
+										color="teal"
+										className="realTeal-icon"
 										mIcon={AddIcon}
 										onClick={createOption}
 									/>
@@ -296,7 +296,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 					{
 						!optionsDisabled &&
 						<>
-							<p className='selected-options-title'>{t("mosaic:DataView.selected_options")}</p>
+							<p className="selected-options-title">{t("mosaic:DataView.selected_options")}</p>
 							<div className="chips">
 								{
 									showList &&

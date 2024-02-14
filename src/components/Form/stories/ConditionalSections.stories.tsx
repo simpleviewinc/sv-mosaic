@@ -93,7 +93,7 @@ export const ConditionalSections = (): ReactElement => {
 			<div style={{ height: "100vh" }}>
 				<Form
 					buttons={renderButtons(dispatch)}
-					title='Runtime behaviors'
+					title="Runtime behaviors"
 					state={state}
 					fields={fields}
 					sections={sections}

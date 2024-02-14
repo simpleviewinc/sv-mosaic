@@ -239,7 +239,7 @@ const Form = (props: FormProps) => {
 			</StyledContainerForm>
 			<Dialog
 				buttons={dialogButtons}
-				dialogTitle='Are you sure you want to leave?'
+				dialogTitle="Are you sure you want to leave?"
 				open={dialogOpen}
 			>
 				You have unsaved changes. If you leave all your changes will be lost.

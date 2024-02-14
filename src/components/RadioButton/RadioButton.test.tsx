@@ -7,7 +7,7 @@ afterEach(cleanup);
 describe("RadioButton component", () => {
 	it("should check the RadioButton", () => {
 		render(
-			<RadioButton label='Label test' disabled={false} required={false} />,
+			<RadioButton label="Label test" disabled={false} required={false} />,
 		);
 		const radioButton = screen.getByRole("radio") as HTMLInputElement;
 
@@ -19,7 +19,7 @@ describe("RadioButton component", () => {
 	});
 
 	it("should test the disabled state", () => {
-		render(<RadioButton label='Label test' disabled={true} required={false} />);
+		render(<RadioButton label="Label test" disabled={true} required={false} />);
 
 		const radioButton = screen.getByRole("radio") as HTMLInputElement;
 
@@ -27,7 +27,7 @@ describe("RadioButton component", () => {
 	});
 
 	it("should test that the RadioButton is required", () => {
-		render(<RadioButton label='Label test' disabled={false} required={true} />);
+		render(<RadioButton label="Label test" disabled={false} required={true} />);
 
 		const radioButton = screen.getByRole("radio") as HTMLInputElement;
 
