@@ -57,6 +57,7 @@ module.exports = {
 		"@stylistic/jsx-curly-brace-presence": ["error", { propElementValues: "always" }],
 		"@stylistic/jsx-curly-newline": ["error"],
 		"@stylistic/jsx-curly-spacing": ["error"],
+		"@stylistic/jsx-equals-spacing": ["error"],
 		"prefer-const": "error",
 		"constructor-super": "error",
 		"for-direction": "error",
