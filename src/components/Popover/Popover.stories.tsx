@@ -231,7 +231,10 @@ const BottomContent = (): ReactElement => {
 			{options.map((option, idx) => {
 				return (
 					<div key={`${option.label}-${idx}`} style={{ display: "flex", fontSize: 14 }}>
-						<Label>{option.label}:</Label>
+						<Label>
+							{option.label}
+							:
+						</Label>
 						<Value>{option.value}</Value>
 					</div>
 				);

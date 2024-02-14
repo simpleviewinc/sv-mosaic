@@ -205,7 +205,11 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 								{
 									menuItems.map((item, id) => (
 										<span key={id}>
-											<b>{item.label}</b> - {popoverP[item.label]}<br/>
+											<b>{item.label}</b>
+											{" "}
+											-
+											{popoverP[item.label]}
+											<br/>
 										</span>
 									))
 								}

@@ -299,7 +299,9 @@ const FormFieldImageUpload = (
 										<Row>
 											<SizeLabel>Size</SizeLabel>
 											<SizeValue>
-												{width}x{height}
+												{width}
+												x
+												{height}
 											</SizeValue>
 										</Row>
 									</ImagePropertiesColumn>
