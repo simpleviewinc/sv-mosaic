@@ -360,7 +360,7 @@ export const DrawerForm = (): ReactElement => {
 				<div style={{ width: drawWidth }}>
 					<Form
 						buttons={buttons}
-						title='Drawer form example'
+						title="Drawer form example"
 						state={state}
 						dispatch={dispatch}
 						fields={fields}

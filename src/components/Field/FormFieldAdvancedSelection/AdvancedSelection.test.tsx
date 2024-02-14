@@ -115,8 +115,8 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	return (
 		<Form
 			buttons={buttons}
-			title='Form Title'
-			description='This is a description example'
+			title="Form Title"
+			description="This is a description example"
 			state={state}
 			fields={fields}
 			dispatch={dispatch}
