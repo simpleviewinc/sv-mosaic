@@ -34,7 +34,7 @@ const MenuFormFieldCard = (props: MenuFormFieldCardProps): ReactElement => {
 				mIcon={MoreVertIcon}
 				onClick={handleMoreIconClick}
 				disabled={disabled}
-			></Button>
+			/>
 			<StyledMenu
 				anchorEl={anchorEl}
 				anchorOrigin={{

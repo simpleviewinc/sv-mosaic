@@ -131,10 +131,11 @@ function DataViewViewDrawerContent(props: DataViewViewDrawerContentProps) {
 			backLabel={t("mosaic:DataView.cancel_saved_views")}
 		>
 			{
-				state.options &&
-				<DataView
-					{...DataViewConfig}
-				/>
+				state.options && (
+					<DataView
+						{...DataViewConfig}
+					/>
+				)
 			}
 			<DataViewViewSaveDrawer
 				open={state.formOpen}

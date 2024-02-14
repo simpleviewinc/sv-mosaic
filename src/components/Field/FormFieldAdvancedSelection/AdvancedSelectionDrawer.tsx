@@ -76,12 +76,12 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				backLabel="Cancel advanced selection"
 			/>
 			<DataViewFilterMultiselectDropdownContent
-				comparison={""}
+				comparison=""
 				selected={value}
 				getOptions={externalOptions?.getOptions !== undefined ? externalOptions.getOptions : getSyncOptions}
 				isOpen={true}
 				onApply={onSubmit}
-				placeholder={"Search..."}
+				placeholder="Search..."
 				limit={externalOptions?.getOptionsLimit}
 				selectLimit={fieldDef.inputSettings?.selectLimit}
 				onChange={(value) => setSelectedOptions(value)}

@@ -141,19 +141,17 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			{"options" in props && props.options && (
 				<StyledLeft>
 					<StyledLeftOptions data-testid="dataview-filter-date-options-list">
-						{
-							props.options.map(option =>
-								<MenuItem
-									key={option.value}
-									label={option.label}
-									selected={selectedOption === option.value}
-									color="blue"
-									onClick={() => onOptionSelect(option.value)}
-									truncateText
-									title
-								/>,
-							)
-						}
+						{props.options.map(option => (
+							<MenuItem
+								key={option.value}
+								label={option.label}
+								selected={selectedOption === option.value}
+								color="blue"
+								onClick={() => onOptionSelect(option.value)}
+								truncateText
+								title
+							/>
+						))}
 					</StyledLeftOptions>
 				</StyledLeft>
 			)}
@@ -170,7 +168,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 					/>
 				</div>
 				<StyledFooter>
-					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply}/>
+					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply} />
 				</StyledFooter>
 			</StyledMainContent>
 		</StyledFilterDate>

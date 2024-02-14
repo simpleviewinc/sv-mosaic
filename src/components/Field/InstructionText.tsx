@@ -7,7 +7,7 @@ import {
 
 interface InstructionTextProps {
 	children: ReactNode;
-	colsInRow?: number
+	colsInRow?: number;
 }
 
 const InstructionText = (props: InstructionTextProps): ReactElement => {

@@ -1,4 +1,3 @@
-
 import { CSSProperties } from "react";
 import { MosaicObject } from "@root/types";
 import { DataViewProps } from "../DataViewTypes";
@@ -11,7 +10,7 @@ export interface DataViewTrProps {
 	primaryActions?: DataViewProps["primaryActions"];
 	additionalActions?: DataViewProps["additionalActions"];
 	actionsHidden?: boolean;
-	disabled?: DataViewProps["disabled"]
+	disabled?: DataViewProps["disabled"];
 	originalRowData: MosaicObject;
 	columns: DataViewProps["columns"];
 	row?: { [x: string]: any };

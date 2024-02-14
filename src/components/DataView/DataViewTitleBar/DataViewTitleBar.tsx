@@ -25,13 +25,13 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 		<TitleBarWrapper>
 			<StyledWrapper>
 				<div className="left">
-					{props.title &&
+					{props.title && (
 						<TitleWrapper
 							title={props.title}
 							onBack={props.onBack}
 							backLabel={props.backLabel}
 						/>
-					}
+					)}
 					{props.savedViewEnabled && (
 						<DataViewViewControls
 							savedView={props.savedView}
@@ -44,13 +44,14 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 				{buttons.length > 0 && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>
 			{
-				props?.filters &&
+				props?.filters && (
 					<DataViewFilters
 						filter={props.filter}
 						filters={props.filters}
 						activeFilters={props.activeFilters}
 						onActiveFiltersChange={props.onActiveFiltersChange}
 					/>
+				)
 			}
 		</TitleBarWrapper>
 	);

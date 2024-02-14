@@ -17,7 +17,7 @@ const HelperText = ({
 }: HelperTextProps): ReactElement => {
 	return error ? (
 		<ErrorTextWrapper>
-			<StyledErrorIcon $error={!!children} data-testid='error-icon-test-id' />
+			<StyledErrorIcon $error={!!children} data-testid="error-icon-test-id" />
 			<StyledText error={error}>{children}</StyledText>
 		</ErrorTextWrapper>
 	) : (

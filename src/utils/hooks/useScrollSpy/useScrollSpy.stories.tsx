@@ -64,7 +64,7 @@ const StyledThreshold = styled.div<{ $threshold: number }>`
 	pointer-events: none;
 `;
 
-function Section({ registerRef, title, content }: { registerRef: (ref: HTMLElement) => () => void, title: string, content: React.ReactNode }) {
+function Section({ registerRef, title, content }: { registerRef: (ref: HTMLElement) => () => void; title: string; content: React.ReactNode }) {
 	const ref = React.useRef<HTMLElement>();
 
 	React.useEffect(() => {
@@ -79,7 +79,6 @@ function Section({ registerRef, title, content }: { registerRef: (ref: HTMLEleme
 		</StyledSection>
 	);
 }
-
 
 const randomSections = Array(100).fill(null).map((_, i) => ({
 	title: `Section ${i + 1}`,
@@ -129,7 +128,6 @@ export const Playground = (): ReactElement => {
 	const onNav = React.useCallback((args: SideNavArgs) => {
 		setActiveSection(Number(args.item.name));
 	}, [setActiveSection]);
-
 
 	return (
 		<StyledMain>

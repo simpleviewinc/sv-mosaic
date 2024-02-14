@@ -12,12 +12,12 @@ export interface DataViewColumnDrawerContentProps {
 }
 
 export interface DataViewColumnDrawerColumnsProps {
-	activeColumns: string[]
-	allColumns: DataViewProps["columns"]
-	onReorder: (activeColumns: string[]) => void
+	activeColumns: string[];
+	allColumns: DataViewProps["columns"];
+	onReorder: (activeColumns: string[]) => void;
 }
 
 export interface DataViewColumnDrawerColumnProps {
-	name: string
-	allColumns: DataViewProps["columns"]
+	name: string;
+	allColumns: DataViewProps["columns"];
 }

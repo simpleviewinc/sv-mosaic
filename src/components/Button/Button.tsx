@@ -125,7 +125,7 @@ function ButtonWithState(props: ButtonProps) {
 					anchorEl={anchorEl}
 					onClose={closeMenu}
 					disableRestoreFocus
-					style={ isPopoverOnHover ? { pointerEvents: "none" } : null}
+					style={isPopoverOnHover ? { pointerEvents: "none" } : null}
 					{...popoverProps}
 				>
 					<PopoverWrapper>

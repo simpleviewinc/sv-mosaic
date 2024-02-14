@@ -80,8 +80,8 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 			value: DateData | Date | undefined,
 			fieldDef: FieldDefDate,
 		): {
-			internalValue: DateData | undefined,
-			value: Date | undefined
+			internalValue: DateData | undefined;
+			value: Date | undefined;
 		} => {
 			if (value instanceof Date ) {
 				return {
@@ -120,8 +120,8 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 		getResolvedValue: (
 			value: TimeData | string | undefined,
 		): {
-			internalValue: TimeData | undefined,
-			value: string | undefined
+			internalValue: TimeData | undefined;
+			value: string | undefined;
 		} => {
 			if (typeof value === "string") {
 				const date = new Date();

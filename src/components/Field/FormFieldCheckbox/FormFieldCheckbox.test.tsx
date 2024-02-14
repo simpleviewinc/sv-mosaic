@@ -23,7 +23,7 @@ const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 
 	return (
 		<>
-			{!props.fromDB ?
+			{!props.fromDB ? (
 				<FormFieldCheckbox
 					fieldDef={{
 						name: "formFieldCheckbox",
@@ -36,7 +36,7 @@ const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 					value={checked}
 					onChange={onChange}
 				/>
-				:
+			) : (
 				<FormFieldCheckbox
 					fieldDef={{
 						name: "formFieldCheckbox",
@@ -49,7 +49,7 @@ const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 					value={checked}
 					onChange={onChange}
 				/>
-			}
+			)}
 		</>
 	);
 };

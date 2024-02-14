@@ -36,19 +36,20 @@ const StyledTopBar = styled.div`
 	}
 `;
 
-const FakeTopBar = function(props: { variant: string, openNav : MouseEventHandler }): ReactElement {
+const FakeTopBar = function(props: { variant: string; openNav : MouseEventHandler }): ReactElement {
 	const isMobile = Math.max(window.innerHeight, window.innerWidth) < 1024;
 	const variant = isMobile ? "mobile" : props.variant;
 
 	return (
 		<StyledTopBar>
 			{
-				["hidden", "mobile"].includes(variant) &&
-				<span title="Open Navigation" className="menuButton">
-					<MenuIcon onClick={props.openNav}/>
-				</span>
+				["hidden", "mobile"].includes(variant) && (
+					<span title="Open Navigation" className="menuButton">
+						<MenuIcon onClick={props.openNav} />
+					</span>
+				)
 			}
-			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo"/>
+			<img src="https://auth.simpleviewinc.com/static_shared/simpleview_reverse.png" className="logo" />
 		</StyledTopBar>
 	);
 };
@@ -93,9 +94,9 @@ function isMobile() {
 const noop = () => undefined;
 
 interface NavWrapperProps {
-	children?: ReactElement,
-	items : LeftNavItemRootDef[],
-	onlyContent?: boolean
+	children?: ReactElement;
+	items : LeftNavItemRootDef[];
+	onlyContent?: boolean;
 }
 
 export const NavWrapper = function(props: NavWrapperProps): ReactElement {
@@ -144,7 +145,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 	};
 
 	const lorem = useMemo(() => {
-		return <LoremIpsum p={10}/>;
+		return <LoremIpsum p={10} />;
 	}, []);
 
 	// add a resize listener for handling whether or not we are currently in mobile
@@ -178,7 +179,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 
 	return (
 		<AppDiv onClick={noop} $onlyContent={props.onlyContent}>
-			<FakeTopBar variant={variant} openNav={onClick}/>
+			<FakeTopBar variant={variant} openNav={onClick} />
 			<div className="main">
 				<div className="left">
 					<LeftNav
@@ -192,10 +193,12 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 					/>
 				</div>
 				<div className="content" ref={contentRef}>
-					{ !props.onlyContent && <>
-						<h1>{state.label}</h1>
-						<h2>{state.name}</h2>
-					</> }
+					{!props.onlyContent && (
+						<>
+							<h1>{state.label}</h1>
+							<h2>{state.name}</h2>
+						</>
+					)}
 
 					{props.children ? props.children : lorem}
 				</div>

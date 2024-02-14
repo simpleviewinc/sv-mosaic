@@ -14,7 +14,6 @@ export class ChipPage extends BasePage {
 	readonly disabledChipNotSelected: Locator;
 	readonly disabledChipSelected: Locator;
 
-
 	constructor(page: Page) {
 		super(page);
 		this.page = page;

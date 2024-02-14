@@ -72,7 +72,10 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 				onChange={onChange}
 				autoFocus
 			/>
-			<span>of {props.totalPages}</span>
+			<span>
+				of
+				{props.totalPages}
+			</span>
 			<Button
 				className="goButton"
 				color="blue"

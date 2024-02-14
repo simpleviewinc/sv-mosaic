@@ -66,7 +66,7 @@ window.ResizeObserver = mockResizeObserver;
 describe("TextEditor component", () => {
 	it("should have an ltr direction", async () => {
 		await act(() => {
-			render(<TextEditorExample direction={"ltr"} />);
+			render(<TextEditorExample direction="ltr" />);
 		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 		const joditContainer = editorContent.getElementsByClassName("jodit-container");
@@ -76,7 +76,7 @@ describe("TextEditor component", () => {
 
 	it("should have an rtl direction", async () => {
 		await act(() => {
-			render(<TextEditorExample direction={"rtl"} />);
+			render(<TextEditorExample direction="rtl" />);
 		});
 		const editorContent = await screen.findByTestId("text-editor-testid");
 		const joditContainer = editorContent.getElementsByClassName("jodit-container");
@@ -86,7 +86,7 @@ describe("TextEditor component", () => {
 
 	it("should render in german (de)", async () => {
 		await act(() => {
-			render(<TextEditorExample language={"de"} />);
+			render(<TextEditorExample language="de" />);
 		});
 		expect(await screen.findAllByLabelText("Fett")).toBeTruthy();
 	});
