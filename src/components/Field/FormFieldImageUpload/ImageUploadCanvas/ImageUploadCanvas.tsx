@@ -78,7 +78,6 @@ const ImageUploadCanvas = ({ mousePosition, ...props }: ImageUploadCanvasProps):
 
 	}, [isFocus]);
 
-
 	const setMouseCoordinates = (event) => {
 		const rect = event.target.getBoundingClientRect();
 		const x = event.clientX - rect.left; //x position within the element.

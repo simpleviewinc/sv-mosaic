@@ -16,7 +16,6 @@ import Typography from "./Typography";
 import { ColorTypes } from "../Button";
 import { tags } from "./storyUtils";
 
-
 export default {
 	title : "Components/Typography",
 	decorators: [withKnobs],

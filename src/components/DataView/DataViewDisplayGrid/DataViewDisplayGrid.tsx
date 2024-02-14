@@ -10,7 +10,6 @@ import { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
 import Typography from "@root/components/Typography";
 
-
 function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	if (!props.gridColumnsMap) {
 		throw new Error("You must specify gridColumnsMap in order to use the grid view.");

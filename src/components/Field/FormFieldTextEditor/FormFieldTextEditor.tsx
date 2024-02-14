@@ -100,7 +100,6 @@ const FormFieldTextEditor = (
 		return () => jodit.current.destruct();
 	}, [onBlur, onChange, config]);
 
-
 	/**
 	 * Ridiculous hack because Jodit sucks when trying
 	 * to set a new text editor value

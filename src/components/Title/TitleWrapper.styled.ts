@@ -20,7 +20,6 @@ export const Description = styled.div`
 	margin-top: 5px;
 `;
 
-
 export const BackButton = styled(Button)<TransientProps<TitleWrapperProps, "collapse">>`
 	margin-right: 10px;
 
