@@ -1,5 +1,37 @@
 # sv-mosaic changelog
 
+## 31.0.1 - 02/20/24
+
+### Improvements & Fixes
+
+* `FormFieldTime`
+  * [MOS-1264](https://simpleviewtools.atlassian.net/browse/MOS-1264 "https://simpleviewtools.atlassian.net/browse/MOS-1264")
+    * Ensure time is not considered valid if the user has emptied the input field
+    * Fixes an issue regarding order of documentation
+* `Tooltip`
+  * [MOS-1259](https://simpleviewtools.atlassian.net/browse/MOS-1259 "https://simpleviewtools.atlassian.net/browse/MOS-1259")
+    * Ensures the tooltip hook and component can be used in strict TypeScript environments without throwing errors.
+    * Adds support for a `maxWidth` property that allows the overriding of the default 12rem maximum width.
+* `DataView`
+  * [MOS-1257](https://simpleviewtools.atlassian.net/browse/MOS-1257 "https://simpleviewtools.atlassian.net/browse/MOS-1257")
+    * Reinstates toggling mechanism at the `DataView` level for bulk actions and provide appropriate context w/ new tests
+    * Improved condition for showing DataView's action bar
+* `FormFieldUpload`
+  * [MOS-1251](https://simpleviewtools.atlassian.net/browse/MOS-1251 "https://simpleviewtools.atlassian.net/browse/MOS-1251")
+    * This adds support for individual and cumulative file size limits by introducing two new available input settings for the file upload field. Both properties take the byte limit in the form of a number:
+      * `maxFileSize` can be used to limit each file uploaded. The `onFileAdd` function will not fire and an error will be displayed beneath the offending file item
+      * `maxTotalSize` can be used to limit the total cumulative file size. The file(s) selected will not be added to the queue and a snackbar will be displayed to the user reading "Maximum cumulative file size is x" where x is a formatted amount of bytes.
+* `Menu`
+  * [MOS-1223](https://simpleviewtools.atlassian.net/browse/MOS-1223 "https://simpleviewtools.atlassian.net/browse/MOS-1223")
+    * Employs more specific selector for menu paper styles to avoid applying them to the associated backdrop
+* Housekeeping
+  * [MOS-1262](https://simpleviewtools.atlassian.net/browse/MOS-1262 "https://simpleviewtools.atlassian.net/browse/MOS-1262")
+    * Removes a redundant address field from the form playground story.
+  * [MOS-1138](https://simpleviewtools.atlassian.net/jira/software/c/projects/MOS/boards/149?selectedIssue=MOS-1138 "https://simpleviewtools.atlassian.net/jira/software/c/projects/MOS/boards/149?selectedIssue=MOS-1138")
+    * Upgrades ESLint
+    * Installs ESLint Stylistic
+    * Introduces stricter ESLint rules and fixes all files to conform
+
 ## 31.0.0 - 02/06/24
 
 ### Improvements & Fixes
