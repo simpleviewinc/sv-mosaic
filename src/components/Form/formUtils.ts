@@ -126,7 +126,7 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 }
 
 const cleanValue = (value: unknown) => {
-	if (value === "" || (Array.isArray(value) && value.length === 0)){
+	if (value === "" || (Array.isArray(value) && value.length === 0)) {
 		return undefined;
 	}
 
@@ -207,7 +207,7 @@ export function useForm(): UseFormReturn {
 
 		const result = await runValidators(validatorsMap, data[name], data);
 
-		if (!result){
+		if (!result) {
 			return undefined;
 		}
 
@@ -500,7 +500,6 @@ export function useThunkReducer(reducer: FormReducer, initialState: FormState, e
 	const [state, dispatch] = useReducer(enhancedReducer, initialState);
 
 	const customDispatch: FormDispatch = useCallback((action) => {
-
 
 		if (typeof action === "function") {
 			return action(customDispatch, getState, extraArgs);
