@@ -50,7 +50,7 @@ type OptionalUndefinedParam<P, R> = P extends undefined ? (params?: P) => R : (p
 
 export type FormActionThunk<P = undefined, R = void> = OptionalUndefinedParam<
 	P,
-	(dispatch: FormDispatch, getState: FormGetState, extraArgs: FormExtraArgs) => Promise<R>
+	(dispatch: FormDispatch, getState: FormGetState, stable: FormStable) => Promise<R>
 >;
 
 export type FormActionThunks = {
@@ -218,7 +218,7 @@ export type UseFormReturn = {
 	handleSubmit: FormHandleSubmit;
 };
 
-export type FormExtraArgs = {
+export type FormStable = {
 	fields: Record<string, FieldDefSanitized>;
 	onSubmit: () => void;
 	mounted: Record<string, boolean | undefined>;

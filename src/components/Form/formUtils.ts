@@ -1,5 +1,5 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FieldCanBeValidated, FormAction, FormDispatch, FormExtraArgs, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, SetFormValues, DisableForm } from "./state/types";
+import { FieldCanBeValidated, FormAction, FormDispatch, FormStable, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, SetFormValues, DisableForm } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
@@ -134,7 +134,7 @@ const cleanValue = (value: unknown) => {
 };
 
 export function useForm(): UseFormReturn {
-	const extraArgs = useRef<FormExtraArgs>({
+	const stable = useRef<FormStable>({
 		fields: {},
 		onSubmit: () => undefined,
 		mounted: {},
@@ -155,21 +155,21 @@ export function useForm(): UseFormReturn {
 			busyFields: {},
 			submitWarning: "",
 		},
-		extraArgs.current,
+		stable.current,
 	);
 
 	const getFieldFromExtra = useCallback((name: string) => {
-		if (!extraArgs.current.fields[name]) {
-			throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.current.fields).map(name => `\`${name}\``).join(", ")}`);
+		if (!stable.current.fields[name]) {
+			throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(stable.current.fields).map(name => `\`${name}\``).join(", ")}`);
 		}
 
-		return extraArgs.current.fields[name];
+		return stable.current.fields[name];
 	}, []);
 
 	const getFieldError = useCallback<GetFieldError>(async ({
 		name,
 	}) => {
-		const { data, internalValidators } = extraArgs.current;
+		const { data, internalValidators } = stable.current;
 		const field = getFieldFromExtra(name);
 
 		const requiredFlag = field.required;
@@ -240,7 +240,7 @@ export function useForm(): UseFormReturn {
 	const fieldCanBeValidated = useCallback<FieldCanBeValidated>(({
 		name,
 	}) => {
-		const { mounted } = extraArgs.current;
+		const { mounted } = stable.current;
 
 		if (!mounted[name]) {
 			return false;
@@ -290,7 +290,7 @@ export function useForm(): UseFormReturn {
 			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
 		}), {});
 
-		extraArgs.current.data = values;
+		stable.current.data = values;
 
 		return dispatch({
 			type: "FIELDS_ON_CHANGE",
@@ -309,10 +309,10 @@ export function useForm(): UseFormReturn {
 		const { errors } = state;
 		const field = getFieldFromExtra(name);
 
-		const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.current.data[name]) : providedValue;
+		const providedValueResolved = typeof providedValue === "function" ? providedValue(stable.current.data[name]) : providedValue;
 		const { internalValue, value } = field.getResolvedValue(providedValueResolved);
 
-		extraArgs.current.data[name] = value;
+		stable.current.data[name] = value;
 
 		dispatch({
 			type: "FIELD_ON_CHANGE",
@@ -331,7 +331,7 @@ export function useForm(): UseFormReturn {
 
 		if (
 			field.validateOn === "onBlurChange" &&
-			extraArgs.current.hasBlurred[name]
+			stable.current.hasBlurred[name]
 		) {
 			validateField({
 				name,
@@ -341,10 +341,10 @@ export function useForm(): UseFormReturn {
 
 		if (
 			field.validateOn === "onBlurAmend" &&
-			extraArgs.current.hasBlurred[name] &&
+			stable.current.hasBlurred[name] &&
 			errors[name]
 		) {
-			delete extraArgs.current.hasBlurred[name];
+			delete stable.current.hasBlurred[name];
 			dispatch({
 				type: "FIELD_UNVALIDATE",
 				name,
@@ -356,7 +356,7 @@ export function useForm(): UseFormReturn {
 		name,
 	}) => {
 		const field = getFieldFromExtra(name);
-		extraArgs.current.hasBlurred[name] = true;
+		stable.current.hasBlurred[name] = true;
 
 		if (
 			field.validateOn === "onBlur" ||
@@ -380,7 +380,7 @@ export function useForm(): UseFormReturn {
 	}, [dispatch]);
 
 	const submitForm = useCallback<SubmitForm>(async () => {
-		const { data, fields } = extraArgs.current;
+		const { data, fields } = stable.current;
 		const { busyFields } = state;
 
 		const names = Object.entries(fields)
@@ -436,7 +436,7 @@ export function useForm(): UseFormReturn {
 			[name]: value,
 		}), {});
 
-		extraArgs.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
+		stable.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
 			...prev,
 			[curr]: true,
 		}), {});
@@ -480,7 +480,7 @@ export function useForm(): UseFormReturn {
 	};
 }
 
-export function useThunkReducer(reducer: FormReducer, initialState: FormState, extraArgs: FormExtraArgs): [FormState, FormDispatch] {
+export function useThunkReducer(reducer: FormReducer, initialState: FormState, stable: FormStable): [FormState, FormDispatch] {
 	const lastState = useRef(initialState);
 
 	const getState: FormGetState = useCallback(() => {
@@ -502,11 +502,11 @@ export function useThunkReducer(reducer: FormReducer, initialState: FormState, e
 	const customDispatch: FormDispatch = useCallback((action) => {
 
 		if (typeof action === "function") {
-			return action(customDispatch, getState, extraArgs);
+			return action(customDispatch, getState, stable);
 		}
 
 		return dispatch(action);
-	}, [getState, extraArgs]);
+	}, [getState, stable]);
 
 	return [state, customDispatch];
 }
