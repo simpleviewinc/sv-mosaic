@@ -1,5 +1,5 @@
 import { mapsValidators, required, validatePhoneNumber, Validator } from "./validators";
-import { FormActionThunks, FormExtraArgs } from "./state/types";
+import { FormActionThunks, FormStable } from "./state/types";
 import { getFieldConfig } from "./Col/fieldConfigMap";
 import { FieldDefSanitized } from "../Field";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
@@ -33,18 +33,18 @@ const isValidValue = (value: any) => {
 	return true;
 };
 
-function getFieldFromExtra(extraArgs: FormExtraArgs, name: string) {
-	if (!extraArgs.fields[name]) {
-		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(extraArgs.fields).map(name => `\`${name}\``).join(", ")}`);
+function getFieldFromExtra(stable: FormStable, name: string) {
+	if (!stable.fields[name]) {
+		throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(stable.fields).map(name => `\`${name}\``).join(", ")}`);
 	}
 
-	return extraArgs.fields[name];
+	return stable.fields[name];
 }
 
 export const formActions: FormActionThunks = {
 	init({ fields }) {
-		return async function (_dispatch, _getState, extraArgs) {
-			extraArgs.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field) => {
+		return async function (_dispatch, _getState, stable) {
+			stable.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field) => {
 				const fieldConfig = getFieldConfig(field.type);
 				const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
 
@@ -73,13 +73,13 @@ export const formActions: FormActionThunks = {
 	 * @deprecated Use form controller's method.setFormValues instead
 	 */
 	setFormValues({ values }) {
-		return async function (dispatch, _getState, extraArgs) {
+		return async function (dispatch, _getState, stable) {
 			const internalValues = Object.keys(values).reduce((acc, curr) => ({
 				...acc,
-				[curr]: getFieldFromExtra(extraArgs, curr).getResolvedValue(values[curr]).internalValue,
+				[curr]: getFieldFromExtra(stable, curr).getResolvedValue(values[curr]).internalValue,
 			}), {});
 
-			extraArgs.data = values;
+			stable.data = values;
 
 			return dispatch({
 				type: "FIELDS_ON_CHANGE",
@@ -98,16 +98,16 @@ export const formActions: FormActionThunks = {
 		validate = false,
 		touched = false,
 	}) {
-		return async function (dispatch, getState, extraArgs) {
+		return async function (dispatch, getState, stable) {
 			console.warn("Using `dispatch(formActions.setFieldValue(...)) is deprecated. Use `methods.setFieldValue(...)` instead which is available on the controller returned from `useForm`.");
 
 			const { errors } = getState();
-			const field = getFieldFromExtra(extraArgs, name);
+			const field = getFieldFromExtra(stable, name);
 
-			const providedValueResolved = typeof providedValue === "function" ? providedValue(extraArgs.data[name]) : providedValue;
+			const providedValueResolved = typeof providedValue === "function" ? providedValue(stable.data[name]) : providedValue;
 			const { internalValue, value } = field.getResolvedValue(providedValueResolved);
 
-			extraArgs.data[name] = value;
+			stable.data[name] = value;
 
 			await dispatch({
 				type: "FIELD_ON_CHANGE",
@@ -126,7 +126,7 @@ export const formActions: FormActionThunks = {
 
 			if (
 				field.validateOn === "onBlurChange" &&
-				extraArgs.hasBlurred[name]
+				stable.hasBlurred[name]
 			) {
 				await dispatch(formActions.validateField({
 					name,
@@ -136,10 +136,10 @@ export const formActions: FormActionThunks = {
 
 			if (
 				field.validateOn === "onBlurAmend" &&
-				extraArgs.hasBlurred[name] &&
+				stable.hasBlurred[name] &&
 				errors[name]
 			) {
-				delete extraArgs.hasBlurred[name];
+				delete stable.hasBlurred[name];
 				await dispatch({
 					type: "FIELD_UNVALIDATE",
 					name,
@@ -153,9 +153,9 @@ export const formActions: FormActionThunks = {
 	setFieldBlur({
 		name,
 	}) {
-		return async function(dispatch, _getState, extraArgs) {
-			const field = getFieldFromExtra(extraArgs, name);
-			extraArgs.hasBlurred[name] = true;
+		return async function(dispatch, _getState, stable) {
+			const field = getFieldFromExtra(stable, name);
+			stable.hasBlurred[name] = true;
 
 			if (
 				field.validateOn === "onBlur" ||
@@ -171,10 +171,10 @@ export const formActions: FormActionThunks = {
 		};
 	},
 	validateField({ name, validateLinkedFields }) {
-		return async function (dispatch, getState, extraArgs) {
+		return async function (dispatch, getState, stable) {
 			const state = getState();
-			const { data, mounted, internalValidators } = extraArgs;
-			const field = getFieldFromExtra(extraArgs, name);
+			const { data, mounted, internalValidators } = stable;
+			const field = getFieldFromExtra(stable, name);
 
 			if (!mounted[name]) {
 				return;
@@ -193,7 +193,7 @@ export const formActions: FormActionThunks = {
 				});
 			}
 
-			const disabledWrapped = wrapToggle(extraArgs.fields[name]?.disabled, state, false);
+			const disabledWrapped = wrapToggle(stable.fields[name]?.disabled, state, false);
 			const disabled = getToggle(disabledWrapped);
 
 			/**
@@ -210,30 +210,30 @@ export const formActions: FormActionThunks = {
 				return;
 			}
 
-			const requiredFlag = extraArgs.fields[name]?.required;
-			const validators = extraArgs.fields[name]?.validators ? extraArgs.fields[name]?.validators : [];
+			const requiredFlag = stable.fields[name]?.required;
+			const validators = stable.fields[name]?.validators ? stable.fields[name]?.validators : [];
 
 			if (requiredFlag) {
 				validators.unshift(required);
 			}
 
-			if (extraArgs.fields[name].type === "phone") {
+			if (stable.fields[name].type === "phone") {
 				validators.push(validatePhoneNumber);
 			}
 
-			if (extraArgs.fields[name]?.inputSettings?.maxCharacters > 0) {
+			if (stable.fields[name]?.inputSettings?.maxCharacters > 0) {
 				validators.push({
 					fn: "validateCharacterCount",
-					options: { max: extraArgs.fields[name]?.inputSettings?.maxCharacters },
+					options: { max: stable.fields[name]?.inputSettings?.maxCharacters },
 				});
 			}
 
-			if (extraArgs.fields[name]?.inputSettings?.minDate || extraArgs.fields[name]?.inputSettings?.maxDate) {
+			if (stable.fields[name]?.inputSettings?.minDate || stable.fields[name]?.inputSettings?.maxDate) {
 				validators.push({
 					fn: "validateMinDate",
 					options: {
-						min: extraArgs.fields[name]?.inputSettings?.minDate,
-						max: extraArgs.fields[name]?.inputSettings?.maxDate,
+						min: stable.fields[name]?.inputSettings?.minDate,
+						max: stable.fields[name]?.inputSettings?.maxDate,
 					},
 				});
 			}
@@ -307,9 +307,9 @@ export const formActions: FormActionThunks = {
 		};
 	},
 	submitForm() {
-		return async function (dispatch, getState, extraArgs) {
+		return async function (dispatch, getState, stable) {
 			const state = getState();
-			const { data, mounted } = extraArgs;
+			const { data, mounted } = stable;
 
 			if (!(await dispatch(formActions.isSubmittable()))) {
 				return {
@@ -323,7 +323,7 @@ export const formActions: FormActionThunks = {
 			);
 
 			const cleanData = Object.keys(data).reduce((acc, curr) => {
-				const disabledWrapped = wrapToggle(extraArgs.fields[curr]?.disabled, state, false);
+				const disabledWrapped = wrapToggle(stable.fields[curr]?.disabled, state, false);
 				const disabled = getToggle(disabledWrapped);
 
 				if (!mounted[curr] || disabled) {
@@ -339,7 +339,7 @@ export const formActions: FormActionThunks = {
 				};
 			}, {});
 
-			extraArgs.hasBlurred = Object.keys(extraArgs.fields).reduce((prev, curr) => ({
+			stable.hasBlurred = Object.keys(stable.fields).reduce((prev, curr) => ({
 				...prev,
 				[curr]: true,
 			}), {});
@@ -386,13 +386,13 @@ export const formActions: FormActionThunks = {
 		};
 	},
 	mountField({ name }) {
-		return async function (dispatch, _, extraArgs) {
-			extraArgs.mounted[name] = true;
+		return async function (dispatch, _, stable) {
+			stable.mounted[name] = true;
 		};
 	},
 	unmountField({ name }) {
-		return async function (dispatch, _, extraArgs) {
-			extraArgs.mounted[name] = false;
+		return async function (dispatch, _, stable) {
+			stable.mounted[name] = false;
 
 			dispatch({
 				type: "FIELD_UNVALIDATE",
@@ -433,8 +433,8 @@ export const formActions: FormActionThunks = {
 		};
 	},
 	addValidator({ name, validator }) {
-		return async function (_dispatch, _getState, extraArgs) {
-			const current = extraArgs.internalValidators[name] || [];
+		return async function (_dispatch, _getState, stable) {
+			const current = stable.internalValidators[name] || [];
 
 			/**
 			 * Just bail if this validator is already registered
@@ -443,15 +443,15 @@ export const formActions: FormActionThunks = {
 				return;
 			}
 
-			extraArgs.internalValidators[name] = [
+			stable.internalValidators[name] = [
 				...current,
 				validator,
 			];
 		};
 	},
 	removeValidator({ name, validator }) {
-		return async function (_dispatch, _getState, extraArgs) {
-			const current = extraArgs.internalValidators[name] || [];
+		return async function (_dispatch, _getState, stable) {
+			const current = stable.internalValidators[name] || [];
 
 			/**
 			 * Just bail if this validator isn't registered
@@ -460,7 +460,7 @@ export const formActions: FormActionThunks = {
 				return;
 			}
 
-			extraArgs.internalValidators[name] = current.filter(item => item !== validator);
+			stable.internalValidators[name] = current.filter(item => item !== validator);
 		};
 	},
 };
