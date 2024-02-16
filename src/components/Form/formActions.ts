@@ -74,6 +74,8 @@ export const formActions: FormActionThunks = {
 	 */
 	setFormValues({ values }) {
 		return async function (dispatch, _getState, stable) {
+			console.warn("Using `dispatch(formActions.setFormValues(...)) is deprecated. Use `methods.setFormValues(...)` instead which is available on the controller returned from `useForm`.");
+
 			const internalValues = Object.keys(values).reduce((acc, curr) => ({
 				...acc,
 				[curr]: getFieldFromExtra(stable, curr).getResolvedValue(values[curr]).internalValue,
@@ -154,6 +156,8 @@ export const formActions: FormActionThunks = {
 		name,
 	}) {
 		return async function(dispatch, _getState, stable) {
+			console.warn("Using `dispatch(formActions.setFieldBlur(...)) is deprecated. Use `methods.setFieldBlur(...)` instead which is available on the controller returned from `useForm`.");
+
 			const field = getFieldFromExtra(stable, name);
 			stable.hasBlurred[name] = true;
 
@@ -170,7 +174,15 @@ export const formActions: FormActionThunks = {
 
 		};
 	},
+	/**
+	 * @deprecated Now internal use only. There should never be a need
+	 * for consumers to invoke validateField. If you are looking to validate
+	 * a field when it is changed, use the `validate` property when invoking
+	 * `setFieldValue`
+	 */
 	validateField({ name, validateLinkedFields }) {
+		console.warn("Using `dispatch(formActions.validateField(...)) is deprecated. Provide `{ validate: true }` when using `setFieldValue` instead.");
+
 		return async function (dispatch, getState, stable) {
 			const state = getState();
 			const { data, mounted, internalValidators } = stable;
@@ -259,8 +271,16 @@ export const formActions: FormActionThunks = {
 			}
 		};
 	},
+	/**
+	 * @deprecated Now internal use only. There should never be a need
+	 * for consumers to invoke validateForm. If you are looking to validate
+	 * fields when they are changed, use the `validate` property when invoking
+	 * `setFormValues`
+	 */
 	validateForm() {
 		return async function (dispatch, getState, { data, fields }) {
+			console.warn("Using `dispatch(formActions.validateForm(...)) is deprecated. Provide `{ validate: true }` when using `setFormValues` instead.");
+
 			await dispatch({
 				type: "FORM_START_DISABLE",
 				value: true,
@@ -306,8 +326,14 @@ export const formActions: FormActionThunks = {
 			return validForm;
 		};
 	},
+	/**
+	 * @deprecated Use form controller's `handleSubmit` instead which wraps a
+	 * callback that should be invoked upon successful submission.
+	 */
 	submitForm() {
 		return async function (dispatch, getState, stable) {
+			console.warn("Using `dispatch(formActions.submitForm(...)) is deprecated. Wrap your submit handler in the `handleSubmit` higher order function instead instead which is available on the controller returned from `useForm`.");
+
 			const state = getState();
 			const { data, mounted } = stable;
 
@@ -362,6 +388,8 @@ export const formActions: FormActionThunks = {
 	 */
 	disableForm({ disabled = false }) {
 		return async function (dispatch) {
+			console.warn("Using `dispatch(formActions.disableForm(...)) is deprecated. Use `methods.disableForm(...)` instead which is available on the controller returned from `useForm`.");
+
 			await dispatch({
 				type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
 				value: disabled,
@@ -400,8 +428,13 @@ export const formActions: FormActionThunks = {
 			});
 		};
 	},
+	/**
+	 * @deprecated
+	 */
 	isSubmittable() {
 		return async function (dispatch, getState) {
+			console.warn("Using `dispatch(formActions.isSubmittable(...)) is deprecated.");
+
 			const { disabled, busyFields } = getState();
 
 			if (disabled) {
