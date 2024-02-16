@@ -122,6 +122,9 @@ export type FormActionThunks = {
 	unmountField: FormActionThunk<{
 		name: string;
 	}>;
+	/**
+	 * @deprecated
+	 */
 	isSubmittable: FormActionThunk<undefined, boolean>;
 	addValidator: FormActionThunk<{
 		name: string;
