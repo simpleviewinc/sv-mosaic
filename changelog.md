@@ -1,5 +1,13 @@
 # sv-mosaic changelog
 
+## 31.0.2 - 02/20/24
+
+### Improvements & Fixes
+
+* `Form`
+  * [MOS-1266](https://simpleviewtools.atlassian.net/browse/MOS-1266 "https://simpleviewtools.atlassian.net/browse/MOS-1266")
+    * Ensures the form action `submitForm` waits for the result of the asynchronous function `isSubmittable` to correctly return a `{ valid: false }` result.
+
 ## 31.0.1 - 02/20/24
 
 ### Improvements & Fixes
