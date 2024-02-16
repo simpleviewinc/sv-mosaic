@@ -307,7 +307,7 @@ export const formActions: FormActionThunks = {
 			const state = getState();
 			const { data, mounted } = extraArgs;
 
-			if (!dispatch(formActions.isSubmittable())) {
+			if (!(await dispatch(formActions.isSubmittable()))) {
 				return {
 					valid: false,
 					data: null,
