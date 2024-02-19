@@ -2,10 +2,10 @@ import { Sizes } from "@root/theme";
 import { FieldDef, FieldDefCustom } from "./FieldTypes";
 
 export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, Sizes> = {
-	text: Sizes.sm,
+	text: Sizes.md,
 	checkbox: Sizes.md,
 	chip: Sizes.md,
-	dropdown: Sizes.sm,
+	dropdown: Sizes.md,
 	phone: Sizes.sm,
 	radio: Sizes.sm,
 	toggleSwitch: Sizes.md,
