@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
-import { withKnobs, number } from "@storybook/addon-knobs";
+import { ReactElement, useState, useMemo } from "react";
+import { withKnobs, number, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
@@ -22,16 +22,31 @@ export default {
 
 const homeContent = <h1>Welcome home!</h1>;
 
+const showMap = {
+	"Undefined": undefined,
+	"True": true,
+	"False": false,
+	"Function that returns true": () => true,
+	"Function that returns false": () => false,
+	"Array of true values": [true, true, true],
+	"Array with one falsy value": [true, false, true],
+	"Array of functions that return true": [() => true, () => true],
+	"Array of functions, one returns false": [() => false, () => true],
+};
+
+const showOptions = Object.keys(showMap) as (keyof typeof showMap)[];
+
 export const Example = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(homeContent);
 	const [active, setActive] = useState("home");
+	const show = select("Show Google", showOptions, "Undefined");
 
 	const onNav = (args: SideNavArgs) => {
 		setActive(args.item.name);
 		setContent(<h1>{args.item.label}</h1>);
 	};
 
-	const items: Item[][] = [
+	const items = useMemo<Item[][]>(() => [
 		[
 			{
 				label: "Home",
@@ -92,6 +107,7 @@ export const Example = (): ReactElement => {
 					href: "https://www.google.co.uk",
 				},
 				onNav: false,
+				show: showMap[show],
 			},
 			{
 				label: "Google (New Tab)",
@@ -165,7 +181,7 @@ export const Example = (): ReactElement => {
 				},
 			},
 		],
-	];
+	], [show]);
 
 	const parentHeight = number("Parent height (px)", 500);
 
