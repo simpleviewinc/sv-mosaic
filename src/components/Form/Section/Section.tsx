@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useRef, useState, useEffect, useMemo } from "react";
+import { memo, useRef, useCallback, useState, useEffect, useMemo } from "react";
 
 // Components
 import Row from "../Row";
@@ -31,8 +31,34 @@ const Section = (props: SectionPropTypes) => {
 		spacing,
 	} = props;
 
-	const [expanded, setExpanded] = useState<boolean>(!collapsed);
+	const fieldsHaveErrors = useCallback(() => {
+		const fieldNames = rows.flat(2);
+
+		if (fieldNames.some(name => state.errors[name])){
+			return true;
+		}
+
+		return false;
+	}, [rows, state.errors]);
+
+	const defaultExpanded = useMemo(() => {
+		if (fieldsHaveErrors()) {
+			return true;
+		}
+
+		return !collapsed;
+	}, [collapsed, fieldsHaveErrors]);
+
+	const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
 	const ref = useRef<HTMLDivElement>();
+
+	useEffect(() => {
+		if (!fieldsHaveErrors()){
+			return;
+		}
+
+		setExpanded(true);
+	}, [fieldsHaveErrors]);
 
 	useEffect(() => {
 		setExpanded(!collapsed);
@@ -42,25 +68,6 @@ const Section = (props: SectionPropTypes) => {
 		setExpanded(newExpandVal);
 	};
 
-	const fieldsInSection = useMemo(() => {
-		const fieldNames = [];
-
-		for (const row of rows) {
-			fieldNames.push(...row);
-		}
-
-		return fieldNames;
-	}, [rows]);
-
-	useEffect(() => {
-		for (let i = 0; i < fieldsInSection.length; i++) {
-			if (state.errors?.[fieldsInSection[i]]) {
-				setExpanded(true);
-				break;
-			}
-		}
-	}, [state.errors, fieldsInSection.length]);
-
 	useEffect(() => {
 		const unregister = registerRef(ref.current);
 		return unregister;
@@ -69,6 +76,7 @@ const Section = (props: SectionPropTypes) => {
 	return (
 		<StyledAccordion
 			data-testid="section-test-id"
+			defaultExpanded={defaultExpanded}
 			expanded={expanded}
 			onChange={onExpandChange}
 			square={true}
