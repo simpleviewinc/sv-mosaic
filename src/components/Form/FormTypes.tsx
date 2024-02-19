@@ -38,6 +38,7 @@ export interface FormProps {
 	scrollSpyThreshold?: number;
 	fullHeight?: boolean;
 	spacing?: FormSpacing;
+	useSectionHash?: string | false
 }
 
 export interface FieldError {

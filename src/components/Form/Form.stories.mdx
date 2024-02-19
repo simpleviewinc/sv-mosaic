@@ -21,6 +21,7 @@ functionality and not how to make a form work.
 * **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
 * **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
 * **onBack** - `(() => void) | ((...args: any) => void)` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
+* **useSectionHash** - `string | false` - optional - The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely.
 
 ## useForm Hook
 - In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
