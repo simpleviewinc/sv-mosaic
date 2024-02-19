@@ -4,6 +4,16 @@ import { MosaicToggle } from "@root/types";
 import wrapToggle from "./wrapToggle";
 import useToggle from "./useToggle";
 
+/**
+ * The same as `useToggle` but also accepts a context against which
+ * to test any toggle callbacks. The context will be provided as the
+ * first parameter to the toggle callbacks at the time of each test.
+ *
+ * @param items The item or items containing the show property
+ * @param params The context to be provided to any toggle callbacks
+ * @param key The property that holds a valid toggle boolean/callback/array
+ * @param defaultToggle What the result should fall back to when the toggle property is undefined. Default `true`.
+ */
 function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
 	items: T[],
 	params: P,
