@@ -35,8 +35,6 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		$size: props.size,
 		onClick: props.onClick,
 		onBlur: props.onBlur,
-		onMouseEnter: props.onMouseEnter,
-		onMouseLeave: props.onMouseLeave,
 		href: props.href,
 		name: props.name,
 		ref,
@@ -58,6 +56,8 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 				size_${props.size}
 				variant_${props.variant}
 			`}
+			onMouseEnter={props.onMouseEnter}
+			onMouseLeave={props.onMouseLeave}
 		>
 			{isIconButton ? (
 				<Component {...buttonProps}>
