@@ -27,10 +27,12 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 	const isIconButton = props.variant === "icon";
 	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{ color: props.mIconColor }} />;
 
+	const shouldDisable = useToggle(props, "disabled", false);
+
 	const buttonProps = {
 		$variant: props.variant,
 		$color: props.color || "gray",
-		disabled: props.disabled,
+		disabled: shouldDisable,
 		size: props.size,
 		$size: props.size,
 		onClick: props.onClick,
