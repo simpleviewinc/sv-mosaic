@@ -1,7 +1,7 @@
-import { AnimateParams, AnimateStart, AnimateState, AnimateStop } from "./animateTypes";
+import { AnimateParams, AnimateStart, AnimateState, AnimateStop, Animation } from "./animateTypes";
 import easingFns from "../easing";
 
-export default function animate(params: AnimateParams = {}) {
+export default function animate(params: AnimateParams = {}): Animation {
 	const state: AnimateState = {
 		fn: () => null,
 		startTimestamp: 0,
@@ -34,7 +34,10 @@ export default function animate(params: AnimateParams = {}) {
 
 		if (progress < 1) {
 			window.requestAnimationFrame(_tick);
+			return;
 		}
+
+		state.preventNext = true;
 	};
 
 	const start: AnimateStart = (params = {}) => {
@@ -49,8 +52,13 @@ export default function animate(params: AnimateParams = {}) {
 		state.preventNext = true;
 	};
 
+	const inProgress = () => {
+		return !state.preventNext;
+	};
+
 	return {
 		start,
 		stop,
+		inProgress,
 	};
 }

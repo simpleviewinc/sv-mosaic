@@ -50,6 +50,7 @@ const Form = (props: FormProps) => {
 		scrollSpyThreshold = 0.15,
 		fullHeight = true,
 		spacing = "normal",
+		useSectionHash = "section",
 	} = props;
 
 	/**
@@ -60,6 +61,7 @@ const Form = (props: FormProps) => {
 	const formContentRef = useRef<HTMLDivElement>();
 
 	const {
+		animation: { inProgress: scrollSpyAnimating },
 		activeSection,
 		setActiveSection,
 	} = useScrollSpy({
@@ -67,6 +69,33 @@ const Form = (props: FormProps) => {
 		container: formContentRef.current,
 		threshold: scrollSpyThreshold,
 	});
+
+	useEffect(() => {
+		if (!useSectionHash) {
+			return;
+		}
+
+		const { hash } = window.location;
+		const regexp = new RegExp(`^#${useSectionHash}-(\\d+)`);
+		const match = hash && hash.match(regexp);
+
+		if (!match) {
+			return;
+		}
+
+		const sectionIndex = Number(match[1]);
+		setActiveSection(sectionIndex);
+	}, [useSectionHash, setActiveSection]);
+
+	useEffect(() => {
+		if (!useSectionHash || scrollSpyAnimating()) {
+			return;
+		}
+
+		const url = new URL(window.location.toString());
+		url.hash = `${useSectionHash}-${activeSection}`;
+		history.replaceState({}, "", url.toString());
+	}, [useSectionHash, activeSection, scrollSpyAnimating]);
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });

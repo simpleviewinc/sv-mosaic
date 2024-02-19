@@ -135,5 +135,6 @@ export default function useScrollSpy<E extends HTMLElement>({
 	return {
 		activeSection,
 		setActiveSection,
+		animation,
 	};
 }
