@@ -133,30 +133,52 @@ const cleanValue = (value: unknown) => {
 	return value;
 };
 
+const initialState = {
+	internalData: {},
+	data: {},
+	errors: {},
+	disabled: false,
+	touched: {},
+	busyFields: {},
+	submitWarning: "",
+};
+
+function stateFromStable({
+	internalData,
+	data,
+	errors,
+	disabled,
+	touched,
+	busyFields,
+	submitWarning,
+}: FormStable): FormState {
+	return {
+		internalData,
+		data,
+		errors,
+		disabled,
+		touched,
+		busyFields,
+		submitWarning,
+	};
+}
+
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>({
+		...initialState,
 		fields: {},
-		onSubmit: () => undefined,
 		mounted: {},
 		internalValidators: {},
 		hasBlurred: {},
-		data: {},
 	});
 
 	const [state, dispatch] = useThunkReducer(
 		coreReducer,
-		{
-			internalData: {},
-			data: {},
-			errors: {},
-			disabled: false,
-			touched: {},
-			mounted: {},
-			busyFields: {},
-			submitWarning: "",
-		},
+		initialState,
 		stable.current,
 	);
+
+	const { busyFields } = state;
 
 	const getFieldFromExtra = useCallback((name: string) => {
 		if (!stable.current.fields[name]) {
@@ -248,7 +270,7 @@ export function useForm(): UseFormReturn {
 
 		const field = getFieldFromExtra(name);
 
-		const disabledWrapped = wrapToggle(field.disabled, state, false);
+		const disabledWrapped = wrapToggle(field.disabled, stateFromStable(stable.current), false);
 		const disabled = getToggle(disabledWrapped);
 
 		if (disabled) {
@@ -256,7 +278,7 @@ export function useForm(): UseFormReturn {
 		}
 
 		return true;
-	}, [getFieldFromExtra, state]);
+	}, [getFieldFromExtra]);
 
 	const validateField = useCallback<ValidateField>(async ({
 		name,
@@ -274,6 +296,8 @@ export function useForm(): UseFormReturn {
 
 			Object.assign(errors, linkedFieldErrors);
 		}
+
+		stable.current.errors = errors;
 
 		dispatch({
 			type: "SET_FIELD_ERRORS",
@@ -306,7 +330,7 @@ export function useForm(): UseFormReturn {
 		touched,
 		validate,
 	}) => {
-		const { errors } = state;
+		const { errors } = stable.current;
 		const field = getFieldFromExtra(name);
 
 		const providedValueResolved = typeof providedValue === "function" ? providedValue(stable.current.data[name]) : providedValue;
@@ -350,7 +374,7 @@ export function useForm(): UseFormReturn {
 				name,
 			});
 		}
-	}, [dispatch, getFieldFromExtra, state, validateField]);
+	}, [dispatch, getFieldFromExtra, validateField]);
 
 	const setFieldBlur = useCallback<SetFieldBlur>(({
 		name,
@@ -381,7 +405,6 @@ export function useForm(): UseFormReturn {
 
 	const submitForm = useCallback<SubmitForm>(async () => {
 		const { data, fields } = stable.current;
-		const { busyFields } = state;
 
 		const names = Object.entries(fields)
 			.map(([, field]) => field.name)
@@ -390,6 +413,8 @@ export function useForm(): UseFormReturn {
 		const { count, errors } = await getFieldErrors({ names });
 
 		if (count) {
+			stable.current.errors = errors;
+
 			dispatch({
 				type: "SET_FIELD_ERRORS",
 				errors,
@@ -445,7 +470,7 @@ export function useForm(): UseFormReturn {
 			valid: true,
 			data: cleanData,
 		};
-	}, [dispatch, fieldCanBeValidated, getFieldErrors, state]);
+	}, [dispatch, fieldCanBeValidated, getFieldErrors, busyFields]);
 
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,

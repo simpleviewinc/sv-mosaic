@@ -3,17 +3,6 @@ import { Dispatch } from "react";
 import { FieldDef } from "../FormTypes";
 import { FieldDefSanitized } from "@root/components/Field";
 
-export type FormState = {
-	internalData: MosaicObject<any>;
-	data: MosaicObject<any>;
-	errors: MosaicObject<string>;
-	disabled: boolean;
-	touched: MosaicObject<boolean>;
-	mounted: MosaicObject<boolean>;
-	busyFields: MosaicObject<boolean>;
-	submitWarning: string;
-};
-
 export type ActionTypes =
     | "FIELD_ON_CHANGE"
     | "FIELDS_ON_CHANGE"
@@ -214,6 +203,16 @@ export type FormMethods = {
 	submitForm: SubmitForm;
 };
 
+export type FormState = {
+	internalData: MosaicObject<any>;
+	data: MosaicObject<any>;
+	errors: MosaicObject<string>;
+	disabled: boolean;
+	touched: MosaicObject<boolean>;
+	busyFields: MosaicObject<boolean>;
+	submitWarning: string;
+};
+
 export type UseFormReturn = {
 	state: FormState;
 	dispatch: FormDispatch;
@@ -221,13 +220,11 @@ export type UseFormReturn = {
 	handleSubmit: FormHandleSubmit;
 };
 
-export type FormStable = {
+export type FormStable = FormState & {
 	fields: Record<string, FieldDefSanitized>;
-	onSubmit: () => void;
 	mounted: Record<string, boolean | undefined>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
-	data: MosaicObject<any>;
 };
 
 export type FormReducer = (state: FormState, action: FormAction) => FormState;

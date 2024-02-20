@@ -71,8 +71,19 @@ const ColField = ({
 			ref={sanitizedFieldDef.ref}
 			dispatch={dispatch}
 			disabled={disabled}
+			methods={methods}
 		/>
-	), [sanitizedFieldDef, value, error, onChange, onBlur, dispatch]);
+	), [
+		Component,
+		sanitizedFieldDef,
+		value,
+		error,
+		onChange,
+		onBlur,
+		dispatch,
+		disabled,
+		methods,
+	]);
 
 	if (!shouldShow) {
 		return null;
