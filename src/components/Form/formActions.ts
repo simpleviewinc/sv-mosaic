@@ -396,21 +396,6 @@ export const formActions: FormActionThunks = {
 			});
 		};
 	},
-	mountField({ name }) {
-		return async function (dispatch, _, stable) {
-			stable.mounted[name] = true;
-		};
-	},
-	unmountField({ name }) {
-		return async function (dispatch, _, stable) {
-			stable.mounted[name] = false;
-
-			dispatch({
-				type: "FIELD_UNVALIDATE",
-				name,
-			});
-		};
-	},
 	/**
 	 * @deprecated
 	 */
