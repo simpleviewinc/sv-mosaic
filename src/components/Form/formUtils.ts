@@ -361,10 +361,10 @@ export function useForm(): UseFormReturn {
 		touched,
 		validate,
 	}) => {
-		const { errors } = stable.current;
+		const { errors, data, hasBlurred } = stable.current;
 		const field = getFieldFromExtra(name);
 
-		const providedValueResolved = typeof providedValue === "function" ? providedValue(stable.current.data[name]) : providedValue;
+		const providedValueResolved = typeof providedValue === "function" ? providedValue(data[name]) : providedValue;
 		const { internalValue, value } = field.getResolvedValue(providedValueResolved);
 
 		stable.current.data[name] = value;
@@ -386,7 +386,7 @@ export function useForm(): UseFormReturn {
 
 		if (
 			field.validateOn === "onBlurChange" &&
-			stable.current.hasBlurred[name]
+			hasBlurred[name]
 		) {
 			validateField({
 				name,
@@ -396,7 +396,7 @@ export function useForm(): UseFormReturn {
 
 		if (
 			field.validateOn === "onBlurAmend" &&
-			stable.current.hasBlurred[name] &&
+			hasBlurred[name] &&
 			errors[name]
 		) {
 			delete stable.current.hasBlurred[name];
@@ -435,7 +435,7 @@ export function useForm(): UseFormReturn {
 	}, [dispatch]);
 
 	const submitForm = useCallback<SubmitForm>(async () => {
-		const { data, fields } = stable.current;
+		const { data, fields, waits } = stable.current;
 
 		const names = Object.entries(fields)
 			.map(([, field]) => field.name)
@@ -465,12 +465,12 @@ export function useForm(): UseFormReturn {
 			};
 		}
 
-		if (stable.current.waits.length > 0) {
+		if (waits.length > 0) {
 			dispatch({
 				type: "SET_SUBMIT_WARNING",
 				value: {
 					lead: "The form cannot be submitted at this time:",
-					reasons: stable.current.waits.map(({ message }) => message),
+					reasons: waits.map(({ message }) => message),
 				},
 			});
 
@@ -505,13 +505,14 @@ export function useForm(): UseFormReturn {
 	const removeWait = useCallback<RemoveWait>(({
 		names,
 	}) => {
-		const waits: FormWait[] = stable.current.waits.filter(({ name }) => !names.includes(name));
+		const { waits } = stable.current;
+		const newWaits: FormWait[] = waits.filter(({ name }) => !names.includes(name));
 
-		stable.current.waits = waits;
+		stable.current.waits = newWaits;
 
 		dispatch({
 			type: "SET_FORM_WAITS",
-			waits,
+			waits: newWaits,
 		});
 	}, [dispatch]);
 
@@ -520,8 +521,9 @@ export function useForm(): UseFormReturn {
 		message,
 		disableForm = false,
 	}) => {
-		const waits: FormWait[] = [
-			...stable.current.waits,
+		const { waits } = stable.current;
+		const newWaits: FormWait[] = [
+			...waits,
 			{
 				name,
 				message,
@@ -529,11 +531,11 @@ export function useForm(): UseFormReturn {
 			},
 		];
 
-		stable.current.waits = waits;
+		stable.current.waits = newWaits;
 
 		dispatch({
 			type: "SET_FORM_WAITS",
-			waits,
+			waits: newWaits,
 		});
 
 		return {

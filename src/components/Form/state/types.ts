@@ -64,6 +64,9 @@ export type FormActionThunks = {
 		validate?: boolean;
 		touched?: boolean;
 	}>;
+	/**
+	 * @deprecated Use form controller's `methods.setFieldBlur` instead
+	 */
 	setFieldBlur: FormActionThunk<{
 		name: string;
 		validate?: boolean;
