@@ -108,14 +108,6 @@ export type FormActionThunks = {
 	 * @deprecated
 	 */
 	isSubmittable: FormActionThunk<undefined, boolean>;
-	addValidator: FormActionThunk<{
-		name: string;
-		validator: any;
-	}>;
-	removeValidator: FormActionThunk<{
-		name: string;
-		validator: any;
-	}>;
 };
 
 export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
@@ -199,7 +191,7 @@ export type AddWaitParams = Pick<FormWait, "name" | "message"> & {
 };
 
 export type AddWaitResult = {
-	removeWait: () => void;
+	remove: () => void;
 };
 
 export type AddWait = (params?: AddWaitParams) => AddWaitResult;
@@ -222,9 +214,18 @@ export type MountFieldResult = {
 
 export type MountField = (params: MountFieldParams) => MountFieldResult;
 
-export type UnmountFieldParams = {
+export type RemoveValidator = () => void;
+
+export type AddValidatorParams = {
 	name: string;
+	validator: () => undefined | string;
 };
+
+export type AddValidatorResult = {
+	remove: RemoveValidator;
+};
+
+export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
 export type FormMethods = {
 	setFormValues: SetFormValues;
@@ -235,6 +236,7 @@ export type FormMethods = {
 	addWait: AddWait;
 	removeWait: RemoveWait;
 	mountField: MountField;
+	addValidator: AddValidator;
 };
 
 export type FormState = {

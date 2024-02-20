@@ -433,37 +433,6 @@ export const formActions: FormActionThunks = {
 			return true;
 		};
 	},
-	addValidator({ name, validator }) {
-		return async function (_dispatch, _getState, stable) {
-			const current = stable.internalValidators[name] || [];
-
-			/**
-			 * Just bail if this validator is already registered
-			 */
-			if (current.includes(validator)) {
-				return;
-			}
-
-			stable.internalValidators[name] = [
-				...current,
-				validator,
-			];
-		};
-	},
-	removeValidator({ name, validator }) {
-		return async function (_dispatch, _getState, stable) {
-			const current = stable.internalValidators[name] || [];
-
-			/**
-			 * Just bail if this validator isn't registered
-			 */
-			if (!current.includes(validator)) {
-				return;
-			}
-
-			stable.internalValidators[name] = current.filter(item => item !== validator);
-		};
-	},
 };
 
 export default formActions;
