@@ -22,6 +22,7 @@ import {
 	RemoveWait,
 	FormWait,
 	MountField,
+	AddValidator,
 } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
@@ -536,7 +537,7 @@ export function useForm(): UseFormReturn {
 		});
 
 		return {
-			removeWait: (params = {}) => removeWait({
+			remove: (params = {}) => removeWait({
 				names: [name],
 				...params,
 			}),
@@ -559,6 +560,40 @@ export function useForm(): UseFormReturn {
 		};
 	}, [dispatch]);
 
+	const addValidator = useCallback<AddValidator>(({
+		name,
+		validator,
+	}) => {
+		const current = stable.current.internalValidators[name] || [];
+
+		/**
+		 * Just bail if this validator is already registered
+		 */
+		if (current.includes(validator)) {
+			return;
+		}
+
+		stable.current.internalValidators[name] = [
+			...current,
+			validator,
+		];
+
+		return {
+			remove: () => {
+				const current = stable.current.internalValidators[name] || [];
+
+				/**
+				 * Just bail if this validator isn't registered
+				 */
+				if (!current.includes(validator)) {
+					return;
+				}
+
+				stable.current.internalValidators[name] = current.filter(item => item !== validator);
+			},
+		};
+	}, []);
+
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -568,6 +603,7 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
+		addValidator,
 	}), [
 		setFieldBlur,
 		setFormValues,
@@ -577,6 +613,7 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
+		addValidator,
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {

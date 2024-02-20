@@ -22,7 +22,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		methods,
 	} = props;
 
-	const { addWait, removeWait } = methods || {};
+	const { addWait } = methods || {};
 
 	const {
 		limit = -1,
@@ -127,16 +127,15 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			return;
 		}
 
-		const { removeWait } = addWait({
+		const { remove } = addWait({
 			name: `${fieldDef.name}/uploading`,
 			message: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`,
 		});
 
-		return removeWait;
+		return remove;
 	}, [
 		fieldDef.label,
 		fieldDef.name,
-		removeWait,
 		addWait,
 		pendingWithoutError,
 	]);
