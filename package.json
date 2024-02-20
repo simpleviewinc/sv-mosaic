@@ -81,7 +81,6 @@
 		"@simpleview/react-phone-input-2": "^2.15.3",
 		"date-fns": "^2.29.1",
 		"jodit": "3.19.3",
-		"jsvalidator": "1.2.0",
 		"lodash": "^4.17.15"
 	},
 	"peerDependencies": {

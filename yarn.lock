@@ -4818,7 +4818,6 @@ __metadata:
     jest-fail-on-console: 2.4.2
     jodit: 3.19.3
     json-date-parser: 1.0.1
-    jsvalidator: 1.2.0
     lodash: ^4.17.15
     mocha: 5.2.0
     nanoid: 4.0.0
@@ -15871,13 +15870,6 @@ __metadata:
     is-promise: ^2.0.0
     promise: ^7.0.1
   checksum: 1e019fde17a38766a5b96bccf0738156badc60cfa61e2ba8a8bbd3b855e7d5d7e17492b8a66e4aaabc39483e335d23217343ae32d0f7e5a81af42a95c3e075f9
-  languageName: node
-  linkType: hard
-
-"jsvalidator@npm:1.2.0":
-  version: 1.2.0
-  resolution: "jsvalidator@npm:1.2.0"
-  checksum: d661b2ddd4d764465b8a7e7312c2520b696da6cfa81da021c6371d4ae51a8d73445b50d2f69051c534c7d8d863f0b1d1b674f6af3629dd3569a0914afc790268
   languageName: node
   linkType: hard
 

@@ -61,27 +61,22 @@ export const Example = (): ReactElement => {
 		},
 	];
 
-	const additionalActions: MenuItemProps[] = [
+	const additionalActions: MenuItemProps[] = useMemo(() => [
 		{
 			label : "Edit",
 			onClick : function() {
 				alert("EDIT CLICK");
 			},
+			show: additionalActionsKnob !== "undefined" && Number(additionalActionsKnob) > 0,
 		},
 		{
 			label : "Download",
 			onClick : function() {
 				alert("DOWNLOAD CLICK");
 			},
+			show: additionalActionsKnob !== "undefined" && Number(additionalActionsKnob) > 1,
 		},
-	];
-
-	const slicedAdditionalActions = useMemo(() => {
-		if (additionalActionsKnob === "undefined") return undefined;
-
-		const amountActions = Number(additionalActionsKnob);
-		return additionalActions.slice(0, amountActions);
-	}, [additionalActionsKnob, additionalActions]);
+	], [additionalActionsKnob]);
 
 	const textLinks = [
 		{
@@ -150,7 +145,7 @@ export const Example = (): ReactElement => {
 			favorite={showFavorite && favorite}
 			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
 			mainActions={showMainActions && mainActions}
-			additionalActions={slicedAdditionalActions}
+			additionalActions={additionalActions}
 			descriptionItems={showDescription && descriptionItems}
 		/>
 	);
