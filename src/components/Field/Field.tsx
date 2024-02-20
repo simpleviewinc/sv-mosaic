@@ -6,7 +6,6 @@ import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { MosaicFieldProps } from ".";
-import { formActions } from "../Form";
 
 const Field = ({
 	children,
@@ -15,9 +14,11 @@ const Field = ({
 	colsInRow,
 	value,
 	id,
-	dispatch,
+	methods,
 	spacing,
 }: MosaicFieldProps<any>): ReactElement => {
+	const { mountField } = methods || {};
+
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
 
@@ -27,13 +28,16 @@ const Field = ({
 		fieldDef?.instructionText;
 
 	useEffect(() => {
-		if (!dispatch || !fieldDef?.name) {
+		if (!mountField || !fieldDef?.name) {
 			return;
 		}
 
-		dispatch(formActions.mountField({ name: fieldDef?.name }));
-		return () => dispatch(formActions.unmountField({ name: fieldDef?.name }));
-	}, [dispatch, fieldDef?.name]);
+		const { unmount } = mountField({
+			name: fieldDef.name,
+		});
+
+		return unmount;
+	}, [mountField, fieldDef?.name]);
 
 	return (
 		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">

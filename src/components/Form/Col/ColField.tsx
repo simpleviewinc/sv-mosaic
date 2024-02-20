@@ -100,6 +100,7 @@ const ColField = ({
 			id={field.name}
 			dispatch={dispatch}
 			spacing={spacing}
+			methods={methods}
 		>
 			{children}
 		</Field>

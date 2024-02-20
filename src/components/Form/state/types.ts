@@ -104,12 +104,6 @@ export type FormActionThunks = {
 	disableForm: FormActionThunk<{
 		disabled?: boolean;
 	}>;
-	mountField: FormActionThunk<{
-		name: string;
-	}>;
-	unmountField: FormActionThunk<{
-		name: string;
-	}>;
 	/**
 	 * @deprecated
 	 */
@@ -216,6 +210,22 @@ export type DisableFormParams = {
 
 export type DisableForm = (params: DisableFormParams) => void;
 
+export type MountFieldParams = {
+	name: string;
+};
+
+export type UnmountField = () => void;
+
+export type MountFieldResult = {
+	unmount: UnmountField;
+};
+
+export type MountField = (params: MountFieldParams) => MountFieldResult;
+
+export type UnmountFieldParams = {
+	name: string;
+};
+
 export type FormMethods = {
 	setFormValues: SetFormValues;
 	setFieldValue: SetFieldValue;
@@ -224,6 +234,7 @@ export type FormMethods = {
 	submitForm: SubmitForm;
 	addWait: AddWait;
 	removeWait: RemoveWait;
+	mountField: MountField;
 };
 
 export type FormState = {
