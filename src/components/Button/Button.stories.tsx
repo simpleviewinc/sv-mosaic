@@ -51,6 +51,34 @@ const menuContent = (
 	</div>
 );
 
+const commonToggleMap = {
+	"Undefined": undefined,
+	"True": true,
+	"False": false,
+	"Function that returns true": () => true,
+	"Function that returns false": () => false,
+};
+
+const showMap = {
+	...commonToggleMap,
+	"Array of true values": [true, true, true],
+	"Array with one falsy value": [true, false, true],
+	"Array of functions that return true": [() => true, () => true],
+	"Array of functions, one returns false": [() => false, () => true],
+};
+
+const showOptions = Object.keys(showMap);
+
+const disabledMap = {
+	...commonToggleMap,
+	"Array of false values": [false, false, false],
+	"Array with one truthy value": [false, true, false],
+	"Array of functions that return false": [() => false, () => false],
+	"Array of functions, one returns true": [() => true, () => false],
+};
+
+const disabledOptions = Object.keys(disabledMap);
+
 export const Playground = (): ReactElement => {
 	const buttonVariant = select(
 		"Variant",
@@ -83,19 +111,14 @@ export const Playground = (): ReactElement => {
 		],
 		"medium",
 	);
-	const showOptions = select(
+	const show = select(
 		"Show",
-		[
-			"Undefined",
-			"True",
-			"False",
-			"Function that returns true",
-			"Function that returns false",
-			"Array of true values",
-			"Array with one falsy value",
-			"Array of functions that return true",
-			"Array of functions, one returns false",
-		],
+		showOptions,
+		"Undefined",
+	);
+	const disabled = select(
+		"Disabled",
+		disabledOptions,
 		"Undefined",
 	);
 	const label = select("Type of label", ["String", "JSX"], "String");
@@ -117,7 +140,6 @@ export const Playground = (): ReactElement => {
 	);
 	const iconPosition = select("Icon position", ["left", "right"], "left");
 	const fullWidth = boolean("Full Width", false);
-	const disabled = boolean("Disabled", false);
 	const tooltip = select("Tooltip", ["string", "JSX", null], null);
 	const popover = boolean("Popover", false);
 	const popoverEvent = select("Popover event", ["onClick", "onHover"], "onClick");
@@ -127,22 +149,11 @@ export const Playground = (): ReactElement => {
 	const showMenuContent = boolean("Menu content", false);
 	const useIcon = buttonVariant === "icon" || showIcon;
 	const tooltipType = tooltip ? tooltip === "string" ? "Tooltip string" : <h2>Tooltip as an H2</h2> : undefined;
-	const show = {
-		"Undefined": undefined,
-		"True": true,
-		"False": false,
-		"Function that returns true": () => true,
-		"Function that returns false": () => false,
-		"Array of true values": [true, true, true],
-		"Array with one falsy value": [true, false, true],
-		"Array of functions that return true": [() => true, () => true],
-		"Array of functions, one returns false": [() => false, () => true],
-	};
 
 	const action = {
 		name: "show",
 		onClick: () => alert("Clicked"),
-		show: show[showOptions],
+		show: showMap[show],
 		color: buttonColor,
 		variant: buttonVariant,
 	};
@@ -161,7 +172,7 @@ export const Playground = (): ReactElement => {
 						variant={buttonVariant}
 						color={buttonColor}
 						fullWidth={fullWidth}
-						disabled={disabled}
+						disabled={disabledMap[disabled]}
 						tooltip={tooltipType}
 						size={size}
 						mIcon={useIcon && AddIcon}
