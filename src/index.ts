@@ -1,5 +1,6 @@
 export * from "./transforms";
 export * from "./types";
+export * from "./utils";
 
 export { default as Form } from "./components/Form";
 export * from "./components/Form";
