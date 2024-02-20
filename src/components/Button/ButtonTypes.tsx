@@ -12,7 +12,7 @@ export interface ButtonProps {
 	variant: "icon" | "outlined" | "contained" | "text";
 	size?: "small" | "medium";
 	iconPosition?: "left" | "right";
-	disabled?: boolean;
+	disabled?: MosaicToggle;
 	/** Button will occupy 100% of the width provided to it */
 	fullWidth?: boolean;
 	/** Display a tooltip on hover of the button */
