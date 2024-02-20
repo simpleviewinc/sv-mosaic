@@ -1,6 +1,5 @@
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
-import { formActions } from "@root/components/Form";
 import Snackbar from "@root/components/Snackbar";
 import uniqueId from "lodash/uniqueId";
 import * as React from "react";
@@ -20,8 +19,10 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		value,
 		onChange,
 		disabled,
-		dispatch,
+		methods,
 	} = props;
+
+	const { addWait, removeWait } = methods || {};
 
 	const {
 		limit = -1,
@@ -118,21 +119,27 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	useEffect(() => {
-		if (!dispatch) {
+		if (!addWait) {
 			return;
 		}
 
-		if (pendingWithoutError) {
-			dispatch(formActions.startBusy({
-				name: fieldDef.name,
-				value: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`,
-			}));
-		} else {
-			dispatch(formActions.endBusy({
-				name: fieldDef.name,
-			}));
+		if (!pendingWithoutError) {
+			return;
 		}
-	}, [pendingWithoutError]);
+
+		const { removeWait } = addWait({
+			name: `${fieldDef.name}/uploading`,
+			message: `${fieldDef.label} is currently uploading ${pendingWithoutError} files(s)`,
+		});
+
+		return removeWait;
+	}, [
+		fieldDef.label,
+		fieldDef.name,
+		removeWait,
+		addWait,
+		pendingWithoutError,
+	]);
 
 	const onUploadComplete = async ({ uuid, data }) => {
 		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
