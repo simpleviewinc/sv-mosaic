@@ -31,8 +31,14 @@ export type ActionSetFieldErrors = {
 	merge?: boolean;
 };
 
+export type ActionSetFormWaits = {
+	type: "SET_FORM_WAITS";
+	waits: FormWait[];
+};
+
 export type FormAction =
 	| ActionSetFieldErrors
+	| ActionSetFormWaits
     | LegacyFormAction;
 
 type OptionalUndefinedParam<P, R> = P extends undefined ? (params?: P) => R : (params: P) => R;
@@ -97,13 +103,6 @@ export type FormActionThunks = {
 	 */
 	disableForm: FormActionThunk<{
 		disabled?: boolean;
-	}>;
-	startBusy: FormActionThunk<{
-		name: string;
-		value: string;
-	}>;
-	endBusy: FormActionThunk<{
-		name: string;
 	}>;
 	mountField: FormActionThunk<{
 		name: string;
@@ -189,6 +188,28 @@ export type SetFieldBlurParams = {
 
 export type SetFieldBlur = (params: SetFieldBlurParams) => void;
 
+export type RemoveWaitParams = {
+	names: string[];
+};
+
+export type FormWait = {
+	name: string;
+	message: string;
+	disableForm: boolean;
+};
+
+export type RemoveWait = (params?: RemoveWaitParams) => void;
+
+export type AddWaitParams = Pick<FormWait, "name" | "message"> & {
+	disableForm?: FormWait["disableForm"];
+};
+
+export type AddWaitResult = {
+	removeWait: () => void;
+};
+
+export type AddWait = (params?: AddWaitParams) => AddWaitResult;
+
 export type DisableFormParams = {
 	disabled?: boolean;
 };
@@ -201,6 +222,8 @@ export type FormMethods = {
 	setFieldBlur: SetFieldBlur;
 	disableForm: DisableForm;
 	submitForm: SubmitForm;
+	addWait: AddWait;
+	removeWait: RemoveWait;
 };
 
 export type FormState = {
@@ -211,6 +234,7 @@ export type FormState = {
 	touched: MosaicObject<boolean>;
 	busyFields: MosaicObject<boolean>;
 	submitWarning: string;
+	waits: FormWait[];
 };
 
 export type UseFormReturn = {

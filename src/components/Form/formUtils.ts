@@ -1,5 +1,27 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import { FieldCanBeValidated, FormAction, FormDispatch, FormStable, FormGetState, FormMethods, FormReducer, FormState, GetFieldError, GetFieldErrors, FormHandleSubmit, SetFieldBlur, SetFieldValue, SubmitForm, UseFormReturn, ValidateField, SetFormValues, DisableForm } from "./state/types";
+import {
+	FieldCanBeValidated,
+	FormAction,
+	FormDispatch,
+	FormStable,
+	FormGetState,
+	FormMethods,
+	FormReducer,
+	FormState,
+	GetFieldError,
+	GetFieldErrors,
+	FormHandleSubmit,
+	SetFieldBlur,
+	SetFieldValue,
+	SubmitForm,
+	UseFormReturn,
+	ValidateField,
+	SetFormValues,
+	DisableForm,
+	AddWait,
+	RemoveWait,
+	FormWait,
+} from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
@@ -15,6 +37,12 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 				...state.errors,
 				...action.errors,
 			} : action.errors),
+		};
+	}
+	case "SET_FORM_WAITS": {
+		return {
+			...state,
+			waits: action.waits,
 		};
 	}
 	// LEGACY
@@ -133,7 +161,7 @@ const cleanValue = (value: unknown) => {
 	return value;
 };
 
-const initialState = {
+const initialState: FormState = {
 	internalData: {},
 	data: {},
 	errors: {},
@@ -141,6 +169,7 @@ const initialState = {
 	touched: {},
 	busyFields: {},
 	submitWarning: "",
+	waits: [],
 };
 
 function stateFromStable({
@@ -151,6 +180,7 @@ function stateFromStable({
 	touched,
 	busyFields,
 	submitWarning,
+	waits,
 }: FormStable): FormState {
 	return {
 		internalData,
@@ -160,6 +190,7 @@ function stateFromStable({
 		touched,
 		busyFields,
 		submitWarning,
+		waits,
 	};
 }
 
@@ -177,8 +208,6 @@ export function useForm(): UseFormReturn {
 		initialState,
 		stable.current,
 	);
-
-	const { busyFields } = state;
 
 	const getFieldFromExtra = useCallback((name: string) => {
 		if (!stable.current.fields[name]) {
@@ -434,13 +463,12 @@ export function useForm(): UseFormReturn {
 			};
 		}
 
-		const busyMessages = Object.values(busyFields).filter(Boolean);
-		if (busyMessages.length > 0) {
+		if (stable.current.waits.length > 0) {
 			dispatch({
 				type: "SET_SUBMIT_WARNING",
 				value: {
 					lead: "The form cannot be submitted at this time:",
-					reasons: busyMessages,
+					reasons: stable.current.waits.map(({ message }) => message),
 				},
 			});
 
@@ -470,7 +498,49 @@ export function useForm(): UseFormReturn {
 			valid: true,
 			data: cleanData,
 		};
-	}, [dispatch, fieldCanBeValidated, getFieldErrors, busyFields]);
+	}, [dispatch, fieldCanBeValidated, getFieldErrors]);
+
+	const removeWait = useCallback<RemoveWait>(({
+		names,
+	}) => {
+		const waits: FormWait[] = stable.current.waits.filter(({ name }) => !names.includes(name));
+
+		stable.current.waits = waits;
+
+		dispatch({
+			type: "SET_FORM_WAITS",
+			waits,
+		});
+	}, [dispatch]);
+
+	const addWait = useCallback<AddWait>(({
+		name,
+		message,
+		disableForm = false,
+	}) => {
+		const waits: FormWait[] = [
+			...stable.current.waits,
+			{
+				name,
+				message,
+				disableForm,
+			},
+		];
+
+		stable.current.waits = waits;
+
+		dispatch({
+			type: "SET_FORM_WAITS",
+			waits,
+		});
+
+		return {
+			removeWait: (params = {}) => removeWait({
+				names: [name],
+				...params,
+			}),
+		};
+	}, [dispatch, removeWait]);
 
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
@@ -478,12 +548,16 @@ export function useForm(): UseFormReturn {
 		setFieldBlur,
 		submitForm,
 		disableForm,
+		addWait,
+		removeWait,
 	}), [
 		setFieldBlur,
 		setFormValues,
 		setFieldValue,
 		submitForm,
 		disableForm,
+		addWait,
+		removeWait,
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {

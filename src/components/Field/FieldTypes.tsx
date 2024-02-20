@@ -21,7 +21,7 @@ import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
-import { FormState } from "../Form/state/types";
+import { FormMethods, FormState } from "../Form/state/types";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -71,6 +71,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Whether or not the field is disabled
 	 */
 	disabled?: boolean;
+	/**
+	 * Methods that can be used to manipulate the form
+	 */
+	methods?: FormMethods;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
