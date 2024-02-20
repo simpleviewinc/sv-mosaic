@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo, MouseEvent } from "react";
+import { ReactElement, useCallback, memo, MouseEvent } from "react";
 import { SideNavProps } from ".";
 import {
 	LinkWrapper,
@@ -10,7 +10,43 @@ import {
 	Badge,
 	BadgeWrapper,
 } from "./SideNav.styled";
-import { Item } from "./SideNavTypes";
+import { Item, SideNavGroupProps } from "./SideNavTypes";
+import { useToggle } from "@root/utils/toggle";
+
+const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupProps): ReactElement => {
+	const shownItems = useToggle(items, "show", true);
+
+	return (
+		<LinksWrapper data-testid="section-wrapper" $collapse={collapse}>
+			{shownItems.map((item, idx) => {
+				const LinkIcon = item.icon;
+				const ActionIcon = item?.action?.icon;
+
+				return (
+					<LinkWrapper
+						{...item.attrs}
+						$isActive={item.name === active}
+						onClick={(event) => onLinkClicked({ item, event })}
+						$collapse={collapse}
+						key={`${item.label}-${idx}`}
+						className={item.name === active && "highlight"}
+					>
+						{item.icon && <LinkIcon />}
+						<StyledLink>{item.label}</StyledLink>
+						{item?.badge && (
+							<BadgeWrapper>
+								<Badge>{item.badge}</Badge>
+							</BadgeWrapper>
+						)}
+						{item?.action?.icon && (
+							<ActionIcon onClick={item.action.onClick} />
+						)}
+					</LinkWrapper>
+				);
+			})}
+		</LinksWrapper>
+	);
+};
 
 const SideNav = (props: SideNavProps): ReactElement => {
 	const { items, active, onNav, className, collapse } = props;
@@ -20,7 +56,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	 * external callback that is sent from the parent.
 	 * @param link The clicked link
 	 */
-	const onLinkClicked = (args: { item: Item; event?: MouseEvent }) => {
+	const onLinkClicked = useCallback((args: { item: Item; event?: MouseEvent }) => {
 		const { item, event } = args;
 		const hasModifier = event.ctrlKey || event.metaKey || event.shiftKey || event.altKey;
 
@@ -37,41 +73,20 @@ const SideNav = (props: SideNavProps): ReactElement => {
 		if (typeof itemOnNav === "function") {
 			itemOnNav({ item, event });
 		}
-	};
+	}, [onNav]);
 
 	return (
 		<StyledSideNav className={className} $collapse={collapse}>
 			<SidebarWrap>
-				{Object.keys(items)?.map((key) => {
+				{items.map((itemGroup, groupIndex) => {
 					return (
-						<LinksWrapper data-testid="section-wrapper" key={key} $collapse={collapse}>
-							{items[key]?.map((item, idx) => {
-								const LinkIcon = item.icon;
-								const ActionIcon = item?.action?.icon;
-
-								return (
-									<LinkWrapper
-										{...item.attrs}
-										$isActive={item.name === active}
-										onClick={(event) => onLinkClicked({ item, event })}
-										$collapse={collapse}
-										key={`${item.label}-${idx}`}
-										className={item.name === active && "highlight"}
-									>
-										{item.icon && <LinkIcon />}
-										<StyledLink>{item.label}</StyledLink>
-										{item?.badge && (
-											<BadgeWrapper>
-												<Badge>{item.badge}</Badge>
-											</BadgeWrapper>
-										)}
-										{item?.action?.icon && (
-											<ActionIcon onClick={item.action.onClick} />
-										)}
-									</LinkWrapper>
-								);
-							})}
-						</LinksWrapper>
+						<SideNavGroup
+							key={groupIndex}
+							items={itemGroup}
+							onLinkClicked={onLinkClicked}
+							active={active}
+							collapse={collapse}
+						/>
 					);
 				})}
 			</SidebarWrap>

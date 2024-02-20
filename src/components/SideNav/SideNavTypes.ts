@@ -1,4 +1,4 @@
-import { MosaicCSSContainer, SvgIconComponent } from "@root/types";
+import { MosaicCSSContainer, MosaicToggle, SvgIconComponent } from "@root/types";
 import { AnchorHTMLAttributes, MouseEvent } from "react";
 
 export interface SideNavArgs {
@@ -28,6 +28,12 @@ export interface SideNavProps {
 
 	collapse?: MosaicCSSContainer;
 }
+
+export type SideNavGroupProps = Pick<SideNavProps, "collapse" | "active"> & {
+	items: Item[];
+
+	onLinkClicked: (args: { item: Item; event?: MouseEvent }) => void;
+};
 
 export type Item = {
 	/**
@@ -60,4 +66,8 @@ export type Item = {
 	 * Callback that each link will execute on an onClick event.
 	 */
 	onNav?: false | SideNavOnNav;
+	/**
+	 * MosaicToggle to evaluate whether or not to show this item
+	 */
+	show?: MosaicToggle;
 };
