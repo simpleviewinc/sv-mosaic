@@ -122,6 +122,11 @@
 			"types": "./dist/types/components/*/index.d.ts",
 			"import": "./dist/esm/components/*/index.js",
 			"require": "./dist/cjs/components/*/index.js"
+		},
+		"./utils/*": {
+			"types": "./dist/types/utils/*/index.d.ts",
+			"import": "./dist/esm/utils/*/index.js",
+			"require": "./dist/cjs/utils/*/index.js"
 		}
 	},
 	"scripts": {
