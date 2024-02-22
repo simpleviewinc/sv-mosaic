@@ -70,6 +70,12 @@ const Form = (props: FormProps) => {
 		threshold: scrollSpyThreshold,
 	});
 
+	const setSectionHash = useCallback((index: number) => {
+		const url = new URL(window.location.toString());
+		url.hash = `${useSectionHash}-${index}`;
+		history.replaceState({}, "", url.toString());
+	}, [useSectionHash]);
+
 	useEffect(() => {
 		if (!useSectionHash) {
 			return;
@@ -92,10 +98,8 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		const url = new URL(window.location.toString());
-		url.hash = `${useSectionHash}-${activeSection}`;
-		history.replaceState({}, "", url.toString());
-	}, [useSectionHash, activeSection, scrollSpyAnimating]);
+		setSectionHash(activeSection);
+	}, [activeSection, scrollSpyAnimating, setSectionHash, useSectionHash]);
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
@@ -127,7 +131,12 @@ const Form = (props: FormProps) => {
 	 * was clicked.
 	 * @param args
 	 */
-	const onNav = useCallback((args: SideNavArgs) => setActiveSection(Number(args.item.name)), [setActiveSection]);
+	const onNav = useCallback((args: SideNavArgs) => {
+		const index = Number(args.item.name);
+
+		setSectionHash(index);
+		setActiveSection(index);
+	}, [setSectionHash, setActiveSection]);
 
 	const submitWarningContent = typeof state.submitWarning === "object" ? (
 		<>
