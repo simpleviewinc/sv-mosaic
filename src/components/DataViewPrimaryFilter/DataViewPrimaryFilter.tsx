@@ -14,7 +14,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 			{props.value && (
 				<div className="filter-value" color={props.color ? props.color : "black"}>
 					<b>|</b>
-					<Value>{props.value}</Value>
+					<Value title={props.value}>{props.value}</Value>
 					{props.multiselect?.length > 1 && (
 						<>
 							<MultiselectCounter {...anchorProps}>
