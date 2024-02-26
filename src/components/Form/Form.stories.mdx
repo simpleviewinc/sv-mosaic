@@ -929,6 +929,9 @@ This field implements the [**FieldDef**](#generic-field-props-fielddef) interfac
 | **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file.<br /><br />If an error is thrown in this callback, its message will be displayed for the uploaded item |
 | **`onFileDelete`** | `({id: string or number}) => Promise<void>` | required - Callback function executed when the user deletes an uploaded file. |
 | **`limit`** | `number` | optional - Limits the amount of files users can upload. If not passed users can add as many files as needed. |
+| **`accept`** | `string[]` | optional - Limits the types of files that can be uploaded by extension. |
+| **`maxFileSize`** | `number` | optional - Limits the size of individual uploads in bytes |
+| **`maxTotalSize`** | `number` | optional - Limits the size of all uploads for this field combined in bytes |
 
 - OnFileAddData:
 
