@@ -36,13 +36,15 @@ export const StyledFilterButton = styled(Button)`
 	}
 `;
 
-export const StyledFilterTextField = styled(StyledTextField)`
-	&& {
-		margin-left: -1px;
+export const StyledFilterTextField = styled(StyledTextField)<{ $hasComparisonDropdown?: boolean }>`
+	${({ $hasComparisonDropdown }) => $hasComparisonDropdown && `
+		&& {
+			margin-left: -1px;
 
-		.Mui-focused fieldset,
-		fieldset:hover {
-			z-index: 1;
+			.Mui-focused fieldset,
+			fieldset:hover {
+				z-index: 1;
+			}
 		}
-	}
+	`}
 `;

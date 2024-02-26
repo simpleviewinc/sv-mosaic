@@ -112,6 +112,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 					onKeyPress={onKeyPress}
 					fieldSize=""
 					disabled={disabled}
+					$hasComparisonDropdown={Boolean(comparisonButton)}
 				/>
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} />
