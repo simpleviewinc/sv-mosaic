@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from "../Button";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
-import { StyledContents } from "./DataViewFilterText.styled";
-import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
-import { StyledDisabledText } from "@root/forms/shared/styledComponents";
+import { StyledContents, StyledFilterButton, StyledFilterTextField } from "./DataViewFilterText.styled";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -88,10 +85,10 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		});
 
 		comparisonButton = (
-			<Button
+			<StyledFilterButton
 				className="comparisonButton"
 				label={activeComparison.label}
-				variant="text"
+				variant="input"
 				color="black"
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
@@ -103,22 +100,19 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				{!disabled ? (
-					<StyledTextField
-						autoComplete="off"
-						autoFocus
-						placeholder={props.placeholder || t("mosaic:common.filter___")}
-						margin="dense"
-						value={state.value}
-						variant="outlined"
-						onChange={onInputChange}
-						onKeyPress={onKeyPress}
-						fieldSize=""
-					/>
-				) : (
-					<StyledDisabledText className="disabled">{state.value || t("mosaic:common.filter___")}</StyledDisabledText>
-				)}
 				{comparisonButton}
+				<StyledFilterTextField
+					autoComplete="off"
+					autoFocus
+					placeholder={props.placeholder || t("mosaic:common.filter___")}
+					margin="dense"
+					value={state.value}
+					variant="outlined"
+					onChange={onInputChange}
+					onKeyPress={onKeyPress}
+					fieldSize=""
+					disabled={disabled}
+				/>
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} />
 		</StyledContents>

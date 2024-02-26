@@ -68,6 +68,14 @@ const alternateColors: Partial<Record<ButtonProps["color"], Partial<Record<Color
 			outlined: theme.colors.simplyGray,
 		},
 	},
+	black: {
+		background: {
+			input: theme.newColors.grey1["100"],
+		},
+		border: {
+			input: theme.newColors.simplyGrey["100"],
+		},
+	},
 };
 
 const colorMap: Partial<Record<ButtonProps["color"], keyof typeof theme.colors>> = {
@@ -113,6 +121,10 @@ function getColorPalette(colorProp: ButtonProps["color"], variant: ButtonProps["
 }
 
 function getPadding(variant: ButtonProps["variant"], size: ButtonProps["size"] = "medium") {
+	if (variant === "input") {
+		return "10px 16px";
+	}
+
 	if (size === "small") {
 		return variant === "outlined" ? "1px 12px" : "3px 14px";
 	}
@@ -140,7 +152,7 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			opacity: ${disabled ? 0.5 : 1};
 
 			align-items: center;
-			border-width: ${$variant === "outlined" ? 2 : 0}px;
+			border-width: ${$variant === "outlined" ? 2 : $variant === "input" ? 1 : 0}px;
 			border-style: solid;
 			border-radius: 0;
 			box-shadow: none;
@@ -148,12 +160,16 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			gap: 12px;
 			padding: ${getPadding($variant, $size)};
 			width: ${$fullWidth ? "100%" : "auto"};
+			text-transform: ${$variant === "text" || $variant === "input" ? "none" : "uppercase"};
 
-			font-family: ${theme.fontFamily};
-			font-size: 14px;
-			font-weight: ${theme.fontWeight.bold};
-			letter-spacing: 1px;
-			text-transform: ${$variant === "text" ? "none" : "uppercase"};
+			${$variant !== "input" ? `
+				font-family: ${theme.fontFamily};
+				font-size: 14px;
+				font-weight: ${theme.fontWeight.bold};
+				letter-spacing: 1px;
+			` : `
+				font: inherit;
+			`}
 
 			&:hover {
 				background-color: ${disabled ? palette.background : palette.hover.background};
@@ -161,7 +177,7 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			}
 
 			&[disabled] {
-				backgrround-color: ${palette.background};
+				background-color: ${palette.background};
 				color: ${palette.text};
 			}
 
