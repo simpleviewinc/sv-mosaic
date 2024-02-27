@@ -1,5 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
-import { FormHandleSubmit } from "@root/components/Form/state/types";
+import { FormHandleSubmit } from "@root/components/Form/useForm/types";
 
 export const onCancel = () => {
 	alert("Cancelling form, going back to previous site");

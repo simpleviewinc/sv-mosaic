@@ -3,7 +3,7 @@ import { FieldDef } from "@root/components/Field";
 import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
-import { FormMethods, FormState } from "./state/types";
+import { FormMethods, FormState } from "./useForm/types";
 
 export type FormSpacing = "normal" | "compact";
 

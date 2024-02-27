@@ -20,15 +20,14 @@ import {
 	AddValidator,
 	FormInit,
 	FormReset,
-} from "./state/types";
+} from "./types";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
-import { mapsValidators, required, validatePhoneNumber } from "./validators";
 import { MosaicObject } from "@root/types";
-import { FieldDefSanitized } from "../Field";
-import { getFieldConfig } from "./Col/fieldConfigMap";
+import { FieldDefSanitized } from "../../Field";
+import { getFieldConfig } from "../Col/fieldConfigMap";
 import { initialState, initialStable } from "./initial";
 import { reducer } from "./reducers";
-import { cleanValue, runValidators, stateFromStable } from "./utils";
+import { cleanValue, mapsValidators, runValidators, stateFromStable } from "./utils";
 
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>({ ...initialStable });
@@ -53,11 +52,11 @@ export function useForm(): UseFormReturn {
 		const validators = field.validators || [];
 
 		if (requiredFlag) {
-			validators.unshift(required);
+			validators.unshift({ fn: "required", options: {} });
 		}
 
 		if (field.type === "phone") {
-			validators.push(validatePhoneNumber);
+			validators.push({ fn: "validatePhoneNumber", options: {} });
 		}
 
 		if (field.inputSettings?.maxCharacters > 0) {

@@ -189,58 +189,6 @@ const Form = (props: FormProps) => {
 		})();
 	}, [getFormValues, setFormValues]);
 
-	/**
-	 * Side effects
-	 */
-	// useEffect(() => {
-	// 	let isMounted = true;
-	// 	const registerFields = async () => {
-	// 		await dispatch(
-	// 			formActions.init({
-	// 				fields,
-	// 			}),
-	// 		);
-	// 	};
-
-	// 	if (isMounted) {
-	// 		registerFields();
-	// 	}
-
-	// 	return () => {
-	// 		isMounted = false;
-	// 	};
-	// }, [dispatch, fields]);
-
-	// useEffect(() => {
-	// 	const loadFormValues = async () => {
-	// 		disableForm({ disabled: true });
-
-	// 		let values = getFormValues ? await getFormValues() : undefined;
-
-	// 		if (values === undefined) {
-	// 			fields.forEach(field => {
-	// 				if ("defaultValue" in field) {
-	// 					console.warn("`FieldDef.defaultValue` is deprecated. You should provide an initial value for this field (`" + field.name + "`) to the result of the `getFormValues` callback instead.");
-
-	// 					values = {
-	// 						...values,
-	// 						[field.name]: field.defaultValue,
-	// 					};
-	// 				}
-	// 			});
-
-	// 		}
-
-	// 		if (values) {
-	// 			setFormValues({ values });
-	// 		}
-
-	// 		disableForm({ disabled: false });
-	// 	};
-
-	// 	loadFormValues();
-	// }, [disableForm, getFormValues, setFormValues]);
-
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
 		onSubmit && onSubmit(e);

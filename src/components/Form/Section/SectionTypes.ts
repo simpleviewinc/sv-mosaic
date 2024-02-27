@@ -1,6 +1,6 @@
 import { MosaicGridConfig, MosaicToggle } from "@root/types";
 import { FieldDef, FormSpacing } from "../FormTypes";
-import { FormMethods } from "../state/types";
+import { FormMethods } from "../useForm/types";
 
 export interface SectionPropTypes {
 	title: string;
