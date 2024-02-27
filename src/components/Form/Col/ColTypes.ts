@@ -1,5 +1,5 @@
 import { FieldDef, FormSpacing } from "../FormTypes";
-import { FormMethods } from "../state/types";
+import { FormMethods } from "../useForm/types";
 
 export interface ColPropsTypes {
 	col: string[];

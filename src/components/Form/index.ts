@@ -1,4 +1,4 @@
 export { default } from "./Form";
 export * from "./Form";
 export * from "./FormTypes";
-export { useForm } from "./useForm";
+export * from "./useForm";

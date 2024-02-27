@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useCallback } from "react";
 import { FieldError } from "@root/components/Form";
 import { arrayIntersect, arrayDifference } from "@root/utils/array";
-import { FormMethods } from "@root/components/Form/state/types";
+import { FormMethods } from "@root/components/Form/useForm/types";
 
 type AddError = {
 	type: "ADD_ERROR";

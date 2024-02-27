@@ -1,7 +1,7 @@
 import {
 	FormAction,
 	FormState,
-} from "./state/types";
+} from "./types";
 import { initialState } from "./initial";
 
 export function reducer(state: FormState, action: FormAction): FormState {
