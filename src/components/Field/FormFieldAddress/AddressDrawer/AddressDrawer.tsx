@@ -33,6 +33,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	} = props;
 
 	const controller = useForm();
+
 	const { state, methods, handleSubmit } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
