@@ -112,11 +112,6 @@
 			"import": "./dist/esm/transforms/index.js",
 			"require": "./dist/cjs/transforms/index.js"
 		},
-		"./formActions": {
-			"types": "./dist/types/components/Form/formActions.d.ts",
-			"import": "./dist/esm/components/Form/formActions.js",
-			"require": "./dist/cjs/components/Form/formActions.js"
-		},
 		"./components/*": {
 			"types": "./dist/types/components/*/index.d.ts",
 			"import": "./dist/esm/components/*/index.js",
