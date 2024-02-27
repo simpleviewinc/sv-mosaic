@@ -22,7 +22,7 @@ export default {
 
 export const RuntimeBehaviours = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -83,21 +83,21 @@ export const RuntimeBehaviours = (): ReactElement => {
 	);
 
 	useEffect(() => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "text4",
 			value: state.data.text3,
 		});
 	}, [state.data.text3]);
 
 	const setText1Value = function () {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "text1",
 			value: "test@test.com",
 		});
 	};
 
 	const setText2Value = function () {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "text2",
 			value: "notanemail",
 		});
