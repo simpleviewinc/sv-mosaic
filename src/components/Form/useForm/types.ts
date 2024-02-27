@@ -207,3 +207,7 @@ export type FormStable = FormState & {
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
 };
+
+export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
+
+export type Validator = { fn: ValidatorFn; options: any };

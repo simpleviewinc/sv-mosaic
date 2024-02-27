@@ -1,4 +1,4 @@
-import { FormStable, FormState } from "./state/types";
+import { FormStable, FormState } from "./types";
 
 export const initialState: FormState = {
 	internalData: {},

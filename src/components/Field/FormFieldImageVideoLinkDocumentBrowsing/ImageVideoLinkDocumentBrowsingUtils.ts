@@ -1,6 +1,6 @@
 // Utils
 import { UseImageVideoLinkDocumentBrowsingReturn } from "./ImageVideoLinkDocumentBrowsingTypes";
-import { FormMethods } from "@root/components/Form/state/types";
+import { FormMethods } from "@root/components/Form/useForm/types";
 
 export const imageVideoSrc = "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg";
 

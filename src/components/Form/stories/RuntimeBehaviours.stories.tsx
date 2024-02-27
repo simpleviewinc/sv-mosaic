@@ -79,7 +79,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 					required: true,
 				},
 			],
-		[],
+		[state.data.text2],
 	);
 
 	useEffect(() => {
@@ -87,7 +87,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 			name: "text4",
 			value: state.data.text3,
 		});
-	}, [state.data.text3]);
+	}, [setFieldValue, state.data.text3]);
 
 	const setText1Value = function () {
 		setFieldValue({
@@ -100,6 +100,7 @@ export const RuntimeBehaviours = (): ReactElement => {
 		setFieldValue({
 			name: "text2",
 			value: "notanemail",
+			validate: true,
 		});
 	};
 

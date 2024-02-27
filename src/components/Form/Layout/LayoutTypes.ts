@@ -1,5 +1,5 @@
 import { FieldDef, FormSpacing, SectionDef } from "../FormTypes";
-import { FormMethods } from "../state/types";
+import { FormMethods } from "../useForm/types";
 
 export interface LayoutProps {
 	state: any;
