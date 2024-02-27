@@ -8,7 +8,7 @@ import {
 	number,
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
 import { UploadFieldInputSettings } from "./FormFieldUploadTypes";
@@ -46,7 +46,7 @@ const initialValues = {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, handleSubmit } = controller;
+	const { state, handleSubmit, methods: { reset } } = controller;
 
 	const limit = select(
 		"Limit",
@@ -76,11 +76,11 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		const resetForm = async () => {
-			await dispatch(formActions.resetForm());
+			reset();
 			setLoadReady(true);
 		};
 		mockDB ? resetForm() : setLoadReady(false);
-	}, [mockDB]);
+	}, [reset, mockDB]);
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {

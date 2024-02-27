@@ -13,7 +13,6 @@ const Row = (props: RowPropTypes) => {
 		rowIdx,
 		state,
 		fieldsDef,
-		dispatch,
 		sectionIdx,
 		gridMinWidth,
 		spacing,
@@ -32,7 +31,6 @@ const Row = (props: RowPropTypes) => {
 						col={col}
 						state={state}
 						fieldsDef={fieldsDef}
-						dispatch={dispatch}
 						colsInRow={row.length}
 						spacing={spacing}
 						methods={methods}

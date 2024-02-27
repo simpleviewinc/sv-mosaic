@@ -4,7 +4,7 @@ import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
-import { useForm, formActions } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
@@ -20,6 +20,7 @@ import { nanoid } from "nanoid";
 import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
+import { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/Form",
@@ -42,7 +43,9 @@ const createNewOption = async (newOptionLabel) => {
 export const Playground = (): ReactElement => {
 	const [loadReady, setLoadReady] = useState(false);
 	const controller = useForm();
-	const { state, dispatch, methods, handleSubmit } = controller;
+	const { state, methods, handleSubmit } = controller;
+
+	const { reset } = methods;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -52,7 +55,7 @@ export const Playground = (): ReactElement => {
 		};
 	}, []);
 
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "imageVideoDocumentLink");
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
 	const onBack = boolean("onBack", false);
@@ -614,15 +617,25 @@ export const Playground = (): ReactElement => {
 				...prepopulateValues,
 			};
 		}
-	}, [prepopulateValues, showGetFormValues, showDefaultValues]);
+	}, [prepopulateValues, showGetFormValues]);
 
 	useEffect(() => {
 		const resetForm = async () => {
-			await dispatch(formActions.resetForm());
+			reset();
 			setLoadReady(true);
 		};
 		prepopulate ? resetForm() : setLoadReady(false);
-	}, [prepopulate, showGetFormValues, showDefaultValues]);
+	}, [reset, prepopulate, showGetFormValues, showDefaultValues]);
+
+	const buttons = useMemo<ButtonProps[]>(() => [
+		{
+			label: "Reset",
+			onClick: () => reset(),
+			color: "gray",
+			variant: "outlined",
+		},
+		...renderButtons(handleSubmit, { showCancel, showSave }),
+	], [handleSubmit, reset, showCancel, showSave]);
 
 	return (
 		<div style={{ boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight }}>
@@ -637,7 +650,7 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
 				sections={showSections > 0 ? sectionsAmount : undefined}
-				buttons={renderButtons(handleSubmit, { showCancel, showSave })}
+				buttons={buttons}
 				showActive={showActive}
 			/>
 		</div>

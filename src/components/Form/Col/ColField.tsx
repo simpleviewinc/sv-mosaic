@@ -12,7 +12,6 @@ const ColField = ({
 	colIdx,
 	rowIdx,
 	sectionIdx,
-	dispatch,
 	state,
 	spacing,
 	methods,
@@ -69,7 +68,6 @@ const ColField = ({
 			onChange={onChange}
 			onBlur={onBlur}
 			ref={sanitizedFieldDef.ref}
-			dispatch={dispatch}
 			disabled={disabled}
 			methods={methods}
 		/>
@@ -80,7 +78,6 @@ const ColField = ({
 		error,
 		onChange,
 		onBlur,
-		dispatch,
 		disabled,
 		methods,
 	]);
@@ -98,7 +95,6 @@ const ColField = ({
 			error={error}
 			colsInRow={colsInRow}
 			id={field.name}
-			dispatch={dispatch}
 			spacing={spacing}
 			methods={methods}
 		>

@@ -18,8 +18,8 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods, handleSubmit } = controller;
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "imageVideoLinkDocumentBrowsing");
+	const { state, methods, handleSubmit } = controller;
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "imageVideoLinkDocumentBrowsing");
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -69,14 +69,14 @@ export const Playground = (): ReactElement => {
 
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods, handleSubmit } = controller;
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseAllOptions");
-	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseImage");
-	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseVideo");
-	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseDocument");
-	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseLink");
-	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "browseImageOrVideo");
-	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, methods, "disabledExample");
+	const { state, methods, handleSubmit } = controller;
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "browseAllOptions");
+	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(methods, "browseImage");
+	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(methods, "browseVideo");
+	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(methods, "browseDocument");
+	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(methods, "browseLink");
+	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(methods, "browseImageOrVideo");
+	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(methods, "disabledExample");
 
 	const fields = useMemo(
 		(): FieldDef[] =>

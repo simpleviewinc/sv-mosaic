@@ -3,8 +3,6 @@ import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 import { FormProps } from "./FormTypes";
 import { MosaicCSSContainer } from "@root/types";
 
-import { formActions } from "./formActions";
-
 import {
 	StyledFormContent,
 	StyledForm,
@@ -41,7 +39,6 @@ const Form = (props: FormProps) => {
 		backLabel,
 		fields,
 		sections,
-		dispatch,
 		dialogOpen = false,
 		description,
 		getFormValues,
@@ -55,7 +52,7 @@ const Form = (props: FormProps) => {
 		methods,
 	} = props;
 
-	const { setFormValues, disableForm } = methods;
+	const { init, setFormValues } = methods;
 
 	/**
 	 * Sections/layout and scroll spying
@@ -178,57 +175,71 @@ const Form = (props: FormProps) => {
 	 */
 	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
 
+	useEffect(() => {
+		init({ fields });
+	}, [init, fields]);
+
+	useEffect(() => {
+		(async () => {
+			const values = getFormValues ? (await getFormValues()) : {};
+			setFormValues({
+				values,
+				initial: true,
+			});
+		})();
+	}, [getFormValues, setFormValues]);
+
 	/**
 	 * Side effects
 	 */
-	useEffect(() => {
-		let isMounted = true;
-		const registerFields = async () => {
-			await dispatch(
-				formActions.init({
-					fields,
-				}),
-			);
-		};
+	// useEffect(() => {
+	// 	let isMounted = true;
+	// 	const registerFields = async () => {
+	// 		await dispatch(
+	// 			formActions.init({
+	// 				fields,
+	// 			}),
+	// 		);
+	// 	};
 
-		if (isMounted) {
-			registerFields();
-		}
+	// 	if (isMounted) {
+	// 		registerFields();
+	// 	}
 
-		return () => {
-			isMounted = false;
-		};
-	}, [dispatch, fields]);
+	// 	return () => {
+	// 		isMounted = false;
+	// 	};
+	// }, [dispatch, fields]);
 
-	useEffect(() => {
-		const loadFormValues = async () => {
-			disableForm({ disabled: true });
+	// useEffect(() => {
+	// 	const loadFormValues = async () => {
+	// 		disableForm({ disabled: true });
 
-			let values = getFormValues ? await getFormValues() : undefined;
+	// 		let values = getFormValues ? await getFormValues() : undefined;
 
-			if (values === undefined) {
-				fields.forEach(field => {
-					if ("defaultValue" in field) {
-						console.warn("`FieldDef.defaultValue` is deprecated. You should provide an initial value for this field (`" + field.name + "`) to the result of the `getFormValues` callback instead.");
+	// 		if (values === undefined) {
+	// 			fields.forEach(field => {
+	// 				if ("defaultValue" in field) {
+	// 					console.warn("`FieldDef.defaultValue` is deprecated. You should provide an initial value for this field (`" + field.name + "`) to the result of the `getFormValues` callback instead.");
 
-						values = {
-							...values,
-							[field.name]: field.defaultValue,
-						};
-					}
-				});
+	// 					values = {
+	// 						...values,
+	// 						[field.name]: field.defaultValue,
+	// 					};
+	// 				}
+	// 			});
 
-			}
+	// 		}
 
-			if (values) {
-				setFormValues({ values });
-			}
+	// 		if (values) {
+	// 			setFormValues({ values });
+	// 		}
 
-			disableForm({ disabled: false });
-		};
+	// 		disableForm({ disabled: false });
+	// 	};
 
-		loadFormValues();
-	}, [disableForm, getFormValues, setFormValues]);
+	// 	loadFormValues();
+	// }, [disableForm, getFormValues, setFormValues]);
 
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
@@ -272,7 +283,6 @@ const Form = (props: FormProps) => {
 							<Layout
 								registerRef={registerRef}
 								state={state}
-								dispatch={dispatch}
 								fields={fields}
 								sections={shownSections}
 								spacing={spacing}
@@ -292,7 +302,10 @@ const Form = (props: FormProps) => {
 			<Snackbar
 				label={submitWarningContent}
 				open={Boolean(state.submitWarning)}
-				onClose={() => dispatch(formActions.setSubmitWarning({ value: "" }))}
+				onClose={() => {
+					// TODO new submit warning method
+					// dispatch(formActions.setSubmitWarning({ value: "" }))
+				}}
 				autoHideDuration={4000}
 			/>
 		</>

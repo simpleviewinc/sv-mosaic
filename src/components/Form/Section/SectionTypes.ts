@@ -8,7 +8,6 @@ export interface SectionPropTypes {
 	description: string | JSX.Element;
 	fieldsDef: FieldDef[];
 	rows: MosaicGridConfig;
-	dispatch: any;
 	state: any;
 	collapsed?: boolean;
 	show?: MosaicToggle;
