@@ -22,7 +22,6 @@ const Section = (props: SectionPropTypes) => {
 		description,
 		fieldsDef,
 		rows,
-		dispatch,
 		sectionIdx,
 		state,
 		collapsed = false,
@@ -35,7 +34,7 @@ const Section = (props: SectionPropTypes) => {
 	const fieldsHaveErrors = useCallback(() => {
 		const fieldNames = rows.flat(2);
 
-		if (fieldNames.some(name => state.errors[name])){
+		if (fieldNames.some(name => state.errors[name])) {
 			return true;
 		}
 
@@ -54,7 +53,7 @@ const Section = (props: SectionPropTypes) => {
 	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
-		if (!fieldsHaveErrors()){
+		if (!fieldsHaveErrors()) {
 			return;
 		}
 
@@ -104,7 +103,6 @@ const Section = (props: SectionPropTypes) => {
 								sectionIdx={sectionIdx}
 								state={state}
 								fieldsDef={fieldsDef}
-								dispatch={dispatch}
 								gridMinWidth={gridMinWidth}
 								spacing={spacing}
 								methods={methods}

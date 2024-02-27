@@ -2,11 +2,8 @@ import { useRef, useCallback, useMemo, useReducer } from "react";
 import {
 	FieldCanBeValidated,
 	FormAction,
-	FormDispatch,
 	FormStable,
-	FormGetState,
 	FormMethods,
-	FormReducer,
 	FormState,
 	GetFieldError,
 	GetFieldErrors,
@@ -23,11 +20,35 @@ import {
 	FormWait,
 	MountField,
 	AddValidator,
+	FormInit,
+	FormReset,
 } from "./state/types";
 import { runValidators } from "./formActions";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { mapsValidators, required, validatePhoneNumber } from "./validators";
 import { MosaicObject } from "@root/types";
+import { FieldDefSanitized } from "../Field";
+import { getFieldConfig } from "./Col/fieldConfigMap";
+
+const initialState: FormState = {
+	internalData: {},
+	data: {},
+	errors: {},
+	disabled: false,
+	touched: {},
+	busyFields: {},
+	submitWarning: "",
+	waits: [],
+};
+
+const initialStable: FormStable = {
+	...initialState,
+	initialData: {},
+	fields: {},
+	mounted: {},
+	internalValidators: {},
+	hasBlurred: {},
+};
 
 export function coreReducer(state: FormState, action: FormAction): FormState {
 	switch (action.type) {
@@ -45,6 +66,13 @@ export function coreReducer(state: FormState, action: FormAction): FormState {
 		return {
 			...state,
 			waits: action.waits,
+		};
+	}
+	case "RESET": {
+		return {
+			...initialState,
+			data: action.data,
+			internalData: action.internalData,
 		};
 	}
 	// LEGACY
@@ -163,17 +191,6 @@ const cleanValue = (value: unknown) => {
 	return value;
 };
 
-const initialState: FormState = {
-	internalData: {},
-	data: {},
-	errors: {},
-	disabled: false,
-	touched: {},
-	busyFields: {},
-	submitWarning: "",
-	waits: [],
-};
-
 function stateFromStable({
 	internalData,
 	data,
@@ -197,18 +214,11 @@ function stateFromStable({
 }
 
 export function useForm(): UseFormReturn {
-	const stable = useRef<FormStable>({
-		...initialState,
-		fields: {},
-		mounted: {},
-		internalValidators: {},
-		hasBlurred: {},
-	});
+	const stable = useRef<FormStable>(initialStable);
 
-	const [state, dispatch] = useThunkReducer(
+	const [state, dispatch] = useReducer(
 		coreReducer,
 		initialState,
-		stable.current,
 	);
 
 	const getFieldFromExtra = useCallback((name: string) => {
@@ -339,19 +349,64 @@ export function useForm(): UseFormReturn {
 
 	const setFormValues = useCallback<SetFormValues>(({
 		values,
+		initial,
 	}) => {
 		const internalValues = Object.keys(values).reduce((acc, curr) => ({
 			...acc,
 			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
 		}), {});
 
-		stable.current.data = values;
+		stable.current.data = { ...values };
+
+		if (initial) {
+			stable.current.initialData = { ...values };
+		}
 
 		return dispatch({
 			type: "FIELDS_ON_CHANGE",
 			value: values,
 			internalValue: internalValues,
 			clearErrors: true,
+		});
+	}, [getFieldFromExtra]);
+
+	const init = useCallback<FormInit>(({
+		fields,
+	}) => {
+		stable.current.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field) => {
+			const fieldConfig = getFieldConfig(field.type);
+			const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
+
+			const result: FieldDefSanitized = {
+				...field,
+				validateOn: field.validateOn || fieldConfig.validate,
+				getResolvedValue: (value) => valueResolver(value, field),
+			};
+
+			return {
+				...prev,
+				[field.name]: result,
+			};
+		}, {});
+	}, []);
+
+	const reset = useCallback<FormReset>(() => {
+		const values = { ...stable.current.initialData };
+		const internalValues = Object.keys(values).reduce((acc, curr) => ({
+			...acc,
+			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
+		}), {});
+
+		stable.current = {
+			...initialStable,
+			data: values,
+			internalData: internalValues,
+		};
+
+		dispatch({
+			type: "RESET",
+			data: values,
+			internalData: internalValues,
 		});
 	}, [dispatch, getFieldFromExtra]);
 
@@ -403,6 +458,7 @@ export function useForm(): UseFormReturn {
 			dispatch({
 				type: "FIELD_UNVALIDATE",
 				name,
+				value: "",
 			});
 		}
 	}, [dispatch, getFieldFromExtra, validateField]);
@@ -606,6 +662,8 @@ export function useForm(): UseFormReturn {
 		removeWait,
 		mountField,
 		addValidator,
+		init,
+		reset,
 	}), [
 		setFieldBlur,
 		setFormValues,
@@ -616,6 +674,8 @@ export function useForm(): UseFormReturn {
 		removeWait,
 		mountField,
 		addValidator,
+		init,
+		reset,
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {
@@ -631,39 +691,7 @@ export function useForm(): UseFormReturn {
 
 	return {
 		state,
-		dispatch,
 		methods,
 		handleSubmit,
 	};
-}
-
-export function useThunkReducer(reducer: FormReducer, initialState: FormState, stable: FormStable): [FormState, FormDispatch] {
-	const lastState = useRef(initialState);
-
-	const getState: FormGetState = useCallback(() => {
-		const state = lastState.current;
-		return state;
-	}, []);
-
-	const enhancedReducer: FormReducer = useCallback(
-		(state, action) => {
-			const newState = reducer(state, action);
-			lastState.current = newState;
-			return newState;
-		},
-		[reducer],
-	);
-
-	const [state, dispatch] = useReducer(enhancedReducer, initialState);
-
-	const customDispatch: FormDispatch = useCallback((action) => {
-
-		if (typeof action === "function") {
-			return action(customDispatch, getState, stable);
-		}
-
-		return dispatch(action);
-	}, [getState, stable]);
-
-	return [state, customDispatch];
 }

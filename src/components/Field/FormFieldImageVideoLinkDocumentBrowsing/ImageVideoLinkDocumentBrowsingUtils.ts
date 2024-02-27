@@ -96,7 +96,6 @@ export const linkExample = [
  * @returns setters funcion for each respective asset type.
  */
 export const useImageVideoLinkDocumentBrowsing = (
-	dispatch: (action: unknown) => void,
 	methods: FormMethods,
 	fieldName : string,
 ) : UseImageVideoLinkDocumentBrowsingReturn => {

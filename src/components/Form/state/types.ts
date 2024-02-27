@@ -1,5 +1,4 @@
 import { MosaicObject } from "@root/types";
-import { Dispatch } from "react";
 import { FieldDef } from "../FormTypes";
 import { FieldDefSanitized } from "@root/components/Field";
 
@@ -36,86 +35,17 @@ export type ActionSetFormWaits = {
 	waits: FormWait[];
 };
 
+export type ActionReset = {
+	type: "RESET";
+	data: MosaicObject<any>;
+	internalData: MosaicObject<any>;
+};
+
 export type FormAction =
 	| ActionSetFieldErrors
 	| ActionSetFormWaits
+	| ActionReset
     | LegacyFormAction;
-
-type OptionalUndefinedParam<P, R> = P extends undefined ? (params?: P) => R : (params: P) => R;
-
-export type FormActionThunk<P = undefined, R = void> = OptionalUndefinedParam<
-	P,
-	(dispatch: FormDispatch, getState: FormGetState, stable: FormStable) => Promise<R>
->;
-
-export type FormActionThunks = {
-	init: FormActionThunk<{
-		fields: FieldDef[];
-	}>;
-	setSubmitWarning: FormActionThunk<{
-		value: string;
-	}>;
-	/**
-	 * @deprecated Use form controller's `methods.setFieldValue` instead
-	 */
-	setFieldValue: FormActionThunk<{
-		name: string;
-		value: unknown | ((current: unknown) => unknown);
-		validate?: boolean;
-		touched?: boolean;
-	}>;
-	/**
-	 * @deprecated Use form controller's `methods.setFieldBlur` instead
-	 */
-	setFieldBlur: FormActionThunk<{
-		name: string;
-		validate?: boolean;
-	}>;
-	/**
-	 * @deprecated Now internal use only. There should never be a need
-	 * for consumers to invoke validateField. If you are looking to validate
-	 * a field when it is changed, use the `validate` property when invoking
-	 * `setFieldValue`
-	 */
-	validateField: FormActionThunk<{
-		name: string;
-		validateLinkedFields?: boolean;
-	}>;
-	/**
-	 * @deprecated Now internal use only. There should never be a need
-	 * for consumers to invoke validateForm. If you are looking to validate
-	 * fields when they are changed, use the `validate` property when invoking
-	 * `setFormValues`
-	 */
-	validateForm: FormActionThunk<undefined, boolean>;
-	/**
-	 * @deprecated Use form controller's `handleSubmit` instead which wraps a
-	 * callback that should be invoked upon successful submission.
-	 */
-	submitForm: FormActionThunk<undefined, {
-		valid: boolean;
-		data: any;
-	}>;
-	resetForm: FormActionThunk;
-	/**
-	 * @deprecated Use form controller's `methods.setFormValues` instead
-	 */
-	setFormValues: FormActionThunk<MosaicObject>;
-	/**
-	 * @deprecated Use form controller's `methods.disableForm` instead
-	 */
-	disableForm: FormActionThunk<{
-		disabled?: boolean;
-	}>;
-	/**
-	 * @deprecated
-	 */
-	isSubmittable: FormActionThunk<undefined, boolean>;
-};
-
-export type FormDispatch = (action: any) => any | Dispatch<FormAction>;
-
-export type FormGetState = () => FormState;
 
 export type GetFieldErrorParams = {
 	name: string;
@@ -158,6 +88,7 @@ export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitEr
 
 export type SetFormValuesParams = {
 	values: MosaicObject<any>;
+	initial?: boolean;
 };
 
 export type SetFormValues = (params: SetFormValuesParams) => void;
@@ -230,6 +161,14 @@ export type AddValidatorResult = {
 
 export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
+export type FormInitParams = {
+	fields: FieldDef[];
+};
+
+export type FormInit = (params: FormInitParams) => void;
+
+export type FormReset = () => void;
+
 export type FormMethods = {
 	setFormValues: SetFormValues;
 	setFieldValue: SetFieldValue;
@@ -240,6 +179,8 @@ export type FormMethods = {
 	removeWait: RemoveWait;
 	mountField: MountField;
 	addValidator: AddValidator;
+	init: FormInit;
+	reset: FormReset;
 };
 
 export type FormState = {
@@ -255,16 +196,14 @@ export type FormState = {
 
 export type UseFormReturn = {
 	state: FormState;
-	dispatch: FormDispatch;
 	methods: FormMethods;
 	handleSubmit: FormHandleSubmit;
 };
 
 export type FormStable = FormState & {
+	initialData: MosaicObject<any>;
 	fields: Record<string, FieldDefSanitized>;
 	mounted: Record<string, boolean | undefined>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
 };
-
-export type FormReducer = (state: FormState, action: FormAction) => FormState;

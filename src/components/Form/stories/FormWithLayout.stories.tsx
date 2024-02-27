@@ -37,7 +37,7 @@ function randomNumber(min: number, max: number) {
 
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const controller = useForm();
-	const { state, dispatch, methods, handleSubmit } = controller;
+	const { state, methods, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -178,7 +178,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					},
 				},
 			],
-		[state.data.formMatrix, gridConfig, dispatch],
+		[state.data.formMatrix, gridConfig],
 	);
 
 	const sections = useMemo(() => [

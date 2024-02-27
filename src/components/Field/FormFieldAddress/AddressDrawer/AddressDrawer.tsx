@@ -33,20 +33,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	} = props;
 
 	const controller = useForm();
-	const { dispatch, state, methods, handleSubmit } = controller;
+	const { state, methods, handleSubmit } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const [initialState, setInitialState] = useState(state.data);
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
-	const setFieldValue = useCallback(async (name: string, value: string | MosaicLabelValue, validate = false) => {
-		methods.setFieldValue({
-			name,
-			value,
-			validate,
-		});
-	}, [dispatch]);
+	const { setFieldValue } = methods;
 
 	useEffect(() => {
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
@@ -58,7 +52,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		if (state.data.country !== lastCountry.current) {
 			if (lastCountry.current) {
-				setFieldValue("state", undefined);
+				setFieldValue({
+					name: "state",
+					value: undefined,
+				});
 			}
 
 			lastCountry.current = state.data.country;
@@ -102,7 +99,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		const handleApiStateChange = async () => {
 			if (apiState !== undefined) {
-				await setFieldValue("state", { label: apiState.label, value: apiState.value }, true);
+				setFieldValue({
+					name: "state",
+					value: { label: apiState.label, value: apiState.value },
+					validate: true,
+				});
 				setApiState(undefined);
 			}
 		};
@@ -138,7 +139,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				...initialState,
 				country: selectedCountry,
 			});
-			await setFieldValue("country", selectedCountry, true);
+			setFieldValue({
+				name: "country",
+				value: selectedCountry,
+				validate: true,
+			});
 
 			const selectedState = (await getOptionsStates(selectedCountry.value)).find(state => (
 				state.label.toLowerCase().includes(addressComponentsMap.administrative_area_level_1.label.toLowerCase())
@@ -154,9 +159,21 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
 		}
 
-		await setFieldValue("address1", `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(), true);
-		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
-		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
+		setFieldValue({
+			name: "address1",
+			value: `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(),
+			validate: true,
+		});
+		setFieldValue({
+			name: "city",
+			value: addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label,
+			validate: true,
+		});
+		setFieldValue({
+			name: "postalCode",
+			value: addressComponentsMap.postal_code.label,
+			validate: true,
+		});
 
 		for (const key in addressComponentsMap) {
 			if (!addressComponentsMap[key].label) {
@@ -204,7 +221,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			<Field
 				error={props.error}
 				id={fieldDef.name}
-				dispatch={dispatch}
 				fieldDef={{
 					name: fieldDef.name,
 					type: "autocomplete",
@@ -222,7 +238,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				/>
 			</Field>
 		);
-	}, [dispatch, googleMapsApiKey]);
+	}, [googleMapsApiKey]);
 
 	const sections = useMemo<SectionDef[]>(() => [
 		{

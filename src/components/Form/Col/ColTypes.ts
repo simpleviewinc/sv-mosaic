@@ -6,7 +6,6 @@ export interface ColPropsTypes {
 	// TODO Use something other than any
 	state: any;
 	fieldsDef: FieldDef[];
-	dispatch: any;
 	colsInRow?: number;
 	colIdx?: number;
 	rowIdx?: number;
@@ -19,7 +18,6 @@ export interface ColFieldProps {
 	fieldName: string;
 	fieldsDef: FieldDef[];
 	state: any;
-	dispatch: any;
 	colsInRow?: number;
 	colIdx?: number;
 	rowIdx?: number;
