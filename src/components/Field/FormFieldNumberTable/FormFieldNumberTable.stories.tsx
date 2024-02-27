@@ -16,7 +16,7 @@ export default {
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 	const label = text("Label", "Number of Rooms by Type");
 	const rowTotalLabel = text("Row total label", "TOTAL");
 	const columnTotalLabel = text("Column total label", "No. Rooms");
@@ -32,12 +32,12 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		if (!prepopulate)
-			methods.setFieldValue({
+			setFieldValue({
 				name: "numberTable",
 				value: undefined,
 			});
 		else
-			methods.setFieldValue({
+			setFieldValue({
 				name: "numberTable",
 				value: numberTableDefaultValue,
 			});

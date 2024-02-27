@@ -14,7 +14,7 @@ function FormExample({
 }) {
 	const appContext = useContext(AppContext);
 	const controller = useForm();
-	const { state, methods } = controller;
+	const { state, methods: { setFieldValue } } = controller;
 
 	const buttons = [
 		{
@@ -62,7 +62,7 @@ function FormExample({
 					},
 					callbacks: {
 						save: (data) => {
-							methods.setFieldValue({
+							setFieldValue({
 								name: "from_parent",
 								value: JSON.stringify(data),
 							});

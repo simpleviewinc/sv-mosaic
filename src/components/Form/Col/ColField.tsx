@@ -24,6 +24,7 @@ const ColField = ({
 
 	const isCustomField = typeof field.type !== "string";
 	const { Component }: FieldConfig = getFieldConfig(field.type);
+	const { setFieldValue, setFieldBlur } = methods;
 
 	if (!Component) {
 		throw new Error(`Invalid type ${field.type}`);
@@ -34,18 +35,18 @@ const ColField = ({
 	const onChange = useCallback((value: any) => {
 		field.onChangeCb && field.onChangeCb();
 
-		methods.setFieldValue({
+		setFieldValue({
 			name: field.name,
 			value,
 			touched: true,
 		});
-	}, [field, methods]);
+	}, [field, setFieldValue]);
 
 	const onBlur = useCallback(() => {
 		field.onBlurCb && field.onBlurCb();
 
-		methods.setFieldBlur({ name: field.name });
-	}, [field, methods]);
+		setFieldBlur({ name: field.name });
+	}, [field, setFieldBlur]);
 
 	const value = state?.internalData[field.name];
 	const error = !disabled ? state.errors[field.name] : "";

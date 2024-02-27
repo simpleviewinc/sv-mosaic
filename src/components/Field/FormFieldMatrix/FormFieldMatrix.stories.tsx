@@ -78,7 +78,7 @@ export const FormVariant = (): ReactElement => {
 	const [indexEdit, setIndexEdit] = useState(null);
 
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -109,13 +109,13 @@ export const FormVariant = (): ReactElement => {
 			};
 
 			if (state.data?.formMatrix?.length > 0) {
-				methods.setFieldValue({
+				setFieldValue({
 					name: "formMatrix",
 					value: [...state.data.formMatrix, newRow],
 					touched: true,
 				});
 			} else {
-				methods.setFieldValue({
+				setFieldValue({
 					name: "formMatrix",
 					value: [newRow],
 					touched: true,
@@ -130,7 +130,7 @@ export const FormVariant = (): ReactElement => {
 			const currentRows = [...state.data.formMatrix];
 			currentRows.splice(indexEdit, 1, editedRow);
 
-			methods.setFieldValue({
+			setFieldValue({
 				name: "formMatrix",
 				value: currentRows,
 				touched: true,
@@ -215,7 +215,7 @@ export const FormVariant = (): ReactElement => {
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
-					methods.setFieldValue({
+					setFieldValue({
 						name: "formMatrix",
 						value: filteredRows,
 						touched: true,
@@ -229,7 +229,7 @@ export const FormVariant = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			methods.setFieldValue({
+			setFieldValue({
 				name: "formMatrix",
 				value: rows,
 				touched: true,
@@ -316,7 +316,7 @@ export const Browse = (): ReactElement => {
 	const [rowsChecked, setCheckedRows] = useState<boolean[]>([]);
 
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	const [drawerState, setDrawerState] = useState({
 		drawers: [],
@@ -427,7 +427,7 @@ export const Browse = (): ReactElement => {
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
-					methods.setFieldValue({
+					setFieldValue({
 						name: "formMatrix",
 						value: filteredRows,
 						touched: true,
@@ -443,7 +443,7 @@ export const Browse = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			methods.setFieldValue({
+			setFieldValue({
 				name: "formMatrix",
 				value: rows,
 				touched: true,
@@ -469,7 +469,7 @@ export const Browse = (): ReactElement => {
 			onClick: async () => {
 				const selectedRows = mappedData.filter((_, idx) => rowsChecked[idx]);
 
-				methods.setFieldValue({
+				setFieldValue({
 					name: "formMatrix",
 					value: selectedRows,
 					touched: true,
@@ -533,7 +533,7 @@ export const Browse = (): ReactElement => {
 		const currentRows = [...state.data.formMatrix];
 		currentRows.splice(indexEdit, 1, editedRow);
 
-		methods.setFieldValue({
+		setFieldValue({
 			name: "formMatrix",
 			value: currentRows,
 			touched: true,

@@ -50,7 +50,7 @@ const initialStable: FormStable = {
 	hasBlurred: {},
 };
 
-export function coreReducer(state: FormState, action: FormAction): FormState {
+export function reducer(state: FormState, action: FormAction): FormState {
 	switch (action.type) {
 	// NEW
 	case "SET_FIELD_ERRORS": {
@@ -214,12 +214,9 @@ function stateFromStable({
 }
 
 export function useForm(): UseFormReturn {
-	const stable = useRef<FormStable>(initialStable);
+	const stable = useRef<FormStable>({ ...initialStable });
 
-	const [state, dispatch] = useReducer(
-		coreReducer,
-		initialState,
-	);
+	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const getFieldFromExtra = useCallback((name: string) => {
 		if (!stable.current.fields[name]) {
@@ -345,7 +342,7 @@ export function useForm(): UseFormReturn {
 			errors,
 			merge: true,
 		});
-	}, [dispatch, fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
+	}, [fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
 
 	const setFormValues = useCallback<SetFormValues>(({
 		values,
@@ -408,7 +405,7 @@ export function useForm(): UseFormReturn {
 			data: values,
 			internalData: internalValues,
 		});
-	}, [dispatch, getFieldFromExtra]);
+	}, [getFieldFromExtra]);
 
 	const setFieldValue = useCallback<SetFieldValue>(({
 		name,
@@ -461,7 +458,7 @@ export function useForm(): UseFormReturn {
 				value: "",
 			});
 		}
-	}, [dispatch, getFieldFromExtra, validateField]);
+	}, [getFieldFromExtra, validateField]);
 
 	const setFieldBlur = useCallback<SetFieldBlur>(({
 		name,
@@ -488,7 +485,7 @@ export function useForm(): UseFormReturn {
 			type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
 			value: disabled,
 		});
-	}, [dispatch]);
+	}, []);
 
 	const submitForm = useCallback<SubmitForm>(async () => {
 		const { data, fields, waits } = stable.current;
@@ -556,7 +553,7 @@ export function useForm(): UseFormReturn {
 			valid: true,
 			data: cleanData,
 		};
-	}, [dispatch, fieldCanBeValidated, getFieldErrors]);
+	}, [fieldCanBeValidated, getFieldErrors]);
 
 	const removeWait = useCallback<RemoveWait>(({
 		names,
@@ -570,7 +567,7 @@ export function useForm(): UseFormReturn {
 			type: "SET_FORM_WAITS",
 			waits: newWaits,
 		});
-	}, [dispatch]);
+	}, []);
 
 	const addWait = useCallback<AddWait>(({
 		name,
@@ -600,7 +597,7 @@ export function useForm(): UseFormReturn {
 				...params,
 			}),
 		};
-	}, [dispatch, removeWait]);
+	}, [removeWait]);
 
 	const mountField = useCallback<MountField>(({ name }) => {
 		stable.current.mounted[name] = true;
@@ -616,7 +613,7 @@ export function useForm(): UseFormReturn {
 				});
 			},
 		};
-	}, [dispatch]);
+	}, []);
 
 	const addValidator = useCallback<AddValidator>(({
 		name,

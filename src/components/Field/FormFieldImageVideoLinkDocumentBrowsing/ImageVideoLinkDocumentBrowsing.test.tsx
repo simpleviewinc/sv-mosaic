@@ -25,11 +25,11 @@ const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
 	const controller = useForm();
-	const {	methods, handleSubmit } = controller;
+	const {	methods: { setFieldValue }, handleSubmit } = controller;
 
 	const setImage = async () => {
 		setImageCallback();
-		methods.setFieldValue({
+		setFieldValue({
 			name: "imageVideoLinkDocumentBrowsing",
 			value: imageAssetExample,
 		});
@@ -37,14 +37,14 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	const setVideo = async () => {
 		setVideoCallback();
-		methods.setFieldValue({
+		setFieldValue({
 			name: "imageVideoLinkDocumentBrowsing",
 			value: videoAssetExample,
 		});
 	};
 
 	const setDocument = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "imageVideoLinkDocumentBrowsing",
 			value: documentExample,
 		});
@@ -52,7 +52,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	};
 
 	const setLink = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "imageVideoLinkDocumentBrowsing",
 			value: linkExample,
 		});
@@ -60,7 +60,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 	};
 
 	const handleRemove = () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "imageVideoLinkDocumentBrowsing",
 			value: [],
 		});

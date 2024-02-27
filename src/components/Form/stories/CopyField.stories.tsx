@@ -21,7 +21,7 @@ const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const CopyField = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -56,9 +56,9 @@ export const CopyField = (): ReactElement => {
 	useEffect(() => {
 		if (!state.touched.slug) {
 			const transformedLabel = state.data.name?.trim().toLowerCase().replace(/ {1,}/g, "_").replace(/[^a-z_]/g, "");
-			methods.setFieldValue({ name: "slug", value: transformedLabel });
+			setFieldValue({ name: "slug", value: transformedLabel });
 		}
-	}, [methods, state.data.name, state.touched]);
+	}, [setFieldValue, state.data.name, state.touched]);
 
 	return (
 		<>

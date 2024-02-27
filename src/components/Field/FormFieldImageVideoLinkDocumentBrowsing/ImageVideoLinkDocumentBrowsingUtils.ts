@@ -96,11 +96,11 @@ export const linkExample = [
  * @returns setters funcion for each respective asset type.
  */
 export const useImageVideoLinkDocumentBrowsing = (
-	methods: FormMethods,
+	{ setFieldValue }: FormMethods,
 	fieldName : string,
 ) : UseImageVideoLinkDocumentBrowsingReturn => {
 	const setImage = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: fieldName,
 			value: imageAssetExample,
 			validate: true,
@@ -110,7 +110,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 	};
 
 	const setVideo = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: fieldName,
 			value: videoAssetExample,
 			touched: true,
@@ -119,7 +119,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 	};
 
 	const setDocument = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: fieldName,
 			value: documentExample,
 			touched: true,
@@ -128,7 +128,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 	};
 
 	const setLink = async () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: fieldName,
 			value: linkExample,
 			touched: true,
@@ -137,7 +137,7 @@ export const useImageVideoLinkDocumentBrowsing = (
 	};
 
 	const handleRemove = () => {
-		methods.setFieldValue({
+		setFieldValue({
 			name: fieldName,
 			value: [],
 			validate: true,
