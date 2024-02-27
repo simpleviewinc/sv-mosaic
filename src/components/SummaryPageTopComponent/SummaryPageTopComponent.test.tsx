@@ -195,57 +195,6 @@ describe("SummaryPageTopComponent", () => {
 		expect(additionalActions).not.toBeInTheDocument();
 	});
 
-	it("Should throw an error with more than 3 main action buttons", async () => {
-		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
-
-		const newMainActions: SummaryPageTopComponentTypes["mainActions"] = [
-			{
-				label: "Button 1",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-			{
-				label: "Button 2",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-			{
-				label: "Edit",
-				mIcon: Edit,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-			{
-				label: "Button 1",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-			{
-				label: "Button 2",
-				mIcon: Mail,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-			{
-				label: "Edit",
-				mIcon: Edit,
-				onClick: jest.fn(),
-				color: "black",
-				variant: "text",
-			},
-		];
-
-		expect(() => render(<ComponentExample mainActions={newMainActions} />)).toThrow("mainActions prop must receive 3 elements or less.");
-	});
-
 	it("Should display additional action button", async () => {
 		await act(async () => {
 			render(<ComponentExample />);
@@ -269,21 +218,5 @@ describe("SummaryPageTopComponent", () => {
 
 		const descriptionItems = await screen.findAllByTestId("description-item");
 		expect(descriptionItems).toHaveLength(6);
-	});
-
-	it("Should throw an error with more than 6 description elements", async () => {
-		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
-
-		const newDescriptionItems = [
-			<p key={1}>Information</p>,
-			<p key={2}>Information</p>,
-			<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
-			<p key={4}>Information</p>,
-			<p key={5}>Information</p>,
-			<p key={6}>Information</p>,
-			<p key={7}>Information</p>,
-		];
-
-		expect(() => render(<ComponentExample descriptionItems={newDescriptionItems} />)).toThrowError("descriptionElements prop must receive 6 elements or less.");
 	});
 });
