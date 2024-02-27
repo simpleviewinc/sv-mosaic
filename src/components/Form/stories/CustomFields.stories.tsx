@@ -22,7 +22,7 @@ export default {
 
 export const CustomFields = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods, handleSubmit } = controller;
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -91,7 +91,7 @@ export const CustomFields = (): ReactElement => {
 	);
 
 	const setText1Value = function () {
-		methods.setFieldValue({
+		setFieldValue({
 			name: "text1",
 			value: "My New Value",
 		});

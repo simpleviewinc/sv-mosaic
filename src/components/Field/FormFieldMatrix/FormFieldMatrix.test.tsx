@@ -23,7 +23,7 @@ import rawData from "../../DataView/example/rawData.json";
 
 export const MatrixExample = (): ReactElement => {
 	const controller = useForm();
-	const { state, methods, handleSubmit } = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = useForm();
 
 	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
@@ -55,7 +55,7 @@ export const MatrixExample = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			methods.setFieldValue({
+			setFieldValue({
 				name: "formMatrix",
 				value: rows,
 				touched: true,
@@ -76,7 +76,7 @@ export const MatrixExample = (): ReactElement => {
 			};
 		});
 
-		methods.setFieldValue({
+		setFieldValue({
 			name: "formMatrix",
 			value: mappedData,
 			touched: true,
