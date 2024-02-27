@@ -10,7 +10,6 @@ const Col = (props: ColPropsTypes) => {
 		col,
 		state,
 		fieldsDef,
-		dispatch,
 		colsInRow,
 		colIdx,
 		rowIdx,
@@ -24,7 +23,6 @@ const Col = (props: ColPropsTypes) => {
 			{col.map((field) => (
 				<ColField
 					key={field}
-					dispatch={dispatch}
 					fieldName={field}
 					fieldsDef={fieldsDef}
 					state={state}

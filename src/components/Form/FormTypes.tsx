@@ -28,7 +28,6 @@ export interface FormProps {
 	backLabel?: TitleWrapperProps["backLabel"];
 	fields: FieldDef[];
 	sections?: SectionDef[];
-	dispatch: any;
 	dialogOpen?: boolean;
 	description?: string;
 	getFormValues?(): Promise<MosaicObject>;

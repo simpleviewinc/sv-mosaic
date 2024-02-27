@@ -3,7 +3,6 @@ import { FormMethods } from "../state/types";
 
 export interface LayoutProps {
 	state: any;
-	dispatch: any;
 	fields: FieldDef[];
 	sections: SectionDef[];
 	registerRef?: (ref: HTMLElement) => () => void;
