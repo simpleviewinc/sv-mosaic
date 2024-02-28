@@ -15,4 +15,4 @@ export type MatrixInputSettings = {
 
 export type MatrixData = DataViewProps["data"];
 
-export type FieldDefMatrix = FieldDefBase<"matrix", MatrixInputSettings, MatrixData>;
+export type FieldDefMatrix = FieldDefBase<"matrix", MatrixInputSettings>;

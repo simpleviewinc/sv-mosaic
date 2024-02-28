@@ -41,4 +41,4 @@ export type TextFieldInputSettings = {
 
 export type TextFieldData = string | number;
 
-export type FieldDefText = FieldDefBase<"text", TextFieldInputSettings, TextFieldData>;
+export type FieldDefText = FieldDefBase<"text", TextFieldInputSettings>;
