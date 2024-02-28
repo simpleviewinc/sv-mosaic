@@ -1,19 +1,64 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldImageUpload.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldImageUpload/Readme' />
 
 # Image Upload
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-- This component helps upload images to the assets library
-- The setup supports images, videos, or documents
+`Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents
+- [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
+- Data: `object` Optional - Object of the value arguments
+	* **imgName** `string` Optional - Image name
+	* **size** `number` Optional - Image size
+	* **type** `string` Optional - Image type
+	* **height** `number` Optional - Image height
+	* **width** `number` Optional - Image width
+	* **imgCoords** `object` Optional - Image coordinates
+		* **x** `number` - X image coordinates
+		* **y** `number` - Y image coordinates
+- inputSettings:
+	* **handleSetFocus** - `() => void` Optional - Callback executed when the set focus button is clicked.
+	* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
 
-## Props
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`handleSetFocus`** | `string` | Optional - Callback executed when the set focus button is clicked. |
+| **`options`** | `options[]` | Optional - List of menu options that can be executed by the component. |
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldimageupload).
+- options:
 
-## ImageUpload Example
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`label`** | `string` | Required - Name of the option. |
+| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "imageUpload",
+				inputSettings: {
+					handleSetFocus: () => {
+						alert("Set focus is called");
+					},
+					options: [
+						{
+							label: "Edit",
+							action: handleEdit,
+						},
+						{
+							label: "Translate",
+							action: handleTranslate,
+						}
+					]
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```

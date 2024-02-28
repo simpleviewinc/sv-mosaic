@@ -1,19 +1,194 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './ImageVideoLinkDocumentBrowsing.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldImageVideoLinkDocumentBrowsing/Readme' />
 
-# ImageVideoLinkDocumentBrowsing
+# Image Video Link Document
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-This component is helpful when the user needs browse an asset from the established assets library for their content.
+`Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
 The setup supports images, videos, documents or links.
+- [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
+- Data: `array` of `object` - Array of a label-value objects that represents an asset.
+	* **label** - `number` - Asset property name.
+	* **value** - `number` - Asset property value.
+- inputSettings:
 
-## Props
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`handleRemove`** | `() => void` | Optional - Callback executed when the remove button is clicked. In order to remove the loaded asset, this function should dispatch a `setFieldValue` form action with a value of an empty array. |
+| **`handleSetDocument`** | `() => Promise<void>` | Optional - Callback executed when the document icon clicked. In order to load a document, it should dispatch a form action of type `setFieldValue` with a document of the type specified in the `Data` section. |
+| **`handleSetImage`** | `() => Promise<void>` | Required - Callback executed when the image icon clicked. In order to load an image, it should dispatch a form action of type `setFieldValue` with an image of the type specified in the `Data` section. |
+| **`handleSetVideo`** | `() => Promise<void>` | Optional - Callback executed when the video icon is clicked. In order to load a video, it should dispatch a form action of type `setFieldValue` with a video of the type specified in the `Data` section. |
+| **`handleSetLink`** | `() => Promise<void>` | Optional - Callback executed when the link icon is clicked. In order to load a link, it should dispatch a form action of type `setFieldValue` with a link of the type specified in the `Data` section. |
+| **`src`** | `string` | Optional - If the asset contains an image, its source should be passed via this src prop. |
+| **`options`** | `options[]` | Optional - List of options that will be shown when the three vertical dots icon is clicked. |
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldimagevideolinkdocument).
+- options:
 
-## ImageVideoLinkDocumentBrowsing Example
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`label`** | `string` | Required - Name of the option. |
+| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+import formActions from "@simpleview/sv-mosaic/formActions";
+
+const { dispatch } = useForm();
+
+const image = [
+	{
+		label: "Title",
+		value: "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail",
+	},
+	{
+		label: "Type",
+		value: "Image Video Thumbnail",
+	},
+	{
+		label: "Alt",
+		value: "-",
+	},
+	{
+		label: "Size",
+		value: "1280x720",
+	},
+	{
+		label: "Focus",
+		value: "No",
+	},
+	{
+		label: "Locales",
+		value: "-",
+	},
+];
+
+const video = [
+	{
+		label: "Title",
+		value: "Video Example - This is a video example",
+	},
+	{
+		label: "Type",
+		value: "Video",
+	},
+	{
+		label: "Alt",
+		value: "-",
+	},
+	{
+		label: "Size",
+		value: "1280x720",
+	},
+	{
+		label: "Locales",
+		value: "es, en & in",
+	},
+];
+
+const document = [
+	{
+		label: "Title",
+		value: "Document example",
+	},
+	{
+		label: "Type",
+		value: "Document",
+	},
+	{
+		label: "Size",
+		value: "333 bytes",
+	},
+	{
+		label: "Size on disk",
+		value: "0 bytes",
+	},
+];
+
+const link = [
+	{
+		label: "Title",
+		value: "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico",
+	},
+	{
+		label: "Type",
+		value: "Asset Library - Image",
+	},
+	{
+		label: "URL",
+		value: "https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg",
+	},
+];
+
+const setImage = async () => {
+	await dispatch(
+		formActions.setFieldValue({
+			name: "imageVideoDocumentLink",
+			value: image,
+			touched: true
+		})
+	);
+};
+
+const setVideo = async () => {
+	await dispatch(
+		formActions.setFieldValue({
+			name: "imageVideoDocumentLink",
+			value: video,
+			touched: true
+		})
+	);
+};
+
+const setDocument = async () => {
+	await dispatch(
+		formActions.setFieldValue({
+			name: "imageVideoDocumentLink",
+			value: document,
+			touched: true
+		})
+	);
+};
+
+const setLink = async () => {
+	await dispatch(
+		formActions.setFieldValue({
+			name: "imageVideoDocumentLink",
+			value: link,
+			touched: true
+		})
+	);
+};
+
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				name: "imageVideoDocumentLink",
+				type: "imageVideoDocumentLink",
+				inputSettings: {
+					options: [
+						{
+							label: "Edit",
+							action: handleEdit,
+						},
+						{
+							label: "Translate",
+							action: handleTranslate,
+						},
+					],
+					handleSetImage: setImage,
+					handleSetDocument: setDocument,
+					handleSetVideo: setVideo,
+					handleSetLink: setLink,
+					handleRemove: removeAsset,
+					src: "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg"
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
