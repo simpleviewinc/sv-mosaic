@@ -42,7 +42,7 @@ export interface ChipListPropsTypes {
 
 export interface AdvanceSelectionDrawerPropTypes {
 	value: MosaicLabelValue[];
-	fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>;
+	fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings>;
 	onChange: (e: MosaicLabelValue[]) => Promise<void>;
 	isModalOpen: boolean;
 	isMobileView: boolean;
@@ -51,4 +51,4 @@ export interface AdvanceSelectionDrawerPropTypes {
 
 export type AdvancedSelectionData = MosaicLabelValue[];
 
-export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>;
+export type FieldDefAdvancedSelection = FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings>;
