@@ -60,7 +60,6 @@ export const Playground = (): ReactElement => {
 	const showState = boolean("Show state", false);
 	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
-	const defaultValuesKnob = select("Default Values", ["None", "Has Defaults"], "None");
 	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
@@ -160,7 +159,7 @@ export const Playground = (): ReactElement => {
 		alert("DELETED FILE: " + id);
 	};
 
-	const showDefaultValues: boolean = useMemo(() => defaultValuesKnob === "Has Defaults" && prepopulate, [prepopulate, defaultValuesKnob]);
+	const showDefaultValues: boolean = useMemo(() => prepopulate, [prepopulate]);
 
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -171,7 +170,6 @@ export const Playground = (): ReactElement => {
 					type: "text",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "Passing default value",
 				},
 				{
 					name: "check",
@@ -182,20 +180,6 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: checkboxOptions,
 					},
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							label: "Label 1",
-							value: "label_1",
-						},
-						{
-							label: "Label 2",
-							value: "label_2",
-						},
-						{
-							label: "Label 3",
-							value: "label_3",
-						},
-					],
 				},
 				{
 					name: "chipSelect",
@@ -220,10 +204,6 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : {
-						"label": "Very long label that should fit: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-						"value": "label_3",
-					},
 				},
 				{
 					name: "dropdownSingle",
@@ -257,10 +237,6 @@ export const Playground = (): ReactElement => {
 							{ label: "Se7en", value: "1995" },
 						],
 					},
-					defaultValue: !showDefaultValues ? undefined : {
-						label: "The Shawshank Redemption",
-						value: "1994",
-					},
 				},
 				{
 					name: "phoneSelect",
@@ -268,7 +244,6 @@ export const Playground = (): ReactElement => {
 					type: "phone",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "15205751151",
 				},
 				{
 					name: "radio",
@@ -292,10 +267,6 @@ export const Playground = (): ReactElement => {
 							},
 						],
 					},
-					defaultValue: !showDefaultValues ? undefined : {
-						label: "Label 3",
-						value: "label_3",
-					},
 				},
 				{
 					name: "toggleSwitch",
@@ -306,7 +277,6 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						toggleLabel: "To the side",
 					},
-					defaultValue: !showDefaultValues ? undefined : true,
 				},
 				{
 					name: "color",
@@ -314,7 +284,6 @@ export const Playground = (): ReactElement => {
 					disabled,
 					required,
 					type: "color",
-					defaultValue: !showDefaultValues ? undefined : "#19a80091",
 				},
 				{
 					name: "date",
@@ -322,7 +291,6 @@ export const Playground = (): ReactElement => {
 					type: "date",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : new Date(),
 				},
 				{
 					name: "time",
@@ -330,7 +298,6 @@ export const Playground = (): ReactElement => {
 					type: "time",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "14:00",
 				},
 				{
 					name: "address",
@@ -343,21 +310,6 @@ export const Playground = (): ReactElement => {
 					},
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							"id": 1,
-							"address1": "8950 N. Oracle Road",
-							"city": "Tuczon",
-							"postalCode": "85704",
-							"country": { label: "United States", value: "US" },
-							"state": { label: "Arizona", value: "AZ" },
-							"types": [
-								{ label: "Physical", value: "physical" },
-								{ label: "Billing", value: "billing" },
-								{ label: "Shipping", value: "shipping" },
-							],
-						},
-					],
 				},
 				{
 					name: "advancedSelection",
@@ -369,44 +321,6 @@ export const Playground = (): ReactElement => {
 						options: additionalOptions,
 						createNewOption,
 					},
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							label: "Default Value 1",
-							value: "def option 1",
-						},
-						{
-							label: "Default Value 2",
-							value: "def option 2",
-						},
-						{
-							label: "Option 1",
-							value: "option_1-cat_1",
-						},
-						{
-							label: "Option 2",
-							value: "option_2-cat_1",
-						},
-						{
-							label: "Option 3",
-							value: "option_3-cat_1",
-						},
-						{
-							label: "Option 4",
-							value: "option_4-cat_1",
-						},
-						{
-							label: "Option 1 category 2",
-							value: "option_1-cat_2",
-						},
-						{
-							label: "Test option category 2",
-							value: "option_2-cat_2",
-						},
-						{
-							label: "Another option of catergory 2",
-							value: "option_3-cat_2",
-						},
-					],
 				},
 				{
 					name: "imageVideoDocumentLink",
@@ -423,32 +337,6 @@ export const Playground = (): ReactElement => {
 						handleRemove,
 						src: imageVideoSrc,
 					},
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							"label": "Title",
-							"value": "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail",
-						},
-						{
-							"label": "Type",
-							"value": "Image Video Thumbnail",
-						},
-						{
-							"label": "Alt",
-							"value": "-",
-						},
-						{
-							"label": "Size",
-							"value": "1280x720",
-						},
-						{
-							"label": "Focus",
-							"value": "No",
-						},
-						{
-							"label": "Locales",
-							"value": "-",
-						},
-					],
 				},
 				{
 					name: "textEditor",
@@ -456,7 +344,6 @@ export const Playground = (): ReactElement => {
 					type: "textEditor",
 					disabled,
 					required,
-					defaultValue: !showDefaultValues ? undefined : "Passing default value",
 				},
 				{
 					name: "imageUpload",
@@ -467,13 +354,6 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: menuOptions,
 					},
-					defaultValue: !showDefaultValues ? undefined : {
-						"imgName": "image (2).png",
-						"size": 61571,
-						"type": "image/png",
-						"height": 600,
-						"width": 777,
-					},
 				},
 				{
 					name: "mapCoordinates",
@@ -483,10 +363,6 @@ export const Playground = (): ReactElement => {
 					required,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
-					},
-					defaultValue: !showDefaultValues ? undefined : {
-						"lat": 32.3395031,
-						"lng": -110.9864294,
 					},
 				},
 				{
@@ -500,42 +376,6 @@ export const Playground = (): ReactElement => {
 						onFileDelete,
 						limit: undefined,
 					},
-					defaultValue: !showDefaultValues ? undefined : [
-						{
-							"id": "1",
-							"name": "roomBlocks.xslx",
-							"size": 386359,
-						},
-						{
-							"id": "2",
-							"name": "floorplan.jpg",
-							"size": 282010,
-						},
-						{
-							"id": "3",
-							"name": "SV.png",
-							"size": 151418,
-							"thumbnailUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
-							"downloadUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_520,q_75,w_780/v1/clients/simpleview/15_bbd7902e-9b13-473b-a94e-a1347fdab277.jpg",
-						},
-						{
-							"id": "4",
-							"name": "MyHotel-AZ.png",
-							"size": 1447671,
-						},
-						{
-							"id": "5",
-							"name": "opportunity.pdf",
-							"size": 20842780,
-						},
-						{
-							"id": "6",
-							"name": "summit.png",
-							"size": 840038,
-							"thumbnailUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
-							"downloadUrl": "https://ttra.com/wp-content/uploads/2022/02/Simpleview-Summit.jpg",
-						},
-					],
 				},
 				{
 					name: "numberTable",
@@ -543,7 +383,6 @@ export const Playground = (): ReactElement => {
 					type: "numberTable",
 					required,
 					disabled,
-					defaultValue: !showDefaultValues ? undefined : numberTableDefaultValue,
 					inputSettings: {
 						rowTotalLabel: "TOTAL",
 						columnTotalLabel: "No. Rooms",

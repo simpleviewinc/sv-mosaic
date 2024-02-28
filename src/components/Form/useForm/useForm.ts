@@ -161,7 +161,7 @@ export function useForm(): UseFormReturn {
 	}, [fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
 
 	const setFormValues = useCallback<SetFormValues>(({
-		values,
+		values = {},
 		initial,
 	}) => {
 		const internalValues = Object.keys(values).reduce((acc, curr) => ({
@@ -201,6 +201,8 @@ export function useForm(): UseFormReturn {
 				[field.name]: result,
 			};
 		}, {});
+
+		console.log("FIELDS INITd");
 	}, []);
 
 	const reset = useCallback<FormReset>(() => {
@@ -211,7 +213,9 @@ export function useForm(): UseFormReturn {
 		}), {});
 
 		stable.current = {
-			...initialStable,
+			...initialState,
+			...stable.current,
+			hasBlurred: {},
 			data: values,
 			internalData: internalValues,
 		};

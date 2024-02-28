@@ -182,6 +182,7 @@ const Form = (props: FormProps) => {
 	useEffect(() => {
 		(async () => {
 			const values = getFormValues ? (await getFormValues()) : {};
+			console.log(getFormValues, values);
 			setFormValues({
 				values,
 				initial: true,
