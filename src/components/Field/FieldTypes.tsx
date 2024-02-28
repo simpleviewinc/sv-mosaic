@@ -33,7 +33,7 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
 	 */
-	fieldDef: FieldDefBase<T, U, V>;
+	fieldDef: FieldDefBase<T, U>;
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
@@ -78,7 +78,7 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDefBase<Type, T = any, U = any> {
+export interface FieldDefBase<Type, T = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -158,12 +158,6 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 * Identifier passed by the developer
 	 */
 	id?: string;
-	/**
-	 * Optional value that devs can define for a field to begin with.
-	 *
-	 * @deprecated Use getFormValues instead.
-	 */
-	defaultValue?: U;
 	/**
 	 * Callback executed when the current fields has changed
 	 */

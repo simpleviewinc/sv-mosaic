@@ -4,7 +4,7 @@ import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 
 // Components
-import Form, { useForm } from "@root/components/Form";
+import Form, { FormProps, useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -33,11 +33,13 @@ const DrawerEditForm = ({
 	onSave,
 	title,
 	fields,
+	getFormValues,
 }: {
 	onClose: () => void;
 	onSave: (data: any) => void;
 	title: string;
 	fields: FieldDef[];
+	getFormValues: FormProps["getFormValues"];
 }): ReactElement => {
 	const controller = useForm();
 	const { state } = controller;
@@ -64,6 +66,7 @@ const DrawerEditForm = ({
 			title={title}
 			fields={fields}
 			onBack={onClose}
+			getFormValues={getFormValues}
 		/>
 	);
 };
@@ -194,15 +197,17 @@ export const FormVariant = (): ReactElement => {
 									name: "title",
 									label: "Title",
 									type: "text",
-									defaultValue: rowToEdit[0].title,
 								},
 								{
 									name: "description",
 									label: "Description",
 									type: "text",
-									defaultValue: rowToEdit[0].description,
 								},
 							],
+							getFormValues: async () => ({
+								title: rowToEdit[0].title,
+								description: rowToEdit[0].description,
+							}),
 						},
 					});
 				},
@@ -289,6 +294,7 @@ export const FormVariant = (): ReactElement => {
 							onClose={removeDrawer}
 							onSave={addOrEdit}
 							title={drawerDef.config.title}
+							getFormValues={drawerDef.config.getFormValues}
 						/>
 					);
 				}}
@@ -406,15 +412,17 @@ export const Browse = (): ReactElement => {
 									name: "title",
 									label: "Title",
 									type: "text",
-									defaultValue: rowToEdit[0].title,
 								},
 								{
 									name: "description",
 									label: "Description",
 									type: "text",
-									defaultValue: rowToEdit[0].description,
 								},
 							],
+							getFormValues: async () => ({
+								title: rowToEdit[0].title,
+								description: rowToEdit[0].description,
+							}),
 						},
 					});
 				},
@@ -573,6 +581,7 @@ export const Browse = (): ReactElement => {
 								onSave={edit}
 								fields={drawerDef.config.fields}
 								title={drawerDef.config.title}
+								getFormValues={drawerDef.config.getFormValues}
 							/>
 						);
 					}
