@@ -260,13 +260,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			type: "checkbox",
 			label: "Type",
 			size: "sm",
-			defaultValue: addressToEdit?.types,
 			required: true,
 			inputSettings: {
 				options: addressTypes,
 			},
 		},
-	] : [], [addressToEdit?.types, addressTypes]);
+	] : [], [addressTypes]);
 
 	const autoCompleteField = useMemo(
 		(): FieldDef[] =>
@@ -276,7 +275,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					required: true,
 					type: Autocomplete,
 					label: "Address",
-					defaultValue: addressToEdit?.address1,
 					inputSettings: {
 						address,
 						setAddress,
@@ -285,7 +283,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				},
 			],
 		[
-			addressToEdit?.address1,
 			Autocomplete,
 			address,
 			onSelect,
@@ -301,7 +298,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "Country",
 					size: "sm",
 					required: true,
-					defaultValue: addressToEdit?.country,
 					inputSettings: {
 						getOptions: getOptionsCountries,
 					},
@@ -311,14 +307,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "text",
 					label: undefined,
 					size: "lg",
-					defaultValue: addressToEdit?.address2,
 				},
 				{
 					name: "address3",
 					type: "text",
 					label: undefined,
 					size: "lg",
-					defaultValue: addressToEdit?.address3,
 				},
 				{
 					name: "city",
@@ -326,14 +320,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "City",
 					size: "sm",
 					required: true,
-					defaultValue: addressToEdit?.city,
 				},
 				{
 					name: "state",
 					type: "dropdown",
 					label: "State",
 					size: "sm",
-					defaultValue: addressToEdit?.state,
 					inputSettings: {
 						getOptions: () => getOptionsStates(state.data.country?.value),
 					},
@@ -343,7 +335,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "text",
 					label: "Postal Code",
 					size: "sm",
-					defaultValue: addressToEdit?.postalCode,
 					required: true,
 					inputSettings: {
 						type: "string",
@@ -352,12 +343,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				...typesField,
 			],
 		[
-			addressToEdit?.country,
-			addressToEdit?.address2,
-			addressToEdit?.address3,
-			addressToEdit?.city,
-			addressToEdit?.state,
-			addressToEdit?.postalCode,
 			getOptionsCountries,
 			typesField,
 			getOptionsStates,
@@ -374,6 +359,23 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			],
 		[baseFields, typesField, autoCompleteField],
 	);
+
+	const getFormValues = useCallback(async () => {
+		if (!addressToEdit) {
+			return {};
+		}
+
+		return {
+			address1: addressToEdit.address1,
+			address2: addressToEdit.address2,
+			address3: addressToEdit.address3,
+			city: addressToEdit.city,
+			state: addressToEdit.state,
+			postalCode: addressToEdit.postalCode,
+			country: addressToEdit.country,
+			types: addressToEdit.types,
+		};
+	}, [addressToEdit]);
 
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
@@ -393,6 +395,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	return (
 		<FormDrawerWrapper className="address">
 			<Form
+				{...controller}
 				onBack={handleClose}
 				title="Address Information"
 				buttons={buttons}
@@ -401,7 +404,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
-				{...controller}
+				getFormValues={getFormValues}
 			/>
 			<Snackbar
 				autoHideDuration={4000}

@@ -115,11 +115,9 @@ export const Playground = (): ReactElement => {
 		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
 	};
 
-	const getFormValues = useCallback(async () => {
-		await new Promise(res => setTimeout(res, 1000));
-
-		return initialValues;
-	}, [initialValues]);
+	const getFormValues = useCallback(async () => ({
+		...initialValues,
+	}), []);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
