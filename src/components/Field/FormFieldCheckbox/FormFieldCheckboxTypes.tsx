@@ -26,4 +26,4 @@ export type FormFieldCheckboxInputSettings = StrictUnion<FormFieldCheckboxLocalO
 
 export type CheckboxData = MosaicLabelValue[];
 
-export type FieldDefCheckbox = FieldDefBase<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>;
+export type FieldDefCheckbox = FieldDefBase<"checkbox", FormFieldCheckboxInputSettings>;

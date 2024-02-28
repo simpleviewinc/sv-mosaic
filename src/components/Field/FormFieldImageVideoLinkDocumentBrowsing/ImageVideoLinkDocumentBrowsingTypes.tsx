@@ -73,4 +73,4 @@ export type UseImageVideoLinkDocumentBrowsingReturn = {
 
 export type ImageVideoDocumentLinkData = AssetProperties[];
 
-export type FieldDefImageVideoDocumentLink = FieldDefBase<"imageVideoDocumentLink", ImageVideoDocumentLinkInputSettings, ImageVideoDocumentLinkData>;
+export type FieldDefImageVideoDocumentLink = FieldDefBase<"imageVideoDocumentLink", ImageVideoDocumentLinkInputSettings>;

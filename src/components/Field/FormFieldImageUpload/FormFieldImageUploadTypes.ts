@@ -30,4 +30,4 @@ export type ImageUploadValue = {
 	};
 };
 
-export type FieldDefImageUpload = FieldDefBase<"imageUpload", ImageUploadInputSettings, ImageUploadValue>;
+export type FieldDefImageUpload = FieldDefBase<"imageUpload", ImageUploadInputSettings>;

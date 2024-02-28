@@ -17,4 +17,4 @@ export type PhoneSelectionInputSettings = {
 
 export type PhoneDropdownData = string;
 
-export type FieldDefPhoneSelection = FieldDefBase<"phone", PhoneSelectionInputSettings, PhoneDropdownData>;
+export type FieldDefPhoneSelection = FieldDefBase<"phone", PhoneSelectionInputSettings>;

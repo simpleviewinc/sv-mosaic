@@ -67,6 +67,5 @@ export type NumberTableData = {
 
 export type FieldDefNumberTable = FieldDefBase<
 	"numberTable",
-	NumberTableInputSettings,
-	NumberTableData
+	NumberTableInputSettings
 >;

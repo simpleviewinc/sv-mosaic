@@ -28,4 +28,4 @@ export type FormFieldChipSingleSelectInputSettings = StrictUnion<FormFieldChipSi
 
 export type ChipData = MosaicLabelValue;
 
-export type FieldDefChip = FieldDefBase<"chip", FormFieldChipSingleSelectInputSettings, ChipData>;
+export type FieldDefChip = FieldDefBase<"chip", FormFieldChipSingleSelectInputSettings>;
