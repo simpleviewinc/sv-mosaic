@@ -4,17 +4,90 @@ import * as stories from './AdvancedSelection.stories';
 <Meta title='FormFields/FormFieldAdvancedSelection/Readme' />
 
 # Advanced Selection
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
 - Allow users to select one or more options from a modal menu.
 - Used for very long lists.
 - Have the ability to type and search.
+- [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
+- Data: `array` of `object` - Array of values of the selected options.
+	* **label** - `string` - Text users will see to identify the option.
+	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
+- inputSettings:
 
-## Props
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`createNewOption`** | `(newOptionLabel: string) => Promise<MosaicLabelValue>` | optional -  Function used to insert more options either on the local options array, or on the DB. |
+| **`options`** | `MosaicLabelValue[]` | required -  Used to set the full info (label, value) of all selected options. This prop only applies when getting options locally. The label is the text the users will see to identify the option and the value will be saved to the DV when the option gets selected. |
+| **`getOptions`** | `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` | required - Function to get the next set of options. This prop only applies when getting options from a DB. |
+| **`getOptionsLimit`** | `number or string` | optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB. |
+| **`selectLimit`** | `number` | optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want. |
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldadvancedselection).
+### How to use in a form?
+```ts
+// List of options
+const externalOptions = [
+	{
+		label: "Option1",
+		value: "value1",
+	},
+	{
+		label: "Option2",
+		value: "value2",
+	}
+]
 
-## Advanced Selection Example
+/**
+ * Definition of the funtion that enables the
+ * creation of new options.
+**/
+const myCreateOptionFn = async (newOptionLabel) => {
+	const value = `${newOptionLabel}_${externalOptions.length}`
+	const newOption = {
+		value,
+		label: newOptionLabel,
+	}
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+	//Insert to db
+	externalOptions.push(newOption);
+
+	return newOption;
+}
+
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "advancedSelection",
+				inputSettings: {
+					createNewOption: myCreateOptionFn,
+					options: externalOptions
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "advancedSelection",
+				inputSettings: {
+					createNewOption: myCreateOptionFn,
+					getOptions: myGetOptionsFn,
+					getOptionsLimit: 5,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```

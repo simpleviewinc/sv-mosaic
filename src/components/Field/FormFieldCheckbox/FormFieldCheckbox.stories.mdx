@@ -1,16 +1,58 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldCheckbox.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldCheckbox/Readme' />
 
-# FormFieldCheckbox
+# Checkbox
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-## Props
+- A group of checkbox buttons that allows users to select multiple items from a list of possible options.
+- [**Playground**](/?path=/story/formfields-formfieldcheckbox--playground)
+- Data: `array` of `string` - Array of values of the selected options.
+- inputSettings:
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldcheckbox).
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label and value. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
 
-## FormFieldCheckbox
+### How to use in a form?
+```ts
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "checkbox",
+				inputSettings: {
+					options: [
+						{
+							label: "Option1",
+							value: "value1",
+						}
+					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "checkbox",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```

@@ -1,15 +1,27 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './TimeField.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldTimeField/Readme' />
 
-## Time Field
-It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
+# Time
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-## Props
+- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
+- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
+- Data: `string` - Time in `HH:MM` 24 hour format.
+- This field accepts no inputSettings
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldtimefield).
-
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "time",
+			},
+			//...other fields
+		],
+	[]
+);
+```

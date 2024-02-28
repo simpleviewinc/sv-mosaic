@@ -1,20 +1,63 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldChipSingleSelect.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldChipSingleSelect/Readme' />
 
-# FormFieldChipSingleSelect
+# Chip Single Select
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-The `FormFieldChipSingleSelect` component is built over a wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with SimpleView brand colors.
+- The `FormFieldChipSingleSelect` component is built over a wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with SimpleView brand colors.
+- [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
+- Data: `string` - Value of the selected option.
+- inputSettings:
 
-Description
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` |required - Function to get a set of options. This prop only applies when getting options from a DB. |
+| **`onSelect`** | `(...args) => void` | optional - Callback to be executed when an option gets selected. |
 
-## Props
+### How to use in a form?
+```ts
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "chip",
+				inputSettings: {
+					options: [
+						{
+							label: "Option1",
+							value: "value1",
+						},
+						{
+							label: "Option2",
+							value: "value2",
+						}
+					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldchipsingleselect).
-
-## FormFieldChipSingleSelect
-
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "chip",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
