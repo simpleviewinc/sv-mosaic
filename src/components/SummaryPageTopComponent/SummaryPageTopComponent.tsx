@@ -33,16 +33,6 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	const mainActions = useMemo(() => props.mainActions || [], [props.mainActions]);
 	const additionalActions = useMemo(() => props.additionalActions || [], [props.additionalActions]);
 
-	/**
-	 * Throws an error if developer send more than three elements in mainActions.
-	*/
-	if (mainActions && mainActions.length > 3) throw new Error("mainActions prop must receive 3 elements or less.");
-
-	/**
-	 * Throws an error if developer send more than three elements in textLinks.
-	*/
-	if (descriptionItems && descriptionItems.length > 6) throw new Error("descriptionElements prop must receive 6 elements or less.");
-
 	const shownAdditionalActions = useToggle(additionalActions, "show");
 
 	const additionActionsButton: ButtonProps | null = useMemo(() => shownAdditionalActions.length > 0 ? {
