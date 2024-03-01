@@ -1,5 +1,39 @@
 # sv-mosaic changelog
 
+## 31.1.0 - 03/05/24
+
+### Improvements & Fixes
+
+* `Menu`
+  * [MOS-1268](https://simpleviewtools.atlassian.net/browse/MOS-1268 "https://simpleviewtools.atlassian.net/browse/MOS-1268")
+    * Removes the runtime validation of `Menu` props and drops `jsvalidator` as a dependency since it is no longer in use.
+* `Field`
+  * [MOS-1267](https://simpleviewtools.atlassian.net/browse/MOS-1267 "https://simpleviewtools.atlassian.net/browse/MOS-1267")
+    * Updates default size for text and dropdown fields from small to medium.
+* `SideNav`
+  * [MOS-1258](https://simpleviewtools.atlassian.net/browse/MOS-1258 "https://simpleviewtools.atlassian.net/browse/MOS-1258")
+    * Employs the toggle mechanic to allow for dynamically showing or hiding SideNav items.
+* `Button`
+  * [MOS-1254](https://simpleviewtools.atlassian.net/browse/MOS-1254 "https://simpleviewtools.atlassian.net/browse/MOS-1254")
+    * This employs the toggle mechanic for the `Button` disabled property. It also inverts toggle's behaviour when dealing with arrays of conditions, evaluating in an inverse nature (*some* instead of *every* ) if the `defaultToggle` parameter is `false` instead of `true`.
+  * [MOS-1252](https://simpleviewtools.atlassian.net/browse/MOS-1252 "https://simpleviewtools.atlassian.net/browse/MOS-1252")
+    * Attaches the `onMouseEnter` and `onMouseLeave` event handlers to the component that wraps the button instead of the button itself, allowing them to be fired even when the button is disabled.
+* `DataViewFilterDropdown`
+  * [MOS-1224](https://simpleviewtools.atlassian.net/browse/MOS-1224 "https://simpleviewtools.atlassian.net/browse/MOS-1224")
+    * Adds title attribute to filter value to maintain cross-browser consistency when there is text overflow causing an ellipsis.
+* `Form`
+  * [MOS-1141](https://simpleviewtools.atlassian.net/browse/MOS-1141 "https://simpleviewtools.atlassian.net/browse/MOS-1141")
+    * Improves forms with sections user experience by:
+      * Utilising the `defaultExpanded` property provided by the Material `Accordion` to avoid animating sections when the form is initially mounted.
+      * Eliminating dual states.
+      * Adding support for the URL hash to be utilised for section navigation and animating the scroll position to the corresponding section when the form is mounted.
+* `SummaryPageTopComponent`
+  * [MOS-1276](https://simpleviewtools.atlassian.net/browse/MOS-1276 "https://simpleviewtools.atlassian.net/browse/MOS-1276")
+    * Removes the arbitrary maximum action and description item checks, allowing the consumer to provide as many of these items as is necessary.
+* Housekeeping
+  * [MOS-1275](https://simpleviewtools.atlassian.net/browse/MOS-1275 "https://simpleviewtools.atlassian.net/browse/MOS-1275")
+    * Updates upload field documentation to include instruction for new `inputSettings`.
+
 ## 31.0.2 - 02/20/24
 
 ### Improvements & Fixes
