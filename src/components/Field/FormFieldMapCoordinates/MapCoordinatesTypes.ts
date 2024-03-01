@@ -75,9 +75,11 @@ export interface MapProps {
 	onCoordinatesChange?: (coords: MapPosition) => void;
 
 	googleMapsApiKey: string;
+
+	onBlur?: () => void;
 }
 
-export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey">;
+export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey" | "onBlur">;
 
 export type ResetButtonProps = {
 	show?: boolean;

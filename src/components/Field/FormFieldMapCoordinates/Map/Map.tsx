@@ -33,6 +33,7 @@ const Map = (props: MapProps): ReactElement => {
 		focusZoom = 11,
 		onCoordinatesChange,
 		googleMapsApiKey,
+		onBlur,
 	} = props;
 
 	// State variables
@@ -91,6 +92,7 @@ const Map = (props: MapProps): ReactElement => {
 				className="mapCoordinates"
 				value={addressValue}
 				onChange={setAddressValue}
+				onBlur={onBlur}
 				onSelect={onSelect}
 				placeholder="Type a location, address or city…"
 				googleMapsApiKey={googleMapsApiKey}

@@ -39,7 +39,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 
 	const handleBlur = () => {
 		setAnchorEl(null);
-		onBlur();
+		onBlur && onBlur();
 	};
 
 	const inputProps = {
