@@ -174,13 +174,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			[
 				{
 					name: "placesList",
-					type: ({ value }) => (
+					type: ({ value, onBlur }) => (
 						<MapWithMarker
 							zoom={zoom}
 							focusZoom={focusZoom}
 							initialCenter={initialCenter}
 							onCoordinatesChange={onCoordinatesChange}
 							value={value}
+							onBlur={onBlur}
 							googleMapsApiKey={googleMapsApiKey}
 						/>
 					),
