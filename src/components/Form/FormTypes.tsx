@@ -38,7 +38,8 @@ export interface FormProps {
 	scrollSpyThreshold?: number;
 	fullHeight?: boolean;
 	spacing?: FormSpacing;
-	useSectionHash?: string | false
+	useSectionHash?: string | false;
+	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 }
 
 export interface FieldError {
