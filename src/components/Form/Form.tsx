@@ -51,6 +51,7 @@ const Form = (props: FormProps) => {
 		fullHeight = true,
 		spacing = "normal",
 		useSectionHash = "section",
+		onSubmit,
 	} = props;
 
 	/**
@@ -229,6 +230,11 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
+	const onSubmitProxy = useCallback<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"]>((e) => {
+		e.preventDefault();
+		onSubmit(e);
+	}, [onSubmit]);
+
 	return (
 		<>
 			<StyledContainerForm
@@ -240,7 +246,7 @@ const Form = (props: FormProps) => {
 				aria-label={title}
 				$fullHeight={fullHeight}
 			>
-				<StyledForm autoComplete="off">
+				<StyledForm autoComplete="off" onSubmit={onSubmitProxy}>
 					{title && (
 						<Top
 							title={title}
