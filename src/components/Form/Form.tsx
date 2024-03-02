@@ -230,7 +230,7 @@ const Form = (props: FormProps) => {
 		loadFormValues();
 	}, [getFormValues]);
 
-	const onSubmitProxy = useCallback<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"]>((e) => {
+	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
 		onSubmit && onSubmit(e);
 	}, [onSubmit]);
