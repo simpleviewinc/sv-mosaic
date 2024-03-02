@@ -232,7 +232,7 @@ const Form = (props: FormProps) => {
 
 	const onSubmitProxy = useCallback<React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"]>((e) => {
 		e.preventDefault();
-		onSubmit(e);
+		onSubmit && onSubmit(e);
 	}, [onSubmit]);
 
 	return (
