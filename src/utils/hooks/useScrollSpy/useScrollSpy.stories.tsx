@@ -121,7 +121,7 @@ export const Playground = (): ReactElement => {
 		setActiveSection,
 	} = useScrollSpy<HTMLDivElement>({
 		refs: sectionRefs,
-		container: containerRef.current,
+		container: containerRef,
 		threshold: threshold / 100,
 	});
 
