@@ -108,28 +108,12 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			errors: {},
 			disabled: false,
 		};
-	case "FORM_START_BUSY": {
-		return {
-			...state,
-			busyFields: {
-				...state.busyFields,
-				[action.name]: action.value,
-			},
-		};
-	}
-	case "FORM_END_BUSY": {
-		return {
-			...state,
-			busyFields: {
-				...state.busyFields,
-				[action.name]: undefined,
-			},
-		};
-	}
 	case "SET_SUBMIT_WARNING": {
 		return {
 			...state,
-			submitWarning: action.value,
+			submitWarning: {
+				...action,
+			},
 		};
 	}
 	default:

@@ -20,6 +20,7 @@ import {
 	AddValidator,
 	FormInit,
 	FormReset,
+	SetSubmitWarning,
 } from "./types";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { MosaicObject } from "@root/types";
@@ -324,14 +325,6 @@ export function useForm(): UseFormReturn {
 				errors,
 			});
 
-			// TODO This sucks. Use references instead.
-
-			// if (!validForm && firstInvalidField !== undefined) {
-			// 	setTimeout(() => {
-			// 		document.getElementById(firstInvalidField)?.scrollIntoView({ behavior: "smooth", block: "start" });
-			// 	}, 500);
-			// }
-
 			return {
 				valid: false,
 				data: null,
@@ -339,12 +332,10 @@ export function useForm(): UseFormReturn {
 		}
 
 		if (waits.length > 0) {
-			dispatch({
-				type: "SET_SUBMIT_WARNING",
-				value: {
-					lead: "The form cannot be submitted at this time:",
-					reasons: waits.map(({ message }) => message),
-				},
+			setSubmitWarning({
+				open: true,
+				lead: "The form cannot be submitted at this time:",
+				reasons: waits.map(({ message }) => message),
 			});
 
 			return {
@@ -471,6 +462,13 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
+	const setSubmitWarning = useCallback<SetSubmitWarning>((params) => {
+		dispatch({
+			type: "SET_SUBMIT_WARNING",
+			...params,
+		});
+	}, []);
+
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -483,6 +481,7 @@ export function useForm(): UseFormReturn {
 		addValidator,
 		init,
 		reset,
+		setSubmitWarning,
 	}), [
 		setFieldBlur,
 		setFormValues,
@@ -495,6 +494,7 @@ export function useForm(): UseFormReturn {
 		addValidator,
 		init,
 		reset,
+		setSubmitWarning,
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {

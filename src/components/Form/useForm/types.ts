@@ -12,8 +12,7 @@ export type ActionTypes =
     | "FORM_END_DISABLE"
     | "FORM_RESET"
     | "FORM_START_BUSY"
-    | "FORM_END_BUSY"
-    | "SET_SUBMIT_WARNING";
+    | "FORM_END_BUSY";
 
 export type LegacyFormAction = {
 	type: ActionTypes;
@@ -42,10 +41,15 @@ export type ActionReset = {
 	internalData: MosaicObject<any>;
 };
 
+export type ActionSetSubmitWarning = FormState["submitWarning"] & {
+	type: "SET_SUBMIT_WARNING";
+};
+
 export type FormAction =
 	| ActionSetFieldErrors
 	| ActionSetFormWaits
 	| ActionReset
+	| ActionSetSubmitWarning
     | LegacyFormAction;
 
 export type GetFieldErrorParams = {
@@ -169,6 +173,8 @@ export type FormInitParams = {
 
 export type FormInit = (params: FormInitParams) => void;
 
+export type SetSubmitWarning = (params: FormState["submitWarning"]) => void;
+
 export type FormReset = () => void;
 
 export type FormMethods = {
@@ -183,6 +189,7 @@ export type FormMethods = {
 	addValidator: AddValidator;
 	init: FormInit;
 	reset: FormReset;
+	setSubmitWarning: SetSubmitWarning;
 };
 
 export type FormState = {
@@ -191,8 +198,7 @@ export type FormState = {
 	errors: MosaicObject<string>;
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
-	busyFields: MosaicObject<boolean>;
-	submitWarning?: { lead: string; reasons: string[] };
+	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
 };
 
