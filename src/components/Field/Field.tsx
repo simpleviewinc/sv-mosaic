@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, memo } from "react";
+import { ReactElement, useEffect, useRef, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./Field.styled";
 
 import { default as Label } from "./Label";
@@ -18,6 +18,7 @@ const Field = ({
 	spacing,
 }: MosaicFieldProps<any>): ReactElement => {
 	const { mountField } = methods || {};
+	const fieldRef = useRef<HTMLDivElement | undefined>();
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
@@ -34,13 +35,20 @@ const Field = ({
 
 		const { unmount } = mountField({
 			name: fieldDef.name,
+			fieldRef: fieldRef.current,
 		});
 
 		return unmount;
 	}, [mountField, fieldDef?.name]);
 
 	return (
-		<StyledFieldContainer id={id} className={fieldDef?.className} style={fieldDef?.style} data-testid="field-test-id">
+		<StyledFieldContainer
+			id={id}
+			className={fieldDef?.className}
+			style={fieldDef?.style}
+			data-testid="field-test-id"
+			ref={fieldRef}
+		>
 			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
 				<StyledLabelControlWrapper $fullWidth={fieldDef?.size === "full"}>
 					{hasLabelComponent && (

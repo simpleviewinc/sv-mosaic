@@ -19,6 +19,7 @@ import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
+import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -50,9 +51,12 @@ const Form = (props: FormProps) => {
 		useSectionHash = "section",
 		onSubmit,
 		methods,
+		stable,
 	} = props;
 
 	const { init, setFormValues } = methods;
+	const { errors } = state;
+	const { moveToError } = stable;
 
 	/**
 	 * Sections/layout and scroll spying
@@ -76,6 +80,31 @@ const Form = (props: FormProps) => {
 		url.hash = `${useSectionHash}-${index}`;
 		history.replaceState({}, "", url.toString());
 	}, [useSectionHash]);
+	const { scrollTo } = useScrollTo({
+		container: formContentRef,
+		onComplete: () => {
+			stable.moveToError = false;
+		},
+	});
+
+	useEffect(() => {
+		if (!moveToError || !Object.keys(errors).filter(Boolean).length) {
+			return;
+		}
+
+		const [firstErroneousField] = Object.entries(stable.fields)
+			.filter(([, field]) => stable.mounted[field.name] && errors[field.name])
+			.map(([, field]) => field)
+			.sort(({ order: a }, { order: b }) => a - b);
+
+		const mount = stable.mounted[firstErroneousField.name];
+
+		if (!mount) {
+			return;
+		}
+
+		scrollTo(mount.fieldRef);
+	}, [errors, moveToError, scrollTo, stable.fields, stable.mounted]);
 
 	useEffect(() => {
 		if (!useSectionHash) {
@@ -182,7 +211,7 @@ const Form = (props: FormProps) => {
 	useEffect(() => {
 		(async () => {
 			const values = getFormValues ? (await getFormValues()) : {};
-			console.log(getFormValues, values);
+
 			setFormValues({
 				values,
 				initial: true,
