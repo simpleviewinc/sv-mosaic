@@ -6,8 +6,7 @@ export const initialState: FormState = {
 	errors: {},
 	disabled: false,
 	touched: {},
-	busyFields: {},
-	submitWarning: undefined,
+	submitWarning: { open: false, lead: "", reasons: [] },
 	waits: [],
 };
 

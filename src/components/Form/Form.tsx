@@ -54,7 +54,7 @@ const Form = (props: FormProps) => {
 		stable,
 	} = props;
 
-	const { init, setFormValues } = methods;
+	const { init, setFormValues, setSubmitWarning } = methods;
 	const { errors } = state;
 	const { moveToError } = stable;
 
@@ -208,7 +208,7 @@ const Form = (props: FormProps) => {
 	/**
 	 * Loading state
 	 */
-	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
+	const isBusy = state.disabled || state.waits.length > 0;
 
 	useEffect(() => {
 		init({ fields });
@@ -285,11 +285,8 @@ const Form = (props: FormProps) => {
 			</Dialog>
 			<Snackbar
 				label={submitWarningContent}
-				open={Boolean(state.submitWarning)}
-				onClose={() => {
-					// TODO new submit warning method
-					// dispatch(formActions.setSubmitWarning({ value: "" }))
-				}}
+				open={state.submitWarning.open}
+				onClose={() => setSubmitWarning({ ...state.submitWarning, open: false })}
 				autoHideDuration={4000}
 			/>
 		</>

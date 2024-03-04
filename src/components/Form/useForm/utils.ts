@@ -31,7 +31,6 @@ export function stateFromStable({
 	errors,
 	disabled,
 	touched,
-	busyFields,
 	submitWarning,
 	waits,
 }: FormStable): FormState {
@@ -41,7 +40,6 @@ export function stateFromStable({
 		errors,
 		disabled,
 		touched,
-		busyFields,
 		submitWarning,
 		waits,
 	};
