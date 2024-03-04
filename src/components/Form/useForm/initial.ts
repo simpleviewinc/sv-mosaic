@@ -7,7 +7,7 @@ export const initialState: FormState = {
 	disabled: false,
 	touched: {},
 	busyFields: {},
-	submitWarning: "",
+	submitWarning: undefined,
 	waits: [],
 };
 
@@ -18,4 +18,5 @@ export const initialStable: FormStable = {
 	mounted: {},
 	internalValidators: {},
 	hasBlurred: {},
+	moveToError: false,
 };

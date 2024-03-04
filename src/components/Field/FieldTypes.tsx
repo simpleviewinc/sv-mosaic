@@ -208,6 +208,8 @@ export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head
 
 export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
 	getResolvedValue: DropParam<FieldValueResolver>;
+
+	order: number;
 };
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";

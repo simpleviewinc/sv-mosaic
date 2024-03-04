@@ -28,6 +28,7 @@ export type ActionSetFieldErrors = {
 	type: "SET_FIELD_ERRORS";
 	errors: MosaicObject<string>;
 	merge?: boolean;
+	moveToError?: boolean;
 };
 
 export type ActionSetFormWaits = {
@@ -138,6 +139,7 @@ export type DisableForm = (params: DisableFormParams) => void;
 
 export type MountFieldParams = {
 	name: string;
+	fieldRef?: HTMLDivElement;
 };
 
 export type UnmountField = () => void;
@@ -190,12 +192,13 @@ export type FormState = {
 	disabled: boolean;
 	touched: MosaicObject<boolean>;
 	busyFields: MosaicObject<boolean>;
-	submitWarning: string;
+	submitWarning?: { lead: string; reasons: string[] };
 	waits: FormWait[];
 };
 
 export type UseFormReturn = {
 	state: FormState;
+	stable: FormStable;
 	methods: FormMethods;
 	handleSubmit: FormHandleSubmit;
 };
@@ -203,9 +206,10 @@ export type UseFormReturn = {
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldDefSanitized>;
-	mounted: Record<string, boolean | undefined>;
+	mounted: Record<string, false | { fieldRef?: HTMLDivElement }>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
+	moveToError: boolean;
 };
 
 export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
