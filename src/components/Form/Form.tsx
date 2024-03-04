@@ -58,20 +58,21 @@ const Form = (props: FormProps) => {
 	const { errors } = state;
 	const { moveToError } = stable;
 
-	/**
-	 * Sections/layout and scroll spying
-	 */
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
 
+	/**
+	 * Sections/layout and scroll spying. Also a callback to set
+	 * the hash in the URL based on the active section.
+	 */
 	const {
 		animation: { inProgress: scrollSpyAnimating },
 		activeSection,
 		setActiveSection,
 	} = useScrollSpy({
 		refs: sectionRefs,
-		container: formContentRef.current,
+		container: formContentRef,
 		threshold: scrollSpyThreshold,
 	});
 
@@ -80,6 +81,12 @@ const Form = (props: FormProps) => {
 		url.hash = `${useSectionHash}-${index}`;
 		history.replaceState({}, "", url.toString());
 	}, [useSectionHash]);
+
+	/**
+	 * When there are errors and the "moveToError" property is true,
+	 * scroll the first field with an error into view. This is usually
+	 * when the form is submitted.
+	 */
 	const { scrollTo } = useScrollTo({
 		container: formContentRef,
 		onComplete: () => {
@@ -103,7 +110,9 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		scrollTo(mount.fieldRef);
+		scrollTo({
+			target: mount.fieldRef,
+		});
 	}, [errors, moveToError, scrollTo, stable.fields, stable.mounted]);
 
 	useEffect(() => {
@@ -139,10 +148,7 @@ const Form = (props: FormProps) => {
 
 	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
 		setSectionRefs(refs => [...refs, ref]);
-
-		return () => {
-			setSectionRefs(refs => refs.filter(r => r !== ref));
-		};
+		return () => setSectionRefs(refs => refs.filter(r => r !== ref));
 	}, []);
 
 	/**
