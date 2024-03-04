@@ -3,7 +3,7 @@ import { FieldDef } from "@root/components/Field";
 import { FieldDefCustom } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
-import { FormMethods, FormState } from "./useForm/types";
+import { FormMethods, FormStable, FormState } from "./useForm/types";
 
 export type FormSpacing = "normal" | "compact";
 
@@ -22,7 +22,8 @@ export interface SectionDef extends Section {
 }
 
 export interface FormProps {
-	state: any;
+	state: FormState;
+	stable: FormStable;
 	title?: string;
 	onBack?: (() => void) | ((...args: any) => void);
 	backLabel?: TitleWrapperProps["backLabel"];

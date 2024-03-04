@@ -186,7 +186,7 @@ export function useForm(): UseFormReturn {
 	const init = useCallback<FormInit>(({
 		fields,
 	}) => {
-		stable.current.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field) => {
+		stable.current.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field, index) => {
 			const fieldConfig = getFieldConfig(field.type);
 			const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
 
@@ -194,6 +194,7 @@ export function useForm(): UseFormReturn {
 				...field,
 				validateOn: field.validateOn || fieldConfig.validate,
 				getResolvedValue: (value) => valueResolver(value, field),
+				order: index + 1,
 			};
 
 			return {
@@ -201,8 +202,6 @@ export function useForm(): UseFormReturn {
 				[field.name]: result,
 			};
 		}, {});
-
-		console.log("FIELDS INITd");
 	}, []);
 
 	const reset = useCallback<FormReset>(() => {
@@ -318,6 +317,7 @@ export function useForm(): UseFormReturn {
 
 		if (count) {
 			stable.current.errors = errors;
+			stable.current.moveToError = true;
 
 			dispatch({
 				type: "SET_FIELD_ERRORS",
@@ -419,8 +419,10 @@ export function useForm(): UseFormReturn {
 		};
 	}, [removeWait]);
 
-	const mountField = useCallback<MountField>(({ name }) => {
-		stable.current.mounted[name] = true;
+	const mountField = useCallback<MountField>(({ name, fieldRef }) => {
+		stable.current.mounted[name] = {
+			fieldRef,
+		};
 
 		return {
 			unmount: () => {
@@ -508,6 +510,7 @@ export function useForm(): UseFormReturn {
 
 	return {
 		state,
+		stable: stable.current,
 		methods,
 		handleSubmit,
 	};
