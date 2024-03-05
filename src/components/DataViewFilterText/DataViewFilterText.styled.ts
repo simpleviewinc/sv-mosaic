@@ -4,10 +4,11 @@ import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldT
 import Button from "@root/components/Button";
 
 export const StyledContents = styled.div`
+
 	& > .inputRow {
 		display: flex;
 		align-items: center;
-		padding: 16px 16px 0;
+		padding: 12px 16px 0;
 	}
 
 	.MuiFormControl-root {
@@ -29,10 +30,24 @@ export const StyledContents = styled.div`
 	}
 `;
 
-export const StyledFilterButton = styled(Button)`
+export const StyledFilterButton = styled(Button)<{ $hasQuery?: boolean }>`
 	&& {
 		position: relative;
 		z-index: 1;
+
+		.MuiSvgIcon-root:first-of-type {
+			margin-left: auto;
+		}
+
+		${({ $hasQuery }) => !$hasQuery && `
+			width: 100%;
+
+			.MuiButtonBase-root {
+				width: 100%;
+				justify-content: start;
+
+			}
+		`}
 	}
 `;
 
