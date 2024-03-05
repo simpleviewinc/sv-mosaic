@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Button from "../Button";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
-import { StyledContents } from "./DataViewFilterText.styled";
-import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
-import { StyledDisabledText } from "@root/forms/shared/styledComponents";
+import { StyledContents, StyledFilterButton, StyledFilterTextField } from "./DataViewFilterText.styled";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -88,14 +85,15 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		});
 
 		comparisonButton = (
-			<Button
+			<StyledFilterButton
 				className="comparisonButton"
 				label={activeComparison.label}
-				variant="text"
+				variant="input"
 				color="black"
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}
+				$hasQuery={!disabled}
 			/>
 		);
 	}
@@ -103,8 +101,9 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	return (
 		<StyledContents>
 			<div className="inputRow">
-				{!disabled ? (
-					<StyledTextField
+				{comparisonButton}
+				{!disabled && (
+					<StyledFilterTextField
 						autoComplete="off"
 						autoFocus
 						placeholder={props.placeholder || t("mosaic:common.filter___")}
@@ -114,11 +113,10 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						onChange={onInputChange}
 						onKeyPress={onKeyPress}
 						fieldSize=""
+						disabled={disabled}
+						$hasComparisonDropdown={Boolean(comparisonButton)}
 					/>
-				) : (
-					<StyledDisabledText className="disabled">{state.value || t("mosaic:common.filter___")}</StyledDisabledText>
 				)}
-				{comparisonButton}
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} />
 		</StyledContents>
