@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 import { boolean, withKnobs } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm, formActions } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { required } from "../validators";
 import { renderButtons } from "@root/utils/storyUtils";
 
@@ -21,7 +21,8 @@ export default {
 };
 
 export const CustomFields = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -90,12 +91,10 @@ export const CustomFields = (): ReactElement => {
 	);
 
 	const setText1Value = function () {
-		dispatch(
-			formActions.setFieldValue({
-				name: "text1",
-				value: "My New Value",
-			}),
-		);
+		setFieldValue({
+			name: "text1",
+			value: "My New Value",
+		});
 	};
 
 	return (
@@ -105,11 +104,10 @@ export const CustomFields = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
-					buttons={renderButtons(dispatch)}
+					{...controller}
+					buttons={renderButtons(handleSubmit)}
 					title="Custom components"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 			<div>

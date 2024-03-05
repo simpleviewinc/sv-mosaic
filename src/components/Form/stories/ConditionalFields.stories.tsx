@@ -20,7 +20,8 @@ export default {
 };
 
 export const ConditionalFields = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 	const KEY_PHRASE = "SHOW";
 
 	useEffect(() => {
@@ -64,11 +65,10 @@ export const ConditionalFields = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
-					buttons={renderButtons(dispatch)}
+					{...controller}
+					buttons={renderButtons(handleSubmit)}
 					title="Runtime behaviors"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

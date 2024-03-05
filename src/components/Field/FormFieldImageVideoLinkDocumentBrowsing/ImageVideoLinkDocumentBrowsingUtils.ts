@@ -1,6 +1,6 @@
 // Utils
-import { formActions } from "@root/components/Form";
 import { UseImageVideoLinkDocumentBrowsingReturn } from "./ImageVideoLinkDocumentBrowsingTypes";
+import { FormMethods } from "@root/components/Form/useForm/types";
 
 export const imageVideoSrc = "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg";
 
@@ -96,67 +96,52 @@ export const linkExample = [
  * @returns setters funcion for each respective asset type.
  */
 export const useImageVideoLinkDocumentBrowsing = (
-	dispatch: (action: unknown) => void,
+	{ setFieldValue }: FormMethods,
 	fieldName : string,
 ) : UseImageVideoLinkDocumentBrowsingReturn => {
 	const setImage = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: fieldName,
-				value: imageAssetExample,
-				validate: true,
-				touched: true,
-			}),
-		);
+		setFieldValue({
+			name: fieldName,
+			value: imageAssetExample,
+			validate: true,
+			touched: true,
+		});
 		alert("Set image is called");
 	};
 
 	const setVideo = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: fieldName,
-				value: videoAssetExample,
-				touched: true,
-			}),
-		);
+		setFieldValue({
+			name: fieldName,
+			value: videoAssetExample,
+			touched: true,
+		});
 		alert("Set video is called");
 	};
 
 	const setDocument = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: fieldName,
-				value: documentExample,
-				touched: true,
-			}),
-		);
+		setFieldValue({
+			name: fieldName,
+			value: documentExample,
+			touched: true,
+		});
 		alert("Set document is called");
 	};
 
 	const setLink = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: fieldName,
-				value: linkExample,
-				touched: true,
-			}),
-		);
+		setFieldValue({
+			name: fieldName,
+			value: linkExample,
+			touched: true,
+		});
 		alert("Set Link has been called");
 	};
 
 	const handleRemove = () => {
-		dispatch(
-			formActions.setFieldValue({
-				name: fieldName,
-				value: [],
-			}),
-		);
-
-		dispatch(
-			formActions.validateField({
-				name: fieldName,
-			}),
-		);
+		setFieldValue({
+			name: fieldName,
+			value: [],
+			validate: true,
+		});
 	};
 
 	return {

@@ -10,12 +10,12 @@ const Col = (props: ColPropsTypes) => {
 		col,
 		state,
 		fieldsDef,
-		dispatch,
 		colsInRow,
 		colIdx,
 		rowIdx,
 		sectionIdx,
 		spacing,
+		methods,
 	} = props;
 
 	return (
@@ -23,7 +23,6 @@ const Col = (props: ColPropsTypes) => {
 			{col.map((field) => (
 				<ColField
 					key={field}
-					dispatch={dispatch}
 					fieldName={field}
 					fieldsDef={fieldsDef}
 					state={state}
@@ -32,6 +31,7 @@ const Col = (props: ColPropsTypes) => {
 					rowIdx={rowIdx}
 					sectionIdx={sectionIdx}
 					spacing={spacing}
+					methods={methods}
 				/>
 			))}
 		</StyledCol>

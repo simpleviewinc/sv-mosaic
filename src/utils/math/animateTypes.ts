@@ -37,9 +37,13 @@ export interface AnimateState {
 	 * each step of the animation
 	 */
 	easing: EasingName;
+	/**
+	 * A callback to invoke when the animation is complete
+	 */
+	onComplete: () => void;
 }
 
-export type AnimateParams = Partial<Pick<AnimateState, "fn" | "valueStart" | "valueEnd" | "duration">>;
+export type AnimateParams = Partial<Pick<AnimateState, "fn" | "valueStart" | "valueEnd" | "duration" | "onComplete">>;
 
 export type AnimateStart = (params?: Partial<AnimateParams>) => void;
 

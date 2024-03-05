@@ -6,4 +6,4 @@ export type ToggleSwitchInputSettings = {
 
 export type FieldDefToggleSwitchData = boolean;
 
-export type FieldDefToggleSwitch = FieldDefBase<"toggleSwitch", ToggleSwitchInputSettings, FieldDefToggleSwitchData>;
+export type FieldDefToggleSwitch = FieldDefBase<"toggleSwitch", ToggleSwitchInputSettings>;

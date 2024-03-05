@@ -9,7 +9,7 @@ import {
 } from "@testing-library/react";
 
 // Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { ReactElement } from "react";
 
 import { FieldDef } from "@root/components/Field/FieldTypes";
@@ -38,14 +38,10 @@ const fields: FieldDef[] = [
 ];
 
 const MapCoordinatesExample = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{
@@ -58,12 +54,11 @@ const MapCoordinatesExample = (): ReactElement => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };
@@ -170,7 +165,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
@@ -200,7 +195,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
@@ -231,7 +226,7 @@ describe("MapCoordinates component without an address", () => {
 		});
 
 		const addCoordinatesButton = getByText("ADD COORDINATES");
-		await act(() => {
+		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 

@@ -17,8 +17,9 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "imageVideoLinkDocumentBrowsing");
+	const controller = useForm();
+	const { state, methods, handleSubmit } = controller;
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "imageVideoLinkDocumentBrowsing");
 
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
@@ -56,26 +57,26 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
+				{...controller}
 			/>
 		</>
 	);
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(dispatch, "browseAllOptions");
-	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImage");
-	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseVideo");
-	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(dispatch, "browseDocument");
-	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(dispatch, "browseLink");
-	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(dispatch, "browseImageOrVideo");
-	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(dispatch, "disabledExample");
+	const controller = useForm();
+	const { state, methods, handleSubmit } = controller;
+	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "browseAllOptions");
+	const { setImage: browseImage, handleRemove: removeImage } = useImageVideoLinkDocumentBrowsing(methods, "browseImage");
+	const { setVideo: browseVideo, handleRemove: removeVideo } = useImageVideoLinkDocumentBrowsing(methods, "browseVideo");
+	const { setDocument: browseDocument, handleRemove: removeDocument } = useImageVideoLinkDocumentBrowsing(methods, "browseDocument");
+	const { setLink: browseLink, handleRemove: removeLink } = useImageVideoLinkDocumentBrowsing(methods, "browseLink");
+	const { setVideo: setVideoWithoutSrc, setImage: setImageWithoutSrc, handleRemove: removeImageOrVideo } = useImageVideoLinkDocumentBrowsing(methods, "browseImageOrVideo");
+	const { setImage: setImageDisabled } = useImageVideoLinkDocumentBrowsing(methods, "disabledExample");
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -188,12 +189,11 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
+				{...controller}
 			/>
 		</>
 	);

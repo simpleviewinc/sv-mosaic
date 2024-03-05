@@ -10,6 +10,7 @@ export default function animate(params: AnimateParams = {}): Animation {
 		valueEnd: 0,
 		duration: 0,
 		easing: "easeInOutCubic",
+		onComplete: () => null,
 	};
 
 	const _applyParams = (params: AnimateParams) => {
@@ -35,6 +36,10 @@ export default function animate(params: AnimateParams = {}): Animation {
 		if (progress < 1) {
 			window.requestAnimationFrame(_tick);
 			return;
+		}
+
+		if (state.onComplete) {
+			state.onComplete();
 		}
 
 		state.preventNext = true;

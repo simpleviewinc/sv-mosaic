@@ -10,7 +10,7 @@ import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 
 // Utils
 import { defaultMapPosition, isSameCoords, isValidCoords, isValidLatLng } from "../MapCoordinatesUtils";
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { isLatitude, isLongitude } from "@root/components/Form/validators";
 import MapWithMarker from "../Map/MapWithMarker";
 import ResetButton from "../Map/ResetButton";
@@ -45,7 +45,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		return { lat, lng, placesList: { lat, lng } };
 	}, [value]);
 
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFieldValue, setFormValues }, handleSubmit } = controller;
 
 	const parentLatLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
 
@@ -70,15 +71,16 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions.setFormValues({
+		setFormValues({
 			values: {
 				lat: parts[0].trim(),
 				lng: parts[1].trim(),
 			},
-		}));
+		});
 	}, [
 		state.data.lat,
 		state.data.lng,
+		setFormValues,
 	]);
 
 	// Sync up the lat and lng form values with the reset button
@@ -89,24 +91,20 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions.setFieldValue({
+		setFieldValue({
 			name: "resetButton",
 			value: shouldShowReset,
-		}));
-	}, [
-		state.data.lat,
-		state.data.lng,
-		state.data.reset,
-	]);
+		});
+	}, [setFieldValue, state.data.lat, state.data.lng, state.data.reset, state.data.resetButton]);
 
 	// Sync up the lat and lng form values with placesList,
 	// TODO Why can't these be the same state?
 	useEffect(() => {
 		if (!latLng) {
-			dispatch(formActions.setFieldValue({
+			setFieldValue({
 				name: "placesList",
 				value: undefined,
-			}));
+			});
 
 			return;
 		}
@@ -117,10 +115,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			return;
 		}
 
-		dispatch(formActions.setFieldValue({
+		setFieldValue({
 			name: "placesList",
 			value: { lat: latLng.lat, lng: latLng.lng },
-		}));
+		});
 	}, [
 		state.data.placesList,
 		latLng,
@@ -131,40 +129,35 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	useEffect(() => {
 		const isEqual = isSameCoords(parentLatLng, latLng);
 		handleUnsavedChanges(!isEqual);
-	}, [parentLatLng, latLng]);
+	}, [parentLatLng, latLng, handleUnsavedChanges]);
 
 	/**
 	 * Executed when the onSubmit event of
 	 * the form that is contained inside the modal
 	 * happends.
 	 */
-	const onSubmit = async () => {
-		const { valid } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
+	const onSubmit = handleSubmit(() => {
 		const latLngValue = {
 			...value,
 			...latLng,
 		};
 
-		await onChange(latLngValue);
+		onChange(latLngValue);
 		handleClose(true);
-	};
+	});
 
 	const onCoordinatesChange = useCallback((coords: MapPosition | undefined) => {
 		const lat = coords ? coords.lat : undefined;
 		const lng = coords ? coords.lng : undefined;
 
-		dispatch(
-			formActions.setFormValues({
-				values: {
-					placesList: { lat, lng },
-					lat: String(lat),
-					lng: String(lng),
-				},
-			}),
-		);
-	}, [dispatch]);
+		setFormValues({
+			values: {
+				placesList: { lat, lng },
+				lat: String(lat),
+				lng: String(lng),
+			},
+		});
+	}, [setFormValues]);
 
 	const zoom = fieldDef?.inputSettings?.zoom;
 	const focusZoom = fieldDef?.inputSettings?.focusZoom;
@@ -204,24 +197,18 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					type: ({ value }) => (
 						<ResetButton
 							show={value}
-							onClick={() => dispatch(formActions.setFormValues({
+							onClick={() => setFormValues({
 								values: {
 									lat: undefined,
 									lng: undefined,
 									placesList: undefined,
 								},
-							}))}
+							})}
 						/>
 					),
 				},
 			],
-		[
-			zoom,
-			focusZoom,
-			initialCenter,
-			onCoordinatesChange,
-			dispatch,
-		],
+		[zoom, focusZoom, initialCenter, onCoordinatesChange, googleMapsApiKey, setFormValues],
 	);
 
 	const buttons: ButtonProps[] = [
@@ -243,11 +230,10 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 	return (
 		<FormDrawerWrapper className="mapCoordinates">
 			<Form
+				{...controller}
 				onBack={handleClose}
 				title="Map Coordinates"
 				buttons={buttons}
-				state={state}
-				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
 				dialogOpen={dialogOpen}

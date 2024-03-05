@@ -6,7 +6,7 @@ import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import MenuItem from "../MenuItem";
 import { FieldDef } from "../Field";
-import Form, { SectionDef, formActions, useForm } from "../Form";
+import Form, { SectionDef, useForm } from "../Form";
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import { VALIDATE_DATE_RANGE } from "../Form/validators";
 
@@ -55,7 +55,8 @@ const sections: SectionDef[] = [
 ];
 
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFormValues } } = controller;
 	const { rangeStart, rangeEnd } = state.data;
 
 	const [selectedOption, setSelectedOption] = useState("selectedOption" in props ? props.selectedOption : undefined);
@@ -111,15 +112,15 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	}, [props.onChange, props.onClose]);
 
 	const onClear = useCallback(() => {
-		dispatch(formActions.setFormValues({
+		setFormValues({
 			values: {
 				rangeStart : undefined,
 				rangeEnd : undefined,
 			},
-		}));
+		});
 
 		setSelectedOption(undefined);
-	}, [props.onChange, dispatch]);
+	}, [setFormValues]);
 
 	const onApply = useCallback(() => {
 		if (!rangeStart && !rangeEnd) {
@@ -158,8 +159,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 			<StyledMainContent>
 				<div data-testid="dataview-filter-date-inputs">
 					<Form
-						state={state}
-						dispatch={dispatch}
+						{...controller}
 						fields={fields}
 						sections={sections}
 						fullHeight={false}

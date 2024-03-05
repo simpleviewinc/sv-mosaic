@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 import { boolean, withKnobs } from "@storybook/addon-knobs";
 
 // Utils
-import { formActions, useForm } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -20,7 +20,8 @@ export default {
 const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
 export const CopyField = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -55,9 +56,9 @@ export const CopyField = (): ReactElement => {
 	useEffect(() => {
 		if (!state.touched.slug) {
 			const transformedLabel = state.data.name?.trim().toLowerCase().replace(/ {1,}/g, "_").replace(/[^a-z_]/g, "");
-			dispatch(formActions.setFieldValue({ name: "slug", value: transformedLabel }));
+			setFieldValue({ name: "slug", value: transformedLabel });
 		}
-	}, [state.data.name, state.touched]);
+	}, [setFieldValue, state.data.name, state.touched]);
 
 	return (
 		<>
@@ -66,11 +67,10 @@ export const CopyField = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
-					buttons={renderButtons(dispatch)}
+					{...controller}
+					buttons={renderButtons(handleSubmit)}
 					title="Validators story"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

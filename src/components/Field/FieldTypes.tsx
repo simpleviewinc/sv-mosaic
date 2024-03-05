@@ -21,7 +21,7 @@ import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
-import { FormState } from "../Form/state/types";
+import { FormMethods, FormState } from "../Form/useForm/types";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -33,7 +33,7 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Object that contains all the properties from the current field defined
 	 * by the developer.
 	 */
-	fieldDef: FieldDefBase<T, U, V>;
+	fieldDef: FieldDefBase<T, U>;
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
@@ -71,10 +71,14 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Whether or not the field is disabled
 	 */
 	disabled?: boolean;
+	/**
+	 * Methods that can be used to manipulate the form
+	 */
+	methods?: FormMethods;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
-export interface FieldDefBase<Type, T = any, U = any> {
+export interface FieldDefBase<Type, T = any> {
 	/**
 	 * Significant name related to its field.
 	 */
@@ -155,10 +159,6 @@ export interface FieldDefBase<Type, T = any, U = any> {
 	 */
 	id?: string;
 	/**
-	 * Optional value that devs can define for a field to begin with.
-	 */
-	defaultValue?: U;
-	/**
 	 * Callback executed when the current fields has changed
 	 */
 	onBlurCb?: (value?: any) => void;
@@ -208,6 +208,8 @@ export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head
 
 export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
 	getResolvedValue: DropParam<FieldValueResolver>;
+
+	order: number;
 };
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";

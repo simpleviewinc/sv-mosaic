@@ -22,11 +22,11 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		onBlur,
 		disabled,
 		error,
-		dispatch,
+		methods,
 	} = props;
 
 	const { addError, removeError } = useFieldErrors({
-		dispatch,
+		methods,
 		name: fieldDef.name,
 	});
 

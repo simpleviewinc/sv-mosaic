@@ -21,7 +21,8 @@ export default {
 };
 
 export const Validators = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -133,11 +134,10 @@ export const Validators = (): ReactElement => {
 			}
 			<div style={{ height: "100vh" }}>
 				<Form
-					buttons={renderButtons(dispatch)}
+					{...controller}
+					buttons={renderButtons(handleSubmit)}
 					title="Validators story"
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

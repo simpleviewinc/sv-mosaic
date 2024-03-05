@@ -1,4 +1,5 @@
 import { Animation } from "@root/utils/math/animateTypes";
+import { MutableRefObject } from "react";
 
 export interface ScrollSpyProps<E extends HTMLElement> {
 	/**
@@ -10,7 +11,7 @@ export interface ScrollSpyProps<E extends HTMLElement> {
 	/**
      * The DOM element that is the scrollable viewport
      */
-	container: E;
+	container: MutableRefObject<E>;
 	/**
      * The amount of the page that the top of each section should
      * intersect to be considered active

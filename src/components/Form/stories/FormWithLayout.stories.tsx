@@ -4,7 +4,7 @@ import { withKnobs, boolean, object } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
-import { useForm, formActions } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
@@ -36,7 +36,8 @@ function randomNumber(min: number, max: number) {
 }
 
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -57,13 +58,11 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
 
-					await dispatch(
-						formActions.setFieldValue({
-							name: "formMatrix",
-							value: filteredRows,
-							touched: true,
-						}),
-					);
+					setFieldValue({
+						name: "formMatrix",
+						value: filteredRows,
+						touched: true,
+					});
 				},
 			},
 		],
@@ -165,13 +164,11 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 								onClick: () => {
 									const id = randomNumber(1, 1000);
 
-									dispatch(
-										formActions.setFieldValue({
-											name: "formMatrix",
-											value: [...(state.data.formMatrix || []), { id, title: `Title ${id}`, description: `Description ${id}` }],
-											touched: true,
-										}),
-									);
+									setFieldValue({
+										name: "formMatrix",
+										value: [...(state.data.formMatrix || []), { id, title: `Title ${id}`, description: `Description ${id}` }],
+										touched: true,
+									});
 								},
 								color: "teal",
 								variant: "text",
@@ -181,7 +178,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					},
 				},
 			],
-		[state.data.formMatrix, gridConfig, dispatch],
+		[state.data.formMatrix, gridConfig],
 	);
 
 	const sections = useMemo(() => [
@@ -238,13 +235,11 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	], [fields, collapsed, section1Fields]);
 
 	useEffect(() => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "text4",
-				value: state.data.text3,
-			}),
-		);
-	}, [state.data.text3]);
+		setFieldValue({
+			name: "text4",
+			value: state.data.text3,
+		});
+	}, [setFieldValue, state.data.text3]);
 
 	return (
 		<>
@@ -253,13 +248,12 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 			}
 			<div style={{ height: height }}>
 				<Form
-					buttons={renderButtons(dispatch)}
+					{...controller}
+					buttons={renderButtons(handleSubmit)}
 					title="Form Title"
 					description="This is a description example"
 					sections={sections}
-					state={state}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 		</>

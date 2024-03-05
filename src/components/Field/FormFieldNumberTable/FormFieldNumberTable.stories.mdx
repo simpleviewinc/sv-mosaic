@@ -1,18 +1,93 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldNumberTable.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldNumberTable/Readme' />
 
-# FormFieldNumberTable
+# Number Table
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-The `FormFieldNumberTable` component allows users to enter the number of rooms available, per day and per type of room.
+- [**Playground**](/?path=/story/formfields-formfieldnumbertable--playground)
+- Data: `object` - Object that has the row name as key and nested another object with the column name as key and the value corresponds to text field value.
+	* **rowName: string** - `object` - Row name is used as key identifier.
+		* **columnName: string** - `string` - Value of each text field cell.
+- inputSettings:
 
-## Props
+| Name | Type | Default | Description |
+| ---- | ---- | --------| ----------- |
+| **`columns`** | `{ name: string; title: string }[]` | | Columns definition. |
+| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals. |
+| **`displaySumColumn`** | `boolean` | `true` | optional - Shows or hides the total sums of each column. |
+| **`displaySumRow`** | `boolean` | `true` | optional - Shows or hides the total sums of each row. |
+| **`numberFormatOptions`** | `Intl.NumberFormatOptions` | | optional - Configuration options for the formatter, see more at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat |
+| **`rows`** | `{ name: string; title: string, subtitle?: string }[]` | | Rows definition. |
+| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row. |
+| **`topLeftLabel`** | `string` | |  optional - Label placed on the top left table corner i.e the first column. |
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldnumbertable).
+### How to use in a form?
 
-## FormFieldNumberTable
-
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+```ts
+const fields: FieldDef[] = useMemo(
+	(): FieldDef[] =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "numberTable",
+				defaultValue: {
+					"2023_02_10": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "17",
+					},
+					"2023_02_11": {
+						single: "18",
+						double: "19",
+						queen: "20",
+						king: "21",
+						suite: "22",
+						any: "23",
+					},
+					"2023_02_12": {
+						single: "12",
+						double: "13",
+						queen: "14",
+						king: "15",
+						suite: "16",
+						any: "20",
+					},
+					"2023_02_13": {
+						single: "1",
+						double: "1",
+						queen: "1",
+						king: "1",
+						suite: "1",
+						any: "1",
+					},
+				},
+				inputSettings: {
+					rowTotalLabel: "TOTAL",
+					columnTotalLabel: "No. Rooms",
+					topLeftLabel: "Day",
+					rows: [
+						{ name: "2023_02_10", title: "Shoulder Before" },
+						{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
+						{ name: "2023_02_12", title: "Day 2" },
+						{ name: "2023_02_13", title: "Day 3" },
+					],
+					columns: [
+						{ name: "single", title: "Single" },
+						{ name: "double", title: "Double" },
+						{ name: "queen", title: "Queen" },
+						{ name: "king", title: "King" },
+						{ name: "suite", title: "Suite" },
+						{ name: "any", title: "Any" },
+					]
+				},
+			},
+			//...other fields
+		],
+	[]
+);
+```

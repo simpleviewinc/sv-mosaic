@@ -3,7 +3,7 @@ import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/re
 import "@testing-library/jest-dom/extend-expect";
 
 // Components
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import { menuOptions } from "../../../forms/MenuFormFieldCard/MenuFormFieldUtils";
@@ -24,55 +24,46 @@ const setVideoCallback = jest.fn();
 const setLinkCallback = jest.fn();
 
 const ImageVideoLinkDocumentBrowsingExample = () => {
-	const {	state, dispatch	} = useForm();
+	const controller = useForm();
+	const {	methods: { setFieldValue }, handleSubmit } = controller;
 
 	const setImage = async () => {
 		setImageCallback();
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: imageAssetExample,
-			}),
-		);
+		setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: imageAssetExample,
+		});
 	};
 
 	const setVideo = async () => {
 		setVideoCallback();
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: videoAssetExample,
-			}),
-		);
+		setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: videoAssetExample,
+		});
 	};
 
 	const setDocument = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: documentExample,
-			}),
-		);
+		setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: documentExample,
+		});
 		setDocumentCallback();
 	};
 
 	const setLink = async () => {
-		await dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: linkExample,
-			}),
-		);
+		setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: linkExample,
+		});
 		setLinkCallback();
 	};
 
 	const handleRemove = () => {
-		dispatch(
-			formActions.setFieldValue({
-				name: "imageVideoLinkDocumentBrowsing",
-				value: [],
-			}),
-		);
+		setFieldValue({
+			name: "imageVideoLinkDocumentBrowsing",
+			value: [],
+		});
 	};
 
 	const fields: FieldDef[] = [
@@ -94,12 +85,7 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 		},
 	];
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{
@@ -112,12 +98,11 @@ const ImageVideoLinkDocumentBrowsingExample = () => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="Description"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };

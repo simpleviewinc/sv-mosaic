@@ -20,7 +20,8 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch	} = useForm();
+	const controller = useForm();
+	const { handleSubmit, state } = controller;
 
 	const size = select("Size", ["xs", "sm", "md", "lg"], "sm");
 	const type = select("Type", ["password", "text"], "text");
@@ -79,12 +80,11 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<Form
-				buttons={renderButtons(dispatch)}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
+				{...controller}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
@@ -208,18 +208,18 @@ const kitchenSinkfields: FieldDef[] = [
 ];
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title="Form Title"
 				description="Form description"
-				state={state}
 				fields={kitchenSinkfields}
-				dispatch={dispatch}
 			/>
 		</>
 	);
@@ -267,16 +267,16 @@ const validationStrategyFields: FieldDef[] = [
 ];
 
 export const ValidationStrategies = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
 	return (
 		<>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title="Validation Strategies"
-				state={state}
 				fields={validationStrategyFields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

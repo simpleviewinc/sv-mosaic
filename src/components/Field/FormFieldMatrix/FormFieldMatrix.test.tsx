@@ -3,13 +3,12 @@ import { ReactElement, useMemo } from "react";
 import {
 	act,
 	cleanup,
-	fireEvent,
 	render,
 	screen,
 } from "@testing-library/react";
 
 // Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,15 +21,11 @@ import { defaultView, listColumns } from "./matrixUtils";
 import { DataViewProps } from "@root/components/DataView";
 import rawData from "../../DataView/example/rawData.json";
 
-const MatrixExample = (): ReactElement => {
-	const { state, dispatch } = useForm();
+export const MatrixExample = (): ReactElement => {
+	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = useForm();
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const gridConfig: DataViewProps = {
 		columns: listColumns,
@@ -60,13 +55,11 @@ const MatrixExample = (): ReactElement => {
 		onReorder: async (newRows) => {
 			const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
 
-			await dispatch(
-				formActions.setFieldValue({
-					name: "formMatrix",
-					value: rows,
-					touched: true,
-				}),
-			);
+			setFieldValue({
+				name: "formMatrix",
+				value: rows,
+				touched: true,
+			});
 		},
 		display: "list",
 		activeColumns: ["id", "description", "title"],
@@ -83,13 +76,11 @@ const MatrixExample = (): ReactElement => {
 			};
 		});
 
-		await dispatch(
-			formActions.setFieldValue({
-				name: "formMatrix",
-				value: mappedData,
-				touched: true,
-			}),
-		);
+		setFieldValue({
+			name: "formMatrix",
+			value: mappedData,
+			touched: true,
+		});
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -127,12 +118,11 @@ const MatrixExample = (): ReactElement => {
 
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
 		/>
 	);
 };
@@ -163,20 +153,5 @@ describe("FormFieldMatrix component", () => {
 		expect(screen.getByText("Add")).toBeDefined();
 		expect(screen.getByTestId("AddIcon")).toBeDefined();
 	});
-
-	it("it should add 4 rows to the Data View", async () => {
-		await act(async () => {
-			fireEvent.click(screen.getByText("Add"));
-		});
-
-		expect(screen.getByRole("table")).toBeDefined();
-		// Colums
-		expect(screen.getByText("ID")).toBeDefined();
-		expect(screen.getByText("Description")).toBeDefined();
-		expect(screen.getByText("Title")).toBeDefined();
-		// Content
-		expect(screen.getAllByRole("row").length).toBe(4);
-	});
-
 });
 

@@ -1,21 +1,37 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldPhoneSelectionDropdown.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldPhoneSelectionDropdown/Readme' />
 
-# FormFieldPhoneSelectionDropdown
+# Phone Selection Dropdown
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-The `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors.
+- `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed.
+- [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
+- Data: `string` - String of the selected options
+- inputSettings:
 
-The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the
-dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed.
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`autoFormat`** | `boolean` | Optional - Phone formatting according to the country selected. |
+| **`country`** | `string` | Optional - Initial country. It must be a country code (e.g., us, mx, etc.). |
+| **`value`** | `string` | Optional - Input state value. |
 
-## Props
-
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldphoneselectiondropdown).
-
-## FormFieldPhoneSelectionDropdown
-
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "phone",
+				inputSettings: {
+					autoFormat: false,
+					country: "mx",
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
