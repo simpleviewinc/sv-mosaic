@@ -33,6 +33,7 @@ export interface ButtonProps {
 	muiAttrs?: MosaicObject;
 	show?: MosaicToggle;
 	component?: React.ComponentType;
+	type?: "button" | "submit";
 }
 
 export interface ButtonPopoverContextProps {
