@@ -2,7 +2,6 @@ import React, { memo, useCallback, useMemo } from "react";
 import { FieldDef } from "../FormTypes";
 import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
-import formActions from "../formActions";
 import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
 import { useWrappedToggle } from "@root/utils/toggle";
 
@@ -13,9 +12,9 @@ const ColField = ({
 	colIdx,
 	rowIdx,
 	sectionIdx,
-	dispatch,
 	state,
 	spacing,
+	methods,
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -25,6 +24,7 @@ const ColField = ({
 
 	const isCustomField = typeof field.type !== "string";
 	const { Component }: FieldConfig = getFieldConfig(field.type);
+	const { setFieldValue, setFieldBlur } = methods;
 
 	if (!Component) {
 		throw new Error(`Invalid type ${field.type}`);
@@ -35,20 +35,18 @@ const ColField = ({
 	const onChange = useCallback((value: any) => {
 		field.onChangeCb && field.onChangeCb();
 
-		dispatch(formActions.setFieldValue({
+		setFieldValue({
 			name: field.name,
 			value,
 			touched: true,
-		}));
-	}, [field.name]);
+		});
+	}, [field, setFieldValue]);
 
 	const onBlur = useCallback(() => {
 		field.onBlurCb && field.onBlurCb();
 
-		dispatch(formActions.setFieldBlur({
-			name: field.name,
-		}));
-	}, [field.name]);
+		setFieldBlur({ name: field.name });
+	}, [field, setFieldBlur]);
 
 	const value = state?.internalData[field.name];
 	const error = !disabled ? state.errors[field.name] : "";
@@ -71,10 +69,19 @@ const ColField = ({
 			onChange={onChange}
 			onBlur={onBlur}
 			ref={sanitizedFieldDef.ref}
-			dispatch={dispatch}
 			disabled={disabled}
+			methods={methods}
 		/>
-	), [sanitizedFieldDef, value, error, onChange, onBlur, dispatch]);
+	), [
+		Component,
+		sanitizedFieldDef,
+		value,
+		error,
+		onChange,
+		onBlur,
+		disabled,
+		methods,
+	]);
 
 	if (!shouldShow) {
 		return null;
@@ -89,8 +96,8 @@ const ColField = ({
 			error={error}
 			colsInRow={colsInRow}
 			id={field.name}
-			dispatch={dispatch}
 			spacing={spacing}
+			methods={methods}
 		>
 			{children}
 		</Field>

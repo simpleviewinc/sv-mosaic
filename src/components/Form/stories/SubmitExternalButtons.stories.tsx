@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm, formActions } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 import { validateEmail, required } from "../validators";
 
 // Components
@@ -20,7 +20,8 @@ export default {
 };
 
 export const SubmitExternalButtons = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -61,11 +62,9 @@ export const SubmitExternalButtons = (): ReactElement => {
 		[],
 	);
 
-	const clickHandler = async () => {
-		const { data } = await dispatch(formActions.submitForm());
-
+	const clickHandler = handleSubmit((data) => {
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	});
 
 	return (
 		<>
@@ -75,9 +74,8 @@ export const SubmitExternalButtons = (): ReactElement => {
 			<p>Here is the form</p>
 			<div style={{ height: "100vh" }}>
 				<Form
-					state={state}
+					{...controller}
 					fields={fields}
-					dispatch={dispatch}
 				/>
 			</div>
 			<button onClick={clickHandler}>Submit</button>

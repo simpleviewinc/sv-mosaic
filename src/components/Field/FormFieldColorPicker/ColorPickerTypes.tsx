@@ -9,4 +9,4 @@ export interface ColorSelectedProps {
 
 export type ColorData = string;
 
-export type FieldDefColor = FieldDefBase<"color", unknown, ColorData>;
+export type FieldDefColor = FieldDefBase<"color", unknown>;

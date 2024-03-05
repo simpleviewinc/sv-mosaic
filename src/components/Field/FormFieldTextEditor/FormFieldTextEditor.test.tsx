@@ -23,10 +23,8 @@ const TextEditorExample = (
 		disabled = false,
 	} = props;
 
-	const {
-		state,
-		dispatch,
-	} = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
 	const fields: FieldDef[] = [
 		{
@@ -45,12 +43,11 @@ const TextEditorExample = (
 
 	return (
 		<Form
+			{...controller}
 			title="Title"
 			description="Description"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
-			buttons={renderButtons(dispatch)}
+			buttons={renderButtons(handleSubmit)}
 		/>
 	);
 };

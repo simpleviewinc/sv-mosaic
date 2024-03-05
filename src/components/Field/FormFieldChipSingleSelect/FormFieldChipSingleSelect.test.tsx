@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
 
 //Components
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { ButtonProps } from "@root/components/Button";
 import { getOptions } from "@root/utils/getOptions";
@@ -15,7 +15,8 @@ afterEach(cleanup);
 const { getByText } = screen;
 
 const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 
 	const options = useMemo( ()=> [
 		{
@@ -48,12 +49,7 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 		[],
 	);
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const buttons: ButtonProps[] = [
 		{
@@ -68,12 +64,11 @@ const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactEleme
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={buttons}
 				title="Form Title"
 				description="This is a description example"
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

@@ -57,4 +57,4 @@ export type AddressFieldInputSettings = {
 
 export type AddressData = IAddress[];
 
-export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings, AddressData>;
+export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings>;

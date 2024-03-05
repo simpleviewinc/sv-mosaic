@@ -20,4 +20,4 @@ export type RadioInputSettings = StrictUnion<FormFieldRadioLocalOptions | FormFi
 
 export type RadioData = MosaicLabelValue;
 
-export type FieldDefRadio = FieldDefBase<"radio", RadioInputSettings, RadioData>;
+export type FieldDefRadio = FieldDefBase<"radio", RadioInputSettings>;

@@ -1,18 +1,11 @@
-import { formActions } from "@root/components/Form";
 import { ButtonProps } from "@root/components/Button";
+import { FormHandleSubmit } from "@root/components/Form/useForm/types";
 
 export const onCancel = () => {
 	alert("Cancelling form, going back to previous site");
 };
 
-const onSubmit = async (dispatch) => {
-	const { valid, data } = await dispatch(formActions.submitForm());
-	if (!valid) return;
-
-	alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-};
-
-export const renderButtons = (dispatch: unknown, show = { showCancel: true, showSave: true }): ButtonProps[] => [
+export const renderButtons = (handleSubmit: FormHandleSubmit, show = { showCancel: true, showSave: true }): ButtonProps[] => [
 	{
 		label: "Cancel",
 		onClick: onCancel,
@@ -22,7 +15,7 @@ export const renderButtons = (dispatch: unknown, show = { showCancel: true, show
 	},
 	{
 		label: "Save",
-		onClick: () => onSubmit(dispatch),
+		onClick: handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " "))),
 		color: "yellow",
 		variant: "contained",
 		show: show.showSave,

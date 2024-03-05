@@ -36,4 +36,4 @@ export type CustomPopperProps = {
 
 export type DropdownData = MosaicLabelValue;
 
-export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>;
+export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownSingleSelectionInputSettings>;

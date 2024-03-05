@@ -8,7 +8,7 @@ import {
 	number,
 } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 import { nanoid } from "nanoid";
 import { UploadFieldInputSettings } from "./FormFieldUploadTypes";
@@ -45,7 +45,8 @@ const initialValues = {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch	} = useForm();
+	const controller = useForm();
+	const { state, handleSubmit, methods: { reset } } = controller;
 
 	const limit = select(
 		"Limit",
@@ -75,11 +76,11 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		const resetForm = async () => {
-			await dispatch(formActions.resetForm());
+			reset();
 			setLoadReady(true);
 		};
 		mockDB ? resetForm() : setLoadReady(false);
-	}, [mockDB]);
+	}, [reset, mockDB]);
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
@@ -114,11 +115,9 @@ export const Playground = (): ReactElement => {
 		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
 	};
 
-	const getFormValues = useCallback(async () => {
-		await new Promise(res => setTimeout(res, 1000));
-
-		return initialValues;
-	}, [initialValues]);
+	const getFormValues = useCallback(async () => ({
+		...initialValues,
+	}), []);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -158,12 +157,11 @@ export const Playground = (): ReactElement => {
 	return (
 		<>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 				getFormValues={loadReady && getFormValues}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>

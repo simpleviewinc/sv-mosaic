@@ -1,18 +1,40 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './FormFieldRaw.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldRaw/Readme' />
 
-# FormFieldRaw
+# Raw
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-The `FormFieldRaw` component is a simple way to render anything that is a valid `ReactNode`. The `value` corresponding to this field will be rendered as-is.
+This type of field will render the corresponding `value` as-is. It can be used to render anything that is a valid `ReactNode` while maintaining the normal field display behaviour, like the label and field hint. It has no `inputSettings`.
 
-## Props
+### How to use in a form?
+```ts
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldraw).
+function RawValue() {
+	return (
+		<RawValueWrapper>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+		</RawValueWrapper>
+	)
+}
 
-## FormFieldRaw
+async function getFormValues() {
+	return {
+		raw: <RawValue />
+	}
+}
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "raw",
+			},
+			//...other fields
+		],
+	[]
+);
+
+```

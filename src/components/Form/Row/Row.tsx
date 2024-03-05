@@ -8,7 +8,16 @@ import { StyledRow } from "./RowStyled";
 import Col from "../Col";
 
 const Row = (props: RowPropTypes) => {
-	const { row, rowIdx, state, fieldsDef, dispatch, sectionIdx, gridMinWidth, spacing } = props;
+	const {
+		row,
+		rowIdx,
+		state,
+		fieldsDef,
+		sectionIdx,
+		gridMinWidth,
+		spacing,
+		methods,
+	} = props;
 
 	return (
 		<StyledRow data-layout="row" $columns={row.length} $gridMinWidth={gridMinWidth} $spacing={spacing}>
@@ -22,9 +31,9 @@ const Row = (props: RowPropTypes) => {
 						col={col}
 						state={state}
 						fieldsDef={fieldsDef}
-						dispatch={dispatch}
 						colsInRow={row.length}
 						spacing={spacing}
+						methods={methods}
 					/>
 				);
 			})}

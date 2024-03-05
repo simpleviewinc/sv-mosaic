@@ -6,7 +6,7 @@ import { FieldDef } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
-import Form, { formActions, useForm } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { columns, numberTableDefaultValue, rows } from "./numberTableUtils";
 
 export default {
@@ -15,7 +15,8 @@ export default {
 } as Meta;
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 	const label = text("Label", "Number of Rooms by Type");
 	const rowTotalLabel = text("Row total label", "TOTAL");
 	const columnTotalLabel = text("Column total label", "No. Rooms");
@@ -31,9 +32,15 @@ export const Playground = (): ReactElement => {
 
 	useEffect(() => {
 		if (!prepopulate)
-			dispatch(formActions.setFieldValue({ name: "numberTable", value: undefined }));
+			setFieldValue({
+				name: "numberTable",
+				value: undefined,
+			});
 		else
-			dispatch(formActions.setFieldValue({ name: "numberTable", value: numberTableDefaultValue }));
+			setFieldValue({
+				name: "numberTable",
+				value: numberTableDefaultValue,
+			});
 	}, [prepopulate]);
 
 	const fields = useMemo(
@@ -77,12 +84,11 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Form Title", "Form Title")}
 				description={text("Form Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

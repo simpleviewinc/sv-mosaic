@@ -201,32 +201,3 @@ export function validatePhoneNumber(value: string) {
 
 	return "Phone number must be exactly 10 numbers excluding the country code";
 }
-
-export type Validator = { fn: any; options: any };
-/**
- * Creates an object from a given validator that contains
- * a fn property that could be a string a function or another
- * object and an options property..
- * @param validators
- * @returns
- */
-export function mapsValidators(validators): Validator[] {
-	const validatorsMap = {
-		required: required,
-		isLatitude: isLatitude,
-		isLongitude: isLongitude,
-		validateDateRange: validateDateRange,
-		validateMinDate: validateMinDate,
-		validateCharacterCount: validateCharacterCount,
-		validateEmail: validateEmail,
-		validateNumber: validateNumber,
-		validateSlow: validateSlow,
-		validateURL: validateURL,
-	};
-
-	return validators.map(validator => {
-		if (typeof validator === "string") return { fn: validatorsMap[validator], options: {} };
-		else if (typeof validator === "function") return { fn: validator, options: {} };
-		else return { fn: validatorsMap[validator.fn], options: validator.options };
-	});
-}

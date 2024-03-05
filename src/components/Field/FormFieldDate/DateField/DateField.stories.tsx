@@ -13,7 +13,8 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 
 	const label = text("Label", "Date Field Picker");
 	const helperText = text("Helper text", "Helper text");
@@ -52,12 +53,11 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);
@@ -70,7 +70,8 @@ const getFormValues = async () => {
 };
 
 export const KitchenSink = (): ReactElement => {
-	const {	state, dispatch	} = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 	const helperText = "Helper text";
 	const instructionText = "Instruction text";
 
@@ -132,12 +133,11 @@ export const KitchenSink = (): ReactElement => {
 	return (
 		<>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title="Date Field Calendar"
 				description="This is a description example"
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 				getFormValues={getFormValues}
 			/>
 			<h3>Date.toString()</h3>

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
 
 // Utils
-import { formActions, useForm } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 
 // Components
 import Form from "../Form";
@@ -18,7 +18,8 @@ export default {
 };
 
 export const QuickSubmit = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
 	useEffect(() => {
 		document.body.style.margin = "0px";
@@ -54,21 +55,17 @@ export const QuickSubmit = (): ReactElement => {
 		},
 	], []);
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
+	const onSubmit = handleSubmit((data) => {
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	});
 
 	return (
 		<div style={{ height: "100vh" }}>
 			<Form
+				{...controller}
 				buttons={buttons}
 				title="Quick Submit"
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 				onSubmit={onSubmit}
 			/>
 		</div>

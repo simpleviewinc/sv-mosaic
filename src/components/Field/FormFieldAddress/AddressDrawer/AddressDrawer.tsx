@@ -4,7 +4,7 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
 // Components
-import Form, { SectionDef, formActions, useForm } from "@root/components/Form";
+import Form, { SectionDef, useForm } from "@root/components/Form";
 
 // Utils
 import { AddressDrawerProps } from "../AddressTypes";
@@ -32,23 +32,16 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		googleMapsApiKey,
 	} = props;
 
-	const { dispatch, state } = useForm();
+	const controller = useForm();
+
+	const { state, methods, handleSubmit } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const [initialState, setInitialState] = useState(state.data);
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
-	const setFieldValue = useCallback(async (name: string, value: string | MosaicLabelValue, validate = false) => {
-		await dispatch(formActions.setFieldValue({
-			name,
-			value,
-		}));
-
-		if (validate === true) {
-			await dispatch(formActions.validateField({ name }));
-		}
-	}, [dispatch]);
+	const { setFieldValue } = methods;
 
 	useEffect(() => {
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
@@ -60,7 +53,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	useEffect(() => {
 		if (state.data.country !== lastCountry.current) {
 			if (lastCountry.current) {
-				setFieldValue("state", undefined);
+				setFieldValue({
+					name: "state",
+					value: undefined,
+				});
 			}
 
 			lastCountry.current = state.data.country;
@@ -75,13 +71,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	 * It adds a new address or edits an existing one and then
 	 * closes the Drawer.
 	 */
-	const onSubmit = useCallback(async () => {
-		const { valid } = await dispatch(formActions.submitForm());
-
-		if (!valid) {
-			return;
-		}
-
+	const onSubmit = handleSubmit(useCallback(async () => {
 		onSave({
 			address1: state.data.address1,
 			address2: state.data.address2,
@@ -95,7 +85,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 
 		handleClose(true);
 	}, [
-		dispatch,
 		handleClose,
 		onSave,
 		state.data.address1,
@@ -106,12 +95,16 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		state.data.postalCode,
 		state.data.country,
 		state.data.types,
-	]);
+	]));
 
 	useEffect(() => {
 		const handleApiStateChange = async () => {
 			if (apiState !== undefined) {
-				await setFieldValue("state", { label: apiState.label, value: apiState.value }, true);
+				setFieldValue({
+					name: "state",
+					value: { label: apiState.label, value: apiState.value },
+					validate: true,
+				});
 				setApiState(undefined);
 			}
 		};
@@ -120,7 +113,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [apiState, setFieldValue]);
 
 	const autocompleteAddress = useCallback(async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
-		console.log(addressComponents);
 		let componentsNotFound = "";
 		const addressComponentsMap = {
 			route: initalAddressComponent, // => address
@@ -148,7 +140,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				...initialState,
 				country: selectedCountry,
 			});
-			await setFieldValue("country", selectedCountry, true);
+			setFieldValue({
+				name: "country",
+				value: selectedCountry,
+				validate: true,
+			});
 
 			const selectedState = (await getOptionsStates(selectedCountry.value)).find(state => (
 				state.label.toLowerCase().includes(addressComponentsMap.administrative_area_level_1.label.toLowerCase())
@@ -164,9 +160,21 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
 		}
 
-		await setFieldValue("address1", `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(), true);
-		await setFieldValue("city", addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label, true);
-		await setFieldValue("postalCode", addressComponentsMap.postal_code.label, true);
+		setFieldValue({
+			name: "address1",
+			value: `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(),
+			validate: true,
+		});
+		setFieldValue({
+			name: "city",
+			value: addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label,
+			validate: true,
+		});
+		setFieldValue({
+			name: "postalCode",
+			value: addressComponentsMap.postal_code.label,
+			validate: true,
+		});
 
 		for (const key in addressComponentsMap) {
 			if (!addressComponentsMap[key].label) {
@@ -194,7 +202,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			const results = await geocodeByAddress(value);
 			autocompleteAddress(results[0].address_components);
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	}, [autocompleteAddress]);
 
@@ -214,7 +222,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			<Field
 				error={props.error}
 				id={fieldDef.name}
-				dispatch={dispatch}
 				fieldDef={{
 					name: fieldDef.name,
 					type: "autocomplete",
@@ -232,7 +239,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				/>
 			</Field>
 		);
-	}, [dispatch, googleMapsApiKey]);
+	}, [googleMapsApiKey]);
 
 	const sections = useMemo<SectionDef[]>(() => [
 		{
@@ -253,13 +260,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			type: "checkbox",
 			label: "Type",
 			size: "sm",
-			defaultValue: addressToEdit?.types,
 			required: true,
 			inputSettings: {
 				options: addressTypes,
 			},
 		},
-	] : [], [addressToEdit?.types, addressTypes]);
+	] : [], [addressTypes]);
 
 	const autoCompleteField = useMemo(
 		(): FieldDef[] =>
@@ -269,7 +275,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					required: true,
 					type: Autocomplete,
 					label: "Address",
-					defaultValue: addressToEdit?.address1,
 					inputSettings: {
 						address,
 						setAddress,
@@ -278,7 +283,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				},
 			],
 		[
-			addressToEdit?.address1,
 			Autocomplete,
 			address,
 			onSelect,
@@ -294,7 +298,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "Country",
 					size: "sm",
 					required: true,
-					defaultValue: addressToEdit?.country,
 					inputSettings: {
 						getOptions: getOptionsCountries,
 					},
@@ -304,14 +307,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "text",
 					label: undefined,
 					size: "lg",
-					defaultValue: addressToEdit?.address2,
 				},
 				{
 					name: "address3",
 					type: "text",
 					label: undefined,
 					size: "lg",
-					defaultValue: addressToEdit?.address3,
 				},
 				{
 					name: "city",
@@ -319,14 +320,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "City",
 					size: "sm",
 					required: true,
-					defaultValue: addressToEdit?.city,
 				},
 				{
 					name: "state",
 					type: "dropdown",
 					label: "State",
 					size: "sm",
-					defaultValue: addressToEdit?.state,
 					inputSettings: {
 						getOptions: () => getOptionsStates(state.data.country?.value),
 					},
@@ -336,7 +335,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					type: "text",
 					label: "Postal Code",
 					size: "sm",
-					defaultValue: addressToEdit?.postalCode,
 					required: true,
 					inputSettings: {
 						type: "string",
@@ -345,12 +343,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				...typesField,
 			],
 		[
-			addressToEdit?.country,
-			addressToEdit?.address2,
-			addressToEdit?.address3,
-			addressToEdit?.city,
-			addressToEdit?.state,
-			addressToEdit?.postalCode,
 			getOptionsCountries,
 			typesField,
 			getOptionsStates,
@@ -367,6 +359,23 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			],
 		[baseFields, typesField, autoCompleteField],
 	);
+
+	const getFormValues = useCallback(async () => {
+		if (!addressToEdit) {
+			return {};
+		}
+
+		return {
+			address1: addressToEdit.address1,
+			address2: addressToEdit.address2,
+			address3: addressToEdit.address3,
+			city: addressToEdit.city,
+			state: addressToEdit.state,
+			postalCode: addressToEdit.postalCode,
+			country: addressToEdit.country,
+			types: addressToEdit.types,
+		};
+	}, [addressToEdit]);
 
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
@@ -386,16 +395,16 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	return (
 		<FormDrawerWrapper className="address">
 			<Form
+				{...controller}
 				onBack={handleClose}
 				title="Address Information"
 				buttons={buttons}
 				data-testid="address-testid"
-				state={state}
-				dispatch={dispatch}
 				sections={sections}
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
+				getFormValues={getFormValues}
 			/>
 			<Snackbar
 				autoHideDuration={4000}

@@ -15,7 +15,7 @@ export interface SnackbarProps {
 	/**
    * Message to display
    */
-	label: string;
+	label: string | JSX.Element;
 	/**
    * Material UI icon
    */
