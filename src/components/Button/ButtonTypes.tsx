@@ -9,7 +9,7 @@ export interface ButtonProps {
 	href?: string;
 	color: ColorTypes;
 	mIcon?: SvgIconComponent;
-	variant: "icon" | "outlined" | "contained" | "text";
+	variant: "icon" | "outlined" | "contained" | "text" | "input";
 	size?: "small" | "medium";
 	iconPosition?: "left" | "right";
 	disabled?: MosaicToggle;
