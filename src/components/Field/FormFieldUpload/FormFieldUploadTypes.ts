@@ -92,4 +92,4 @@ export interface QueuedFile {
 	file: File;
 }
 
-export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings, UploadData[]>;
+export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings>;

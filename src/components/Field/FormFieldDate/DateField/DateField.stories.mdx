@@ -1,15 +1,36 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './DateField.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldDateField/Readme' />
 
-## Date Field
-It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
+# Date
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-## Props
+- It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
+- [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
+- Data: `string` - Date in UTC format transformed to string.
+- inputSettings:
 
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfielddatefield).
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`showTime`** | `boolean` | optional - When true a time field will appear next to the date field. |
+| **`minDate`** | `Date` | optional - The minimum date that can be chosen using the datepicker or entered into the input. Defaults to 01/01/1900. If used in a form component, will automatically register a minimum date validator |
+| **`maxDate`** | `Date` | optional - The maximum date that can be chosen using the datepicker or entered into the input. If used in a form component, will automatically register a minimum date validator |
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "date",
+				inputSettings: {
+					showTime: false,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```

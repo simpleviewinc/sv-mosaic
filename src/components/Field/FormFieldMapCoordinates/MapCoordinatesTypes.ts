@@ -121,4 +121,4 @@ export type MapCoordinatesDrawerProps = Pick<MapProps, "value" | "initialCenter"
 
 export type MapCoordinatesData = MapPosition;
 
-export type FieldDefMapCoordinates = FieldDefBase<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>;
+export type FieldDefMapCoordinates = FieldDefBase<"mapCoordinates", MapCoordinatesInputSettings>;

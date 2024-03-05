@@ -1,6 +1,7 @@
 import { useReducer, useEffect, useCallback } from "react";
-import { FieldError, formActions } from "@root/components/Form";
+import { FieldError } from "@root/components/Form";
 import { arrayIntersect, arrayDifference } from "@root/utils/array";
+import { FormMethods } from "@root/components/Form/useForm/types";
 
 type AddError = {
 	type: "ADD_ERROR";
@@ -58,7 +59,7 @@ function reducer(state: FieldError[], action: Action) {
 type UseFieldErrorState = FieldError[];
 
 interface UseFieldErrorParams {
-	dispatch: any;
+	methods: FormMethods;
 	name: string;
 }
 
@@ -67,7 +68,8 @@ interface UseFieldErrorsResult {
 	removeError: (error: FieldError | FieldError[]) => void;
 }
 
-function useFieldErrors({ dispatch: formDispatch, name }: UseFieldErrorParams): UseFieldErrorsResult {
+function useFieldErrors({ methods, name }: UseFieldErrorParams): UseFieldErrorsResult {
+	const { addValidator } = methods || {};
 	const [state, dispatch] = useReducer<(prevState: UseFieldErrorState, action: Action) => UseFieldErrorState>(reducer, []);
 	const error = state[0];
 
@@ -86,24 +88,19 @@ function useFieldErrors({ dispatch: formDispatch, name }: UseFieldErrorParams): 
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (!formDispatch) {
+		if (!addValidator) {
 			return;
 		}
 
-		const validator = () => {
-			return error && error.message;
-		};
-
-		formDispatch(formActions.addValidator({
+		const { remove } = addValidator({
 			name,
-			validator,
-		}));
+			validator: () => {
+				return error && error.message;
+			},
+		});
 
-		return () => formDispatch(formActions.removeValidator({
-			name,
-			validator,
-		}));
-	}, [error]);
+		return remove;
+	}, [addValidator, error, name]);
 
 	return {
 		addError,

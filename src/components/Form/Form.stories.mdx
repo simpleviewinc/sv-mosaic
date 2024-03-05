@@ -3,1599 +3,354 @@ import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 <Meta title='Components/Form/Readme' />
 
 # Form
-"Forms" was born as a solution to help all SimpleView products currently using MOSAIC standardize both styling and functionality
-of all forms.
+`Form` is a solution to help all SimpleView products using Mosaic standardise both styling and functionality of forms and the fields within. It comes pre-filled with multiple generic stylised and functional fields so you can focus on your app's functionality and not how to make a form work.
 
-The form component comes pre-filled with multiple generic stylished and functional fields so you can focus on your app's
-functionality and not how to make a form work.
+#### On this page
+* [Hook: useForm](#hook-useform)
+  * [Interface: `FormController`](#interface-formcontroller)
+  * [The Form State](#the-form-state)
+    * [Interface: `FormState`](#interface-formstate)
+  * [Manipulating the Form](#manipulating-the-form)
+    * [Interface: `FormMethods`](#interface-formmethods)
+* [Component: Form](#component-form)
+  * [Interface: `FormProps`](#interface-formprops)
+* [Basic Usage](#basic-usage)
+  * [Submission](#submission)
+  * [Layout](#layout)
+    * [Interface: `SectionDef`](#interface-sectiondef)
+* [Form Fields](#form-fields)
+  * [Interface: `FieldDef`](#interface-fielddef)
+  * [Built-in Field Types](#built-in-field-types)
+  * [Smart Validation](#smart-validation)
+    * [Validators](#validators)
 
-## Props
-* **state** - `any` required - Object which will contain all filled fields and their corresponding value.
-* **title** - `string` optional - Title of the form.
-* **fields** - `FieldDef[]` required - Array of fields containing their respective configuration (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-* **sections** - `SectionDef[]` optional - Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row (see [SectionDef subsection](#sectiondef)).
-* **dispatch** - `any` required - Function in charge of updating the state (see [Dispatch Actions subsection](#dispatch)).
-* **dialogOpen** - `boolean` optional - When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer".
-* **description** - `string` optional - Additional text that will render under the title.
-* **getFormValues** - `() => Promise<MosaicObject>` optional - Function that will run once the form renders to prepopulate the fields. This should return an object where the key is the name of the field, and the value is the value to prepopulate the field.
-* **buttons** - `ButtonAttrs` optional - Array of buttons that will be rendered at the TopComponent. Each button object can be configured based on the button's props (see [ButtonAttrs type](#buttonattrs-type) and [ActionAdditional type](#actionadditional-type) `['show']`).
-* **handleDialogClose** - `(val: boolean) => void` optional - Function that will get called when closing the dialog (see explanaition of the dialogOpen prop).
-* **onBack** - `(() => void) | ((...args: any) => void)` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
-* **useSectionHash** - `string | false` - optional - The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely.
+The `Form` component should be used in conjunction with the `useForm` hook which provides a form controller instance for the form and its fields to work with. The form controller contains a number of methods that can be used to manipulate the state of the form as well as the state object itself to provide a way of performing side effects based on changes.
 
-## useForm Hook
-- In order to create and work with the `Form` component it's required to create an instance of the useForm hook per form.
-- This hook returns a state and a dispatcher, which will be explained in the following subsections.
+## Hook: useForm
+Invoking `useForm` returns an object that implements the `FormController` interface. The properties of the form controller should be spread into the `Form` component.
 
-```ts
-// We recommend placing the useForm hook at the top of your component.
-const App = (props) => {
-	const { state, dispatch } = useForm;
-
-	//...rest of App.tsx
-}
-```
-### State
-The state is an object that contains the following structure:
-* **data** - `object` - Contains a key-value pair of all fields that have a value, for example: "myTextField": "my value".
-* **errors** - `object` - Contains a key-value pair of all fields that have an error message, for example: "myTextField": "This field is required, please fill it".
-* **validating** - `object` - Contains a key-value pair of all fields that are undergoing validation. All validations are run when executing an onBlur per field or when clicking on the save button.
-* **validForm** - `boolean` - Flag that indicates whether the field is valid or not, this is affected by the errors object".
-* **disabled** - `boolean` - Flag that indicates whether the field is disabled or not. By default, everytime the user clicks on the save button a whole form validation gets executed which disables the form during this process, although depending on the amount of fields this happens extremely fast.
-
-### Dispatch
-The dispatch function allows developers to update the state through the following formActions:
-* **init** - `({fields}) => Promise<void>` - This action registers the fields internally so the Form builder can process their data.
-	* **name** - init.
-	* **arguments** - `object`
-		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-	* **return** - `Promise<void>`
-* **setFieldValue** - `({name, value, validate = false}) => Promise<void>` - This action updates the value of the field passed. By default this action gets called when an onChange occurs per field.
-	* **name** - setFieldValue
-	* **arguments** - `object`
-		* **name** - `string` - Name of the field.
-		* **value** - `string` - Value to assign to the field.
-		* **validate** - `boolean` - Whether the field should be validated when finishing executing the onChange.
-	* **return** - `Promise<void>`
-* **validateField** - `({name}) => Promise<void>` - This action validates the field passed. By default this action gets called when onBlur
-	* **name** - validateField
-		* **arguments** - `object`
-			* **name** - `string` - Name of the field.
-		* **return** - `Promise<void>`
-* **validateForm** - `({fields}) => Promise<void>` - This action validates the entire form.
-	* **name** - validateForm
-	* **arguments** - `object`
-		* **fields** - `FieldDef[]` - Object containing all fields and their definition (see [Generic Field Props subsection](#generic-field-props-fielddef)).
-	* **return** - `Promise<void>`
-* **submitForm** - `() => Promise<{valid, data}>` - This action validates the entire form (calls the action validateForm) and returns the valid value and the form's data (json with names and values of all fields) at that point in time.
-	* **name** - submitForm
-	* **arguments** - `none`
-	* **return** - `Promise<{valid: boolean, data: any}>`
-* **resetForm** - `() => Promise<void>` - This action completely empties the state.
-	* **name** - resetForm
-	* **arguments** - `none`
-	* **return** - `Promise<void>`
-* **setFormValues** - `({values}) => Promise<void>` - This action prepopulates the fields with the values being passed.
-	* **name** - setFormValues
-	* **arguments** - `object`
-		* **values** - `MosaicObject` - Object containing all fields and their values.
-	* **return** - `Promise<void>`
-
-```ts
-import { formActions } from "sv-mosaic";
-
-const App = (props) => {
-	const updateValueExample = async () => {
-		await dispatch(
-			formActions.name(arguments)
-		);
-	}
-	//...rest of App
-}
-```
-
-### Submit
-How the form submission process will be executed is responsible for who is instantiating a Form component and also the definition of the button that will trigger it.
-The submit function should dispatch a form action of type submitForm that will return if the form is valid and also its data which could be handled in any way during the submit process.
-Take a look at the [How to create a form?](#how-to-create-a-form) section for more details.
-
-```ts
-const onSubmit = useCallback(async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		// DO SOMETHING WITH THE DATA
-	}, [dispatch]);
-
-const buttons: ButtonProps[] = [
-		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained"
-		},
-];
-```
-
-## Layout
-- By default all Forms are created as one big section made of multiple rows (one per field), and one column per row (containing the field).
-- This setting can be overwritten by adding a sections array (see [Sections subsection](#sections)).
-
-### Sections
-Sections follow the next set of rules:
-* Can have a title and a description.
-* Each section can have multiple rows.
-* Each column can have as many fields as needed.
-
-#### SectionDef
+#### Interface: FormController
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| **`title`** | `string` | optional - Text that helps users identify the section. This is also used when rendering tabs to scroll the user to the selected section. |
-| **`description`** | `string` or `JSX.Element` | optional - Additional text that allows users to understand the purpose or instructions of a section better. |
-| **`fields`** | `MosaicGridConfig` | required - Structure that serves as a map to position fields across rows and columns. Each section can have multiple rows, each row multiple columns, and each column multiple fields ([rows][columns][fields]) |
-| **`collapsed`** | `boolean` | optional - Allows developers to decide whether the section will be first rendered collapsed or expanded. It defaults to false when no value is provided. |
-| **`show`** | [`MosaicToggle`](#MosaicToggle-t-type) | optional - Show callbacks will be called with `{data: formState.data}` |
+| `state` | `FormState` | Contains all of the form state. You can use this to perform side effects. `state` is described in more detail below. |
+| `methods` | `FormMethods` | Contains all of the methods necessary for manipulating form state. `methods` is described in more detail below. |
+| `handleSubmit` | `(onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>` | `handleSubmit` is a higher order function available on the form controller and should be used to wrap a callback to be invoked on a successful submission. `handleSubmit` accepts an optional second callback to be invoked on an invalid submission. Both callbacks will be invoked with the form data as their first parameter. |
 
-## How to create a form?
+### The Form State
+The controller comes with a `state` object that contains not only the values for each field in the form, but other various attributes of the form. This state, or parts of it, can be used as dependencies to perform your own side effects. It implements the `FormState` interface.
+
+#### Interface: FormState
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `data` | `MosaicObject<any>` | Contains a key-value pair object of all of the fields by name and their value |
+| `errors` | `MosaicObject<string>` | A key-value pair object of fields by their name and the error for that field, if any |
+| `disabled` | `boolean` | Whether or not the form is currently enabled. The form is disabled whilst it is being submitted |
+| `touched` | `MosaicObject<boolean>` | A key-value pair object of fields by their name and whether or not they have been touched. Once the user changes the value of any given field, it becomes touched |
+| `submitWarning` | `string` | The reason that the form cannot currently be submitted |
+| `waits` | `FormWait[]` | An array of reasons that the form is waiting. A wait can be created by busy fields or the form itself. |
+
+### Manipulating the Form
+There is a `methods` object available on the form controller that contains a number of methods that can be used to correctly manipulate the form state. It implements the `FormMethods` interface
+
+#### Interface: FormMethods
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `setFormValues` | `(params: { values:  MosaicObject<any>; initial?: boolean }) => void` | Set the form values using an object of key-value pairs. Optionally have the form use these as initial values. |
+| `setFieldValue` | `(params: { name: string; value: unknown \| ((current: unknown) => unknown); validate?: boolean; touched?: boolean; }) => void` | Set the value for a given field. `value` can be a callback which returns the new value whose parameter is the current field value. Optionally validate the value after it has been set. Optionally mark the field as touched. |
+| `disableForm` | `(params: { disable?: boolean; }) => void` | Disables the form if `disable` is true and enables it if not. |
+| `addWait` | `(params?: { name: string; message: string; disableForm: boolean; }) => { remove: () => void }` | Adds a wait to the form, preventing submission with a message as a reason for prevention. Optionally disables the form whilst waiting. Returns an object containing a `remove` method which, when invoked, will remove the added wait. |
+| `removeWait` | `(params?: { names: string[]; }) => void` | Removes waits by name |
+| `mountField` | `(params: MountFieldParams) => MountFieldResult` | Mount a field. It is necessary to invoke this method for custom fields when their components are mounted. It returns an object containing an `unmount` function to be invoked when the component is unmounted. |
+| `addValidator` | `(params: { name: string; validator: () => undefined \| string }) => { remove: () => void }` | Add a validator for a given field. A good way for fields to register their own field-type based validator functions . Returns an object containing a `remove` method that, when invoked, will unregister the validator |
+| `reset` | `() => void` | Resets the form to it's initial state, including initial values |
+| `init` | `(params: { fields: FieldDef[] }) => void` | Initialise the form with the given fields. Should be used internally by the `Form` component only. |
+
+## Component: Form
+This is the top level component that will render the various parts of your form, including the header with title, description and buttons and the fields. Its properties implement the `FormProps` interface, though you will never need to worry about providing `state` and `methods` explicitely, because these come from `FormController`, which you can just spread into it.
+
+#### Interface: FormProps
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| `state` | ✅ | `FormState` | Contains all of the form state. This is part of the result of `useForm` and you should never have to provide this yourself, though you can use it to perform side effects. `state` is described in more detail below. |
+| `methods` | ✅ | `FormMethods` | Contains all of the methods necessary for manipulating form state. This is part of the result of `useForm` and you should never have to provide this yourself. `methods` is described in more detail below. |
+| `fields` | ✅ | `FieldDef[]` | Array of field definitions containing their respective configuration (see [Form Fields](#form-fields)) |
+| `title` | | `string` | The title of the form to be displayed in a large heading at the top |
+| `description` |  | `string` | The description of the form to be displayed in smaller text below the title |
+| `onBack` |  | `(() => void)` | Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title. |
+| `backLabel` |  | `string` | If `onBack` has been provided, this will be the `aria-label` of the button that is rendered |
+| `sections` |  | `SectionDef[]` | Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row (see [SectionDef subsection](#sectiondef)). |
+| `dialogOpen` |  | `boolean` | When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer". |
+| `handleDialogClose` |  | `boolean` | Function that will get called when closing the dialog (see explanaition of the dialogOpen prop) |
+| `getFormValues` |  | `() => Promise<MosaicObject<any>>` | Function that should return an object representing the initial field values |
+| `buttons` |  | `ButtonProps[]` | Array of buttons that will be rendered at the top of the form, adjacent to the title (if one is provided). |
+| `scrollSpyThreshold` |  | `number` | The threshold at which the scroll spy should consider a section "active". Defaults to 0.15, meaning whenever the top of a section intersects the top 15% of the form's scrollable area. |
+| `fullHeight` |  | `boolean` | Whether to have the form stretch to the full height of it's parent. (`height: 100%`). Defaults to true. |
+| `spacing` |  | `"normal"` or `"compact"` | What spacing to use for the form. Defaults to `"normal"` |
+| `useSectionHash` |  | `string` or `false` | The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely. |
+
+## Basic Usage
+In its simplest usage, the `Form` only needs an instance of the controller and an array of fields to work.
+
 ```ts
-import { Form, useForm, formActions } from "sv-mosaic";
+import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
 
-const App = (props) => {
-	const { state, dispatch } = useForm;
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+];
 
-	//...rest of App.tsx
-	const fields = useMemo(
-		() =>
-			[
-				{
-					name: "myTextField",
-					type: "text",
-				},
-				{
-					name: "myCheckboxField",
-					type: "checkbox",
-				},
-				//...all other fields
-			],
-			[]
-	);
+export default function App() {
+  const controller = useForm();
 
-	// If you want to create a section and include it into the
-	// Form check how is done in the Layout - Sections section.
+  return (
+	<Form
+		{...controller}
+		fields={fields}
+	/>
+  );
+}
+```
+We go into field definitions in more detail [below](#form-fields).
 
-	const onLoad = useCallback(async () => {
-		//Get values from the DB to prepopulate fields
-		const values = await callDB();
+### Submission
+You're going to want to do something with that data once the user has finished completing the form and wants to submit it. For that, you can use the `handleSubmit` higher order function that is available on `controller`. `handleSubmit` can be used to wrap a callback that you'd like to invoke when the form is submitted, but only if the form data is successfully validated. You can also provide `handleSubmit` with a second callback to be invoked if form validation fails.
 
-		return values;
-	});
+Since `Form` is capable of rendering buttons in the appropriate place in the header area, we'll utilise that in the following example to show a submit button which, when clicked, will trigger the submission process:
 
-	const onSubmit = useCallback(async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
+```ts
+export default function App() {
+  const controller = useForm();
 
-		// DO SOMETHING WITH THE DATA
-	}, [dispatch]);
+  // Extract the submit handler HoF from the controller
+  const { handleSubmit } = controller;
 
-	const buttons: ButtonProps[] = [
-		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained"
-		},
-		{
-			label: "Cancel",
-			onClick: () => { /** Cancel logic **/ },
-			color: "gray",
-			variant: "outlined"
-		},
-	];
+  // The function to be invoked when the form is submitted
+  // and validation is successful
+  const onSubmitSuccess = useCallback((data) => {
+    alert(
+      "Submission was successful! The data submitted was: " +
+        JSON.stringify(data),
+    );
+  }, []);
 
-	return (
-		<Form
-			buttons={buttons}
-			title="My Form"
-			description="This is a description example"
-			state={state}
-			fields={fields}
-			dispatch={dispatch}
-			getFormValues={onLoad}
-		/>
-	);
+  // The function to be invoked when the form is submitted
+  // but validation fails
+  const onSubmitError = useCallback((data) => {
+    alert("Submission failed! The data submitted was: " + JSON.stringify(data));
+  }, []);
+
+  // Wrap the submission callbacks
+  const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
+
+  // Memoise an array of buttons to be displayed at the top
+  // of the form. It's just one button that kicks off the
+  // internal submission process when clicked.
+  const buttons: ButtonProps[] = useMemo(
+    () => [
+      {
+        label: "Save",
+        onClick: onSubmit,
+        color: "yellow",
+        variant: "contained",
+      },
+    ],
+    [onSubmit],
+  );
+
+  return (
+    <Form
+      {...controller}
+      fields={fields}
+      buttons={buttons}
+    />
+  );
 }
 ```
 
-## Data
-The Fields and the Form are in constant communication and exchange data. In order to maintain consistency, all fields and ways of updating data obey the following contract.
+### Layout
+With basic default usage, form fields will be stacked one on top of the other. Think of it as one field per row. However, you can provide `Form` with a `sections` property to have more granular control over how the fields are displayed. They can be organised so that:
+* Each section has it's own title and, optionally, a description. Sections are displayed as accordions and can be collapsed and expanded. Enabling multiple sections will cause a menu with to render to aid in navigating from section to section.
+* Each section can have multiple rows which stack one on top of the other.
+* Each row can have multiple columns. Columns will be evenly distributed across rows. Empty columns can be defined to create row spaces if necessary.
+* Each column can contain multiple fields which stack one on top of the other.
+
+`sections` accepts an array of objects that implement the `SectionDef` interface.
+
+#### Interface: SectionDef
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| **`title`** | | `string` | Text that helps users identify the section. This is also used when rendering tabs to scroll the user to the selected section. |
+| **`description`** | | `string` or `JSX.Element` | Additional text that allows users to understand the purpose or instructions of a section better. |
+| **`fields`** | ✅ | `string[][][]` | Section's field structure as explained above. The outermost array contains rows, the first nested array contains columns and the innermost array contains field names |
+| **`collapsed`** | | `boolean` | Whether or not the section should be collapsed by default. Defaults to false. Only applicable if a `title` is provided for this section. |
+| **`show`** | | [`MosaicToggle`](#MosaicToggle-t-type) | Whether or not to render the section. Show callbacks will be called with `{data: formState.data}` |
+
+Using sections, you can create complex and intuitive layouts to suit your form's context:
+
 ```ts
-{
-	"nameOfField1": "Value of field1",
-	"nameOfField2": "Value of field2",
-	...
-	"nameOfFieldN": "Value of fieldN",
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+  {
+    name: "lastName",
+    label: "Last Name",
+    type: "text",
+  },
+  {
+    name: "isBirthName",
+    label: "Is Birth Name",
+    type: "toggleSwitch",
+  },
+  {
+    name: "favouriteColor",
+    label: "Favourite Colour",
+    type: "text",
+  },
+];
+
+const sections: SectionDef[] = [
+  {
+    title: "Personal Details",
+	// Display two columns, with the "Is Birth Name"
+	// checkbox beneath the "Last Name" text field
+    fields: [
+		[["firstName"], ["lastName", "isBirthName"]]
+	],
+  },
+  {
+    title: "Preferences",
+    description: "Help us tailor your experience",
+    fields: [
+		[["favouriteColor"]]
+	],
+  },
+];
+
+export default function App() {
+  const controller = useForm();
+
+  return (
+    <Form
+      {...controller}
+      fields={fields}
+	  sections={sections}
+    />
+  );
 }
-```
-The key of each element allows the form to know which field to work with and what's its value.
-
-This is used in the same way in the following moments:
-1. When updating the state (see data attribute on [State](#state)) through an action (see [Dispatch](#dispatch)).
-2. During an onChange of a field.
-3. When prepopulating a field or an entire form (see getFormValues prop on [Props](#props)).
-4. When assigning a defaultValue to a field.
-
-### How to use on a form?
-```ts
-//Scenario 1
-const updateValues = async () => {
-	await dispatch(
-		formActions.setFieldValue({name: "myField", value: "myValue"})
-	);
-
-	//State will look like this:
-	// { data: { "myField": "myValue" }}
-}
-
-//Scenario 2 can only be seen when executing an onChange on a field.
-
-//Scenario 3
-const getValuesFromDB = async () => {
-	const res = await callToDb();
-	//res = { "myField": "myValue" }
-	return res;
-}
-
-<Form
-	//...all other props
-	getFormValues={getValuesFromDB}
-/>
-
-//Scenario 4
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				name: "myField",
-				type: "text",
-				defaultVaue: "myValue"
-			},
-			//...other fields
-		],
-	[]
-);
 ```
 
 ## Form Fields
-- All fields share a series of props that help the form identify and interact with each field.
+Fields are the all-important components that make up your form. Mosaic comes with a number of built in field types to suit all kinds of needs, but also allows you to provide custom fields of your own should you need something more specialised.
 
-### Generic Field Props (FieldDef)
-* **name** - `string` required - Significant name related to the field. This shouldn't have spaces as it serves as an identifier to read and write it's corresponding value.
-* **label** - `string | undefined` required - A label to display for the user interacting with the filter.
-* **required** - `boolean` optional - Marks if the field should be filled or not.
-* **helperText** - `string` optional - Text that gives context to the user as what the field does.
-* **instructionText** - `string` optional - Instructions about how to fill the current field.
-* **disabled** - `MosaicToggle` optional - Disable callbacks will be called with `{data: data}`
-* **inputSettings** - `object` optional - Specific props for each specific field (Please see the Props section of each field).
-* **size** - `string` optional - Size of the field. Could be either one of the predefined sizes, or a custom size. This property can be internally overwritten if the field is placed inside of a row with other fields.
-	* **xs** = 100px
-	* **sm** = 280px
-	* **md** = 450px
-	* **lg** = 620px
-* **className** - `string` optional - Follows the same rules as any other html element className.
-* **style** - `object` optional - Follows the same rules as any other html element style.
-* **type** - `string | JSX Element | (() => JSX Element)` required - Field that will be rendered. This can be a string (see type of each form field) or a custom component.
-* **layout** - `object` optional - Optional object that defines the position of the field within the layout.
-	* **section** - `number` optional - Defines the section where the field will appear (begins at 0).
-	* **row** - `number` optional - Defines the row where the field will appear (begins at 0).
-	* **col** - `number` optional - Defines the column where the field will appear (begins at 0).
-* **validators** - `array` of `string | { fn: string; options: any } | (() => string | undefined | JSX Element))` optional - Validators to be executed when an onBlur occurs on the Field or when an onSubmit occurs on the Form (see the [Validators section](#validators) for more information about default and custom validators).
-* **id** - `string` optional - Follows the same rules as any other html element id.
-* **defaultValue** - `<U>` optional - Value to be used in case no initial value is loaded from a data base. This value should be of the same type as from its corresponding field (see data of each specific field).
-* **onChangeCb** - `(value?: any) => void` optional - Callback that will be executed when the field triggers an onChange event.
-* **show** - [`MosaicToggle`](#MosaicToggle-t-type) optional - Show callbacks will be called with `{data: data}`
+Field components and their behaviours are derived from an array of configuration objects that you provide as `fields` to the `Form` component. Those objects are what we call the field definitions and they implement the `FieldDef` interface.
 
-### How to use in a form?
+#### Interface: FieldDef
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| `name` | ✅ | `string` | Significant name related to the field. Names should be unique to each field within the same form. The name will be used as the field's `id` HTML attribute. |
+| `type` | ✅ | `string \| JSX.Element \| () => JSX.Element` | Depicts the type of field that will be rendered. A string value will be mapped to one of Mosaic's built-in field types, providing a function will render a custom field. |
+| `label` | | `string` | Descriptive label for the field which will be rendered in a HTML `label` element before the field's input |
+| `required` | | `boolean` | Whether or not this is a required field. This will render an asterisk to indicate the field is required, as well as automatically adding the `required` validator. |
+| `helperText` | | `string \| JSX.Element` | Text that gives context to the user as what the field does. |
+| `instructionText` | | `string` | Instructions about how to fill the current field. Will be rendered to the right of the field or as a hoverable tooltip next to the field's label, depending on the space available. |
+| `disabled` | | `MosaicToggle<FormState>` | Whether or not the field is disabled. Callbacks will be invoked with the form's current state. |
+| `inputSettings` | | `T` | Please see individual field type documentation for more information on what properties can be provided. |
+| `size` | | `"xs" \| "sm" \| "md" \| "lg"` or any valid CSS width | How wide the field should render. (xs = 100px, sm = 280px, md = 450px, lg = 620px). |
+| `className` | | `string` | A class name to be added to the field's containing element. |
+| `style` | | `HTMLAttributes<HTMLElement>["style"]` | Custom styles to be added to the field's containing element. |
+| `validators` | | `(string \| { fn: ValidatorFn; options: any } \| ValidatorFn)[]` | Validators to be executed when an the applicable validation trigger occurs on this field or when an onSubmit occurs on the Form (see the [validators](#validators) section for more information about default and custom validators). |
+| `validateOn` | | `"onBlur" \| "onChange" \| "onBlurAmend" \| "onBlurChange"` | When the field should be validated. `onBlur` will validate the field when it loses focus. `onChange` will validate when the value of the field changes. `onBlurAmend` will validate the field when it loses focus, but clear any validation errors once it has been amended. `onBlurChange` will validate the field only when it loses focus but will also validate for every subsequent change after losing focus once. |
+| `validates` | | `string[]` | Other fields to "chain" validate when this field is validated. Fields can safely chain validate each other without causing infinite validation. |
+| `id` | | `string` | The ID given to the containing element. |
+| `onBlurCb` | | `() => void` | Callback to invoke when the field loses focus. |
+| `onChangeCb` | | `(value: any) => void` | Callback to invoke when the value of the field changes. |
+| `show` | | `MosaicToggle<FormState>` | Whether or not to render the field. Callbacks are invoked with the current form state. |
+
+### Smart validation
+Generally speaking, fields will be validated whenever is appropriate for their type. For example fields that can be focused on, like text fields, by default will be validated once they lose focus. Address fields on the other hand cannot have focus in the same way, so by default they will be validated when the embedded draw is closed. This can be changed on a per-field basis using the `validatesOn` property, but a sensible default has been carefully chosen for each field type.
+
+When talking about validation, we are ultimately talking about sequentially invoking zero or more callbacks which individually test the current field value. The _"required"_ validator for example, tests the value for a length that is greater than 0. If the value fails the test, the validator returns a string containing the reason for failure, this string will in turn be displayed to the user as the field's error. If the value passes the validation test, the function should return undefined. With that in mind, we can write a simple validator that ensures a value is a string and begins with the uppercase letter "G":
+
 ```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				name: "myTextField",
-				label: "Age",
-				required: true,
-				helperText: "This is an example of a helper text",
-				instructionText: "This is an example of an instruction text",
-				disabled: false,
-				inputSettings: {}, //Please see inputSettings of each field
-				size: "sm",
-				className: "myClassName",
-				style: {{ marginTop: "5px", }},
-				type: "text", //This will vary, please see "How to create in a form?" of each field
-				layout: , //Please see Layout section for different ways of arranging fields on the form.
-				validators: ["validateNumber"], //Please see validators section on ways of adding validators.
-				id: "myId",
-				defaultValue: "42", //Plase see data of each field and data section to better understand how fields interact with values.
-			},
-			{
-				name: "myCheckbox",
-				//...all other generic field props
-			}
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldAddress
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
-- Features a draw with an embedded "child" form which can be used to create or edit addresses.
-- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
-- Data: `object`
-	* **address1** - `string` required - Main address.
-	* **address2** - `string` optional - Additional address.
-	* **address3** - `string` optional - Additional address.
-	* **city** - `string` required - Name of the city.
-	* **country** - `MosaicLabelValue` required - Object containing the label and value of the country.
-	* **postalCode** - `string` required - Postal code of the address.
-	* **state** - `MosaicLabelValue` required - Object containing the label and value of the state.
-	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`amountPerType`** | `number` | optional - When defined, limits the amount of address types. For example: If a dev adds “amountPerType: 2” then users will be able to add 2 physical, 2 billing, and 2 shipping addresses. Defaults to 1 if no other amount properties are defined and 0 otherwise. |
-| **`amountShipping`** | `number` | optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType. |
-| **`amountPhysical`** | `number` | optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.|
-| **`amountBilling`** | `number` | optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType. |
-| **`getOptionsCountries`** | `(): Promise<MosaicLabelValue[]>` | Required - Returns a list of mapped countries in the shape of label-value array. |
-| **`getOptionsStates`** | `(country: string): Promise<MosaicLabelValue[]>` | Given a country value it returns the list of states of the given country in the shape of label-value array. |
-| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to access Place Autocomplete Google web service that returns place predictions in response to an HTTP request. |
-
-Note that if the amount rules mean that only 1 type of address is allowed, the type field will not appear in the address drawer.
-
-### How to use in a form?
-```ts
-const getOptionsCountries = async () => {
-	const countriesArr: MosaicLabelValue[] = await countriesMicroService();
-	return countriesArr;
-}
-
-const getOptionsStates = async (country) => {
-	const statesArr: MosaicLabelValue[] = await statesMicroService(country);
-	return statesArr;
-}
-
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "address",
-				inputSettings: {
-					amountPerType: 1,
-					amountShipping: 0,
-					amountPhysical: 2,
-					amountBilling: 3,
-					getOptionsCountries,
-					getOptionsStates,
-					googleMapsApiKey: "ABCDEFG1234567890"
-				},
-			},
-			//...other fields
-		],
-	[]
-);
-```
-<!-- ### Example
-<Preview withSource='none'></Preview> -->
-
-
-## FormFieldAdvancedSelection
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- Allow users to select one or more options from a modal menu.
-- Used for very long lists.
-- Have the ability to type and search.
-- [**Playground**](/?path=/story/formfields-formfieldadvancedselection--playground)
-- Data: `array` of `object` - Array of values of the selected options.
-	* **label** - `string` - Text users will see to identify the option.
-	* **value** - `string[]` - Value that will be saved to the DB when the option gets selected.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`createNewOption`** | `(newOptionLabel: string) => Promise<MosaicLabelValue>` | optional -  Function used to insert more options either on the local options array, or on the DB. |
-| **`options`** | `MosaicLabelValue[]` | required -  Used to set the full info (label, value) of all selected options. This prop only applies when getting options locally. The label is the text the users will see to identify the option and the value will be saved to the DV when the option gets selected. |
-| **`getOptions`** | `({filter?: string, limit?: number, offset?: number}) => Promise<MosaicLabelValue[]>` | required - Function to get the next set of options. This prop only applies when getting options from a DB. |
-| **`getOptionsLimit`** | `number or string` | optional - When defined, limits the amount of options to get from the DB. This prop only applies when getting options from a DB. |
-| **`selectLimit`** | `number` | optional - Defines the maximum amount of options users can select. Passing undefined or not passing it at all allows users to select as many as they want. |
-
-### How to use in a form?
-```ts
-// List of options
-const externalOptions = [
-	{
-		label: "Option1",
-		value: "value1",
-	},
-	{
-		label: "Option2",
-		value: "value2",
-	}
-]
-
-/**
- * Definition of the funtion that enables the
- * creation of new options.
-**/
-const myCreateOptionFn = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${externalOptions.length}`
-	const newOption = {
-		value,
-		label: newOptionLabel,
+async function validateFirstLetter(value: any) {
+	if (typeof value !== "string") {
+		return "Value should be a string";
 	}
 
-	//Insert to db
-	externalOptions.push(newOption);
-
-	return newOption;
-}
-
-//Option recommended when getting options locally.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "advancedSelection",
-				inputSettings: {
-					createNewOption: myCreateOptionFn,
-					options: externalOptions
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-
-//Option recommended when getting options from a database.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "advancedSelection",
-				inputSettings: {
-					createNewOption: myCreateOptionFn,
-					getOptions: myGetOptionsFn,
-					getOptionsLimit: 5,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-
-## FormFieldCheckbox
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- A group of checkbox buttons that allows users to select multiple items from a list of possible options.
-- [**Playground**](/?path=/story/formfields-formfieldcheckbox--playground)
-- Data: `array` of `string` - Array of values of the selected options.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label and value. |
-| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
-
-### How to use in a form?
-```ts
-//Option recommended when getting options locally.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "checkbox",
-				inputSettings: {
-					options: [
-						{
-							label: "Option1",
-							value: "value1",
-						}
-					],
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-
-//Option recommended when getting options from a database.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "checkbox",
-				inputSettings: {
-					getOptions: myGetOptionsFn,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldChipSingleSelect
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- The `FormFieldChipSingleSelect` component is built over a wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with SimpleView brand colors.
-- [**Playground**](/?path=/story/formfields-formfieldchipsingleselect--playground)
-- Data: `string` - Value of the selected option.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`options`** | `MosaicLabelValue[]` | required - Array of options to be rendered containing their corresponding label, value, and indicator of whether its selected or not. |
-| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` |required - Function to get a set of options. This prop only applies when getting options from a DB. |
-| **`onSelect`** | `(...args) => void` | optional - Callback to be executed when an option gets selected. |
-
-### How to use in a form?
-```ts
-//Option recommended when getting options locally.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "chip",
-				inputSettings: {
-					options: [
-						{
-							label: "Option1",
-							value: "value1",
-						},
-						{
-							label: "Option2",
-							value: "value2",
-						}
-					],
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-
-//Option recommended when getting options from a database.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "chip",
-				inputSettings: {
-					getOptions: myGetOptionsFn,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldColorPicker
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
-- The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
-- [**Playground**](/?path=/story/formfields-formfieldcolorpicker--playground)
-- Data: `string` - Text that represents the hex value of the color picker.
-- inputSettings: This component doesn't require any additional props.
-
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "color",
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldDateField
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- It allows the user to view and pick dates from a calendar widget or manually type the date in the text field.
-- [**Playground**](/?path=/story/formfields-formfielddatefield--playground)
-- Data: `string` - Date in UTC format transformed to string.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`showTime`** | `boolean` | optional - When true a time field will appear next to the date field. |
-| **`minDate`** | `Date` | optional - The minimum date that can be chosen using the datepicker or entered into the input. Defaults to 01/01/1900. If used in a form component, will automatically register a minimum date validator |
-| **`maxDate`** | `Date` | optional - The maximum date that can be chosen using the datepicker or entered into the input. If used in a form component, will automatically register a minimum date validator |
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "date",
-				inputSettings: {
-					showTime: false,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldTimeField
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
-- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
-- Data: `string` - Time in `HH:MM` 24 hour format.
-- This field accepts no inputSettings
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "time",
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldRadio
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- A group of radio buttons allows users to select a single item from a list of possible options.
-- All possible options are exposed up front for comparison.
-- Users can only make a single selection from the list of possible options.
-- [**Playground**](/?path=/story/formfields-formfieldradio--playground)
-- Data: `string` - Value of the selected option.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`options`** | `MosaicLabelValue[]` | required - Predefined set of mutually exclusive options. |
-| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
-
-
-### How to use in a form?
-```ts
-//Option recommended when getting options locally.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "radio",
-				inputSettings: {
-					options: [
-						{
-							label: "Label 1",
-							value: "label_1",
-						},
-						{
-							label: "Label 2",
-							value: "label_2",
-						},
-						{
-							label: "Label 3",
-							value: "label_3",
-						},
-					],
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-
-//Option recommended when getting options from a database.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "radio",
-				inputSettings: {
-					getOptions: myGetOptionsFn,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldRaw
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-This type of field will render the corresponding `value` as-is. It can be used to render anything that is a valid `ReactNode` while maintaining the normal field display behaviour, like the label and field hint. It has no `inputSettings`.
-
-
-### How to use in a form?
-```ts
-
-function RawValue() {
-	return (
-		<RawValueWrapper>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		</RawValueWrapper>
-	)
-}
-
-async function getFormValues() {
-	return {
-		raw: <RawValue />
+	if (value.charAt(0) !== "G") {
+		return "Value should start with the uppercase letter G";
 	}
 }
-
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "raw",
-			},
-			//...other fields
-		],
-	[]
-);
-
 ```
 
-## FormFieldText
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+Since form values don't have type safety, you should always assume an unknown value type and make that runtime check in your validator.
 
-- Text input fields are used to enter text information, numbers, email addresses, or passwords.
-- A text field consists of a label and a line with variations in width.
-- [**Playground**](/?path=/story/formfields-formfieldtext--playground)
-- Data: `string | number` - Value of the input typed.
-- inputSettings:
+Using our validator for a given field is then trivial, we can simply pass the function into the `validators` array:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
-| **`multiline`** | `boolean` |optional - When is enabled the text field will expand its height.
-| **`placeholder`** | `string` | optional - The hint displayed in the input before the user enters a value. |
-| **`prefixElement`** | `JSX.Element` | optional - Icon at the beginning of the text field. |
-| **`type`** | `string` | optional - Type of the input element. It should be a [valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types). |
-| **`maxRows`** | `number` | optional - Maximum number of rows to display when multiline options is set to true. |
-| **`minRows`** | `number` | optional - Minimum number of rows to display when multiline option is set to true. |
-
-### How to use in a form?
 ```ts
-const fields: FieldDef[] = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "text",
-				size: "md",
-				inputSettings: {
-					prefixElement: <AccountCircle />,
-					maxCharacters: 20,
-					placeholder: "placeholder",
-					multiline: true,
-					maxRows: 4,
-					minRows: 3
-				},
-			},
-			//...other fields
-		],
-	[]
-);
+const fields: FieldDef = [
+	{
+		name: "wordBeginsWithG",
+		label: "What's a word beginning with G?",
+		validators: [validateFirstLetter]
+	}
+];
 ```
 
-## FormFieldTextEditor
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
-- This implementation is based on the [Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit) package.
-- [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
-- Data: `string` - Value of the input typed.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`direction`** | `"rtl" | "ltr" | ""` | optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt". |
-| **`language`** | `string` | optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter. |
-| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
-| **`spellcheck`** | `boolean` | optional - If it's enabled the text editor will mark misspellings. |
-
-### How to use in a form?
+Though, that might not be enough. We might want to make our validator more versatile. Perhaps we want to use the same validator for other fields to ensure their values are words that start with other letters. We can accept options into our validator to support that:
 
 ```ts
-const fields: FieldDef[] = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "textEditor",
-				inputSettings: {
-					spellcheck: true,
-					direction: "rlt",
-					language: "en",
-					maxCharacters: 20,
-				},
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldToggleSwitch
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off
-- Toggles should be used to turn on or off a preference, notification, or feature
-- Should be used when an instant response is required/desired
-- [**Playground**](/?path=/story/formfields-formfieldtoggleswitch--playground)
-- Data: `boolean` - Defines whether the switch is checked or not.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`toggleLabel`** | `string` | optional - This label is placed at the right of the switch. |
-
-### How to use in a form?
-
-```ts
-const fields: FieldDef[] = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "toggleSwitch",
-				inputSettings: {
-					toggleLabel: "Toggle label"
-				},
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldUpload
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- The FormFieldUpload component allows users to upload multiple files of any type.
-- [**Playground**](/?path=/story/formfields-formfieldupload--playground)
-- Data: `array` of `UploadData`:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`id`** | <code>string &#124; number</code> | required - A unique identifier, used as React "key" |
-| **`name`** | <code>string</code> | required - The name of the file, which will be rendered as the file title |
-| **`fileUrl`** | <code>string</code> | The URL to the uploaded file which the uploaded item's image and title will link to |
-| **`thumbnailUrl`** | <code>string</code> | The URL of the thumbnail that should be displayed. |
-| **`downloadUrl`** | <code>string</code> | The downloadable URL of the file, it should respond with a Content-Disposition: attachment header |
-| **`downloadStrategy`** | <code>"anchor" &#124; "iframe"</code> | How the file download button should behave:<br />"anchor" - renders an anchor tag with the "download" attribute<br />"iframe" - creates an iframe and navigates to the downloadUrl, then removes the iframe once loaded (or errored)<br />If this property is omitted, the downloadStrategy will be "anchor" if no downloadUrl is provided, or "iframe" if it is. |
-| **`size`** | <code>number</code> | The numerical size of the file in bytes |
-
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`onFileAdd`** | `(addedData: OnFileAddData) => Promise<void>` | required - Callback function executed per uploaded file.<br /><br />If an error is thrown in this callback, its message will be displayed for the uploaded item |
-| **`onFileDelete`** | `({id: string or number}) => Promise<void>` | required - Callback function executed when the user deletes an uploaded file. |
-| **`limit`** | `number` | optional - Limits the amount of files users can upload. If not passed users can add as many files as needed. |
-| **`accept`** | `string[]` | optional - Limits the types of files that can be uploaded by extension. |
-| **`maxFileSize`** | `number` | optional - Limits the size of individual uploads in bytes |
-| **`maxTotalSize`** | `number` | optional - Limits the size of all uploads for this field combined in bytes |
-
-- OnFileAddData:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`file`** | `File` | required - File uploaded by the user. |
-| **`onChunkComplete`** | `({percent: number}) => Promise<void>` | required - Callback function that allows the file cards to update their progress spinner. The expected percent should be a value between 0 and 1. |
-| **`onUploadComplete`** | `(data: UploadData) => Promise<void>` | required - Callback function that allows the component to update the file cards with the newest data |
-| ❌ **`onError`** | `(message: string) => Promise<void>` | required - Callback function that allows the file cards to update their style and error message.<br /><br />**DEPRECATED** - Throw an error within `onFileAdd` callback instead. |
-
-### How to use in a form?
-
-```ts
-const onFileAdd = async ({file, onChunkComplete, onUploadComplete, onError}) => {
-	for (let i = 0; i < 10; i++) {
-		await new Promise(resolve => setTimeout(() =>
-			resolve(
-				onChunkComplete({percent: (i + 1) * 0.1})
-			), 300)
-		);
+async function validateFirstLetter(value: any, data: any, options: { firstLetter: string }) {
+	if (typeof value !== "string") {
+		return "Value should be a string";
 	}
 
-	if (Math.random() < 0.3) {
-		await onError("File size exceeded");
-		return;
+	if (value.charAt(0) !== options.firstLetter) {
+		return "Value should start with the uppercase letter " + options.firstLetter;
 	}
-
-	await onUploadComplete({
-		id: nanoid(),
-		name: file.name,
-		size: `${file.size} bytes`,
-		url: Math.random() < 0.7 ? URL.createObjectURL(file) : undefined
-	});
-};
-
-const onFileDelete = ({id}) => {
-	alert("DELETED FILE: " + id);
 }
-
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "upload",
-				inputSettings: {
-					onFileAdd,
-					onFileDelete,
-					limit: 2,
-				},
-			},
-			//...other fields
-		],
-	[]
-);
 ```
 
-## FormFieldDropdownSingleSelection
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+Note that even though it's unused here, all form values, `data`, is available as a second parameter.
 
-- `Dropdown Single Selection` is a simple wrapper for [MUI Autocomplete](https://mui.com/material-ui/react-autocomplete/#main-content) but with our brand colors.
-- [**Playground**](/?path=/docs/formfields-formfielddropdownsingleselection--playground)
-- Data: `string` - String of the selected option.
-- inputSettings:
+Then slightly modify our definition to provide options to our validator. When the field is validated, the options will automatically be passed through to the validation callback:
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`placeholder`** | `string` | Optional - Example text shown inside of the text field portion of the dropdown. |
-| **`options`** | `MosaicLabelValue[]` | required - Array of options to be displayed on the options. |
-| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
-
-### How to use in a form?
 ```ts
-//Option recommended when getting options locally.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "dropdown",
-				inputSettings: {
-					options: [
-						{ label: "The Shawshank Redemption", value: "1994" },
-						{ label: "The Godfather", value: "1972" },
-						{ label: "The Godfather: Part II", value: "1974" },
-						{ label: "The Dark Knight", value: "2008" }
-					],
-					placeholder: "Placeholder",
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-
-//Option recommended when getting options from a database.
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "dropdown",
-				inputSettings: {
-					getOptions: myGetOptionsFn,
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldImageUpload
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-`Image Upload` This component helps upload images to the assets library, The setup supports images, videos, or documents
-- [**Playground**](/?path=/docs/formfields-formfieldimageupload--playground)
-- Data: `object` Optional - Object of the value arguments
-	* **imgName** `string` Optional - Image name
-	* **size** `number` Optional - Image size
-	* **type** `string` Optional - Image type
-	* **height** `number` Optional - Image height
-	* **width** `number` Optional - Image width
-	* **imgCoords** `object` Optional - Image coordinates
-		* **x** `number` - X image coordinates
-		* **y** `number` - Y image coordinates
-- inputSettings:
-	* **handleSetFocus** - `() => void` Optional - Callback executed when the set focus button is clicked.
-	* **options** - `array` of `object` Optional - List of menu options that can be executed by the component.
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`handleSetFocus`** | `string` | Optional - Callback executed when the set focus button is clicked. |
-| **`options`** | `options[]` | Optional - List of menu options that can be executed by the component. |
-
-- options:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`label`** | `string` | Required - Name of the option. |
-| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "imageUpload",
-				inputSettings: {
-					handleSetFocus: () => {
-						alert("Set focus is called");
-					},
-					options: [
-						{
-							label: "Edit",
-							action: handleEdit,
-						},
-						{
-							label: "Translate",
-							action: handleTranslate,
-						}
-					]
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldImageVideoLinkDocument
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-`Image Video Link Document Browsing` This component is helpful when the user needs browse an asset from the established assets library for their content.
-The setup supports images, videos, documents or links.
-- [**Playground**](/?path=/docs/formfields-formfieldimagevideolinkdocumentbrowsing--playground)
-- Data: `array` of `object` - Array of a label-value objects that represents an asset.
-	* **label** - `number` - Asset property name.
-	* **value** - `number` - Asset property value.
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`handleRemove`** | `() => void` | Optional - Callback executed when the remove button is clicked. In order to remove the loaded asset, this function should dispatch a `setFieldValue` form action with a value of an empty array. |
-| **`handleSetDocument`** | `() => Promise<void>` | Optional - Callback executed when the document icon clicked. In order to load a document, it should dispatch a form action of type `setFieldValue` with a document of the type specified in the `Data` section. |
-| **`handleSetImage`** | `() => Promise<void>` | Required - Callback executed when the image icon clicked. In order to load an image, it should dispatch a form action of type `setFieldValue` with an image of the type specified in the `Data` section. |
-| **`handleSetVideo`** | `() => Promise<void>` | Optional - Callback executed when the video icon is clicked. In order to load a video, it should dispatch a form action of type `setFieldValue` with a video of the type specified in the `Data` section. |
-| **`handleSetLink`** | `() => Promise<void>` | Optional - Callback executed when the link icon is clicked. In order to load a link, it should dispatch a form action of type `setFieldValue` with a link of the type specified in the `Data` section. |
-| **`src`** | `string` | Optional - If the asset contains an image, its source should be passed via this src prop. |
-| **`options`** | `options[]` | Optional - List of options that will be shown when the three vertical dots icon is clicked. |
-
-- options:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`label`** | `string` | Required - Name of the option. |
-| **`action`** | `() => void` | Required - Function that will be triggered when the option is clicked |
-
-### How to use in a form?
-```ts
-import formActions from "@simpleview/sv-mosaic/formActions";
-
-const { dispatch } = useForm();
-
-const image = [
+const fields: FieldDef = [
 	{
-		label: "Title",
-		value: "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico Video Thumbnail",
+		name: "wordBeginsWithG",
+		label: "What's a word beginning with G?",
+		validators: [{fn: validateFirstLetter, options: {firstLetter: "G"}}]
 	},
 	{
-		label: "Type",
-		value: "Image Video Thumbnail",
-	},
-	{
-		label: "Alt",
-		value: "-",
-	},
-	{
-		label: "Size",
-		value: "1280x720",
-	},
-	{
-		label: "Focus",
-		value: "No",
-	},
-	{
-		label: "Locales",
-		value: "-",
-	},
+		name: "wordBeginsWithY",
+		label: "What's a word beginning with Y?",
+		validators: [{fn: validateFirstLetter, options: {firstLetter: "Y"}}]
+	}
 ];
-
-const video = [
-	{
-		label: "Title",
-		value: "Video Example - This is a video example",
-	},
-	{
-		label: "Type",
-		value: "Video",
-	},
-	{
-		label: "Alt",
-		value: "-",
-	},
-	{
-		label: "Size",
-		value: "1280x720",
-	},
-	{
-		label: "Locales",
-		value: "es, en & in",
-	},
-];
-
-const document = [
-	{
-		label: "Title",
-		value: "Document example",
-	},
-	{
-		label: "Type",
-		value: "Document",
-	},
-	{
-		label: "Size",
-		value: "333 bytes",
-	},
-	{
-		label: "Size on disk",
-		value: "0 bytes",
-	},
-];
-
-const link = [
-	{
-		label: "Title",
-		value: "Video Thumbnail - YouTube - Visit Santa Fe, New Mexico",
-	},
-	{
-		label: "Type",
-		value: "Asset Library - Image",
-	},
-	{
-		label: "URL",
-		value: "https://assets.simpleviewinc.com/simpleview/image/upload/v1/clients/santafenm/maxresdefault_97d9460d-0bb1-4870-9be8-2b9af118360e.jpg",
-	},
-];
-
-const setImage = async () => {
-	await dispatch(
-		formActions.setFieldValue({
-			name: "imageVideoDocumentLink",
-			value: image,
-			touched: true
-		})
-	);
-};
-
-const setVideo = async () => {
-	await dispatch(
-		formActions.setFieldValue({
-			name: "imageVideoDocumentLink",
-			value: video,
-			touched: true
-		})
-	);
-};
-
-const setDocument = async () => {
-	await dispatch(
-		formActions.setFieldValue({
-			name: "imageVideoDocumentLink",
-			value: document,
-			touched: true
-		})
-	);
-};
-
-const setLink = async () => {
-	await dispatch(
-		formActions.setFieldValue({
-			name: "imageVideoDocumentLink",
-			value: link,
-			touched: true
-		})
-	);
-};
-
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				name: "imageVideoDocumentLink",
-				type: "imageVideoDocumentLink",
-				inputSettings: {
-					options: [
-						{
-							label: "Edit",
-							action: handleEdit,
-						},
-						{
-							label: "Translate",
-							action: handleTranslate,
-						},
-					],
-					handleSetImage: setImage,
-					handleSetDocument: setDocument,
-					handleSetVideo: setVideo,
-					handleSetLink: setLink,
-					handleRemove: removeAsset,
-					src: "http://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg"
-				}
-			},
-			//...other fields
-		],
-	[]
-);
 ```
 
-## FormFieldMatrix
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+Mosaic comes with a number of basic common-use validators so that you don't have to roll your own.
 
-`Matrix` This component is used to dynamically create content in a data view. Some examples may be creating rows using a form fields or displaying
-selected rows from another Data View.
-- Data: [`MosaicObject[]`](#mosaicobject-type) - Array of objects containing all data required to popoulate the list
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`dataView`** | `DataViewProps` | Data view configurations (see [DataView props](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-dataview-readme--page#props)).|
-| **`buttons`** | `ButtonAttrs[]` | List of buttons that will be display above the data view (see [ButtonAttrs type](#buttonattrs-type)). |
-
-### How to use in a form?
-```ts
-import formActions from "@simpleview/sv-mosaic/formActions";
-
-const { dispatch } = useForm();
-
-const listColumns = [
-	{
-		name: "id",
-		label: "ID"
-	},
-	{
-		name: "description",
-		label: "Description"
-	},
-	{
-		name: "title",
-		label: "Title",
-	},
-];
-
-const gridConfig: DataViewProps = {
-	columns: listColumns,
-	primaryActions: [
-		{
-			name: "edit",
-			color: "black",
-			variant: "icon",
-			mIcon: CreateIcon,
-			onClick: function ({ data }) {
-				alert(`EDIT ${data.id}`);
-			}
-		},
-		{
-			name: "delete",
-			color: "black",
-			variant: "icon",
-			mIcon: DeleteIcon,
-			onClick: function ({ data }) {
-				alert(`EDIT ${data.id}`);
-			}
-		}
-	],
-	sticky: true,
-	data: state.data.formMatrix,
-	limit: 25,
-	onReorder: async (newRows) => {
-		const rows = newRows.map(row => state.data.formMatrix.find(element => element.id === row));
-
-		await dispatch(
-			formActions.setFieldValue({
-				name: "formMatrix",
-				value: rows,
-				touched: true
-			})
-		);
-	},
-	display: "list",
-	activeColumns: ["id", "description", "title"],
-	savedView: defaultView
-};
-
-const addRow = async () => {
-	const mappedData = rawData.slice(1, 4).map((data) => {
-		// convert the date columns to dates, since they are ISOStrings in the file
-		return {
-			...data,
-			created: data.created ? new Date(data.created) : undefined,
-			updated: data.updated ? new Date(data.updated) : undefined
-		}
-	});
-
-	await dispatch(
-		formActions.setFieldValue({
-			name: "formMatrix",
-			value: mappedData,
-			touched: true
-		})
-	);
-};
-
-
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				name: "formMatrix",
-				type: "matrix",
-				inputSettings: {
-						dataView: gridConfig,
-						buttons: [
-							{
-								label: "Add",
-								onClick: addRow,
-								color: "teal",
-								variant: "text",
-								mIcon: AddIcon
-							},
-						] as ButtonProps[]
-					},
-			},
-			//...other fields
-		],
-	[gridConfig]
-);
-```
-
-## FormFieldMapCoordinates
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
-- [**Playground**](/?path=/docs/formfields-formfieldmapcoordinates--playground)
-- Data: `object` - Object of the value arguments
-	* **lat** - `number` - Latitude
-	* **lng** - `number` - longitude
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`address`** | `object` | Optional - Address object used to set lat and lng values when using the autocoordinates feature (please see Address section). |
-| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to consume the Maps JavaScript API and Places API. |
-| **`zoom`** | `number` | Optional - Zoom applied to the map. If is not defined the map will be all the way zoomed out. |
-| **`initialCenter`** | `MapPosition` | Optional - Latitude and longitude object. If is not defined the map will be positioned at 0,0. |
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "mapCoordinates",
-				inputSettings: {
-					apiKey: "QWErttyuyi-QWDQWFWEeqwfcQWEwefcwfqwew",
-					initialCenter: {
-						lat: -3.766925461296721
-						lng: -40.54497265625
-					},
-					address: {
-						id: 1,
-						address1: "8950 N Oracle Rd",
-						city: "Oro Valley",
-						postalCode: "85704",
-						country: "US",
-						state: "AZ",
-						types: ["physical", "billing"]
-					}
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldNumberTable
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- [**Playground**](/?path=/story/formfields-formfieldnumbertable--playground)
-- Data: `object` - Object that has the row name as key and nested another object with the column name as key and the value corresponds to text field value.
-	* **rowName: string** - `object` - Row name is used as key identifier.
-		* **columnName: string** - `string` - Value of each text field cell.
-- inputSettings:
-
-| Name | Type | Default | Description |
-| ---- | ---- | --------| ----------- |
-| **`columns`** | `{ name: string; title: string }[]` | | Columns definition. |
-| **`columnTotalLabel`** | `string` | "Total" | optional - Default: "Total". Label shown on the column that displays the totals. |
-| **`displaySumColumn`** | `boolean` | `true` | optional - Shows or hides the total sums of each column. |
-| **`displaySumRow`** | `boolean` | `true` | optional - Shows or hides the total sums of each row. |
-| **`numberFormatOptions`** | `Intl.NumberFormatOptions` | | optional - Configuration options for the formatter, see more at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat |
-| **`rows`** | `{ name: string; title: string, subtitle?: string }[]` | | Rows definition. |
-| **`rowTotalLabel`** | `string` | "Total" | optional - Label shown on the total row. |
-| **`topLeftLabel`** | `string` | |  optional - Label placed on the top left table corner i.e the first column. |
-
-### How to use in a form?
-
-```ts
-const fields: FieldDef[] = useMemo(
-	(): FieldDef[] =>
-		[
-			//...other fields
-			{
-				//...all generic field props
-				type: "numberTable",
-				defaultValue: {
-					"2023_02_10": {
-						single: "12",
-						double: "13",
-						queen: "14",
-						king: "15",
-						suite: "16",
-						any: "17",
-					},
-					"2023_02_11": {
-						single: "18",
-						double: "19",
-						queen: "20",
-						king: "21",
-						suite: "22",
-						any: "23",
-					},
-					"2023_02_12": {
-						single: "12",
-						double: "13",
-						queen: "14",
-						king: "15",
-						suite: "16",
-						any: "20",
-					},
-					"2023_02_13": {
-						single: "1",
-						double: "1",
-						queen: "1",
-						king: "1",
-						suite: "1",
-						any: "1",
-					},
-				},
-				inputSettings: {
-					rowTotalLabel: "TOTAL",
-					columnTotalLabel: "No. Rooms",
-					topLeftLabel: "Day",
-					rows: [
-						{ name: "2023_02_10", title: "Shoulder Before" },
-						{ name: "2023_02_11", title: "Day 1", subtitle: "February 11" },
-						{ name: "2023_02_12", title: "Day 2" },
-						{ name: "2023_02_13", title: "Day 3" },
-					],
-					columns: [
-						{ name: "single", title: "Single" },
-						{ name: "double", title: "Double" },
-						{ name: "queen", title: "Queen" },
-						{ name: "king", title: "King" },
-						{ name: "suite", title: "Suite" },
-						{ name: "any", title: "Any" },
-					]
-				},
-			},
-			//...other fields
-		],
-	[]
-);
-```
-
-## FormFieldPhoneSelectionDropdown
-This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
-
-- `FormFieldPhoneSelectionDropdown` component is built over [React-Phone-Input-2](https://www.npmjs.com/package/react-phone-input-2) but with SimpleView brand colors. The phone selection dropdown is useful when you want to allow users to enter the information of phone numbers, is conformed with the selection of the country in the dropdown that contains the country flag, and automatically the prefix and number or characters placeholder are showed.
-- [**Playground**](/?path=/docs/formfields-formfieldphoneselectiondropdown--playground)
-- Data: `string` - String of the selected options
-- inputSettings:
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| **`autoFormat`** | `boolean` | Optional - Phone formatting according to the country selected. |
-| **`country`** | `string` | Optional - Initial country. It must be a country code (e.g., us, mx, etc.). |
-| **`value`** | `string` | Optional - Input state value. |
-
-### How to use in a form?
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-				//...all generic field props,
-				type: "phone",
-				inputSettings: {
-					autoFormat: false,
-					country: "mx",
-				}
-			},
-			//...other fields
-		],
-	[]
-);
-```
-## Form Example
-
-<Preview withSource='none'></Preview>
+#### Validators
+| Name | Options | Failure message | Description |
+| ---- | ------- | --------------- | ----------- |
+| `required` | | _This field is required, please fill it_ | Validate a string or an array has a length of more than 0. This validator is automatically applied to fields with the `required: true` property in their field definition. |
+| `validateEmail` | | _The value is not a valid email_ | Validates a string is an email address. |
+| `isLatitude` | | _Latitude should be between -90 and 90_ | Validates a value is a number between -90 and 90. |
+| `isLongitude` | | _Longitude should be between -180 and 180_ | Validates a value is a number between -180 and 180. |
+| `validateNumber` | | _The value is not a number_ | Validates a string value is a number when cast. |
+| `validateURL` | | _The value is not a valid URL_ | Validates a string value is a valid, complete URL. |
+| `validateDateRange` | `{ startDateName?: string, endDateName?: string }` | _Start date should happen before the end date_ or _End date should happen after the start date_ | Validates a value is a date that preceeds the value of another date field or vise versa. Generally it is used to support date ranges. |
+| `validateCharacterCount` | `{ max?: number }` | _You have exceeded the maximum number of characters_ | Validates that a string value does not exceed a maximum number of characters. |
+| `validatePhoneNumber` | | _Phone number must be exactly 10 numbers excluding the country code_ | Validates that a string value contains 10 digits if it starts with 1. In other words, it validates a US phone number. |
+| `validateSlow` | | _String cannot include test_ | **Exists only for testing.** Takes a second to validate and fails if the value is a string that contains "test". |
 
 ## Types
 
@@ -1643,75 +398,3 @@ const fields = useMemo(
 
 ### DataViewActionShow (Interface)
 * `(val?: {[key: string]: any}): void`
-
-## Validators
-All of the following default validators return string (with the error message) or undefined (when no error was found). I
-
-### validateEmail
-* Receives: string
-* Error message returned: "The value is not a valid email"
-* Ways of declaring:
-	* "validateEmail"
-	* { fn: "validateEmail", options: undefined }
-
-### required
-* Receives: string | string[]
-* Error message returned: "This field is required, please fill it"
-* Ways of declaring:
-	* "required"
-	* { fn: "required", options: undefined }
-	* As a boolean prop for all fields (see [Generic Field Props subsection](#generic-field-props-fielddef))
-
-### validateNumber
-* Receives: string
-* Error message returned: "The value is not a number"
-* Ways of declaring:
-	* "validateNumber"
-	* { fn: "validateNumber", options: undefined }
-
-### validateURL
-* Receives: string
-* Error message returned: "The value is not a valid URL"
-* Ways of declaring:
-	* "validateURL"
-	* { fn: "validateURL", options: undefined }
-
-### validateDateRange
-- This is the only validator that requires to be added to 2 fields in order to work: the fields serving as start and end date respectively.
-- The startDate field will add the name of the endDate field linked to in the options attribute.
-- The endDate field will add the name of the startDate field linked to in the options attribute.
-
-* Receives: value: `string`, data: `object` (see data attribute on [State](#state)), options: `MosaicObject`
-* Error message returned: "Start date should happen before the end date"
-* Ways of declaring:
-	* { fn: "validateDateRange", options: { endDateName: "nameOfField" } }
-	* { fn: "validateDateRange", options: { startDateName: "nameOfField" } }
-
-```ts
-const fields = useMemo(
-	() =>
-		[
-			//...other fields
-			{
-					name: "startDate",
-					type: "date",
-					label: "Start date",
-					validators: [{ fn: "validateDateRange", options: { endDateName: "endDate" } }],
-					inputSettings: {
-						showTime: false,
-					},
-				},
-				{
-					name: "endDate",
-					type: "date",
-					label: "End date",
-					validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
-					inputSettings: {
-						showTime: false,
-					},
-				},
-			//...other fields
-		],
-	[]
-);
-```

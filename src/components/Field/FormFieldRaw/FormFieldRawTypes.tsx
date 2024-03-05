@@ -5,4 +5,4 @@ export type RawInputSettings = never;
 
 export type FieldDefRawData = ReactNode;
 
-export type FieldDefRaw = FieldDefBase<"raw", RawInputSettings, FieldDefRawData>;
+export type FieldDefRaw = FieldDefBase<"raw", RawInputSettings>;

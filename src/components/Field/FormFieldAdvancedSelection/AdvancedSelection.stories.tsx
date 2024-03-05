@@ -17,7 +17,9 @@ export default {
 };
 
 export const Playground = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
+
 	const options: MosaicLabelValue[] = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
@@ -106,19 +108,19 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);
 };
 
 export const KitchenSink = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
 	const options = additionalOptions ? additionalOptions : [];
 
 	const categoriesApi = new JSONDB(categories);
@@ -202,12 +204,11 @@ export const KitchenSink = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
-				buttons={renderButtons(dispatch)}
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
 				title="Form Title"
 				description="Description"
-				state={state}
 				fields={fields}
-				dispatch={dispatch}
 			/>
 		</>
 	);

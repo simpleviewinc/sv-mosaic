@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import { ReactElement, useCallback, useMemo } from "react";
 import "@testing-library/jest-dom";
 import {
 	act,
@@ -8,7 +8,7 @@ import {
 	render,
 	screen,
 } from "@testing-library/react";
-import Form, { useForm, formActions } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 import {
@@ -27,17 +27,10 @@ const NumberTableExample = ({
 	displaySumRow?: boolean;
 	useNumberFormatter?: boolean;
 }): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
-	const onSubmit = async () => {
-		const { valid, data } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
-		alert(
-			"Form submitted with the following data: " +
-        JSON.stringify(data, null, " "),
-		);
-	};
+	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -45,7 +38,6 @@ const NumberTableExample = ({
 				name: "numberTable",
 				label: "Label",
 				type: "numberTable",
-				defaultValue: numberTableDefaultValue,
 				inputSettings: {
 					displaySumColumn: displaySumColumn,
 					displaySumRow: displaySumRow,
@@ -70,14 +62,18 @@ const NumberTableExample = ({
 		},
 	];
 
+	const getFormValues = useCallback(async () => ({
+		numberTable: numberTableDefaultValue,
+	}), []);
+
 	return (
 		<Form
+			{...controller}
 			buttons={buttons}
 			title="Form Title"
 			description="This is a description example"
-			state={state}
 			fields={fields}
-			dispatch={dispatch}
+			getFormValues={getFormValues}
 		/>
 	);
 };
@@ -102,7 +98,7 @@ afterEach(cleanup);
 
 describe("FormFieldNumberTable component", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample />);
 		});
 	});
@@ -158,7 +154,7 @@ describe("FormFieldNumberTable component", () => {
 
 describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample displaySumColumn={false} displaySumRow={false} />);
 		});
 	});
@@ -171,7 +167,7 @@ describe("FormFieldNumberTable with displaySumRow and displaySumColumn disabled"
 
 describe("FormFieldNumberTable with formatted values", () => {
 	beforeEach(async () => {
-		await act(() => {
+		await act(async () => {
 			render(<NumberTableExample useNumberFormatter={true} />);
 		});
 	});

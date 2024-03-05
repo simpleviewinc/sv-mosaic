@@ -3,7 +3,7 @@ import { ReactElement, useState, useMemo } from "react";
 import { withKnobs, boolean, select, text } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm, formActions, SectionDef } from "@root/components/Form";
+import { useForm, SectionDef } from "@root/components/Form";
 
 // Components
 import Form from "../Form";
@@ -121,7 +121,8 @@ const options = {
 };
 
 export const DrawerForm = (): ReactElement => {
-	const { state, dispatch } = useForm();
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{
@@ -331,13 +332,10 @@ export const DrawerForm = (): ReactElement => {
 
 	const onCancel = () => setOpen(false);
 
-	const onDrawerSubmit = async () => {
-		const { data, valid } = await dispatch(formActions.submitForm());
-		if (!valid) return;
-
+	const onDrawerSubmit = handleSubmit((data) => {
 		setOpen(false);
 		alert("Form submitted with the following data: " + JSON.stringify(data, null, " "));
-	};
+	});
 
 	const buttons: ButtonProps[] = [
 		{
@@ -359,10 +357,9 @@ export const DrawerForm = (): ReactElement => {
 			>
 				<div style={{ width: drawWidth }}>
 					<Form
+						{...controller}
 						buttons={buttons}
 						title="Drawer form example"
-						state={state}
-						dispatch={dispatch}
 						fields={fields}
 						onBack={onCancel}
 						sections={showSections ? sections : undefined}

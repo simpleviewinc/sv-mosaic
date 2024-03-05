@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 import { FormProps } from "./FormTypes";
-import { MosaicCSSContainer, MosaicObject } from "@root/types";
-
-import { formActions } from "./formActions";
+import { MosaicCSSContainer } from "@root/types";
 
 import {
 	StyledFormContent,
@@ -21,6 +19,7 @@ import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
+import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -41,7 +40,6 @@ const Form = (props: FormProps) => {
 		backLabel,
 		fields,
 		sections,
-		dispatch,
 		dialogOpen = false,
 		description,
 		getFormValues,
@@ -52,22 +50,29 @@ const Form = (props: FormProps) => {
 		spacing = "normal",
 		useSectionHash = "section",
 		onSubmit,
+		methods,
+		stable,
 	} = props;
 
-	/**
-	 * Sections/layout and scroll spying
-	 */
+	const { init, setFormValues, setSubmitWarning } = methods;
+	const { errors } = state;
+	const { moveToError } = stable;
+
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
 
+	/**
+	 * Sections/layout and scroll spying. Also a callback to set
+	 * the hash in the URL based on the active section.
+	 */
 	const {
 		animation: { inProgress: scrollSpyAnimating },
 		activeSection,
 		setActiveSection,
 	} = useScrollSpy({
 		refs: sectionRefs,
-		container: formContentRef.current,
+		container: formContentRef,
 		threshold: scrollSpyThreshold,
 	});
 
@@ -76,6 +81,39 @@ const Form = (props: FormProps) => {
 		url.hash = `${useSectionHash}-${index}`;
 		history.replaceState({}, "", url.toString());
 	}, [useSectionHash]);
+
+	/**
+	 * When there are errors and the "moveToError" property is true,
+	 * scroll the first field with an error into view. This is usually
+	 * when the form is submitted.
+	 */
+	const { scrollTo } = useScrollTo({
+		container: formContentRef,
+		onComplete: () => {
+			stable.moveToError = false;
+		},
+	});
+
+	useEffect(() => {
+		if (!moveToError || !Object.keys(errors).filter(Boolean).length) {
+			return;
+		}
+
+		const [firstErroneousField] = Object.entries(stable.fields)
+			.filter(([, field]) => stable.mounted[field.name] && errors[field.name])
+			.map(([, field]) => field)
+			.sort(({ order: a }, { order: b }) => a - b);
+
+		const mount = stable.mounted[firstErroneousField.name];
+
+		if (!mount) {
+			return;
+		}
+
+		scrollTo({
+			target: mount.fieldRef,
+		});
+	}, [errors, moveToError, scrollTo, stable.fields, stable.mounted]);
 
 	useEffect(() => {
 		if (!useSectionHash) {
@@ -110,10 +148,7 @@ const Form = (props: FormProps) => {
 
 	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
 		setSectionRefs(refs => [...refs, ref]);
-
-		return () => {
-			setSectionRefs(refs => refs.filter(r => r !== ref));
-		};
+		return () => setSectionRefs(refs => refs.filter(r => r !== ref));
 	}, []);
 
 	/**
@@ -173,62 +208,22 @@ const Form = (props: FormProps) => {
 	/**
 	 * Loading state
 	 */
-	const isBusy = state.disabled || Object.values(state.busyFields).filter(Boolean).length;
-
-	/**
-	 * Side effects
-	 */
-	useEffect(() => {
-		let isMounted = true;
-		const registerFields = async () => {
-			await dispatch(
-				formActions.init({
-					fields,
-				}),
-			);
-		};
-
-		if (isMounted) {
-			registerFields();
-		}
-
-		return () => {
-			isMounted = false;
-		};
-	}, [fields]);
+	const isBusy = state.disabled || state.waits.length > 0;
 
 	useEffect(() => {
-		const loadFormValues = async () => {
-			let values: MosaicObject;
-			await dispatch(formActions.disableForm({ disabled: true }));
+		init({ fields });
+	}, [init, fields]);
 
-			values = getFormValues ? await getFormValues() : undefined;
+	useEffect(() => {
+		(async () => {
+			const values = getFormValues ? (await getFormValues()) : {};
 
-			if (values === undefined) {
-				fields.forEach(field => {
-					if ("defaultValue" in field) {
-						values = {
-							...values,
-							[field.name]: field.defaultValue,
-						};
-					}
-				});
-
-			}
-
-			if (values) {
-				await dispatch(
-					formActions.setFormValues({
-						values,
-					}),
-				);
-			}
-
-			await dispatch(formActions.disableForm({ disabled: false }));
-		};
-
-		loadFormValues();
-	}, [getFormValues]);
+			setFormValues({
+				values,
+				initial: true,
+			});
+		})();
+	}, [getFormValues, setFormValues]);
 
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
@@ -272,10 +267,10 @@ const Form = (props: FormProps) => {
 							<Layout
 								registerRef={registerRef}
 								state={state}
-								dispatch={dispatch}
 								fields={fields}
 								sections={shownSections}
 								spacing={spacing}
+								methods={methods}
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>
@@ -290,8 +285,8 @@ const Form = (props: FormProps) => {
 			</Dialog>
 			<Snackbar
 				label={submitWarningContent}
-				open={Boolean(state.submitWarning)}
-				onClose={() => dispatch(formActions.setSubmitWarning({ value: "" }))}
+				open={state.submitWarning.open}
+				onClose={() => setSubmitWarning({ ...state.submitWarning, open: false })}
 				autoHideDuration={4000}
 			/>
 		</>

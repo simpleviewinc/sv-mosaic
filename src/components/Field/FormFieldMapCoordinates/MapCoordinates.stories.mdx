@@ -1,15 +1,52 @@
-import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
-import * as stories from './MapCoordinates.stories';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title='FormFields/FormFieldMapCoordinates/Readme' />
 
 # Map Coordinates
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
 
-## Props
-For more information about the props this Field receives, how to use it in a form, and what data it sends back, please follow this [**link**](https://simpleviewinc.github.io/sv-mosaic/master/?path=/docs/components-form-readme--page#formfieldmapcoordinates).
+- `Map Coordinates` This component is helpful when the user needs browse coordinates in a map.
+- [**Playground**](/?path=/docs/formfields-formfieldmapcoordinates--playground)
+- Data: `object` - Object of the value arguments
+	* **lat** - `number` - Latitude
+	* **lng** - `number` - longitude
+- inputSettings:
 
-## MapCoordinates Example
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`address`** | `object` | Optional - Address object used to set lat and lng values when using the autocoordinates feature (please see Address section). |
+| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to consume the Maps JavaScript API and Places API. |
+| **`zoom`** | `number` | Optional - Zoom applied to the map. If is not defined the map will be all the way zoomed out. |
+| **`initialCenter`** | `MapPosition` | Optional - Latitude and longitude object. If is not defined the map will be positioned at 0,0. |
 
-<Preview withSource='none'>
-  <stories.Playground />
-</Preview>
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "mapCoordinates",
+				inputSettings: {
+					apiKey: "QWErttyuyi-QWDQWFWEeqwfcQWEwefcwfqwew",
+					initialCenter: {
+						lat: -3.766925461296721
+						lng: -40.54497265625
+					},
+					address: {
+						id: 1,
+						address1: "8950 N Oracle Rd",
+						city: "Oro Valley",
+						postalCode: "85704",
+						country: "US",
+						state: "AZ",
+						types: ["physical", "billing"]
+					}
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```
