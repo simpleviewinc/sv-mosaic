@@ -93,6 +93,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}
+				$hasQuery={!disabled}
 			/>
 		);
 	}
@@ -101,19 +102,21 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		<StyledContents>
 			<div className="inputRow">
 				{comparisonButton}
-				<StyledFilterTextField
-					autoComplete="off"
-					autoFocus
-					placeholder={props.placeholder || t("mosaic:common.filter___")}
-					margin="dense"
-					value={state.value}
-					variant="outlined"
-					onChange={onInputChange}
-					onKeyPress={onKeyPress}
-					fieldSize=""
-					disabled={disabled}
-					$hasComparisonDropdown={Boolean(comparisonButton)}
-				/>
+				{!disabled && (
+					<StyledFilterTextField
+						autoComplete="off"
+						autoFocus
+						placeholder={props.placeholder || t("mosaic:common.filter___")}
+						margin="dense"
+						value={state.value}
+						variant="outlined"
+						onChange={onInputChange}
+						onKeyPress={onKeyPress}
+						fieldSize=""
+						disabled={disabled}
+						$hasComparisonDropdown={Boolean(comparisonButton)}
+					/>
+				)}
 			</div>
 			<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} />
 		</StyledContents>
