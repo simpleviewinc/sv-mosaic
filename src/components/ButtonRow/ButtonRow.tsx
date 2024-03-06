@@ -25,9 +25,9 @@ function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWr
 function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	const buttons = useMemo(() => props.buttons || [], [props.buttons]);
 	const shownButtons = useToggle(buttons, "show");
-	const children = useMemo(() => shownButtons.map((button) => ({
+	const children = useMemo(() => shownButtons.map((button, index) => ({
 		item: <Button {...button} />,
-		key: button.id || [button.label, button.name].filter(Boolean).join("-"),
+		key: button.id || [button.label, button.name].filter(Boolean).join("-") || index,
 	})), [shownButtons]);
 
 	return (
