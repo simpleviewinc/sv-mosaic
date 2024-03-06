@@ -472,9 +472,10 @@ export const Playground = (): ReactElement => {
 			onClick: () => reset(),
 			color: "gray",
 			variant: "outlined",
+			show: !state.loadingInitial,
 		},
 		...renderButtons(handleSubmit, { showCancel, showSave }),
-	], [handleSubmit, reset, showCancel, showSave]);
+	], [handleSubmit, reset, showCancel, showSave, state.loadingInitial]);
 
 	return (
 		<div style={{ boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight }}>
