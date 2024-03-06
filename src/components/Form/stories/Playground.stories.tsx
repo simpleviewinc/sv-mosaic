@@ -468,6 +468,7 @@ export const Playground = (): ReactElement => {
 
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
+			name: "reset",
 			label: "Reset",
 			onClick: () => reset(),
 			color: "gray",

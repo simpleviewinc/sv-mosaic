@@ -13,9 +13,9 @@ function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWr
 
 	return (
 		<Row className={className} $wrap={wrap} data-testid="button-row" role="toolbar">
-			{children.map((elem: React.ReactNode, i: number) => (
-				<Item key={i} $separator={separator}>
-					{elem}
+			{children.map(({ item, key }) => (
+				<Item key={key} $separator={separator}>
+					{item}
 				</Item>
 			))}
 		</Row>
@@ -25,11 +25,10 @@ function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWr
 function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	const buttons = useMemo(() => props.buttons || [], [props.buttons]);
 	const shownButtons = useToggle(buttons, "show");
-	const children = useMemo(() => shownButtons.map((button, i) => {
-		return (
-			<Button key={i} {...button} />
-		);
-	}), [shownButtons]);
+	const children = useMemo(() => shownButtons.map((button) => ({
+		item: <Button {...button} />,
+		key: `${typeof button.label === "string" ? button.label : ""}-${button.name}`,
+	})), [shownButtons]);
 
 	return (
 		<ButtonRowWrapper {...props}>
@@ -38,8 +37,15 @@ function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	);
 }
 
+function isReactElement(elem: React.ReactNode): elem is React.ReactElement {
+	return typeof elem === "object" && elem !== null && "key" in elem;
+}
+
 function ButtonRowWithChildren(props: Omit<ButtonRowProps, "buttons">) {
-	const children = useMemo(() => React.Children.toArray(props.children), [props.children]);
+	const children = useMemo(() => React.Children.toArray(props.children).map((item, index) => ({
+		item,
+		key: isReactElement(item) ? item.key : index,
+	})), [props.children]);
 
 	return (
 		<ButtonRowWrapper {...props}>
