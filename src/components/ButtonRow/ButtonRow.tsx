@@ -27,7 +27,7 @@ function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 	const shownButtons = useToggle(buttons, "show");
 	const children = useMemo(() => shownButtons.map((button) => ({
 		item: <Button {...button} />,
-		key: `${typeof button.label === "string" ? button.label : ""}-${button.name}`,
+		key: button.id || [button.label, button.name].filter(Boolean).join("-"),
 	})), [shownButtons]);
 
 	return (
