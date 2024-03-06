@@ -3,8 +3,6 @@ import { FieldDef } from "../FormTypes";
 import { FieldDefSanitized } from "@root/components/Field";
 
 export type ActionTypes =
-    | "FIELD_ON_CHANGE"
-    | "FIELDS_ON_CHANGE"
     | "FIELD_TOUCHED"
     | "FIELD_VALIDATE"
     | "FIELD_UNVALIDATE"
@@ -30,6 +28,15 @@ export type ActionSetFieldErrors = {
 	moveToError?: boolean;
 };
 
+export type ActionSetFieldValues = {
+	type: "SET_FIELD_VALUES";
+	values: MosaicObject<string>;
+	internalValues: MosaicObject<string>;
+	merge?: boolean;
+	touched?: boolean;
+	loadingInitial?: boolean;
+};
+
 export type ActionSetFormWaits = {
 	type: "SET_FORM_WAITS";
 	waits: FormWait[];
@@ -47,6 +54,7 @@ export type ActionSetSubmitWarning = FormState["submitWarning"] & {
 
 export type FormAction =
 	| ActionSetFieldErrors
+	| ActionSetFieldValues
 	| ActionSetFormWaits
 	| ActionReset
 	| ActionSetSubmitWarning
@@ -200,6 +208,7 @@ export type FormState = {
 	touched: MosaicObject<boolean>;
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
+	loadingInitial: boolean;
 };
 
 export type UseFormReturn = {
