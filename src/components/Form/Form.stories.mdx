@@ -87,6 +87,7 @@ This is the top level component that will render the various parts of your form,
 | `fullHeight` |  | `boolean` | Whether to have the form stretch to the full height of it's parent. (`height: 100%`). Defaults to true. |
 | `spacing` |  | `"normal"` or `"compact"` | What spacing to use for the form. Defaults to `"normal"` |
 | `useSectionHash` |  | `string` or `false` | The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely. |
+| `autoFocus` |  | `boolean` | If true, once mounted, `Form` will attempt to automatically focus the user's cursor on the first field but only the first field is one of the following field types: `date`, `dropdown`, `numberTable`, `phone`, `text`, `textEditor`, `time`.. |
 
 ## Basic Usage
 In its simplest usage, the `Form` only needs an instance of the controller and an array of fields to work.
