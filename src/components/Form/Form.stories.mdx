@@ -48,6 +48,7 @@ The controller comes with a `state` object that contains not only the values for
 | `touched` | `MosaicObject<boolean>` | A key-value pair object of fields by their name and whether or not they have been touched. Once the user changes the value of any given field, it becomes touched |
 | `submitWarning` | `string` | The reason that the form cannot currently be submitted |
 | `waits` | `FormWait[]` | An array of reasons that the form is waiting. A wait can be created by busy fields or the form itself. |
+| `loadingInitial` | `boolean` | `true` if the form is currently in the initial loading stage, which includes loading initial values. `false` when it's finished. |
 
 ### Manipulating the Form
 There is a `methods` object available on the form controller that contains a number of methods that can be used to correctly manipulate the form state. It implements the `FormMethods` interface
