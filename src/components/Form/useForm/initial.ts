@@ -8,6 +8,7 @@ export const initialState: FormState = {
 	touched: {},
 	submitWarning: { open: false, lead: "", reasons: [] },
 	waits: [],
+	loadingInitial: true,
 };
 
 export const initialStable: FormStable = {
@@ -18,4 +19,5 @@ export const initialStable: FormStable = {
 	internalValidators: {},
 	hasBlurred: {},
 	moveToError: false,
+	loadingInitial: true,
 };
