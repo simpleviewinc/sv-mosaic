@@ -5,9 +5,9 @@ import styled from "styled-components";
 import DataViewTitleBar from "./DataViewTitleBar";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
-import { DataViewProps, StateViewDef } from "./DataViewTypes";
+import { DataViewProps, DataViewRowActions, StateViewDef } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
-import { useWrappedToggle } from "@root/utils/toggle";
+import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -268,6 +268,16 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	const actionsHidden = (props.checked || []).some(checked => checked);
 
+	const rowActions = useMemo<DataViewRowActions>(() => {
+		return props.data.reduce((acc, curr) => ({
+			...acc,
+			[curr.id as string]: {
+				primary: props.primaryActions ? props.primaryActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))) : [],
+				additional: props.additionalActions ? props.additionalActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))) : [],
+			},
+		}), {});
+	}, [props.data, props.additionalActions, props.primaryActions]);
+
 	return (
 		<StyledWrapper
 			className={`
@@ -344,9 +354,8 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 					bulkActions={shownBulkActions}
 					sort={props.sort}
 					data={props.data}
-					additionalActions={props.additionalActions}
 					disabled={props.disabled}
-					primaryActions={props.primaryActions}
+					rowActions={rowActions}
 					activeColumns={props.activeColumns}
 					gridColumnsMap={props.gridColumnsMap}
 					limit={props.limit}

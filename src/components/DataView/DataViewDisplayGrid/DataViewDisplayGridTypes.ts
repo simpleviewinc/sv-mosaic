@@ -1,4 +1,4 @@
-import { DataViewProps } from "../DataViewTypes";
+import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 
 export interface DataViewDisplayGridProps {
 	bulkActions?: DataViewProps["bulkActions"];
@@ -12,8 +12,7 @@ export interface DataViewDisplayGridProps {
 	onCheckAllPagesClick?: () => void;
 	onCheckboxClick?: (i: any) => void;
 	onSortChange?: DataViewProps["onSortChange"];
-	primaryActions?: DataViewProps["primaryActions"];
-	additionalActions?: DataViewProps["additionalActions"];
+	rowActions: DataViewRowActions;
 	actionsHidden?: boolean;
 	rowCount?: number;
 	sort?: DataViewProps["sort"];
