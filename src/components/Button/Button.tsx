@@ -39,6 +39,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		onBlur: props.onBlur,
 		href: props.href,
 		name: props.name,
+		id: props.id,
 		type: props.type || "button",
 		ref,
 		...props.muiAttrs,
