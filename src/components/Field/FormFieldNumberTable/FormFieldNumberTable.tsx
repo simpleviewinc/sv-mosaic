@@ -29,7 +29,7 @@ const FormFieldNumberTable = (
 		NumberTableData
 	>,
 ): ReactElement => {
-	const { fieldDef, onChange, value, disabled } = props;
+	const { fieldDef, onChange, value, disabled, inputRef } = props;
 
 	const { inputSettings } = fieldDef;
 	const { displaySumColumn = true, displaySumRow = true } = inputSettings;
@@ -195,6 +195,10 @@ const FormFieldNumberTable = (
 											if (cellRefs?.current) {
 												cellRefs.current[rowIdx] = cellRefs.current[rowIdx] || [];
 												cellRefs.current[rowIdx][colIdx] = el;
+											}
+
+											if (!rowIdx && !colIdx && inputRef) {
+												inputRef.current = el;
 											}
 										}}
 										onKeyDown={(e) => onKeyDown(e, rowIdx, colIdx)}

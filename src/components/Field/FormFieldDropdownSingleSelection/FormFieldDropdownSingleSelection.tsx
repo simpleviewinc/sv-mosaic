@@ -22,6 +22,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		onBlur,
 		value,
 		disabled,
+		inputRef,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -51,17 +52,29 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		}
 	}, [internalOptions, value, origin]);
 
-	const renderInput = (params) => (
-		<InputWrapper>
-			<TextField
-				{...params}
-				data-testid="textfield-test-id"
-				variant="outlined"
-				placeholder={fieldDef?.inputSettings?.placeholder}
-				required={fieldDef?.required}
-			/>
-		</InputWrapper>
-	);
+	const renderInput = (params) => {
+		return (
+			<InputWrapper>
+				<TextField
+					{...params}
+					data-testid="textfield-test-id"
+					variant="outlined"
+					placeholder={fieldDef?.inputSettings?.placeholder}
+					required={fieldDef?.required}
+					inputProps={{
+						...params.inputProps,
+						ref: (el) => {
+							if (inputRef) {
+								inputRef.current = el;
+							}
+
+							params.inputProps.ref.current = el;
+						},
+					}}
+				/>
+			</InputWrapper>
+		);
+	};
 
 	const handleOpen = () => {
 		setIsOpen(!isOpen);
