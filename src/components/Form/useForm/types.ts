@@ -152,6 +152,7 @@ export type DisableForm = (params: DisableFormParams) => void;
 export type MountFieldParams = {
 	name: string;
 	fieldRef?: HTMLDivElement;
+	inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 };
 
 export type UnmountField = () => void;
@@ -221,7 +222,7 @@ export type UseFormReturn = {
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldDefSanitized>;
-	mounted: Record<string, false | { fieldRef?: HTMLDivElement }>;
+	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
 	moveToError: boolean;

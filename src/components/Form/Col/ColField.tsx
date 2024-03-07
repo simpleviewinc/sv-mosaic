@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useMemo, useRef } from "react";
 import { FieldDef } from "../FormTypes";
 import { getFieldConfig } from "./fieldConfigMap";
 import { ColFieldProps } from "./ColTypes";
@@ -31,6 +31,7 @@ const ColField = ({
 	}
 
 	const disabled = useWrappedToggle(field, state, "disabled", false);
+	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>();
 
 	const onChange = useCallback((value: any) => {
 		field.onChangeCb && field.onChangeCb();
@@ -71,6 +72,7 @@ const ColField = ({
 			ref={sanitizedFieldDef.ref}
 			disabled={disabled}
 			methods={methods}
+			inputRef={inputRef}
 		/>
 	), [
 		Component,
@@ -98,6 +100,7 @@ const ColField = ({
 			id={field.name}
 			spacing={spacing}
 			methods={methods}
+			inputRef={inputRef}
 		>
 			{children}
 		</Field>

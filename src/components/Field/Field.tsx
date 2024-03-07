@@ -16,6 +16,7 @@ const Field = ({
 	id,
 	methods,
 	spacing,
+	inputRef,
 }: MosaicFieldProps<any>): ReactElement => {
 	const { mountField } = methods || {};
 	const fieldRef = useRef<HTMLDivElement | undefined>();
@@ -36,10 +37,11 @@ const Field = ({
 		const { unmount } = mountField({
 			name: fieldDef.name,
 			fieldRef: fieldRef.current,
+			inputRef: inputRef?.current,
 		});
 
 		return unmount;
-	}, [mountField, fieldDef?.name]);
+	}, [mountField, fieldDef.name, inputRef]);
 
 	return (
 		<StyledFieldContainer

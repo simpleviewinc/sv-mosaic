@@ -411,9 +411,10 @@ export function useForm(): UseFormReturn {
 		};
 	}, [removeWait]);
 
-	const mountField = useCallback<MountField>(({ name, fieldRef }) => {
+	const mountField = useCallback<MountField>(({ name, fieldRef, inputRef }) => {
 		stable.current.mounted[name] = {
 			fieldRef,
+			inputRef,
 		};
 
 		return {

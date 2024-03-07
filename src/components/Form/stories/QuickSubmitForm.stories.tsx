@@ -67,6 +67,7 @@ export const QuickSubmit = (): ReactElement => {
 				title="Quick Submit"
 				fields={fields}
 				onSubmit={onSubmit}
+				autoFocus
 			/>
 		</div>
 	);
