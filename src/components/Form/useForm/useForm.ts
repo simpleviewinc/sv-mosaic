@@ -177,10 +177,10 @@ export function useForm(): UseFormReturn {
 		}
 
 		return dispatch({
-			type: "FIELDS_ON_CHANGE",
-			value: values,
-			internalValue: internalValues,
-			clearErrors: true,
+			type: "SET_FIELD_VALUES",
+			values,
+			internalValues: internalValues,
+			loadingInitial: !initial,
 		});
 	}, [getFieldFromExtra]);
 
@@ -238,14 +238,15 @@ export function useForm(): UseFormReturn {
 
 		const providedValueResolved = typeof providedValue === "function" ? providedValue(data[name]) : providedValue;
 		const { internalValue, value } = field.getResolvedValue(providedValueResolved);
+		const cleanedValue = cleanValue(value);
 
-		stable.current.data[name] = value;
+		stable.current.data[name] = cleanedValue;
 
 		dispatch({
-			type: "FIELD_ON_CHANGE",
-			name,
-			internalValue,
-			value: cleanValue(value),
+			type: "SET_FIELD_VALUES",
+			values: { [name]: cleanedValue },
+			internalValues: { [name]: internalValue },
+			merge: true,
 			touched,
 		});
 
