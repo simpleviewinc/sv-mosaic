@@ -2,7 +2,10 @@ import React from "react";
 import { ButtonProps } from "../Button";
 
 export type ButtonsRowWrapperProps = Pick<ButtonRowProps, "className" | "wrap" | "separator"> & {
-	children: ReturnType<typeof React.Children.toArray>;
+	children: {
+		item: ReturnType<typeof React.Children.toArray>[number];
+		key: number | string;
+	}[];
 };
 
 export type ButtonRowWithDefProps = Omit<ButtonRowProps, "children" | "buttons"> & {

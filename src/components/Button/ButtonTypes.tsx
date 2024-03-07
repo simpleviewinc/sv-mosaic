@@ -34,6 +34,7 @@ export interface ButtonProps {
 	show?: MosaicToggle;
 	component?: React.ComponentType;
 	type?: "button" | "submit";
+	id?: string;
 }
 
 export interface ButtonPopoverContextProps {
