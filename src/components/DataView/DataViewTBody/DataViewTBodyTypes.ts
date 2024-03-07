@@ -1,5 +1,5 @@
 import { MosaicObject } from "@root/types";
-import { DataViewProps } from "../DataViewTypes";
+import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 import { DataViewDisplayListProps } from "../DataViewDisplayList";
 
 export interface DataViewTBodyProps {
@@ -8,8 +8,7 @@ export interface DataViewTBodyProps {
 	transformedData: MosaicObject[];
 	data: DataViewProps["data"];
 	bulkActions?: DataViewProps["bulkActions"];
-	primaryActions?: DataViewProps["primaryActions"];
-	additionalActions?: DataViewProps["additionalActions"];
+	rowActions?: DataViewRowActions;
 	actionsHidden?: boolean;
 	disabled?: DataViewProps["disabled"];
 	checked?: DataViewProps["checked"];

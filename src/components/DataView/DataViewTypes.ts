@@ -236,3 +236,8 @@ export interface DataViewProps {
 	onBack?: () => void;
 	backLabel?: TitleWrapperProps["backLabel"];
 }
+
+export type DataViewRowActions = Record<string, {
+	primary?: DataViewProps["primaryActions"];
+	additional?: DataViewProps["additionalActions"];
+}>;
