@@ -64,7 +64,10 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 					inputProps={{
 						...params.inputProps,
 						ref: (el) => {
-							inputRef.current = el;
+							if (inputRef) {
+								inputRef.current = el;
+							}
+
 							params.inputProps.ref.current = el;
 						},
 					}}

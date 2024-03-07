@@ -97,7 +97,9 @@ const FormFieldTextEditor = (
 			changeHandler(value);
 		});
 
-		inputRef.current = jodit.current.selection as any;
+		if (inputRef) {
+			inputRef.current = jodit.current.selection as any;
+		}
 
 		return () => jodit.current.destruct();
 	}, [onBlur, onChange, config, inputRef]);
