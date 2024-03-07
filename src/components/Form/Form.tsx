@@ -52,6 +52,7 @@ const Form = (props: FormProps) => {
 		onSubmit,
 		methods,
 		stable,
+		autoFocus,
 	} = props;
 
 	const { init, setFormValues, setSubmitWarning } = methods;
@@ -114,6 +115,32 @@ const Form = (props: FormProps) => {
 			target: mount.fieldRef,
 		});
 	}, [errors, moveToError, scrollTo, stable.fields, stable.mounted]);
+
+	const doneAutoFocus = useRef(false);
+
+	useEffect(() => {
+		if (!autoFocus || doneAutoFocus.current) {
+			return;
+		}
+
+		const [firstField] = Object.entries(stable.fields)
+			.filter(([, field]) => stable.mounted[field.name])
+			.map(([, field]) => field)
+			.sort(({ order: a }, { order: b }) => a - b);
+
+		if (!firstField) {
+			return;
+		}
+
+		const mount = stable.mounted[firstField.name];
+
+		if (!mount || typeof mount?.inputRef?.focus !== "function") {
+			return;
+		}
+
+		doneAutoFocus.current = true;
+		mount.inputRef.focus();
+	}, [autoFocus, stable.fields, stable.mounted]);
 
 	useEffect(() => {
 		if (!useSectionHash) {

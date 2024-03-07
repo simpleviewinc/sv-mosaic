@@ -22,6 +22,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		onBlur,
 		value,
 		disabled,
+		inputRef,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -59,6 +60,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 				variant="outlined"
 				placeholder={fieldDef?.inputSettings?.placeholder}
 				required={fieldDef?.required}
+				inputProps={{ ref: inputRef }}
 			/>
 		</InputWrapper>
 	);

@@ -19,6 +19,7 @@ const TextField = (
 		onBlur,
 		value,
 		disabled,
+		inputRef,
 	} = props;
 
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
@@ -57,7 +58,7 @@ const TextField = (
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			multiline={fieldDef?.inputSettings?.multiline}
 			fieldSize={fieldDef?.size}
-			InputProps={leadingElement}
+			InputProps={{ ...(leadingElement || {}), inputRef }}
 			required={fieldDef?.required}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 			minRows={fieldDef?.inputSettings?.minRows}

@@ -36,7 +36,7 @@ const buttonList = [
 const FormFieldTextEditor = (
 	props: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>,
 ): ReactElement => {
-	const { fieldDef, onBlur, onChange, value, disabled, error } = props;
+	const { fieldDef, onBlur, onChange, value, disabled, error, inputRef } = props;
 
 	const {
 		inputSettings = {},
@@ -97,8 +97,10 @@ const FormFieldTextEditor = (
 			changeHandler(value);
 		});
 
+		inputRef.current = jodit.current.selection as any;
+
 		return () => jodit.current.destruct();
-	}, [onBlur, onChange, config]);
+	}, [onBlur, onChange, config, inputRef]);
 
 	/**
 	 * Ridiculous hack because Jodit sucks when trying
