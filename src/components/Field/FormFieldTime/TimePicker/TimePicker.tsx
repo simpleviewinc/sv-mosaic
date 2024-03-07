@@ -14,7 +14,7 @@ import { TimePickerDef, TimePickerData } from "./TimePickerTypes";
 import { ThemeProvider } from "@mui/material/styles";
 
 const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -37,6 +37,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 			inputProps={{
 				...params.inputProps,
 				placeholder: fieldDef?.inputSettings?.placeholder,
+				ref: inputRef,
 			}}
 		/>
 	);
