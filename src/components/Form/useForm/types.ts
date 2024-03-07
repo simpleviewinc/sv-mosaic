@@ -35,6 +35,7 @@ export type ActionSetFieldValues = {
 	merge?: boolean;
 	touched?: boolean;
 	loadingInitial?: boolean;
+	disabled?: boolean;
 };
 
 export type ActionSetFormWaits = {
