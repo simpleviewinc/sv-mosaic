@@ -34,7 +34,7 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 
 const Form = (props: FormProps) => {
 	const {
-		buttons: providedButtons,
+		buttons,
 		state,
 		title,
 		onBack,
@@ -231,10 +231,10 @@ const Form = (props: FormProps) => {
 		onSubmit && onSubmit(e);
 	}, [onSubmit]);
 
-	const buttons = useMemo(() => providedButtons.map(button => ({
+	const buttonsWithDisable = useMemo(() => (buttons || []).map(button => ({
 		...button,
 		disabled: state.disabled ? true : button.disabled,
-	})), [state.disabled, providedButtons]);
+	})), [state.disabled, buttons]);
 
 	const fieldsWithDisable = useMemo(() => fields.map(field => ({
 		...field,
@@ -258,7 +258,7 @@ const Form = (props: FormProps) => {
 							onBack={onBack}
 							backLabel={backLabel}
 							description={description}
-							buttons={buttons}
+							buttons={buttonsWithDisable}
 							showActive={showActive}
 							bottomBorder={sideNavItems.length < 2}
 							collapse={topCollapseContainer}
