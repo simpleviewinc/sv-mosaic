@@ -17,7 +17,7 @@ import {
 	Validator,
 } from "./types";
 
-export const cleanValue = (value: unknown) => {
+export const cleanValue = (value: any) => {
 	if (value === "" || (Array.isArray(value) && value.length === 0)) {
 		return undefined;
 	}
@@ -33,6 +33,7 @@ export function stateFromStable({
 	touched,
 	submitWarning,
 	waits,
+	loadingInitial,
 }: FormStable): FormState {
 	return {
 		internalData,
@@ -42,6 +43,7 @@ export function stateFromStable({
 		touched,
 		submitWarning,
 		waits,
+		loadingInitial,
 	};
 }
 
