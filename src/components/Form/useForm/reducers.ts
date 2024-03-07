@@ -66,6 +66,7 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			internalData: shallowEqual(updates.internalData, state.internalData) ? state.internalData : updates.internalData,
 			touched: shallowEqual(updates.touched, state.touched) ? state.touched : updates.touched,
 			loadingInitial: action.loadingInitial !== undefined ? action.loadingInitial : state.loadingInitial,
+			disabled: action.disabled !== undefined ? action.disabled : state.disabled,
 		};
 
 		if (shallowEqual(updatedState, state)) {

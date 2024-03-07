@@ -4,7 +4,7 @@ export const initialState: FormState = {
 	internalData: {},
 	data: {},
 	errors: {},
-	disabled: false,
+	disabled: true,
 	touched: {},
 	submitWarning: { open: false, lead: "", reasons: [] },
 	waits: [],

@@ -9,6 +9,7 @@ import {
 	StyledContainerForm,
 	StyledFormPrimary,
 	StyledSideNav,
+	StyledFormOverlay,
 } from "./Form.styled";
 import Layout from "./Layout";
 import Top from "./Top";
@@ -33,7 +34,7 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 
 const Form = (props: FormProps) => {
 	const {
-		buttons,
+		buttons: providedButtons,
 		state,
 		title,
 		onBack,
@@ -230,12 +231,21 @@ const Form = (props: FormProps) => {
 		onSubmit && onSubmit(e);
 	}, [onSubmit]);
 
+	const buttons = useMemo(() => providedButtons.map(button => ({
+		...button,
+		disabled: state.disabled ? true : button.disabled,
+	})), [state.disabled, providedButtons]);
+
+	const fieldsWithDisable = useMemo(() => fields.map(field => ({
+		...field,
+		disabled: state.disabled ? true : field.disabled,
+	})), [state.disabled, fields]);
+
 	return (
 		<>
 			<StyledContainerForm
 				data-testid="form-test-id"
 				ref={formContainerRef}
-				className={state.disabled ? "disabled" : ""}
 				aria-busy={isBusy ? "true" : "false"}
 				role="form"
 				aria-label={title}
@@ -267,11 +277,14 @@ const Form = (props: FormProps) => {
 							<Layout
 								registerRef={registerRef}
 								state={state}
-								fields={fields}
+								fields={fieldsWithDisable}
 								sections={shownSections}
 								spacing={spacing}
 								methods={methods}
 							/>
+							{state.disabled && (
+								<StyledFormOverlay />
+							)}
 						</StyledFormContent>
 					</StyledFormPrimary>
 				</StyledForm>
