@@ -14,7 +14,7 @@ import {
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -34,6 +34,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 			disabled={disabled}
 			inputProps={{
 				...params.inputProps,
+				ref: inputRef,
 				placeholder: fieldDef?.inputSettings?.placeholder,
 			}}
 		/>
