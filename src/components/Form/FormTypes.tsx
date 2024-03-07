@@ -41,6 +41,7 @@ export interface FormProps {
 	useSectionHash?: string | false;
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 	methods: FormMethods;
+	autoFocus?: boolean;
 }
 
 export interface FieldError {

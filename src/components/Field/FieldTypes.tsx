@@ -75,6 +75,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Methods that can be used to manipulate the form
 	 */
 	methods?: FormMethods;
+	/**
+	 * Reference to the field control, i.e. the HTML input,
+	 * select or textarea element
+	 */
+	inputRef?: MutableRefObject<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

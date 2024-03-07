@@ -26,6 +26,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		disabled,
 		error,
 		methods,
+		inputRef,
 	} = props;
 
 	const showTime = fieldDef?.inputSettings?.showTime;
@@ -140,6 +141,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 					value={value?.date}
 					onBlur={onBlurProxy("date")}
 					disabled={disabled}
+					inputRef={inputRef}
 
 				/>
 			</DateTimePickerWrapper>
