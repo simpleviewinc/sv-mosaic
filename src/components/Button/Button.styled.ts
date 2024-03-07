@@ -122,7 +122,7 @@ function getColorPalette(colorProp: ButtonProps["color"], variant: ButtonProps["
 
 function getPadding(variant: ButtonProps["variant"], size: ButtonProps["size"] = "medium") {
 	if (variant === "input") {
-		return "10px 16px";
+		return "9px 16px";
 	}
 
 	if (size === "small") {
@@ -169,6 +169,8 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 				letter-spacing: 1px;
 			` : `
 				font: inherit;
+				height: 1.4375em;
+				box-sizing: content-box;
 			`}
 
 			&:hover {
