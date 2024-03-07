@@ -174,6 +174,7 @@ export function useForm(): UseFormReturn {
 
 		if (initial) {
 			stable.current.initialData = { ...values };
+			stable.current.disabled = false;
 		}
 
 		return dispatch({
@@ -181,6 +182,7 @@ export function useForm(): UseFormReturn {
 			values,
 			internalValues: internalValues,
 			loadingInitial: !initial,
+			...(initial ? { disabled: false } : {}),
 		});
 	}, [getFieldFromExtra]);
 

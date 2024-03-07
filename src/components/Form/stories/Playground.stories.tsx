@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
-import { withKnobs, boolean, object, text, select } from "@storybook/addon-knobs";
+import { withKnobs, boolean, object, text, select, number } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
@@ -60,6 +60,7 @@ export const Playground = (): ReactElement => {
 	const showState = boolean("Show state", false);
 	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
+	const prepopulateDuration = number("Prepopulate Duration", 2);
 	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
@@ -447,7 +448,7 @@ export const Playground = (): ReactElement => {
 	 * is disabled while fields values are being resolved.
 	 */
 	const getFormValues = useCallback(async () => {
-		await new Promise((res) => setTimeout(res, 1000));
+		await new Promise((res) => setTimeout(res, prepopulateDuration * 1000));
 
 		if (showGetFormValues === "Returns Undefined") {
 			return undefined;
@@ -456,7 +457,7 @@ export const Playground = (): ReactElement => {
 				...prepopulateValues,
 			};
 		}
-	}, [prepopulateValues, showGetFormValues]);
+	}, [prepopulateValues, showGetFormValues, prepopulateDuration]);
 
 	useEffect(() => {
 		const resetForm = async () => {

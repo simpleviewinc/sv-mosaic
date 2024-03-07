@@ -9,11 +9,6 @@ export const StyledContainerForm = styled.div<{ $fullHeight?: boolean }>`
 	display: flex;
 	flex-direction: column;
 
-	&.disabled {
-		opacity: .5;
-		pointer-events: none;
-	}
-
 	container-type: inline-size;
 	container-name: ${CONTAINERS.FORM};
 
@@ -34,6 +29,7 @@ export const StyledFormContent = styled.div<{ $spacing?: FormSpacing }>`
 	flex-grow: 1;
 	min-width: 0;
 	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
+	position: relative;
 `;
 
 export const StyledFormPrimary = styled.div`
@@ -45,6 +41,14 @@ export const StyledFormPrimary = styled.div`
 	${containerQuery("xl", "FORM")} {
 		flex-direction: row;
 	}
+`;
+
+export const StyledFormOverlay = styled.div`
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 `;
 
 export const StyledSideNav = styled(SideNav)`
