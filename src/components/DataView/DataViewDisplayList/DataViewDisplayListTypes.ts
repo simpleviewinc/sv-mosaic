@@ -1,4 +1,4 @@
-import { DataViewProps } from "../DataViewTypes";
+import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 
 export interface DataViewDisplayListProps {
 	activeColumns?: DataViewProps["activeColumns"];
@@ -15,9 +15,8 @@ export interface DataViewDisplayListProps {
 	onCheckAllClick?: () => void;
 	onCheckAllPagesClick?: () => void;
 	onColumnsChange?: DataViewProps["onColumnsChange"];
-	additionalActions?: DataViewProps["additionalActions"];
 	disabled?: DataViewProps["disabled"];
-	primaryActions?: DataViewProps["primaryActions"];
+	rowActions: DataViewRowActions;
 	onCheckboxClick?: (i: number) => void;
 	activeColumnObjs: DataViewProps["columns"];
 	anyChecked?: boolean;

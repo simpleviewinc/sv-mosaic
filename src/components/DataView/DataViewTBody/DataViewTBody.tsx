@@ -33,8 +33,8 @@ const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((p
 				key={row.id as string}
 				row={row}
 				originalRowData={props.data[i]}
-				primaryActions={props.primaryActions}
-				additionalActions={props.additionalActions}
+				primaryActions={props.rowActions?.[row.id as string]?.primary}
+				additionalActions={props.rowActions?.[row.id as string]?.additional}
 				actionsHidden={props.actionsHidden}
 				disabled={props.disabled}
 				onCheckboxClick={props.onCheckboxClick ? () => props.onCheckboxClick(i) : undefined}

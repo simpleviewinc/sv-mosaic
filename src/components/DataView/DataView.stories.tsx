@@ -411,6 +411,7 @@ export const Playground = (): ReactElement => {
 	const onBack = boolean("onBack", false);
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
+	const accessibilityAction = boolean("accessibilityAction", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
 	const additionalActions = boolean("additionalActions", true);
@@ -569,7 +570,7 @@ export const Playground = (): ReactElement => {
 		onBack: onBack ? () => alert("Cancelling, going back to previous site") : undefined,
 		columns: (display === "list" || display === undefined) ? listColumns : gridColumns,
 		gridColumnsMap,
-		primaryActions: primaryActions ? [
+		primaryActions: [
 			{
 				name: "edit",
 				color: "black",
@@ -578,7 +579,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
 				},
-				show: ({ row }) => row.title !== "Accessibility",
+				show: ({ row }) => primaryActions && row.title !== "Accessibility",
 			},
 			{
 				name: "accessibility",
@@ -588,17 +589,17 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`ACCESSIBLE ${data.id}`);
 				},
-				show: ({ row }) => row.title === "Accessibility",
+				show: ({ row }) => accessibilityAction && row.title === "Accessibility",
 			},
-		] : undefined,
-		additionalActions: additionalActions ? [
+		],
+		additionalActions: [
 			{
 				name: "view_children",
 				label: "View Children",
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
 				},
-				show: ({ row }) => row.title !== "Accessibility",
+				show: ({ row }) => additionalActions && row.title !== "Accessibility",
 			},
 			{
 				name: "history",
@@ -606,9 +607,9 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
 				},
-				show: ({ row }) => row.title !== "Accessibility",
+				show: ({ row }) => additionalActions && row.title !== "Accessibility",
 			},
-		] : undefined,
+		],
 		bulkActions: bulkActions ? [
 			{
 				name: "download",
