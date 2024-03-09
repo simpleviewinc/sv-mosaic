@@ -25,6 +25,7 @@ import DataViewTBody from "../DataViewTBody";
 import { transformRows } from "@root/utils/dataViewTools";
 import { DataViewDisplayListProps } from "./DataViewDisplayListTypes";
 import { restrictToBoundingRect } from "@root/utils/dom/restrictToBoundingRect";
+import { sum } from "@root/utils/math/sum";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -33,18 +34,13 @@ const StyledTable = styled.table`
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
 	const tBodyRef = useRef<HTMLTableSectionElement>();
-	const { primaryActions, additionalActions } = props;
+	const { rowActions } = props;
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {
 		return transformRows(props.data, props.activeColumnObjs);
 	}, [props.data, props.activeColumnObjs]);
 
-	const hasActions = useMemo(
-		() =>
-			(additionalActions && additionalActions.length > 0) ||
-			(primaryActions && primaryActions.length > 0),
-		[additionalActions, primaryActions],
-	);
+	const hasActions = sum(Object.entries(rowActions).map(([, { primary = [], additional = [] }]) => primary.length + additional.length)) > 0;
 
 	const sensors = useSensors(
 		useSensor(PointerSensor),
@@ -129,10 +125,9 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 						hasActions={hasActions}
 						transformedData={transformedData}
 						bulkActions={props.bulkActions}
-						additionalActions={props.additionalActions}
 						actionsHidden={props.actionsHidden}
 						disabled={props.disabled}
-						primaryActions={props.primaryActions}
+						rowActions={rowActions}
 						onCheckboxClick={props.onCheckboxClick}
 						onReorder={props.onReorder}
 						ref={tBodyRef}
