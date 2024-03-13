@@ -56,7 +56,7 @@ const Form = (props: FormProps) => {
 		autoFocus,
 	} = props;
 
-	const { init, setFormValues, setSubmitWarning } = methods;
+	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
 	const { errors } = state;
 	const { moveToError } = stable;
 
@@ -244,6 +244,8 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		(async () => {
+			disableForm({ disabled: true });
+
 			const values = getFormValues ? (await getFormValues()) : {};
 
 			setFormValues({
@@ -251,7 +253,7 @@ const Form = (props: FormProps) => {
 				initial: true,
 			});
 		})();
-	}, [getFormValues, setFormValues]);
+	}, [disableForm, getFormValues, setFormValues]);
 
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
