@@ -96,6 +96,7 @@ export const Playground = (): ReactElement => {
 		"toggleSwitch": true,
 		"color": "#a8001791",
 		"date": new Date(),
+		"time": "16:30",
 		"address": [
 			{
 				"id": 1,
@@ -133,6 +134,27 @@ export const Playground = (): ReactElement => {
 				"value": "Image Video Thumbnail",
 			},
 		],
+		"imageUpload": {
+			imgName: "pexels-isaac-ramos-17583913.jpg",
+			size: 499318,
+			type: "image/jpeg",
+			height: 1080,
+			width: 1620,
+		},
+		"mapCoordinates": {
+			lat: 48.858384,
+			lng: 2.294567,
+		},
+		"upload": [
+			{
+				id: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+				name: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+				size: 499318,
+				thumbnailUrl: imageVideoSrc,
+				fileUrl: imageVideoSrc,
+			},
+		],
+		"textEditor": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
 		"numberTable": numberTableDefaultValue,
 	});
 
