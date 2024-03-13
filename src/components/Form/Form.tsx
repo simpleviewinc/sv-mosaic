@@ -244,7 +244,10 @@ const Form = (props: FormProps) => {
 
 	useEffect(() => {
 		(async () => {
-			disableForm({ disabled: true });
+			disableForm({
+				disabled: true,
+				initial: true,
+			});
 
 			const values = getFormValues ? (await getFormValues()) : {};
 

@@ -91,6 +91,15 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			...getInitialState(),
 			data: action.data,
 			internalData: action.internalData,
+			disabled: false,
+			loadingInitial: false,
+		};
+	}
+	case "FORM_DISABLE": {
+		return {
+			...state,
+			disabled: action.disabled,
+			loadingInitial: action.loadingInitial !== undefined ? action.loadingInitial : state.loadingInitial,
 		};
 	}
 	// LEGACY
