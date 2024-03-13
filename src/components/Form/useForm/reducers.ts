@@ -14,15 +14,20 @@ function touchedFromValues(values: MosaicObject<any>) {
 	}), {});
 }
 
-function shallowEqual<T extends MosaicObject>(obj1: T, obj2: T) {
-	if (obj1 === obj2) {
-		return true;
+function shallowEqual<T extends MosaicObject<any>>(objA: T, objB: T): boolean {
+	if (objA === null || objB === null || objA === undefined || objB === undefined) {
+		return false;
 	}
 
-	const entries = Object.entries(obj1);
+	const keysA = Object.keys(objA);
+	const keysB = Object.keys(objB);
 
-	for (const [key, value] of entries) {
-		if (obj2[key] !== value) {
+	if (keysA.length !== keysB.length) {
+		return false;
+	}
+
+	for (const key of keysA) {
+		if (objA[key] !== objB[key]) {
 			return false;
 		}
 	}
