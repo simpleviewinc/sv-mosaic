@@ -229,6 +229,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					required: fieldDef.required,
 					size: Sizes.lg,
 				}}
+				methods={props.methods}
 			>
 				<AddressAutocomplete
 					onChange={(address) => props.onChange(address)}
