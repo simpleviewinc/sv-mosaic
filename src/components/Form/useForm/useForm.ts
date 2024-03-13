@@ -222,6 +222,8 @@ export function useForm(): UseFormReturn {
 			hasBlurred: {},
 			data: values,
 			internalData: internalValues,
+			disabled: false,
+			loadingInitial: false,
 		};
 
 		dispatch({
@@ -304,11 +306,13 @@ export function useForm(): UseFormReturn {
 	}, [getFieldFromExtra, validateField]);
 
 	const disableForm = useCallback<DisableForm>(({
-		disabled,
+		disabled = false,
+		initial,
 	}) => {
 		dispatch({
-			type: disabled ? "FORM_START_DISABLE" : "FORM_END_DISABLE",
-			value: disabled,
+			type: "FORM_DISABLE",
+			disabled,
+			loadingInitial: initial,
 		});
 	}, []);
 
