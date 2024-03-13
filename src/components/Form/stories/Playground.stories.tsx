@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo, useState, useCallback } from "react";
+import { ReactElement, useEffect, useMemo, useCallback } from "react";
 import { withKnobs, boolean, object, text, select, number } from "@storybook/addon-knobs";
 
 // Utils
@@ -41,7 +41,6 @@ const createNewOption = async (newOptionLabel) => {
 };
 
 export const Playground = (): ReactElement => {
-	const [loadReady, setLoadReady] = useState(false);
 	const controller = useForm();
 	const { state, methods, handleSubmit } = controller;
 
@@ -61,7 +60,6 @@ export const Playground = (): ReactElement => {
 	const onBack = boolean("onBack", false);
 	const prepopulate = boolean("Prepopulate", false);
 	const prepopulateDuration = number("Prepopulate Duration", 2);
-	const showGetFormValues = select("GetFormValues", ["None", "Returns Undefined", "Returns Data"], "Returns Data");
 	const showSave = boolean("Show SAVE button", true);
 	const showCancel = boolean("Show CANCEL button", true);
 	const required = boolean("Required", true);
@@ -448,24 +446,16 @@ export const Playground = (): ReactElement => {
 	 * is disabled while fields values are being resolved.
 	 */
 	const getFormValues = useCallback(async () => {
+		if (!prepopulate) {
+			return;
+		}
+
 		await new Promise((res) => setTimeout(res, prepopulateDuration * 1000));
 
-		if (showGetFormValues === "Returns Undefined") {
-			return undefined;
-		} else {
-			return {
-				...prepopulateValues,
-			};
-		}
-	}, [prepopulateValues, showGetFormValues, prepopulateDuration]);
-
-	useEffect(() => {
-		const resetForm = async () => {
-			reset();
-			setLoadReady(true);
+		return {
+			...prepopulateValues,
 		};
-		prepopulate ? resetForm() : setLoadReady(false);
-	}, [reset, prepopulate, showGetFormValues, showDefaultValues]);
+	}, [prepopulate, prepopulateDuration, prepopulateValues]);
 
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
@@ -490,7 +480,7 @@ export const Playground = (): ReactElement => {
 				onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 				description={text("Description", "This is a description example")}
 				fields={fields}
-				getFormValues={showGetFormValues === "None" ? undefined : (loadReady && getFormValues)}
+				getFormValues={getFormValues}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={buttons}
 				showActive={showActive}
