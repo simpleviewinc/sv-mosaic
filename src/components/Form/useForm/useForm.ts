@@ -31,7 +31,7 @@ import { reducer } from "./reducers";
 import { cleanValue, mapsValidators, runValidators, stateFromStable } from "./utils";
 
 export function useForm(): UseFormReturn {
-	const stable = useRef<FormStable>({ ...initialStable });
+	const stable = useRef<FormStable>(structuredClone(initialStable));
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -118,6 +118,8 @@ export function useForm(): UseFormReturn {
 		name,
 	}) => {
 		const { mounted } = stable.current;
+
+		console.log(mounted);
 
 		if (!mounted[name]) {
 			return false;
