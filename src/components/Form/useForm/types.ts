@@ -53,12 +53,19 @@ export type ActionSetSubmitWarning = FormState["submitWarning"] & {
 	type: "SET_SUBMIT_WARNING";
 };
 
+export type ActionDisable = {
+	type: "FORM_DISABLE";
+	disabled: boolean;
+	loadingInitial?: boolean;
+};
+
 export type FormAction =
 	| ActionSetFieldErrors
 	| ActionSetFieldValues
 	| ActionSetFormWaits
 	| ActionReset
 	| ActionSetSubmitWarning
+	| ActionDisable
     | LegacyFormAction;
 
 export type GetFieldErrorParams = {
@@ -146,6 +153,7 @@ export type AddWait = (params?: AddWaitParams) => AddWaitResult;
 
 export type DisableFormParams = {
 	disabled?: boolean;
+	initial?: boolean;
 };
 
 export type DisableForm = (params: DisableFormParams) => void;
