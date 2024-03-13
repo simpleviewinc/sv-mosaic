@@ -2,7 +2,7 @@ import {
 	FormAction,
 	FormState,
 } from "./types";
-import { initialState } from "./initial";
+import { getInitialState } from "./initial";
 import { MosaicObject } from "@root/types";
 
 function touchedFromValues(values: MosaicObject<any>) {
@@ -83,7 +83,7 @@ export function reducer(state: FormState, action: FormAction): FormState {
 	}
 	case "RESET": {
 		return {
-			...initialState,
+			...getInitialState(),
 			data: action.data,
 			internalData: action.internalData,
 		};
