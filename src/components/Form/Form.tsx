@@ -9,7 +9,6 @@ import {
 	StyledContainerForm,
 	StyledFormPrimary,
 	StyledSideNav,
-	StyledFormOverlay,
 } from "./Form.styled";
 import Layout from "./Layout";
 import Top from "./Top";
@@ -314,9 +313,6 @@ const Form = (props: FormProps) => {
 								spacing={spacing}
 								methods={methods}
 							/>
-							{state.disabled && (
-								<StyledFormOverlay />
-							)}
 						</StyledFormContent>
 					</StyledFormPrimary>
 				</StyledForm>
