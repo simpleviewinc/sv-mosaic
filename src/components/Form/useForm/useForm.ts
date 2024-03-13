@@ -26,14 +26,14 @@ import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { MosaicObject } from "@root/types";
 import { FieldDefSanitized } from "../../Field";
 import { getFieldConfig } from "../Col/fieldConfigMap";
-import { initialState, initialStable } from "./initial";
+import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
 import { cleanValue, mapsValidators, runValidators, stateFromStable } from "./utils";
 
 export function useForm(): UseFormReturn {
-	const stable = useRef<FormStable>({ ...initialStable });
+	const stable = useRef<FormStable>(getInitialStable());
 
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, getInitialState());
 
 	const getFieldFromExtra = useCallback((name: string) => {
 		if (!stable.current.fields[name]) {
@@ -118,6 +118,8 @@ export function useForm(): UseFormReturn {
 		name,
 	}) => {
 		const { mounted } = stable.current;
+
+		console.log(mounted);
 
 		if (!mounted[name]) {
 			return false;
@@ -215,7 +217,7 @@ export function useForm(): UseFormReturn {
 		}), {});
 
 		stable.current = {
-			...initialState,
+			...getInitialState(),
 			...stable.current,
 			hasBlurred: {},
 			data: values,
