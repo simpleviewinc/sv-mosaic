@@ -43,14 +43,6 @@ export const StyledFormPrimary = styled.div`
 	}
 `;
 
-export const StyledFormOverlay = styled.div`
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-`;
-
 export const StyledSideNav = styled(SideNav)`
 	display: none;
 	margin-top: 10px;
