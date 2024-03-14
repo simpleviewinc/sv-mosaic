@@ -1,14 +1,8 @@
 import * as React from "react";
 import {
 	memo,
-	useState,
 	ReactElement,
-	useMemo,
-	useCallback,
 } from "react";
-
-// Components
-import Checkbox from "@root/components/Checkbox";
 
 // Types and Utils
 import { TopProps } from "./TopTypes";
@@ -18,10 +12,8 @@ import {
 	TopRoot,
 	Heading,
 	PrimaryActions,
-	SecondaryActions,
 	SmallBack,
 	SmallBackIcon,
-	ActiveCheckboxWrapper,
 	TopWrapper,
 	SmallDescription,
 	LargeDescription,
@@ -35,33 +27,12 @@ const Top = (props: TopProps): ReactElement => {
 	const {
 		buttons,
 		description,
-		showActive,
 		title,
 		onBack,
 		backLabel,
 		bottomBorder,
 		collapse,
 	} = props;
-
-	// State variables
-	const [activeChecked, setActiveChecked] = useState(false);
-
-	const handleActiveClick = useCallback(() => {
-		setActiveChecked((prev) => !prev);
-	}, []);
-
-	const checkbox = useMemo(
-		() => (
-			<ActiveCheckboxWrapper>
-				<Checkbox
-					label="Active"
-					checked={activeChecked}
-					onClick={handleActiveClick}
-				/>
-			</ActiveCheckboxWrapper>
-		),
-		[activeChecked, handleActiveClick],
-	);
 
 	return (
 		<TopRoot $bottomBorder={bottomBorder}>
@@ -79,11 +50,6 @@ const Top = (props: TopProps): ReactElement => {
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}
-				{showActive && (
-					<SecondaryActions>
-						{showActive && checkbox}
-					</SecondaryActions>
-				)}
 				<PrimaryActions>
 					{onBack && (
 						<SmallBack type="button" onClick={onBack}>
