@@ -367,8 +367,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			return {};
 		}
 
-		await new Promise((resolve) => setTimeout(() => resolve(null), 5000));
-
 		const values: Omit<IAddress, "types"> & { types?: IAddress["types"] } = {
 			address1: addressToEdit.address1,
 			address2: addressToEdit.address2,
