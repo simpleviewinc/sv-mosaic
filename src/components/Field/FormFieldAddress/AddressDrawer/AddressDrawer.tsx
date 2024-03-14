@@ -237,6 +237,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					value={props.value ?? ""}
 					onSelect={inputSettings.onSelect}
 					googleMapsApiKey={googleMapsApiKey}
+					disabled={props.disabled}
 				/>
 			</Field>
 		);
@@ -365,6 +366,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		if (!addressToEdit) {
 			return {};
 		}
+
+		await new Promise((resolve) => setTimeout(() => resolve(null), 5000));
 
 		const values: Omit<IAddress, "types"> & { types?: IAddress["types"] } = {
 			address1: addressToEdit.address1,
