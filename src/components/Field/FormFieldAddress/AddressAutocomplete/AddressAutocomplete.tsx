@@ -25,6 +25,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		textField,
 		placeholder,
 		googleMapsApiKey,
+		disabled,
 	} = props;
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -57,6 +58,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 				{...inputProps}
 				fieldSize="lg"
 				onChange={({ target: { value } }) => onChange(value)}
+				disabled={disabled}
 			/>
 		);
 	}
@@ -73,6 +75,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							})}
 							onFocus={handleFocus}
 							onBlur={handleBlur}
+							disabled={disabled}
 						/>
 						<Popover
 							open={Boolean(anchorEl) && suggestions?.length > 0}

@@ -9,6 +9,7 @@ export interface AddressAutocompleteProps {
 	textField?: TextFieldProps;
 	placeholder?: string;
 	googleMapsApiKey: string;
+	disabled?: boolean;
 }
 
 export interface InputSettings {
