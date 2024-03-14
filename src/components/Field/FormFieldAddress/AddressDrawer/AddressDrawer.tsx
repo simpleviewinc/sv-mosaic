@@ -7,7 +7,7 @@ import { ButtonProps } from "@root/components/Button";
 import Form, { SectionDef, useForm } from "@root/components/Form";
 
 // Utils
-import { AddressDrawerProps } from "../AddressTypes";
+import { AddressDrawerProps, IAddress } from "../AddressTypes";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { geocodeByAddress } from "react-places-autocomplete";
@@ -366,7 +366,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			return {};
 		}
 
-		return {
+		const values: Omit<IAddress, "types"> & { types?: IAddress["types"] } = {
 			address1: addressToEdit.address1,
 			address2: addressToEdit.address2,
 			address3: addressToEdit.address3,
@@ -374,9 +374,14 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			state: addressToEdit.state,
 			postalCode: addressToEdit.postalCode,
 			country: addressToEdit.country,
-			types: addressToEdit.types,
 		};
-	}, [addressToEdit]);
+
+		if (addressTypes) {
+			values.types = addressToEdit.types;
+		}
+
+		return values;
+	}, [addressToEdit, addressTypes]);
 
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
