@@ -65,7 +65,6 @@ export const Playground = (): ReactElement => {
 	const required = boolean("Required", true);
 	const disabled = boolean("Disabled", false);
 	const showSections = select("Show sections", [0, 1, 2, 3], 0);
-	const showActive = boolean("Show active", false);
 	const collapsed = boolean("Collapse sections", false);
 	const containerHeight = text("Container Height (500px, 50rem, etc..)", "100vh");
 	const prepopulateValues = object("Prepolulate values", {
@@ -505,7 +504,6 @@ export const Playground = (): ReactElement => {
 				getFormValues={getFormValues}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={buttons}
-				showActive={showActive}
 			/>
 		</div>
 	);
