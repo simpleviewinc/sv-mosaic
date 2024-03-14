@@ -775,10 +775,11 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 			type : "group",
 		},
 	],
+	none: [],
 };
 
 export const Example = (): ReactElement => {
-	const dataSet = select("Data", ["qa", "cms_flat"], "cms_flat");
+	const dataSet = select("Data", ["qa", "cms_flat", "none"], "cms_flat");
 	const locale: string = select("Locale", { en : "en", es : "es", cimode : "cimode", de : "de" }, "en");
 	const items = dataSets[dataSet];
 
