@@ -1,11 +1,49 @@
 import * as React from "react";
-import { ReactElement, useEffect, useRef, memo } from "react";
+import { ReactElement, useEffect, useRef, useMemo, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./Field.styled";
 
 import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
-import { MosaicFieldProps } from ".";
+import { FieldDef, MosaicFieldProps } from ".";
+
+function getValueLimit(def: FieldDef): number | undefined {
+	if (!def || !def.inputSettings) {
+		return;
+	}
+
+	if (def.type === "text" || def.type === "textEditor") {
+		return def.inputSettings.maxCharacters;
+	}
+
+	if (def.type === "advancedSelection") {
+		if (def.inputSettings.selectLimit === 1) {
+			return;
+		}
+
+		return def.inputSettings.selectLimit;
+	}
+}
+
+function useValueLimit(value: any, fieldDef: FieldDef): [number, number] | undefined {
+	return useMemo(() => {
+		const limit = getValueLimit(fieldDef);
+
+		if (limit === undefined) {
+			return;
+		}
+
+		const current = typeof value === "string" ?
+			// Unfortunately, if it's a string it could be a rich text
+			// editor field that contains some HTML. It's meh.
+			value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length :
+			Array.isArray(value) ?
+				value.length :
+				0;
+
+		return [current, limit];
+	}, [fieldDef, value]);
+}
 
 const Field = ({
 	children,
@@ -24,9 +62,11 @@ const Field = ({
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
 
+	const limit = useValueLimit(value, fieldDef);
+
 	const hasLabelComponent =
 		(fieldDef?.label && fieldDef?.label?.length > 0) ||
-		fieldDef?.inputSettings?.maxCharacters ||
+		limit ||
 		fieldDef?.instructionText;
 
 	useEffect(() => {
@@ -57,7 +97,7 @@ const Field = ({
 						<Label
 							required={fieldDef?.required}
 							htmlFor={fieldDef?.name || undefined}
-							maxCharacters={fieldDef?.inputSettings?.maxCharacters}
+							limit={limit}
 							value={value}
 							instructionText={fieldDef?.instructionText}
 							colsInRow={colsInRow}

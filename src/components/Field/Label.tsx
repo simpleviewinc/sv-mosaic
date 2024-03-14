@@ -73,7 +73,7 @@ interface LabelProps {
 	htmlFor?: string;
 	children?: ReactNode;
 	value?: string;
-	maxCharacters?: number;
+	limit?: [number, number];
 	instructionText?: string;
 	colsInRow?: number;
 }
@@ -84,8 +84,7 @@ const Label = (props: LabelProps): ReactElement => {
 		className,
 		required,
 		htmlFor,
-		value,
-		maxCharacters,
+		limit,
 		instructionText,
 		colsInRow,
 	} = props;
@@ -106,9 +105,11 @@ const Label = (props: LabelProps): ReactElement => {
 					</Tooltip>
 				</StyledTooltipWrapper>
 			)}
-			{maxCharacters > 0 && (
-				<CharCounterWrapper $invalid={typeof value === "string" && value.length > maxCharacters}>
-					{(!value ? "0" : value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length) + "/" + maxCharacters}
+			{limit && (
+				<CharCounterWrapper $invalid={limit[0] > limit[1]}>
+					{limit[0]}
+					/
+					{limit[1]}
 				</CharCounterWrapper>
 			)}
 		</LabelWrapper>
