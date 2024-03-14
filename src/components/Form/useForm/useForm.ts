@@ -119,8 +119,6 @@ export function useForm(): UseFormReturn {
 	}) => {
 		const { mounted } = stable.current;
 
-		console.log(mounted);
-
 		if (!mounted[name]) {
 			return false;
 		}
