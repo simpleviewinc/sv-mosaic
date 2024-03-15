@@ -40,7 +40,7 @@ export const StyledFilterButton = styled(Button)<{ $hasQuery?: boolean }>`
 		}
 
 		${({ $hasQuery }) => !$hasQuery && `
-			width: 100%;
+			width: calc(100% - 32px);
 
 			.MuiButtonBase-root {
 				width: 100%;
