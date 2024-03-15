@@ -1,5 +1,57 @@
 # sv-mosaic changelog
 
+## 32.0.0 - 03/19/24
+
+### Improvements & Fixes
+
+* `ButtonRow`
+  * [MOS-1286](https://simpleviewtools.atlassian.net/browse/MOS-1286 "https://simpleviewtools.atlassian.net/browse/MOS-1286")
+    * Items that are rendered as a part of the `ButtonRow` component are now given a meaningful key where available:
+
+      * If the` ButtonProps` variation is used:
+        * Optionally accept an `id` property for `ButtonProps`, if provided this will always be used as the `key`
+        * If no `id` is provided in the `ButtonProps` object, then use a combination of the `label` (if it is a string) and `name` properties.
+      * If the `children` variation is used, extract the key from each child if it is a valid `ReactElement`
+      * As a last resort, uses the item’s index.
+
+      If button rows are expected to change order throughout their lifecycle, products should not allow the key to fall back to their indexes.
+* `Form`
+  * [MOS-1282](https://simpleviewtools.atlassian.net/browse/MOS-1282 "https://simpleviewtools.atlassian.net/browse/MOS-1282")
+    * Introduces the `autoFocus` property to the `Form` component. If true, once mounted, `Form` will attempt to automatically focus the user's cursor on the first field but only the first field is one of the following field types: `date`, `dropdown`, `numberTable`, `phone`, `text`, `textEditor`, `time`.
+  * [MOS-1281](https://simpleviewtools.atlassian.net/browse/MOS-1281 "https://simpleviewtools.atlassian.net/browse/MOS-1281")
+    * Includes the following to support native HTML form submission behaviour:
+
+      * Adds an `onSubmit` property to be provided to `Form` which will pass through to the integrated HTML `form` element
+      * Adds a `type` property to the `Button` component which will pass through to the integrated HTML `button` element. It can be `"submit"` or `"button"` but will be `"button"` by default.
+
+      Default form submission behaviour is always prevented.
+  * [MOS-1269](https://simpleviewtools.atlassian.net/browse/MOS-1269 "https://simpleviewtools.atlassian.net/browse/MOS-1269")
+    * Introduces a `loadingInitial` property on the form's state. This is a `boolean` property that *always* starts out as `true`. It will be changed to `false` once the form mounts. If a `getFormValues` callback has been provided to the form component, it will change to `true` after the returned promise has resolved.
+  * [MOS-1255](https://simpleviewtools.atlassian.net/browse/MOS-1255 "https://simpleviewtools.atlassian.net/browse/MOS-1255")
+    * Includes a `methods` property on the result of `useForm()` (which we're now calling the form *controller* ) which will eventually replace usage of external dispatches.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.setFieldValue(...)` use `controller.methods.setFieldValue(...)` instead.
+    * Allows `setFieldValue` to be provided with a callback whose parameter is guaranteed to be the latest value for the given field. This allows updating the value using a similar pattern to `useState`'s setter method.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.validateField(...)`. There should be no reason for any consumer (including Mosaic's usage of `useForm` itself) to manually invoke `validateField` in this way. To trigger validation when setting a field's value, pass the `validate: true` property.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.validateForm(...)`.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.submitForm(...)`. Use `handleSubmit` instead. `handleSubmit` is a higher order function available on the form controller and should be used to wrap a callback to be invoked on a successful submission. `handleSubmit` accepts an optional second callback to be invoked on an invalid submission. Both callbacks will be invoked with the form data as their first parameter.
+    * **(BREAKING CHANGE)** Removes uneccessary form action `isSubmittable`.
+    * **(BREAKING CHANGE)** Removes unused action types `PROPERTY_RESET`, `MOUNT_FIELD`, `UNMOUNT_FIELD`.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.setFormValues(...)`. Use `controller.methods.setFormValues(...)` instead.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.disableForm(...)`. Use `controller.methods.disableForm(...)` instead.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.mountField(...)` and `dispatch(formActions.unmountField(...)`. Use `controller.methods.mountField(...)` and `controller.methods.unmountField(...)` instead.
+    * **(BREAKING CHANGE)** Removes `dispatch(formActions.startBusy(...)` and `dispatch(formActions.endBusy(...)`. Use `controller.methods.addWait(...)` and `controller.methods.removeWait(...)` instead.
+    * **(BREAKING CHANGE)** - Removes `FieldDef["defaultValue"]`. Use `getFormValues` which is passed to the `Form` component instead.
+  * [MOS-1150](https://simpleviewtools.atlassian.net/browse/MOS-1150 "https://simpleviewtools.atlassian.net/browse/MOS-1150")
+    * Rather than lowering the opacity of the form and removing pointer events, this allows the input controls and buttons within to inherit the form's disabled state for true input prevention. In the future, this will be replaced by "skeleton" visuals as described in [MOS-1287](https://simpleviewtools.atlassian.net/browse/MOS-1287 "https://simpleviewtools.atlassian.net/browse/MOS-1287") as it provides better loading state indication and an all round smoother user experience.
+* `DataView`
+  * [MOS-1280](https://simpleviewtools.atlassian.net/browse/MOS-1280 "https://simpleviewtools.atlassian.net/browse/MOS-1280")
+    * Ensures that the actions column is not rendered if no row-specific actions (primary or additional) are available for any of the rows. This includes cases where no actions are available as a result of their show evaluation.
+  * [MOS-1180](https://simpleviewtools.atlassian.net/browse/MOS-1180 "https://simpleviewtools.atlassian.net/browse/MOS-1180")
+    * Amends the text filter comparison to better fit the interface by matching the comparison dropdown style to the input next to it and rendering it before the term input instead of after it.
+* `FormFieldMapCoordinates`
+  * [MOS-1279](https://simpleviewtools.atlassian.net/browse/MOS-1279 "https://simpleviewtools.atlassian.net/browse/MOS-1279")
+    * Ensures the `onBlur` handler is passed down from the map coordinate field's draw to the autocomplete field but also only invoke the `onBlur` handler if it is defined.
+
 ## 31.1.0 - 03/05/24
 
 ### Improvements & Fixes
