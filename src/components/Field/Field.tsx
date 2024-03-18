@@ -17,6 +17,7 @@ const Field = ({
 	methods,
 	spacing,
 	inputRef,
+	disabled,
 }: MosaicFieldProps<any>): ReactElement => {
 	const { mountField } = methods || {};
 	const fieldRef = useRef<HTMLDivElement | undefined>();
@@ -50,6 +51,7 @@ const Field = ({
 			style={fieldDef?.style}
 			data-testid="field-test-id"
 			ref={fieldRef}
+			aria-disabled={disabled}
 		>
 			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
 				<StyledLabelControlWrapper $fullWidth={fieldDef?.size === "full"}>
