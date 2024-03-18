@@ -9,11 +9,11 @@ import Drawer from "@root/components/Drawer";
 // Utils
 import AddressCard from "./AddressCard";
 import { MosaicFieldProps } from "@root/components/Field";
-import { AddressFieldInputSettings, AddressData, IAddress } from ".";
+import { AddressFieldInputSettings, AddressData, IAddress, AddressType } from ".";
 import { AddressItems, Footer } from "./Address.styled";
 import Dialog from "@root/components/Dialog/Dialog";
 
-const types = [
+const types: AddressType[] = [
 	{
 		label: "Physical",
 		value: "physical",
@@ -47,14 +47,15 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	const [dialogOpen, setIsDialogOpen] = useState(false);
 	const [removeDialog, setRemoveDialog] = useState<IAddress | null>(null);
 
-	const { isSingleTypeLimit, limits } = useMemo(() => {
+	const { singleType, limits } = useMemo<{ singleType: AddressType | false; limits: Record<string, number> }>(() => {
 		const defaultLimits = types.map(type => ({
 			...type,
 			limit: fieldDef?.inputSettings?.[type.inputSettingsKey],
 		}));
 
 		const definedTypeLimits = defaultLimits.filter(type => type.limit !== undefined);
-		const isSingleTypeLimit = definedTypeLimits.length === 1 && fieldDef?.inputSettings?.amountPerType === undefined;
+		const singleType = definedTypeLimits.length === 1 && fieldDef?.inputSettings?.amountPerType === undefined ?
+			definedTypeLimits[0] : false;
 
 		// The amount per type provided by the consumer if it's defined,
 		// 0 if there has been a specific type limit set, 1 if neither.
@@ -65,15 +66,11 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 			[curr.value]: fieldDef?.inputSettings?.[curr.inputSettingsKey] ?? limitPerType,
 		}), {});
 
-		return { limits, isSingleTypeLimit };
+		return { limits, singleType };
 	}, [fieldDef?.inputSettings]);
 
 	const availableTypes = useMemo(() => {
 		const availableTypes = types.filter(type => {
-			if (typeof open === "object" && open.types.map(({ value }) => value).includes(type.value)) {
-				return true;
-			}
-
 			const valuesOfType = (value || []).filter(address => {
 				return address.types.map(({ value }) => value).includes(type.value);
 			});
@@ -88,7 +85,6 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		return availableTypes;
 	}, [
 		limits,
-		open,
 		value,
 	]);
 
@@ -135,7 +131,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	const onDrawerSave = (address: IAddress) => {
 		const newValue = [...(value || [])];
-		const newAddress = { ...address, types: isSingleTypeLimit ? [availableTypes[0]] : address.types };
+		const newAddress = { ...address, types: singleType ? [{ value: singleType.value, label: singleType.label }] : address.types };
 
 		if (typeof open === "object") {
 			const index = value.findIndex(item => item === open);
@@ -199,7 +195,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
-					addressTypes={isSingleTypeLimit ? undefined : availableTypes}
+					addressTypes={singleType ? undefined : availableTypes}
 					getOptionsCountries={fieldDef?.inputSettings?.getOptionsCountries}
 					getOptionsStates={fieldDef?.inputSettings?.getOptionsStates}
 					onSave={onDrawerSave}
