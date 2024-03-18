@@ -230,6 +230,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					size: Sizes.lg,
 				}}
 				methods={props.methods}
+				disabled={props.disabled}
 			>
 				<AddressAutocomplete
 					onChange={(address) => props.onChange(address)}
