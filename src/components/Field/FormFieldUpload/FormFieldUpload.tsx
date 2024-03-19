@@ -1,9 +1,9 @@
+import * as React from "react";
+import { memo, SyntheticEvent, useEffect, useState, useMemo, useId } from "react";
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import Snackbar from "@root/components/Snackbar";
 import uniqueId from "lodash/uniqueId";
-import * as React from "react";
-import { memo, SyntheticEvent, useEffect, useRef, useState, useMemo } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileList } from "./FormFieldUpload.styled";
@@ -20,9 +20,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		onChange,
 		disabled,
 		methods,
+		id: providedId,
 	} = props;
 
 	const { addWait } = methods || {};
+	const generatedId = useId();
+	const id = providedId || generatedId;
 
 	const {
 		limit = -1,
@@ -33,14 +36,19 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		maxTotalSize,
 	} = fieldDef.inputSettings;
 
-	const [isOver, setIsOver] = useState(false);
+	/**
+	 * Because dragEnter and dragLeave does not work the way you'd
+	 * expect (unlike like mouseEnter and mouseLeave, it seems to
+	 * fire for children as well as the target), we keep a count of
+	 * elements that are dragged over. More than 0 means the target
+	 * is dragged over.
+	 */
+	const [isOver, setIsOver] = useState<number>(0);
+
 	const [snackbar, setSnackbar] = useState<{ open: boolean; text: string }>({
 		open: false,
 		text: "",
 	});
-
-	const fileInputField = useRef(null);
-	const prevValueRef = useRef([]);
 
 	const value = useMemo(() => providedValue || [], [providedValue]);
 	const currentLength = value.length;
@@ -50,10 +58,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 
 	const pendingWithoutError = useMemo(() => {
 		return value.filter(item => isPendingUploadData(item) && item.error === undefined).length;
-	}, [value]);
-
-	useEffect(() => {
-		prevValueRef.current = value;
 	}, [value]);
 
 	/**
@@ -73,7 +77,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const dragEnter = (e) => {
 		e.preventDefault();
-		setIsOver(true);
+		setIsOver((over) => over + 1);
 	};
 
 	/**
@@ -83,7 +87,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const dragLeave = (e) => {
 		e.preventDefault();
-		setIsOver(false);
+		setIsOver((over) => over - 1);
 	};
 
 	/**
@@ -94,17 +98,9 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const fileDrop = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		setIsOver(false);
+		setIsOver(0);
 		const droppedFiles = { target: { files: e.dataTransfer.files } };
 		handleNewFileUpload(droppedFiles);
-	};
-
-	/**
-	 *  Triggers a click on the input of type file
-	 *  to prompt the file selection.
-	 */
-	const uploadFiles = () => {
-		fileInputField.current.click();
 	};
 
 	const onChunkComplete = async ({ uuid, percent }) => {
@@ -246,21 +242,22 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		<>
 			{!isMaxedOut && (
 				<DragAndDropContainer
-					$isOver={isOver}
+					$isOver={Boolean(isOver)}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
 					onDrop={fileDrop}
 					data-testid="drag-and-drop-container"
+					htmlFor={`${id}-input`}
 				>
 					{isOver ? (
-						<DragAndDropSpan $isOver={isOver}>
+						<DragAndDropSpan $isOver={Boolean(isOver)}>
 							Release and Drop
 						</DragAndDropSpan>
 					) : (
 						<>
 							{!disabled && (
-								<DragAndDropSpan $isOver={isOver}>
+								<DragAndDropSpan $isOver={Boolean(isOver)}>
 									Drag & Drop files here or
 								</DragAndDropSpan>
 							)}
@@ -268,14 +265,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								color="gray"
 								variant="outlined"
 								label="UPLOAD FILES"
-								onClick={uploadFiles}
 								disabled={disabled}
+								as="label"
+								muiAttrs={{ htmlFor: `${id}-input` }}
 							/>
 						</>
 					)}
 					<FileInput
 						data-testid="input-file-test"
-						ref={fileInputField}
 						onChange={handleNewFileUpload}
 						title=""
 						type="file"
@@ -283,6 +280,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						disabled={disabled}
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
 						accept={fileExtensions.acceptAttr}
+						id={`${id}-input`}
 					/>
 				</DragAndDropContainer>
 			)}
