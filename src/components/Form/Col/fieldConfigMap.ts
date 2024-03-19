@@ -191,10 +191,10 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 		Component: FormFieldUpload,
 		validate: "onChange",
 		getResolvedValue: (
-			value: (UploadData | UploadDataPending)[],
+			value: (UploadData | UploadDataPending)[] = [],
 		) => {
 			return {
-				value: cleanValue((value || []).filter((item) => !isPendingUploadData(item))),
+				value: cleanValue(value.filter((item) => !isPendingUploadData(item) && !item.isDeleting)),
 				internalValue: value || [],
 			};
 		},
