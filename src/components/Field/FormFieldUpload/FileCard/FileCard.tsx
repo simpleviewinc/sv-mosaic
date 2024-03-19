@@ -8,8 +8,8 @@ import { StyledFileCard } from "./FileCard.styled";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
-import Typography from "@root/components/Typography";
 import { useHumanSize } from "@root/utils/hooks/useHumanSize";
+import FileCardTitle from "./FileCardTitle";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -53,15 +53,11 @@ const FileCard = (props: FileCardProps) => {
 				<div className="file-data" data-testid="file-data">
 					{fileUrl ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank" className="file-name" data-testid="file-name">
-							<Typography maxLines={1} breakAll>
-								{name ?? "File title"}
-							</Typography>
+							<FileCardTitle name={name} />
 						</a>
 					) : (
 						<p className="file-name" data-testid="file-name">
-							<Typography maxLines={1} breakAll>
-								{name ?? "File title"}
-							</Typography>
+							<FileCardTitle name={name} />
 						</p>
 					)}
 					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>

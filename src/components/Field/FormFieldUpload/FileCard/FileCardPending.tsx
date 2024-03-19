@@ -9,8 +9,8 @@ import { StyledFileCard } from "./FileCard.styled";
 import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
-import Typography from "@root/components/Typography";
 import { useHumanSize } from "@root/utils/hooks/useHumanSize";
+import FileCardTitle from "./FileCardTitle";
 
 const FileCardPending = (props: FileCardPendingProps) => {
 	const {
@@ -29,25 +29,19 @@ const FileCardPending = (props: FileCardPendingProps) => {
 		<div data-testid="file-card-container">
 			<StyledFileCard $error={!!error}>
 				<div className="file-img" data-testid="file-img">
-					{error ? (
-						<div>
+					<div>
+						{error ? (
 							<DoNotDisturb />
-						</div>
-					) : percent !== undefined && percent < 100 ? (
-						<div>
+						) : percent !== undefined && percent < 100 ? (
 							<Spinner progress={percent} />
-						</div>
-					) : (
-						<div>
+						) : (
 							<InsertDriveFile />
-						</div>
-					)}
+						)}
+					</div>
 				</div>
 				<div className="file-data" data-testid="file-data">
 					<p className="file-name" data-testid="file-name">
-						<Typography maxLines={1} breakAll>
-							{name ?? "File title"}
-						</Typography>
+						<FileCardTitle name={name} />
 					</p>
 					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
