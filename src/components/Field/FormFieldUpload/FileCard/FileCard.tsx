@@ -8,8 +8,8 @@ import { StyledFileCard } from "./FileCard.styled";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
-import { pretty } from "@root/utils/formatters";
 import Typography from "@root/components/Typography";
+import { useHumanSize } from "@root/utils/hooks/useHumanSize";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -38,11 +38,7 @@ const FileCard = (props: FileCardProps) => {
 		return <img src={thumbnailUrl} />;
 	}, [thumbnailUrl]);
 
-	const sizeHuman = useMemo(() => {
-		// Support legacy string size, i.e. "123 bytes"
-		const sanitized = parseInt(String(size), 10);
-		return pretty(sanitized);
-	}, [size]);
+	const sizeHuman = useHumanSize(size);
 
 	return (
 		<div data-testid="file-card-container">
