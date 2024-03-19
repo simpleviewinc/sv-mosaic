@@ -1,10 +1,21 @@
 import { FieldDefBase } from "@root/components/Field";
 
-export type UploadData = {
+export type UploadDataBase = {
 	/**
 	 * A unique identifier, used as React "key"
 	 */
 	id: string | number;
+	/**
+	 * The numerical size of the file in bytes
+	 */
+	size: number;
+	/**
+	 * The name of the file, which will be rendered as the file title
+	 */
+	name: string;
+};
+
+export type UploadData = UploadDataBase & {
 	/**
 	 * The URL to the uploaded file which the uploaded item's
 	 * image and title will link to
@@ -28,17 +39,9 @@ export type UploadData = {
 	 * if no downloadUrl is provided, or "iframe" if it is.
 	 */
 	downloadStrategy?: "anchor" | "iframe";
-	/**
-	 * The numerical size of the file in bytes
-	 */
-	size: number;
-	/**
-	 * The name of the file, which will be rendered as the file title
-	 */
-	name: string;
 };
 
-export type UploadDataPending = UploadData & {
+export type UploadDataPending = UploadDataBase & {
 	percent?: number;
 	error?: string;
 	rawData: File;
