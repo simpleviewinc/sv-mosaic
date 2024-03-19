@@ -91,6 +91,10 @@ export const Playground = (): ReactElement => {
 			);
 		}
 
+		if (file.name === "broken_file") {
+			throw new Error("This file is broken");
+		}
+
 		if (error) {
 			throw new Error("File size exceeded");
 		}
