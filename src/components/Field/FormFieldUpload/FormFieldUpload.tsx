@@ -226,15 +226,13 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		}));
 	};
 
-	const handleFileDelete = async ({ id }) => {
-		await onFileDelete({ id });
-		const newValues = value.filter(file => file.id !== id);
-		await onChange(newValues);
-	};
+	const handleFileDelete = async (id: UploadData["id"], isPending = false) => {
+		if (!isPending) {
+			await onFileDelete({ id });
+		}
 
-	// const handleErrorDelete = async ({ id }) => {
-	// 	onChange((items) => items.filter(item => item.id !== id));
-	// };
+		onChange((items = []) => items.filter(item => item.id !== id));
+	};
 
 	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
 		if (reason === "clickaway") {
@@ -294,7 +292,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						<FileCardPending
 							key={file.id}
 							{...file}
-							onFileDelete={handleFileDelete}
+							onFileDelete={({ id }) => handleFileDelete(id, true)}
 							disabled={disabled}
 							percent={file.percent}
 							error={file.error}
@@ -303,7 +301,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						<FileCard
 							key={file.id}
 							{...file}
-							onFileDelete={handleFileDelete}
+							onFileDelete={({ id }) => handleFileDelete(id)}
 							disabled={disabled}
 						/>
 					))}
