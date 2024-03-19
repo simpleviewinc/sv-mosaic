@@ -53,20 +53,21 @@ export const Playground = (): ReactElement => {
 		["No limit", 1, 2, 3],
 		"No limit",
 	);
+	const mockDB = boolean("Prepopulate", false);
+	const timeToLoad = number("Secs to upload", 2);
+	const timeToDelete = number("Secs to delete", 2);
+	const thumbnailUrl = text("onUploadComplete thumbail URL", "");
+	const fileUrl = text("onUploadComplete file URL", "");
+	const downloadUrl = text("onUploadComplete download URL", "");
+	const error = text("Throw upload error", "");
+	const acceptCsv = text("Comma separated accepted extensions", "");
+	const maxFileSize = text("Max file size (KB)", "");
+	const maxTotalSize = text("Max total size (KB)", "");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
-	const mockDB = boolean("Simulate initial field value", false);
-	const timeToLoad = number("Time to upload load (seconds)", 2);
-	const thumbnailUrl = text("Override onUploadComplete thumbail URL", "");
-	const fileUrl = text("Override onUploadComplete file URL", "");
-	const downloadUrl = text("Override onUploadComplete download URL", "");
-	const error = boolean("Trigger errors when loading", false);
-	const acceptCsv = text("Comma separated accepted extensions", "");
-	const maxFileSize = text("Max file size (KB)", "");
-	const maxTotalSize = text("Max total size (KB)", "");
 
 	// One line change
 
@@ -96,7 +97,7 @@ export const Playground = (): ReactElement => {
 		}
 
 		if (error) {
-			throw new Error("File size exceeded");
+			throw new Error(error);
 		}
 
 		await onUploadComplete({
@@ -115,9 +116,9 @@ export const Playground = (): ReactElement => {
 		error,
 	]);
 
-	const onFileDelete = async () => {
-		await new Promise((resolve) => setTimeout(() => resolve(null), 2000));
-	};
+	const onFileDelete = useCallback(async () => {
+		await new Promise((resolve) => setTimeout(() => resolve(null), timeToDelete * 1000));
+	}, [timeToDelete]);
 
 	const getFormValues = useCallback(async () => ({
 		...initialValues,
@@ -155,6 +156,7 @@ export const Playground = (): ReactElement => {
 			accept,
 			maxFileSize,
 			maxTotalSize,
+			onFileDelete,
 		],
 	);
 
