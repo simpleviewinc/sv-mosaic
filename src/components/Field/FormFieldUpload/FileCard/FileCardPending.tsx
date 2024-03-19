@@ -1,6 +1,6 @@
 import Button from "@root/components/Button";
 import * as React from "react";
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import { FileCardPendingProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
@@ -9,8 +9,8 @@ import { StyledFileCard } from "./FileCard.styled";
 import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
-import { pretty } from "@root/utils/formatters";
 import Typography from "@root/components/Typography";
+import { useHumanSize } from "@root/utils/hooks/useHumanSize";
 
 const FileCardPending = (props: FileCardPendingProps) => {
 	const {
@@ -23,11 +23,7 @@ const FileCardPending = (props: FileCardPendingProps) => {
 		disabled,
 	} = props;
 
-	const sizeHuman = useMemo(() => {
-		// Support legacy string size, i.e. "123 bytes"
-		const sanitized = parseInt(String(size), 10);
-		return pretty(sanitized);
-	}, [size]);
+	const sizeHuman = useHumanSize(size);
 
 	return (
 		<div data-testid="file-card-container">
