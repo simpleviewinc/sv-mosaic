@@ -28,7 +28,7 @@ import { FieldDefSanitized } from "../../Field";
 import { getFieldConfig } from "../Col/fieldConfigMap";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
-import { cleanValue, mapsValidators, runValidators, stateFromStable } from "./utils";
+import { mapsValidators, runValidators, stateFromStable } from "./utils";
 
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>(getInitialStable());
@@ -237,18 +237,17 @@ export function useForm(): UseFormReturn {
 		touched,
 		validate,
 	}) => {
-		const { errors, data, hasBlurred } = stable.current;
+		const { errors, internalData, hasBlurred } = stable.current;
 		const field = getFieldFromExtra(name);
+		const providedValueResolved = typeof providedValue === "function" ? providedValue(internalData[name]) : providedValue;
+		const { value, internalValue } = field.getResolvedValue(providedValueResolved);
 
-		const providedValueResolved = typeof providedValue === "function" ? providedValue(data[name]) : providedValue;
-		const { internalValue, value } = field.getResolvedValue(providedValueResolved);
-		const cleanedValue = cleanValue(value);
-
-		stable.current.data[name] = cleanedValue;
+		stable.current.data[name] = value;
+		stable.current.internalData[name] = internalValue;
 
 		dispatch({
 			type: "SET_FIELD_VALUES",
-			values: { [name]: cleanedValue },
+			values: { [name]: value },
 			internalValues: { [name]: internalValue },
 			merge: true,
 			touched,
