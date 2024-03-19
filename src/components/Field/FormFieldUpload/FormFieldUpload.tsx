@@ -223,6 +223,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const handleFileDelete = async (id: UploadData["id"], isPending = false) => {
+		onChange((items = []) => items.map(item => item.id === id ? ({
+			...item,
+			isDeleting: true,
+		}) : item));
+
 		if (!isPending) {
 			await onFileDelete({ id });
 		}

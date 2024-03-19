@@ -4,7 +4,7 @@ import { memo, useMemo } from "react";
 import { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownload from "@mui/icons-material/CloudDownload";
-import { StyledFileCard } from "./FileCard.styled";
+import { StyledFileCard, StyledSpinner } from "./FileCard.styled";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
@@ -22,6 +22,7 @@ const FileCard = (props: FileCardProps) => {
 		downloadStrategy: providedDownloadStrategy,
 		onFileDelete,
 		disabled,
+		isDeleting,
 	} = props;
 
 	const downloadStrategy = providedDownloadStrategy !== undefined ? providedDownloadStrategy : downloadUrl ? "iframe" : "anchor";
@@ -42,16 +43,16 @@ const FileCard = (props: FileCardProps) => {
 
 	return (
 		<div data-testid="file-card-container">
-			<StyledFileCard>
+			<StyledFileCard $isDeleting={isDeleting}>
 				<div className="file-img" data-testid="file-img">
-					{fileUrl ? (
+					{(fileUrl && !isDeleting) ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank">{renderImg}</a>
 					) : (
 						renderImg
 					)}
 				</div>
 				<div className="file-data" data-testid="file-data">
-					{fileUrl ? (
+					{(fileUrl && !isDeleting) ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank" className="file-name" data-testid="file-name">
 							<FileCardTitle name={name} />
 						</a>
@@ -62,37 +63,41 @@ const FileCard = (props: FileCardProps) => {
 					)}
 					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
-				<ButtonRow separator>
-					{(downloadUrl || fileUrl) && (
-						<div className="file-download-btn">
-							{downloadStrategy === "anchor" ? (
+				{isDeleting ? (
+					<StyledSpinner />
+				) : (
+					<ButtonRow separator>
+						{(downloadUrl || fileUrl) && (
+							<div className="file-download-btn">
+								{downloadStrategy === "anchor" ? (
+									<Button
+										muiAttrs={{ download: true }}
+										href={fileUrl}
+										color="gray"
+										variant="icon"
+										mIcon={CloudDownload}
+									/>
+								) : (
+									<Downloader
+										url={downloadUrl || fileUrl}
+										color="gray"
+										variant="icon"
+									/>
+								)}
+							</div>
+						)}
+						{onFileDelete && !disabled && (
+							<div className="file-delete-btn">
 								<Button
-									muiAttrs={{ download: true }}
-									href={fileUrl}
 									color="gray"
 									variant="icon"
-									mIcon={CloudDownload}
+									mIcon={DeleteIcon}
+									onClick={() => onFileDelete({ id: id })}
 								/>
-							) : (
-								<Downloader
-									url={downloadUrl || fileUrl}
-									color="gray"
-									variant="icon"
-								/>
-							)}
-						</div>
-					)}
-					{onFileDelete && !disabled && (
-						<div className="file-delete-btn">
-							<Button
-								color="gray"
-								variant="icon"
-								mIcon={DeleteIcon}
-								onClick={() => onFileDelete({ id: id })}
-							/>
-						</div>
-					)}
-				</ButtonRow>
+							</div>
+						)}
+					</ButtonRow>
+				)}
 			</StyledFileCard>
 		</div>
 	);

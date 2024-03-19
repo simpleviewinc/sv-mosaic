@@ -46,7 +46,7 @@ const FileCardPending = (props: FileCardPendingProps) => {
 					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
 				</div>
 				<ButtonRow separator>
-					{onFileDelete && !disabled && (
+					{onFileDelete && !disabled && (percent === undefined || percent === 100) && (
 						<div className="file-delete-btn">
 							<Button
 								color="gray"
