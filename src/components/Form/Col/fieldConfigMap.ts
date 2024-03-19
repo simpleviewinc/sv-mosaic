@@ -19,12 +19,13 @@ import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvanced
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
-import FormFieldUpload from "@root/components/Field/FormFieldUpload";
+import FormFieldUpload, { UploadData, UploadDataPending, isPendingUploadData } from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import { matchTime } from "@root/utils/date";
+import { cleanValue } from "../useForm/utils";
 
 export function defaultResolver(value: any) {
-	return { internalValue: value, value };
+	return { internalValue: value, value: cleanValue(value) };
 }
 
 const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>> = {
@@ -189,7 +190,14 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	upload: {
 		Component: FormFieldUpload,
 		validate: "onChange",
-		getResolvedValue: defaultResolver,
+		getResolvedValue: (
+			value: (UploadData | UploadDataPending)[],
+		) => {
+			return {
+				value: cleanValue((value || []).filter((item) => !isPendingUploadData(item))),
+				internalValue: value || [],
+			};
+		},
 	},
 	numberTable: {
 		Component: FormFieldNumberTable,
