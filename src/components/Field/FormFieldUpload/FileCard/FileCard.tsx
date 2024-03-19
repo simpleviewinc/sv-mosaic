@@ -4,10 +4,7 @@ import { memo, useMemo } from "react";
 import { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownload from "@mui/icons-material/CloudDownload";
-import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
-import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
-import HelperText from "@root/components/Field/HelperText";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
@@ -24,31 +21,13 @@ const FileCard = (props: FileCardProps) => {
 		downloadUrl,
 		downloadStrategy: providedDownloadStrategy,
 		onFileDelete,
-		error,
-		percent,
 		disabled,
 	} = props;
 
 	const downloadStrategy = providedDownloadStrategy !== undefined ? providedDownloadStrategy : downloadUrl ? "iframe" : "anchor";
 
 	const renderImg = useMemo(() => {
-		if (error) {
-			return (
-				<div>
-					<DoNotDisturb />
-				</div>
-			);
-		}
-
 		if (!thumbnailUrl) {
-			if (percent !== undefined && percent < 100) {
-				return (
-					<div>
-						<Spinner progress={percent} />
-					</div>
-				);
-			}
-
 			return (
 				<div>
 					<InsertDriveFile />
@@ -57,7 +36,7 @@ const FileCard = (props: FileCardProps) => {
 		}
 
 		return <img src={thumbnailUrl} />;
-	}, [percent, thumbnailUrl, error]);
+	}, [thumbnailUrl]);
 
 	const sizeHuman = useMemo(() => {
 		// Support legacy string size, i.e. "123 bytes"
@@ -67,7 +46,7 @@ const FileCard = (props: FileCardProps) => {
 
 	return (
 		<div data-testid="file-card-container">
-			<StyledFileCard $error={!!error}>
+			<StyledFileCard>
 				<div className="file-img" data-testid="file-img">
 					{fileUrl ? (
 						<a href={fileUrl} rel="noreferrer" target="_blank">{renderImg}</a>
@@ -123,9 +102,6 @@ const FileCard = (props: FileCardProps) => {
 					)}
 				</ButtonRow>
 			</StyledFileCard>
-			{error && (
-				<HelperText error={error !== undefined}>{error}</HelperText>
-			)}
 		</div>
 	);
 };
