@@ -39,8 +39,8 @@ export type UploadData = {
 };
 
 export type UploadDataPending = UploadData & {
-	percent: number;
-	error: string | undefined;
+	percent?: number;
+	error?: string;
 	rawData: File;
 	isPending: true;
 };
