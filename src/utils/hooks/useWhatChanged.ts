@@ -19,11 +19,16 @@ export function useWhatChanged(props: Record<string, any>) {
 
 	previous.current = props;
 
-	const count = Object.keys(differences);
+	const keys = Object.keys(differences);
+	const rows = keys.reduce((acc, curr) => [
+		...acc,
+		{ Property: curr, Previous: differences[curr].previous, Current: differences[curr].current },
+	], []);
 
-	if (!count.length) {
+	if (!keys.length) {
 		console.log("There were no changes");
 	} else {
-		console.log("Some things changed:", differences);
+		console.log("Some things changed:");
+		console.table(rows, ["Property", "Previous", "Current"]);
 	}
 }
