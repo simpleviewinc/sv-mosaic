@@ -39,6 +39,10 @@ export type UploadData = UploadDataBase & {
 	 * if no downloadUrl is provided, or "iframe" if it is.
 	 */
 	downloadStrategy?: "anchor" | "iframe";
+	/**
+	 * If the file is currently being deleted
+	 */
+	isDeleting?: boolean;
 };
 
 export type UploadDataPending = UploadDataBase & {
