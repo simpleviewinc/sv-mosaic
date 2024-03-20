@@ -161,6 +161,8 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			padding: ${getPadding($variant, $size)};
 			width: ${$fullWidth ? "100%" : "auto"};
 			text-transform: ${$variant === "text" || $variant === "input" ? "none" : "uppercase"};
+			line-height: 1.75;
+			cursor: pointer;
 
 			${$variant !== "input" ? `
 				font-family: ${theme.fontFamily};

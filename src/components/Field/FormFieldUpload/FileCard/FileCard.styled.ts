@@ -1,7 +1,8 @@
+import Spinner from "@root/components/Spinner";
 import theme from "@root/theme";
 import styled from "styled-components";
 
-export const StyledFileCard = styled.div<{ $error?: boolean }>`
+export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boolean }>`
 	display: flex;
 	flex-direction: row;
 	background-color: ${theme.colors.white};
@@ -9,6 +10,10 @@ export const StyledFileCard = styled.div<{ $error?: boolean }>`
 	padding: 16px;
 	width: 100%;
 	column-gap: 16px;
+
+	${({ $isDeleting }) => $isDeleting && `
+		opacity: 0.5;
+	`}
 
 	& > div {
 		display: flex;
@@ -74,4 +79,9 @@ export const StyledFileCard = styled.div<{ $error?: boolean }>`
 		font-weight: ${theme.fontWeight.normal};
 		line-height: 24px;
 	}
+`;
+
+export const StyledSpinner = styled(Spinner)`
+	flex: none;
+	align-self: center;
 `;

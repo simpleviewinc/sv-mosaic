@@ -41,6 +41,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		name: props.name,
 		id: props.id,
 		type: props.type || "button",
+		as: props.as,
 		ref,
 		...props.muiAttrs,
 	};

@@ -28,7 +28,7 @@ export const playgroundKnobs = {
 export const uploadKnobs = {
 	knobUploadLimit: "knob-Limit=",
 	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading=",
-	knobSimulateInitialFieldValue: "knob-Simulate%20initial%20field%20value=",
+	knobSimulateInitialFieldValue: "knob-Prepopulate=",
 };
 
 export const dataviewKnobs = {

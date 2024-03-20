@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledFileGrid = styled.div`
+export const StyledFileList = styled.div`
 	margin-top: 16px;
 	display: flex;
 	flex-direction: column;

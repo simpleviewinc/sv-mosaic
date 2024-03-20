@@ -1,37 +1,21 @@
 import { FieldDefBase } from "@root/components/Field";
 
-export type TransformedFile = {
-	data: UploadData;
-	percent: number;
-	error: string | undefined;
-	rawData: File;
-};
-
-export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
-
-export type OnFileAdd = (addedData: OnFileAddData) => Promise<void>;
-
-export type UploadFieldInputSettings = {
-	onFileDelete: OnFileDelete;
-	onFileAdd: OnFileAdd;
-	limit?: number;
-	accept?: string[];
-	/**
-	 * Maximum size limit for each file uploaded
-	 */
-	maxFileSize?: number;
-	/**
-	 * Maximum size limit for cumulative total
-	 * of files uploaded
-	 */
-	maxTotalSize?: number;
-};
-
-export type UploadData = {
+export type UploadDataBase = {
 	/**
 	 * A unique identifier, used as React "key"
 	 */
 	id: string | number;
+	/**
+	 * The numerical size of the file in bytes
+	 */
+	size: number;
+	/**
+	 * The name of the file, which will be rendered as the file title
+	 */
+	name: string;
+};
+
+export type UploadData = UploadDataBase & {
 	/**
 	 * The URL to the uploaded file which the uploaded item's
 	 * image and title will link to
@@ -56,14 +40,27 @@ export type UploadData = {
 	 */
 	downloadStrategy?: "anchor" | "iframe";
 	/**
-	 * The numerical size of the file in bytes
+	 * If the file is currently being deleted
 	 */
-	size: number;
-	/**
-	 * The name of the file, which will be rendered as the file title
-	 */
-	name: string;
+	isDeleting?: boolean;
 };
+
+export type UploadDataPending = UploadDataBase & {
+	percent?: number;
+	error?: string;
+	rawData: File;
+	isPending: true;
+};
+
+export function isPendingUploadData(item: UploadData | UploadDataPending): item is UploadDataPending {
+	return "isPending" in item && item.isPending;
+}
+
+type OnFileDeleteData = {
+	id: UploadData["id"];
+};
+
+export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
 
 type OnError = (message: string) => Promise<void>;
 
@@ -77,19 +74,22 @@ type OnFileAddData = {
 	onError: OnError;
 };
 
-type OnFileDeleteData = {
-	id: UploadData["id"];
-};
+export type OnFileAdd = (addedData: OnFileAddData) => Promise<void>;
 
-export interface QueuedFile {
-	id: string;
-	data: {
-		name: string;
-		size: number;
-	};
-	percent: number;
-	error?: string;
-	file: File;
-}
+export type UploadFieldInputSettings = {
+	onFileDelete: OnFileDelete;
+	onFileAdd: OnFileAdd;
+	limit?: number;
+	accept?: string[];
+	/**
+	 * Maximum size limit for each file uploaded
+	 */
+	maxFileSize?: number;
+	/**
+	 * Maximum size limit for cumulative total
+	 * of files uploaded
+	 */
+	maxTotalSize?: number;
+};
 
 export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings>;

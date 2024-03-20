@@ -37,7 +37,7 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	/**
 	 * Function that listens to changes on the field and updates its value.
 	 */
-	onChange?: (e: V) => Promise<void>;
+	onChange?: (value: V | ((current: V) => V)) => Promise<void>;
 	/**
 	 * Function that listens to a blur event on the field and executes an action.
 	 */

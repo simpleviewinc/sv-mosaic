@@ -41,7 +41,7 @@ export const FormDrawerWrapper = styled.div`
   }
 `;
 
-export const DragAndDropContainer = styled.div<{ $isOver?: boolean }>`
+export const DragAndDropContainer = styled.label<{ $isOver?: boolean }>`
   align-items: center;
   border: ${({ $isOver }) =>
 		$isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : ""};
@@ -67,15 +67,7 @@ export const DragAndDropSpan = styled.span<{ $isOver?: boolean }>`
 `;
 
 export const FileInput = styled.input`
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  z-index: 100;
-
-  &:focus {
-    outline: none;
-  }
+  display: none;
 `;
 
 export const StyledDisabledText = styled.p`

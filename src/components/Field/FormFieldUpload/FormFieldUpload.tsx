@@ -1,28 +1,31 @@
+import * as React from "react";
+import { memo, SyntheticEvent, useEffect, useState, useMemo, useId } from "react";
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import Snackbar from "@root/components/Snackbar";
 import uniqueId from "lodash/uniqueId";
-import * as React from "react";
-import { memo, SyntheticEvent, useEffect, useRef, useState, useMemo } from "react";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
 import FileCard from "./FileCard";
-import { StyledFileGrid } from "./FormFieldUpload.styled";
-import { TransformedFile, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
+import { StyledFileList } from "./FormFieldUpload.styled";
+import { UploadDataPending, UploadData, UploadFieldInputSettings, isPendingUploadData } from "./FormFieldUploadTypes";
 import { FileExtensions } from "@root/utils/classes";
 import { pretty } from "@root/utils/formatters";
-import { MosaicObject } from "@root/types";
 import { sum } from "@root/utils/math/sum";
+import FileCardPending from "./FileCard/FileCardPending";
 
-const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, UploadData[]>) => {
+const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, (UploadData | UploadDataPending)[]>) => {
 	const {
 		fieldDef,
-		value,
+		value: providedValue,
 		onChange,
 		disabled,
 		methods,
+		id: providedId,
 	} = props;
 
 	const { addWait } = methods || {};
+	const generatedId = useId();
+	const id = providedId || generatedId;
 
 	const {
 		limit = -1,
@@ -33,26 +36,28 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		maxTotalSize,
 	} = fieldDef.inputSettings;
 
-	const [isOver, setIsOver] = useState(false);
-	const [pendingFiles, setPendingFiles] = useState<MosaicObject<TransformedFile>>({});
+	/**
+	 * Because dragEnter and dragLeave does not work the way you'd
+	 * expect (unlike like mouseEnter and mouseLeave, it seems to
+	 * fire for children as well as the target), we keep a count of
+	 * elements that are dragged over. More than 0 means the target
+	 * is dragged over.
+	 */
+	const [isOver, setIsOver] = useState<number>(0);
+
 	const [snackbar, setSnackbar] = useState<{ open: boolean; text: string }>({
 		open: false,
 		text: "",
 	});
-	const fileInputField = useRef(null);
-	const prevValueRef = useRef([]);
-	const currentLength = Object.keys(pendingFiles).length + (value || []).length;
+
+	const value = useMemo(() => providedValue || [], [providedValue]);
+	const currentLength = value.length;
 	const isMaxedOut = limit >= 0 && currentLength >= limit;
 
 	const fileExtensions = useMemo(() => new FileExtensions(accept), [accept]);
 
-	const pendingWithoutError = useMemo(() =>
-		Object.values(pendingFiles).filter((pendingFile: { error: string }) => pendingFile.error === undefined).length,
-	[pendingFiles],
-	);
-
-	useEffect(() => {
-		prevValueRef.current = value;
+	const pendingWithoutError = useMemo(() => {
+		return value.filter(item => isPendingUploadData(item) && item.error === undefined).length;
 	}, [value]);
 
 	/**
@@ -72,7 +77,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const dragEnter = (e) => {
 		e.preventDefault();
-		setIsOver(true);
+		setIsOver((over) => over + 1);
 	};
 
 	/**
@@ -82,7 +87,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	 */
 	const dragLeave = (e) => {
 		e.preventDefault();
-		setIsOver(false);
+		setIsOver((over) => over - 1);
 	};
 
 	/**
@@ -93,29 +98,16 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const fileDrop = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		setIsOver(false);
+		setIsOver(0);
 		const droppedFiles = { target: { files: e.dataTransfer.files } };
 		handleNewFileUpload(droppedFiles);
 	};
 
-	/**
-	 *  Triggers a click on the input of type file
-	 *  to prompt the file selection.
-	 */
-	const uploadFiles = () => {
-		fileInputField.current.click();
-	};
-
 	const onChunkComplete = async ({ uuid, percent }) => {
-		setPendingFiles((prevState) => (
-			{
-				...prevState,
-				[uuid]: {
-					...prevState[uuid],
-					percent: percent * 100,
-				},
-			}
-		));
+		onChange((items = []) => items.map(item => uuid === item.id ? ({
+			...item,
+			percent: percent * 100,
+		}) : item));
 	};
 
 	useEffect(() => {
@@ -141,25 +133,16 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	]);
 
 	const onUploadComplete = async ({ uuid, data }) => {
-		onChange(prevValueRef?.current ? [...prevValueRef.current, data] : [data]);
-
-		setPendingFiles((prevState) => {
-			const newPendingFiles = { ...prevState };
-			delete newPendingFiles[uuid];
-			return newPendingFiles;
-		});
+		onChange((items = []) => items.map(item => uuid === item.id ? ({
+			...data,
+		}) : item));
 	};
 
 	const onError = async ({ uuid, message }) => {
-		setPendingFiles((prevState) => (
-			{
-				...prevState,
-				[uuid]: {
-					...prevState[uuid],
-					error: message,
-				},
-			}
-		));
+		onChange((items = []) => items.map(item => uuid === item.id ? ({
+			...item,
+			error: message,
+		}) : item));
 	};
 
 	/**
@@ -177,34 +160,20 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			return;
 		}
 
-		let transformedFiles: { [key: string]: TransformedFile } = {};
-
-		newFiles.forEach(file => {
-			const id = uniqueId();
-
-			transformedFiles = {
-				...transformedFiles,
-				[id]: {
-					data: {
-						id,
-						name: file.name,
-						size: file.size,
-					},
-					percent: 0,
-					error: undefined,
-					rawData: file,
-				},
-			};
-		});
-
-		const pendingFilesEntries = Object.entries(pendingFiles);
-		const transformFilesEntries = Object.entries(transformedFiles);
+		const uploadQueueItems = newFiles.map<UploadDataPending>(file => ({
+			id: uniqueId(),
+			name: file.name,
+			size: file.size,
+			percent: 0,
+			error: undefined,
+			rawData: file,
+			isPending: true,
+		}));
 
 		if (maxTotalSize) {
 			const totalSize = sum([
-				...(value || []).map(({ size }) => size),
-				...pendingFilesEntries.map(([, item]) => item.rawData.size),
-				...transformFilesEntries.map(([, item]) => item.rawData.size),
+				...value.map(({ size }) => size),
+				...uploadQueueItems.map((item) => item.rawData.size),
 			]);
 
 			if (maxTotalSize < totalSize) {
@@ -226,46 +195,44 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		 * the percentage and error message, and which file to
 		 * remove from the pending when its upload is complete.
 		 */
-		setPendingFiles({ ...pendingFiles, ...transformedFiles });
+		onChange((items = []) => ([...items, ...uploadQueueItems]));
 
-		await Promise.all(transformFilesEntries.map(async ([key, file]) => {
-			if (!fileExtensions.isValidFileName(file.rawData.name)) {
-				onError({ uuid: key, message: `We only allow ${fileExtensions.human} file uploads` });
+		await Promise.all(uploadQueueItems.map(async (item) => {
+			if (!fileExtensions.isValidFileName(item.rawData.name)) {
+				onError({ uuid: item.id, message: `We only allow ${fileExtensions.human} file uploads` });
 				return;
 			}
 
-			if (maxFileSize && maxFileSize < file.rawData.size) {
-				onError({ uuid: key, message: `Individual file upload size should not exceed ${pretty(maxFileSize)}` });
+			if (maxFileSize && maxFileSize < item.rawData.size) {
+				onError({ uuid: item.id, message: `Individual file upload size should not exceed ${pretty(maxFileSize)}` });
 				return;
 			}
 
 			try {
 				await onFileAdd({
-					file: file?.rawData,
-					onChunkComplete: ({ percent }) => onChunkComplete({ uuid: key, percent }),
-					onUploadComplete: (data) => onUploadComplete({ uuid: key, data }),
-					onError: (message) => onError({ uuid: key, message }),
+					file: item?.rawData,
+					onChunkComplete: ({ percent }) => onChunkComplete({ uuid: item.id, percent }),
+					onUploadComplete: (data) => onUploadComplete({ uuid: item.id, data }),
+					onError: (message) => onError({ uuid: item.id, message }),
 				});
 			} catch (err) {
 				const message = err instanceof Error ? err.message : String(err);
-				onError({ uuid: key, message });
+				onError({ uuid: item.id, message });
 			}
 		}));
 	};
 
-	const handleFileDelete = async ({ id }) => {
-		await onFileDelete({ id });
+	const handleFileDelete = async (id: UploadData["id"], isPending = false) => {
+		onChange((items = []) => items.map(item => item.id === id ? ({
+			...item,
+			isDeleting: true,
+		}) : item));
 
-		const newValues = [...value].filter(file => file.id !== id);
-		await onChange(newValues);
-	};
+		if (!isPending) {
+			await onFileDelete({ id });
+		}
 
-	const handleErrorDelete = async ({ id }) => {
-		setPendingFiles((prevState) => {
-			const newPendingFiles = { ...prevState };
-			delete newPendingFiles[id];
-			return newPendingFiles;
-		});
+		onChange((items = []) => items.filter(item => item.id !== id));
 	};
 
 	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
@@ -280,21 +247,22 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		<>
 			{!isMaxedOut && (
 				<DragAndDropContainer
-					$isOver={isOver}
+					$isOver={Boolean(isOver)}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
 					onDrop={fileDrop}
 					data-testid="drag-and-drop-container"
+					htmlFor={`${id}-input`}
 				>
 					{isOver ? (
-						<DragAndDropSpan $isOver={isOver}>
+						<DragAndDropSpan $isOver={Boolean(isOver)}>
 							Release and Drop
 						</DragAndDropSpan>
 					) : (
 						<>
 							{!disabled && (
-								<DragAndDropSpan $isOver={isOver}>
+								<DragAndDropSpan $isOver={Boolean(isOver)}>
 									Drag & Drop files here or
 								</DragAndDropSpan>
 							)}
@@ -302,14 +270,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								color="gray"
 								variant="outlined"
 								label="UPLOAD FILES"
-								onClick={uploadFiles}
 								disabled={disabled}
+								as="label"
+								muiAttrs={{ htmlFor: `${id}-input` }}
 							/>
 						</>
 					)}
 					<FileInput
 						data-testid="input-file-test"
-						ref={fileInputField}
 						onChange={handleNewFileUpload}
 						title=""
 						type="file"
@@ -317,49 +285,30 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						disabled={disabled}
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
 						accept={fileExtensions.acceptAttr}
+						id={`${id}-input`}
 					/>
 				</DragAndDropContainer>
 			)}
-			{/**
-			 * We'll have 2 FileGrids, 1 for the successfully
-			 * uploaded files, and 1 for the pending / errors.
-			 */}
-			{value?.length > 0 && (
-				<StyledFileGrid>
-					{value.map(file => (
+			{value.length > 0 && (
+				<StyledFileList>
+					{value.map(file => isPendingUploadData(file) ? (
+						<FileCardPending
+							key={file.id}
+							{...file}
+							onFileDelete={({ id }) => handleFileDelete(id, true)}
+							disabled={disabled}
+							percent={file.percent}
+							error={file.error}
+						/>
+					) : (
 						<FileCard
 							key={file.id}
-							id={file.id}
-							name={file.name}
-							size={file.size}
-							thumbnailUrl={file.thumbnailUrl}
-							fileUrl={file.fileUrl}
-							downloadUrl={file.downloadUrl}
-							onFileDelete={handleFileDelete}
+							{...file}
+							onFileDelete={({ id }) => handleFileDelete(id)}
 							disabled={disabled}
 						/>
 					))}
-				</StyledFileGrid>
-			)}
-			{pendingFiles && Object.keys(pendingFiles).length > 0 && !disabled && (
-				<StyledFileGrid>
-					{Object.entries(pendingFiles).map(([key, file]) => {
-						return (
-							<FileCard
-								key={key}
-								id={key}
-								name={file.data?.name}
-								size={file.data?.size}
-								thumbnailUrl={file.data?.thumbnailUrl}
-								fileUrl={file.data?.fileUrl}
-								downloadUrl={file.data?.downloadUrl}
-								error={file.error}
-								percent={file.percent}
-								onFileDelete={file.error && handleErrorDelete}
-							/>
-						);
-					})}
-				</StyledFileGrid>
+				</StyledFileList>
 			)}
 			<Snackbar
 				autoHideDuration={6000}
