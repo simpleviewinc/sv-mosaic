@@ -2,6 +2,8 @@ import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import FileCard from "./FileCard";
+import FileCardPending from "./FileCardPending";
+import { FileCardPendingProps } from "./FileCardTypes";
 
 const onFileDelete = jest.fn();
 
@@ -20,17 +22,26 @@ const fileCards = [
 		size: 123,
 		onFileDelete,
 	},
+];
+
+const pendingFileCards: FileCardPendingProps[] = [
 	{ // Pending
 		id: "1",
 		name: "MyCard.jpg",
 		size: 123,
 		percent: 50,
+		isPending: true,
+		rawData: new File([""], "Woody.png"),
+		onFileDelete,
 	},
 	{ // Error
 		id: "1",
 		name: "MyCard.jpg",
 		size: 123,
 		error: "File size exceeded",
+		isPending: true,
+		rawData: new File([""], "Woody.png"),
+		onFileDelete,
 	},
 ];
 
@@ -68,28 +79,28 @@ describe("File card", () => {
 	});
 
 	it("Should render a pending card", () => {
-		render(<FileCard {...fileCards[2]} />);
+		render(<FileCardPending {...pendingFileCards[0]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
 		const progressBar = screen.getByRole("progressbar");
 
-		expect(name.textContent).toBe(fileCards[2].name);
-		expect(size.textContent).toBe(`${fileCards[2].size} B`);
-		expect(progressBar.getAttribute("aria-valuenow")).toBe(fileCards[2].percent.toString());
+		expect(name.textContent).toBe(pendingFileCards[0].name);
+		expect(size.textContent).toBe(`${pendingFileCards[0].size} B`);
+		expect(progressBar.getAttribute("aria-valuenow")).toBe(pendingFileCards[0].percent.toString());
 	});
 
 	it("Should render an uploaded card with img", () => {
-		render(<FileCard {...fileCards[3]} />);
+		render(<FileCardPending {...pendingFileCards[1]} />);
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
 		const errorIcon = screen.getByTestId("DoNotDisturbIcon");
 		const errorMessage = screen.getByText("File size exceeded");
 
-		expect(name.textContent).toBe(fileCards[3].name);
-		expect(size.textContent).toBe(`${fileCards[3].size} B`);
+		expect(name.textContent).toBe(pendingFileCards[1].name);
+		expect(size.textContent).toBe(`${pendingFileCards[1].size} B`);
 		expect(errorIcon).toBeInTheDocument();
-		expect(errorMessage.textContent).toBe(fileCards[3].error);
+		expect(errorMessage.textContent).toBe(pendingFileCards[1].error);
 	});
 });
