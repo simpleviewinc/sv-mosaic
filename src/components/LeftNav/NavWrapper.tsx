@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useEffect, useMemo, useRef, ReactElement, MouseEventHandler } from "react";
 import styled from "styled-components";
 import { LoremIpsum } from "react-lorem-ipsum";
-import debounce from "lodash/debounce";
 import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -14,6 +13,7 @@ import {
 	TransientProps,
 } from "../../";
 import { useStoryBookCssReset } from "../../utils/reactTools";
+import { useMediaQuery } from "@mui/material";
 
 const StyledTopBar = styled.div`
 	flex: 0 0 auto;
@@ -83,11 +83,6 @@ const AppDiv = styled.div<TransientProps<NavWrapperProps, "onlyContent">>`
 
 const localKey = "sv-mosaic-left-nav-variant";
 
-// If the innerWidth of our screen is less than 1024 we utilize mobile
-function isMobile() {
-	return window.innerWidth < 1024;
-}
-
 // iOS11-12 has a bug where events don't bubble up unless there is a listener of that type in the parent chain before the body.
 // This ensures that the outer wrapper has a click listener, allowing the LeftNav to properly close on a click away.
 // https://stackoverflow.com/a/39712411/435223
@@ -109,7 +104,8 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		name : props.items[0]?.name || "Home",
 	});
 
-	const variant = isMobile() ? "mobile" : state.variant;
+	const isDesktop = useMediaQuery("(min-width: 1024px)", { defaultMatches: true });
+	const variant = !isDesktop ? "mobile" : state.variant;
 
 	const onClick = function() {
 		setState({
@@ -147,27 +143,6 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 	const lorem = useMemo(() => {
 		return <LoremIpsum p={10} />;
 	}, []);
-
-	// add a resize listener for handling whether or not we are currently in mobile
-	useEffect(() => {
-		const resizeHandler = debounce(function() {
-			const shouldBeMobile = isMobile();
-
-			// if we are in mobile, ensure we are, if we aren't mobile, ensure we aren't
-			// triggers a re-render just by calling setState()
-			if ((shouldBeMobile && variant !== "mobile") || (!shouldBeMobile && variant === "mobile")) {
-				setState({
-					...state,
-				});
-			}
-		}, 100);
-
-		window.addEventListener("resize", resizeHandler);
-
-		return function() {
-			window.removeEventListener("resize", resizeHandler);
-		};
-	}, [state, variant]);
 
 	// on item change scroll to the top
 	const contentRef = useRef(null);
