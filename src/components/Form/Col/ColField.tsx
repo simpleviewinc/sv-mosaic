@@ -101,6 +101,7 @@ const ColField = ({
 			spacing={spacing}
 			methods={methods}
 			inputRef={inputRef}
+			disabled={disabled}
 		>
 			{children}
 		</Field>
