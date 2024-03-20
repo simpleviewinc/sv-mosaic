@@ -265,10 +265,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			size: "sm",
 			required: true,
 			inputSettings: {
-				options: addressTypes,
+				options: [
+					...addressTypes,
+					...(addressToEdit ? addressToEdit.types : []),
+				],
 			},
 		},
-	] : [], [addressTypes]);
+	] : [], [addressTypes, addressToEdit]);
 
 	const autoCompleteField = useMemo(
 		(): FieldDef[] =>
