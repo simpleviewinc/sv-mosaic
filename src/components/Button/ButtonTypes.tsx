@@ -1,5 +1,6 @@
 import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import { MenuItemProps } from "../MenuItem";
+import { WebTarget } from "styled-components";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 export interface ButtonProps {
@@ -35,6 +36,7 @@ export interface ButtonProps {
 	component?: React.ComponentType;
 	type?: "button" | "submit";
 	id?: string;
+	as?: WebTarget;
 }
 
 export interface ButtonPopoverContextProps {
