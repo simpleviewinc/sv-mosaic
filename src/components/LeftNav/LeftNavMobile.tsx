@@ -50,57 +50,82 @@ const RootDiv = styled(LeftNavRoot)`
 	}
 `;
 
+/**
+ * Finds the parent of an item with a given name. Group
+ * items do not count as parents, the closest ancestor
+ * that is not a group is considered the parent.
+ */
+function findParent(items: LeftNavItemDef[], name: string, current?: LeftNavItemDef): undefined | LeftNavItemDef {
+	for (const item of items) {
+		if (item.name === name) {
+			return current;
+		}
+
+		if (item.items) {
+			const parent = findParent(item.items, name, item.type === "group" ? current : item);
+
+			if (parent) {
+				return parent;
+			}
+		}
+	}
+}
+
+/**
+ * Simple recursive function to search for an item by
+ * a given name.
+ */
+function findItem(items: LeftNavItemDef[], name: string): undefined | LeftNavItemDef {
+	for (const item of items) {
+		if (item.name === name) {
+			return item;
+		}
+
+		if (item.items) {
+			const child = findItem(item.items, name);
+
+			if (child) {
+				return child;
+			}
+		}
+	}
+}
+
+const ROOT_NAME = "_internal.root";
+
 function LeftNavMobile(props: LeftNavProps): ReactElement {
-	const mobileRoot: LeftNavItemDef = useMemo(() => ({
-		name : "root",
-		label : "Main Menu",
-		items : props.items,
-	}), [props.items]);
+	// Derive items from those provided in props, but create
+	// a new level to act as the top level main menu
+	const items = useMemo<LeftNavItemDef[]>(() => ([
+		{
+			name: ROOT_NAME,
+			label: "Main Menu",
+			items: props.items,
+		},
+	]), [props.items]);
 
-	const defaultState = {
-		history : [mobileRoot],
-	};
+	const [name, setName] = useState<string | undefined>(ROOT_NAME);
 
-	const [state, setState] = useState(defaultState);
+	const { current, previous } = useMemo(() => ({
+		current: findItem(items, name),
+		previous: findParent(items, name),
+	}), [items, name]);
 
 	const leftNavContext = useContext(LeftNavContext);
 
-	const current = state.history[state.history.length - 1];
-	const previous = state.history.length > 1 ? state.history[state.history.length - 2] : undefined;
-
 	const onClose = function() {
-		setState(defaultState);
-
+		setName(ROOT_NAME);
 		props.onClose();
 	};
 
 	const onNav: LeftNavOnNav = function(args) {
-		setState(defaultState);
-
+		setName(ROOT_NAME);
 		leftNavContext.onNav(args);
 	};
 
-	const onOpen = function(name) {
-		const allItems = [
-			...current.items,
-			...current.items.filter(val => val.type === "group").map(val => val.items).flat(),
-		];
-
-		const item = allItems.find(val => val.name === name);
-
-		setState({
-			...state,
-			history : [...state.history, item],
-		});
-	};
-
 	const onBack = function() {
-		const newHistory = state.history.slice(0, -1);
-
-		setState({
-			...state,
-			history : newHistory,
-		});
+		const parent = findParent(items, name);
+		setName(parent.name);
 	};
 
 	const newContext = {
@@ -108,6 +133,13 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 		onNav,
 		ItemComponent : LeftNavItemMobile,
 	};
+
+	// Don't break if the items happen to change whilst
+	// a sub menu is selected.
+	if (!current) {
+		setName(ROOT_NAME);
+		return null;
+	}
 
 	return (
 		<LeftNavDrawer
@@ -134,7 +166,7 @@ function LeftNavMobile(props: LeftNavProps): ReactElement {
 					<LeftNavScroller>
 						<LeftNavItems
 							items={current.items}
-							onOpen={onOpen}
+							onOpen={setName}
 						/>
 					</LeftNavScroller>
 				</RootDiv>
