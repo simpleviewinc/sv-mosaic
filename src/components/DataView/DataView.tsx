@@ -280,6 +280,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	return (
 		<StyledWrapper
+			aria-busy={props.loading ? true : false}
 			className={`
 				${props.loading ? "loading" : ""}
 				${props.sticky ? "sticky" : ""}
