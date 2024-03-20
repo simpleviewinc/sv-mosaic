@@ -44,7 +44,6 @@ const Form = (props: FormProps) => {
 		description,
 		getFormValues,
 		handleDialogClose,
-		showActive,
 		scrollSpyThreshold = 0.15,
 		fullHeight = true,
 		spacing = "normal",
@@ -290,7 +289,6 @@ const Form = (props: FormProps) => {
 							backLabel={backLabel}
 							description={description}
 							buttons={buttonsWithDisable}
-							showActive={showActive}
 							bottomBorder={sideNavItems.length < 2}
 							collapse={topCollapseContainer}
 						/>
