@@ -21,10 +21,6 @@ export type TopProps = {
 	onBack?: FormProps["onBack"];
 	backLabel?: FormProps["backLabel"];
 	/**
-	 * If present, the active checkbox is displayed.
-	 */
-	showActive?: boolean;
-	/**
 	 * Icon to be displayed when developers pass additional instructions
 	 * or information for the form.
 	 */

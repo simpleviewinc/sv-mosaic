@@ -34,7 +34,6 @@ export interface FormProps {
 	getFormValues?(): Promise<MosaicObject>;
 	handleDialogClose?: (val: boolean) => void;
 	buttons?: ButtonProps[];
-	showActive?: boolean;
 	scrollSpyThreshold?: number;
 	fullHeight?: boolean;
 	spacing?: FormSpacing;
