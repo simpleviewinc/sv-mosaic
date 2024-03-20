@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { boolean, select, text, withKnobs } from "@storybook/addon-knobs";
 import { renderButtons } from "@root/utils/storyUtils";
-import { FieldDef } from "..";
+import { FieldDef, FieldDefAddress } from "..";
 import Form, { useForm } from "@root/components/Form";
 import { getOptionsCountries, getOptionsStates } from "./utils/optionGetters";
 
@@ -19,6 +19,12 @@ const amountOptions = [
 	4,
 	5,
 ];
+
+const commonInputSettings = {
+	getOptionsCountries,
+	getOptionsStates,
+	googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+};
 
 export const Playground = (): ReactElement => {
 	const controller = useForm();
@@ -46,24 +52,12 @@ export const Playground = (): ReactElement => {
 						amountShipping: amountShipping === "undefined" ? undefined : Number(amountShipping),
 						amountPhysical: amountPhysical === "undefined" ? undefined : Number(amountPhysical),
 						amountBilling: amountBilling === "undefined" ? undefined : Number(amountBilling),
-						getOptionsCountries,
-						getOptionsStates,
-						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+						...commonInputSettings,
 					},
 				},
 			]
 		),
-		[
-			disabled,
-			label,
-			required,
-			amountPerType,
-			amountShipping,
-			amountPhysical,
-			amountBilling,
-			getOptionsCountries,
-			getOptionsStates,
-		],
+		[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling],
 	);
 
 	return (
@@ -77,5 +71,56 @@ export const Playground = (): ReactElement => {
 				fields={fields}
 			/>
 		</>
+	);
+};
+
+const fields: FieldDefAddress[] = [
+	{
+		label: "Provide a physical address",
+		name: "physicalOnly",
+		type: "address",
+		inputSettings: {
+			amountPhysical: 1,
+			...commonInputSettings,
+		},
+	},
+	{
+		label: "Provide 1 physical address and 1 shipping address",
+		name: "physicalAndShipping",
+		type: "address",
+		inputSettings: {
+			amountPhysical: 1,
+			amountShipping: 1,
+			...commonInputSettings,
+		},
+	},
+	{
+		label: "Provide any combination of addresses with a maximum of 1 each",
+		name: "anyCombinationMax1",
+		type: "address",
+		inputSettings: {
+			...commonInputSettings,
+		},
+	},
+	{
+		label: "Provide any combination of addresses with no maximum",
+		name: "anyCombinationNoMax",
+		type: "address",
+		inputSettings: {
+			amountPerType: -1,
+			...commonInputSettings,
+		},
+	},
+];
+
+export const KitchenSink = (): ReactElement => {
+	const controller = useForm();
+
+	return (
+		<Form
+			{...controller}
+			title="Address Field"
+			fields={fields}
+		/>
 	);
 };

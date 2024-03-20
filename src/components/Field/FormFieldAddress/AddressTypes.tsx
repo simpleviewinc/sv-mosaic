@@ -58,3 +58,8 @@ export type AddressFieldInputSettings = {
 export type AddressData = IAddress[];
 
 export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings>;
+
+export type AddressType = MosaicLabelValue & {
+	inputSettingsKey: string;
+	limit?: number;
+};
