@@ -33,7 +33,7 @@ export const Playground = (): ReactElement => {
 	);
 	const getOptionsLimit = number("Get options limit", 5);
 	const createNewOptionsKnob = boolean("Create new option", true);
-	const selectLimit = text("Select limit", "");
+	const selectLimit = number("Select limit", -1);
 
 	const categoriesApi = new JSONDB(categories);
 
@@ -86,7 +86,7 @@ export const Playground = (): ReactElement => {
 							? getOptionsLimit
 							: undefined,
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
-						selectLimit: selectLimit.trim() !== "" && !isNaN(Number(selectLimit)) ? Number(selectLimit) : undefined,
+						selectLimit,
 					},
 				},
 			],
