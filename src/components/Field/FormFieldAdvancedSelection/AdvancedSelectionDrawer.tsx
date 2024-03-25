@@ -67,6 +67,10 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 		};
 	};
 
+	// TODO: Already doing this in FormFieldAdvancedSelection.
+	// Clean it up.
+	const selectLimit = (fieldDef?.inputSettings?.selectLimit || 0) > 0 ? fieldDef?.inputSettings?.selectLimit : -1;
+
 	return (
 		<FormDrawerWrapper className="advancedSelection">
 			<PageHeader
@@ -83,7 +87,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 				onApply={onSubmit}
 				placeholder="Search..."
 				limit={externalOptions?.getOptionsLimit}
-				selectLimit={fieldDef.inputSettings?.selectLimit}
+				selectLimit={selectLimit}
 				onChange={(value) => setSelectedOptions(value)}
 				hideButtons={true}
 				createNewOption={fieldDef.inputSettings?.createNewOption}
