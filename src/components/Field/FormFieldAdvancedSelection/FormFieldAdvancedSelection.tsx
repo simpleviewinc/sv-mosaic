@@ -38,6 +38,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isMobileView, setIsMobileView] = useState(false);
 
+	const selectLimit = (fieldDef?.inputSettings?.selectLimit || 0) > 0 ? fieldDef?.inputSettings?.selectLimit : -1;
+
 	useEffect(() => {
 		const setResponsiveness = () => {
 			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
@@ -80,7 +82,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		<>
 			{value?.length > 0 && !isModalOpen ? (
 				<AdvancedSelectionWrapper>
-					{(!fieldDef?.inputSettings?.selectLimit || value?.length < fieldDef?.inputSettings?.selectLimit) && (
+					{(selectLimit < 0 || value?.length < selectLimit) && (
 						<Button
 							color="teal"
 							variant="text"

@@ -17,7 +17,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 	}
 
 	if (def.type === "advancedSelection") {
-		if (def.inputSettings.selectLimit === 1) {
+		if (def.inputSettings.selectLimit < 2) {
 			return;
 		}
 
