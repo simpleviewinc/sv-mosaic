@@ -40,7 +40,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 
 	// mark the active comparison
 	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
-	const disabled = state.selected.length >= props.selectLimit;
+	const disabled = props.selectLimit > 0 && state.selected.length >= props.selectLimit;
 
 	useEffect(() => {
 		async function fetchData() {
