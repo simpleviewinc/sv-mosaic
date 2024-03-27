@@ -1,5 +1,41 @@
 # sv-mosaic changelog
 
+## 32.1.0 - 04/02/24
+
+### Improvements & Fixes
+
+* `DataView`
+  * [MOS-1179](https://simpleviewtools.atlassian.net/browse/MOS-1179 "https://simpleviewtools.atlassian.net/browse/MOS-1179")
+    * Adds the `aria-busy` attribute to `DataView` wrapper which should be used for awaiting within tests over the `.loading` class.
+* `FormFieldAdvancedSelection`
+  * [MOS-1181](https://simpleviewtools.atlassian.net/browse/MOS-1181 "https://simpleviewtools.atlassian.net/browse/MOS-1181")
+    * For text and text editor fields, where a `maxCharacters` property is provided, there is a *x/y* figure that appears above the input reflecting the maximum characters and the current amount of characters. With this change, we are utilising this same figure for the advanced selection field to denote how many items can be selected and how many items are currently selected. The figure only appears if `selectLimit` is more than 1.
+* `FormFieldAddress`
+  * [MOS-1206](https://simpleviewtools.atlassian.net/browse/MOS-1206 "https://simpleviewtools.atlassian.net/browse/MOS-1206")
+    * Refactors the address field slightly to ensure the "Add Address" button doesn't render when there are no more possible address types. Also creates a Kitchen Sink story for easier testing.
+* `FormFieldUpload`
+  * [MOS-1256](https://simpleviewtools.atlassian.net/browse/MOS-1256 "https://simpleviewtools.atlassian.net/browse/MOS-1256")
+    * Modifies the `setFieldValue` method of the form controller and by further extension the `onChange` method that fields recieve, to allow for a callback style value setter. That callback recieves the most up to date value as a reference.
+    * Merges pending items with current value items and utilises internal data to store both sets as a single array.
+    * Splits the `FileCard` component into `FileCard` for uploaded items and `FileCardPending` for pending uploads due to their specialised responsibilities.
+    * Moves the form value cleaner to the default resolver instead of performing value cleaning inside `setFieldValue` making individual field value resolvers responsible for cleaning their values.
+    * Removes the button onclick hack with proper HTML labels with `for` attributes.
+    * Fixes drag over functionality by keeping a `dragEnter` and `dragLeave` counter instead of using a boolean.
+    * Corrects deletion order of operations and displays a spinner whilst an item is being deleted.
+    * Other minor refactors such as reordering and renaming of types.
+* `FormFieldDate`
+  * [MOS-1285](https://simpleviewtools.atlassian.net/browse/MOS-1285 "https://simpleviewtools.atlassian.net/browse/MOS-1285")
+    * Forces the date field to use the `DesktopDatePicker` rather than the `DatePicker` MUI component to avoid issues when testing caused by headless browsers not supporting the `(pointer: fine)` media query.
+* `Form`
+  * [MOS-1295](https://simpleviewtools.atlassian.net/browse/MOS-1295 "https://simpleviewtools.atlassian.net/browse/MOS-1295")
+    * Removes the "active" checkbox that can appear at the top of the `Form` component and all references to it.
+* `LeftNav`
+  * [MOS-1297](https://simpleviewtools.atlassian.net/browse/MOS-1297 "https://simpleviewtools.atlassian.net/browse/MOS-1297")
+    * Eliminates the dual state that is present in `LeftNav` by not storing items provided to `LeftNavProps` in local state.
+* `Field`
+  * [MOS-1301](https://simpleviewtools.atlassian.net/browse/MOS-1301 "https://simpleviewtools.atlassian.net/browse/MOS-1301")
+    * Adds a `aria-disabled` attribute to field wrappers to denote disabled state and assist with testing.
+
 ## 32.0.0 - 03/19/24
 
 ### Improvements & Fixes
