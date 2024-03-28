@@ -30,21 +30,17 @@ body[data-env] .sidebar-header{
 }
 
 body[data-env="local"] .env-banner{
-    background-color: #797979;
-}
-
-body[data-env="develop"] .env-banner{
     background-color: #a245aa;
 }
 
+body[data-env="develop"] .env-banner{
+    background-color: #eb9817;
+}
+
 body[data-env="qa"] .env-banner{
-    background-color: #b94141;
+    background-color: #d7631e;
 }
 
 body[data-env="staging"] .env-banner{
-    background-color: #c86a3d;
-}
-
-#root[data-env="master"] .env-banner{
-    background-color: #6d9d4c;
+    background-color: #44a841;
 }
