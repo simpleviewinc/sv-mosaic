@@ -19,8 +19,4 @@ export const environments = [
         location: "simpleviewinc.github.io/sv-mosaic/staging",
         name: "staging",
     },
-    {
-        location: "simpleviewinc.github.io/sv-mosaic/master",
-        name: "master",
-    },
 ];
