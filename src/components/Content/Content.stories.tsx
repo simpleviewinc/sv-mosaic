@@ -4,7 +4,7 @@ import { withKnobs, text, boolean, select } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import Content, { ContentField } from ".";
+import Content, { ContentFieldDef } from ".";
 import {
 	transform_chips,
 	transform_colorPicker,
@@ -75,6 +75,7 @@ const data = {
 	emptyArrayValue: [],
 	animals: [{ id: 1, species: "Dog", color: "Brown" }, { id: 2, species: "Cat", color: "White" }],
 	cars: [{ id: 1, make: "BMW", model: "M3" }, { id: 2, make: "Volkswagen", model: "Golf" }],
+	multipleTransforms: "This is some text",
 };
 
 const sectionConfigs = {
@@ -87,12 +88,14 @@ const sectionConfigs = {
 		[["chipsAsValue"]],
 		[["animals"]],
 		[["cars"]],
+		[["multipleTransforms"]],
 	],
 	"Multiple Columns": [
 		[["tags"], ["colorPicker"]],
 		[["toggle"], ["date"]],
 		[["thumbnail"], ["chipsAsValue"]],
 		[["animals"], ["cars"]],
+		[["multipleTransforms"]],
 	],
 };
 
@@ -102,6 +105,7 @@ export const Playground = (): ReactElement => {
 	const sectionConfigKey = select("Sections", ["Single Column", "Multiple Columns"], "Single Column");
 	const showButtons = select("Buttons", ["1", "2", "0", "undefined"], "2");
 	const useSections = boolean("Use sections", true);
+	const showFirstRowItems = boolean("Show first row items", true);
 	const amountContent = select(
 		"Amount of contents",
 		[1, 2],
@@ -138,12 +142,13 @@ export const Playground = (): ReactElement => {
 		},
 	];
 
-	const fields: ContentField[] = [
+	const fields: ContentFieldDef[] = [
 		{
 			name: "chips",
 			label: "Chips using transform_chips()",
 			transforms: [transform_chips()],
 			column: "tags",
+			show: showFirstRowItems,
 		},
 		{
 			name: "toggle",
@@ -160,6 +165,7 @@ export const Playground = (): ReactElement => {
 			label: "Color using transform_colorPicker()",
 			transforms: [transform_colorPicker()],
 			column: "colorPicker",
+			show: showFirstRowItems,
 		},
 		{
 			name: "thumbnail",
@@ -179,6 +185,14 @@ export const Playground = (): ReactElement => {
 			name: "cars",
 			label: "Cars",
 			transforms: [transform_dataview({ columns: [{ name: "make", label: "Make" }, { name: "model", label: "Model" }] })],
+		},
+		{
+			name: "multipleTransforms",
+			label: "Multiple Transforms",
+			transforms: [
+				({ data }) => <div style={{ color: "red" }}>{data as string}</div>,
+				({ data }) => <div style={{ fontSize: "2rem" }}>{data as React.ReactNode}</div>,
+			],
 		},
 	];
 
@@ -229,7 +243,7 @@ export const KitchenSink = (): ReactElement => {
 		},
 	];
 
-	const fields: ContentField[] = [
+	const fields: ContentFieldDef[] = [
 		{
 			name: "chips",
 			label: "Chips using transform_chips()",

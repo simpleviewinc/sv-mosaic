@@ -26,7 +26,7 @@ export type MosaicToggleCallback<T = unknown> = T extends object
 
 export type MosaicToggle<T = unknown> = WithArrayOf<MosaicToggleResult | MosaicToggleCallback<T>>;
 
-export type MosaicGridConfig = string[][][];
+export type MosaicGridConfig<T = string> = T[][][];
 
 export type MosaicCSSContainer = {
 	name?: keyof typeof CONTAINERS;
