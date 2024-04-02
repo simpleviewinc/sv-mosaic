@@ -3,7 +3,7 @@ import {
 	ReactElement,
 	useMemo,
 } from "react";
-import { ContentProps } from "./ContentTypes";
+import { ContentFieldDef, ContentProps } from "./ContentTypes";
 
 // Components
 import {
@@ -13,35 +13,37 @@ import {
 	FieldsList,
 } from "./Content.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
-import ContentRow from "./ContentRow";
+import ContentField from "./ContentRow";
 import { MosaicGridConfig } from "@root/types";
 import { SubtitleText } from "../Typography";
+import { getToggle } from "@root/utils";
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fields, data, sections, title, buttons = [], variant } = props;
+	const { fields, data, sections: providedSections, title, buttons = [], variant } = props;
 
 	const cardVariant = variant === "card" ? true : false;
 
-	/**
-	 * Generates the sections that will be iterated to render the fields
-	 * as they're positioned. If no sections are provided it will return
-	 * a one-single column section using the field's name or colum if defined.
-	 * @returns the sections that contains the names of the fields
-	 */
-	const sectionsToRender = useMemo(() => {
-		const newSections: MosaicGridConfig = [];
+	const sectionsWithFields = useMemo<MosaicGridConfig<ContentFieldDef>>(() => {
+		const sections: MosaicGridConfig = providedSections || fields.map(({ name, column }) => [[column || name]]);
 
-		if (!sections) {
-			fields.forEach(field => {
-				const fieldName = field?.column ? field.column : field.name;
-				newSections.push([[fieldName]]);
-			});
+		return sections.map((rows, sectionIdx) => rows.map((columns, rowIdx) => columns.map(fieldName => {
+			const field = fields.find(({ name, column }) => (column || name) === fieldName);
 
-			return newSections;
-		}
+			if (!field) {
+				throw new Error(`No field declared for field name '${fieldName}'. (${providedSections ? `section ${sectionIdx}, row ${rowIdx}` : `field ${sectionIdx}`})`);
+			}
 
-		return sections;
-	}, [sections]);
+			if (!getToggle(field.show, true)) {
+				return;
+			}
+
+			return field;
+		}).filter(Boolean))).filter(rows => rows.flat().length);
+	}, [fields, providedSections]);
+
+	if (!data) {
+		return null;
+	}
 
 	return (
 		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
@@ -55,19 +57,17 @@ const Content = (props: ContentProps): ReactElement => {
 				)}
 			</TitleWrapper>
 			<FieldsList className={cardVariant ? "card-content" : ""}>
-				{data && sectionsToRender.map((section, idx) => (
+				{sectionsWithFields.map((rows, idx) => (
 					<ContentRowWrapper
 						key={`${idx}-row`}
 						className={cardVariant ? "card-row" : ""}
-						$columns={section.length}
+						$columns={rows.length}
 					>
-						{section.map((field, idx) => (
-							<ContentRow
-								key={`${field[0]}-${idx}`}
-								fields={fields}
-								field={field[0]}
-								rowIndex={idx}
-								data={data}
+						{rows.map(([field]) => field && (
+							<ContentField
+								{...field}
+								key={field.name}
+								value={data[field.column || field.name]}
 							/>
 						))}
 					</ContentRowWrapper>
