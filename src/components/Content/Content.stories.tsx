@@ -90,11 +90,17 @@ const sectionConfigs = {
 		[["cars"]],
 		[["multipleTransforms"]],
 	],
-	"Multiple Columns": [
+	"Two Columns": [
 		[["tags"], ["colorPicker"]],
 		[["toggle"], ["date"]],
 		[["thumbnail"], ["chipsAsValue"]],
 		[["animals"], ["cars"]],
+		[["multipleTransforms"]],
+	],
+	"Three Columns": [
+		[["tags"], ["colorPicker"], []],
+		[["toggle"], ["date"], ["thumbnail"]],
+		[["animals"], ["cars"], ["chipsAsValue"]],
 		[["multipleTransforms"]],
 	],
 };
@@ -102,7 +108,7 @@ const sectionConfigs = {
 export const Playground = (): ReactElement => {
 	const title = text("Title", "Main Content Title");
 	const variant = select("Variant", ["standard", "card"], "standard");
-	const sectionConfigKey = select("Sections", ["Single Column", "Multiple Columns"], "Single Column");
+	const sectionConfigKey = select("Sections", ["Single Column", "Two Columns", "Three Columns"], "Single Column");
 	const showButtons = select("Buttons", ["1", "2", "0", "undefined"], "2");
 	const useSections = boolean("Use sections", true);
 	const showFirstRowItems = boolean("Show first row items", true);
