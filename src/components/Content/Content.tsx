@@ -11,12 +11,14 @@ import {
 	TitleWrapper,
 	ContentRowWrapper,
 	FieldsList,
+	FieldContainer,
 } from "./Content.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentField from "./ContentRow";
 import { MosaicGridConfig } from "@root/types";
 import { SubtitleText } from "../Typography";
 import { getToggle } from "@root/utils";
+import testIds from "@root/utils/testIds";
 
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections: providedSections, title, buttons = [], variant } = props;
@@ -63,12 +65,14 @@ const Content = (props: ContentProps): ReactElement => {
 						className={cardVariant ? "card-row" : ""}
 						$columns={rows.length}
 					>
-						{rows.map(([field]) => field && (
+						{rows.map(([field]) => field ? (
 							<ContentField
 								{...field}
 								key={field.name}
 								value={data[field.column || field.name]}
 							/>
+						) : (
+							<FieldContainer data-testid={testIds.CONTENT_FIELD} />
 						))}
 					</ContentRowWrapper>
 				))}
