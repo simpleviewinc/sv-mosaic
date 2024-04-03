@@ -3,7 +3,7 @@ import { DataViewColumnTransform } from "../DataView";
 import { SectionDef } from "../Form/FormTypes";
 import { ButtonProps } from "@root/components/Button";
 
-export interface ContentField {
+export interface ContentFieldDef {
 	/**
    * The name of the field is used to check if
    * is a valid compared with the sections.
@@ -34,7 +34,7 @@ export interface ContentProps {
 	/**
    * List of the definitions of the fields that will be render.
    */
-	fields: ContentField[];
+	fields: ContentFieldDef[];
 	/**
    * Data that will be used by the transform function of each
    * field to generate the corresponding JSX element.
@@ -61,27 +61,6 @@ export interface ContentProps {
 	variant?: "standard" | "card";
 }
 
-export interface ContentFieldProps {
-	/**
-   * Text positioned above each field
-   */
-	label: React.ReactNode;
-	/**
-   * JSX Element | raw data
-   */
-	content?: unknown;
-}
-
-export interface ContentRowProps {
-	fields: ContentField[];
-	/**
-   * The name of the field specified in the sections array
-   */
-	field: string;
-	/**
-   * This index is by the error that is thrown to point where
-   * an invalid field was defined within the sections layout
-   */
-	rowIndex: number;
-	data: MosaicObject;
-}
+export type ContentFieldProps = ContentFieldDef & {
+	value: unknown;
+};
