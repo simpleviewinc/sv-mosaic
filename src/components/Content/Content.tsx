@@ -72,7 +72,7 @@ const Content = (props: ContentProps): ReactElement => {
 								value={data[field.column || field.name]}
 							/>
 						) : (
-							<FieldContainer data-testid={testIds.CONTENT_FIELD} />
+							<FieldContainer key={idx} data-testid={testIds.CONTENT_FIELD} />
 						))}
 					</ContentRowWrapper>
 				))}

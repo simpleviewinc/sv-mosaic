@@ -298,7 +298,7 @@ export const KitchenSink = (): ReactElement => {
 	const columns = [
 		[["tags"], ["colorPicker"], []],
 		[["toggle"], ["date"], ["colorPicker"]],
-		[["thumbnail"], ["chipsAsValue"], ["thumbnail"]],
+		[["thumbnail"], ["chipsAsValue"], []],
 		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]],
 	];
 
