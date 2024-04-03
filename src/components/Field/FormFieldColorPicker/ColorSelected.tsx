@@ -7,12 +7,16 @@ const ColorSelected = (props: ColorSelectedProps): ReactElement => {
 	const { disabled, color, onClick, displayColorPicker } = props;
 
 	return (
-		<ColorContainer $disabled={disabled} $displayColorPicker={displayColorPicker}>
+		<ColorContainer
+			$disabled={disabled}
+			$displayColorPicker={displayColorPicker}
+			onClick={onClick}
+			type="button"
+		>
 			<ColorDiv
 				data-testid="colordiv-test"
 				$disabled={disabled}
 				$color={color}
-				onClick={onClick}
 			/>
 		</ColorContainer>
 	);
