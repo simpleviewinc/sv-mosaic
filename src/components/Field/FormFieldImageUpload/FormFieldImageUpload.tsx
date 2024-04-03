@@ -250,7 +250,6 @@ const FormFieldImageUpload = (
 								disabled={disabled}
 								label="UPLOAD FILES"
 								onClick={uploadFiles}
-								muiAttrs={{ disableRipple: true }}
 							/>
 						</>
 					)}
