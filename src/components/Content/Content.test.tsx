@@ -6,7 +6,7 @@ import {
 } from "@testing-library/react";
 import * as React from "react";
 import Content from "./Content";
-import { ContentField } from "./ContentTypes";
+import { ContentFieldDef } from "./ContentTypes";
 import {
 	transform_boolean,
 	transform_chips,
@@ -21,7 +21,7 @@ import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
-const fields: ContentField[] = [
+const fields: ContentFieldDef[] = [
 	{
 		name: "chips",
 		label: "Chips",
