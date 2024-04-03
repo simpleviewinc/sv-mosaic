@@ -5,6 +5,7 @@ export const StyledTable = styled.table`
   border-collapse: collapse;
   color: ${theme.newColors.almostBlack["100"]};
   background-color: white;
+  width: 100%;
 `;
 
 export const Th = styled.th`
