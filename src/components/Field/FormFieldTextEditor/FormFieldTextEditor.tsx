@@ -68,6 +68,7 @@ const FormFieldTextEditor = (
 		direction,
 		language,
 		limitChars: maxCharacters,
+		tabIndex: 0,
 	}), [
 		disabled,
 		spellcheck,
