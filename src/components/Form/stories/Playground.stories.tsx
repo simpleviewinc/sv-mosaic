@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useCallback } from "react";
-import { withKnobs, boolean, object, text, select, number } from "@storybook/addon-knobs";
+import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
@@ -40,6 +40,96 @@ const createNewOption = async (newOptionLabel) => {
 	return newOption;
 };
 
+const prepopulateValues = {
+	"textField": "Text field from getFormValues",
+	"check": [
+		{
+			label: "Label 1",
+			value: "label_1",
+		},
+		{
+			label: "Label 2",
+			value: "label_2",
+		},
+	],
+	"chipSelect": {
+		"label": "Label 1",
+		"value": "label_1",
+	},
+	"dropdownSingle": {
+		"label": "The Dark Knight",
+		"value": "2008",
+	},
+	"phoneSelect": "15205751152",
+	"radio": {
+		label: "Label 2",
+		value: "label_2",
+	},
+	"toggleSwitch": true,
+	"color": "#a8001791",
+	"date": new Date(),
+	"time": "16:30",
+	"address": [
+		{
+			"id": 1,
+			"address1": "8950 N. Oracle Road",
+			"city": "Tuczon",
+			"postalCode": "85704",
+			"country": { label: "United States", value: "US" },
+			"state": { label: "Arizona", value: "AZ" },
+			"types": [
+				{ label: "Physical", value: "physical" },
+			],
+		},
+	],
+	"advancedSelection": [
+		{
+			label: "getFormValues 1",
+			value: "getFormValues option 1",
+		},
+		{
+			label: "getFormValues 2",
+			value: "getFormValues option 2",
+		},
+		{
+			label: "getFormValues 3",
+			value: "getFormValues option 3",
+		},
+		{
+			label: "getFormValues 4",
+			value: "getFormValues option 4",
+		},
+	],
+	"imageVideoDocumentLink": [
+		{
+			"label": "Type",
+			"value": "Image Video Thumbnail",
+		},
+	],
+	"imageUpload": {
+		imgName: "pexels-isaac-ramos-17583913.jpg",
+		size: 499318,
+		type: "image/jpeg",
+		height: 1080,
+		width: 1620,
+	},
+	"mapCoordinates": {
+		lat: 48.858384,
+		lng: 2.294567,
+	},
+	"upload": [
+		{
+			id: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+			name: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
+			size: 499318,
+			thumbnailUrl: imageVideoSrc,
+			fileUrl: imageVideoSrc,
+		},
+	],
+	"textEditor": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
+	"numberTable": numberTableDefaultValue,
+};
+
 export const Playground = (): ReactElement => {
 	const controller = useForm();
 	const { state, methods, handleSubmit } = controller;
@@ -67,95 +157,6 @@ export const Playground = (): ReactElement => {
 	const showSections = select("Show sections", [0, 1, 2, 3], 0);
 	const collapsed = boolean("Collapse sections", false);
 	const containerHeight = text("Container Height (500px, 50rem, etc..)", "100vh");
-	const prepopulateValues = object("Prepolulate values", {
-		"textField": "Text field from getFormValues",
-		"check": [
-			{
-				label: "Label 1",
-				value: "label_1",
-			},
-			{
-				label: "Label 2",
-				value: "label_2",
-			},
-		],
-		"chipSelect": {
-			"label": "Label 1",
-			"value": "label_1",
-		},
-		"dropdownSingle": {
-			"label": "The Dark Knight",
-			"value": "2008",
-		},
-		"phoneSelect": "15205751152",
-		"radio": {
-			label: "Label 2",
-			value: "label_2",
-		},
-		"toggleSwitch": true,
-		"color": "#a8001791",
-		"date": new Date(),
-		"time": "16:30",
-		"address": [
-			{
-				"id": 1,
-				"address1": "8950 N. Oracle Road",
-				"city": "Tuczon",
-				"postalCode": "85704",
-				"country": { label: "United States", value: "US" },
-				"state": { label: "Arizona", value: "AZ" },
-				"types": [
-					{ label: "Physical", value: "physical" },
-				],
-			},
-		],
-		"advancedSelection": [
-			{
-				label: "getFormValues 1",
-				value: "getFormValues option 1",
-			},
-			{
-				label: "getFormValues 2",
-				value: "getFormValues option 2",
-			},
-			{
-				label: "getFormValues 3",
-				value: "getFormValues option 3",
-			},
-			{
-				label: "getFormValues 4",
-				value: "getFormValues option 4",
-			},
-		],
-		"imageVideoDocumentLink": [
-			{
-				"label": "Type",
-				"value": "Image Video Thumbnail",
-			},
-		],
-		"imageUpload": {
-			imgName: "pexels-isaac-ramos-17583913.jpg",
-			size: 499318,
-			type: "image/jpeg",
-			height: 1080,
-			width: 1620,
-		},
-		"mapCoordinates": {
-			lat: 48.858384,
-			lng: 2.294567,
-		},
-		"upload": [
-			{
-				id: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
-				name: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
-				size: 499318,
-				thumbnailUrl: imageVideoSrc,
-				fileUrl: imageVideoSrc,
-			},
-		],
-		"textEditor": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
-		"numberTable": numberTableDefaultValue,
-	});
 
 	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
