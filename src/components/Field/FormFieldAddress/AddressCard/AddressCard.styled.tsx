@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 // Utils
 import theme from "@root/theme";
+import ButtonRow from "@root/components/ButtonRow";
 
 export const StyledAddressCard = styled.div`
   display: flex;
@@ -28,17 +29,7 @@ export const AddressTitle = styled.span`
   margin-bottom: 12px !important;
 `;
 
-export const ButtonsWrapper = styled.div`
+export const StyledButtonRow = styled(ButtonRow)`
   align-self: flex-end;
-  display: flex;
   margin-top: auto;
-
-  span:first-child {
-    border-right: ${theme.borders.simplyGrey};
-    padding-right: 16px;
-  }
-
-  span:last-child {
-    padding-left: 16px;
-  }
 `;

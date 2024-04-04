@@ -7,13 +7,14 @@ import Button from "@root/components/Button";
 // Styles
 import {
 	AddressTitle,
-	ButtonsWrapper,
 	StyledAddressCard,
+	StyledButtonRow,
 } from "./AddressCard.styled";
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
+import ButtonRow from "@root/components/ButtonRow";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress, disabled } = props;
@@ -32,7 +33,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 				{`${address?.city}, ${address?.state?.label ? address.state.label : ""} ${address?.postalCode}`}
 			</span>
 			<span>{address?.country?.label}</span>
-			<ButtonsWrapper>
+			<StyledButtonRow separator>
 				<Button
 					label="Edit"
 					color="teal"
@@ -47,7 +48,7 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					label="Remove"
 					onClick={() => onRemoveAddress(address)}
 				/>
-			</ButtonsWrapper>
+			</StyledButtonRow>
 		</StyledAddressCard>
 	);
 };
