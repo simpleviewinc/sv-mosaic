@@ -15,10 +15,6 @@ import {
 import { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
 
-const buttonMuiAttrs = {
-	disableRipple: true,
-};
-
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress, disabled } = props;
 
@@ -42,13 +38,11 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 					color="teal"
 					variant="text"
 					disabled={disabled}
-					muiAttrs={buttonMuiAttrs}
 					onClick={() => onEdit(address)}
 				/>
 				<Button
 					color="red"
 					variant="text"
-					muiAttrs={buttonMuiAttrs}
 					disabled={disabled}
 					label="Remove"
 					onClick={() => onRemoveAddress(address)}
