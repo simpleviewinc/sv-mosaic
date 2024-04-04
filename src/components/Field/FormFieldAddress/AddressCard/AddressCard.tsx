@@ -14,7 +14,6 @@ import {
 // Types
 import { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
-import ButtonRow from "@root/components/ButtonRow";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress, disabled } = props;
