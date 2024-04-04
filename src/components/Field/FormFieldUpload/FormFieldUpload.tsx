@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, SyntheticEvent, useEffect, useState, useMemo, useId } from "react";
+import { memo, SyntheticEvent, useCallback, useEffect, useState, useMemo, useRef, useId } from "react";
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import Snackbar from "@root/components/Snackbar";
@@ -26,6 +26,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const { addWait } = methods || {};
 	const generatedId = useId();
 	const id = providedId || generatedId;
+	const inputRef = useRef<HTMLInputElement | undefined>();
 
 	const {
 		limit = -1,
@@ -235,6 +236,14 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		onChange((items = []) => items.filter(item => item.id !== id));
 	};
 
+	const handleUploadButtonClick = useCallback(() => {
+		if (!inputRef.current) {
+			return;
+		}
+
+		inputRef.current.click();
+	}, []);
+
 	const closeSnackbar = (_event?: SyntheticEvent, reason?: string) => {
 		if (reason === "clickaway") {
 			return;
@@ -271,8 +280,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								variant="outlined"
 								label="UPLOAD FILES"
 								disabled={disabled}
-								as="label"
-								muiAttrs={{ htmlFor: `${id}-input` }}
+								onClick={handleUploadButtonClick}
 							/>
 						</>
 					)}
@@ -286,6 +294,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 						multiple={limit < 0 || (limit > 1 && limit - currentLength > 1)}
 						accept={fileExtensions.acceptAttr}
 						id={`${id}-input`}
+						ref={inputRef}
 					/>
 				</DragAndDropContainer>
 			)}

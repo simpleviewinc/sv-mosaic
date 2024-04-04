@@ -178,11 +178,12 @@ export const StyledTooltip = styled(Tooltip)`
   }
 `;
 
-export const RoundBackground = styled.div<TransientProps<BrowseOptionProps, "disabled">>`
+export const RoundBackground = styled.button<TransientProps<BrowseOptionProps, "disabled">>`
   align-items: center;
   cursor: ${({ $disabled }) => (!$disabled ? "pointer" : "auto")};
   background-color: ${theme.newColors.realTeal["100"]};
   border-radius: 22px;
+  border: 0;
   display: flex;
   height: 40px;
   justify-content: center;

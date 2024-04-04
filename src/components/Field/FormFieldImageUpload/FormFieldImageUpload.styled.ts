@@ -26,14 +26,7 @@ export const DragAndDropSpan = styled.span<{ $isOver?: boolean }>`
 `;
 
 export const FileInput = styled.input`
-  height: 100%;
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-
-  &:focus {
-    outline: none;
-  }
+  display: none;
 `;
 
 export const Column = styled.div`

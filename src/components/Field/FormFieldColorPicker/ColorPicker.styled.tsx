@@ -4,9 +4,10 @@ import { ColorSelectedProps } from "./ColorPickerTypes";
 import { TransientProps } from "@root/types";
 import Popover from "@mui/material/Popover";
 
-export const ColorContainer = styled.div<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
+export const ColorContainer = styled.button<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
   background: ${theme.newColors.grey1["100"]};
   border: ${theme.borders.simplyGrey};
+  cursor: pointer;
   margin-bottom: ${({ $displayColorPicker }) => ($displayColorPicker ? "8px" : 0)};
   opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
   padding: 10px;
@@ -26,7 +27,6 @@ export const ColorDiv = styled.div<TransientProps<ColorSelectedProps, "disabled"
 			return `background: ${$color};`;
 		}
 	}}
-  cursor: ${({ $disabled }) => (!$disabled ? "pointer" : "auto")};
   height: 31px;
   pointer-events: ${({ $disabled }) => (!$disabled ? "auto" : "none")};
   width: 80px;
