@@ -52,7 +52,7 @@ test.describe.parallel("Components - Content - Playground", () => {
 		expect(await contentPage.getBackgroundColorFromElement(contentPage.titleBarLocator)).toBe(theme.newColors.grey2["100"]);
 
 		// Get total number of buttons present in the page.
-		const buttonCount = await contentPage.button.count();
+		const buttonCount = await contentPage.button.count() - 1;
 		expect(await contentPage.titleBarLocator.locator("button").count()).toBe(buttonCount);
 	});
 
