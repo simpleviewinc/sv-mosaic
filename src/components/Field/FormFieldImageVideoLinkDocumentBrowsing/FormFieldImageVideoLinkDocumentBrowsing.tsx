@@ -245,7 +245,6 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							color="teal"
 							variant="text"
 							label="Browse"
-							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={async (e) => await handleBrowse(e, assetType)}
 						/>
@@ -253,7 +252,6 @@ const FormFieldImageVideoLinkDocumentBrowsing = (
 							color="red"
 							variant="text"
 							label="Remove"
-							muiAttrs={{ disableRipple: true }}
 							disabled={disabled}
 							onClick={(e) => handleRemove(e)}
 						/>

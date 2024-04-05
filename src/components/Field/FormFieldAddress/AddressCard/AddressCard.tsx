@@ -7,17 +7,13 @@ import Button from "@root/components/Button";
 // Styles
 import {
 	AddressTitle,
-	ButtonsWrapper,
 	StyledAddressCard,
+	StyledButtonRow,
 } from "./AddressCard.styled";
 
 // Types
 import { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
-
-const buttonMuiAttrs = {
-	disableRipple: true,
-};
 
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress, disabled } = props;
@@ -36,24 +32,22 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 				{`${address?.city}, ${address?.state?.label ? address.state.label : ""} ${address?.postalCode}`}
 			</span>
 			<span>{address?.country?.label}</span>
-			<ButtonsWrapper>
+			<StyledButtonRow separator>
 				<Button
 					label="Edit"
 					color="teal"
 					variant="text"
 					disabled={disabled}
-					muiAttrs={buttonMuiAttrs}
 					onClick={() => onEdit(address)}
 				/>
 				<Button
 					color="red"
 					variant="text"
-					muiAttrs={buttonMuiAttrs}
 					disabled={disabled}
 					label="Remove"
 					onClick={() => onRemoveAddress(address)}
 				/>
-			</ButtonsWrapper>
+			</StyledButtonRow>
 		</StyledAddressCard>
 	);
 };
