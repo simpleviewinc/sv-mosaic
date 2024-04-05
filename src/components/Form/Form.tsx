@@ -55,7 +55,7 @@ const Form = (props: FormProps) => {
 	} = props;
 
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
-	const { errors } = state;
+	const { errors, loadingInitial, disabled } = state;
 	const { moveToError } = stable;
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
@@ -118,7 +118,7 @@ const Form = (props: FormProps) => {
 	const doneAutoFocus = useRef(false);
 
 	useEffect(() => {
-		if (!autoFocus || doneAutoFocus.current) {
+		if (disabled || loadingInitial || !autoFocus || doneAutoFocus.current) {
 			return;
 		}
 
@@ -139,7 +139,7 @@ const Form = (props: FormProps) => {
 
 		doneAutoFocus.current = true;
 		mount.inputRef.focus();
-	}, [autoFocus, stable.fields, stable.mounted]);
+	}, [disabled, loadingInitial, autoFocus, stable.fields, stable.mounted]);
 
 	useEffect(() => {
 		if (!useSectionHash) {
