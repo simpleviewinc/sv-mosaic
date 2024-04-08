@@ -1,15 +1,15 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
 import { withKnobs, boolean, object, select } from "@storybook/addon-knobs";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { renderButtons } from "@root/utils/storyUtils";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
+import { renderButtons, toggleMap, toggleOptions } from "@root/utils/storyUtils";
 
 // Components
 import Form from "../Form";
@@ -35,28 +35,14 @@ function randomNumber(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const showMap = {
-	"Undefined": undefined,
-	"True": true,
-	"False": false,
-	"Function that returns true": () => true,
-	"Function that returns false": () => false,
-	"Array of true values": [true, true, true],
-	"Array with one falsy value": [true, false, true],
-	"Array of functions that return true": [() => true, () => true],
-	"Array of functions, one returns false": [() => false, () => true],
-};
-
-const showOptions = Object.keys(showMap) as (keyof typeof showMap)[];
-
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const showState = boolean("Show state", false);
 	const collapsed = boolean("Collapse sections", false);
 	const section1Fields = object("Section 1 Fields", initialSection1Fields);
 
-	const showSimpleText = select("Show Simple Text", showOptions, "Undefined");
-	const showBigText = select("Show Big Text", showOptions, "Undefined");
-	const showTextFieldValidatesEmail = select("Show TextField that validates email", showOptions, "Undefined");
+	const showSimpleText = select("Show Simple Text", toggleOptions, "Undefined");
+	const showBigText = select("Show Big Text", toggleOptions, "Undefined");
+	const showTextFieldValidatesEmail = select("Show TextField that validates email", toggleOptions, "Undefined");
 
 	const controller = useForm();
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
@@ -103,7 +89,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					instructionText: "Instruction text text1",
-					show: showMap[showSimpleText],
+					show: toggleMap[showSimpleText],
 				},
 				{
 					name: "textarea",
@@ -113,7 +99,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					inputSettings: {
 						multiline: true,
 					},
-					show: showMap[showBigText],
+					show: toggleMap[showBigText],
 				},
 				{
 					name: "text2",
@@ -122,7 +108,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow],
-					show: showMap[showTextFieldValidatesEmail],
+					show: toggleMap[showTextFieldValidatesEmail],
 				},
 				{
 					name: "text3",
