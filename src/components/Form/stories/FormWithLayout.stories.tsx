@@ -1,15 +1,15 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
-import { withKnobs, boolean, object } from "@storybook/addon-knobs";
+import { withKnobs, boolean, object, select } from "@storybook/addon-knobs";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
-import { renderButtons } from "@root/utils/storyUtils";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
+import { renderButtons, toggleMap, toggleOptions } from "@root/utils/storyUtils";
 
 // Components
 import Form from "../Form";
@@ -36,6 +36,14 @@ function randomNumber(min: number, max: number) {
 }
 
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
+	const showState = boolean("Show state", false);
+	const collapsed = boolean("Collapse sections", false);
+	const section1Fields = object("Section 1 Fields", initialSection1Fields);
+
+	const showSimpleText = select("Show Simple Text", toggleOptions, "Undefined");
+	const showBigText = select("Show Big Text", toggleOptions, "Undefined");
+	const showTextFieldValidatesEmail = select("Show TextField that validates email", toggleOptions, "Undefined");
+
 	const controller = useForm();
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
@@ -47,7 +55,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 		};
 	}, []);
 
-	const gridConfig: DataViewProps = {
+	const gridConfig: DataViewProps = useMemo(() => ({
 		columns: [{ name: "id", label: "ID" }, { name: "title", label: "Title" }, { name: "description", label: "Description" }],
 		primaryActions: [
 			{
@@ -70,11 +78,8 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 		limit: 25,
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-	};
+	}), [setFieldValue, state.data.formMatrix]);
 
-	const showState = boolean("Show state", false);
-	const collapsed = boolean("Collapse sections", false);
-	const section1Fields = object("Section 1 Fields", initialSection1Fields);
 	const { height = "100vh" } = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -84,6 +89,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					label: "Simple Text",
 					type: "text",
 					instructionText: "Instruction text text1",
+					show: toggleMap[showSimpleText],
 				},
 				{
 					name: "textarea",
@@ -93,6 +99,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					inputSettings: {
 						multiline: true,
 					},
+					show: toggleMap[showBigText],
 				},
 				{
 					name: "text2",
@@ -101,6 +108,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					helperText: state.data.text2,
 					instructionText: "Instruction text text2",
 					validators: [validateEmail, validateSlow],
+					show: toggleMap[showTextFieldValidatesEmail],
 				},
 				{
 					name: "text3",
@@ -178,7 +186,15 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					},
 				},
 			],
-		[state.data.formMatrix, gridConfig],
+		[
+			showSimpleText,
+			showBigText,
+			state.data.text2,
+			state.data.formMatrix,
+			showTextFieldValidatesEmail,
+			gridConfig,
+			setFieldValue,
+		],
 	);
 
 	const sections = useMemo(() => [
@@ -232,7 +248,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				[["imageUpload"], [], []],
 			],
 		},
-	], [fields, collapsed, section1Fields]);
+	], [collapsed, section1Fields]);
 
 	useEffect(() => {
 		setFieldValue({
