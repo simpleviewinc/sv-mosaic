@@ -1,13 +1,16 @@
 import * as React from "react";
 import { ReactElement } from "react";
+import { withKnobs, select } from "@storybook/addon-knobs";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 import { default as Button, ButtonProps } from "../Button";
+import { toggleMap, toggleOptions } from "@root/utils/storyUtils";
 
 export default {
 	title : "Components/Menu",
+	decorators: [withKnobs],
 };
 
 const MENU_ITEMS = [
@@ -32,9 +35,19 @@ const MENU_ITEMS = [
 ];
 
 export const example = (): ReactElement => {
+	const showItems = {
+		"Item 1": select("Show Item 1", toggleOptions, "Undefined"),
+		"Item 2": select("Show Item 2", toggleOptions, "Undefined"),
+		"Item 3": select("Show Item 3", toggleOptions, "Undefined"),
+		"Item 4": select("Show Item 4", toggleOptions, "Undefined"),
+		"Item 5": select("Show Item 5", toggleOptions, "Undefined"),
+		"Item 6": select("Show Item 6", toggleOptions, "Undefined"),
+	};
+
 	const menuItems: ButtonProps["menuItems"] = MENU_ITEMS.map((val) => {
 		return {
 			...val,
+			show: toggleMap[showItems[val.label]],
 			onClick : function() {
 				alert(`Clicked ${val.label}`);
 			},
