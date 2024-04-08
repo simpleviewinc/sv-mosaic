@@ -39,7 +39,9 @@ const showOptions = Object.keys(showMap) as (keyof typeof showMap)[];
 export const Example = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(homeContent);
 	const [active, setActive] = useState("home");
-	const show = select("Show Google", showOptions, "Undefined");
+	const showAssets = select("Show assets", showOptions, "Undefined");
+	const showMapPublisher = select("Show map publisher", showOptions, "Undefined");
+	const showDynamicContent = select("Show dynamic content", showOptions, "Undefined");
 
 	const onNav = (args: SideNavArgs) => {
 		setActive(args.item.name);
@@ -107,7 +109,6 @@ export const Example = (): ReactElement => {
 					href: "https://www.google.co.uk",
 				},
 				onNav: false,
-				show: showMap[show],
 			},
 			{
 				label: "Google (New Tab)",
@@ -128,6 +129,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Assets</h1>);
 				},
+				show: showMap[showAssets],
 			},
 			{
 				label: "Map Publisher",
@@ -136,6 +138,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Map Publisher</h1>);
 				},
+				show: showMap[showMapPublisher],
 			},
 			{
 				label: "Dynamic Content",
@@ -144,6 +147,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Dynamic Content</h1>);
 				},
+				show: showMap[showDynamicContent],
 			},
 		],
 		[
@@ -181,7 +185,7 @@ export const Example = (): ReactElement => {
 				},
 			},
 		],
-	], [show]);
+	], [showAssets, showMapPublisher, showDynamicContent]);
 
 	const parentHeight = number("Parent height (px)", 500);
 
