@@ -1,10 +1,11 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
+import styled from "styled-components";
 import { withKnobs, select } from "@storybook/addon-knobs";
+import { toggleMap, toggleOptions } from "@root/utils/storyUtils";
 
 import ButtonRow from ".";
 import { ButtonProps } from "../Button";
-import styled from "styled-components";
 
 export default {
 	title: "Components/ButtonRow",
@@ -17,43 +18,29 @@ const StyledButtonRow = styled(ButtonRow)`
 	padding: 1rem;
 `;
 
-const showMap = {
-	"Undefined": undefined,
-	"True": true,
-	"False": false,
-	"Function that returns true": () => true,
-	"Function that returns false": () => false,
-	"Array of true values": [true, true, true],
-	"Array with one falsy value": [true, false, true],
-	"Array of functions that return true": [() => true, () => true],
-	"Array of functions, one returns false": [() => false, () => true],
-};
-
-const showOptions = Object.keys(showMap) as (keyof typeof showMap)[];
-
 export const Playground = (): ReactElement => {
-	const showToast = select("Show toast", showOptions, "Undefined");
-	const showTea = select("Show tea", showOptions, "Undefined");
-	const showCrumpets = select("Show crumpets", showOptions, "Undefined");
+	const showToast = select("Show toast", toggleOptions, "Undefined");
+	const showTea = select("Show tea", toggleOptions, "Undefined");
+	const showCrumpets = select("Show crumpets", toggleOptions, "Undefined");
 
 	const buttonDefs: ButtonProps[] = useMemo(() => [
 		{
 			color: "red",
 			variant: "contained",
 			label: "Toast",
-			show: showMap[showToast],
+			show: toggleMap[showToast],
 		},
 		{
 			color: "blue",
 			variant: "contained",
 			label: "Tea",
-			show: showMap[showTea],
+			show: toggleMap[showTea],
 		},
 		{
 			color: "yellow",
 			variant: "contained",
 			label: "Crumpets",
-			show: showMap[showCrumpets],
+			show: toggleMap[showCrumpets],
 		},
 	], [showToast, showTea, showCrumpets]);
 
