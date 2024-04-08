@@ -16,6 +16,10 @@ import { useToggle } from "@root/utils/toggle";
 const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupProps): ReactElement => {
 	const shownItems = useToggle(items, "show", true);
 
+	if (!shownItems.length) {
+		return null;
+	}
+
 	return (
 		<LinksWrapper data-testid="section-wrapper" $collapse={collapse}>
 			{shownItems.map((item, idx) => {
