@@ -110,6 +110,15 @@ function ButtonWithState(props: ButtonProps) {
 		anchorProps.onMouseLeave();
 	};
 
+	const shownMenuItems = useToggle(props.menuItems || [], "show", true);
+
+	// If this is a button with menu items
+	// but there are no menu items to show
+	// then no need to render the button.
+	if (props.menuItems && !shownMenuItems.length) {
+		return null;
+	}
+
 	return (
 		<>
 			<ButtonBase
@@ -140,7 +149,7 @@ function ButtonWithState(props: ButtonProps) {
 					</PopoverWrapper>
 				</Popover>
 			) : props.menuItems ? (
-				<Menu items={props.menuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
+				<Menu items={shownMenuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
 			) : props.menuContent && (
 				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
 					{props.menuContent}

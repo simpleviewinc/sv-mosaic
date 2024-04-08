@@ -14,6 +14,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import Link from "@mui/icons-material/Link";
+import { toggleMap, toggleOptions } from "@root/utils/storyUtils";
 
 export default {
 	title: "Components/SideNav",
@@ -22,24 +23,12 @@ export default {
 
 const homeContent = <h1>Welcome home!</h1>;
 
-const showMap = {
-	"Undefined": undefined,
-	"True": true,
-	"False": false,
-	"Function that returns true": () => true,
-	"Function that returns false": () => false,
-	"Array of true values": [true, true, true],
-	"Array with one falsy value": [true, false, true],
-	"Array of functions that return true": [() => true, () => true],
-	"Array of functions, one returns false": [() => false, () => true],
-};
-
-const showOptions = Object.keys(showMap) as (keyof typeof showMap)[];
-
 export const Example = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(homeContent);
 	const [active, setActive] = useState("home");
-	const show = select("Show Google", showOptions, "Undefined");
+	const showAssets = select("Show assets", toggleOptions, "Undefined");
+	const showMapPublisher = select("Show map publisher", toggleOptions, "Undefined");
+	const showDynamicContent = select("Show dynamic content", toggleOptions, "Undefined");
 
 	const onNav = (args: SideNavArgs) => {
 		setActive(args.item.name);
@@ -107,7 +96,6 @@ export const Example = (): ReactElement => {
 					href: "https://www.google.co.uk",
 				},
 				onNav: false,
-				show: showMap[show],
 			},
 			{
 				label: "Google (New Tab)",
@@ -128,6 +116,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Assets</h1>);
 				},
+				show: toggleMap[showAssets],
 			},
 			{
 				label: "Map Publisher",
@@ -136,6 +125,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Map Publisher</h1>);
 				},
+				show: toggleMap[showMapPublisher],
 			},
 			{
 				label: "Dynamic Content",
@@ -144,6 +134,7 @@ export const Example = (): ReactElement => {
 					setActive(args.item.name);
 					setContent(<h1>Dynamic Content</h1>);
 				},
+				show: toggleMap[showDynamicContent],
 			},
 		],
 		[
@@ -181,7 +172,7 @@ export const Example = (): ReactElement => {
 				},
 			},
 		],
-	], [show]);
+	], [showAssets, showMapPublisher, showDynamicContent]);
 
 	const parentHeight = number("Parent height (px)", 500);
 
