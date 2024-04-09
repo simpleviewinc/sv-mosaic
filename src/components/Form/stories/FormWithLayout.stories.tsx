@@ -5,11 +5,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 
 // Utils
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons, toggleMap, toggleOptions } from "@root/utils/storyUtils";
+import { getOptionsCountries, getOptionsStates } from "../../Field/FormFieldAddress/utils/optionGetters";
 
 // Components
 import Form from "../Form";
@@ -19,6 +19,7 @@ import { FieldDef } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
 import { DataViewProps } from "@root/components/DataView";
+import { joinAnd } from "@root/utils/string";
 
 export default {
 	title: "Components/Form",
@@ -26,14 +27,19 @@ export default {
 };
 
 const initialSection1Fields = [
-	[["text1"], ["textarea"], ["text2"]],
-	[["text3"], [], ["text4"]],
-	[["toggleSwitch"], ["color"], ["formMatrix"]],
+	[["firstName"], ["lastName"], ["initials"]],
+	[["dob"], [], []],
+	[["sex"], ["gender"], ["otherGender"]],
+	[["profilePicture"]],
 ];
 
 function randomNumber(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+const factors = (number: number) => Array
+	.from(Array(number + 1), (_, i) => i)
+	.filter(i => number % i === 0);
 
 export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const showState = boolean("Show state", false);
@@ -63,12 +69,10 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				color: "black",
 				variant: "icon",
 				mIcon: DeleteIcon,
-				onClick: async ({ data }) => {
-					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
-
+				onClick: ({ data }) => {
 					setFieldValue({
-						name: "formMatrix",
-						value: filteredRows,
+						name: "favouriteNumbers",
+						value: (numbers = []) => numbers.filter(({ id }) => id !== data.id),
 						touched: true,
 					});
 				},
@@ -85,85 +89,134 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 		() : FieldDef[] =>
 			[
 				{
-					name: "text1",
-					label: "Simple Text",
+					name: "firstName",
+					label: "First Name",
 					type: "text",
-					instructionText: "Instruction text text1",
+					required: true,
+					instructionText: "Please use the name that you were given at birth.",
 					show: toggleMap[showSimpleText],
 				},
 				{
-					name: "textarea",
-					label: "Big Text",
+					name: "lastName",
+					label: "Last Name",
 					type: "text",
-					instructionText: "Instruction text text1",
-					inputSettings: {
-						multiline: true,
-					},
+					required: true,
+					instructionText: "Please use the family name that you had at birth.",
 					show: toggleMap[showBigText],
 				},
 				{
-					name: "text2",
-					label: "TextField that validates email",
+					name: "initials",
+					label: "Initials",
 					type: "text",
-					helperText: state.data.text2,
-					instructionText: "Instruction text text2",
-					validators: [validateEmail, validateSlow],
+					required: true,
+					instructionText: "If you don't interact with this field, it'll be generated for you based on your first and last names.",
 					show: toggleMap[showTextFieldValidatesEmail],
 				},
 				{
-					name: "text3",
-					label: "Text that copies to the next input",
-					type: "text",
+					name: "dob",
+					label: "Date of Birth",
+					type: "date",
 					required: true,
-					instructionText: "Instruction text text3",
+					instructionText: "Pick from the datepicker or enter a MM/DD/YYYY formatted date.",
 				},
 				{
-					name: "text4",
-					label: "Text that receives copy",
-					type: "text",
-					instructionText: "Instruction text text1",
-				},
-				{
-					name: "color",
-					label: "Color selector example",
-					type: "color",
-				},
-				{
-					name: "check",
-					label: "Checkbox",
-					type: "checkbox",
+					name: "sex",
+					label: "Sex",
+					type: "radio",
 					required: true,
+					instructionText: "This is the gender you were assigned at birth.",
 					inputSettings: {
-						options: checkboxOptions,
+						options: [{ value: "male", label: "Male" }, { value: "female", label: "Female" }],
 					},
 				},
 				{
-					name: "toggleSwitch",
-					label: "Toggle field",
-					type: "toggleSwitch",
+					name: "gender",
+					label: "Gender",
+					type: "dropdown",
+					required: true,
+					instructionText: "This is the gender that you identify as now.",
 					inputSettings: {
-						toggleLabel: "To the side",
+						options: [{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other (Please specify)" }, { value: "undisclosed", label: "Prefer not to say" }],
 					},
 				},
 				{
-					name: "imageUpload",
-					label: "Image Upload example",
+					name: "otherGender",
+					label: "Gender Specified",
+					type: "text",
+					required: true,
+					instructionText: "Please tell us what gender you identify as.",
+					show: ({ data }) => data.gender && data.gender.value === "other",
+				},
+				{
+					name: "profilePicture",
+					label: "Profile picture",
 					type: "imageUpload",
+					instructionText: "A profile picture is not required, but it's nice to put a face to the name.",
 					inputSettings: {
 						options: menuOptions,
 					},
 				},
 				{
-					name: "textEditor",
-					label: "Text Editor field",
-					type: "textEditor",
+					name: "email",
+					label: "Email Address",
+					type: "text",
 					required: true,
+					validators: [validateEmail, validateSlow],
 				},
 				{
-					name: "formMatrix",
-					label: "Matrix field",
+					name: "phone",
+					label: "Phone",
+					type: "text",
+					required: true,
+					instructionText: "Your primary phone number. It can be a mobile or a home or work telephone.",
+				},
+				{
+					name: "secondaryPhone",
+					label: "Secondary Phone",
+					type: "text",
+					instructionText: "Good to have just in case we can't catch you on your primary phone.",
+				},
+				{
+					name: "addresses",
+					label: "Addresses",
+					type: "address",
+					required: true,
+					instructionText: "Provide us with at least 1 physical address at which we can contact you.",
+					inputSettings: {
+						amountPhysical: 3,
+						getOptionsCountries,
+						getOptionsStates,
+						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+					},
+				},
+				{
+					name: "favouriteColor",
+					label: "Favourite Colour",
+					type: "color",
+				},
+				// {
+				// 	name: "check",
+				// 	label: "Checkbox",
+				// 	type: "checkbox",
+				// 	required: true,
+				// 	inputSettings: {
+				// 		options: checkboxOptions,
+				// 	},
+				// },
+				// {
+				// 	name: "toggleSwitch",
+				// 	label: "Toggle field",
+				// 	type: "toggleSwitch",
+				// 	inputSettings: {
+				// 		toggleLabel: "To the side",
+				// 	},
+				// },
+				{
+					name: "favouriteNumbers",
+					label: "What are your favourite numbers?",
 					type: "matrix",
 					required: true,
+					instructionText: "There must be at least 1 that you like. Pun intended.",
 					inputSettings: {
 						dataView: gridConfig,
 						buttons: [
@@ -171,10 +224,11 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 								label: "Add",
 								onClick: () => {
 									const id = randomNumber(1, 1000);
+									const idFactors = factors(id);
 
 									setFieldValue({
-										name: "formMatrix",
-										value: [...(state.data.formMatrix || []), { id, title: `Title ${id}`, description: `Description ${id}` }],
+										name: "favouriteNumbers",
+										value: (numbers = []) => [...numbers, { id, title: id, description: `I ❤️ ${id} because it has ${idFactors.length} factors which are ${joinAnd(idFactors.map(String))}` }],
 										touched: true,
 									});
 								},
@@ -185,12 +239,62 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 						],
 					},
 				},
+				{
+					name: "hobbies",
+					label: "What do you like?",
+					type: "textEditor",
+					required: true,
+					instructionText: "In a few words, describe to us your most distinguishing hobbies.",
+				},
+				{
+					name: "animalsOrVehicles",
+					label: "Would you rather talk about animals or vehicles?",
+					type: "radio",
+					required: true,
+					inputSettings: {
+						options: [{ value: "animals", label: "Animals" }, { value: "vehicles", label: "Vehicles" }],
+					},
+				},
+				{
+					name: "vehiclesRace",
+					label: "If you had to choose to race around the nurburgring, what would it be?",
+					type: "text",
+					required: true,
+				},
+				{
+					name: "vehiclesSleep",
+					label: "If you had to choose a car to sleep in for a week, what would it be?",
+					type: "text",
+					required: true,
+				},
+				{
+					name: "vehiclesTrip",
+					label: "If you had to choose a car to road trip from east to west coast USA, what would it be?",
+					type: "text",
+					required: true,
+				},
+				{
+					name: "animalsBattle",
+					label: "If had to choose to ride an animal into battle, what would it be?",
+					type: "text",
+					required: true,
+				},
+				{
+					name: "animalsCompanion",
+					label: "If had to choose an animal to be your companion for life, what would it be?",
+					type: "text",
+					required: true,
+				},
+				{
+					name: "animalsTalk",
+					label: "If you could communicate with any animal, what would it be?",
+					type: "text",
+					required: true,
+				},
 			],
 		[
 			showSimpleText,
 			showBigText,
-			state.data.text2,
-			state.data.formMatrix,
 			showTextFieldValidatesEmail,
 			gridConfig,
 			setFieldValue,
@@ -199,63 +303,75 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 
 	const sections = useMemo(() => [
 		{
-			title: "Section 1",
-			description: "Description for section 1",
+			title: "About You",
+			description: "The official stuff",
 			collapsed,
 			fields: section1Fields,
 		},
 		{
-			title: "Section 2",
-			description: "Description for section 2",
+			title: "Contact Details",
+			description: "How would we get in touch with you otherwise?",
 			collapsed,
 			fields: [
-				// row 1
-				[["check"], [], []],
-				// row 2
-				[[], [], []],
-				// row 3
-				[[]],
-				// row 4
-				[[], ["textEditor"]],
-			],
-			show: ({ data }) => data?.toggleSwitch === true,
-		},
-		{
-			title: "Section 3",
-			description: "Description for section 3",
-			collapsed,
-			fields: [
-				// row 1
-				[["imageUpload"], [], []],
-			],
-			show: ({ data }) => data?.toggleSwitch === true,
-		},
-		{
-			title: "Section 4",
-			description: "Description for section 4",
-			collapsed,
-			fields: [
-				// row 1
-				[["imageUpload"], [], []],
+				[["email"], [], []],
+				[["phone"], ["secondaryPhone"], []],
+				[["addresses"]],
 			],
 		},
 		{
-			title: "Section 5",
-			description: "Description for section 5",
+			title: "Preferences",
+			description: "What you're into",
 			collapsed,
 			fields: [
 				// row 1
-				[["imageUpload"], [], []],
+				[["favouriteNumbers"]],
+				[["favouriteColor"]],
+				[["hobbies"]],
+				[["animalsOrVehicles"]],
 			],
+		},
+		{
+			title: "Vehicles",
+			description: "Speed through these questions...",
+			fields: [
+				[["vehiclesRace"]],
+				[["vehiclesSleep"]],
+				[["vehiclesTrip"]],
+			],
+			show: ({ data }) => data.animalsOrVehicles && data.animalsOrVehicles.value === "vehicles",
+		},
+		{
+			title: "Animals",
+			description: "Humans don't count.",
+			fields: [
+				[["animalsBattle"]],
+				[["animalsCompanion"]],
+				[["animalsTalk"]],
+			],
+			show: ({ data }) => data.animalsOrVehicles && data.animalsOrVehicles.value === "animals",
 		},
 	], [collapsed, section1Fields]);
 
 	useEffect(() => {
+		if (state.touched.initials) {
+			return;
+		}
+
+		const initials = [
+			typeof state.data.firstName === "string" && state.data.firstName.length ? state.data.firstName[0] : "",
+			typeof state.data.lastName === "string" && state.data.lastName.length ? state.data.lastName[0] : "",
+		].filter(Boolean).join("");
+
 		setFieldValue({
-			name: "text4",
-			value: state.data.text3,
+			name: "initials",
+			value: initials,
 		});
-	}, [setFieldValue, state.data.text3]);
+	}, [
+		state.data.firstName,
+		state.data.lastName,
+		state.touched.initials,
+		setFieldValue,
+	]);
 
 	return (
 		<>
@@ -266,8 +382,8 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				<Form
 					{...controller}
 					buttons={renderButtons(handleSubmit)}
-					title="Form Title"
-					description="This is a description example"
+					title="Profile"
+					description="Give us some information to understand a little more about you."
 					sections={sections}
 					fields={fields}
 				/>
