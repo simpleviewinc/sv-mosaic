@@ -50,7 +50,11 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 				valueString = `to ${endFormat}`;
 			}
 		} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {
-			valueString = props.args.options.filter(option => "option" in props.data ? option.value === props.data.option : undefined)[0].label;
+			const selectedOption = props.args.options.find(({ value }) => "option" in props.data && value === props.data.option);
+
+			if (selectedOption) {
+				valueString = selectedOption.label;
+			}
 		}
 
 	return (
