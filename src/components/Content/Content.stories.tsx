@@ -76,6 +76,9 @@ const data = {
 	animals: [{ id: 1, species: "Dog", color: "Brown" }, { id: 2, species: "Cat", color: "White" }],
 	cars: [{ id: 1, make: "BMW", model: "M3" }, { id: 2, make: "Volkswagen", model: "Golf" }],
 	multipleTransforms: "This is some text",
+	fieldWithLongWord: "Pneumonoultramicroscopicsilicovolcanoconiosis",
+	fieldWithLongURL: "https://simpleviewinc.github.io/sv-mosaic/master/?path=/story/components-content--kitchen-sink",
+	fieldWithLongSentence: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mollis diam non imperdiet luctus. Morbi in augue leo. Vestibulum non tellus in elit molestie pretium sollicitudin eget purus. Mauris varius, est sed placerat ornare, nulla libero consequat nisi, id tempor nibh felis non velit.",
 };
 
 const sectionConfigs = {
@@ -293,6 +296,21 @@ export const KitchenSink = (): ReactElement => {
 			name: "emptyArrayValue",
 			label: "Field with empty array value",
 		},
+		{
+			name: "fieldWithLongWord",
+			label: "Long Word",
+		},
+		{
+			name: "fieldWithLongURL",
+			label: "Long URL",
+			transforms: [
+				({ data }) => <Link href={data as string}>{data as string}</Link>,
+			],
+		},
+		{
+			name: "fieldWithLongSentence",
+			label: "Long Sentence",
+		},
 	];
 
 	const columns = [
@@ -300,6 +318,7 @@ export const KitchenSink = (): ReactElement => {
 		[["toggle"], ["date"], ["colorPicker"]],
 		[["thumbnail"], ["chipsAsValue"], []],
 		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]],
+		[["fieldWithLongWord"], ["fieldWithLongURL"], ["fieldWithLongSentence"]],
 	];
 
 	return (
