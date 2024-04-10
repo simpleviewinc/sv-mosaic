@@ -33,13 +33,13 @@ export class FormFieldAddressPage extends BasePage {
 		this.countryDropdownInput = page.locator("#country input");
 		this.countryDropdownButton = page.locator("#country button");
 		this.firstAddressField = page.locator("#address1 input");
-		this.secondAddressField = page.locator("input#address2");
-		this.thirdAddressField = page.locator("input#address3");
-		this.cityField = page.locator("input#city");
+		this.secondAddressField = page.locator("input#address2-input");
+		this.thirdAddressField = page.locator("input#address3-input");
+		this.cityField = page.locator("input#city-input");
 		this.statesLabel = page.locator("#state label");
 		this.statesDropdownInput = page.locator("#state input");
 		this.statesDropdownButton = page.locator("#state button[title='Open']");
-		this.postalCodeField = page.locator("input#postalCode");
+		this.postalCodeField = page.locator("input#postalCode-input");
 		this.physicalCheckboxOption = page.locator("#types [data-testid='label-test-id']", { hasText: "Physical" }).locator("input");
 		this.billingCheckboxOption = page.locator("#types [data-testid='label-test-id']", { hasText: "Billing" }).locator("input");
 		this.shippingCheckboxOption = page.locator("#types [data-testid='label-test-id']", { hasText: "Shipping" }).locator("input");
