@@ -45,6 +45,20 @@ function useValueLimit(value: any, fieldDef: FieldDef): [number, number] | undef
 	}, [fieldDef, value]);
 }
 
+const typesWithRealLabel: FieldDef["type"][] = [
+	"color",
+	"date",
+	"dropdown",
+	"phone",
+	"text",
+	/**
+	 * I can't work out a way to add an ID to Jodit's
+	 * embedded contenteditable element..
+	 */
+	// "textEditor",
+	"time",
+];
+
 const Field = ({
 	children,
 	error,
@@ -84,6 +98,8 @@ const Field = ({
 		return unmount;
 	}, [mountField, fieldDef.name, inputRef]);
 
+	const hasRealLabel = typesWithRealLabel.includes(fieldDef?.type);
+
 	return (
 		<StyledFieldContainer
 			id={id}
@@ -98,11 +114,12 @@ const Field = ({
 					{hasLabelComponent && (
 						<Label
 							required={fieldDef?.required}
-							htmlFor={fieldDef?.name || undefined}
 							limit={limit}
 							value={value}
 							instructionText={fieldDef?.instructionText}
 							colsInRow={colsInRow}
+							htmlFor={hasRealLabel && fieldDef?.name ? `${fieldDef.name}-input` : undefined}
+							as={hasRealLabel ? "label" : "div"}
 						>
 							{fieldDef?.label}
 						</Label>
