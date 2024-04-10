@@ -166,14 +166,14 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 				{
 					name: "phone",
 					label: "Phone",
-					type: "text",
+					type: "phone",
 					required: true,
 					instructionText: "Your primary phone number. It can be a mobile or a home or work telephone.",
 				},
 				{
 					name: "secondaryPhone",
 					label: "Secondary Phone",
-					type: "text",
+					type: "phone",
 					instructionText: "Good to have just in case we can't catch you on your primary phone.",
 				},
 				{
@@ -194,23 +194,6 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					label: "Favourite Colour",
 					type: "color",
 				},
-				// {
-				// 	name: "check",
-				// 	label: "Checkbox",
-				// 	type: "checkbox",
-				// 	required: true,
-				// 	inputSettings: {
-				// 		options: checkboxOptions,
-				// 	},
-				// },
-				// {
-				// 	name: "toggleSwitch",
-				// 	label: "Toggle field",
-				// 	type: "toggleSwitch",
-				// 	inputSettings: {
-				// 		toggleLabel: "To the side",
-				// 	},
-				// },
 				{
 					name: "favouriteNumbers",
 					label: "What are your favourite numbers?",
