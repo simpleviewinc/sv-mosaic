@@ -267,7 +267,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			inputSettings: {
 				options: [
 					...addressTypes,
-					...(addressToEdit ? addressToEdit.types : []),
+					...(addressToEdit ? addressToEdit.types.filter((editingType) => !addressTypes.find(({ value }) => value === editingType.value)) : []),
 				],
 			},
 		},
