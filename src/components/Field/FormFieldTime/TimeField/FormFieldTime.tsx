@@ -24,6 +24,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		error,
 		methods,
 		inputRef,
+		id,
 	} = props;
 
 	const { addError, removeError } = useFieldErrors({
@@ -63,6 +64,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 
 	return (
 		<TimePicker
+			id={id}
 			error={error}
 			onChange={handleTimeChange}
 			fieldDef={{

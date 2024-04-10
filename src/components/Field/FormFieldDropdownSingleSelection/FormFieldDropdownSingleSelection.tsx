@@ -23,6 +23,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		value,
 		disabled,
 		inputRef,
+		id,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -70,6 +71,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 
 							params.inputProps.ref.current = el;
 						},
+						id,
 					}}
 				/>
 			</InputWrapper>

@@ -23,6 +23,7 @@ const FormFieldPhoneSelectionDropdown = (
 		value,
 		disabled,
 		inputRef,
+		id,
 	} = props;
 
 	const [dialCode, setDialCode] = useState("");
@@ -52,6 +53,7 @@ const FormFieldPhoneSelectionDropdown = (
 				inputProps={{
 					required: fieldDef?.required,
 					ref: inputRef,
+					id,
 				}}
 				tabbableDropdown={false}
 			/>

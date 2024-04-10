@@ -76,6 +76,7 @@ interface LabelProps {
 	limit?: [number, number];
 	instructionText?: string;
 	colsInRow?: number;
+	as?: "label" | "div";
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -87,13 +88,14 @@ const Label = (props: LabelProps): ReactElement => {
 		limit,
 		instructionText,
 		colsInRow,
+		as = "label",
 	} = props;
 
 	const { anchorProps, tooltipProps } = useTooltip();
 
 	return (
 		<LabelWrapper className={className}>
-			<StyledInputLabel htmlFor={htmlFor}>
+			<StyledInputLabel htmlFor={htmlFor} as={as}>
 				{children}
 				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
 			</StyledInputLabel>
