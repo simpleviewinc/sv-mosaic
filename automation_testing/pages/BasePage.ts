@@ -56,8 +56,8 @@ export class BasePage {
 		this.table = page.locator("table");
 		this.errorMessage = page.locator("p.Mui-error");
 		this.formTestIDLocator = page.locator("[data-testid='form-test-id']");
-		this.latitude = page.locator("input#lat");
-		this.longitude = page.locator("input#lng");
+		this.latitude = page.locator("input#lat-input");
+		this.longitude = page.locator("input#lng-input");
 		this.saveCoordinatesButton = this.formTestIDLocator.nth(1).locator("button", { hasText: "Save Coordinates" });
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");

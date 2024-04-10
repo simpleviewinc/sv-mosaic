@@ -27,18 +27,18 @@ export class FormFieldTextPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.firstSection = page.locator("[data-testid='field-test-id']").first();
-		this.regularTextField = page.locator("input#regular");
-		this.passwordTextField = page.locator("input#password");
-		this.multilineTextField = page.locator("textarea#multiline");
-		this.fieldMaxCharTextField = page.locator("input#withMaxChar");
+		this.regularTextField = page.locator("input#regular-input");
+		this.passwordTextField = page.locator("input#password-input");
+		this.multilineTextField = page.locator("textarea#multiline-input");
+		this.fieldMaxCharTextField = page.locator("input#withMaxChar-input");
 		this.maxCharCounter = page.locator("div#withMaxChar div div div").nth(1);
 		this.fieldWithIconIcon = page.locator("[data-testid='AccountCircleIcon']");
-		this.fieldWithIconTextField = page.locator("input#withIcon");
-		this.disabledTextField = page.locator("input#disabled");
-		this.xsSizeTextField = page.locator("input#xsSize");
-		this.smSizeTextField = page.locator("input#smSize");
-		this.mdSizeTextField = page.locator("input#mdSize");
-		this.lgSizeTextField = page.locator("input#lgSize");
+		this.fieldWithIconTextField = page.locator("input#withIcon-input");
+		this.disabledTextField = page.locator("input#disabled-input");
+		this.xsSizeTextField = page.locator("input#xsSize-input");
+		this.smSizeTextField = page.locator("input#smSize-input");
+		this.mdSizeTextField = page.locator("input#mdSize-input");
+		this.lgSizeTextField = page.locator("input#lgSize-input");
 		this.firstInstructionText = page.locator(".instruction-text-right").first();
 		this.textFieldText = page.locator("#textfield p").first();
 	}
