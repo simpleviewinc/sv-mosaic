@@ -18,8 +18,8 @@ export class FormFieldMatrixFormVariantPage extends BasePage {
 		this.page = page;
 		this.addMatrixButton = page.locator("#formMatrix button", { hasText: "Add" });
 		this.drawerLocator = this.formLocator.nth(1);
-		this.titleInput = page.locator("input#title");
-		this.descriptionInput = page.locator("input#description");
+		this.titleInput = page.locator("input#title-input");
+		this.descriptionInput = page.locator("input#description-input");
 		this.editIconButton = page.locator("[data-mosaic-id='action_primary_edit'] button");
 		this.deleteIconButton = page.locator("[data-mosaic-id='action_primary_delete'] button");
 	}
