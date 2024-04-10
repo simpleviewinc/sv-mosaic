@@ -5,6 +5,7 @@ export interface ColorSelectedProps {
 	displayColorPicker?: boolean;
 	disabled?: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	id?: string;
 }
 
 export type ColorData = string;
