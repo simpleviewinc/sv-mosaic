@@ -1,5 +1,45 @@
 # sv-mosaic changelog
 
+## 32.1.1 - 04/16/24
+
+### Improvements & Fixes
+
+* `Form`
+  * [MOS-1315](https://simpleviewtools.atlassian.net/browse/MOS-1315 "https://simpleviewtools.atlassian.net/browse/MOS-1315")
+    * This ensures the auto focus action is only carried out once the initial load has finished and the form is enabled by using `loadingInitial` and `disabled` as dependencies to the side effect that invokes the focus method.
+* `Content`
+  * [MOS-1311](https://simpleviewtools.atlassian.net/browse/MOS-1311 "https://simpleviewtools.atlassian.net/browse/MOS-1311")
+    * Applies some refactoring to the bulk of the `Content` component, but also ensures rows are not rendered when they have no fields to render within, particularly when individual field `show` properties are evaluated.
+    * The `ContentField` type is renamed to `ContentFieldDef`.
+* `ButtonRow` / `Form` / `Menu` / `SideNav`
+  * [MOS-1312](https://simpleviewtools.atlassian.net/browse/MOS-1312 "https://simpleviewtools.atlassian.net/browse/MOS-1312")
+    * Improves on the show mechanic to ensure wrapping elements are not rendered if there are no items to render within as a result of their `show` evaluation. Specifically:
+      * Buttons should not render if the `menuItems` property is provided, but there are no menu items to render.
+      * Form rows should not render if there are no fields and by further extension columns to render within.
+      * SideNav groups should not render if there are no navigation items to render within.
+* `FormFieldAddress`
+  * [MOS-1310](https://simpleviewtools.atlassian.net/browse/MOS-1310 "https://simpleviewtools.atlassian.net/browse/MOS-1310")
+    * With a recent edit, when editing an address, the type options were derived from the address being edited as well as the available types from the field itself. This ensures there can be no duplicates when combining the two.
+* `Form`
+  * [MOS-1250](https://simpleviewtools.atlassian.net/browse/MOS-1250 "https://simpleviewtools.atlassian.net/browse/MOS-1250")
+    * Rewrites the entire "Form With Layout" story configuration to make it all round more coherent and better reflect what a real world form would look like.
+  * [MOS-1186](https://simpleviewtools.atlassian.net/browse/MOS-1186 "https://simpleviewtools.atlassian.net/browse/MOS-1186")
+    * Removes playground prepopulate values control due to the url encoding (or lack) of said values causing errors to be thrown.
+* `DataViewDateFilter`
+  * [MOS-1225](https://simpleviewtools.atlassian.net/browse/MOS-1225 "https://simpleviewtools.atlassian.net/browse/MOS-1225")
+    * The date filter plucks the selected option from the list of provided options and displays the label of that option in the dropdown box. This prevents an error being thrown if the corresponding option is no longer available in those provided.
+* `FormFieldColorPicker` / `FormFieldImageUpload` / `FormFieldImageVideoLinkDocumentBrowsing` /`FormFieldTextEditor` / `FormFieldUpload`
+  * [MOS-1222](https://simpleviewtools.atlassian.net/browse/MOS-1222 "https://simpleviewtools.atlassian.net/browse/MOS-1222")
+    * Addresses a number of field types to improve accessibility, specifically ensuring all fields can be focused through the use of keyboard tabbing.
+      * `FormFieldColorPicker`: Swaps the containing `div` element for a `button` element.
+      * `FormFieldImageUpload`: Enables the button ripple and prevents display of input instead of hiding hacks.
+      * `FormFieldImageVideoLinkDocumentBrowsing`: Swaps circular icon `div` elements out for `button` elements.
+      * `FormFieldTextEditor`: Provides the tabIndex property to jodit configuration.
+      * `FormFieldUpload`: Swaps the "Upload Files" `label` element for a `button` element.
+* `FormFieldNumberTable`
+  * [MOS-1221](https://simpleviewtools.atlassian.net/browse/MOS-1221 "https://simpleviewtools.atlassian.net/browse/MOS-1221")
+    * Provides `FormFieldNumberTable`'s table with an explicit full width to ensure it stretches (or shrinks) to the width of it's containing element.
+
 ## 32.1.0 - 04/02/24
 
 ### Improvements & Fixes
