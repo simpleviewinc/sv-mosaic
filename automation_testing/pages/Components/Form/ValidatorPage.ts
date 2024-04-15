@@ -32,7 +32,7 @@ export class ValidatorPage extends BasePage {
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
 		this.title = page.locator("text=Validators story");
-		this.requiredTitle = page.locator("#required label[for='required']");
+		this.requiredTitle = page.locator("#required label[for='required-input']");
 		this.requireField = page.locator("input#required-input");
 		this.emailField = page.locator("input#email-input");
 		this.slowField = page.locator("input#slow-input");
