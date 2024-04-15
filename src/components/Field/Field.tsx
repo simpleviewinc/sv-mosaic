@@ -118,7 +118,7 @@ const Field = ({
 							value={value}
 							instructionText={fieldDef?.instructionText}
 							colsInRow={colsInRow}
-							htmlFor={hasRealLabel && fieldDef?.name ? `${fieldDef.name}-input` : undefined}
+							name={fieldDef.name}
 							as={hasRealLabel ? "label" : "div"}
 						>
 							{fieldDef?.label}
