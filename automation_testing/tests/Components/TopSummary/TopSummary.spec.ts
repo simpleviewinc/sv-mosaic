@@ -1,15 +1,15 @@
 import { test, expect, Page } from "@playwright/test";
-import { SummaryPageTopComponentPage } from "../../../pages/Components/SummaryPageTopComponent/SummaryPageTopComponentPage";
+import { TopSummaryPage } from "../../../pages/Components/TopSummary/TopSummaryPage";
 import theme from "../../../../src/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - SummaryPageTopComponent - Kitchen Sink", () => {
+test.describe.parallel("Components - TopSummary - Kitchen Sink", () => {
 	let page: Page;
-	let summaryPage: SummaryPageTopComponentPage;
+	let summaryPage: TopSummaryPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
-		summaryPage = new SummaryPageTopComponentPage(page);
+		summaryPage = new TopSummaryPage(page);
 		await summaryPage.visit(summaryPage.page_path);
 	});
 
