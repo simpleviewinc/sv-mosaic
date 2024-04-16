@@ -172,7 +172,11 @@ export type MountFieldResult = {
 
 export type MountField = (params: MountFieldParams) => MountFieldResult;
 
-export type RemoveValidator = () => void;
+export type RemoveValidatorParams = {
+	validate?: boolean;
+};
+
+export type RemoveValidator = (params?: RemoveValidatorParams) => void;
 
 export type AddValidatorParams = {
 	name: string;

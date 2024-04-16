@@ -99,7 +99,7 @@ function useFieldErrors({ methods, name }: UseFieldErrorParams): UseFieldErrorsR
 			},
 		});
 
-		return remove;
+		return () => remove({ validate: true });
 	}, [addValidator, error, name]);
 
 	return {

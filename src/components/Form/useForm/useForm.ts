@@ -454,7 +454,7 @@ export function useForm(): UseFormReturn {
 		];
 
 		return {
-			remove: () => {
+			remove: ({ validate } = {}) => {
 				const current = stable.current.internalValidators[name] || [];
 
 				/**
@@ -465,6 +465,12 @@ export function useForm(): UseFormReturn {
 				}
 
 				stable.current.internalValidators[name] = current.filter(item => item !== validator);
+
+				if (validate) {
+					validateField({
+						name,
+					});
+				}
 			},
 		};
 	}, []);
