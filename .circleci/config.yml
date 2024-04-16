@@ -73,6 +73,8 @@ jobs:
             docker exec sv-mosaic-e2e chmod +x automation_testing/scripts/try-storybook
             docker exec sv-mosaic-e2e mkdir /app/src
             docker cp ./src/theme sv-mosaic-e2e:/app/src/theme
+            docker exec sv-mosaic-e2e mkdir /app/src/utils
+            docker cp ./src/theme sv-mosaic-e2e:/app/src/utils/testIds.ts
       - run:
           name: List dir
           command: docker exec sv-mosaic-e2e ls -la ./automation_testing
