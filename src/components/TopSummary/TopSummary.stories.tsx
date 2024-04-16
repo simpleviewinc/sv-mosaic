@@ -11,7 +11,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 // Components
-import SummaryPageTopComponent from ".";
+import TopSummary from ".";
 
 const DescriptionItemParagraph = styled.p`
 	font-family: ${theme.museoFont};
@@ -19,7 +19,7 @@ const DescriptionItemParagraph = styled.p`
 `;
 
 export default {
-	title: "Components/SummaryPageTopComponent",
+	title: "Components/TopSummary",
 	decorators: [withKnobs],
 } as Meta;
 
@@ -138,7 +138,7 @@ export const Example = (): ReactElement => {
 	};
 
 	return (
-		<SummaryPageTopComponent
+		<TopSummary
 			title={title}
 			onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 			backLabel="Go back"
