@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo, useRef } from "react";
+import { ReactElement, memo, useEffect, useRef } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
@@ -36,6 +36,14 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		methods,
 		name: fieldDef.name,
 	});
+
+	useEffect(() => {
+		if (showTime) {
+			return;
+		}
+
+		removeError([TIME_REQUIRED, INVALID_TIME]);
+	}, [removeError, showTime]);
 
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
