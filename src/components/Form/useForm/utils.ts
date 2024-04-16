@@ -1,6 +1,6 @@
 import {
-	isLatitude,
-	isLongitude,
+	validateLatitude,
+	validateLongitude,
 	required,
 	validateCharacterCount,
 	validateDateRange,
@@ -75,8 +75,8 @@ export async function runValidators(
 export function mapsValidators(validators): Validator[] {
 	const validatorsMap = {
 		required: required,
-		isLatitude: isLatitude,
-		isLongitude: isLongitude,
+		validateLatitude: validateLatitude,
+		validateLongitude: validateLongitude,
 		validateDateRange: validateDateRange,
 		validateMinDate: validateMinDate,
 		validateCharacterCount: validateCharacterCount,

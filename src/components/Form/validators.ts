@@ -50,7 +50,7 @@ export function validateSlow(str: string): Promise<void | string> {
  * @param lat latitude value
  * @returns error message
  */
-export function isLatitude(lat: number): string | undefined {
+export function validateLatitude(lat: number): string | undefined {
 	const isValidLatitude = isFinite(lat) && Math.abs(lat) <= 90;
 
 	if (!isValidLatitude) {
@@ -65,7 +65,7 @@ export function isLatitude(lat: number): string | undefined {
  * @param lng longitude value
  * @returns error message
  */
-export function isLongitude(lng: number): string | undefined {
+export function validateLongitude(lng: number): string | undefined {
 	const isValidLongitude = isFinite(lng) && Math.abs(lng) <= 180;
 
 	if (!isValidLongitude) {
