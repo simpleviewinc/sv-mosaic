@@ -9,14 +9,14 @@ import { MenuItemProps } from "../MenuItem";
 import "@testing-library/jest-dom";
 
 // Components
-import SummaryPageTopComponent, { SummaryPageTopComponentTypes } from ".";
+import TopSummary, { TopSummaryTypes } from ".";
 import { ReactElement, useState } from "react";
 
 afterEach(cleanup);
 
 const ComponentExample = (props: {
-	descriptionItems?: SummaryPageTopComponentTypes["descriptionItems"];
-	mainActions?: SummaryPageTopComponentTypes["mainActions"];
+	descriptionItems?: TopSummaryTypes["descriptionItems"];
+	mainActions?: TopSummaryTypes["mainActions"];
 	showAdditionalActions?: boolean;
 }): ReactElement => {
 
@@ -80,7 +80,7 @@ const ComponentExample = (props: {
 		/>,
 	];
 
-	const tempMainActions: SummaryPageTopComponentTypes["mainActions"] = [
+	const tempMainActions: TopSummaryTypes["mainActions"] = [
 		{
 			label: "Button 1",
 			mIcon: Mail,
@@ -129,7 +129,7 @@ const ComponentExample = (props: {
 	};
 
 	return (
-		<SummaryPageTopComponent
+		<TopSummary
 			title={title}
 			favorite={favorite}
 			img={img}
@@ -140,7 +140,7 @@ const ComponentExample = (props: {
 	);
 };
 
-describe("SummaryPageTopComponent", () => {
+describe("TopSummary", () => {
 	it("Should display the image", async () => {
 		await act(async () => {
 			render(<ComponentExample />);

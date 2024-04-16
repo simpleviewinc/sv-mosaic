@@ -1,9 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 
-export class SummaryPageTopComponentPage extends BasePage {
+export class TopSummaryPage extends BasePage {
 
-	readonly page_path = "components-summarypagetopcomponent--example";
+	readonly page_path = "components-topsummary--example";
 
 	readonly page: Page;
 	readonly summaryTitle: Locator;

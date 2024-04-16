@@ -1,14 +1,14 @@
 import * as React from "react";
 import { ReactElement, memo, useMemo } from "react";
-import { SummaryPageTopComponentTypes } from ".";
+import { TopSummaryTypes } from ".";
 import MoreVert from "@mui/icons-material/MoreVert";
 import {
-	StyledSummaryPageTopComponent,
+	StyledTopSummary,
 	Container,
 	Row,
 	Item,
 	ContainerTitle,
-} from "./SummaryPageTopComponent.styled";
+} from "./TopSummary.styled";
 
 import StarRateRounded from "@mui/icons-material/StarRateRounded";
 import StarBorder from "@mui/icons-material/StarBorderRounded";
@@ -20,7 +20,7 @@ import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { useToggle } from "@root/utils/toggle";
 
-const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactElement => {
+const SumaryPageTopComponent = (props: TopSummaryTypes): ReactElement => {
 	const {
 		title,
 		onBack,
@@ -61,7 +61,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 	], [mainActions, additionActionsButton]);
 
 	return (
-		<StyledSummaryPageTopComponent>
+		<StyledTopSummary>
 			{img && (
 				<Image
 					className="img-rounded"
@@ -98,7 +98,7 @@ const SumaryPageTopComponent = (props: SummaryPageTopComponentTypes): ReactEleme
 					)}
 				</Row>
 			</Container>
-		</StyledSummaryPageTopComponent>
+		</StyledTopSummary>
 	);
 };
 
