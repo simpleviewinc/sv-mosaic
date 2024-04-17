@@ -52,7 +52,7 @@ const Form = (props: FormProps) => {
 		methods,
 		stable,
 		autoFocus,
-		skeleton,
+		skeleton: providedSkeleton,
 	} = props;
 
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
@@ -236,6 +236,7 @@ const Form = (props: FormProps) => {
 	 * Loading state
 	 */
 	const isBusy = state.disabled || state.waits.length > 0;
+	const skeleton = providedSkeleton || loadingInitial;
 
 	useEffect(() => {
 		init({ fields });
@@ -292,6 +293,7 @@ const Form = (props: FormProps) => {
 							buttons={buttonsWithDisable}
 							bottomBorder={sideNavItems.length < 2}
 							collapse={topCollapseContainer}
+							skeleton={skeleton}
 						/>
 					)}
 					<StyledFormPrimary className="form-primary">
