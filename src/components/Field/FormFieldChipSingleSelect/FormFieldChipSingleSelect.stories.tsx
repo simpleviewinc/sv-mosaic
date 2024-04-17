@@ -34,6 +34,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper Text", "Helper Text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const disabled = boolean("Disabled", false);
 	const optionsOrigin = select(
 		"Options Origin",
@@ -70,6 +71,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

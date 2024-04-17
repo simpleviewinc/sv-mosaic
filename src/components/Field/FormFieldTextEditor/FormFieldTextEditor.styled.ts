@@ -63,3 +63,9 @@ export const EditorWrapper = styled.div<{ $error?: boolean }>`
 		background-color: ${theme.newColors.grey2["100"]};
 	}
 `;
+
+export const StyledSkeletonWrapper = styled.div`
+	display: flex;
+	flex-flow: column;
+	gap: 8px;
+`;

@@ -15,4 +15,5 @@ export interface SectionPropTypes {
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
 	methods: FormMethods;
+	skeleton?: boolean;
 }

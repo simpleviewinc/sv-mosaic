@@ -29,6 +29,7 @@ export const Playground = (): ReactElement => {
 	const maxCharacters = number("Max characters", 20);
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const multiline = boolean("Multiline", false);
 	const minRows = number("Min rows for multiline", 3);
 	const maxRows = number("Max rows for multiline", 4);
@@ -85,6 +86,7 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				fields={fields}
 				{...controller}
+				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

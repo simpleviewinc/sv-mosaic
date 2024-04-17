@@ -12,6 +12,7 @@ export interface ColPropsTypes {
 	sectionIdx?: number;
 	spacing?: FormSpacing;
 	methods: FormMethods;
+	skeleton?: boolean;
 }
 
 export interface ColFieldProps {
@@ -24,4 +25,5 @@ export interface ColFieldProps {
 	sectionIdx?: number;
 	spacing?: FormSpacing;
 	methods: FormMethods;
+	skeleton?: boolean;
 }

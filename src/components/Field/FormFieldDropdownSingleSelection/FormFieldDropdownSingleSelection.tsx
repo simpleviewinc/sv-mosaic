@@ -13,6 +13,7 @@ import InputWrapper from "../../InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
+import { Skeleton } from "@mui/material";
 
 const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>) => {
 	const {
@@ -24,6 +25,7 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 		disabled,
 		inputRef,
 		id,
+		skeleton,
 	} = props;
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -97,6 +99,16 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	const CustomPopper = (props: CustomPopperProps) => {
 		return <StyledPopper $value={value?.value === ""} {...props} />;
 	};
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={43}
+			/>
+		);
+	}
 
 	return (
 		<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" $innerWidth={fieldDef?.size}>

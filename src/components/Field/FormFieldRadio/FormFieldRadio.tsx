@@ -9,6 +9,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { MosaicLabelValue } from "@root/types";
+import { FormFieldRadioSkeleton } from "./FormFieldRadioSkeleton";
 
 const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, RadioData>): ReactElement => {
 	const {
@@ -17,6 +18,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		value,
 		onBlur,
 		disabled,
+		skeleton,
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState([]);
@@ -62,6 +64,10 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		const selectedOption: MosaicLabelValue = internalOptions.find(o => o.value === option);
 		onChange(selectedOption);
 	};
+
+	if (skeleton) {
+		return <FormFieldRadioSkeleton />;
+	}
 
 	return (
 		<StyledRadioGroup

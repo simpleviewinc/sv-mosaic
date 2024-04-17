@@ -13,6 +13,7 @@ import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
 import { useFieldErrors } from "@root/utils/hooks";
+import { FormFieldDateSkeleton } from "./FormFieldDateSkeleton";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -27,6 +28,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		error,
 		methods,
 		inputRef,
+		skeleton,
 		id,
 	} = props;
 
@@ -121,6 +123,10 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onBlur();
 		}
 	};
+
+	if (skeleton) {
+		return <FormFieldDateSkeleton showTime={showTime} />;
+	}
 
 	return (
 		<DateTimeInputRow $hasTimeField={showTime}>
