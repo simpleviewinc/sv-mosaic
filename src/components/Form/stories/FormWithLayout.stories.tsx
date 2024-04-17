@@ -49,6 +49,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 	const showSimpleText = select("Show Simple Text", toggleOptions, "Undefined");
 	const showBigText = select("Show Big Text", toggleOptions, "Undefined");
 	const showTextFieldValidatesEmail = select("Show TextField that validates email", toggleOptions, "Undefined");
+	const skeleton = boolean("Skeleton", false);
 
 	const controller = useForm();
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
@@ -369,6 +370,7 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					description="Give us some information to understand a little more about you."
 					sections={sections}
 					fields={fields}
+					skeleton={skeleton}
 				/>
 			</div>
 		</>

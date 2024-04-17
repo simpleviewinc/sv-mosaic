@@ -41,6 +41,7 @@ export interface FormProps {
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 	methods: FormMethods;
 	autoFocus?: boolean;
+	skeleton?: boolean;
 }
 
 export interface FieldError {

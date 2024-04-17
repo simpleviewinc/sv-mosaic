@@ -8,4 +8,5 @@ export interface LayoutProps {
 	registerRef?: (ref: HTMLElement) => () => void;
 	spacing?: FormSpacing;
 	methods: FormMethods;
+	skeleton?: boolean;
 }
