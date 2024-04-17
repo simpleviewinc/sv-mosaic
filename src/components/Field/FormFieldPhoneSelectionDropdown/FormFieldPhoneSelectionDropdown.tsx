@@ -11,6 +11,7 @@ import {
 	PhoneInputWrapper,
 } from "./FormFieldPhoneSelectionDropdown.styled";
 import { MosaicFieldProps } from "@root/components/Field";
+import { Skeleton } from "@mui/material";
 
 const FormFieldPhoneSelectionDropdown = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
@@ -24,6 +25,7 @@ const FormFieldPhoneSelectionDropdown = (
 		disabled,
 		inputRef,
 		id,
+		skeleton,
 	} = props;
 
 	const [dialCode, setDialCode] = useState("");
@@ -36,6 +38,16 @@ const FormFieldPhoneSelectionDropdown = (
 			onChange(phoneValue);
 		}
 	};
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={43}
+			/>
+		);
+	}
 
 	return (
 		<PhoneInputWrapper

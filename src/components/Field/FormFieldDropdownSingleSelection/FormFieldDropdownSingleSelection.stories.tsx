@@ -51,6 +51,7 @@ export const Playground = (): ReactElement => {
 	const placeholder = text("Placeholder", "placeholder");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
@@ -101,6 +102,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

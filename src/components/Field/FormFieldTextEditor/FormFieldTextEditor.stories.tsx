@@ -20,6 +20,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper Text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const toggleLabel = text("Toggle label", "Toggle label");
 	const spellcheck = boolean("Spellcheck", false);
 	const direction = select("Direction", ["ltr", "rtl"], "ltr");
@@ -68,6 +69,7 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				fields={fields}
 				buttons={renderButtons(handleSubmit)}
+				skeleton={skeleton}
 			/>
 		</>
 	);

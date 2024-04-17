@@ -22,6 +22,7 @@ export const Playground = (): ReactElement => {
 	const helperText = text("Helper text", "Helper Text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const toggleLabel = text("Toggle label", "Toggle label");
 
 	const fields: FieldDef[] = useMemo(
@@ -52,6 +53,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

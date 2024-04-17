@@ -50,3 +50,12 @@ export const StyledExpandLessIcon = styled(ExpandLessIcon)`
 export const AdvancedSelectionWrapper = styled.div`
   max-width: 600px;
 `;
+
+export const StyledSkeletonWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+
+  & .MuiSkeleton-root {
+    border-radius: 99999em;
+  }
+`;

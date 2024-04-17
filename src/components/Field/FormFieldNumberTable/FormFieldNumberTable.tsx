@@ -21,6 +21,7 @@ import {
 } from "./FormFieldNumberTable.styled";
 import { isValidRowCol } from "./numberTableUtils";
 import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
+import { FormFieldNumberTableSkeleton } from "./FormFieldNumberTableSkeleton";
 
 const FormFieldNumberTable = (
 	props: MosaicFieldProps<
@@ -29,7 +30,7 @@ const FormFieldNumberTable = (
 		NumberTableData
 	>,
 ): ReactElement => {
-	const { fieldDef, onChange, value, disabled, inputRef } = props;
+	const { fieldDef, onChange, value, disabled, inputRef, skeleton } = props;
 
 	const { inputSettings } = fieldDef;
 	const { displaySumColumn = true, displaySumRow = true } = inputSettings;
@@ -153,6 +154,10 @@ const FormFieldNumberTable = (
 		}
 
 	};
+
+	if (skeleton) {
+		return <FormFieldNumberTableSkeleton />;
+	}
 
 	return (
 		<StyledTable>

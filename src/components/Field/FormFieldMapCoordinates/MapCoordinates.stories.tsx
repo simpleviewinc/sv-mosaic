@@ -32,6 +32,7 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Map Coordinates Example");
 	const initialCenterKnob = object("Initial map position", { lat: 48.858321470423576, lng: 2.2945004162050564 });
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const zoom = number("Zoom", 7, { min: 0, max: 18, range: true });
 	const focusZoom = number("Focus Zoom", 11, { min: 0, max: 18, range: true });
 	const prepopulate = boolean("Prepopulate", false);
@@ -65,6 +66,7 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				fields={fields}
 				getFormValues={prepopulate ? getFormValues : undefined}
+				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

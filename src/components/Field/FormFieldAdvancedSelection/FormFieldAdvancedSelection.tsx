@@ -24,6 +24,7 @@ import {
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
 import { MosaicLabelValue } from "@root/types";
+import { FormFieldAdvancedSelectionSkeleton } from "./FormFieldAdvancedSelectionSkeleton";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -32,6 +33,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		onChange,
 		disabled,
 		fieldDef,
+		skeleton,
 	} = props;
 
 	// State variables
@@ -77,6 +79,10 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		await onChange(options);
 		await onBlur();
 	}, [onChange]);
+
+	if (skeleton) {
+		return <FormFieldAdvancedSelectionSkeleton />;
+	}
 
 	return (
 		<>

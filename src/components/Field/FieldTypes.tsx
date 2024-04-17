@@ -80,6 +80,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * select or textarea element
 	 */
 	inputRef?: MutableRefObject<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
+	/**
+	 * Whether or not to display a skeleton representation
+	 * of this component
+	 */
+	skeleton?: boolean;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

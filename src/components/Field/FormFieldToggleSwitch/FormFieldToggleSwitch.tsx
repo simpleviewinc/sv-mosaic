@@ -7,6 +7,7 @@ import ToggleSwitch from "@root/components/ToggleSwitch";
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
 import { ToggleSwitchInputSettings, FieldDefToggleSwitchData } from "./FormFieldToggleSwitchTypes";
+import { FormFieldSwitchSkeleton } from "./FormFieldSwitchSkeleton";
 
 const FormFieldToggleSwitch = (
 	props: MosaicFieldProps<"toggleSwitch", ToggleSwitchInputSettings, FieldDefToggleSwitchData>,
@@ -17,7 +18,12 @@ const FormFieldToggleSwitch = (
 		onChange,
 		value,
 		disabled,
+		skeleton,
 	} = props;
+
+	if (skeleton) {
+		return <FormFieldSwitchSkeleton />;
+	}
 
 	return (
 		<ToggleSwitch

@@ -157,6 +157,7 @@ export const Playground = (): ReactElement => {
 	const showSections = select("Show sections", [0, 1, 2, 3], 0);
 	const collapsed = boolean("Collapse sections", false);
 	const containerHeight = text("Container Height (500px, 50rem, etc..)", "100vh");
+	const skeleton = boolean("Skeleton", false);
 
 	const onFileAdd = async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
@@ -505,6 +506,7 @@ export const Playground = (): ReactElement => {
 				getFormValues={getFormValues}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={buttons}
+				skeleton={skeleton}
 			/>
 		</div>
 	);

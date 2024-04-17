@@ -52,6 +52,7 @@ const Form = (props: FormProps) => {
 		methods,
 		stable,
 		autoFocus,
+		skeleton,
 	} = props;
 
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
@@ -310,6 +311,7 @@ const Form = (props: FormProps) => {
 								sections={shownSections}
 								spacing={spacing}
 								methods={methods}
+								skeleton={skeleton}
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>
