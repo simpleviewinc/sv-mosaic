@@ -32,6 +32,7 @@ const Top = (props: TopProps): ReactElement => {
 		backLabel,
 		bottomBorder,
 		collapse,
+		skeleton,
 	} = props;
 
 	return (
@@ -56,7 +57,10 @@ const Top = (props: TopProps): ReactElement => {
 							<SmallBackIcon />
 						</SmallBack>
 					)}
-					<ButtonRow buttons={buttons} />
+					<ButtonRow
+						buttons={buttons}
+						skeleton={skeleton}
+					/>
 				</PrimaryActions>
 			</TopWrapper>
 			{description && <LargeDescription>{description}</LargeDescription>}
