@@ -29,4 +29,6 @@ export type TopProps = {
 	bottomBorder?: boolean;
 
 	collapse?: MosaicCSSContainer;
+
+	skeleton?: boolean;
 };
