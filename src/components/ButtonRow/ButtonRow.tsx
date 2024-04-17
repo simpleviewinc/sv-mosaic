@@ -5,8 +5,9 @@ import { ButtonRowProps, ButtonsRowWrapperProps } from "./ButtonRowTypes";
 import { Item, Row } from "./ButtonRow.styled";
 import Button from "../Button";
 import { useToggle } from "@root/utils/toggle";
+import { Skeleton } from "@mui/material";
 
-function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWrapperProps) {
+function ButtonRowWrapper({ className, wrap, children, separator, skeleton }: ButtonsRowWrapperProps) {
 	if (!children.length) {
 		return null;
 	}
@@ -15,7 +16,13 @@ function ButtonRowWrapper({ className, wrap, children, separator }: ButtonsRowWr
 		<Row className={className} $wrap={wrap} data-testid="button-row" role="toolbar">
 			{children.map(({ item, key }) => (
 				<Item key={key} $separator={separator}>
-					{item}
+					{skeleton ? (
+						<Skeleton
+							variant="rectangular"
+							width={120}
+							height={36}
+						/>
+					) : item}
 				</Item>
 			))}
 		</Row>
