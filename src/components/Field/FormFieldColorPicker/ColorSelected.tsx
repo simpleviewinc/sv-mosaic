@@ -4,7 +4,7 @@ import { ColorContainer, ColorDiv } from "./ColorPicker.styled";
 import { ColorSelectedProps } from "./ColorPickerTypes";
 
 const ColorSelected = (props: ColorSelectedProps): ReactElement => {
-	const { disabled, color, onClick, displayColorPicker } = props;
+	const { disabled, color, onClick, displayColorPicker, id } = props;
 
 	return (
 		<ColorContainer
@@ -12,6 +12,7 @@ const ColorSelected = (props: ColorSelectedProps): ReactElement => {
 			$displayColorPicker={displayColorPicker}
 			onClick={onClick}
 			type="button"
+			id={id}
 		>
 			<ColorDiv
 				data-testid="colordiv-test"

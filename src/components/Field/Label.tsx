@@ -10,6 +10,7 @@ import theme from "@root/theme";
 import { TransientProps } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 import Tooltip, { useTooltip } from "../Tooltip";
+import testIds from "@root/utils/testIds";
 
 const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
@@ -70,12 +71,13 @@ const StyledTooltipWrapper = styled.div<{ $colsInRow?: number }>`
 interface LabelProps {
 	className?: string;
 	required?: boolean;
-	htmlFor?: string;
+	name?: string;
 	children?: ReactNode;
 	value?: string;
 	limit?: [number, number];
 	instructionText?: string;
 	colsInRow?: number;
+	as?: "label" | "div";
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -83,17 +85,22 @@ const Label = (props: LabelProps): ReactElement => {
 		children,
 		className,
 		required,
-		htmlFor,
+		name,
 		limit,
 		instructionText,
 		colsInRow,
+		as = "label",
 	} = props;
 
 	const { anchorProps, tooltipProps } = useTooltip();
 
 	return (
 		<LabelWrapper className={className}>
-			<StyledInputLabel htmlFor={htmlFor}>
+			<StyledInputLabel
+				htmlFor={as === "label" && name ? `${name}-input` : undefined}
+				as={as}
+				data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
+			>
 				{children}
 				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
 			</StyledInputLabel>

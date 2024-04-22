@@ -2,6 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 import { commonKnobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
+import testIds from "../../../../src/utils/testIds";
 
 test.describe.parallel("Components - Form - Playground", () => {
 	let page: Page;
@@ -60,15 +61,25 @@ test.describe.parallel("Components - Form - Playground", () => {
 
 	test("Validate that when the disabled knob is active, the label of the field have the correct style.", async () => {
 		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true"]);
-		const labels = [playgroundPage.page.locator("label[for='textField']"), playgroundPage.page.locator("label[for='check']"),
-			playgroundPage.page.locator("label[for='chipSelect']"), playgroundPage.page.locator("label[for='dropdownSingle']"),
-			playgroundPage.page.locator("label[for='phoneSelect']"), playgroundPage.page.locator("label[for='radio']"),
-			playgroundPage.page.locator("label[for='toggleSwitch']"), playgroundPage.page.locator("label[for='color']"),
-			playgroundPage.page.locator("label[for='date']"), playgroundPage.page.locator("label[for='address']"),
-			playgroundPage.page.locator("label[for='advancedSelection']"), playgroundPage.page.locator("label[for='imageVideoDocumentLink']"),
-			playgroundPage.page.locator("label[for='textEditor']"),
-			playgroundPage.page.locator("label[for='imageUpload']"), playgroundPage.page.locator("label[for='mapCoordinates']"),
-			playgroundPage.page.locator("label[for='upload']"), playgroundPage.page.locator("label[for='numberTable']")];
+		const labels = [
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:textField`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:check`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:chipSelect`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:dropdownSingle`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:phoneSelect`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:radio`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:toggleSwitch`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:color`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:date`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:address`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:advancedSelection`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:imageVideoDocumentLink`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:textEditor`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:imageUpload`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:mapCoordinates`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:upload`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:numberTable`),
+		];
 		for (let i = 0; i < labels.length; i++) {
 			expect(await playgroundPage.getColorFromElement(labels[i].first()), `Checking Font Color of the Label ${i}`).toBe(theme.newColors.grey4["100"]);
 		}

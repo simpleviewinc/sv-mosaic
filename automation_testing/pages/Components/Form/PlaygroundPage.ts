@@ -52,8 +52,8 @@ export class PlaygroundPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.simpleText = page.locator("input#textField");
-		this.textArea = page.locator("textarea#textArea");
+		this.simpleText = page.locator("input#textField-input");
+		this.textArea = page.locator("textarea#textArea-input");
 		this.checkboxInput = page.locator("#check input");
 		this.chipSingleSelect = page.locator("#chipSelect div[data-testid='chip-testid']");
 		this.singleSelectDropdown = page.locator("[data-testid='textfield-test-id'] input");
@@ -78,11 +78,11 @@ export class PlaygroundPage extends BasePage {
 		//Address Information
 		this.countryDropdown = page.locator("input[role='combobox']").nth(1);
 		this.firstAddressField = page.locator("#address1 input");
-		this.secondAddressField = page.locator("input#address2");
-		this.thirdAddressField = page.locator("input#address3");
-		this.cityAddress = page.locator("input#city");
+		this.secondAddressField = page.locator("input#address2-input");
+		this.thirdAddressField = page.locator("input#address3-input");
+		this.cityAddress = page.locator("input#city-input");
 		this.statesDropdown = page.locator("input[role='combobox']").nth(2);
-		this.postalCode = page.locator("input#postalCode");
+		this.postalCode = page.locator("input#postalCode-input");
 		this.drawerButtons = page.locator("[type='DRAWER']");
 		this.saveDrawerButton = page.locator("[type='DRAWER'] button", { hasText: "Save" });
 		//Advanced Selection options

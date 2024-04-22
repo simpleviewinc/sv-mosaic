@@ -73,6 +73,7 @@ const ColField = ({
 			disabled={disabled}
 			methods={methods}
 			inputRef={inputRef}
+			id={`${field.name}-input`}
 		/>
 	), [
 		Component,
@@ -83,6 +84,7 @@ const ColField = ({
 		onBlur,
 		disabled,
 		methods,
+		field.name,
 	]);
 
 	if (!shouldShow) {

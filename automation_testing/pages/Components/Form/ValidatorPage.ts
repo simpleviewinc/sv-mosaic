@@ -32,12 +32,12 @@ export class ValidatorPage extends BasePage {
 		this.page = page;
 		this.datepicker = new DatePickerComponent(page);
 		this.title = page.locator("text=Validators story");
-		this.requiredTitle = page.locator("#required label[for='required']");
-		this.requireField = page.locator("input#required");
-		this.emailField = page.locator("input#email");
-		this.slowField = page.locator("input#slow");
-		this.numberField = page.locator("input#number");
-		this.urlField = page.locator("input#url");
+		this.requiredTitle = page.locator("#required label[for='required-input']");
+		this.requireField = page.locator("input#required-input");
+		this.emailField = page.locator("input#email-input");
+		this.slowField = page.locator("input#slow-input");
+		this.numberField = page.locator("input#number-input");
+		this.urlField = page.locator("input#url-input");
 		this.startDateInput = page.locator("#startDate input");
 		this.startDateButton = page.locator("#startDate button");
 		this.endDateInput = page.locator("#endDate input");
