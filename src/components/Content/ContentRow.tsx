@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from "react";
 import { ContentFieldProps } from "./ContentTypes";
 
 import {
-	FieldContainer, FieldDefinition, FieldTerm,
+	FieldContainer, FieldDefinition, FieldDefinitionInner, FieldTerm,
 } from "./Content.styled";
 import Blank from "@root/components/Blank";
 import testIds from "@root/utils/testIds";
@@ -28,7 +28,9 @@ const ContentField = ({ label, transforms, value: rawValue }: ContentFieldProps)
 		<FieldContainer data-testid={testIds.CONTENT_FIELD}>
 			<FieldTerm>{label}</FieldTerm>
 			<FieldDefinition>
-				{value as ReactNode}
+				<FieldDefinitionInner>
+					{value as ReactNode}
+				</FieldDefinitionInner>
 			</FieldDefinition>
 		</FieldContainer>
 	);
