@@ -74,6 +74,7 @@ const DrawerEditForm = ({
 export const FormVariant = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const label = text("Label", "Matrix field");
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
@@ -284,6 +285,7 @@ export const FormVariant = (): ReactElement => {
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
+					skeleton={skeleton}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -315,6 +317,7 @@ const mappedData = rawData.slice(1, 25).map((data) => {
 export const Browse = (): ReactElement => {
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const label = text("Label", "Matrix field");
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
@@ -559,6 +562,7 @@ export const Browse = (): ReactElement => {
 					title={text("Title", "Form Title")}
 					description={text("Description", "This is a description example")}
 					fields={fields}
+					skeleton={skeleton}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>

@@ -65,6 +65,7 @@ export const Playground = (): ReactElement => {
 	const maxTotalSize = text("Max total size (KB)", "");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const helperText = text("Helper text", "Helper text");
 	const instructionText = text("Instruction text", "Instruction text");
 	const label = text("Label", "Label");
@@ -169,6 +170,7 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				fields={fields}
 				getFormValues={loadReady && getFormValues}
+				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

@@ -8,6 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
+import { Skeleton } from "@mui/material";
 
 const TextField = (
 	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>,
@@ -21,6 +22,7 @@ const TextField = (
 		disabled,
 		inputRef,
 		id,
+		skeleton,
 	} = props;
 
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
@@ -45,6 +47,16 @@ const TextField = (
 	};
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={43}
+			/>
+		);
+	}
 
 	return (
 		<StyledTextField

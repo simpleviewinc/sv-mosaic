@@ -18,6 +18,7 @@ const Row = (props: RowPropTypes) => {
 		gridMinWidth,
 		spacing,
 		methods,
+		skeleton,
 	} = props;
 
 	/**
@@ -50,6 +51,7 @@ const Row = (props: RowPropTypes) => {
 						colsInRow={row.length}
 						spacing={spacing}
 						methods={methods}
+						skeleton={skeleton}
 					/>
 				);
 			})}

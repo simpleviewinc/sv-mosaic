@@ -21,6 +21,7 @@ export const Playground = (): ReactElement => {
 	const instructionText = text("Instruction text", "Instruction text");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const showTime = boolean("Show time", false);
 	const minDateStr = text("Minimum Date", "");
 
@@ -58,6 +59,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

@@ -21,3 +21,8 @@ export const AddressItems = styled.div`
 export const Footer = styled.div`
   margin-bottom: 16px;
 `;
+
+export const StyledSkeletonWrapper = styled.div`
+  display: flex;
+  gap: 16px;
+`;

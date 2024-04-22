@@ -181,8 +181,10 @@ export function useForm(): UseFormReturn {
 			type: "SET_FIELD_VALUES",
 			values,
 			internalValues: internalValues,
-			loadingInitial: !initial,
-			...(initial ? { disabled: false } : {}),
+			...(initial ? {
+				disabled: false,
+				loadingInitial: false,
+			} : {}),
 		});
 	}, [getFieldFromExtra]);
 

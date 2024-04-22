@@ -11,6 +11,7 @@ import { textIsValidDate } from "@root/utils/date";
 import { TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_TIME } from "@root/components/Form/fieldErrors";
 import { useFieldErrors } from "@root/utils/hooks";
+import { Skeleton } from "@mui/material";
 
 const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, TimeData>): ReactElement => {
 	const {
@@ -25,6 +26,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		methods,
 		inputRef,
 		id,
+		skeleton,
 	} = props;
 
 	const { addError, removeError } = useFieldErrors({
@@ -61,6 +63,16 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			});
 		}
 	};
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={43}
+			/>
+		);
+	}
 
 	return (
 		<TimePicker

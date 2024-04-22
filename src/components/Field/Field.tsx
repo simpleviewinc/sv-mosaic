@@ -6,6 +6,7 @@ import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { FieldDef, MosaicFieldProps } from ".";
+import { Skeleton } from "@mui/material";
 
 function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
@@ -70,6 +71,7 @@ const Field = ({
 	spacing,
 	inputRef,
 	disabled,
+	skeleton,
 }: MosaicFieldProps<any>): ReactElement => {
 	const { mountField } = methods || {};
 	const fieldRef = useRef<HTMLDivElement | undefined>();
@@ -112,17 +114,25 @@ const Field = ({
 			<StyledFieldWrapper $error={shouldRenderError} $spacing={spacing}>
 				<StyledLabelControlWrapper $fullWidth={fieldDef?.size === "full"}>
 					{hasLabelComponent && (
-						<Label
-							required={fieldDef?.required}
-							limit={limit}
-							value={value}
-							instructionText={fieldDef?.instructionText}
-							colsInRow={colsInRow}
-							name={fieldDef.name}
-							as={hasRealLabel ? "label" : "div"}
-						>
-							{fieldDef?.label}
-						</Label>
+						skeleton ? (
+							<Skeleton
+								width={92}
+								height={28}
+								sx={{ marginBottom: "8px" }}
+							/>
+						) : (
+							<Label
+								required={fieldDef?.required}
+								limit={limit}
+								value={value}
+								instructionText={fieldDef?.instructionText}
+								colsInRow={colsInRow}
+								name={fieldDef.name}
+								as={hasRealLabel ? "label" : "div"}
+							>
+								{fieldDef?.label}
+							</Label>
+						)
 					)}
 					<StyledControlWrapper $size={fieldDef?.size}>
 						{children}

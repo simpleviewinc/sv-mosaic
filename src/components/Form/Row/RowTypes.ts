@@ -10,4 +10,5 @@ export interface RowPropTypes {
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
 	methods: FormMethods;
+	skeleton?: boolean;
 }

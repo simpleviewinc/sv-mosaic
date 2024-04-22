@@ -15,3 +15,12 @@ export const StyledChipGroup = styled.div<{ $error?: boolean }>`
 		margin-right: 0px;
 	}
 `;
+
+export const StyledChipsSkeletonWrapper = styled.div`
+	display: flex;
+	gap: 12px;
+
+	& .MuiSkeleton-root {
+		border-radius: 99999em;
+	}
+`;

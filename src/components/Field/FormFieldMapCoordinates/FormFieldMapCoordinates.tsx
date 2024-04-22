@@ -34,6 +34,7 @@ import {
 import Drawer from "@root/components/Drawer";
 import Blank from "@root/components/Blank/Blank";
 import Dialog from "@root/components/Dialog/Dialog";
+import { Skeleton } from "@mui/material";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
@@ -42,6 +43,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		onChange,
 		disabled,
 		fieldDef,
+		skeleton,
 	} = props;
 
 	const latLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
@@ -115,6 +117,16 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 			variant: "contained",
 		},
 	], [removeDialog]);
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width={280}
+				height={357}
+			/>
+		);
+	}
 
 	return (
 		<>

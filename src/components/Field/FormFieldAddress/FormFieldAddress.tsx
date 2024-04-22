@@ -12,6 +12,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { AddressFieldInputSettings, AddressData, IAddress, AddressType } from ".";
 import { AddressItems, Footer } from "./Address.styled";
 import Dialog from "@root/components/Dialog/Dialog";
+import { FormFieldAddressSkeleton } from "./FormFieldAddressSkeleton";
 
 const types: AddressType[] = [
 	{
@@ -38,6 +39,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		onBlur,
 		onChange,
 		fieldDef,
+		skeleton,
 	} = props;
 
 	// State variables
@@ -160,6 +162,12 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 			variant: "contained",
 		},
 	], [removeAddressHandler, removeDialog]);
+
+	if (skeleton) {
+		return (
+			<FormFieldAddressSkeleton />
+		);
+	}
 
 	return (
 		<>
