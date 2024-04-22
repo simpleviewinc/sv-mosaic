@@ -1,4 +1,5 @@
 import { DATE_FORMAT_FULL } from "@root/constants";
+import { stripTags } from "@root/utils/dom/stripTags";
 import format from "date-fns/format";
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
@@ -173,7 +174,7 @@ export function validateMinDate(value: any, data: any, { min, max }: { min?: Dat
 	}
 }
 
-export function validateCharacterCount(value: string, data: any, options: { max?: number }): string | undefined {
+export function validateCharacterCount(value: string, data: any, options: { max?: number; ignoreHTML?: boolean }): string | undefined {
 	if (!options.max) {
 		return;
 	}
@@ -182,7 +183,9 @@ export function validateCharacterCount(value: string, data: any, options: { max?
 		return;
 	}
 
-	if (value.length > options.max) {
+	const sanitized = options.ignoreHTML ? stripTags(value) : value;
+
+	if (sanitized.length > options.max) {
 		return "You have exceeded the maximum number of characters";
 	}
 }
