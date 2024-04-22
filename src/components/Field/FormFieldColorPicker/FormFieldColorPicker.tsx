@@ -46,6 +46,7 @@ const FormFieldColorPicker = (
 		onChange,
 		onBlur,
 		disabled,
+		id,
 	} = props;
 
 	// State variables
@@ -68,7 +69,7 @@ const FormFieldColorPicker = (
 		onChange(RGBAToHexA(color.rgb));
 	};
 
-	const id = open ? `${fieldDef.name}-popover` : undefined;
+	const popoverId = open ? `${fieldDef.name}-popover` : undefined;
 
 	return (
 		<>
@@ -76,10 +77,11 @@ const FormFieldColorPicker = (
 				disabled={disabled}
 				color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
 				onClick={handleClick}
+				id={id}
 			/>
 			{!disabled && (
 				<PopOver
-					id={id}
+					id={popoverId}
 					open={displayColorPicker}
 					anchorEl={anchorEl}
 					onClose={handleClose}

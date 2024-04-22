@@ -20,6 +20,7 @@ const TextField = (
 		value,
 		disabled,
 		inputRef,
+		id,
 	} = props;
 
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
@@ -47,7 +48,7 @@ const TextField = (
 
 	return (
 		<StyledTextField
-			id={fieldDef?.name}
+			id={id}
 			data-testid="form-field-text-test-id"
 			value={value ?? ""}
 			onChange={onFieldChange}
