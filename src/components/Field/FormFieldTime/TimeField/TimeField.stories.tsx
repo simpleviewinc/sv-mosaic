@@ -19,6 +19,7 @@ export const Playground = (): ReactElement => {
 	const instructionText = text("Instruction text", "Instruction text");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const populateTime = text("Initial Time", "");
 
 	const getFormValues = useCallback(async () => {
@@ -52,6 +53,7 @@ export const Playground = (): ReactElement => {
 				description={text("Description", "This is a description example")}
 				fields={fields}
 				getFormValues={getFormValues}
+				skeleton={skeleton}
 			/>
 		</>
 	);

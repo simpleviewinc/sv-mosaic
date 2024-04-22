@@ -16,6 +16,7 @@ export const Playground = () : ReactElement => {
 
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const autoFormat = boolean("Autoformat", true);
 	const country = text("Country code (e.g., us, mx, etc.)", "");
 	const label = text("Label", "Label");
@@ -51,6 +52,7 @@ export const Playground = () : ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

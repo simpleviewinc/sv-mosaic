@@ -16,6 +16,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { PopOver } from "./ColorPicker.styled";
 import ColorSelected from "./ColorSelected";
 import { ColorData } from "./ColorPickerTypes";
+import { Skeleton } from "@mui/material";
 
 /**
  * Convert an RGBA value to its HEX representation
@@ -46,6 +47,7 @@ const FormFieldColorPicker = (
 		onChange,
 		onBlur,
 		disabled,
+		skeleton,
 		id,
 	} = props;
 
@@ -70,6 +72,16 @@ const FormFieldColorPicker = (
 	};
 
 	const popoverId = open ? `${fieldDef.name}-popover` : undefined;
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width={102}
+				height={52}
+			/>
+		);
+	}
 
 	return (
 		<>

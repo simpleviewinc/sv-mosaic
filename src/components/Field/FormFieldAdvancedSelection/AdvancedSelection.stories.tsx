@@ -23,6 +23,7 @@ export const Playground = (): ReactElement => {
 	const options: MosaicLabelValue[] = additionalOptions ? additionalOptions : [];
 	const label = text("Label", "Label");
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const disabled = boolean("Disabled", false);
 	const instructionText = text("Instruction text", "Instruction text");
 	const helperText = text("Helper text", "Helper text");
@@ -113,6 +114,7 @@ export const Playground = (): ReactElement => {
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
+				skeleton={skeleton}
 			/>
 		</>
 	);

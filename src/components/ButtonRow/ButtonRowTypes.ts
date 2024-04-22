@@ -1,7 +1,7 @@
 import React from "react";
 import { ButtonProps } from "../Button";
 
-export type ButtonsRowWrapperProps = Pick<ButtonRowProps, "className" | "wrap" | "separator"> & {
+export type ButtonsRowWrapperProps = Pick<ButtonRowProps, "className" | "wrap" | "separator" | "skeleton"> & {
 	children: {
 		item: ReturnType<typeof React.Children.toArray>[number];
 		key: number | string;
@@ -26,4 +26,5 @@ export interface ButtonRowProps {
 	 */
 	gap?: "small" | "large";
 	wrap?: boolean;
+	skeleton?: boolean;
 }
