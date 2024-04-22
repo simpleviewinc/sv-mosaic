@@ -15,7 +15,7 @@ import { components, componentsToAddress, initalAddressComponent } from "../util
 import { MosaicLabelValue } from "@root/types";
 import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
-import Field from "@root/components/Field";
+import FieldWrapper from "@root/components/FieldWrapper";
 import addressesAreEqual from "../utils/addressesAreEqual";
 
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
@@ -217,7 +217,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		const { inputSettings } = fieldDef;
 
 		return (
-			<Field
+			<FieldWrapper
 				error={props.error}
 				id={fieldDef.name}
 				fieldDef={{
@@ -240,7 +240,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					disabled={props.disabled}
 					id={`${fieldDef.name}-input`}
 				/>
-			</Field>
+			</FieldWrapper>
 		);
 	}, [googleMapsApiKey]);
 

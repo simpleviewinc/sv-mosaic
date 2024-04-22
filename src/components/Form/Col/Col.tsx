@@ -3,7 +3,7 @@ import { memo } from "react";
 
 import { ColPropsTypes } from "./ColTypes";
 import { StyledCol } from "./ColStyled";
-import ColField from "./ColField";
+import Field from "../Field";
 
 const Col = (props: ColPropsTypes) => {
 	const {
@@ -22,7 +22,7 @@ const Col = (props: ColPropsTypes) => {
 	return (
 		<StyledCol data-layout="column" $colsInRow={colsInRow}>
 			{col.map((field) => (
-				<ColField
+				<Field
 					key={field}
 					fieldName={field}
 					fieldsDef={fieldsDef}
