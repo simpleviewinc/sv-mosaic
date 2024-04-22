@@ -1,11 +1,12 @@
 import React, { memo, useCallback, useMemo, useRef } from "react";
 import { FieldDef } from "../FormTypes";
-import { getFieldConfig } from "./fieldConfigMap";
-import { ColFieldProps } from "./ColTypes";
-import Field, { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
+import { getFieldConfig } from "..";
+import { FieldProps } from "./FieldTypes";
+import { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
+import FieldWrapper from "@root/components/FieldWrapper";
 import { useWrappedToggle } from "@root/utils/toggle";
 
-const ColField = ({
+const Field = ({
 	fieldsDef,
 	fieldName,
 	colsInRow,
@@ -16,7 +17,7 @@ const ColField = ({
 	spacing,
 	methods,
 	skeleton,
-}: ColFieldProps) => {
+}: FieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
 	if (!field) {
@@ -97,7 +98,7 @@ const ColField = ({
 	return isCustomField ? (
 		children
 	) : (
-		<Field
+		<FieldWrapper
 			fieldDef={sanitizedFieldDef}
 			value={value}
 			error={error}
@@ -110,8 +111,8 @@ const ColField = ({
 			skeleton={skeleton}
 		>
 			{children}
-		</Field>
+		</FieldWrapper>
 	);
 };
 
-export default memo(ColField);
+export default memo(Field);

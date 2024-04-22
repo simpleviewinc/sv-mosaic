@@ -3,7 +3,7 @@ import * as React from "react";
 import { useState } from "react";
 
 // Components
-import Field from "@root/components/Field";
+import FieldWrapper from "@root/components/FieldWrapper";
 import FormFieldText from "@root/components/Field/FormFieldText";
 
 const { getByText, queryByText } = screen;
@@ -13,7 +13,7 @@ afterEach(cleanup);
 describe("Field component label, helper text and instructional text", () => {
 	beforeEach(() => {
 		render(
-			<Field
+			<FieldWrapper
 				fieldDef={{
 					name: "fieldTest",
 					type: "text",
@@ -32,7 +32,7 @@ describe("Field component label, helper text and instructional text", () => {
 						instructionText: "Instruction text",
 					}}
 				/>
-			</Field>,
+			</FieldWrapper>,
 		);
 	});
 
@@ -48,7 +48,7 @@ describe("Field component label, helper text and instructional text", () => {
 describe("Field component error text and the helper text", () => {
 	it("should, in case of an error, display the error text and not the helper text", () => {
 		render(
-			<Field
+			<FieldWrapper
 				fieldDef={{
 					name: "fieldTest",
 					type: "text",
@@ -68,7 +68,7 @@ describe("Field component error text and the helper text", () => {
 					error="Error text"
 
 				/>
-			</Field>,
+			</FieldWrapper>,
 		);
 
 		expect(getByText("Error text")).toBeDefined();
@@ -77,7 +77,7 @@ describe("Field component error text and the helper text", () => {
 
 	it("should should display the helper text in the case of no error", () => {
 		render(
-			<Field
+			<FieldWrapper
 				fieldDef={{
 					name: "fieldTest",
 					type: "text",
@@ -99,7 +99,7 @@ describe("Field component error text and the helper text", () => {
 					}}
 
 				/>
-			</Field>,
+			</FieldWrapper>,
 		);
 
 		expect(getByText("Helper text")).toBeDefined();
@@ -116,7 +116,7 @@ describe("Field char counter", () => {
 			};
 
 			return (
-				<Field
+				<FieldWrapper
 					fieldDef={{
 						name: "fieldTest",
 						type: "text",
@@ -141,7 +141,7 @@ describe("Field char counter", () => {
 						}}
 						onChange={onHandleChange}
 					/>
-				</Field>
+				</FieldWrapper>
 			);
 		};
 
