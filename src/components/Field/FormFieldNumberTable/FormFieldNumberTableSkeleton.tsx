@@ -1,5 +1,5 @@
 import { Skeleton } from "@mui/material";
-import React, { PropsWithChildren } from "react";
+import React from "react";
 import styled from "styled-components";
 // import styled from "styled-components";
 
