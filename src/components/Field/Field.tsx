@@ -7,6 +7,7 @@ import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { FieldDef, MosaicFieldProps } from ".";
 import { Skeleton } from "@mui/material";
+import { stripTags } from "@root/utils/dom/stripTags";
 
 function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
@@ -26,6 +27,22 @@ function getValueLimit(def: FieldDef): number | undefined {
 	}
 }
 
+function getValueLength(value: any, fieldDef: FieldDef): number {
+	if (typeof value === "string") {
+		if (fieldDef.type === "textEditor") {
+			return stripTags(value).length;
+		}
+
+		return value.length;
+	}
+
+	if (Array.isArray(value)) {
+		return value.length;
+	}
+
+	return 0;
+}
+
 function useValueLimit(value: any, fieldDef: FieldDef): [number, number] | undefined {
 	return useMemo(() => {
 		const limit = getValueLimit(fieldDef);
@@ -34,13 +51,7 @@ function useValueLimit(value: any, fieldDef: FieldDef): [number, number] | undef
 			return;
 		}
 
-		const current = typeof value === "string" ?
-			// Unfortunately, if it's a string it could be a rich text
-			// editor field that contains some HTML. It's meh.
-			value.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").length :
-			Array.isArray(value) ?
-				value.length :
-				0;
+		const current = getValueLength(value, fieldDef);
 
 		return [current, limit];
 	}, [fieldDef, value]);

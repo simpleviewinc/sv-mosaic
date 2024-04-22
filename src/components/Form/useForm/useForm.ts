@@ -63,7 +63,10 @@ export function useForm(): UseFormReturn {
 		if (field.inputSettings?.maxCharacters > 0) {
 			validators.push({
 				fn: "validateCharacterCount",
-				options: { max: field.inputSettings.maxCharacters },
+				options: {
+					max: field.inputSettings.maxCharacters,
+					ignoreHTML: field.type === "textEditor",
+				},
 			});
 		}
 
