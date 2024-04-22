@@ -12,6 +12,7 @@ import { FileExtensions } from "@root/utils/classes";
 import { pretty } from "@root/utils/formatters";
 import { sum } from "@root/utils/math/sum";
 import FileCardPending from "./FileCard/FileCardPending";
+import { FormFieldUploadSkeleton } from "./FormFieldUploadSkeleton";
 
 const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSettings, (UploadData | UploadDataPending)[]>) => {
 	const {
@@ -21,6 +22,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		disabled,
 		methods,
 		id: providedId,
+		skeleton,
 	} = props;
 
 	const { addWait } = methods || {};
@@ -251,6 +253,12 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 
 		setSnackbar(snackbar => ({ ...snackbar, open: false }));
 	};
+
+	if (skeleton) {
+		return (
+			<FormFieldUploadSkeleton />
+		);
+	}
 
 	return (
 		<>

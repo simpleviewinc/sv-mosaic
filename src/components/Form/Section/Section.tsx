@@ -29,6 +29,7 @@ const Section = (props: SectionPropTypes) => {
 		gridMinWidth,
 		spacing,
 		methods,
+		skeleton,
 	} = props;
 
 	const fieldsHaveErrors = useCallback(() => {
@@ -106,6 +107,7 @@ const Section = (props: SectionPropTypes) => {
 								gridMinWidth={gridMinWidth}
 								spacing={spacing}
 								methods={methods}
+								skeleton={skeleton}
 							/>
 						))}
 					</StyledRows>

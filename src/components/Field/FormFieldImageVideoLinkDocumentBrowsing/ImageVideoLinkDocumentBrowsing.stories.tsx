@@ -24,6 +24,7 @@ export const Playground = (): ReactElement => {
 	const label = text("Label", "Label");
 	const disabled = boolean("Disabled", false);
 	const required = boolean("Required", false);
+	const skeleton = boolean("Skeleton", false);
 	const withVideoOption = boolean("Show video browsing option", false);
 	const withDocumentOption = boolean("Show document browsing option", false);
 	const withImageOption = boolean("Show image browsing option", true);
@@ -57,11 +58,12 @@ export const Playground = (): ReactElement => {
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
+				{...controller}
 				buttons={renderButtons(handleSubmit)}
 				title={text("Title", "Form Title")}
 				description={text("Description", "This is a description example")}
 				fields={fields}
-				{...controller}
+				skeleton={skeleton}
 			/>
 		</>
 	);

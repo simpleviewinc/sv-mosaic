@@ -15,6 +15,7 @@ const ColField = ({
 	state,
 	spacing,
 	methods,
+	skeleton,
 }: ColFieldProps) => {
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
@@ -74,6 +75,7 @@ const ColField = ({
 			methods={methods}
 			inputRef={inputRef}
 			id={`${field.name}-input`}
+			skeleton={skeleton}
 		/>
 	), [
 		Component,
@@ -85,6 +87,7 @@ const ColField = ({
 		disabled,
 		methods,
 		field.name,
+		skeleton,
 	]);
 
 	if (!shouldShow) {
@@ -104,6 +107,7 @@ const ColField = ({
 			methods={methods}
 			inputRef={inputRef}
 			disabled={disabled}
+			skeleton={skeleton}
 		>
 			{children}
 		</Field>

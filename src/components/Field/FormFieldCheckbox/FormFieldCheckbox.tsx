@@ -6,6 +6,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { MosaicLabelValue } from "@root/types";
+import { FormFieldCheckboxSkeleton } from "./FormFieldCheckboxSkeleton";
 
 const FormFieldCheckbox = (
 	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>,
@@ -16,6 +17,7 @@ const FormFieldCheckbox = (
 		onBlur,
 		value,
 		disabled,
+		skeleton,
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
@@ -56,6 +58,10 @@ const FormFieldCheckbox = (
 			cb(newCheckedOptions);
 		}
 	};
+
+	if (skeleton) {
+		return <FormFieldCheckboxSkeleton />;
+	}
 
 	return (
 		<StyledCheckboxList

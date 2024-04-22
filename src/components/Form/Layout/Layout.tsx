@@ -16,6 +16,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 		registerRef,
 		spacing,
 		methods,
+		skeleton,
 	} = props;
 
 	return (
@@ -34,6 +35,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 					gridMinWidth={section.gridMinWidth}
 					spacing={spacing}
 					methods={methods}
+					skeleton={skeleton}
 				/>
 			))}
 		</StyledLayout>
