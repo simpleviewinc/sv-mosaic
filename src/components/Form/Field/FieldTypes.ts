@@ -1,11 +1,10 @@
 import { FieldDef, FormSpacing } from "../FormTypes";
 import { FormMethods } from "../useForm/types";
 
-export interface ColPropsTypes {
-	col: string[];
-	// TODO Use something other than any
-	state: any;
+export interface FieldProps {
+	fieldName: string;
 	fieldsDef: FieldDef[];
+	state: any;
 	colsInRow?: number;
 	colIdx?: number;
 	rowIdx?: number;

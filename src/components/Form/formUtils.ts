@@ -1,4 +1,4 @@
-import { FieldDef, FieldDefCustom } from "../FormTypes";
+import { FieldDef, FieldDefCustom } from "./FormTypes";
 import { FieldConfig } from "@root/components/Field";
 
 import FormFieldText from "@root/components/Field/FormFieldText";
@@ -22,7 +22,14 @@ import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload, { UploadData, UploadDataPending, isPendingUploadData } from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import { matchTime } from "@root/utils/date";
-import { cleanValue } from "../useForm/utils";
+
+export const cleanValue = (value: any) => {
+	if (value === "" || (Array.isArray(value) && value.length === 0)) {
+		return undefined;
+	}
+
+	return value;
+};
 
 export function defaultResolver(value: any) {
 	return { internalValue: value, value: cleanValue(value) };

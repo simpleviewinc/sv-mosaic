@@ -17,14 +17,6 @@ import {
 	Validator,
 } from "./types";
 
-export const cleanValue = (value: any) => {
-	if (value === "" || (Array.isArray(value) && value.length === 0)) {
-		return undefined;
-	}
-
-	return value;
-};
-
 export function stateFromStable({
 	internalData,
 	data,
