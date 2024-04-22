@@ -27,6 +27,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		error,
 		methods,
 		inputRef,
+		id,
 	} = props;
 
 	const showTime = fieldDef?.inputSettings?.showTime;
@@ -125,6 +126,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		<DateTimeInputRow $hasTimeField={showTime}>
 			<DateTimePickerWrapper>
 				<DatePicker
+					id={id}
 					error={error}
 					onChange={handleDateChange}
 					fieldDef={{
@@ -148,6 +150,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			{showTime && (
 				<DateTimePickerWrapper>
 					<TimePicker
+						id={`${fieldDef?.name}-time`}
 						error={error}
 						onChange={handleTimeChange}
 						fieldDef={{
