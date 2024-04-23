@@ -3,7 +3,7 @@ import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Components
-import FormFieldColorPicker, { RGBAToHexA } from "./FormFieldColorPicker";
+import FormFieldColorPicker, { RGBAToHexA } from "./FormFieldColor";
 
 afterEach(cleanup);
 

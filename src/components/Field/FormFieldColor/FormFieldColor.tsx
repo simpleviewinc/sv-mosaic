@@ -13,9 +13,9 @@ import { ColorResult, SketchPicker, RGBColor } from "react-color";
 import { MosaicFieldProps } from "@root/components/Field";
 
 // Styles
-import { PopOver } from "./ColorPicker.styled";
+import { PopOver } from "./FormFieldColor.styled";
 import ColorSelected from "./ColorSelected";
-import { ColorData } from "./ColorPickerTypes";
+import { ColorData } from "./FormFieldColorTypes";
 import { Skeleton } from "@mui/material";
 
 /**

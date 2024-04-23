@@ -6,7 +6,7 @@ import { MosaicLabelValue, MosaicObject } from "../types";
 import DataView, { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper, ColorValue } from "@root/components/Content/Content.styled";
-import ColorSelected from "@root/components/Field/FormFieldColorPicker/ColorSelected";
+import ColorSelected from "@root/components/Field/FormFieldColor/ColorSelected";
 import Image from "@root/components/Image";
 import React from "react";
 import { DATE_FORMAT_SHORT } from "@root/constants";

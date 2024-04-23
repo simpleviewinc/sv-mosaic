@@ -4,7 +4,7 @@ import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
 export class FormFieldColorPickerPage extends BasePage {
 
-	readonly page_path = "formfields-formfieldcolorpicker--kitchen-sink";
+	readonly page_path = "formfields-formfieldcolor--kitchen-sink";
 
 	readonly page: Page;
 	readonly regularColorPicker: Locator;
