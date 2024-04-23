@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldColorPickerPage } from "../../../pages/FormFields/FormFieldColorPicker/FormFieldColorPickerPage";
+import { FormFieldColorPickerPage } from "../../../pages/FormFields/FormFieldColor/FormFieldColorPage";
 import { getRandomHexCode } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
