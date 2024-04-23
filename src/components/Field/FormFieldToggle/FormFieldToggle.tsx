@@ -2,15 +2,15 @@ import * as React from "react";
 import { ReactElement, memo } from "react";
 
 // Components
-import ToggleSwitch from "@root/components/ToggleSwitch";
+import Toggle from "@root/components/Toggle";
 
 // Types and styles
 import { MosaicFieldProps } from "@root/components/Field";
-import { ToggleSwitchInputSettings, FieldDefToggleSwitchData } from "./FormFieldToggleSwitchTypes";
-import { FormFieldSwitchSkeleton } from "./FormFieldSwitchSkeleton";
+import { ToggleInputSettings, FieldDefToggleData } from "./FormFieldToggleTypes";
+import { FormFieldSwitchSkeleton } from "./FormFieldToggleSkeleton";
 
-const FormFieldToggleSwitch = (
-	props: MosaicFieldProps<"toggleSwitch", ToggleSwitchInputSettings, FieldDefToggleSwitchData>,
+const FormFieldToggle = (
+	props: MosaicFieldProps<"toggle", ToggleInputSettings, FieldDefToggleData>,
 ): ReactElement => {
 	const {
 		fieldDef,
@@ -26,7 +26,7 @@ const FormFieldToggleSwitch = (
 	}
 
 	return (
-		<ToggleSwitch
+		<Toggle
 			disabled={disabled}
 			checked={value}
 			label={fieldDef?.inputSettings?.toggleLabel}
@@ -37,4 +37,4 @@ const FormFieldToggleSwitch = (
 	);
 };
 
-export default memo(FormFieldToggleSwitch);
+export default memo(FormFieldToggle);

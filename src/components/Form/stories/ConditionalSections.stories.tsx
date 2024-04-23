@@ -70,7 +70,7 @@ export const ConditionalSections = (): ReactElement => {
 				{
 					name: "section_show",
 					label: "Show another section",
-					type: "toggleSwitch",
+					type: "toggle",
 					show: ({ data }) => {
 						return data?.dependency === KEY_PHRASE;
 					},

@@ -2,12 +2,12 @@ import * as React from "react";
 import { ReactElement } from "react";
 
 // Types and styles
-import { ToggleSwitchProps } from "./ToggleSwitchTypes";
-import { StyledSwitch } from "./ToggleSwitch.styled";
+import { ToggleProps } from "./ToggleTypes";
+import { StyledSwitch } from "./Toggle.styled";
 import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 
-const ToggleSwitch = (
-	props: ToggleSwitchProps,
+const Toggle = (
+	props: ToggleProps,
 ): ReactElement => {
 	const {
 		checked,
@@ -36,4 +36,4 @@ const ToggleSwitch = (
 	);
 };
 
-export default ToggleSwitch;
+export default Toggle;
