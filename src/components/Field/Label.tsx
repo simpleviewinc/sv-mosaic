@@ -28,6 +28,13 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	}
 `;
 
+const InputLabelDiv = styled.div`
+	font-family: inherit;
+	font-size: 16px;
+	color:  ${theme.newColors.almostBlack["100"]};
+	word-wrap: break-word;
+`;
+
 const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: 12px;
@@ -98,7 +105,7 @@ const Label = (props: LabelProps): ReactElement => {
 		<LabelWrapper className={className}>
 			<StyledInputLabel
 				htmlFor={as === "label" && name ? `${name}-input` : undefined}
-				as={as}
+				as={as === "label" ? InputLabel : InputLabelDiv}
 				data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
 			>
 				{children}
