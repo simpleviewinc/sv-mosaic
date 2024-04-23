@@ -1,14 +1,14 @@
 import { test, expect, Page } from "@playwright/test";
-import { FormFieldChipSingleSelectPage } from "../../../pages/FormFields/FormFieldChipSingleSelect/FormFieldChipSingleSelectPage";
+import { FormFieldChipsPage } from "../../../pages/FormFields/FormFieldChips/FormFieldChipsPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldChipSingleSelect - Kitchen Sink", () => {
+test.describe.parallel("FormFields - FormFieldChips - Kitchen Sink", () => {
 	let page: Page;
-	let ffChipSingleSelectPage: FormFieldChipSingleSelectPage;
+	let ffChipSingleSelectPage: FormFieldChipsPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
-		ffChipSingleSelectPage = new FormFieldChipSingleSelectPage(page);
+		ffChipSingleSelectPage = new FormFieldChipsPage(page);
 		await ffChipSingleSelectPage.visit(ffChipSingleSelectPage.page_path);
 	});
 
