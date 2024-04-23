@@ -3,9 +3,9 @@ import { PopperProps } from "@mui/material/Popper";
 import { StrictUnion } from "../FormFieldCheckbox";
 import { FieldDefBase } from "@root/components/Field";
 
-export type DropdownSingleSelectionInputSettings = StrictUnion<DropdownSingleSelectionLocalOptions | DropdownSingleSelectionExternalOptions>;
+export type DropdownInputSettings = StrictUnion<DropdownLocalOptions | DropdownExternalOptions>;
 
-type DropdownSingleSelectionLocalOptions = {
+type DropdownLocalOptions = {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -18,7 +18,7 @@ type DropdownSingleSelectionLocalOptions = {
 	options: MosaicLabelValue[];
 };
 
-type DropdownSingleSelectionExternalOptions = {
+type DropdownExternalOptions = {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -36,4 +36,4 @@ export type CustomPopperProps = {
 
 export type DropdownData = MosaicLabelValue;
 
-export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownSingleSelectionInputSettings>;
+export type FieldDefDropdown = FieldDefBase<"dropdown", DropdownInputSettings>;

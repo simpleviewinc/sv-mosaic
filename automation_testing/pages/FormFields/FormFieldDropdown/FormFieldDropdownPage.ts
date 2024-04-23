@@ -1,9 +1,9 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 
-export class FormFieldDropdownSingleSelectionPage extends BasePage {
+export class FormFieldDropdownPage extends BasePage {
 
-	readonly page_path = "formfields-formfielddropdownsingleselection--kitchen-sink";
+	readonly page_path = "formfields-formfielddropdown--kitchen-sink";
 
 	readonly page: Page;
 	readonly regularDropdownDiv: Locator;

@@ -5,7 +5,7 @@ import { FieldDefChip } from "@root/components/Field/FormFieldChips";
 import { FieldDefColor } from "@root/components/Field/FormFieldColorPicker/ColorPickerTypes";
 import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
-import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdownSingleSelection";
+import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
 import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";

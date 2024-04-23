@@ -4,9 +4,9 @@ import {
 	StyledAutocomplete,
 	StyledPopper,
 	SingleDropdownWrapper,
-} from "./FormFieldDropdownSingleSelection.styled";
+} from "./FormFieldDropdown.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { CustomPopperProps, DropdownData, DropdownSingleSelectionInputSettings } from "./FormFieldDropdownSingleSelectionTypes";
+import { CustomPopperProps, DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
 // Components
 import InputWrapper from "../../InputWrapper";
@@ -15,7 +15,7 @@ import TextField from "@mui/material/TextField";
 import { MosaicLabelValue } from "@root/types";
 import { Skeleton } from "@mui/material";
 
-const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSingleSelectionInputSettings, DropdownData>) => {
+const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {
 	const {
 		fieldDef,
 		error,
@@ -133,4 +133,4 @@ const DropdownSingleSelection = (props: MosaicFieldProps<"dropdown", DropdownSin
 	);
 };
 
-export default memo(DropdownSingleSelection);
+export default memo(FormFieldDropdown);
