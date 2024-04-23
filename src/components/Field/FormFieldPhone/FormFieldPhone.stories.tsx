@@ -6,7 +6,7 @@ import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
-	title: "FormFields/FormFieldPhoneSelectionDropdown",
+	title: "FormFields/FormFieldPhone",
 	decorators: [withKnobs],
 };
 

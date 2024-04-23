@@ -6,14 +6,14 @@ import PhoneInput, { CountryData } from "@simpleview/react-phone-input-2";
 
 // Types and styles
 import "@simpleview/react-phone-input-2/lib/bootstrap.css";
-import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneSelectionDropdownTypes";
+import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
 import {
 	PhoneInputWrapper,
-} from "./FormFieldPhoneSelectionDropdown.styled";
+} from "./FormFieldPhone.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { Skeleton } from "@mui/material";
 
-const FormFieldPhoneSelectionDropdown = (
+const FormFieldPhone = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
 ): ReactElement => {
 	const {
@@ -72,4 +72,4 @@ const FormFieldPhoneSelectionDropdown = (
 		</PhoneInputWrapper>
 	);
 };
-export default memo(FormFieldPhoneSelectionDropdown);
+export default memo(FormFieldPhone);
