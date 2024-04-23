@@ -11,7 +11,7 @@ import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormField
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
-import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
+import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhone";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefText } from "@root/components/Field/FormFieldText";

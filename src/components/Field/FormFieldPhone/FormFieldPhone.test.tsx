@@ -3,13 +3,13 @@ import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import { useState } from "react";
 
 // Components
-import FormFieldPhoneSelectionDropdown from "./FormFieldPhoneSelectionDropdown";
+import FormFieldPhone from "./FormFieldPhone";
 
 afterEach(cleanup);
 
 const { getByText, getByTitle } = screen;
 
-const FormFieldPhoneSelectionDropdownExample = () => {
+const FormFieldPhoneExample = () => {
 	const [value, setValue] = useState("No value");
 
 	const handleOnChange = async (value: string) => {
@@ -19,7 +19,7 @@ const FormFieldPhoneSelectionDropdownExample = () => {
 	return (
 		<>
 			<span>{value}</span>
-			<FormFieldPhoneSelectionDropdown
+			<FormFieldPhone
 				fieldDef={{
 					name: "phoneSelectDropdown",
 					type: "phone",
@@ -34,10 +34,10 @@ const FormFieldPhoneSelectionDropdownExample = () => {
 	);
 };
 
-describe("FormFieldPhoneSelectionDropdown component", () => {
+describe("FormFieldPhone component", () => {
 	let phoneSelectionContainer;
 	beforeEach(() => {
-		const { container } = render(<FormFieldPhoneSelectionDropdownExample />);
+		const { container } = render(<FormFieldPhoneExample />);
 		phoneSelectionContainer = container;
 	});
 
@@ -54,10 +54,10 @@ describe("FormFieldPhoneSelectionDropdown component", () => {
 	});
 });
 
-describe("FormFieldPhoneSelectionDropdown country code prop", () => {
+describe("FormFieldPhone country code prop", () => {
 	it("should display US phone number prefix when no country code is provided ", () => {
 		const { container } = render(
-			<FormFieldPhoneSelectionDropdown
+			<FormFieldPhone
 				fieldDef={{
 					name: "phoneSelectDropdown",
 					type: "phone",
@@ -75,7 +75,7 @@ describe("FormFieldPhoneSelectionDropdown country code prop", () => {
 
 	it("should display the phone number prefix of the country code provided", () => {
 		const { container } = render(
-			<FormFieldPhoneSelectionDropdown
+			<FormFieldPhone
 				fieldDef={{
 					name: "phoneSelectDropdown",
 					type: "phone",

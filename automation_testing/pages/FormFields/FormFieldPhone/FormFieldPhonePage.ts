@@ -1,10 +1,10 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 
-export class FormFieldPhoneSelectionDropdownPage extends BasePage {
+export class FormFieldPhonePage extends BasePage {
 
-	readonly page_path = "formfields-formfieldphoneselectiondropdown--kitchen-sink";
-	readonly playground_page_path = "formfields-formfieldphoneselectiondropdown--playground";
+	readonly page_path = "formfields-formfieldphone--kitchen-sink";
+	readonly playground_page_path = "formfields-formfieldphone--playground";
 
 	readonly page: Page;
 	readonly flagDropdown: Locator;

@@ -37,8 +37,8 @@ export * from "./FormFieldMatrix";
 export { default as FormFieldNumberTable } from "./FormFieldNumberTable";
 export * from "./FormFieldNumberTable";
 
-export { default as FormFieldPhoneSelectionDropdown } from "./FormFieldPhoneSelectionDropdown";
-export * from "./FormFieldPhoneSelectionDropdown";
+export { default as FormFieldPhone } from "./FormFieldPhone";
+export * from "./FormFieldPhone";
 
 export { default as FormFieldRadio } from "./FormFieldRadio";
 export * from "./FormFieldRadio";
