@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 
-import DropdownSingleSelection from "./FormFieldDropdownSingleSelection";
+import FormFieldDropdown from "./FormFieldDropdown";
 import { getOptions } from "@root/utils/getOptions";
 import "@testing-library/jest-dom";
 import { additionalOptions } from "../FormFieldAdvancedSelection";
@@ -17,10 +17,10 @@ const { getByRole } = screen;
 
 afterEach(cleanup);
 
-describe("DropdownSingleSelection component", () => {
+describe("Dropdown component", () => {
 	it("should render on the screen", () => {
 		render(
-			<DropdownSingleSelection
+			<FormFieldDropdown
 				fieldDef={{
 					name: "dropdownSingleSelect",
 					type: "dropdown",
@@ -44,10 +44,10 @@ describe("DropdownSingleSelection component", () => {
 	});
 });
 
-describe("DropdownSingleSelection component as a form field", () => {
+describe("Dropdown component as a form field", () => {
 	beforeEach(() => {
 		render(
-			<DropdownSingleSelection
+			<FormFieldDropdown
 				fieldDef={{
 					name: "dropdownSingleSelect",
 					type: "dropdown",
@@ -68,12 +68,12 @@ describe("DropdownSingleSelection component as a form field", () => {
 	});
 });
 
-describe("DropdownSingleSelection component with options from DB", () => {
+describe("Dropdown component with options from DB", () => {
 
 	it("should render on the screen prepopulated with options from DB", async () => {
 		await act( async () => {
 			render(
-				<DropdownSingleSelection
+				<FormFieldDropdown
 					fieldDef={{
 						name: "dropdownSingleSelect",
 						type: "dropdown",
@@ -96,7 +96,7 @@ describe("DropdownSingleSelection component with options from DB", () => {
 	it("should render on the screen with options from DB", async () => {
 		await act( async () => {
 			render(
-				<DropdownSingleSelection
+				<FormFieldDropdown
 					fieldDef={{
 						name: "dropdownSingleSelect",
 						type: "dropdown",

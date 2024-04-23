@@ -4,7 +4,7 @@ import { FieldConfig } from "@root/components/Field";
 import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 import FormFieldChips from "@root/components/Field/FormFieldChips";
-import FormFieldDropdownSingleSelection from "@root/components/Field/FormFieldDropdownSingleSelection";
+import FormFieldDropdown from "@root/components/Field/FormFieldDropdown";
 import FormFieldPhoneSelectionDropdown from "@root/components/Field/FormFieldPhoneSelectionDropdown";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
@@ -52,7 +52,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 		getResolvedValue: defaultResolver,
 	},
 	dropdown: {
-		Component: FormFieldDropdownSingleSelection,
+		Component: FormFieldDropdown,
 		validate: "onChange",
 		getResolvedValue: defaultResolver,
 	},

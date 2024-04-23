@@ -9,7 +9,7 @@ import Form, { useForm } from "@root/components/Form";
 import { getOptions } from "@root/utils/getOptions";
 
 export default {
-	title: "FormFields/FormFieldDropdownSingleSelection",
+	title: "FormFields/FormFieldDropdown",
 	decorators: [withKnobs],
 };
 
