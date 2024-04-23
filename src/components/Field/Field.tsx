@@ -83,6 +83,7 @@ const Field = ({
 	inputRef,
 	disabled,
 	skeleton,
+	useRealLabel,
 }: MosaicFieldProps<any>): ReactElement => {
 	const { mountField } = methods || {};
 	const fieldRef = useRef<HTMLDivElement | undefined>();
@@ -111,7 +112,7 @@ const Field = ({
 		return unmount;
 	}, [mountField, fieldDef.name, inputRef]);
 
-	const hasRealLabel = typesWithRealLabel.includes(fieldDef?.type);
+	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
 	return (
 		<StyledFieldContainer
