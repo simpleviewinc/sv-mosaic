@@ -37,7 +37,7 @@ export const RGBAToHexA = (rgbaColor: RGBColor) => {
 	return "#" + r + g + b + a;
 };
 
-const FormFieldColorPicker = (
+const FormFieldColor = (
 	props: MosaicFieldProps<"color", unknown, ColorData>,
 ): ReactElement => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -110,4 +110,4 @@ const FormFieldColorPicker = (
 	);
 };
 
-export default memo(FormFieldColorPicker);
+export default memo(FormFieldColor);

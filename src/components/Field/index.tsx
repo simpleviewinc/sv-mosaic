@@ -13,7 +13,7 @@ export * from "./FormFieldCheckbox";
 export { default as FormFieldChips } from "./FormFieldChips";
 export * from "./FormFieldChips";
 
-export { default as FormFieldColorPicker } from "./FormFieldColor";
+export { default as FormFieldColor } from "./FormFieldColor";
 export * from "./FormFieldColor";
 
 export { default as FormFieldDate } from "./FormFieldDate/DateField";
