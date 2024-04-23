@@ -8,7 +8,7 @@ import FormFieldDropdown from "@root/components/Field/FormFieldDropdown";
 import FormFieldPhone from "@root/components/Field/FormFieldPhone";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
-import FormFieldToggleSwitch from "@root/components/Field/FormFieldToggleSwitch";
+import FormFieldToggle from "@root/components/Field/FormFieldToggle";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
 import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
@@ -66,8 +66,8 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 		validate: "onChange",
 		getResolvedValue: defaultResolver,
 	},
-	toggleSwitch: {
-		Component: FormFieldToggleSwitch,
+	toggle: {
+		Component: FormFieldToggle,
 		validate: "onChange",
 		getResolvedValue: defaultResolver,
 	},

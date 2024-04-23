@@ -68,8 +68,8 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
-export { default as ToggleSwitch } from "./components/ToggleSwitch";
-export * from "./components/ToggleSwitch";
+export { default as Toggle } from "./components/Toggle";
+export * from "./components/Toggle";
 
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";

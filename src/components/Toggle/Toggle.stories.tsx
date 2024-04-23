@@ -4,10 +4,10 @@ import { boolean, withKnobs, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/addon-docs/blocks";
 
 // Components
-import ToggleSwitch from "./ToggleSwitch";
+import Toggle from "./Toggle";
 
 export default {
-	title: "Components/ToggleSwitch",
+	title: "Components/Toggle",
 	decorators: [withKnobs],
 } as Meta;
 
@@ -23,7 +23,7 @@ export const Example = (): ReactElement => {
 				Is toggle checked?
 				{`${isChecked}`}
 			</p>
-			<ToggleSwitch
+			<Toggle
 				label={text("Label", "Label")}
 				disabled={boolean("Disabled", false)}
 				required={boolean("Required", false)}

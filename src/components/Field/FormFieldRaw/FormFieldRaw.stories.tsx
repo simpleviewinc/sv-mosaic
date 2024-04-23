@@ -70,9 +70,9 @@ export const Playground = (): ReactElement => {
 
 const fields: FieldDef[] = [
 	{
-		name: "toggleSwitchDefault",
+		name: "toggleDefault",
 		label: "Default example",
-		type: "toggleSwitch",
+		type: "toggle",
 		required: false,
 		disabled: false,
 		inputSettings: {
@@ -82,9 +82,9 @@ const fields: FieldDef[] = [
 		instructionText: "Instruction text",
 	},
 	{
-		name: "toggleSwitchDisabled",
+		name: "toggleDisabled",
 		label: "Disabled example",
-		type: "toggleSwitch",
+		type: "toggle",
 		required: false,
 		disabled: true,
 		inputSettings: {
@@ -94,9 +94,9 @@ const fields: FieldDef[] = [
 		instructionText: "Instruction text",
 	},
 	{
-		name: "toggleSwitchWithoutLabel",
+		name: "toggleWithoutLabel",
 		label: "Toggle switch without label",
-		type: "toggleSwitch",
+		type: "toggle",
 		required : false,
 		disabled: false,
 		helperText: "Helper text",

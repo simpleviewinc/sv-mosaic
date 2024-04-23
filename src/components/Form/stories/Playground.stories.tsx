@@ -65,7 +65,7 @@ const prepopulateValues = {
 		label: "Label 2",
 		value: "label_2",
 	},
-	"toggleSwitch": true,
+	"toggle": true,
 	"color": "#a8001791",
 	"date": new Date(),
 	"time": "16:30",
@@ -291,11 +291,11 @@ export const Playground = (): ReactElement => {
 					},
 				},
 				{
-					name: "toggleSwitch",
+					name: "toggle",
 					label: "Toggle field",
 					disabled,
 					required,
-					type: "toggleSwitch",
+					type: "toggle",
 					inputSettings: {
 						toggleLabel: "To the side",
 					},
@@ -441,7 +441,7 @@ export const Playground = (): ReactElement => {
 					// row 1
 					[[], [], []],
 					// row 2
-					[["toggleSwitch"], [], ["mapCoordinates"]],
+					[["toggle"], [], ["mapCoordinates"]],
 					[[]],
 					// row 3
 					[[], ["advancedSelection"]],

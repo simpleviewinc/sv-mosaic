@@ -8,7 +8,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	dropdown: Sizes.md,
 	phone: Sizes.sm,
 	radio: Sizes.sm,
-	toggleSwitch: Sizes.md,
+	toggle: Sizes.md,
 	imageVideoDocumentLink: Sizes.lg,
 	color: Sizes.sm,
 	date: Sizes.md,

@@ -16,7 +16,7 @@ import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
-import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
+import { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
@@ -197,7 +197,7 @@ export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>;
 
 export type FieldDef =
 	| FieldDefText
-	| FieldDefToggleSwitch
+	| FieldDefToggle
 	| FieldDefTextEditor
 	| FieldDefRadio
 	| FieldDefPhoneSelection

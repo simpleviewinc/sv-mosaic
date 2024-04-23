@@ -1,13 +1,13 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { useState } from "react";
-import FormFieldToggleSwitch from "./FormFieldToggleSwitch";
+import FormFieldToggle from "./FormFieldToggle";
 
 afterEach(cleanup);
 
 const { getByRole, getByText } = screen;
 
-const FormFieldToggleSwitchExample = () => {
+const FormFieldToggleExample = () => {
 	const [isChecked, setIsChecked] = useState(false);
 
 	const handleChange = async (value) => {
@@ -15,11 +15,11 @@ const FormFieldToggleSwitchExample = () => {
 	};
 
 	return (
-		<FormFieldToggleSwitch
+		<FormFieldToggle
 			fieldDef={{
 				label: "Field label",
-				type: "toggleSwitch",
-				name: "toggleSwitch",
+				type: "toggle",
+				name: "toggle",
 				inputSettings: {
 					toggleLabel: "Toggle switch label",
 				},
@@ -31,29 +31,29 @@ const FormFieldToggleSwitchExample = () => {
 	);
 };
 
-describe("FormFieldToggleSwitch component", () => {
-	it("should check the FormFieldToggleSwitch", () => {
-		render(<FormFieldToggleSwitchExample />);
+describe("FormFieldToggle component", () => {
+	it("should check the FormFieldToggle", () => {
+		render(<FormFieldToggleExample />);
 
-		const toggleSwitch = getByRole("checkbox") as HTMLInputElement;
+		const toggle = getByRole("checkbox") as HTMLInputElement;
 
-		expect(toggleSwitch.checked).toEqual(false);
+		expect(toggle.checked).toEqual(false);
 
-		fireEvent.click(toggleSwitch);
+		fireEvent.click(toggle);
 
-		expect(toggleSwitch.checked).toEqual(true);
+		expect(toggle.checked).toEqual(true);
 	});
 
 	it("should contain the disabled attribute", () => {
-		render(<FormFieldToggleSwitchExample />);
+		render(<FormFieldToggleExample />);
 
-		const toggleSwitch = getByRole("checkbox") as HTMLInputElement;
+		const toggle = getByRole("checkbox") as HTMLInputElement;
 
-		expect(toggleSwitch.disabled).toBeTruthy();
+		expect(toggle.disabled).toBeTruthy();
 	});
 
 	it("should display the toggle switch label", () => {
-		render(<FormFieldToggleSwitchExample />);
+		render(<FormFieldToggleExample />);
 
 		expect(getByText("Toggle switch label")).toBeTruthy();
 	});
