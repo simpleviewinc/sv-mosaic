@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { ColorSelectedProps } from "./ColorPickerTypes";
+import { ColorSelectedProps } from "./FormFieldColorTypes";
 import { TransientProps } from "@root/types";
 import Popover from "@mui/material/Popover";
 

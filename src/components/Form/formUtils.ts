@@ -10,7 +10,7 @@ import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggle from "@root/components/Field/FormFieldToggle";
 import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
-import FormFieldColorPicker from "@root/components/Field/FormFieldColorPicker";
+import FormFieldColorPicker from "@root/components/Field/FormFieldColor";
 import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldTime, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
