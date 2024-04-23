@@ -4,7 +4,7 @@ import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
 export class FormFieldChipsPage extends BasePage {
 
-	readonly page_path = "formfields-formfieldchipsingleselect--kitchen-sink";
+	readonly page_path = "formfields-formfieldchips--kitchen-sink";
 
 	readonly page: Page;
 	readonly regularChipSingleSelectDiv: Locator;
