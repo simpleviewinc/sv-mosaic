@@ -3,7 +3,7 @@ import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Components
-import FormFieldColorPicker, { RGBAToHexA } from "./FormFieldColor";
+import FormFieldColor, { RGBAToHexA } from "./FormFieldColor";
 
 afterEach(cleanup);
 
@@ -11,10 +11,10 @@ const { getByTestId, queryByText } = screen;
 
 const value = "#004799";
 
-describe("ColorPicker component", () => {
+describe("Color component", () => {
 	it("should not open the color picker when is disabled", () => {
 		render(
-			<FormFieldColorPicker
+			<FormFieldColor
 				value={value}
 				fieldDef={{ name: "colorPicker", label: "", type: "color" }}
 				disabled

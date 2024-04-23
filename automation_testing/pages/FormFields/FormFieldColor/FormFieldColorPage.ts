@@ -2,23 +2,23 @@ import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
-export class FormFieldColorPickerPage extends BasePage {
+export class FormFieldColorPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldcolor--kitchen-sink";
 
 	readonly page: Page;
-	readonly regularColorPicker: Locator;
-	readonly disabledColorPicker: Locator;
-	readonly disabledColorPickerLabel: Locator;
+	readonly regularColor: Locator;
+	readonly disabledColor: Locator;
+	readonly disabledColorLabel: Locator;
 	readonly hexColorInput: Locator;
 	readonly colorSketchPicker: Locator;
 
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.regularColorPicker = page.locator("[data-testid='colordiv-test']").nth(0);
-		this.disabledColorPicker = page.locator("[data-testid='colordiv-test']").nth(1);
-		this.disabledColorPickerLabel = page.locator("label[for='colorDisabled']");
+		this.regularColor = page.locator("[data-testid='colordiv-test']").nth(0);
+		this.disabledColor = page.locator("[data-testid='colordiv-test']").nth(1);
+		this.disabledColorLabel = page.locator("label[for='colorDisabled']");
 		this.hexColorInput = page.locator(".flexbox-fix input").nth(0);
 		this.colorSketchPicker = page.locator(".saturation-black");
 	}
