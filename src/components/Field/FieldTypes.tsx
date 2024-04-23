@@ -85,6 +85,12 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * of this component
 	 */
 	skeleton?: boolean;
+	/**
+	 * For fields with multiple input/controls, we should
+	 * not render a label element because they can only target
+	 * one control. Instead, render a legend element.
+	 */
+	useRealLabel?: boolean;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
