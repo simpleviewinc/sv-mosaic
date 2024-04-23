@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "@mui/material";
-import { StyledSkeletonSwitch, StyledSkeletonItem, StyledSkeletonWrapper } from "./FormFieldSwitch.styled";
+import { StyledSkeletonSwitch, StyledSkeletonItem, StyledSkeletonWrapper } from "./FormFieldToggle.styled";
 
 function SwitchSkeletonItem() {
 	return (
