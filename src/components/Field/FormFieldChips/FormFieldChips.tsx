@@ -9,12 +9,12 @@ import Chip from "../../Chip";
 import { MosaicFieldProps } from "@root/components/Field";
 import {
 	ChipData,
-	FormFieldChipSingleSelectInputSettings,
-} from "./FormFieldChipSingleSelectTypes";
-import { StyledChipGroup } from "./FormFieldChipSingleSelect.styled";
+	FormFieldChipsInputSettings,
+} from "./FormFieldChipsTypes";
+import { StyledChipGroup } from "./FormFieldChips.styled";
 import { FormFieldChipsSkeleton } from "./FormFieldChipsSkeleton";
 
-const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChipSingleSelectInputSettings, ChipData>): ReactElement => {
+const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSettings, ChipData>): ReactElement => {
 	const {
 		fieldDef,
 		error,
@@ -113,4 +113,4 @@ const FormFieldChipSingleSelect = (props: MosaicFieldProps<"chip", FormFieldChip
 	);
 };
 
-export default memo(FormFieldChipSingleSelect);
+export default memo(FormFieldChips);
