@@ -14,7 +14,7 @@ afterEach(cleanup);
 
 const { getByText } = screen;
 
-const FormFieldChipSingleSelectExample = (props:{ fromDB: boolean }): ReactElement => {
+const FormFieldChipsExample = (props:{ fromDB: boolean }): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
 
@@ -82,10 +82,10 @@ mockResizeObserver.mockReturnValue({
 });
 window.ResizeObserver = mockResizeObserver;
 
-describe("FormFieldChipSingleSelect component", () => {
+describe("FormFieldChips component", () => {
 	beforeEach(async () => {
 		await act(() => {
-			render(<FormFieldChipSingleSelectExample fromDB={false} />);
+			render(<FormFieldChipsExample fromDB={false} />);
 		});
 	});
 
@@ -96,10 +96,10 @@ describe("FormFieldChipSingleSelect component", () => {
 	});
 });
 
-describe("FormFieldChipSingleSelect component with options from DB", () => {
+describe("FormFieldChips component with options from DB", () => {
 	it("should display the list of options from DB", async () => {
 		await act( async() => {
-			render(<FormFieldChipSingleSelectExample fromDB={true} />);
+			render(<FormFieldChipsExample fromDB={true} />);
 		});
 
 		await waitFor(() => {

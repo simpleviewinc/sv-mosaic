@@ -7,7 +7,7 @@ import { renderButtons } from "@root/utils/storyUtils";
 import { getOptions } from "@root/utils/getOptions";
 
 export default {
-	title: "FormFields/FormFieldChipSingleSelect",
+	title: "FormFields/FormFieldChips",
 	decorators: [withKnobs],
 };
 

@@ -2,7 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 
-export class FormFieldChipSingleSelectPage extends BasePage {
+export class FormFieldChipsPage extends BasePage {
 
 	readonly page_path = "formfields-formfieldchipsingleselect--kitchen-sink";
 

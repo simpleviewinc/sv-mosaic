@@ -10,8 +10,8 @@ export * from "./FormFieldAdvancedSelection";
 export { default as FormFieldCheckbox } from "./FormFieldCheckbox";
 export * from "./FormFieldCheckbox";
 
-export { default as FormFieldChipSingleSelect } from "./FormFieldChipSingleSelect";
-export * from "./FormFieldChipSingleSelect";
+export { default as FormFieldChips } from "./FormFieldChips";
+export * from "./FormFieldChips";
 
 export { default as FormFieldColorPicker } from "./FormFieldColorPicker";
 export * from "./FormFieldColorPicker";

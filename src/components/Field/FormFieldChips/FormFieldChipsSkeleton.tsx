@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "@mui/material";
-import { StyledChipsSkeletonWrapper } from "./FormFieldChipSingleSelect.styled";
+import { StyledChipsSkeletonWrapper } from "./FormFieldChips.styled";
 
 export function FormFieldChipsSkeleton() {
 	return (
