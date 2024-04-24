@@ -5,7 +5,6 @@ import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
-import { useImageVideoLinkDocumentBrowsing, imageVideoSrc } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsingUtils";
 import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
 
@@ -122,8 +121,8 @@ const prepopulateValues = {
 			id: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
 			name: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
 			size: 499318,
-			thumbnailUrl: imageVideoSrc,
-			fileUrl: imageVideoSrc,
+			thumbnailUrl: "",
+			fileUrl: "",
 		},
 	],
 	"textEditor": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
@@ -143,8 +142,6 @@ export const Playground = (): ReactElement => {
 			document.body.style.margin = ORIGINAL_BODY_MARGIN;
 		};
 	}, []);
-
-	const { setImage, setVideo, setDocument, setLink, handleRemove } = useImageVideoLinkDocumentBrowsing(methods, "imageVideoDocumentLink");
 
 	const showState = boolean("Show state", false);
 	const onBack = boolean("onBack", false);
@@ -342,22 +339,6 @@ export const Playground = (): ReactElement => {
 					inputSettings: {
 						options: additionalOptions,
 						createNewOption,
-					},
-				},
-				{
-					name: "imageVideoDocumentLink",
-					label: "Image Video and Document field",
-					type: "imageVideoDocumentLink",
-					disabled,
-					required,
-					inputSettings: {
-						options: menuOptions,
-						handleSetImage: setImage,
-						handleSetDocument: setDocument,
-						handleSetVideo: setVideo,
-						handleSetLink: setLink,
-						handleRemove,
-						src: imageVideoSrc,
 					},
 				},
 				{
