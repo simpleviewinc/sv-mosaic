@@ -1,5 +1,3 @@
-export { default } from "./Field";
-export * from "./Field";
 export * from "./FieldTypes";
 export { sanitizeFieldSize } from "./fieldUtils";
 
@@ -12,17 +10,17 @@ export * from "./FormFieldAdvancedSelection";
 export { default as FormFieldCheckbox } from "./FormFieldCheckbox";
 export * from "./FormFieldCheckbox";
 
-export { default as FormFieldChipSingleSelect } from "./FormFieldChipSingleSelect";
-export * from "./FormFieldChipSingleSelect";
+export { default as FormFieldChips } from "./FormFieldChips";
+export * from "./FormFieldChips";
 
-export { default as FormFieldColorPicker } from "./FormFieldColorPicker";
-export * from "./FormFieldColorPicker";
+export { default as FormFieldColor } from "./FormFieldColor";
+export * from "./FormFieldColor";
 
 export { default as FormFieldDate } from "./FormFieldDate/DateField";
 export * from "./FormFieldDate/DateField";
 
-export { default as FormFieldDropdownSingleSelection } from "./FormFieldDropdownSingleSelection";
-export * from "./FormFieldDropdownSingleSelection";
+export { default as FormFieldDropdown } from "./FormFieldDropdown";
+export * from "./FormFieldDropdown";
 
 export { default as FormFieldImageUpload } from "./FormFieldImageUpload";
 export * from "./FormFieldImageUpload";
@@ -39,8 +37,8 @@ export * from "./FormFieldMatrix";
 export { default as FormFieldNumberTable } from "./FormFieldNumberTable";
 export * from "./FormFieldNumberTable";
 
-export { default as FormFieldPhoneSelectionDropdown } from "./FormFieldPhoneSelectionDropdown";
-export * from "./FormFieldPhoneSelectionDropdown";
+export { default as FormFieldPhone } from "./FormFieldPhone";
+export * from "./FormFieldPhone";
 
 export { default as FormFieldRadio } from "./FormFieldRadio";
 export * from "./FormFieldRadio";
@@ -54,8 +52,8 @@ export * from "./FormFieldText";
 export { default as FormFieldTextEditor } from "./FormFieldTextEditor";
 export * from "./FormFieldTextEditor";
 
-export { default as FormFieldToggleSwitch } from "./FormFieldToggleSwitch";
-export * from "./FormFieldToggleSwitch";
+export { default as FormFieldToggle } from "./FormFieldToggle";
+export * from "./FormFieldToggle";
 
 export { default as FormFieldUpload } from "./FormFieldUpload";
 export * from "./FormFieldUpload";
