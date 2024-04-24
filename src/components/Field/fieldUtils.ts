@@ -9,7 +9,6 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	phone: Sizes.sm,
 	radio: Sizes.sm,
 	toggle: Sizes.md,
-	imageVideoDocumentLink: Sizes.lg,
 	color: Sizes.sm,
 	date: Sizes.md,
 	time: Sizes.md,

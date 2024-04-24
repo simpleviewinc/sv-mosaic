@@ -1,9 +1,5 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import {
-	AssetLabel,
-	AssetValue,
-} from "../FormFieldImageVideoLinkDocumentBrowsing/ImageVideoLinkDocumentBrowsing.styled";
 
 // Components
 import Button from "@root/components/Button";
@@ -56,9 +52,9 @@ export const ImgLoaded = styled.img`
   object-fit: contain;
 `;
 
-export const SizeLabel = styled(AssetLabel)``;
+export const SizeLabel = styled.div``;
 
-export const SizeValue = styled(AssetValue)``;
+export const SizeValue = styled.div``;
 
 export const UploadButton = styled(Button)`
   z-index: 1;
