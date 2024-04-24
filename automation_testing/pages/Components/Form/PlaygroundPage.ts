@@ -27,12 +27,7 @@ export class PlaygroundPage extends BasePage {
 	readonly advancedSelectionChip: Locator;
 	readonly advancedSelectionTitle: Locator;
 	readonly advancedSelectionOptions: Locator;
-	readonly browseImageIcon: Locator;
-	readonly browseVideoIcon: Locator;
-	readonly browseDocumentIcon: Locator;
-	readonly browseLinkIcon: Locator;
 	readonly textEditorField: Locator;
-	readonly imageUploadExampleButton: Locator;
 	readonly mapCoordinatesExampleButton: Locator;
 
 	//Address Information
@@ -68,12 +63,7 @@ export class PlaygroundPage extends BasePage {
 		this.addressFieldButton = page.locator("text=ADD ADDRESS");
 		this.advancedSelectionChip = page.locator("#advancedSelection [data-testid='as-chiplist'] [role='button']");
 		this.advancedSelectionFieldButton = page.locator("#advancedSelection button");
-		this.browseImageIcon = page.locator("[data-testid='browse-image-test']");
-		this.browseVideoIcon = page.locator("[data-testid='browse-video-test']");
-		this.browseDocumentIcon = page.locator("[data-testid='browse-document-test']");
-		this.browseLinkIcon = page.locator("[data-testid='browse-link-test']");
 		this.textEditorField = page.locator("#textEditor div[contenteditable='true']");
-		this.imageUploadExampleButton = page.locator("input[type='file']");
 		this.mapCoordinatesExampleButton = page.locator("text=ADD COORDINATES");
 		//Address Information
 		this.countryDropdown = page.locator("input[role='combobox']").nth(1);
@@ -125,11 +115,7 @@ export class PlaygroundPage extends BasePage {
 		await this.advancedSelectionFieldButton.click();
 		await this.advancedSelectionOptions.click();
 		await this.saveDrawerButton.click();
-		await this.browseImageIcon.click();
 		await this.textEditorField.type("Sample text.");
-		//Upload image
-		const imagePath = `${__dirname}/../../../utils/data/Images/image-example.png`;
-		await this.imageUploadExampleButton.setInputFiles(imagePath);
 		// Map Coordinates
 		const rndLatitude = randomIntFromInterval(-90, 90).toString();
 		const rndLongitude = randomIntFromInterval(-180, 180).toString();
