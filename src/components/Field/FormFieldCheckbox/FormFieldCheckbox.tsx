@@ -18,6 +18,7 @@ const FormFieldCheckbox = (
 		value,
 		disabled,
 		skeleton,
+		id,
 	} = props;
 
 	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
@@ -73,6 +74,7 @@ const FormFieldCheckbox = (
 			onBlur={onBlur}
 			style={fieldDef.style}
 			className={fieldDef.className}
+			id={id}
 		/>
 	);
 };

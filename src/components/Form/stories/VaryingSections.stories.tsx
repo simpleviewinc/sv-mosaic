@@ -36,11 +36,11 @@ export const VaryingSections = (): ReactElement => {
 	const fields = useMemo(
 		() : FieldDef[] =>
 			[
-				{
-					name: "field",
-					label: "Field",
+				...Array(80).fill(null).map<FieldDef>((_, i) => ({
+					name: `field_${i}`,
+					label: `Field ${i}`,
 					type: "text",
-				},
+				})),
 			],
 		[],
 	);
@@ -52,8 +52,8 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: true,
 			fields: [
 				// row 1
-				[["field"]],
-				[["field"]],
+				[["field_1"]],
+				[["field_2"]],
 			],
 		},
 		{
@@ -62,7 +62,7 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: false,
 			fields: [
 				// row 1
-				[["field"]],
+				[["field_3"]],
 			],
 		},
 		{
@@ -71,11 +71,11 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: false,
 			fields: [
 				// row 1
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
+				[["field_4"]],
+				[["field_5"]],
+				[["field_6"]],
+				[["field_7"]],
+				[["field_8"]],
 			],
 		},
 		...Array(10).fill(null).map((_, i) => ({
@@ -84,11 +84,11 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: true,
 			fields: [
 				// row 1
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
+				[[`field_${i * 5 + 9}`]],
+				[[`field_${i * 5 + 10}`]],
+				[[`field_${i * 5 + 11}`]],
+				[[`field_${i * 5 + 12}`]],
+				[[`field_${i * 5 + 13}`]],
 			],
 		})),
 		{
@@ -97,11 +97,11 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: false,
 			fields: [
 				// row 1
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
-				[["field"]],
+				[["field_59"]],
+				[["field_60"]],
+				[["field_61"]],
+				[["field_62"]],
+				[["field_63"]],
 			],
 		},
 		{
@@ -110,7 +110,7 @@ export const VaryingSections = (): ReactElement => {
 			collapsed: false,
 			fields: [
 				// row 1
-				[["field"]],
+				[["field_64"]],
 			],
 		},
 	], []);

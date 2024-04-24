@@ -39,4 +39,9 @@ export interface CheckboxProps extends MUICheckboxProps {
 	 * current checkbox can be selected or not
 	 */
 	disabled?: boolean;
+	/**
+	 * A unique ID that should be provided to the
+	 * checkbox and be referenced by a label.
+	 */
+	id?: string;
 }
