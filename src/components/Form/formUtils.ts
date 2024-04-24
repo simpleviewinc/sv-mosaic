@@ -9,7 +9,6 @@ import FormFieldPhone from "@root/components/Field/FormFieldPhone";
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggle from "@root/components/Field/FormFieldToggle";
-import FormFieldImageVideoLinkDocumentBrowsing from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import FormFieldColor from "@root/components/Field/FormFieldColor";
 import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import FormFieldTime, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
@@ -17,7 +16,6 @@ import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
-import FormFieldImageUpload from "@root/components/Field/FormFieldImageUpload";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload, { UploadData, UploadDataPending, isPendingUploadData } from "@root/components/Field/FormFieldUpload";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
@@ -68,11 +66,6 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	toggle: {
 		Component: FormFieldToggle,
-		validate: "onChange",
-		getResolvedValue: defaultResolver,
-	},
-	imageVideoDocumentLink: {
-		Component: FormFieldImageVideoLinkDocumentBrowsing,
 		validate: "onChange",
 		getResolvedValue: defaultResolver,
 	},
@@ -182,11 +175,6 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	mapCoordinates: {
 		Component: FormFieldMapCoordinates,
 		validate: "onBlur",
-		getResolvedValue: defaultResolver,
-	},
-	imageUpload: {
-		Component: FormFieldImageUpload,
-		validate: "onChange",
 		getResolvedValue: defaultResolver,
 	},
 	matrix: {

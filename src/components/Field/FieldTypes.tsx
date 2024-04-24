@@ -6,8 +6,6 @@ import { FieldDefColor } from "@root/components/Field/FormFieldColor/FormFieldCo
 import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
 import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
-import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
-import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
@@ -203,8 +201,6 @@ export type FieldDef =
 	| FieldDefPhoneSelection
 	| FieldDefMatrix
 	| FieldDefMapCoordinates
-	| FieldDefImageVideoDocumentLink
-	| FieldDefImageUpload
 	| FieldDefDropdown
 	| FieldDefDate
 	| FieldDefTime
