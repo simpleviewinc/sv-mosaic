@@ -25,9 +25,6 @@ export * from "./FormFieldDropdown";
 export { default as FormFieldImageUpload } from "./FormFieldImageUpload";
 export * from "./FormFieldImageUpload";
 
-export { default as FormFieldImageVideoLinkDocumentBrowsing } from "./FormFieldImageVideoLinkDocumentBrowsing";
-export * from "./FormFieldImageVideoLinkDocumentBrowsing";
-
 export { default as FormFieldMapCoordinates } from "./FormFieldMapCoordinates";
 export * from "./FormFieldMapCoordinates";
 
