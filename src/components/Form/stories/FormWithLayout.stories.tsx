@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement, useEffect, useMemo, useCallback } from "react";
 import { withKnobs, boolean, object, select } from "@storybook/addon-knobs";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -14,11 +14,12 @@ import { getOptionsCountries, getOptionsStates } from "../../Field/FormFieldAddr
 import Form from "../Form";
 
 // Types
-import { FieldDef } from "@root/components/Field";
+import { FieldDef, UploadFieldInputSettings } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
 import { DataViewProps } from "@root/components/DataView";
 import { joinAnd } from "@root/utils/string";
+import { nanoid } from "nanoid";
 
 export default {
 	title: "Components/Form",
@@ -84,6 +85,28 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 		activeColumns: ["id", "title", "description"],
 	}), [setFieldValue, state.data.formMatrix]);
 
+	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
+		for (let i = 0; i < 10; i++) {
+			await new Promise(resolve => setTimeout(() =>
+				resolve(
+					onChunkComplete({ percent: (i + 1) * 0.1 }),
+				), (2 * 1000) / 10),
+			);
+		}
+
+		await onUploadComplete({
+			id: nanoid(),
+			name: file.name,
+			size: file.size,
+			thumbnailUrl: ["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : "",
+			fileUrl: URL.createObjectURL(file),
+		});
+	}, []);
+
+	const onFileDelete = useCallback(async () => {
+		await new Promise((resolve) => setTimeout(() => resolve(null), 2 * 1000));
+	}, []);
+
 	const { height = "100vh" } = props;
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -146,6 +169,16 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					required: true,
 					instructionText: "Please tell us what gender you identify as.",
 					show: ({ data }) => data.gender && data.gender.value === "other",
+				},
+				{
+					name: "profilePicture",
+					label: "Profile picture",
+					type: "upload",
+					instructionText: "A profile picture is not required, but it's nice to put a face to the name.",
+					inputSettings: {
+						onFileAdd,
+						onFileDelete,
+					},
 				},
 				{
 					name: "email",
