@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
+import { useId, useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
 import xorBy from "lodash/xorBy";
 
 import Checkbox from "@root/components/Checkbox";
@@ -10,6 +10,8 @@ import { MosaicLabelValue } from "@root/types";
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
 	const checkedRef = useStateRef(props.checked);
+	const fallbackId = useId();
+	const id = props.id || fallbackId;
 
 	const handleToggle = useCallback(
 		(value: MosaicLabelValue | { [key: string]: unknown }) => () => {
@@ -37,6 +39,7 @@ const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement
 						label={option.label}
 						disabled={props.disabled}
 						key={`${option.value}-${i}`}
+						id={`${id}-${i}`}
 						onClick={callbacks[i]}
 						value={option.value}
 					/>

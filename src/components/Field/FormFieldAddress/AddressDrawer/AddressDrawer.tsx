@@ -33,15 +33,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	} = props;
 
 	const controller = useForm();
+	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
-	const { state, methods, handleSubmit } = controller;
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 	const [initialState, setInitialState] = useState(state.data);
 	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
-
-	const { setFieldValue } = methods;
 
 	useEffect(() => {
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
@@ -231,6 +229,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				}}
 				methods={props.methods}
 				disabled={props.disabled}
+				useRealLabel
 			>
 				<AddressAutocomplete
 					onChange={(address) => props.onChange(address)}
@@ -239,6 +238,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					onSelect={inputSettings.onSelect}
 					googleMapsApiKey={googleMapsApiKey}
 					disabled={props.disabled}
+					id={`${fieldDef.name}-input`}
 				/>
 			</Field>
 		);
