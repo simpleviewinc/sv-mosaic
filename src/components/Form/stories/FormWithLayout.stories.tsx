@@ -7,7 +7,6 @@ import AddIcon from "@mui/icons-material/Add";
 // Utils
 import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "../validators";
-import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons, toggleMap, toggleOptions } from "@root/utils/storyUtils";
 import { getOptionsCountries, getOptionsStates } from "../../Field/FormFieldAddress/utils/optionGetters";
 
@@ -147,15 +146,6 @@ export const FormWithLayout = (props: { height?: string }): ReactElement => {
 					required: true,
 					instructionText: "Please tell us what gender you identify as.",
 					show: ({ data }) => data.gender && data.gender.value === "other",
-				},
-				{
-					name: "profilePicture",
-					label: "Profile picture",
-					type: "imageUpload",
-					instructionText: "A profile picture is not required, but it's nice to put a face to the name.",
-					inputSettings: {
-						options: menuOptions,
-					},
 				},
 				{
 					name: "email",
