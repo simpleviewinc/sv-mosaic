@@ -60,7 +60,7 @@ export class PlaygroundPage extends BasePage {
 		this.phoneTextbox = page.locator("input.form-control");
 		this.phoneSelectedFlagDropdown = page.locator(".selected-flag");
 		this.selectionRadioBtn = page.locator("#radio input[type='radio']");
-		this.toggleField = page.locator("#toggleSwitch input[type='checkbox']");
+		this.toggleField = page.locator("#toggle input[type='checkbox']");
 		this.colorSelectorExample = page.locator("#color [data-testid='colordiv-test']");
 		this.colorSelector = page.locator(".flexbox-fix");
 		this.singleDatePickerIcon = page.locator("button [data-testid='CalendarIcon']");

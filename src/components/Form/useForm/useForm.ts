@@ -25,7 +25,7 @@ import {
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { MosaicObject } from "@root/types";
 import { FieldDefSanitized } from "../../Field";
-import { getFieldConfig } from "../Col/fieldConfigMap";
+import { getFieldConfig } from "..";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
 import { mapsValidators, runValidators, stateFromStable } from "./utils";
