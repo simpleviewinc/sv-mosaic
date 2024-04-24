@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
 import Spinner from "@root/components/Spinner";
 import { StyledFileCard } from "./FileCard.styled";
-import HelperText from "@root/components/Field/HelperText";
+import { HelperText } from "@root/components/FieldWrapper";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { useHumanSize } from "@root/utils/hooks/useHumanSize";

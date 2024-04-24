@@ -68,8 +68,8 @@ export * from "./components/MenuItem";
 export { default as MenuSelect } from "./components/MenuSelect";
 export * from "./components/MenuSelect";
 
-export { default as ToggleSwitch } from "./components/ToggleSwitch";
-export * from "./components/ToggleSwitch";
+export { default as Toggle } from "./components/Toggle";
+export * from "./components/Toggle";
 
 export { default as RadioButton } from "./components/RadioButton";
 export * from "./components/RadioButton";
@@ -84,8 +84,8 @@ export * from "./components/Typography";
 export { default as Drawers } from "./components/Drawers";
 export * from "./components/Drawers";
 
-export { default as SummaryPageTopComponent } from "./components/SummaryPageTopComponent";
-export * from "./components/SummaryPageTopComponent";
+export { default as TopSummary } from "./components/TopSummary";
+export * from "./components/TopSummary";
 
 export { default as Content } from "./components/Content";
 export * from "./components/Content";

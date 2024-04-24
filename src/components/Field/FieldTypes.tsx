@@ -1,22 +1,22 @@
 import { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import { FieldDefAdvancedSelection } from "@root/components/Field/FormFieldAdvancedSelection";
 import { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
-import { FieldDefChip } from "@root/components/Field/FormFieldChipSingleSelect";
-import { FieldDefColor } from "@root/components/Field/FormFieldColorPicker/ColorPickerTypes";
+import { FieldDefChip } from "@root/components/Field/FormFieldChips";
+import { FieldDefColor } from "@root/components/Field/FormFieldColor/FormFieldColorTypes";
 import { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
-import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdownSingleSelection";
+import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
 import { FieldDefImageUpload } from "@root/components/Field/FormFieldImageUpload";
 import { FieldDefImageVideoDocumentLink } from "@root/components/Field/FormFieldImageVideoLinkDocumentBrowsing";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
-import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhoneSelectionDropdown";
+import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhone";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
 import { FieldDefRaw } from "@root/components/Field/FormFieldRaw";
 import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
-import { FieldDefToggleSwitch } from "@root/components/Field/FormFieldToggleSwitch";
+import { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
@@ -197,7 +197,7 @@ export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>;
 
 export type FieldDef =
 	| FieldDefText
-	| FieldDefToggleSwitch
+	| FieldDefToggle
 	| FieldDefTextEditor
 	| FieldDefRadio
 	| FieldDefPhoneSelection

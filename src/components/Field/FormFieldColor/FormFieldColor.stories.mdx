@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title='FormFields/FormFieldColor/Readme' />
+
+# Color Picker
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- The color picker component allows users to select from pre-defined colors (swatches) or custom colors using a HSB selection interface.
+- The implementation of this component is based on the following package: [React Color](https://casesandberg.github.io/react-color/)
+- [**Playground**](/?path=/story/formfields-formfieldcolor--playground)
+- Data: `string` - Text that represents the hex value of the color picker.
+- inputSettings: This component doesn't require any additional props.
+
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "color",
+			},
+			//...other fields
+		],
+	[]
+);
+```

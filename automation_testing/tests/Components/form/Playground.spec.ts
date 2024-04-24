@@ -68,7 +68,7 @@ test.describe.parallel("Components - Form - Playground", () => {
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:dropdownSingle`),
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:phoneSelect`),
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:radio`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:toggleSwitch`),
+			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:toggle`),
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:color`),
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:date`),
 			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:address`),

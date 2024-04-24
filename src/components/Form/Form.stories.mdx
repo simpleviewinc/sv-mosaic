@@ -207,7 +207,7 @@ const fields: FieldDef[] = [
   {
     name: "isBirthName",
     label: "Is Birth Name",
-    type: "toggleSwitch",
+    type: "toggle",
   },
   {
     name: "favouriteColor",
@@ -345,8 +345,8 @@ Mosaic comes with a number of basic common-use validators so that you don't have
 | ---- | ------- | --------------- | ----------- |
 | `required` | | _This field is required, please fill it_ | Validate a string or an array has a length of more than 0. This validator is automatically applied to fields with the `required: true` property in their field definition. |
 | `validateEmail` | | _The value is not a valid email_ | Validates a string is an email address. |
-| `isLatitude` | | _Latitude should be between -90 and 90_ | Validates a value is a number between -90 and 90. |
-| `isLongitude` | | _Longitude should be between -180 and 180_ | Validates a value is a number between -180 and 180. |
+| `validateLatitude` | | _Latitude should be between -90 and 90_ | Validates a value is a number between -90 and 90. |
+| `validateLongitude` | | _Longitude should be between -180 and 180_ | Validates a value is a number between -180 and 180. |
 | `validateNumber` | | _The value is not a number_ | Validates a string value is a number when cast. |
 | `validateURL` | | _The value is not a valid URL_ | Validates a string value is a valid, complete URL. |
 | `validateDateRange` | `{ startDateName?: string, endDateName?: string }` | _Start date should happen before the end date_ or _End date should happen after the start date_ | Validates a value is a date that preceeds the value of another date field or vise versa. Generally it is used to support date ranges. |

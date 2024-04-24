@@ -11,7 +11,7 @@ import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 // Utils
 import { defaultMapPosition, isSameCoords, isValidCoords, isValidLatLng } from "../MapCoordinatesUtils";
 import Form, { useForm } from "@root/components/Form";
-import { isLatitude, isLongitude } from "@root/components/Form/validators";
+import { validateLatitude, validateLongitude } from "@root/components/Form/validators";
 import MapWithMarker from "../Map/MapWithMarker";
 import ResetButton from "../Map/ResetButton";
 
@@ -183,13 +183,13 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					name: "lat",
 					label: "Latitude",
 					type: "text",
-					validators: [isLatitude],
+					validators: [validateLatitude],
 				},
 				{
 					name: "lng",
 					label: "Longitude",
 					type: "text",
-					validators: [isLongitude],
+					validators: [validateLongitude],
 				},
 				{
 					name: "resetButton",
