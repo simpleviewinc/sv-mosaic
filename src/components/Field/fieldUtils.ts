@@ -16,7 +16,6 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	textEditor: Sizes.lg,
 	advancedSelection: Sizes.md,
 	mapCoordinates: Sizes.sm,
-	imageUpload: Sizes.lg,
 	matrix: Sizes.full,
 	upload: Sizes.md,
 	numberTable: Sizes.full,

@@ -5,7 +5,6 @@ import { withKnobs, boolean, text, select, number } from "@storybook/addon-knobs
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
-import { menuOptions } from "@root/forms/MenuFormFieldCard/MenuFormFieldUtils";
 import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
@@ -99,19 +98,6 @@ const prepopulateValues = {
 			value: "getFormValues option 4",
 		},
 	],
-	"imageVideoDocumentLink": [
-		{
-			"label": "Type",
-			"value": "Image Video Thumbnail",
-		},
-	],
-	"imageUpload": {
-		imgName: "pexels-isaac-ramos-17583913.jpg",
-		size: 499318,
-		type: "image/jpeg",
-		height: 1080,
-		width: 1620,
-	},
 	"mapCoordinates": {
 		lat: 48.858384,
 		lng: 2.294567,
@@ -347,16 +333,6 @@ export const Playground = (): ReactElement => {
 					type: "textEditor",
 					disabled,
 					required,
-				},
-				{
-					name: "imageUpload",
-					label: "Image Upload example",
-					type: "imageUpload",
-					disabled,
-					required,
-					inputSettings: {
-						options: menuOptions,
-					},
 				},
 				{
 					name: "mapCoordinates",
