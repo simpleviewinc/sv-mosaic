@@ -1,5 +1,47 @@
 # sv-mosaic changelog
 
+## 33.0.0 - 04/30/24
+
+### Improvements & Fixes
+
+* `Form`
+  * [MOS-1287](https://simpleviewtools.atlassian.net/browse/MOS-1287 "https://simpleviewtools.atlassian.net/browse/MOS-1287")
+    * Has the form display a "[skeleton](https://www.uxdesigninstitute.com/blog/whats-a-skeleton-screen/ "https://www.uxdesigninstitute.com/blog/whats-a-skeleton-screen/")" representation of the fields and action buttons whilst the inital load is underway. Each field type has it's own version of the skeleton to be displayed.
+  * [MOS-1277](https://simpleviewtools.atlassian.net/browse/MOS-1277 "https://simpleviewtools.atlassian.net/browse/MOS-1277") **(POTENTIAL TEST BREAKING CHANGES)**
+    * Ensures each applicable field has a label whose for attribute corresponds to the field input within. This improves form accessibility. Field types that follow this rule are:
+
+      * `color`
+      * `date`
+      * `dropdown`
+      * `phone`
+      * `text`
+      * `time`
+
+      The `textEditor` field type *should* ideally follow this rule as well, but I can't currently find a way to add an ID attribute to the `contenteditable` element that Jodit renders.
+* `FormFieldTextEditor`
+  * [MOS-1325](https://simpleviewtools.atlassian.net/browse/MOS-1325 "https://simpleviewtools.atlassian.net/browse/MOS-1325")
+    * This fixes an issue that caused rich text fields to be incorrectly invalidated due to hidden HTML tags that come as a part of the text editor value naturally. We now consistently strip away any HTML tags for not just the character counter, but also as a part of the maximum character validation function.
+* `Content`
+  * [MOS-1320](https://simpleviewtools.atlassian.net/browse/MOS-1320 "https://simpleviewtools.atlassian.net/browse/MOS-1320")
+    * Employs a [workaround](https://stackoverflow.com/a/48162770/1612146 "https://stackoverflow.com/a/48162770/1612146") to prevent typography from overflowing outside of individual content item containers. Words will be forced to be broken even if they have no breaking characters.
+* Housekeeping
+  * [MOS-1278](https://simpleviewtools.atlassian.net/browse/MOS-1278 "https://simpleviewtools.atlassian.net/browse/MOS-1278") **(BREAKING CHANGES)**
+    * Renames `SummaryPageTopComponent` → `TopSummary`
+    * Renames `isLatitude` → `validateLatitude`
+    * Renames `isLongitude` → `validateLongitude`
+    * Renames `Field` → `FieldWrapper` and moves to a dedicated `FieldWrapper` component directory
+    * Renames `ColField` → `Field` and moves to a dedicated `Form/Field` component directory
+    * Renames `FormFieldChipSingleSelect` → `FormFieldChips`
+    * Renames `FormFieldDropdownSingleSelection` → `FormFieldDropdown`
+    * Renames `FormFieldPhoneSelectionDropdown` → `FormFieldPhone`
+    * Renames `FormFieldToggleSwitch` → `FormFieldToggle`
+      * Renames the `toggleSwitch` field definition type to `toggle`
+    * Renames `FormFieldColorPicker` → `FormFieldColor`
+  * [MOS-1324](https://simpleviewtools.atlassian.net/browse/MOS-1324 "https://simpleviewtools.atlassian.net/browse/MOS-1324") **(POTENTIAL TEST BREAKING CHANGES)**
+    * Removes unused components and any references and tests relating to them:
+      * `FormFieldImageVideoLinkDocumentBrowsing`
+      * `FormFieldImageUpload`
+
 ## 32.1.1 - 04/16/24
 
 ### Improvements & Fixes
