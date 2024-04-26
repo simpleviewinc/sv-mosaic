@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState, useRef } from "react";
+import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
@@ -11,7 +11,7 @@ import { AddressDrawerProps, IAddress } from "../AddressTypes";
 import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { geocodeByAddress } from "react-places-autocomplete";
-import { components, componentsToAddress, initalAddressComponent } from "../utils/addressUtils";
+import { componentType } from "../utils/addressUtils";
 import { MosaicLabelValue } from "@root/types";
 import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
@@ -33,35 +33,48 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	} = props;
 
 	const controller = useForm();
-	const { state, methods: { setFieldValue }, handleSubmit } = controller;
+	const { state, methods: { setFieldValue, setFormValues }, handleSubmit } = controller;
 
 	const [address, setAddress] = useState("");
 	const [snackBarLabel, setSnackBarLabel] = useState("");
 	const [openSnackBar, setOpenSnackbar] = useState(false);
-	const [initialState, setInitialState] = useState(state.data);
-	const [apiState, setApiState] = useState<MosaicLabelValue | undefined>();
 
 	useEffect(() => {
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
 	}, [addressToEdit, state.data]);
 
-	// This smells bad, and it would be much better if there
-	// was a way to intercept the form onchange handlers
-	const lastCountry = useRef(state.data.country);
+	/**
+	 * Where "state" means geographical state, not app state:
+	 *
+	 * Unsets the state if the country changes and the currently
+	 * selected state cannot be located in the list of states
+	 * for that given country.
+	 */
 	useEffect(() => {
-		if (state.data.country !== lastCountry.current) {
-			if (lastCountry.current) {
-				setFieldValue({
-					name: "state",
-					value: undefined,
-				});
+		if (!state.data.country || !state.data.state) {
+			return;
+		}
+
+		const maybeUnsetState = async () => {
+			const availableStates = await getOptionsStates(state.data.country.value);
+			const matchingState = availableStates.find(({ label }) => label.toLowerCase().includes(state.data.state.label.toLowerCase()));
+
+			if (matchingState) {
+				return;
 			}
 
-			lastCountry.current = state.data.country;
-		}
+			setFieldValue({
+				name: "state",
+				value: undefined,
+			});
+		};
+
+		maybeUnsetState();
 	}, [
 		setFieldValue,
 		state.data.country,
+		state.data.state,
+		getOptionsStates,
 	]);
 
 	/**
@@ -95,98 +108,124 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		state.data.types,
 	]));
 
-	useEffect(() => {
-		const handleApiStateChange = async () => {
-			if (apiState !== undefined) {
-				setFieldValue({
-					name: "state",
-					value: { label: apiState.label, value: apiState.value },
-					validate: true,
-				});
-				setApiState(undefined);
-			}
-		};
-
-		handleApiStateChange();
-	}, [apiState, setFieldValue]);
-
 	const autocompleteAddress = useCallback(async (addressComponents: google.maps.GeocoderAddressComponent[]) => {
-		let componentsNotFound = "";
-		const addressComponentsMap = {
-			route: initalAddressComponent, // => address
-			locality: initalAddressComponent, // => city
-			postal_town: initalAddressComponent, // => city
-			country: initalAddressComponent, // => country
-			administrative_area_level_1: initalAddressComponent, // => state
-			postal_code: initalAddressComponent, // postal_code
-			street_number: initalAddressComponent, // street_number
+		/**
+		 * Gets the long value of a given component by it's type and
+		 * always returns a string.
+		 *
+		 * @param type The type of component to return the value of
+		 * @returns The "long" value of a component
+		 */
+		const getComponentByType = (type: string): string => {
+			const component = addressComponents.find(({ types }) => types.includes(type));
+
+			if (!component || !component.long_name) {
+				return "";
+			}
+
+			return component.long_name;
 		};
 
-		for (const addressComponent of addressComponents) {
-			const found = addressComponent.types.find(r => components.includes(r));
-			if (found) {
-				addressComponentsMap[found] = { label: addressComponent.long_name, value: addressComponent.short_name };
-			}
-		}
+		const hasPostalTown = Boolean(getComponentByType(componentType.town));
 
-		const selectedCountry = (await getOptionsCountries()).find(country => (
-			country.label.toLowerCase().includes(addressComponentsMap.country.label.toLowerCase())
-		));
+		const parts: { label: string; value: string | MosaicLabelValue; dataKey: string; emptyWarning?: boolean }[] = [
+			{
+				label: "Address 1",
+				/**
+				 * Address 1 needs both a number and a street to
+				 * be considered valid and therefore auto-completed.
+				 */
+				value: [
+					getComponentByType(componentType.no),
+					getComponentByType(componentType.street),
+				].filter(Boolean).join(" "),
+				dataKey: "address1",
+				emptyWarning: true,
+			},
+			{
+				label: "Address 2",
+				/**
+				 * Addresses with a postal town have their "Address 2" (if applicable)
+				 * in the locality component.
+				 */
+				value: hasPostalTown ? getComponentByType(componentType.locality) : "",
+				dataKey: "address2",
+			},
+			{
+				label: "City",
+				/**
+				 * Addresses with a postal town have their city in the town component
+				 * but those without have their city in the administrative_area_level_2
+				 * component. For example, UK addresses have a postal town, US addresses
+				 * do not.
+				 */
+				value: getComponentByType(hasPostalTown ? componentType.town : componentType.area2),
+				dataKey: "city",
+				emptyWarning: true,
+			},
+			{
+				label: "Postal Code",
+				value: getComponentByType(componentType.postcode),
+				dataKey: "postalCode",
+				emptyWarning: true,
+			},
+		];
 
-		if (selectedCountry) {
-			setInitialState({
-				...initialState,
-				country: selectedCountry,
-			});
-			setFieldValue({
-				name: "country",
-				value: selectedCountry,
-				validate: true,
-			});
+		/**
+		 * Makes a comparison of the value of the country
+		 * found in the API's country component to the list
+		 * of countries provided by the consumer. It's only
+		 * considered valid if it's found in the resolved list.
+		 */
+		const availableCountries = await getOptionsCountries();
+		const componentCountry = getComponentByType(componentType.country);
+		const country = availableCountries.find(({ label }) => label.toLowerCase().includes(componentCountry.toLowerCase()));
 
-			const selectedState = (await getOptionsStates(selectedCountry.value)).find(state => (
-				state.label.toLowerCase().includes(addressComponentsMap.administrative_area_level_1.label.toLowerCase())
-			));
-			if (selectedState) {
-				setApiState(selectedState);
-			} else {
-				console.warn('State response from google "' + addressComponentsMap.administrative_area_level_1.label + '" could not be found in the list of states provided in getOptionsStates');
-				componentsNotFound += `${componentsToAddress.administrative_area_level_1}, `;
-			}
-		} else {
-			console.warn('Country response from google "' + addressComponentsMap.country.label + '" could not be found in the list of countries provided in getOptionsCountries.');
-			componentsNotFound += `${componentsToAddress.country}, ${componentsToAddress.administrative_area_level_1}, `;
-		}
-
-		setFieldValue({
-			name: "address1",
-			value: `${addressComponentsMap.street_number.label} ${addressComponentsMap.route.label}`.trim(),
-			validate: true,
+		parts.push({
+			label: "Country",
+			value: country || "",
+			dataKey: "country",
+			emptyWarning: true,
 		});
-		setFieldValue({
-			name: "city",
-			value: addressComponentsMap.locality.label === "" ? addressComponentsMap.postal_town.label : addressComponentsMap.locality.label,
-			validate: true,
-		});
-		setFieldValue({
-			name: "postalCode",
-			value: addressComponentsMap.postal_code.label,
-			validate: true,
+
+		/**
+		 * Makes a comparison of the value of the state
+		 * found in the API's state component to the list
+		 * of states provided by the consumer using the
+		 * country. It's only considered valid if the
+		 * country is valid and the state is found in the
+		 * resolved list.
+		 */
+		const availableStates = country ? (await getOptionsStates(country.value)) : [];
+		const componentState = getComponentByType(hasPostalTown ? componentType.area2 : componentType.area1);
+		const state = availableStates.find(({ label }) => label.toLowerCase().includes(componentState.toLowerCase()));
+
+		parts.push({
+			label: "State",
+			value: state || "",
+			dataKey: "state",
+			emptyWarning: true,
 		});
 
-		for (const key in addressComponentsMap) {
-			if (!addressComponentsMap[key].label) {
-				componentsNotFound += componentsToAddress[key] ? `${componentsToAddress[key]}, ` : "";
-			}
+		const values = parts.reduce((acc, curr) => ({
+			...acc,
+			[curr.dataKey]: curr.value,
+		}), {});
+
+		const warnings = parts.filter(({ emptyWarning, value }) => emptyWarning && !value);
+
+		setFormValues({
+			values,
+		});
+
+		if (warnings.length) {
+			setSnackBarLabel(warnings.map(({ label }) => label).join(", "));
+			setOpenSnackbar(true);
 		}
-
-		setSnackBarLabel(componentsNotFound);
-		setOpenSnackbar(componentsNotFound !== "");
 	}, [
 		getOptionsCountries,
 		getOptionsStates,
-		initialState,
-		setFieldValue,
+		setFormValues,
 	]);
 
 	/**
@@ -333,7 +372,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					label: "State",
 					size: "sm",
 					inputSettings: {
-						getOptions: () => getOptionsStates(state.data.country?.value),
+						getOptions: async () => {
+							if (!state.data.country) {
+								return [];
+							}
+
+							return getOptionsStates(state.data.country.value);
+						},
 					},
 				},
 				{
@@ -352,7 +397,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			getOptionsCountries,
 			typesField,
 			getOptionsStates,
-			state.data.country?.value,
+			state.data.country,
 		],
 	);
 
@@ -419,7 +464,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			/>
 			<Snackbar
 				autoHideDuration={4000}
-				label={`The following fields could not be autocompleted: ${snackBarLabel} please fill them.`}
+				label={`The following fields could not be autocompleted: ${snackBarLabel}.`}
 				open={openSnackBar}
 				onClose={closeSnackbar}
 			/>
