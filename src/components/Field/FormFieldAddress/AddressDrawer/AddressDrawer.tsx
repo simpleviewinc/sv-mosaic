@@ -219,6 +219,12 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		});
 
 		if (warnings.length) {
+			console.warn(
+				"Some components could not be resolved.",
+				"\n\nComponents received:\n", addressComponents,
+				"\n\nBy type they are:\n", addressComponents.map(({ types: [type], long_name }) => `${type}: ${long_name}`).join("\n"),
+				"\n\nMosaic Result:\n", parts,
+			);
 			setSnackBarLabel(warnings.map(({ label }) => label).join(", "));
 			setOpenSnackbar(true);
 		}
