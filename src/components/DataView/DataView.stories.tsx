@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState, useEffect, useCallback, ReactElement } from "react";
 import styled from "styled-components";
-import { boolean, select, withKnobs } from "@storybook/addon-knobs";
+import { boolean, select, text, withKnobs } from "@storybook/addon-knobs";
 
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
-import AccessibleIcon from "@mui/icons-material/Accessible";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
@@ -411,10 +411,9 @@ export const Playground = (): ReactElement => {
 	const onBack = boolean("onBack", false);
 	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
-	const accessibilityAction = boolean("accessibilityAction", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
-	const additionalActions = boolean("additionalActions", true);
+	const titlesWithDrafts = text("Records with drafts", "Accessibility, Antiques, AQS - Quilt Show");
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
 	const comparisonDefault: string = select("ComparisonDefault for text filter", { "Equals": "equals", "Not Equals": "not_equals", "Contains": "contains", "Not Contains": "not_contains", "Exists": "exists", "Not Exists": "not_exists", "Invalid Comparison": "invalid_comparison" }, "contains");
@@ -509,6 +508,9 @@ export const Playground = (): ReactElement => {
 		let isMounted = true;
 		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
+			const titlesWithDraftsParsed = titlesWithDrafts
+				.split(",")
+				.map(item => item.trim().toLocaleLowerCase());
 
 			const newData = await api.find({
 				limit: state.limit,
@@ -517,6 +519,13 @@ export const Playground = (): ReactElement => {
 				filter: converted,
 			});
 
+			const newDataWithDraftAction = newData.map(row => ({
+				...row,
+				hasDraft: titlesWithDraftsParsed.includes(row.title.toLocaleLowerCase()),
+			}));
+
+			console.log(titlesWithDraftsParsed);
+
 			const count = await api.count({
 				filter: converted,
 			});
@@ -524,7 +533,7 @@ export const Playground = (): ReactElement => {
 			if (isMounted) {
 				setState({
 					...state,
-					data: newData,
+					data: newDataWithDraftAction,
 					count: count,
 					loading: false,
 				});
@@ -544,7 +553,7 @@ export const Playground = (): ReactElement => {
 		return () => {
 			isMounted = false;
 		};
-	}, [state.limit, state.sort, state.skip, state.filter]);
+	}, [state.limit, state.sort, state.skip, state.filter, titlesWithDrafts]);
 
 	// transpose our display knobs into the displayOptions
 	const knobOptions = [
@@ -579,17 +588,17 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
 				},
-				show: ({ row }) => primaryActions && row.title !== "Accessibility",
+				show: () => primaryActions,
 			},
 			{
-				name: "accessibility",
-				color: "red",
+				name: "draft",
+				color: "blue",
 				variant: "icon",
-				mIcon: AccessibleIcon,
+				mIcon: SaveAsIcon,
 				onClick: function ({ data }) {
-					alert(`ACCESSIBLE ${data.id}`);
+					alert(`VIEW DRAFT ${data.id}`);
 				},
-				show: ({ row }) => accessibilityAction && row.title === "Accessibility",
+				show: ({ row }) => Boolean(row.hasDraft),
 			},
 		],
 		additionalActions: [
@@ -599,7 +608,6 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
 				},
-				show: ({ row }) => additionalActions && row.title !== "Accessibility",
 			},
 			{
 				name: "history",
@@ -607,7 +615,6 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
 				},
-				show: ({ row }) => additionalActions && row.title !== "Accessibility",
 			},
 		],
 		bulkActions: bulkActions ? [

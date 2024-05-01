@@ -269,13 +269,44 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 	const actionsHidden = (props.checked || []).some(checked => checked);
 
 	const rowActions = useMemo<DataViewRowActions>(() => {
-		return props.data.reduce((acc, curr) => ({
+		const primaryActions = props.primaryActions || [];
+		const additionalActions = props.additionalActions || [];
+
+		const rows = props.data.reduce<DataViewRowActions>((acc, curr) => ({
 			...acc,
 			[curr.id as string]: {
-				primary: props.primaryActions ? props.primaryActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))) : [],
-				additional: props.additionalActions ? props.additionalActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))) : [],
+				// First, run through every row item and make it invisible
+				// if it should not be shown.
+				primary: primaryActions.map(action => ({
+					...action,
+					invisible: !getToggle(wrapToggle(action.show, { row: curr }, true)),
+					show: true,
+				})),
+				additional: additionalActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))),
 			},
 		}), {});
+
+		const rowKeys = Object.keys(rows);
+
+		// Creates an array of booleans that denote the
+		// indexes of primary actions and whether or not they
+		// should be rendered. They should not be rendered if
+		// they're invisible for every row in the set.
+		const primaryActionShow = primaryActions.map((_, index) => {
+			return rowKeys.some(key => !rows[key].primary[index].invisible);
+		});
+
+		// Now filter away any primary actions that should
+		// not be shown based on primaryActionShow
+		const result = rowKeys.reduce((acc, curr) => ({
+			...acc,
+			[curr]: {
+				...rows[curr],
+				primary: (rows[curr].primary || []).filter((_, i) => Boolean(primaryActionShow[i])),
+			},
+		}), {});
+
+		return result;
 	}, [props.data, props.additionalActions, props.primaryActions]);
 
 	return (
