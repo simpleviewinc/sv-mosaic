@@ -32,7 +32,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 	const buttonProps = {
 		$variant: props.variant,
 		$color: props.color || "gray",
-		disabled: shouldDisable,
+		disabled: props.invisible || shouldDisable,
 		size: props.size,
 		$size: props.size,
 		onClick: props.onClick,
@@ -49,18 +49,21 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 	const iconPosition = props.iconPosition || "left";
 	const Component = props.component || (isIconButton ? StyledIconButton : StyledButton) as any;
 
+	const cn = [
+		"button",
+		props.className,
+		props.variant === "icon" ? "iconButton" : "normalButton",
+		props.fullWidth && "fullWidth",
+		props.invisible && "invisible",
+		`size_${props.size}`,
+		`variant_${props.variant}`,
+	].filter(Boolean).join(" ");
+
 	return (
 		<StyledWrapper
 			{...props.attrs}
 			$fullWidth={props.fullWidth}
-			className={`
-				${props.className ? props.className : ""}
-				button
-				${props.variant === "icon" ? "iconButton" : "normalButton"}
-				${props.fullWidth ? "fullWidth" : ""}
-				size_${props.size}
-				variant_${props.variant}
-			`}
+			className={cn}
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
 		>

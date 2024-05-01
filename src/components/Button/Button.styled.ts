@@ -135,6 +135,11 @@ function getPadding(variant: ButtonProps["variant"], size: ButtonProps["size"] =
 export const StyledWrapper = styled("span")<TransientProps<ButtonProps, "fullWidth">>(({ $fullWidth }) => `
 	display: inline-block;
 
+	&.invisible {
+		visbility: hidden;
+		opacity: 0;
+	}
+
 	${$fullWidth && `
 		width: 100%;
 	`}
