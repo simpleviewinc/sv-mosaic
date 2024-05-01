@@ -93,7 +93,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 			modifiers={[restrictToVerticalAxis, restrictToTBody]}
 		>
 			<SortableContext
-				items={transformedData.map(item => item.id as string)}
+				items={transformedData.map(item => item.id)}
 				strategy={verticalListSortingStrategy}
 			>
 				<StyledTable>
