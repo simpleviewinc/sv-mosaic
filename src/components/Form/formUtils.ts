@@ -76,7 +76,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	date: {
 		Component: FormFieldDate,
-		validate: "onBlurChange",
+		validate: "onBlurAmend",
 		getResolvedValue: (
 			value: DateData | Date | undefined,
 			fieldDef: FieldDefDate,
@@ -117,7 +117,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	},
 	time: {
 		Component: FormFieldTime,
-		validate: "onBlur",
+		validate: "onBlurAmend",
 		getResolvedValue: (
 			value: TimeData | string | undefined,
 		): {
