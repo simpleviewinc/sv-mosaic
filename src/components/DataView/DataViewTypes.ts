@@ -238,6 +238,6 @@ export interface DataViewProps {
 }
 
 export type DataViewRowActions = Record<string, {
-	primary?: DataViewProps["primaryActions"];
-	additional?: DataViewProps["additionalActions"];
+	primary: DataViewProps["primaryActions"];
+	additional: DataViewProps["additionalActions"];
 }>;
