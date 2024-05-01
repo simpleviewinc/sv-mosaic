@@ -75,7 +75,7 @@ describe(__filename, function() {
 		];
 
 		testArray(tests, function(test) {
-			const result = transformColumn(test.data, test.column);
+			const result = transformColumn(test.data as any, test.column);
 			assert.strictEqual(result, test.result);
 		});
 	});
@@ -116,7 +116,7 @@ describe(__filename, function() {
 		];
 
 		testArray(tests, async function(test) {
-			const result = transformRows(test.data, test.columns);
+			const result = transformRows(test.data as any, test.columns);
 			assert.deepStrictEqual(result, test.result);
 		});
 	});
