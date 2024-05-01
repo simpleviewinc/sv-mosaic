@@ -30,11 +30,11 @@ const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((p
 	<StyledTBody ref={ref}>
 		{props.transformedData.map((row, i) => (
 			<DataViewTr
-				key={row.id as string}
+				key={row.id}
 				row={row}
 				originalRowData={props.data[i]}
-				primaryActions={props.rowActions?.[row.id as string]?.primary}
-				additionalActions={props.rowActions?.[row.id as string]?.additional}
+				primaryActions={props.rowActions?.[row.id]?.primary}
+				additionalActions={props.rowActions?.[row.id]?.additional}
 				actionsHidden={props.actionsHidden}
 				disabled={props.disabled}
 				onCheckboxClick={props.onCheckboxClick ? () => props.onCheckboxClick(i) : undefined}
