@@ -1,4 +1,4 @@
-import { MosaicObject } from "@root/types";
+import { ShiftParam, MosaicObject } from "@root/types";
 import { FieldDef } from "../FormTypes";
 import { FieldDefSanitized } from "@root/components/Field";
 
@@ -70,6 +70,7 @@ export type FormAction =
 
 export type GetFieldErrorParams = {
 	name: string;
+	validators?: (ValidatorFn | InternalValidatorFn)[];
 };
 
 export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | undefined>;
@@ -94,6 +95,7 @@ export type FieldCanBeValidated = (params: FieldCanBeValidatedParams) => boolean
 export type ValidateFieldParams = {
 	name: string;
 	validateLinkedFields?: boolean;
+	validators?: (ValidatorFn | InternalValidatorFn)[];
 };
 
 export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
@@ -172,15 +174,22 @@ export type MountFieldResult = {
 
 export type MountField = (params: MountFieldParams) => MountFieldResult;
 
-export type RemoveValidator = () => void;
+export type RemoveValidatorParams = {
+	name: string;
+	validator: InternalValidatorFn;
+	validate?: boolean;
+};
+
+export type RemoveValidator = (params: RemoveValidatorParams) => void;
 
 export type AddValidatorParams = {
 	name: string;
-	validator: () => undefined | string;
+	validator: InternalValidatorFn;
+	validate?: boolean;
 };
 
 export type AddValidatorResult = {
-	remove: RemoveValidator;
+	remove: ShiftParam<RemoveValidator>;
 };
 
 export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
@@ -232,11 +241,24 @@ export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldDefSanitized>;
 	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
-	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
+	internalValidators: Record<string, InternalValidatorFn[]>;
 	hasBlurred: Record<string, boolean>;
 	moveToError: boolean;
 };
 
-export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
+export type ValidatorFn = (
+	value: any,
+	data: MosaicObject<any>,
+	options: any,
+	internalValue: any,
+	internalData: any,
+) => Promise<string | undefined>;
+
+export type InternalValidatorFn = (
+	value: any,
+	data: MosaicObject<any>,
+	internalValue: any,
+	internalData: any,
+) => Promise<string | undefined>;
 
 export type Validator = { fn: ValidatorFn; options: any };

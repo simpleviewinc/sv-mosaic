@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import { ReactElement, useRef, useCallback, memo } from "react";
 
 // Components
 import TimePicker from "../TimePicker";
@@ -10,8 +10,8 @@ import { TimeFieldInputSettings, TimeData } from "./TimeFieldTypes";
 import { textIsValidDate } from "@root/utils/date";
 import { TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_TIME } from "@root/components/Form/fieldErrors";
-import { useFieldErrors } from "@root/utils/hooks";
 import { Skeleton } from "@mui/material";
+import useValidator from "@root/utils/hooks/useValidator";
 
 const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, TimeData>): ReactElement => {
 	const {
@@ -29,39 +29,35 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		skeleton,
 	} = props;
 
-	const { addError, removeError } = useFieldErrors({
-		methods,
+	const { addValidator } = methods;
+
+	const timeTextValue = useRef<string | undefined>();
+
+	useValidator({
+		addValidator,
 		name: fieldDef.name,
+		validator: useCallback(async (_, __, ___, internalValue) => {
+			if (!internalValue) {
+				return;
+			}
+
+			if (!timeTextValue.current || textIsValidDate(timeTextValue.current, TIME_FORMAT_FULL)) {
+				return;
+			}
+
+			return INVALID_TIME.message;
+		}, []),
+		autoRevalidate: true,
 	});
 
 	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
-		const isKeyboardEvent = keyboardInputValue !== undefined;
-		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
+		timeTextValue.current = keyboardInputValue;
 
-		if ((isKeyboardEvent && !validKeyboardInput) || !time) {
-			// This handler was caused by keyboard input, but it's not a valid date
-			// or the time is invalid (the input field is blank)
-
-			if (time) {
-				addError(INVALID_TIME);
-			}
-
-			onChange({
-				...value,
-				time,
-				validTime: false,
-			});
-
-			return;
-		} else {
-			removeError([INVALID_TIME]);
-
-			onChange({
-				...value,
-				time,
-				validTime: true,
-			});
-		}
+		onChange({
+			...value,
+			time,
+			validTime: !keyboardInputValue || textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL),
+		});
 	};
 
 	if (skeleton) {

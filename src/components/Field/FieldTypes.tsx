@@ -16,7 +16,7 @@ import { FieldDefText } from "@root/components/Field/FormFieldText";
 import { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
-import { MosaicToggle } from "@root/types";
+import { ShiftParam, MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
 import { FormMethods, FormState } from "../Form/useForm/types";
@@ -214,12 +214,8 @@ export type FieldDef =
 	| FieldDefNumberTable
 	| FieldDefRaw;
 
-export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
-
-export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
-
 export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
-	getResolvedValue: DropParam<FieldValueResolver>;
+	getResolvedValue: ShiftParam<FieldValueResolver>;
 
 	order: number;
 };

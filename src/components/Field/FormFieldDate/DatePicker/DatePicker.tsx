@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useCallback } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 //import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -13,6 +13,9 @@ import {
 	popperSx,
 } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
+import { FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps } from "@mui/material";
+
+type MuiRenderInput = (props: StandardTextFieldProps | FilledTextFieldProps | OutlinedTextFieldProps) => ReactElement;
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id } = props;
@@ -27,20 +30,29 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 		}
 	};
 
-	const renderInput = (params) => (
-		<DatePickerTextField
-			{...params}
-			id={id}
-			onBlur={onBlur}
-			required={fieldDef.required}
-			disabled={disabled}
-			inputProps={{
-				...params.inputProps,
-				ref: inputRef,
-				placeholder: fieldDef?.inputSettings?.placeholder,
-			}}
-		/>
-	);
+	const renderInput = useCallback<MuiRenderInput>((params) => {
+		return (
+			<DatePickerTextField
+				{...params}
+				id={id}
+				onBlur={onBlur}
+				required={fieldDef.required}
+				disabled={disabled}
+				inputProps={{
+					...params.inputProps,
+					ref: inputRef,
+					placeholder: fieldDef?.inputSettings?.placeholder,
+				}}
+			/>
+		);
+	}, [
+		disabled,
+		fieldDef?.inputSettings?.placeholder,
+		fieldDef.required,
+		id,
+		inputRef,
+		onBlur,
+	]);
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>

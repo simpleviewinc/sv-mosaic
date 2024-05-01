@@ -21,6 +21,7 @@ import {
 	FormInit,
 	FormReset,
 	SetSubmitWarning,
+	RemoveValidator,
 } from "./types";
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { MosaicObject } from "@root/types";
@@ -43,10 +44,8 @@ export function useForm(): UseFormReturn {
 		return stable.current.fields[name];
 	}, []);
 
-	const getFieldError = useCallback<GetFieldError>(async ({
-		name,
-	}) => {
-		const { data, internalValidators } = stable.current;
+	const getFieldValidators = useCallback(({ name }) => {
+		const { internalValidators } = stable.current;
 		const field = getFieldFromExtra(name);
 
 		const requiredFlag = field.required;
@@ -80,19 +79,34 @@ export function useForm(): UseFormReturn {
 			});
 		}
 
-		const validatorsMap = mapsValidators([
+		return [
 			...(internalValidators[name] || []),
 			...validators,
-		]);
+		];
+	}, [getFieldFromExtra]);
 
-		const result = await runValidators(validatorsMap, data[name], data);
+	const getFieldError = useCallback<GetFieldError>(async ({
+		name,
+		validators = getFieldValidators({ name }),
+	}) => {
+		const { data, internalData } = stable.current;
+
+		const validatorsMap = mapsValidators(validators);
+
+		const result = await runValidators(
+			validatorsMap,
+			data[name],
+			data,
+			internalData[name],
+			internalData,
+		);
 
 		if (!result) {
 			return undefined;
 		}
 
 		return result.errorMessage;
-	}, [getFieldFromExtra]);
+	}, [getFieldValidators]);
 
 	const getFieldErrors = useCallback<GetFieldErrors>(async ({
 		names,
@@ -141,11 +155,12 @@ export function useForm(): UseFormReturn {
 	const validateField = useCallback<ValidateField>(async ({
 		name,
 		validateLinkedFields,
+		validators,
 	}) => {
 		const field = getFieldFromExtra(name);
 
 		const errors: MosaicObject<string | undefined> = {
-			[name]: !fieldCanBeValidated({ name }) ? undefined : (await getFieldError({ name })),
+			[name]: !fieldCanBeValidated({ name }) ? undefined : (await getFieldError({ name, validators })),
 		};
 
 		if (validateLinkedFields && field.validates) {
@@ -440,9 +455,34 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
+	const removeValidator = useCallback<RemoveValidator>(({
+		name,
+		validator,
+		validate,
+	}) => {
+		const current = stable.current.internalValidators[name] || [];
+
+		/**
+		 * Just bail if this validator isn't registered
+		 */
+		if (!current.includes(validator)) {
+			return;
+		}
+
+		stable.current.internalValidators[name] = current.filter(item => item !== validator);
+
+		if (validate) {
+			validateField({
+				name,
+				// validators: [validator],
+			});
+		}
+	}, [validateField]);
+
 	const addValidator = useCallback<AddValidator>(({
 		name,
 		validator,
+		validate,
 	}) => {
 		const current = stable.current.internalValidators[name] || [];
 
@@ -458,21 +498,21 @@ export function useForm(): UseFormReturn {
 			validator,
 		];
 
+		if (validate) {
+			validateField({
+				name,
+				// validators: [validator],
+			});
+		}
+
 		return {
-			remove: () => {
-				const current = stable.current.internalValidators[name] || [];
-
-				/**
-				 * Just bail if this validator isn't registered
-				 */
-				if (!current.includes(validator)) {
-					return;
-				}
-
-				stable.current.internalValidators[name] = current.filter(item => item !== validator);
-			},
+			remove: () => removeValidator({
+				name,
+				validator,
+				validate,
+			}),
 		};
-	}, []);
+	}, [validateField, removeValidator]);
 
 	const setSubmitWarning = useCallback<SetSubmitWarning>((params) => {
 		dispatch({

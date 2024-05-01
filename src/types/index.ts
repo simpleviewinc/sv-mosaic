@@ -42,3 +42,7 @@ export type TransientProps<T, K extends keyof T = keyof T> = {
 };
 
 export type WithArrayOf<T> = T | T[];
+
+export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
+
+export type ShiftParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;

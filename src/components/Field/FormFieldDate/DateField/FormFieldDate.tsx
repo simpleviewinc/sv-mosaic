@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, memo, useRef } from "react";
+import { ReactElement, memo, useCallback, useRef } from "react";
 
 // Components
 import DatePicker from "../DatePicker";
@@ -12,8 +12,8 @@ import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
-import { useFieldErrors } from "@root/utils/hooks";
 import { FormFieldDateSkeleton } from "./FormFieldDateSkeleton";
+import useValidator from "@root/utils/hooks/useValidator";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -32,85 +32,69 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		id,
 	} = props;
 
+	const { addValidator } = methods;
+
 	const showTime = fieldDef?.inputSettings?.showTime;
 	const blurred = useRef<{ date: boolean; time: boolean }>({ date: false, time: false });
 
-	const { addError, removeError } = useFieldErrors({
-		methods,
+	const dateTextValue = useRef<string | undefined>();
+	const timeTextValue = useRef<string | undefined>();
+
+	useValidator({
+		addValidator,
 		name: fieldDef.name,
+		validator: useCallback(async (_, __, ___, internalValue) => {
+			if (!internalValue || internalValue.validDate || !dateTextValue.current) {
+				return;
+			}
+
+			if (textIsValidDate(dateTextValue.current, DATE_FORMAT_FULL)) {
+				return;
+			}
+
+			return INVALID_DATE.message;
+		}, []),
+	});
+
+	useValidator({
+		addValidator,
+		name: fieldDef.name,
+		validator: useCallback(async (_, __, ___, internalValue) => {
+			if (!internalValue) {
+				return;
+			}
+
+			if (timeTextValue.current && !textIsValidDate(timeTextValue.current, TIME_FORMAT_FULL)) {
+				return INVALID_TIME.message;
+			}
+
+			if (!internalValue.validDate || internalValue.validTime || !showTime) {
+				return;
+			}
+
+			return TIME_REQUIRED.message;
+		}, [showTime]),
+		autoRevalidate: true,
 	});
 
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
-		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
+		dateTextValue.current = keyboardInputValue;
 
-		if (fieldDef?.inputSettings?.showTime && date && !value.validTime) {
-			addError(TIME_REQUIRED);
-		} else {
-			removeError(TIME_REQUIRED);
-		}
-
-		if (
-			// The datepicker was used
-			(date && !keyboardInputValue) ||
-			// A valid date was entered using the keyboard
-			(keyboardInputValue && validKeyboardInput)
-		) {
-			removeError(INVALID_DATE);
-
-			onChange({
-				...value,
-				date,
-				validDate: true,
-			});
-		} else {
-			if (keyboardInputValue && !validKeyboardInput) {
-				addError(INVALID_DATE);
-			} else {
-				removeError(INVALID_DATE);
-			}
-
-			onChange({
-				...value,
-				date,
-				validDate: false,
-			});
-		}
+		onChange({
+			...value,
+			date,
+			validDate: !keyboardInputValue || textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL),
+		});
 	};
 
 	const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
-		const isKeyboardEvent = keyboardInputValue !== undefined;
-		const validKeyboardInput = textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL);
+		timeTextValue.current = keyboardInputValue;
 
-		if (value.date && !time) {
-			removeError(INVALID_TIME);
-			addError(TIME_REQUIRED);
-
-			onChange({
-				...value,
-				time,
-				validTime: false,
-			});
-		} else if (isKeyboardEvent && !validKeyboardInput) {
-			// This handler was caused by keyboard input, but it's not a valid date
-			removeError(TIME_REQUIRED);
-			addError(INVALID_TIME);
-
-			onChange({
-				...value,
-				time,
-				validTime: false,
-			});
-
-			return;
-		} else {
-			removeError([TIME_REQUIRED, INVALID_TIME]);
-
-			onChange({
-				...value,
-				time,
-				validTime: true,
-			});
-		}
+		onChange({
+			...value,
+			time,
+			validTime: !keyboardInputValue || textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL),
+		});
 	};
 
 	const onBlurProxy = (type: "date" | "time") => async () => {
