@@ -37,6 +37,7 @@ export interface ButtonProps {
 	type?: "button" | "submit";
 	id?: string;
 	as?: WebTarget;
+	invisible?: boolean;
 }
 
 export interface ButtonPopoverContextProps {
