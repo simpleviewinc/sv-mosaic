@@ -413,6 +413,7 @@ export const Playground = (): ReactElement => {
 	const bulkActions = boolean("bulkActions", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
+	const secondaryActions = boolean("secondaryActions", true);
 	const titlesWithDrafts = text("Records with drafts", "Accessibility, Antiques, AQS - Quilt Show");
 	const sticky = boolean("sticky", true);
 	const locale: string = select("locale", { en: "en", es: "es", cimode: "cimode", de: "de" }, "en");
@@ -598,7 +599,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`VIEW DRAFT ${data.id}`);
 				},
-				show: ({ row }) => Boolean(row.hasDraft),
+				show: ({ row }) => primaryActions && Boolean(row.hasDraft),
 			},
 		],
 		additionalActions: [
@@ -608,6 +609,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
 				},
+				show: secondaryActions,
 			},
 			{
 				name: "history",
@@ -615,6 +617,7 @@ export const Playground = (): ReactElement => {
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
 				},
+				show: secondaryActions,
 			},
 		],
 		bulkActions: bulkActions ? [
