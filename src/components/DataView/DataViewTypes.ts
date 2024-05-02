@@ -10,7 +10,7 @@ export interface DataViewColumnTransformArgs<T = unknown> {
 	/** The value of the specific column that is being transformed */
 	data: T;
 	/** The whole row as passed to the original DataView */
-	row?: MosaicObject;
+	row?: DataViewProps["data"][number];
 }
 
 export interface DataViewColumnTransform<T = unknown> {
@@ -71,7 +71,7 @@ export interface DataViewFilterProps {
 }
 
 interface DataViewActionOnClick {
-	({ data }: { data: MosaicObject }): void;
+	({ data }: { data: DataViewProps["data"][number] }): void;
 }
 
 export interface ActionAdditional {
@@ -85,7 +85,7 @@ export interface ActionAdditional {
 }
 
 interface DataViewBulkActionOnClick {
-	({ data }: { data: MosaicObject[] }): void;
+	({ data }: { data: DataViewProps["data"] }): void;
 }
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show"> & ActionAdditional;
@@ -190,7 +190,11 @@ export interface DataViewFilterGetOptionsReturn {
 	hasMore?: boolean;
 }
 
-export interface DataViewProps {
+export interface DataViewRowData extends Record<string, unknown> {
+	id: string;
+}
+
+export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
 	attrs?: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>;
 	title?: string;
 	loading?: boolean;
@@ -212,7 +216,7 @@ export interface DataViewProps {
 	onReorder?: (rows: string[]) => void;
 	savedView?: SavedViewDef;
 	displayOptions?: string[];
-	data: MosaicObject[];
+	data: D[];
 	sort?: DataViewSort;
 	limitOptions?: number[];
 	gridColumnsMap?: MosaicObject;

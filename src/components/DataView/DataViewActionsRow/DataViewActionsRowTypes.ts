@@ -1,4 +1,3 @@
-import { MosaicObject } from "@root/types";
 import {
 	DataViewColumn,
 	DataViewOnSortChange,
@@ -23,7 +22,7 @@ export interface DataViewActionsRowProps {
 	allColumns?: DataViewProps["columns"];
 	onCheckAllClick?: () => void;
 	checkedAllPages?: DataViewProps["checkedAllPages"];
-	data?: MosaicObject[];
+	data?: DataViewProps["data"];
 	sort?: DataViewProps["sort"];
 	onSortChange?: DataViewOnSortChange;
 	columns?: DataViewColumn[];

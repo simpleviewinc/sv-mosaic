@@ -274,7 +274,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 		const rows = props.data.reduce<DataViewRowActions>((acc, curr) => ({
 			...acc,
-			[curr.id as string]: {
+			[curr.id]: {
 				// First, run through every row item and make it invisible
 				// if it should not be shown.
 				primary: primaryActions.map(action => ({
