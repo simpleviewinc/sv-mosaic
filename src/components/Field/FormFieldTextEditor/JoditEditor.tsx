@@ -46,7 +46,6 @@ const JoditEditor = (
 		spellcheck = false,
 		direction = "ltr",
 		language = "en",
-		maxCharacters,
 	} = inputSettings;
 
 	const textArea = useRef(null);
@@ -67,7 +66,6 @@ const JoditEditor = (
 		spellcheck,
 		direction,
 		language,
-		limitChars: maxCharacters,
 		tabIndex: 0,
 		disablePlugins: [
 			"add-new-line",
@@ -79,7 +77,6 @@ const JoditEditor = (
 		spellcheck,
 		direction,
 		language,
-		maxCharacters,
 	]);
 
 	useEffect(() => {
