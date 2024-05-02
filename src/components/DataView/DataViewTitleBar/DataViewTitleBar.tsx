@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import ButtonRow from "../../ButtonRow";
-import DataViewViewControls from "../DataViewViewControls";
+// import DataViewViewControls from "../DataViewViewControls";
 import DataViewFilters from "../DataViewFilters";
 import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
@@ -32,14 +32,14 @@ function DataViewTitleBar(props: DataViewTitleBarProps) {
 							backLabel={props.backLabel}
 						/>
 					)}
-					{props.savedViewEnabled && (
+					{/* {props.savedViewEnabled && (
 						<DataViewViewControls
 							savedView={props.savedView}
 							savedViewState={props.savedViewState}
 							savedViewCallbacks={props.savedViewCallbacks}
 							savedViewAllowSharedViewSave={props.savedViewAllowSharedViewSave}
 						/>
-					)}
+					)} */}
 				</div>
 				{buttons.length > 0 && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>

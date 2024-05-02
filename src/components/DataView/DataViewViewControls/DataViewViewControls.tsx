@@ -4,8 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
-import DataViewViewDrawer from "../DataViewViewDrawer";
-import DataViewViewSaveDrawer from "../DataViewViewSaveDrawer";
+
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewViewControlsProps } from "./DataViewViewControlsTypes";
 
@@ -36,6 +35,7 @@ const TitleButton = styled(Button)`
 	}
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function DataViewViewControls(props: DataViewViewControlsProps) {
 	const [state, setState] = useState({
 		viewOpen : false,
@@ -61,7 +61,7 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 	const ViewLabel = (
 		<ViewSpan>
 			<p>
-				{props.savedView.label}
+				{/* {props.savedView.label} */}
 			</p>
 		</ViewSpan>
 	);
@@ -73,24 +73,17 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 				toggleSaveDrawer();
 			},
 		},
-		{
-			label : t("mosaic:DataView.overwrite_current_view"),
-			disabled : props.savedView.type === "default" || (props.savedView.type === "shared" && !props.savedViewAllowSharedViewSave),
-			onClick : async function() {
-				await props.savedViewCallbacks.onSave({
-					...props.savedView,
-					state : props.savedViewState,
-				});
-			},
-		},
+		// {
+		// 	label : t("mosaic:DataView.overwrite_current_view"),
+		// 	disabled : props.savedView.type === "default" || (props.savedView.type === "shared" && !props.savedViewAllowSharedViewSave),
+		// 	onClick : async function() {
+		// 		await props.savedViewCallbacks.onSave({
+		// 			...props.savedView,
+		// 			state : props.savedViewState,
+		// 		});
+		// 	},
+		// },
 	];
-
-	const savedViewData = {
-		id : undefined,
-		label : "",
-		type : "mine",
-		state : props.savedViewState,
-	};
 
 	return (
 		<div>
@@ -116,22 +109,6 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 					/>
 				</ButtonRow>
 			</div>
-			<DataViewViewSaveDrawer
-				open={state.saveOpen}
-				data={savedViewData}
-				onClose={toggleSaveDrawer}
-				onSave={props.savedViewCallbacks.onSave}
-				allowSharedViewSave={props.savedViewAllowSharedViewSave}
-			/>
-			<DataViewViewDrawer
-				open={state.viewOpen}
-				onClose={toggleViewDrawer}
-				onRemove={props.savedViewCallbacks.onRemove}
-				onSave={props.savedViewCallbacks.onSave}
-				onChange={props.savedViewCallbacks.onChange}
-				onGetOptions={props.savedViewCallbacks.onGetOptions}
-				allowSharedViewSave={props.savedViewAllowSharedViewSave}
-			/>
 		</div>
 	);
 }
