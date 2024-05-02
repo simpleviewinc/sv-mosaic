@@ -277,14 +277,22 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			[curr.id]: {
 				// First, run through every row item and make it invisible
 				// if it should not be shown.
-				primary: primaryActions.map(action => ({
-					...action,
-					invisible: !getToggle(wrapToggle(action.show, { row: curr }, true)),
-					show: true,
-				})),
+				primary: primaryActions.map(action => {
+					const shouldShow = getToggle(wrapToggle(action.show, { row: curr }, true));
+
+					return {
+						...action,
+						invisible: display === "list" ? !shouldShow : false,
+						show: display === "list" ? true : shouldShow,
+					};
+				}),
 				additional: additionalActions.filter(action => getToggle(wrapToggle(action.show, { row: curr }, true))),
 			},
 		}), {});
+
+		if (display === "grid") {
+			return rows;
+		}
 
 		const rowKeys = Object.keys(rows);
 
