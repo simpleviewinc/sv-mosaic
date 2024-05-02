@@ -1,25 +1,14 @@
 /**
- * An array of strings denoting the type of the returned geocoded element.
- * For a list of possible strings, refer to the <a href=
- * "https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes">
- * Address Component Types</a> section of the Developer&#39;s Guide.
-*/
-export const components = ["route", "locality", "postal_town", "postal_code", "administrative_area_level_1", "country", "street_number"];
-
-export const initalAddressComponent = {
-	label: "",
-	value: "",
-};
-
-/**
- * Maps the address components object response of the autocomplete API to string values used
- * to display a message with  missing components on a snackback.
+ * @see https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes
  */
-export const componentsToAddress = {
-	route: "address",
-	locality: "city",
+export const componentType = {
+	no: "street_number",
+	street: "route",
+	neighborhood: "neighborhood",
+	locality: "locality",
+	town: "postal_town",
+	area1: "administrative_area_level_1",
+	area2: "administrative_area_level_2",
 	country: "country",
-	administrative_area_level_1: "state",
-	postal_code: "postal code",
-	street_number: "street number",
+	postcode: "postal_code",
 };
