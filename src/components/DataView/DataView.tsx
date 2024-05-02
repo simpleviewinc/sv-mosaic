@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewTitleBar from "./DataViewTitleBar";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
-import { DataViewProps, DataViewRowActions, StateViewDef } from "./DataViewTypes";
+import { DataViewProps, DataViewRowActions } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
 import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 
@@ -77,14 +77,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 	const displayOptions = useMemo(() => props.displayOptions || [display], [display, props.displayOptions]);
 
 	const displayControlEnabled = props.onDisplayChange !== undefined && displayOptions.length > 1;
-
-	const savedViewEnabled =
-		props.onSavedViewSave !== undefined &&
-		props.onSavedViewChange !== undefined &&
-		props.onSavedViewGetOptions !== undefined &&
-		props.onSavedViewRemove !== undefined &&
-		props.savedView !== undefined
-	;
 
 	const bulkActions = useMemo(() => {
 		if (!props.bulkActions) {
@@ -175,22 +167,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 
 	const Display = activeDisplay.component;
 
-	const savedViewState: StateViewDef = {
-		limit : props.limit,
-		sort : props.sort,
-		display : props.display,
-		filter : props.filter,
-		activeFilters : props.activeFilters,
-		activeColumns : props.activeColumns,
-	};
-
-	const savedViewCallbacks = {
-		onSave : props.onSavedViewSave,
-		onChange : props.onSavedViewChange,
-		onGetOptions : props.onSavedViewGetOptions,
-		onRemove : props.onSavedViewRemove,
-	};
-
 	const viewContainerRef = useRef(null);
 
 	const activeColumns = useMemo(() => {
@@ -214,7 +190,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		if (
 			props.title ??
 			props.buttons ??
-			savedViewEnabled ??
 			props.filters
 		)
 			return true;
@@ -223,7 +198,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 	}, [
 		props.title,
 		props.buttons,
-		savedViewEnabled,
 		props.filters,
 	]);
 
@@ -335,11 +309,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							onBack={props.onBack}
 							backLabel={props.backLabel}
 							buttons={props.buttons}
-							savedViewEnabled={savedViewEnabled}
-							savedView={props.savedView}
-							savedViewState={savedViewState}
-							savedViewCallbacks={savedViewCallbacks}
-							savedViewAllowSharedViewSave={(props.savedViewAllowSharedViewSave !== undefined) ? props.savedViewAllowSharedViewSave : false}
 							filter={props.filter}
 							filters={props.filters}
 							activeFilters={props.activeFilters}
