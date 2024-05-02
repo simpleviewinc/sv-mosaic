@@ -505,27 +505,28 @@ export const Playground = (): ReactElement => {
 		};
 	}, [sticky]);
 
+	const addDraftsPrimaryAction = useCallback((data: Record<string, any>[]) => {
+		const titlesWithDraftsParsed = titlesWithDrafts
+			.split(",")
+			.map(item => item.trim().toLocaleLowerCase());
+
+		return data.map(row => ({
+			...row,
+			hasDraft: titlesWithDraftsParsed.includes(row.title.toLocaleLowerCase()),
+		}));
+	}, [titlesWithDrafts]);
+
 	useEffect(() => {
 		let isMounted = true;
 		const fetchData = async function () {
 			const converted = convertFilter(state.filter);
-			const titlesWithDraftsParsed = titlesWithDrafts
-				.split(",")
-				.map(item => item.trim().toLocaleLowerCase());
 
-			const newData = await api.find({
+			const newData = addDraftsPrimaryAction(await api.find({
 				limit: state.limit,
 				sort: state.sort,
 				skip: state.skip,
 				filter: converted,
-			});
-
-			const newDataWithDraftAction = newData.map(row => ({
-				...row,
-				hasDraft: titlesWithDraftsParsed.includes(row.title.toLocaleLowerCase()),
 			}));
-
-			console.log(titlesWithDraftsParsed);
 
 			const count = await api.count({
 				filter: converted,
@@ -534,7 +535,7 @@ export const Playground = (): ReactElement => {
 			if (isMounted) {
 				setState({
 					...state,
-					data: newDataWithDraftAction,
+					data: newData,
 					count: count,
 					loading: false,
 				});
@@ -554,7 +555,7 @@ export const Playground = (): ReactElement => {
 		return () => {
 			isMounted = false;
 		};
-	}, [state.limit, state.sort, state.skip, state.filter, titlesWithDrafts]);
+	}, [state.limit, state.sort, state.skip, state.filter, addDraftsPrimaryAction]);
 
 	// transpose our display knobs into the displayOptions
 	const knobOptions = [
@@ -756,9 +757,9 @@ export const Playground = (): ReactElement => {
 		onReorder: draggableRows ? async (newRows) => {
 			setState({ ...state, loading: true });
 
-			const newData = await api.find({
+			const newData = addDraftsPrimaryAction(await api.find({
 				reorderedList: newRows,
-			});
+			}));
 
 			setState({
 				...state,
