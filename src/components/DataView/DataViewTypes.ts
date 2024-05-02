@@ -116,36 +116,15 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void;
 }
 
-export type StateViewDef = {
-	limit?: DataViewProps["limit"];
-	skip?: DataViewProps["skip"];
-	filter?: DataViewProps["filter"];
-	sort?: DataViewProps["sort"];
-	display?: DataViewProps["display"];
-	activeFilters?: DataViewProps["activeFilters"];
-	activeColumns?: DataViewProps["activeColumns"];
-};
-
-//THIS TYPE DOESN'T SEEM TO BE USED ANYWHERE.
-export interface DataViewView {
-	id: string;
-	label: string;
-	type: string;
-	state: StateViewDef;
-}
-
-export type SavedViewDef = {
-	id?: string;
-	label?: string;
-	type?: "default" | "shared" | "mine";
-	state?: StateViewDef;
-};
-
-type SavedViewDefRemove = Required<SavedViewDef>;
-
-type DataViewOnSavedViewChange = {
-	(view: SavedViewDef): void;
-};
+// export type StateViewDef = {
+// 	limit?: DataViewProps["limit"];
+// 	skip?: DataViewProps["skip"];
+// 	filter?: DataViewProps["filter"];
+// 	sort?: DataViewProps["sort"];
+// 	display?: DataViewProps["display"];
+// 	activeFilters?: DataViewProps["activeFilters"];
+// 	activeColumns?: DataViewProps["activeColumns"];
+// };
 
 type DataViewOnDisplayChange = {
 	(display: string): void;
@@ -158,18 +137,6 @@ type DataViewOnColumnsChange = {
 	(activeColumns: string[]): void;
 };
 
-type DataViewOnSavedViewSave = {
-	(data: SavedViewDef): void;
-};
-
-type DataViewOnSavedViewRemove = {
-	(data: SavedViewDefRemove): void;
-};
-
-type DataViewOnSavedViewGetOptions = {
-	(): MosaicObject[];
-};
-
 type DataViewOnCheckChange = {
 	(checked: boolean[]): void;
 };
@@ -177,13 +144,6 @@ type DataViewOnCheckChange = {
 type DataViewOnCheckAllPagesChange = {
 	(val: boolean): void;
 };
-
-export interface SavedViewCallbacks {
-	onSave: DataViewProps["onSavedViewSave"];
-	onChange: DataViewProps["onSavedViewChange"];
-	onGetOptions: DataViewProps["onSavedViewGetOptions"];
-	onRemove: DataViewProps["onSavedViewRemove"];
-}
 
 export interface DataViewFilterGetOptionsReturn {
 	docs: MosaicLabelValue[];
@@ -214,13 +174,11 @@ export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
 	buttons?: ButtonProps[];
 	display?: string;
 	onReorder?: (rows: string[]) => void;
-	savedView?: SavedViewDef;
 	displayOptions?: string[];
 	data: D[];
 	sort?: DataViewSort;
 	limitOptions?: number[];
 	gridColumnsMap?: MosaicObject;
-	savedViewAllowSharedViewSave?: boolean;
 	primaryActions?: DataViewAction[];
 	additionalActions?: DataViewAdditionalAction[];
 	disabled?: boolean;
@@ -228,13 +186,9 @@ export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
 	onSortChange?: DataViewOnSortChange;
 	onSkipChange?: DataViewOnSkipChange;
 	onLimitChange?: DataViewOnLimitChange;
-	onSavedViewChange?: DataViewOnSavedViewChange;
 	onDisplayChange?: DataViewOnDisplayChange;
 	onActiveFiltersChange?: DataViewOnActiveFiltersChange;
 	onColumnsChange?: DataViewOnColumnsChange;
-	onSavedViewSave?: DataViewOnSavedViewSave;
-	onSavedViewRemove?: DataViewOnSavedViewRemove;
-	onSavedViewGetOptions?: DataViewOnSavedViewGetOptions;
 	onCheckChange?: DataViewOnCheckChange;
 	onCheckAllPagesChange?: DataViewOnCheckAllPagesChange;
 	onBack?: () => void;

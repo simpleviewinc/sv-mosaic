@@ -17,7 +17,7 @@ import { FieldDef } from "@root/components/Field/FieldTypes";
 
 // Utils
 import { ButtonProps } from "@root/components/Button";
-import { defaultView, listColumns } from "./matrixUtils";
+import { listColumns } from "./matrixUtils";
 import { DataViewProps } from "@root/components/DataView";
 import rawData from "../../DataView/example/rawData.json";
 
@@ -63,7 +63,6 @@ export const MatrixExample = (): ReactElement => {
 		},
 		display: "list",
 		activeColumns: ["id", "description", "title"],
-		savedView: defaultView,
 	};
 
 	const addRow = async () => {

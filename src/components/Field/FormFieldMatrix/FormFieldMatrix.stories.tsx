@@ -15,7 +15,7 @@ import DataView from "@root/components/DataView";
 // Utils
 import { renderButtons } from "@root/utils/storyUtils";
 import { DataViewProps } from "@root/components/DataView";
-import { defaultView, listColumns } from "./matrixUtils";
+import { listColumns } from "./matrixUtils";
 import MosaicContext from "@root/components/MosaicContext";
 import useMosaicSettings from "@root/utils/useMosaicSettings";
 import rawData from "@root/components/DataView/example/rawData.json";
@@ -243,7 +243,6 @@ export const FormVariant = (): ReactElement => {
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-		savedView: defaultView,
 	};
 
 	const fields: FieldDef[] = useMemo(
@@ -387,7 +386,6 @@ export const Browse = (): ReactElement => {
 		limit: 25,
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-		savedView: defaultView,
 		checked: rowsChecked,
 		onCheckChange: (checked) => {
 			setCheckedRows(checked);
@@ -462,7 +460,6 @@ export const Browse = (): ReactElement => {
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-		savedView: defaultView,
 		noResults: "No records selected",
 	};
 
@@ -642,7 +639,6 @@ export const MatrixExample = (): ReactElement => {
 		},
 		display: "list",
 		activeColumns: ["id", "description", "title"],
-		savedView: defaultView,
 	}), [setFieldValue, state.data.formMatrix]);
 
 	const addRow = useCallback(async () => {

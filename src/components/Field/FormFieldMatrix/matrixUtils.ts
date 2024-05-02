@@ -1,6 +1,4 @@
-import { DataViewProps } from "@root/components/DataView";
-
-export const rootDefaultView: DataViewProps["savedView"] = {
+export const rootDefaultView = {
 	id: "default",
 	label: "All",
 	type: "default",
@@ -18,7 +16,7 @@ export const rootDefaultView: DataViewProps["savedView"] = {
 	},
 };
 
-export const defaultView: DataViewProps["savedView"] = {
+export const defaultView = {
 	...rootDefaultView,
 	state: {
 		...rootDefaultView.state,
