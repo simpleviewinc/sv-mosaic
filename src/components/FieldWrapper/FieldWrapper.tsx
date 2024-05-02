@@ -7,7 +7,7 @@ import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { FieldDef, MosaicFieldProps } from "../Field";
 import { Skeleton } from "@mui/material";
-import { stripTags } from "@root/utils/dom/stripTags";
+import { getHtmlText } from "@root/utils/dom/getHtmlText";
 
 function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
@@ -30,7 +30,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 function getValueLength(value: any, fieldDef: FieldDef): number {
 	if (typeof value === "string") {
 		if (fieldDef.type === "textEditor") {
-			return stripTags(value).length;
+			return getHtmlText(value).length;
 		}
 
 		return value.length;
