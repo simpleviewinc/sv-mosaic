@@ -10,7 +10,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
 import JSONDB from "@root/utils/JSONDB";
-import LocalStorageDB from "@root/utils/LocalStorageDB";
 import rawData from "./example/rawData.json";
 import categories from "./example/categories.json";
 import MultiSelectHelper from "./example/MultiSelectHelper";
@@ -46,7 +45,6 @@ export default {
 const ARTIFICIAL_DELAY = 500;
 
 const categoriesApi = new JSONDB(categories);
-const viewsApi = new LocalStorageDB("views");
 
 const mappedData = rawData.map(function (data) {
 	// convert the date columns to dates, since they are ISOStrings in the file
@@ -229,24 +227,6 @@ const filters: {
 	},
 ];
 
-const rootDefaultView: DataViewProps["savedView"] = {
-	id: "default",
-	label: "All",
-	type: "default",
-	state: {
-		limit: 25,
-		skip: 0,
-		filter: {},
-		sort: {
-			name: "title",
-			dir: "asc",
-		},
-		display: "list",
-		activeFilters: [],
-		activeColumns: ["image", "title", "categories", "created"],
-	},
-};
-
 const listColumns: DataViewColumn[] = [
 	{
 		name: "id",
@@ -409,7 +389,6 @@ const StyledDiv = styled.div`
 export const Playground = (): ReactElement => {
 	const noData = boolean("Empty dataset", false);
 	const onBack = boolean("onBack", false);
-	const savedViewAllowSharedViewSave = boolean("savedViewAllowSharedViewSave", true);
 	const bulkActions = boolean("bulkActions", true);
 	const bulkAllActions = boolean("bulkAllActions", true);
 	const primaryActions = boolean("primaryActions", true);
@@ -424,22 +403,20 @@ export const Playground = (): ReactElement => {
 	const showCheckboxes = boolean("Show Checkboxes", true);
 	const preloadedActiveFilters = boolean("Preload active filters", false);
 	const disabled = boolean("Disabled", false);
-	const defaultView: DataViewProps["savedView"] = {
-		...rootDefaultView,
-		state: {
-			...rootDefaultView.state,
-			display: displayList ? "list" : displayGrid ? "grid" : undefined,
-		},
-	};
 
-	const [state, setState] = useState({
+	const [state, setState] = useState<Record<string, any> & { sort: DataViewProps["sort"] }>({
 		data: [],
 		count: 0,
 		limit: 25,
 		skip: 0,
 		loading: false,
-		savedView: defaultView,
-		...defaultView.state,
+		filter: {},
+		sort: {
+			name: "title",
+			dir: "asc",
+		},
+		display: displayList ? "list" : displayGrid ? "grid" : undefined,
+		activeColumns: ["image", "title", "categories", "created"],
 		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : [],
 	});
 
@@ -705,28 +682,6 @@ export const Playground = (): ReactElement => {
 				display: data,
 			});
 		},
-		onSavedViewSave: function (data: DataViewProps["savedView"]) {
-			viewsApi.upsert(data);
-			gridConfig.onSavedViewChange(data);
-		},
-		onSavedViewGetOptions: function () {
-			return [defaultView, ...viewsApi.find()];
-		},
-		onSavedViewChange: function (data: DataViewProps["savedView"]) {
-			setState({
-				...state,
-				...data.state,
-				savedView: data,
-				skip: 0,
-			});
-		},
-		onSavedViewRemove: function (data) {
-			if (data.id === state.savedView.id) {
-				gridConfig.onSavedViewChange(defaultView);
-			}
-
-			viewsApi.remove(data);
-		},
 		onActiveFiltersChange: function ({ activeFilters, filter }) {
 			setState({
 				...state,
@@ -748,7 +703,6 @@ export const Playground = (): ReactElement => {
 				checkedAllPages,
 			}));
 		},
-		savedViewAllowSharedViewSave,
 		data: noData ? [] : state.data,
 		limit: state.limit,
 		sort: state.sort,
@@ -779,7 +733,6 @@ export const Playground = (): ReactElement => {
 					count={state.count}
 					display={display}
 					loading={state.loading}
-					savedView={state.savedView}
 					activeColumns={state.activeColumns}
 					attrs={{ "data-testid": "My DataView" }}
 				/>
