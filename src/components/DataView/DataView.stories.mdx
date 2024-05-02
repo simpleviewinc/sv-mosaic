@@ -35,7 +35,6 @@ The other non-converted props are listed below:
 * **activeColumns** - `array` of `string` - List of column names from the columns array which are displayed in the `DataView`.
 * **buttons** - `array` of `object` - A group of `Buttons` which will be displayed at the top of the `DataView` to the side of the `DataView` title.
 * **display** - `string` - enum `list`, `grid` - What type of view should be utilized.
-* **savedView** - `object` - A view to be loaded in the `DataView`.
 * **displayOptions** - `array` of `object` - A list of saved views to be provided as options in the saved view switcher.
 * **count** - `number` - The number of items from the data key which match the current filter.
 * **sort** - `object` - The current sort applied to the `DataView`.
@@ -47,7 +46,6 @@ The other non-converted props are listed below:
 * **skip** - `number` - The current number of rows being skipped by the user using `0` based indexing. Given a `limit` of `10` So the first page should have a `skip` of `0` and the second page would have a skip of `10`.
 * **loading** - `boolean` - Pass `true` when your DataView is fetching data or doing some alteration which needs to lock the UI. While `loading` is true, the majority of the UI elements in the DataView are locked to prevent race conditions. Once the data has been fetched you will want to prop down `false` again.
 * **gridColumnsMap** - `object` - Map which columns to use in the grid view. Columns available to map are `primary`, `secondary` and `image`. In example `gridColumnsMap : { primary : "title", secondary : "created", image : "image" }`.
-* **savedViewAllowSharedViewSave** - `boolean` - default false - A value which controls the `Show for all Users` toggle on the `Save View` drawer. If true, the toggle displays allowing the user to choose whether or not to share their view. If false, the toggle is removed and the user can only save `mine` views.
 * **attrs** - `React.HTMLAttributes<HTMLDivElement>` - An object of HTML attributes to be spread into the top level wrapping `div` element.
 * **onLimitChange** - `function({ limit })` - A callback that will be executed with the new limit selected by the user. It is recommended that when the user changes the limit, your state alteration should also reset the `skip` to `0`.
 * **onSkipChange** - `function({ skip })` - A callback that will be executed with the new skip selected by the user.
@@ -56,10 +54,6 @@ The other non-converted props are listed below:
 * **onActiveFiltersChange** - `function` - A callback function which is invoked when the active filters change. Will be passed a data object containing a list of active filters and a filter object.
 * **onColumnsChange** - `function(activeColumns[])` - A callback function which is invoked when the columns displayed in the `DataView` change. Will be passed a data object containing the new list of active columns.
 * **onReorder** - `function` -  A callback function which will be executed when a row has ended being dragged and dropped. This callback will receive as an argument all the rows in their new order.
-* **onSavedViewSave** - `function` - A callback function which is invoked when a saved view is saved. This function will be passed a data object containing the view information.
-* **onSavedViewChange** - `function` - A callback function which is invoked when a different saved view is loaded. This function will be passed a data object containing the view details.
-* **onSavedViewRemove** - `function` - A callback function which is invoked with a saved view is deleted. This function will be passed a data object containing information about the removed view.
-* **onSavedViewGetOptions** - `function` -  A callback function which is used to provide an array of views to the SavedView component. Useful when loading a list of saved views from a user profile.
 * **onCheckChange** - `function` -  A callback function which is invoked when a row is selected, useful to tell the parent component which rows are checked.
 * **onCheckAllPagesChange** - `function(checkAllPages: boolean)` -  Callback used to update the state of the checkedAllPages prop.
 * **onBack** - `function` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
@@ -87,12 +81,6 @@ Required props - `limit`, `skip`, `count`, `onSkipChange`.
 Provide the user a way to filter through the result set
 
 Required props - `loading`, `filter`, `filters`, `activeFilters`, `onActiveFiltersChange`.
-
-## Feature - Saved Views
-
-Provide the user a way to switch between default "views". A view encompasses the filter, sort, pagination, limit, sort, columns, and view type. These settings can be saved and re-used between users.
-
-Required props - `onSavedViewSave`, `onSavedViewChange`, `onSavedViewGetOptions`, `onSavedViewRemove`, `savedView`.
 
 ## Actions
 
