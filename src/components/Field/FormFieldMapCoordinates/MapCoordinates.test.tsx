@@ -169,7 +169,8 @@ describe("MapCoordinates component without an address", () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
-		const saveCoordinatesButton = await screen.findByText("Save Coordinates");
+		const saveButtons = await screen.findAllByText("Save");
+		const [, saveCoordinatesButton] = saveButtons;
 
 		act(() => {
 			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
@@ -199,7 +200,7 @@ describe("MapCoordinates component without an address", () => {
 			fireEvent.click(addCoordinatesButton);
 		});
 
-		const saveCoordinatesButton = getByText("Save Coordinates");
+		const [, saveCoordinatesButton] = getAllByText("Save");
 
 		act(() => {
 			saveCoordinatesButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
