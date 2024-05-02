@@ -400,6 +400,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 			onClick: onSubmit,
 			color: "yellow",
 			variant: "contained",
+			type: "submit",
 		},
 	], [handleClose, onSubmit]);
 

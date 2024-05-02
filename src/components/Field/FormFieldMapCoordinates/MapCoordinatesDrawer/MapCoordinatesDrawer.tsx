@@ -219,8 +219,9 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			variant: "outlined",
 		},
 		{
-			label: "Save Coordinates",
+			label: "Save",
 			onClick: onSubmit,
+			type: "submit",
 			color: "yellow",
 			variant: "contained",
 			disabled: !latLng,
