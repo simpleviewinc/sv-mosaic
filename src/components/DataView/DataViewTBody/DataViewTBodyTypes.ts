@@ -1,11 +1,10 @@
-import { MosaicObject } from "@root/types";
 import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 import { DataViewDisplayListProps } from "../DataViewDisplayList";
 
 export interface DataViewTBodyProps {
 	onReorder?: DataViewProps["onReorder"];
 	onCheckboxClick?: DataViewDisplayListProps["onCheckboxClick"];
-	transformedData: MosaicObject[];
+	transformedData: DataViewProps["data"];
 	data: DataViewProps["data"];
 	bulkActions?: DataViewProps["bulkActions"];
 	rowActions?: DataViewRowActions;
