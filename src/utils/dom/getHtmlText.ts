@@ -21,7 +21,7 @@ function getElementTexts(el: Node): string[] {
 			container.appendChild(child.cloneNode());
 			const textContent = container.innerHTML
 				// Collapse whitespace to single spaces
-				.replace(/\s\s+/g, " ")
+				.replace(/\s+/g, " ")
 				// Remove leading white space
 				.replace(/^\s+/g, "");
 
@@ -44,11 +44,22 @@ function getElementTexts(el: Node): string[] {
 			// born are to be considered one character
 			// regardless of their content.
 			if (child.tagName !== "BODY" && i > 0) {
-				const styles = window.getComputedStyle(child, "");
+				// Chromium browsers will not calculate computed
+				// styles when the element is not inside the DOM.
+				// So we append it to the body, get its display
+				// type, then remove it.
+
+				// We know that child and therefore its clone is
+				// an HTMLElement by now.
+				const clone = child.cloneNode() as HTMLElement;
+				document.body.appendChild(clone);
+				const styles = window.getComputedStyle(clone, "");
 
 				if (styles && styles.display === "block") {
 					texts.push(" ");
 				}
+
+				document.body.removeChild(clone);
 			}
 
 			texts.push(...getElementTexts(child));
