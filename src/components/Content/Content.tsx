@@ -65,14 +65,14 @@ const Content = (props: ContentProps): ReactElement => {
 						className={cardVariant ? "card-row" : ""}
 						$columns={rows.length}
 					>
-						{rows.map(([field]) => field ? (
+						{rows.map(([field], rowIdx) => field ? (
 							<ContentField
 								{...field}
 								key={field.name}
 								value={data[field.column || field.name]}
 							/>
 						) : (
-							<FieldContainer key={idx} data-testid={testIds.CONTENT_FIELD} />
+							<FieldContainer key={rowIdx} data-testid={testIds.CONTENT_FIELD} />
 						))}
 					</ContentRowWrapper>
 				))}
