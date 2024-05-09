@@ -14,12 +14,6 @@ import rawData from "./example/rawData.json";
 import categories from "./example/categories.json";
 import MultiSelectHelper from "./example/MultiSelectHelper";
 import {
-	transform_boolean,
-	transform_dateFormat,
-	transform_get,
-	transform_thumbnail,
-	transform_mapGet,
-	transform_join,
 	DataViewFilterDate,
 	DataViewFilterSingleSelect,
 	DataView,
@@ -31,6 +25,14 @@ import {
 	DataViewFilterDef,
 	DataViewColumn,
 } from "../../";
+import {
+	transform_boolean,
+	transform_dateFormat,
+	transform_get,
+	transform_thumbnail,
+	transform_mapGet,
+	transform_join,
+} from "@root/transforms";
 import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./example/SingleSelectHelper";
 
