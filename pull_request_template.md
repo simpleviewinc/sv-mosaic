@@ -1,5 +1,0 @@
-## Issue
-
-## Description
-
-## Checklist
