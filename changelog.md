@@ -1,5 +1,52 @@
 # sv-mosaic changelog
 
+## 34.0.0 - 05/14/24
+
+### Improvements & Fixes
+
+* `Content`
+  * [MOS-1338](https://simpleviewtools.atlassian.net/browse/MOS-1338 "https://simpleviewtools.atlassian.net/browse/MOS-1338")
+    * Corrects the field container's key to use the row's index instead of the section's index to prevent duplicate keys in the same parent.
+* `DataView`
+  * [MOS-1347](https://simpleviewtools.atlassian.net/browse/MOS-1347 "https://simpleviewtools.atlassian.net/browse/MOS-1347")
+    * **(BREAKING CHANGE)** Removes all references to `DataView` views including types and tests. This is in preparation for the new, re-hauled views system that will hand off most of the functionality to the product. The following keys have been removed from `DataViewProps`:
+      * `savedView`
+      * `savedViewAllowSharedViewSave`
+      * `onSavedViewChange`
+      * `onSavedViewSave`
+      * `onSavedViewRemove`
+      * `onSavedViewGetOptions`
+  * [MOS-1289](https://simpleviewtools.atlassian.net/browse/MOS-1289 "https://simpleviewtools.atlassian.net/browse/MOS-1289")
+    * Ensures that primary `DataView` actions are horizontally aligned by preserving space for those that are hidden as a result of their `show` property. As a by-product, adds support for the `invisible` property to the `Button` component which still renders the button, but hides and disables it.
+* `FormFieldAddress`
+  * [MOS-1336](https://simpleviewtools.atlassian.net/browse/MOS-1336 "https://simpleviewtools.atlassian.net/browse/MOS-1336") / [MOS-1290](https://simpleviewtools.atlassian.net/browse/MOS-1290 "https://simpleviewtools.atlassian.net/browse/MOS-1290")
+    * Gives `AddressDrawer` a refactor to squash a number of bugs:
+      * The address 2 and state fields are now correctly populated in all checked cases, which are a number of both US and UK addresses. Note that there are many world addresses which are not currently supported. It's really a minefield, since the different components given to us by Google depend on the country for which the user is querying. For example, as described [here](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform "https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform"):
+        * In the UK and in Sweden, the component to display the city is postal_town.
+        * In Japan, components differ across prefectures.
+        * Brooklyn and other parts of New York City do not include the city as part of the address. Instead, they use sublocality_level_1.
+      * The state is now correctly cleared when changing country.
+      * The empty fields are now correctly reported, with capitalised field labels.
+* `FormFieldAddress` / `FormFieldMapCoordinates`
+  * [MOS-1328](https://simpleviewtools.atlassian.net/browse/MOS-1328 "https://simpleviewtools.atlassian.net/browse/MOS-1328")
+    * Brings standardisation to the fields that use drawers as an input method:
+      * Amends the address field's drawer save button to use the `submit` button type.
+      * Amends the map coordinate field's drawer save button to use the `submit` button type and "Save" text.
+* `FormFieldTextEditor`
+  * [MOS-1323](https://simpleviewtools.atlassian.net/browse/MOS-1323 "https://simpleviewtools.atlassian.net/browse/MOS-1323")
+    * Removes the "add new line" plugin which rendered an incorrectly positioned new line button.
+    * Removes the *"powered by Jodit"* text to reduce noise.
+    * Removes the word and character counter which caused confusion due to the conflicts with Mosaic's character counter.
+  * [MOS-1330](https://simpleviewtools.atlassian.net/browse/MOS-1330 "https://simpleviewtools.atlassian.net/browse/MOS-1330")
+    * No longer passes the maximum characters property down to Jodit to avoid conflicts with Mosaic's preferred max character behaviour
+  * [MOS-1339](https://simpleviewtools.atlassian.net/browse/MOS-1339 "https://simpleviewtools.atlassian.net/browse/MOS-1339")
+    * Expand on the text editor character count helper to account for eccentricities of HTML whilst still supporting `script` and `style` tags.
+* Housekeeping
+  * [MOS-1349](https://simpleviewtools.atlassian.net/browse/MOS-1349 "https://simpleviewtools.atlassian.net/browse/MOS-1349")
+    * **(BREAKING CHANGE)** No longer exports transforms from the root entry file.
+  * [MOS-1288](https://simpleviewtools.atlassian.net/browse/MOS-1288 "https://simpleviewtools.atlassian.net/browse/MOS-1288")
+    * Slightly improves the type of DataView's data property to avoid the need to use `as` when referencing row IDs.
+
 ## 33.0.0 - 04/30/24
 
 ### Improvements & Fixes
