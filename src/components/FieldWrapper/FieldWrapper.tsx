@@ -6,7 +6,7 @@ import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { FieldDef, MosaicFieldProps } from "../Field";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import { getHtmlText } from "@root/utils/dom/getHtmlText";
 import { getTextLength } from "@root/utils/string";
 
