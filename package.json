@@ -78,7 +78,7 @@
 		"@dnd-kit/sortable": "8.0.0",
 		"@dnd-kit/utilities": "3.2.2",
 		"@react-google-maps/api": "^2.7.0",
-		"@simpleview/react-phone-input-2": "^2.15.3",
+		"@simpleview/react-phone-input-2": "2.16.4",
 		"date-fns": "^2.29.1",
 		"jodit": "3.19.3",
 		"lodash": "^4.17.15"

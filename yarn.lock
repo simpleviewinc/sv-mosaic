@@ -4744,9 +4744,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@simpleview/react-phone-input-2@npm:^2.15.3":
-  version: 2.15.3
-  resolution: "@simpleview/react-phone-input-2@npm:2.15.3"
+"@simpleview/react-phone-input-2@npm:2.16.4":
+  version: 2.16.4
+  resolution: "@simpleview/react-phone-input-2@npm:2.16.4"
   dependencies:
     classnames: ^2.2.6
     lodash.debounce: ^4.0.8
@@ -4757,7 +4757,7 @@ __metadata:
   peerDependencies:
     react: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
     react-dom: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
-  checksum: c81319bd8d31722dac56c68c12eebe89aba258508a70a4df2e9678a48614f97d3b3b521bd406e72c9c026ade2cf5764d74e7177fc8e0646014b8de52f3f2c565
+  checksum: 1879419f296175982cd4e991a3e057cb604efebe499a5c1e2ce5f0715f41508636c83176a5628f0a2b44a7f51eadff2f423ddd0d1293ff3a96850e22e558df80
   languageName: node
   linkType: hard
 
@@ -4786,7 +4786,7 @@ __metadata:
     "@mui/styles": ^5.6.2
     "@mui/x-date-pickers": ^5.0.0-beta.0
     "@react-google-maps/api": ^2.7.0
-    "@simpleview/react-phone-input-2": ^2.15.3
+    "@simpleview/react-phone-input-2": 2.16.4
     "@storybook/addon-docs": 5.3.13
     "@storybook/addon-knobs": 5.3.13
     "@storybook/addon-storysource": 5.3.13
