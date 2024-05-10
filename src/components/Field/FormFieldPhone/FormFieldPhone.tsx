@@ -12,6 +12,7 @@ import {
 } from "./FormFieldPhone.styled";
 import { MosaicFieldProps } from "@root/components/Field";
 import { Skeleton } from "@mui/material";
+import { DropdownList } from "./DropdownList";
 
 const FormFieldPhone = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
@@ -68,6 +69,7 @@ const FormFieldPhone = (
 					id,
 				}}
 				tabbableDropdown={false}
+				DropdownList={DropdownList}
 			/>
 		</PhoneInputWrapper>
 	);
