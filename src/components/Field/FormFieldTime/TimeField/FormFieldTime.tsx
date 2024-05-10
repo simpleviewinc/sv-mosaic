@@ -11,7 +11,7 @@ import { textIsValidDate } from "@root/utils/date";
 import { TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_TIME } from "@root/components/Form/fieldErrors";
 import { useFieldErrors } from "@root/utils/hooks";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, TimeData>): ReactElement => {
 	const {

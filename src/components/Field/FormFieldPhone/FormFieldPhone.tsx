@@ -11,7 +11,7 @@ import {
 	PhoneInputWrapper,
 } from "./FormFieldPhone.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import { DropdownList } from "./DropdownList";
 
 const FormFieldPhone = (

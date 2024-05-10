@@ -8,7 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import { StyledTextField } from "./FormFieldText.styled";
 import { MosaicFieldProps } from "@root/components/Field";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 const TextField = (
 	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>,
