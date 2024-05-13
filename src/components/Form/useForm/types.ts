@@ -1,5 +1,5 @@
 import { MosaicObject } from "@root/types";
-import { FieldDef } from "../FormTypes";
+import { FieldDef, SectionDef } from "../FormTypes";
 import { FieldDefSanitized } from "@root/components/Field";
 
 export type ActionTypes =
@@ -187,6 +187,7 @@ export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
 export type FormInitParams = {
 	fields: FieldDef[];
+	sections?: SectionDef[];
 };
 
 export type FormInit = (params: FormInitParams) => void;
