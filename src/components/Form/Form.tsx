@@ -283,7 +283,11 @@ const Form = (props: FormProps) => {
 				aria-label={title}
 				$fullHeight={fullHeight}
 			>
-				<StyledForm autoComplete="off" onSubmit={onSubmitProxy}>
+				<StyledForm
+					autoComplete="off"
+					onSubmit={onSubmitProxy}
+					noValidate
+				>
 					{title && (
 						<Top
 							title={title}
