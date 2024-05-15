@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -7,97 +7,79 @@ import Button from "../../Button";
 
 import { useMosaicTranslation } from "@root/i18n";
 import { DataViewViewControlsProps } from "./DataViewViewControlsTypes";
-
-const ViewSpan = styled.span`
-	display: inline-flex;
-	align-items: center;
-
-	& > .icon {
-		margin-right: 3px;
-	}
-
-	& > p {
-		margin: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		max-width: 200px;
-	}
-`;
+import { MenuItemProps } from "@root/components/MenuItem";
+import theme from "@root/theme";
 
 const TitleButton = styled(Button)`
-	max-width: 300px;
-	margin-right: 2px;
+	&& {
+		button {
+			max-width: 300px;
+			margin-right: 2px;
+			text-transform: none;
+			font-weight: ${theme.fontWeight.normal};
+		}
 
-	p {
-		font-weight: 510;
-		text-transform: none;
+		&.no-view-selected button {
+			color: ${theme.newColors.grey3["100"]};
+			font-style: italic;
+		}
 	}
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function DataViewViewControls(props: DataViewViewControlsProps) {
-	const [state, setState] = useState({
-		viewOpen : false,
-		saveOpen : false,
-	});
+const CurrentViewReadOnly = styled.div`
+	font-size: 14px;
+	padding: 3px 0;
+	letter-spacing: 1px;
+`;
 
+function DataViewViewControls({
+	currentView,
+	onViewSave,
+	onViewSaveAs,
+	onViewList,
+}: DataViewViewControlsProps) {
 	const { t } = useMosaicTranslation();
 
-	const toggleViewDrawer = function() {
-		setState({
-			...state,
-			viewOpen : !state.viewOpen,
-		});
-	};
+	const viewMenuItems = useMemo<MenuItemProps[]>(() => {
+		const listItems: MenuItemProps[] = [];
 
-	const toggleSaveDrawer = function() {
-		setState({
-			...state,
-			saveOpen : !state.saveOpen,
-		});
-	};
+		if (onViewSave) {
+			listItems.push({
+				label: t("mosaic:DataView.overwrite_current_view"),
+				onClick: onViewSave,
+			});
+		}
 
-	const ViewLabel = (
-		<ViewSpan>
-			<p>
-				{/* {props.savedView.label} */}
-			</p>
-		</ViewSpan>
-	);
+		if (onViewSaveAs) {
+			listItems.push({
+				label: t("mosaic:DataView.save_as_new_view"),
+				onClick: onViewSaveAs,
+			});
+		}
 
-	const saveMenuItems = [
-		{
-			label : t("mosaic:DataView.save_as_new_view"),
-			onClick : function() {
-				toggleSaveDrawer();
-			},
-		},
-		// {
-		// 	label : t("mosaic:DataView.overwrite_current_view"),
-		// 	disabled : props.savedView.type === "default" || (props.savedView.type === "shared" && !props.savedViewAllowSharedViewSave),
-		// 	onClick : async function() {
-		// 		await props.savedViewCallbacks.onSave({
-		// 			...props.savedView,
-		// 			state : props.savedViewState,
-		// 		});
-		// 	},
-		// },
-	];
+		return listItems;
+	}, [onViewSave, onViewSaveAs, t]);
 
 	return (
 		<div>
 			<div className="right">
 				<ButtonRow>
-					<TitleButton
-						mIcon={ExpandMoreIcon}
-						iconPosition="right"
-						label={ViewLabel}
-						variant="contained"
-						size="small"
-						color="gray"
-						onClick={toggleViewDrawer}
-					/>
+					{onViewList ? (
+						<TitleButton
+							mIcon={ExpandMoreIcon}
+							iconPosition="right"
+							label={currentView ? `${t("mosaic:DataView.view")}: ${currentView.label}` : t("mosaic:DataView.no_view_selected")}
+							variant="contained"
+							size="small"
+							color="gray"
+							onClick={onViewList}
+							className={!currentView && "no-view-selected"}
+						/>
+					) : currentView && (
+						<CurrentViewReadOnly>
+							{`${t("mosaic:DataView.view")}: ${currentView.label}`}
+						</CurrentViewReadOnly>
+					)}
 					<Button
 						mIcon={ExpandMoreIcon}
 						iconPosition="right"
@@ -105,7 +87,7 @@ function DataViewViewControls(props: DataViewViewControlsProps) {
 						variant="text"
 						size="small"
 						color="teal"
-						menuItems={saveMenuItems}
+						menuItems={viewMenuItems}
 					/>
 				</ButtonRow>
 			</div>
