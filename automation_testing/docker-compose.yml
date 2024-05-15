@@ -12,6 +12,6 @@ services:
       - NODE_OPTIONS=--openssl-legacy-provider
   e2e:
     container_name: sv-mosaic-e2e
-    image: mcr.microsoft.com/playwright:v1.27.1
+    image: mcr.microsoft.com/playwright:v1.44.0
     command: tail -F anything
     working_dir: /app
