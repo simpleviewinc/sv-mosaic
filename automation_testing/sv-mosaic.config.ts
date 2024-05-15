@@ -5,7 +5,7 @@ const config: PlaywrightTestConfig = {
 	testDir: "tests",
 	// Why is DataView not found?
 	// Note, it was named "dataview" previously
-	testIgnore: "**/DataView/**",
+	testIgnore: "**/DataView_Old/**",
 	use: {
 		headless: true,
 		viewport: { width: 1280, height: 720 },
