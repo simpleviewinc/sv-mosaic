@@ -314,6 +314,10 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							activeFilters={props.activeFilters}
 							onActiveFiltersChange={props.onActiveFiltersChange}
 							disabled={props.disabled}
+							currentView={props.currentView}
+							onViewSave={props.onViewSave}
+							onViewSaveAs={props.onViewSaveAs}
+							onViewList={props.onViewList}
 						/>
 					</div>
 				)
