@@ -2,14 +2,13 @@ import { BasePage } from "../../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
-import { SaveAsComponent } from "./SaveAsComponent";
+import testIds from "../../../../src/utils/testIds";
 
 export class DataviewPage extends BasePage {
 
 	readonly page_path = "components-dataview--playground";
 
 	readonly page: Page;
-	readonly saveAsComponent: SaveAsComponent;
 	readonly paginationComponent: PaginationComponent;
 	readonly columnsComponent: ColumnsComponent;
 	readonly createNewBtn: Locator;
@@ -39,6 +38,17 @@ export class DataviewPage extends BasePage {
 	readonly ariaLabelRowCategoryLocator: Locator;
 	readonly ariaLabelRowCreatedLocator: Locator;
 	readonly ariaLabelRowUpdatedLocator: Locator;
+	readonly listViewsDropdown: Locator;
+	readonly saveViewDropdown: Locator;
+	readonly overwriteViewButton: Locator;
+	readonly viewSaveAsButton: Locator;
+	readonly listViewsDropdownAllSelected: Locator;
+	readonly listViewsDrawerHeading: Locator;
+	readonly listViewsDrawerApply: Locator;
+	readonly saveNewViewHeading: Locator;
+	readonly saveNewViewFields: Locator;
+	readonly saveNewViewSubmit: Locator;
+	readonly listViewsDropdownCustomSelected: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -72,6 +82,17 @@ export class DataviewPage extends BasePage {
 		this.ariaLabelRowCategoryLocator = page.locator("[aria-label='Categories'] div");
 		this.ariaLabelRowCreatedLocator = page.locator("[aria-label='Created'] div");
 		this.ariaLabelRowUpdatedLocator = page.locator("[aria-label='Updated'] div");
+		this.listViewsDropdown = page.getByText("No view selected");
+		this.saveViewDropdown = page.getByText("Save View");
+		this.overwriteViewButton = page.getByText("Overwrite Current View");
+		this.viewSaveAsButton = page.getByText("Save as New View");
+		this.listViewsDropdownAllSelected = page.getByText("View: All");
+		this.listViewsDrawerHeading = page.getByText("Available Views");
+		this.listViewsDrawerApply = page.getByTestId(testIds.DATA_VIEW_VIEW_APPLY);
+		this.saveNewViewHeading = page.getByText("Save new view");
+		this.saveNewViewFields = page.getByRole("textbox");
+		this.saveNewViewSubmit = page.getByText("Save", { exact: true });
+		this.listViewsDropdownCustomSelected = page.getByText("View: My New View");
 	}
 
 	async validateRecordsNumberInDialogMessage(number: number): Promise<void> {
@@ -218,5 +239,14 @@ export class DataviewPage extends BasePage {
 			filters.push(await this.getOnlyStringWithLetters(await this.filterRowBtn.nth(i).textContent()));
 		}
 		return filters;
+	}
+
+	async selectAllView(): Promise<void> {
+		expect(await this.listViewsDropdown.count()).toBe(1);
+		await this.listViewsDropdown.click();
+		expect(await this.listViewsDrawerHeading.count()).toBe(1);
+		expect(await this.listViewsDrawerApply.count()).toBe(3);
+		await this.listViewsDrawerApply.nth(0).click();
+		expect(await this.listViewsDropdownAllSelected.count()).toBe(1);
 	}
 }
