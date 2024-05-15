@@ -1,0 +1,40 @@
+import { defineConfig, devices } from "@playwright/test";
+
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
+export default defineConfig({
+	testDir: "./tests",
+	testIgnore: "**/DataView_Old/**",
+	fullyParallel: true,
+	forbidOnly: !!process.env.CI,
+	retries: 0,
+	timeout: 30000,
+	reporter: [["html", { open: "never", outputFolder: "./playwright-report" }]],
+	workers: process.env.CI ? 2 : 4,
+	use: {
+		headless: true,
+		viewport: { width: 1280, height: 720 },
+		actionTimeout: 1500000,
+		trace: "on-first-retry",
+		ignoreHTTPSErrors: true,
+		video: "off",
+		screenshot: "off",
+	},
+	projects: [
+		{
+			name: "chromium",
+			use: { ...devices["Desktop Chrome"] },
+		},
+
+		{
+			name: "firefox",
+			use: { ...devices["Desktop Firefox"] },
+		},
+
+		{
+			name: "webkit",
+			use: { ...devices["Desktop Safari"] },
+		},
+	],
+});
