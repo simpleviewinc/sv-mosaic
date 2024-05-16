@@ -16,7 +16,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { PopOver } from "./FormFieldColor.styled";
 import ColorSelected from "./ColorSelected";
 import { ColorData } from "./FormFieldColorTypes";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 /**
  * Convert an RGBA value to its HEX representation

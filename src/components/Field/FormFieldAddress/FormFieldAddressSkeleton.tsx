@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import { StyledSkeletonWrapper } from "./Address.styled";
 
 export function FormFieldAddressSkeleton() {
