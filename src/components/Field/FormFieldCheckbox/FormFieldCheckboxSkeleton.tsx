@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import { StyledSkeletonCheckbox, StyledSkeletonItem, StyledSkeletonWrapper } from "./FormFieldCheckbox.styled";
 
 function CheckboxSkeletonItem() {
