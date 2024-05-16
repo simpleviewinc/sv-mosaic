@@ -5,7 +5,7 @@ import { ButtonRowProps, ButtonsRowWrapperProps } from "./ButtonRowTypes";
 import { Item, Row } from "./ButtonRow.styled";
 import Button from "../Button";
 import { useToggle } from "@root/utils/toggle";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 function ButtonRowWrapper({ className, wrap, children, separator, skeleton }: ButtonsRowWrapperProps) {
 	if (!children.length) {

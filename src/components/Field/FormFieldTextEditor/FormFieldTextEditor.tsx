@@ -4,7 +4,7 @@ import { MosaicFieldProps } from "@root/components/Field";
 import { StyledSkeletonWrapper } from "./FormFieldTextEditor.styled";
 import "jodit/build/jodit.min.css";
 import { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 import JoditEditor from "./JoditEditor";
 
 const FormFieldTextEditor = (

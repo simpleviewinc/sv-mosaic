@@ -34,7 +34,7 @@ import {
 import Drawer from "@root/components/Drawer";
 import Blank from "@root/components/Blank/Blank";
 import Dialog from "@root/components/Dialog/Dialog";
-import { Skeleton } from "@mui/material";
+import Skeleton from "@mui/material/Skeleton";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {

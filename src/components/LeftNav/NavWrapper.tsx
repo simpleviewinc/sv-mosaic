@@ -13,7 +13,7 @@ import {
 	TransientProps,
 } from "../../";
 import { useStoryBookCssReset } from "../../utils/reactTools";
-import { useMediaQuery } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const StyledTopBar = styled.div`
 	flex: 0 0 auto;
