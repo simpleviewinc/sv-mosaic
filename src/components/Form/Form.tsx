@@ -114,7 +114,13 @@ const Form = (props: FormProps) => {
 		scrollTo({
 			target: mount.fieldRef,
 		});
-	}, [errors, moveToError, scrollTo, stable.fields, stable.mounted]);
+	}, [
+		errors,
+		moveToError,
+		scrollTo,
+		stable.fields,
+		stable.mounted,
+	]);
 
 	const doneAutoFocus = useRef(false);
 
@@ -239,8 +245,8 @@ const Form = (props: FormProps) => {
 	const skeleton = providedSkeleton || loadingInitial;
 
 	useEffect(() => {
-		init({ fields });
-	}, [init, fields]);
+		init({ fields, sections });
+	}, [init, fields, sections]);
 
 	useEffect(() => {
 		(async () => {

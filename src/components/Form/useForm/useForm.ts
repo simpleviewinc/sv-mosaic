@@ -193,7 +193,10 @@ export function useForm(): UseFormReturn {
 
 	const init = useCallback<FormInit>(({
 		fields,
+		sections,
 	}) => {
+		const fieldsBySection = sections && sections.map(({ fields }) => fields).flat(3);
+
 		stable.current.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field, index) => {
 			const fieldConfig = getFieldConfig(field.type);
 			const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
@@ -202,7 +205,7 @@ export function useForm(): UseFormReturn {
 				...field,
 				validateOn: field.validateOn || fieldConfig.validate,
 				getResolvedValue: (value) => valueResolver(value, field),
-				order: index + 1,
+				order: (fieldsBySection ? fieldsBySection.indexOf(field.name) : index) + 1,
 			};
 
 			return {

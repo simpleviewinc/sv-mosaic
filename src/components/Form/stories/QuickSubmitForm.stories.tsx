@@ -1,8 +1,9 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 // Utils
-import { useForm } from "@root/components/Form";
+import { SectionDef, useForm } from "@root/components/Form";
 
 // Components
 import Form from "../Form";
@@ -15,9 +16,28 @@ import { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/Form",
+	decorators: [withKnobs],
 };
 
+const sections: SectionDef[] = [
+	{
+		title: "Other",
+		fields: [
+			[["age"]],
+		],
+	},
+	{
+		title: "Name",
+		fields: [
+			[["lastName"]],
+			[["firstName"]],
+		],
+	},
+];
+
 export const QuickSubmit = (): ReactElement => {
+	const useSections = boolean("Use Sections", false);
+
 	const controller = useForm();
 	const { handleSubmit } = controller;
 
@@ -40,6 +60,11 @@ export const QuickSubmit = (): ReactElement => {
 				{
 					name: "lastName",
 					label: "Last Name",
+					type: "text",
+				},
+				{
+					name: "age",
+					label: "Age",
 					type: "text",
 				},
 			],
@@ -66,6 +91,7 @@ export const QuickSubmit = (): ReactElement => {
 				buttons={buttons}
 				title="Quick Submit"
 				fields={fields}
+				sections={useSections ? sections : undefined}
 				onSubmit={onSubmit}
 				autoFocus
 			/>
