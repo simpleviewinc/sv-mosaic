@@ -100,7 +100,7 @@ const FieldWrapper = ({
 		fieldDef?.instructionText;
 
 	useEffect(() => {
-		if (!mountField || !fieldDef?.name) {
+		if (!mountField || !fieldDef?.name || skeleton) {
 			return;
 		}
 
@@ -111,7 +111,7 @@ const FieldWrapper = ({
 		});
 
 		return unmount;
-	}, [mountField, fieldDef.name, inputRef]);
+	}, [mountField, fieldDef.name, inputRef, skeleton]);
 
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
