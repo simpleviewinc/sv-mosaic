@@ -57,6 +57,11 @@ The other non-converted props are listed below:
 * **onCheckChange** - `function` -  A callback function which is invoked when a row is selected, useful to tell the parent component which rows are checked.
 * **onCheckAllPagesChange** - `function(checkAllPages: boolean)` -  Callback used to update the state of the checkedAllPages prop.
 * **onBack** - `function` - optional - Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title.
+* **currentView** - `MosaicLabelValue` - optional - Represents the current view. The label will be displayed in the UI in the DataView heading area.
+* **onViewList** - `function` - optional - a handler to be invoked when the user wishes to show the list of available views.
+* **onViewSave** - `function` - optional - a handler to be invoked when the user wishes to save changes to their current view. Providing this will cause a "Save View" dropdown containing, at the very least, the menu item "Overwrite Current View".
+* **onViewSaveAs** - `function` - optional - a handler to be invoked when the user wishes to save their current DataView setup as a new view. Providing this will cause a "Save View" dropdown containing, at the very least, the menu item "Save as New View".
+
 
 ## Feature - View Switcher
 
