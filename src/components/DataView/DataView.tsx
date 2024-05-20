@@ -186,20 +186,14 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		});
 	}, [activeColumns, props.columns]);
 
-	const shouldRenderTitleBar: boolean = useMemo(() => {
-		if (
-			props.title ??
-			props.buttons ??
-			props.filters
-		)
-			return true;
-
-		return false;
-	}, [
-		props.title,
-		props.buttons,
-		props.filters,
-	]);
+	const shouldRenderHeading =
+		props.title ||
+		props.buttons ||
+		props.filters ||
+		props.currentView ||
+		props.onViewList ||
+		props.onViewSave ||
+		props.onViewSaveAs;
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
@@ -301,23 +295,25 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			ref={ref}
 			{...(props.attrs || {})}
 		>
-			{
-				shouldRenderTitleBar && (
-					<div className="headerRow title">
-						<DataViewTitleBar
-							title={props.title}
-							onBack={props.onBack}
-							backLabel={props.backLabel}
-							buttons={props.buttons}
-							filter={props.filter}
-							filters={props.filters}
-							activeFilters={props.activeFilters}
-							onActiveFiltersChange={props.onActiveFiltersChange}
-							disabled={props.disabled}
-						/>
-					</div>
-				)
-			}
+			{shouldRenderHeading && (
+				<div className="headerRow title">
+					<DataViewTitleBar
+						title={props.title}
+						onBack={props.onBack}
+						backLabel={props.backLabel}
+						buttons={props.buttons}
+						filter={props.filter}
+						filters={props.filters}
+						activeFilters={props.activeFilters}
+						onActiveFiltersChange={props.onActiveFiltersChange}
+						disabled={props.disabled}
+						currentView={props.currentView}
+						onViewSave={props.onViewSave}
+						onViewSaveAs={props.onViewSaveAs}
+						onViewList={props.onViewList}
+					/>
+				</div>
+			)}
 			{
 				shouldRenderActionsRow && (
 					<div className="headerActions">

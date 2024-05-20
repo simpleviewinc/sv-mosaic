@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState, useEffect, useCallback, ReactElement } from "react";
+import uniqueId from "lodash/uniqueId";
+import { useState, useEffect, useCallback, useMemo, ReactElement } from "react";
 import styled from "styled-components";
 import { boolean, select, text, withKnobs } from "@storybook/addon-knobs";
 
@@ -8,6 +9,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
+import Visibility from "@mui/icons-material/Visibility";
+import Delete from "@mui/icons-material/Delete";
 
 import JSONDB from "@root/utils/JSONDB";
 import rawData from "./example/rawData.json";
@@ -24,6 +27,13 @@ import {
 	MosaicContext,
 	DataViewFilterDef,
 	DataViewColumn,
+	Drawer,
+	Form,
+	useForm,
+	FieldDef,
+	ButtonProps,
+	MosaicLabelValue,
+	DataViewRowData,
 } from "../../";
 import {
 	transform_boolean,
@@ -37,6 +47,7 @@ import { useStateRef } from "@root/utils/reactTools";
 import SingleSelectHelper from "./example/SingleSelectHelper";
 
 import "./example/DataViewPlayground.css";
+import testIds from "@root/utils/testIds";
 
 export default {
 	title : "Components/DataView",
@@ -388,6 +399,226 @@ const StyledDiv = styled.div`
 	height: 100%;
 `;
 
+const newSavedFormFields: FieldDef[] = [
+	{
+		name: "name",
+		label: "Name",
+		type: "text",
+		required: true,
+	},
+	{
+		name: "description",
+		label: "Description",
+		type: "text",
+		required: true,
+	},
+];
+
+const initialSavedViews = [
+	{
+		id: "all",
+		label: "All",
+		description: "All records with the exception of those that are archived. Common filters available by default.",
+		attributes: {
+			limit: 25,
+			skip: 0,
+			filter: {},
+			sort: {
+				name: "title",
+				dir: "asc",
+			},
+			display: "list",
+			activeFilters: ["updated", "title", "keyword"],
+			activeColumns: ["image", "title", "categories", "created"],
+		},
+	},
+	{
+		id: "beaches",
+		label: "Beaches",
+		description: "Records in the beaches category.",
+		attributes: {
+			limit: 25,
+			skip: 0,
+			filter: {
+				categories: {
+					value: [
+						"5580297b2abf5f8c3bbb3eaf",
+					],
+					comparison: "in",
+				},
+			},
+			sort: {
+				name: "title",
+				dir: "asc",
+			},
+			display: "list",
+			activeFilters: [
+				"categories",
+			],
+			activeColumns: [
+				"image",
+				"title",
+				"categories",
+				"created",
+			],
+		},
+	},
+	{
+		id: "art-audit",
+		label: "Art audit",
+		description: "Art related records displayed in a grid ordered by most recent first.",
+		attributes: {
+			limit: 25,
+			skip: 0,
+			filter: {
+				keyword: {
+					value: "Art",
+					comparison: "equals",
+				},
+			},
+			sort: {
+				name: "created",
+				dir: "desc",
+			},
+			display: "grid",
+			activeFilters: [
+				"keyword",
+			],
+			activeColumns: [
+				"image",
+				"title",
+				"categories",
+				"created",
+			],
+		},
+	},
+];
+
+const NewSavedViewForm = ({
+	onFinish,
+	onCancel,
+}: {
+	onFinish: (params: { name: string; description: string }) => void;
+	onCancel: () => void;
+}): ReactElement => {
+	const controller = useForm();
+	const { handleSubmit } = controller;
+
+	const submitHandler = handleSubmit(({ name, description }) => {
+		onFinish({ name, description });
+	});
+
+	const buttons = useMemo<ButtonProps[]>(() => [
+		{
+			onClick: onCancel,
+			color: "gray",
+			variant: "outlined",
+			label: "Cancel",
+		},
+		{
+			type: "submit",
+			color: "yellow",
+			variant: "contained",
+			label: "Save",
+		},
+	], [onCancel]);
+
+	return (
+		<div style={{ width: 700, maxWidth: "100%" }}>
+			<Form
+				{...controller}
+				fields={newSavedFormFields}
+				onSubmit={submitHandler}
+				title="Save new view"
+				buttons={buttons}
+				onBack={onCancel}
+			/>
+		</div>
+	);
+};
+
+const viewsListColumns: DataViewProps["columns"] = [
+	{
+		name: "id",
+		label: "ID",
+	},
+	{
+		name: "label",
+		label: "Label",
+	},
+	{
+		name: "description",
+		label: "Description",
+	},
+	{
+		name: "attributes",
+		label: "Attributes",
+		transforms: [({ data }) => (
+			<pre style={{ border: "1px solid #ddd", padding: 5, maxHeight: "5rem", overflow: "auto", borderRadius: 3 }}>
+				{JSON.stringify(data, undefined, 4)}
+			</pre>
+		)],
+	},
+];
+
+const ViewsListGrid = ({
+	views,
+	onView,
+	onDelete,
+	onReset,
+	onCancel,
+}: {
+	views: DataViewProps["data"];
+	onView: (params: { data: DataViewRowData }) => void;
+	onDelete: (params: { data: DataViewRowData }) => void;
+	onReset?: () => void;
+	onCancel: () => void;
+}): ReactElement => {
+	const buttons = useMemo<ButtonProps[]>(() => [
+		{
+			onClick: onReset,
+			color: "gray",
+			variant: "outlined",
+			label: "Clear current view",
+			show: Boolean(onReset),
+		},
+	], [onReset]);
+
+	const viewsListActions: DataViewProps["primaryActions"] = [
+		{
+			name: "view",
+			color: "black",
+			variant: "icon",
+			onClick: onView,
+			mIcon: Visibility,
+			tooltip: "Apply View",
+			muiAttrs: { "data-testid": testIds.DATA_VIEW_VIEW_APPLY },
+		},
+		{
+			name: "delete",
+			color: "black",
+			variant: "icon",
+			onClick: onDelete,
+			mIcon: Delete,
+			tooltip: "Delete View",
+			muiAttrs: { "data-testid": testIds.DATA_VIEW_VIEW_DELETE },
+		},
+	];
+
+	return (
+		<div style={{ width: 800, maxWidth: "100%" }}>
+			<DataView
+				columns={viewsListColumns}
+				data={views}
+				title="Available Views"
+				primaryActions={viewsListActions}
+				buttons={buttons}
+				onBack={onCancel}
+			/>
+		</div>
+	);
+};
+
 export const Playground = (): ReactElement => {
 	const noData = boolean("Empty dataset", false);
 	const onBack = boolean("onBack", false);
@@ -405,22 +636,52 @@ export const Playground = (): ReactElement => {
 	const showCheckboxes = boolean("Show Checkboxes", true);
 	const preloadedActiveFilters = boolean("Preload active filters", false);
 	const disabled = boolean("Disabled", false);
+	const hasCurrentView = boolean("Has current view", true);
+	const hasViewSaveHandler = boolean("Has view save handler", true);
+	const hasViewSaveAsHandler = boolean("Has view save as handler", true);
+	const hasViewListHandler = boolean("Has view list handler", true);
 
-	const [state, setState] = useState<Record<string, any> & { sort: DataViewProps["sort"] }>({
-		data: [],
-		count: 0,
+	const [savedViews, setSavedViews] = useState<{ id: string; label: string; description: string; attributes: Record<string, any> }[]>(initialSavedViews);
+
+	const [currentViewState, setCurrentView] = useState<MosaicLabelValue | undefined>();
+	const currentView = hasCurrentView ? currentViewState : undefined;
+
+	const currentViewAttributes = useMemo(() => {
+		if (!currentView) {
+			return;
+		}
+
+		const view = savedViews.find(({ id }) => id === currentView.value);
+
+		if (!view) {
+			return;
+		}
+
+		return view.attributes;
+	}, [currentView, savedViews]);
+
+	const initialAttributes = useMemo<Record<string, any> & { sort: DataViewProps["sort"] }>(() => ({
 		limit: 25,
 		skip: 0,
-		loading: false,
 		filter: {},
 		sort: {
 			name: "title",
 			dir: "asc",
 		},
 		display: displayList ? "list" : displayGrid ? "grid" : undefined,
-		activeColumns: ["image", "title", "categories", "created"],
 		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : [],
+		activeColumns: ["image", "title", "categories", "created"],
+	}), [displayGrid, displayList, preloadedActiveFilters]);
+
+	const [state, setState] = useState<Record<string, any> & { sort: DataViewProps["sort"] }>({
+		data: [],
+		count: 0,
+		loading: false,
+		...initialAttributes,
+		...(currentViewAttributes || {}),
 	});
+
+	const [savedViewDrawer, setSavedViewDrawer] = useState<"save" | "list" | undefined>();
 
 	useEffect(() => {
 		if (preloadedActiveFilters && state.activeFilters.length === 0)
@@ -737,8 +998,81 @@ export const Playground = (): ReactElement => {
 					loading={state.loading}
 					activeColumns={state.activeColumns}
 					attrs={{ "data-testid": "My DataView" }}
+					currentView={currentView}
+					onViewSave={hasViewSaveHandler ? (currentView && (async () => {
+						await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+
+						setSavedViews(views => views.map(view => view.id === currentView.value ? ({
+							...view,
+							attributes: {
+								limit: state.limit,
+								skip: state.skip,
+								filter: state.filter,
+								sort: state.sort,
+								display,
+								activeFilters: state.activeFilters,
+								activeColumns: state.activeColumns,
+							},
+						}) : view));
+
+						alert("Current view saved");
+					})) : undefined}
+					onViewSaveAs={hasViewSaveAsHandler ? (() => setSavedViewDrawer("save")) : undefined}
+					onViewList={hasViewListHandler ? (() => setSavedViewDrawer("list")) : undefined}
 				/>
 			</MosaicContext.Provider>
+			<Drawer open={Boolean(savedViewDrawer)} onClose={() => setSavedViewDrawer(undefined)}>
+				{savedViewDrawer === "save" ? (
+					<NewSavedViewForm
+						onFinish={({ name: label, description }) => {
+							const id = uniqueId();
+
+							setSavedViews(views => [...views, {
+								id,
+								label,
+								description,
+								attributes: {
+									limit: state.limit,
+									skip: state.skip,
+									filter: state.filter,
+									sort: state.sort,
+									display,
+									activeFilters: state.activeFilters,
+									activeColumns: state.activeColumns,
+								},
+							}]);
+							setCurrentView({ value: id, label });
+							setSavedViewDrawer(undefined);
+						}}
+						onCancel={() => setSavedViewDrawer(undefined)}
+					/>
+				) : savedViewDrawer === "list" && (
+					<ViewsListGrid
+						views={savedViews}
+						onView={({ data }) => {
+							setState(state => ({ ...state, ...(data.attributes as any) }));
+							setCurrentView({ value: data.id, label: data.label as string });
+							setSavedViewDrawer(undefined);
+						}}
+						onDelete={({ data }) => {
+							setSavedViews(views => views.filter(({ id }) => id !== data.id));
+
+							if (currentView && currentView.value === data.id) {
+								setCurrentView(undefined);
+							}
+						}}
+						onReset={currentView && (() => {
+							setState(state => ({
+								...state,
+								...initialAttributes,
+							}));
+							setCurrentView(undefined);
+							setSavedViewDrawer(undefined);
+						})}
+						onCancel={() => setSavedViewDrawer(undefined)}
+					/>
+				)}
+			</Drawer>
 		</StyledDiv>
 	);
 };

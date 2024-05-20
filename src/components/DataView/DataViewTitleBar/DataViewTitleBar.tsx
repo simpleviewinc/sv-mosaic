@@ -6,53 +6,68 @@ import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
 import TitleWrapper from "@root/components/Title";
 import { ButtonProps } from "@root/components/Button";
+import DataViewViewControls from "../DataViewViewControls";
 
-function DataViewTitleBar(props: DataViewTitleBarProps) {
+function DataViewTitleBar({
+	activeFilters,
+	backLabel,
+	buttons: providedButtons,
+	currentView,
+	disabled,
+	filter,
+	filters,
+	onActiveFiltersChange,
+	onBack,
+	onViewSave,
+	onViewSaveAs,
+	onViewList,
+	title,
+}: DataViewTitleBarProps) {
 	const buttons: ButtonProps[] = useMemo(() => {
-		if (props.buttons === undefined) {
+		if (providedButtons === undefined) {
 			return [];
 		}
 
-		return props.buttons.map((button) => {
+		return providedButtons.map((button) => {
 			const { name, ...buttonArgs } = button;
 			buttonArgs.attrs = { "data-mosaic-id": `button_${name}` };
-			buttonArgs.disabled = buttonArgs.disabled === undefined ? props.disabled : buttonArgs.disabled;
+			buttonArgs.disabled = buttonArgs.disabled === undefined ? disabled : buttonArgs.disabled;
 			return buttonArgs;
 		});
-	}, [props.buttons, props.disabled]);
+	}, [providedButtons, disabled]);
+
+	const hasViewControls = currentView || onViewSave || onViewSaveAs || onViewList;
 
 	return (
 		<TitleBarWrapper>
 			<StyledWrapper>
 				<div className="left">
-					{props.title && (
+					{title && (
 						<TitleWrapper
-							title={props.title}
-							onBack={props.onBack}
-							backLabel={props.backLabel}
+							title={title}
+							onBack={onBack}
+							backLabel={backLabel}
 						/>
 					)}
-					{/* {props.savedViewEnabled && (
+					{hasViewControls && (
 						<DataViewViewControls
-							savedView={props.savedView}
-							savedViewState={props.savedViewState}
-							savedViewCallbacks={props.savedViewCallbacks}
-							savedViewAllowSharedViewSave={props.savedViewAllowSharedViewSave}
+							currentView={currentView}
+							onViewSave={onViewSave}
+							onViewSaveAs={onViewSaveAs}
+							onViewList={onViewList}
 						/>
-					)} */}
+					)}
 				</div>
 				{buttons.length > 0 && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>
-			{
-				props?.filters && (
-					<DataViewFilters
-						filter={props.filter}
-						filters={props.filters}
-						activeFilters={props.activeFilters}
-						onActiveFiltersChange={props.onActiveFiltersChange}
-					/>
-				)
-			}
+			{filters && (
+				<DataViewFilters
+					filter={filter}
+					filters={filters}
+					activeFilters={activeFilters}
+					onActiveFiltersChange={onActiveFiltersChange}
+				/>
+			)}
 		</TitleBarWrapper>
 	);
 }
