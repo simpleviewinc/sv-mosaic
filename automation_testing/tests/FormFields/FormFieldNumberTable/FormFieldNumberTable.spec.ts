@@ -3,7 +3,7 @@ import theme from "../../../../src/theme";
 import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldNumberTable - Playground", () => {
+test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 	let page: Page;
 	let ffNumberTablePage: FormFieldNumberTablePage;
 

@@ -3,7 +3,7 @@ import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Card - Playground", () => {
+test.describe("Components - Card - Playground", () => {
 	let page: Page;
 	let cardPage: CardPage;
 

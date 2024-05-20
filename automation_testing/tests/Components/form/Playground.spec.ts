@@ -4,7 +4,7 @@ import { commonKnobs } from "../../../utils/data/knobs";
 import theme from "../../../../src/theme";
 import testIds from "../../../../src/utils/testIds";
 
-test.describe.parallel("Components - Form - Playground", () => {
+test.describe("Components - Form - Playground", () => {
 	let page: Page;
 	let playgroundPage: PlaygroundPage;
 

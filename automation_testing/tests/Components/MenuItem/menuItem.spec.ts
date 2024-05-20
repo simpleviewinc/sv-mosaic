@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { MenuItemPage } from "../../../pages/Components/MenuItem/MenuItemPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - MenuItem - With Icon", () => {
+test.describe("Components - MenuItem - With Icon", () => {
 	let page: Page;
 	let menuItemPage: MenuItemPage;
 

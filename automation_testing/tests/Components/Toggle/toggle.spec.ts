@@ -3,7 +3,7 @@ import { TogglePage } from "../../../pages/Components/Toggle/TogglePage";
 import theme from "../../../../src/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Toggle - Example", () => {
+test.describe("Components - Toggle - Example", () => {
 	let page: Page;
 	let togglePage: TogglePage;
 

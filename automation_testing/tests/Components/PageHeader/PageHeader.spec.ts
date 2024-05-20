@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { PageHeaderPage } from "../../../pages/Components/PageHeader/PageHeaderPage";
 import { pageHeaderKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Page Header - Playground", () => {
+test.describe("Components - Page Header - Playground", () => {
 	let page: Page;
 	let pageHeaderPage: PageHeaderPage;
 
