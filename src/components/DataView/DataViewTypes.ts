@@ -116,16 +116,6 @@ export interface DataViewOnLimitChange {
 	({ limit }: { limit : number }): void;
 }
 
-// export type StateViewDef = {
-// 	limit?: DataViewProps["limit"];
-// 	skip?: DataViewProps["skip"];
-// 	filter?: DataViewProps["filter"];
-// 	sort?: DataViewProps["sort"];
-// 	display?: DataViewProps["display"];
-// 	activeFilters?: DataViewProps["activeFilters"];
-// 	activeColumns?: DataViewProps["activeColumns"];
-// };
-
 type DataViewOnDisplayChange = {
 	(display: string): void;
 };
@@ -153,6 +143,14 @@ export interface DataViewFilterGetOptionsReturn {
 export interface DataViewRowData extends Record<string, unknown> {
 	id: string;
 }
+
+export type CurrentView = MosaicLabelValue;
+
+export type OnViewSave = () => Promise<void> | void;
+
+export type OnViewSaveAs = () => Promise<void> | void;
+
+export type OnViewList = () => Promise<void> | void;
 
 export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
 	attrs?: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>;
@@ -193,6 +191,13 @@ export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
 	onCheckAllPagesChange?: DataViewOnCheckAllPagesChange;
 	onBack?: () => void;
 	backLabel?: TitleWrapperProps["backLabel"];
+	/**
+	 * Saved view related props
+	 */
+	currentView?: CurrentView;
+	onViewSave?: OnViewSave;
+	onViewSaveAs?: OnViewSaveAs;
+	onViewList?: OnViewList;
 }
 
 export type DataViewRowActions = Record<string, {
