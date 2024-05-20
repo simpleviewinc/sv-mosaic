@@ -4,7 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
-test.describe.parallel("Components - Data View - Pagination", () => {
+test.describe("Components - Data View - Pagination", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 	let pagination: PaginationComponent;

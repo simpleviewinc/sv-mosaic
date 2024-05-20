@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardRecentActivityPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Card - Recent Activity", () => {
+test.describe("Components - Card - Recent Activity", () => {
 	let page: Page;
 	let cardPage: CardPage;
 

@@ -3,7 +3,7 @@ import { ValidatorPage } from "../../../pages/Components/Form/ValidatorPage";
 import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
 import { validatorsData as validatorData } from "../../../utils/data/formData";
 
-test.describe.parallel("Components - Form - Validators", () => {
+test.describe("Components - Form - Validators", () => {
 	let page: Page;
 	let validatorPage: ValidatorPage;
 	let datepicker: DatePickerComponent;

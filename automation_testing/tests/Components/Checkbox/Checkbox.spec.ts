@@ -3,7 +3,7 @@ import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Checkbox - Example", () => {
+test.describe("Components - Checkbox - Example", () => {
 	let page: Page;
 	let checkboxPage: CheckboxPage;
 

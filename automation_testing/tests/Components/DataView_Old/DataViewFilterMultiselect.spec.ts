@@ -2,7 +2,7 @@ import { test, expect, Page, Locator } from "@playwright/test";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
+test.describe("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 	let page: Page;
 	let multiSelectComponent: DataViewFilterMultiselectComponent;
 

@@ -5,7 +5,7 @@ import { us_address, us_address_2 } from "../../../utils/data/addressInformation
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldAddress - Playground", () => {
+test.describe("FormFields - FormFieldAddress - Playground", () => {
 	let page: Page;
 	let ffAddressPage: FormFieldAddressPage;
 
