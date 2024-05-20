@@ -3,7 +3,7 @@ import { FormFieldPhonePage } from "../../../pages/FormFields/FormFieldPhone/For
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldPhone - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 	let page: Page;
 	let ffPhonePage: FormFieldPhonePage;
 

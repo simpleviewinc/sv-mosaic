@@ -7,12 +7,12 @@ import { env } from "./utils/urls/environments";
 export default defineConfig({
 	testDir: "./tests",
 	testIgnore: "**/DataView_Old/**",
-	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
-	retries: 0,
+	retries: 3,
 	timeout: 30000,
 	reporter: [["html", { open: "never", outputFolder: "./playwright-report" }]],
 	workers: process.env.CI ? 2 : 4,
+	fullyParallel: true,
 	use: {
 		headless: true,
 		viewport: { width: 1280, height: 720 },

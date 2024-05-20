@@ -4,7 +4,7 @@ import { dataview_data } from "../../../utils/data/dataviewData";
 import theme from "../../../../src/theme";
 import { dataviewKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Data View - Playground", () => {
+test.describe("Components - Data View - Playground", () => {
 	let page: Page;
 	let dataviewPage: DataviewPage;
 

@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { RadioButtonPage } from "../../../pages/Components/RadioButton/RadioButtonPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - RadioButton - Group", () => {
+test.describe("Components - RadioButton - Group", () => {
 	let page: Page;
 	let radioButtonPage: RadioButtonPage;
 

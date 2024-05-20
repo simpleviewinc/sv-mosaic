@@ -5,7 +5,7 @@ import { filter_data } from "../../../utils/data/dataviewData";
 import { addComma } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Data View - Filter", () => {
+test.describe("Components - Data View - Filter", () => {
 	let page: Page;
 	let _dataviewPage: DataviewPage;
 	let filter: FilterComponent;

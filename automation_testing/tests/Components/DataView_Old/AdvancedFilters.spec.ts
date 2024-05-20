@@ -7,7 +7,7 @@ import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Data View - Advanced Filters", () => {
+test.describe("Components - Data View - Advanced Filters", () => {
 	let page: Page;
 	let _dataviewPage: DataviewPage;
 	let advancedFilters: AdvancedFiltersComponent;

@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { ChipPage } from "../../../pages/Components/Chip/ChipPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - Chip - Kitchen Sink", () => {
+test.describe("Components - Chip - Kitchen Sink", () => {
 	let page: Page;
 	let chipPage: ChipPage;
 

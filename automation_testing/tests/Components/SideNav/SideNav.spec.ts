@@ -3,7 +3,7 @@ import { SideNavPage } from "../../../pages/Components/SideNav/SideNavPage";
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - SideNav - Example", () => {
+test.describe("Components - SideNav - Example", () => {
 	let page: Page;
 	let sideNavPage: SideNavPage;
 	const expectsimplyGoldBorderColor = theme.newColors.simplyGold["100"];

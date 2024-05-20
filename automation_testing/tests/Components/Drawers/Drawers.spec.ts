@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { Drawers } from "../../../pages/Components/Drawers/DrawersPage";
 
-test.describe.parallel("Components - Drawers - Example", () => {
+test.describe("Components - Drawers - Example", () => {
 	let page: Page;
 	let drawersPage: Drawers;
 

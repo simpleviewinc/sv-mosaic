@@ -3,7 +3,7 @@ import { FormFieldColorPage } from "../../../pages/FormFields/FormFieldColor/For
 import { getRandomHexCode } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldColor - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldColor - Kitchen Sink", () => {
 	let page: Page;
 	let ffColorPage: FormFieldColorPage;
 

@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../../pages/FormFields/FormFieldMapCoordinates/FormFieldMapCoordinatesPage";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	let page: Page;
 	let ffMapCoordinatesPage: FormFieldMapCoordinatesPage;
 

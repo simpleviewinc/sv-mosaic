@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldRadioPage } from "../../../pages/FormFields/FormFieldRadio/FormFieldRadioPage";
 
-test.describe.parallel("FormFields - FormFieldRadio - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldRadioPage: FormFieldRadioPage;
 
