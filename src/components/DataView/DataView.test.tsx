@@ -1,9 +1,36 @@
 import React from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { DataViewFilterText } from "../../index";
+import DataView, { DataViewProps } from ".";
 import { Playground } from "./DataView.stories";
 
 afterEach(cleanup);
+
+const columns: DataViewProps["columns"] = [
+	{
+		name: "id",
+		label: "ID",
+	},
+	{
+		name: "title",
+		label: "Title",
+	},
+];
+
+const data: DataViewProps["data"] = [
+	{
+		id: "1",
+		title: "Row 1",
+	},
+	{
+		id: "2",
+		title: "Row 2",
+	},
+	{
+		id: "3",
+		title: "Row 3",
+	},
+];
 
 describe("DataViewFilterText component", () => {
 
@@ -130,5 +157,113 @@ describe("DataViewFilterText component", () => {
 		});
 
 		expect(screen.queryByTitle("Delete checked")).toBeNull();
+	});
+
+	it("Should display the name of the current view as text if one is provided", async () => {
+		render(
+			<DataView
+				columns={columns}
+				data={data}
+				currentView={{ value: "my-view", label: "My View" }}
+			/>,
+		);
+
+		const currentViewText = screen.queryByText("View: My View");
+		expect(currentViewText).not.toBeNull();
+		expect(currentViewText.tagName).toBe("DIV");
+	});
+
+	it("Should display the name of the current view inside the view list button if a current view and list view handler is provided", async () => {
+		const onViewList = jest.fn();
+
+		render(
+			<DataView
+				columns={columns}
+				data={data}
+				currentView={{ value: "my-view", label: "My View" }}
+				onViewList={onViewList}
+			/>,
+		);
+
+		const currentViewText = screen.queryByText("View: My View");
+		expect(currentViewText).not.toBeNull();
+		expect(currentViewText.tagName).toBe("BUTTON");
+	});
+
+	it("Should display the list views button if a handler is provided and fire that handler when clicked", async () => {
+		const onViewList = jest.fn();
+
+		render(
+			<DataView
+				columns={columns}
+				data={data}
+				onViewList={onViewList}
+			/>,
+		);
+
+		const viewListButton = screen.queryByText("No view selected");
+		expect(viewListButton).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(viewListButton);
+		});
+
+		expect(onViewList).toBeCalledTimes(1);
+	});
+
+	it("Should display the save view dropdown menu when an onViewSave handler is provided and correctly invoke that handler", async () => {
+		const onViewSave = jest.fn();
+
+		render(
+			<DataView
+				columns={columns}
+				data={data}
+				onViewSave={onViewSave}
+			/>,
+		);
+
+		const saveViewButton = screen.queryByText("Save View");
+		expect(saveViewButton).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(saveViewButton);
+		});
+
+		const overwriteCurrentViewButton = screen.queryByText("Overwrite Current View");
+		expect(overwriteCurrentViewButton).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(overwriteCurrentViewButton);
+		});
+
+		expect(onViewSave).toBeCalledTimes(1);
+	});
+
+	it("Should display the save view dropdown menu when an onViewSaveAs handler is provided and correctly invoke that handler", async () => {
+		const onViewSaveAs = jest.fn();
+
+		render(
+			<DataView
+				columns={columns}
+				data={data}
+				onViewSaveAs={onViewSaveAs}
+			/>,
+		);
+
+		const saveViewButton = screen.queryByText("Save View");
+		expect(saveViewButton).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(saveViewButton);
+		});
+
+		const saveAsNewViewButton = screen.queryByText("Save as New View");
+		expect(saveAsNewViewButton).not.toBeNull();
+
+		act(() => {
+			fireEvent.click(saveAsNewViewButton);
+		});
+
+		expect(onViewSaveAs).toBeCalledTimes(1);
 	});
 });
