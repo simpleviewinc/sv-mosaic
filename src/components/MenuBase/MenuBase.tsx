@@ -8,7 +8,7 @@ export const MenuBaseContext = createContext<MenuBaseContextProps>(null);
 
 export default function MenuBase(props: MenuBaseProps): ReactElement {
 	return (
-		<StyledMenu anchorEl={props.anchorEl} open={props.open} onClose={props.onClose} disablePortal={true}>
+		<StyledMenu anchorEl={props.anchorEl} open={props.open} onClose={props.onClose}>
 			<MenuBaseContext.Provider value={{ onClose : props.onClose }}>
 				{props.children}
 			</MenuBaseContext.Provider>
