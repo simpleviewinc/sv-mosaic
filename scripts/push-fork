@@ -18,6 +18,7 @@ read -r -d '' description <<- EOM
 
 ## Checklist
 - [ ] I have written new tests to cover the changes
+- [ ] I have written/updated documentation to cover the changes
 - [ ] I have verified these changes in all major browsers
 - [ ] This contains breaking changes
 EOM
