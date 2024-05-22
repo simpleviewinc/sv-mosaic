@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldDropdownPage } from "../../../pages/FormFields/FormFieldDropdown/FormFieldDropdownPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldDropdown - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 	let page: Page;
 	let formFieldDropdownPage: FormFieldDropdownPage;
 

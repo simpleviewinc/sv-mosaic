@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMatrixFormVariantPage } from "../../../pages/FormFields/FormFieldMatrixPage/FormFieldMatrixFormVariantPage";
 
-test.describe.parallel("FormFields - FormFieldMatrix - Form Variant", () => {
+test.describe("FormFields - FormFieldMatrix - Form Variant", () => {
 	let page: Page;
 	let ffMatrixFormVariantPage: FormFieldMatrixFormVariantPage;
 

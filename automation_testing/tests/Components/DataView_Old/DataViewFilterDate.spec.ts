@@ -3,7 +3,7 @@ import { DataViewFilterDateComponent } from "../../../pages/Components/DataView/
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { commonKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - DataViewFilterDate - Playground", () => {
+test.describe("Components - DataViewFilterDate - Playground", () => {
 	let page: Page;
 	let dvFilterDate: DataViewFilterDateComponent;
 
