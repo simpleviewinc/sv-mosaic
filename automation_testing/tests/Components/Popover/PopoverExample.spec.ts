@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { PopoverPage } from "../../../pages/Components/Popover/PopoverExamplePage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - PopoverPage - Example", () => {
+test.describe("Components - PopoverPage - Example", () => {
 	let page: Page;
 	let popoverPage: PopoverPage;
 

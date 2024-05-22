@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldMatrixBrowsePage } from "../../../pages/FormFields/FormFieldMatrixPage/FormFieldMatrixBrowsePage";
 
-test.describe.parallel("FormFields - FormFieldMatrix - Browse", () => {
+test.describe("FormFields - FormFieldMatrix - Browse", () => {
 	let page: Page;
 	let ffMatrixBrowsePage: FormFieldMatrixBrowsePage;
 

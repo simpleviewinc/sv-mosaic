@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextPage } from "../../../pages/FormFields/FormFieldText/FormFieldTextPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldsText - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 	let page: Page;
 	let ffTextPage: FormFieldTextPage;
 

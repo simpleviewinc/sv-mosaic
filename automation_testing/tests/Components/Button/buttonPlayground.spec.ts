@@ -4,7 +4,7 @@ import theme from "../../../../src/theme";
 import { buttonKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 import { hexToRgb } from "../../../utils/helpers/helper";
 
-test.describe.parallel("Components - Button - Playground", () => {
+test.describe("Components - Button - Playground", () => {
 	let page: Page;
 	let buttonPage: ButtonPage;
 	const knobDisabledTrue = commonKnobs.knobDisabled + true;

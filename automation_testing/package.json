@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:chrome": "playwright test --config=sv-mosaic.config.ts --project=Chromium",
-    "test:firefox": "playwright test --config=sv-mosaic.config.ts --project=Firefox",
-    "test:webkit": "playwright test --config=sv-mosaic.config.ts --project=Webkit"
+    "test:chrome": "playwright test --project=Chromium",
+    "test:firefox": "playwright test --project=Firefox",
+    "test:webkit": "playwright test --project=Webkit"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.27.1"
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.12.12"
   }
 }

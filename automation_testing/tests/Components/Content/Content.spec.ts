@@ -3,7 +3,7 @@ import { ContentPage } from "../../../pages/Components/Content/ContentPage";
 import theme from "../../../../src/theme";
 import { buttonKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - Content - Playground", () => {
+test.describe("Components - Content - Playground", () => {
 	let page: Page;
 	let contentPage: ContentPage;
 

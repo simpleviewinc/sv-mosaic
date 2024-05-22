@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldUploadPage } from "../../../pages/FormFields/FormFieldUpload/FormFieldUploadPage";
 import { commonKnobs, uploadKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldUpload - Playground", () => {
+test.describe("FormFields - FormFieldUpload - Playground", () => {
 	let page: Page;
 	let ffUpload: FormFieldUploadPage;
 	const imagePath = `${__dirname}/../../../utils/data/Images/image-example.png`;
