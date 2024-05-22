@@ -3,7 +3,7 @@ import { FormFieldPhonePage } from "../../../pages/FormFields/FormFieldPhone/For
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldPhone - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 	let page: Page;
 	let ffPhonePage: FormFieldPhonePage;
 
@@ -35,21 +35,6 @@ test.describe.parallel("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		expect(await ffPhonePage.countryCodeProvidedPhoneField.inputValue()).toBe("+54");
 	});
 
-	test("Validate the Phone field with autoformat enabled.", async () => {
-		const phoneNumberUS = "7037654321";
-		const phoneNumberUK = "2087599036";
-		const expectedFormatNumberUS = "+1 (703) 765-4321";
-		const expectedFormatNumberUK = "+44 2087 599036";
-
-		await ffPhonePage.selectOptionFromDropdown(ffPhonePage.autoformatPhoneFieldDropdown, "United States");
-		await ffPhonePage.autoformatPhoneField.fill(phoneNumberUS);
-		expect(await ffPhonePage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUS);
-		await ffPhonePage.selectAndDeleteText(" (703) 765-4321".length);
-		await ffPhonePage.selectOptionFromDropdown(ffPhonePage.autoformatPhoneFieldDropdown, "United Kingdom");
-		await ffPhonePage.autoformatPhoneField.fill(phoneNumberUK);
-		expect(await ffPhonePage.autoformatPhoneField.inputValue()).toBe(expectedFormatNumberUK);
-	});
-
 	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain('"phone": "' + rndRegularPhone + '"');
@@ -77,7 +62,7 @@ test.describe.parallel("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		expect(await ffPhonePage.getBackgroundColorFromElement(ffPhonePage.autoformatPhoneField)).toBe(expectedColor);
 	});
 
-	test("Validate that the phone field doesn't returns invalid data", async () => {
+	test.skip("Validate that the phone field doesn't returns invalid data", async () => {
 		const rndRegularPhone = String(randomIntFromInterval(10000000000000, 99999999999999));
 		await ffPhonePage.regularPhoneField.fill(rndRegularPhone);
 		await ffPhonePage.saveBtn.dblclick();

@@ -3,7 +3,7 @@ import { TopSummaryPage } from "../../../pages/Components/TopSummary/TopSummaryP
 import theme from "../../../../src/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - TopSummary - Kitchen Sink", () => {
+test.describe("Components - TopSummary - Kitchen Sink", () => {
 	let page: Page;
 	let summaryPage: TopSummaryPage;
 

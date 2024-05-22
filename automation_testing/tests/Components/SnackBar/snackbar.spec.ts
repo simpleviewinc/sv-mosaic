@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { SnackBarPage } from "../../../pages/Components/SnackBar/SnackBarPagePage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - SnackBarPage - Example", () => {
+test.describe("Components - SnackBarPage - Example", () => {
 	let page: Page;
 	let snackbarPage: SnackBarPage;
 

@@ -3,7 +3,7 @@ import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFi
 import theme from "../../../../src/theme";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
 
-test.describe.parallel("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 	let page: Page;
 	let ffAdvancedSelectionPage: FormFieldAdvancedSelectionPage;
 	let multiSelect: DataViewFilterMultiselectComponent;

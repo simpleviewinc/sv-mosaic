@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldChipsPage } from "../../../pages/FormFields/FormFieldChips/FormFieldChipsPage";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("FormFields - FormFieldChips - Kitchen Sink", () => {
+test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 	let page: Page;
 	let ffChipSingleSelectPage: FormFieldChipsPage;
 

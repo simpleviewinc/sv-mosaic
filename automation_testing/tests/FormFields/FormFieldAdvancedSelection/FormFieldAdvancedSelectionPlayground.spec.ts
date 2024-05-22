@@ -3,7 +3,7 @@ import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFi
 import theme from "../../../../src/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("FormFields - FormFieldAdvancedSelection - Playground", () => {
+test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
 	let page: Page;
 	let ffAdvancedSelectionPage: FormFieldAdvancedSelectionPage;
 

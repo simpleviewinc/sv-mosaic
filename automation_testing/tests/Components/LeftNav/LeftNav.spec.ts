@@ -3,7 +3,7 @@ import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/leftNavData";
 import theme from "../../../../src/theme";
 
-test.describe.parallel("Components - LeftNav - Example", () => {
+test.describe("Components - LeftNav - Example", () => {
 	let page: Page;
 	let leftNavPage: LeftNavPage;
 

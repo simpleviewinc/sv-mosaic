@@ -3,7 +3,7 @@ import { DataViewFilterTextComponent } from "../../../pages/Components/DataView/
 import { filter_data } from "../../../utils/data/dataviewData";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
-test.describe.parallel("Components - DataViewFilterText - Playground", () => {
+test.describe("Components - DataViewFilterText - Playground", () => {
 	let page: Page;
 	let dvFilterComponent: DataViewFilterTextComponent;
 
