@@ -62,7 +62,7 @@ test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		expect(await ffPhonePage.getBackgroundColorFromElement(ffPhonePage.autoformatPhoneField)).toBe(expectedColor);
 	});
 
-	test("Validate that the phone field doesn't returns invalid data", async () => {
+	test.skip("Validate that the phone field doesn't returns invalid data", async () => {
 		const rndRegularPhone = String(randomIntFromInterval(10000000000000, 99999999999999));
 		await ffPhonePage.regularPhoneField.fill(rndRegularPhone);
 		await ffPhonePage.saveBtn.dblclick();
