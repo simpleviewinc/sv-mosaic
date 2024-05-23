@@ -1,5 +1,45 @@
 # sv-mosaic changelog
 
+## 35.0.0 - 05/28/24
+
+### Improvements & Fixes
+
+* `Form`
+  * [MOS-1362](https://simpleviewtools.atlassian.net/browse/MOS-1362 "https://simpleviewtools.atlassian.net/browse/MOS-1362")
+    * Prevents the browser from performing its own HTML5 validation to avoid conflicts with Mosaic validation.
+  * [MOS-1360](https://simpleviewtools.atlassian.net/browse/MOS-1360 "https://simpleviewtools.atlassian.net/browse/MOS-1360")
+    * Prevents field registration whilst skeleton is enabled because it's too early to obtain an input reference.
+  * [MOS-1327](https://simpleviewtools.atlassian.net/browse/MOS-1327 "https://simpleviewtools.atlassian.net/browse/MOS-1327")
+    * Allows the form initialisation function to accept sections so that field order can be calculated based on where they appear if applicable. If no sections are provided, the order will fallback to that of the fields array.
+* `Menu`
+  * [MOS-1365](https://simpleviewtools.atlassian.net/browse/MOS-1365 "https://simpleviewtools.atlassian.net/browse/MOS-1365")
+    * Enable popper fixed strategy by removing the `disablePortal` property from `MenuBase`.
+* `DataView`
+  * [MOS-1348](https://simpleviewtools.atlassian.net/browse/MOS-1348 "https://simpleviewtools.atlassian.net/browse/MOS-1348")
+    * Introduces a number of new properties to support new "saved view" mechanics. These new mechanics allow for unopinionated saved views and involves only rendering the controls in the `DataView` title, handing off the specific steps to view saving and retrieval to the product. Specifically, the new `DataView` props are:
+
+      * `currentView`: a `MosaicLabelValue` object that represents the current view. The label will be displayed in the UI in the `DataView` heading area.
+      * `onViewList`: a handler to be invoked when the user wishes to show the list of available views.
+      * `onViewSave`: a handler to be invoked when the user wishes to save changes to their current view.
+      * `onViewSaveAs`: a handler to be invoked when the user wishes to save their current `DataView` setup as a new view.
+
+      All of the saved-view related properties are optional.
+* `FormFieldPhone`
+  * [MOS-1200](https://simpleviewtools.atlassian.net/browse/MOS-1200 "https://simpleviewtools.atlassian.net/browse/MOS-1200")
+    * Utilises the new `DropdownList` property of the `PhoneInput` component from the upgraded `@simpleview/react-phone-input-2` library. With this new property, we render our own dropdown component inside a Material `Popper` component, instead of relying on the default dropdown. With this change, we utilise Popper's fixed strategy which renders the dropdown as a child of `body` to avoid the z-index issues that occur with the default one.
+* Housekeeping
+  * [MOS-1357](https://simpleviewtools.atlassian.net/browse/MOS-1357 "https://simpleviewtools.atlassian.net/browse/MOS-1357")
+    * Creates a script that:
+      * Pushes the current branch to the `fork` remote
+      * Generates a URL that can be used to quick create a PR based on the "MOS"-based name of the current branch
+  * [MOS-1359](https://simpleviewtools.atlassian.net/browse/MOS-1359 "https://simpleviewtools.atlassian.net/browse/MOS-1359")
+    * Replace occurrences of imports from Material's root with component-specific imports
+  * [MOS-1351](https://simpleviewtools.atlassian.net/browse/MOS-1351 "https://simpleviewtools.atlassian.net/browse/MOS-1351")
+    * **(BREAKING CHANGE)** Stops exporting Mosaic utility functions from the root export. Utilities imported using `@simpleview/sv-mosaic/*` must now be imported using `@simpleview/sv-mosaic/utils/*`
+  * [MOS-1363](https://simpleviewtools.atlassian.net/browse/MOS-1363 "https://simpleviewtools.atlassian.net/browse/MOS-1363")
+    * Upgrades playwright from `1.27.1` to `1.44.0`.
+    * Renames the playwright configuration file to `playwright.config.ts` instead of the non standard `sv-mosaic.config.ts` to support the VSCode debugging extension.
+
 ## 34.0.0 - 05/14/24
 
 ### Improvements & Fixes
