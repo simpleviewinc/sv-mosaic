@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ReactElement, useMemo, useState, useCallback, useEffect } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { boolean, text, withKnobs } from "@storybook/addon-knobs";
 import { FieldDef } from "@root/components/Field";
 
@@ -515,6 +516,23 @@ export const Browse = (): ReactElement => {
 								color: "teal",
 								variant: "outlined",
 								mIcon: AddIcon,
+							},
+							{
+								label: "More",
+								color: "teal",
+								variant: "outlined",
+								mIcon: ExpandMoreIcon,
+								iconPosition: "right",
+								menuItems: [
+									{
+										label: "Import from...",
+										onClick: () => alert("Import from..."),
+									},
+									{
+										label: "Export to...",
+										onClick: () => alert("Export to..."),
+									},
+								],
 							},
 						],
 					},
