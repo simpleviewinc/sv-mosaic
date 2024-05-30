@@ -174,6 +174,7 @@ export function useForm(): UseFormReturn {
 		}), {});
 
 		stable.current.data = { ...values };
+		stable.current.internalData = { ...internalValues };
 
 		if (initial) {
 			stable.current.initialData = { ...values };
