@@ -1,6 +1,11 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 import "./flags.css";
+import Popper from "@mui/material/Popper";
+
+export const DropdownListPopper = styled(Popper)`
+    z-index: 1500;
+`;
 
 export const DropdownListBox = styled.ul`
     list-style: none;
