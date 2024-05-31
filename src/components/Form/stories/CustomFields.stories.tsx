@@ -14,7 +14,6 @@ import Form from "../Form";
 import { FieldDef, MosaicFieldProps } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "./utils";
-import useRegisterField from "@root/utils/hooks/useRegisterField";
 import styled, { keyframes } from "styled-components";
 
 export default {
@@ -44,8 +43,6 @@ const ErrorMessage = styled.div`
 const TitleField = (props: MosaicFieldProps): React.ReactElement => {
 	const { onChange, onBlur, value, error } = props;
 
-	useRegisterField(props);
-
 	return (
 		<>
 			<input
@@ -63,8 +60,6 @@ const TitleField = (props: MosaicFieldProps): React.ReactElement => {
 
 const StoryField = (props: MosaicFieldProps): React.ReactElement => {
 	const { onChange, onBlur, value, error } = props;
-
-	useRegisterField(props);
 
 	return (
 		<>
@@ -84,8 +79,6 @@ const StoryField = (props: MosaicFieldProps): React.ReactElement => {
 
 const SaveAsDraftField = (props: MosaicFieldProps): React.ReactElement => {
 	const { onChange, onBlur, value, fieldDef: { label } } = props;
-
-	useRegisterField(props);
 
 	return (
 		<>

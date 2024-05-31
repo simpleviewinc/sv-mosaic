@@ -3,7 +3,7 @@ import { FieldDef } from "../FormTypes";
 import { getFieldConfig } from "..";
 import { FieldProps } from "./FieldTypes";
 import { FieldConfig, sanitizeFieldSize } from "@root/components/Field";
-import FieldWrapper from "@root/components/FieldWrapper";
+import FieldWrapper, { CustomFieldWrapper } from "@root/components/FieldWrapper";
 import { useWrappedToggle } from "@root/utils/toggle";
 
 const Field = ({
@@ -95,21 +95,25 @@ const Field = ({
 		return null;
 	}
 
+	const fieldWrapperProps = {
+		fieldDef: sanitizedFieldDef,
+		value: value,
+		error: error,
+		colsInRow: colsInRow,
+		id: field.name,
+		spacing: spacing,
+		methods: methods,
+		inputRef: inputRef,
+		disabled: disabled,
+		skeleton: skeleton,
+	};
+
 	return isCustomField ? (
-		children
+		<CustomFieldWrapper {...fieldWrapperProps}>
+			{children}
+		</CustomFieldWrapper>
 	) : (
-		<FieldWrapper
-			fieldDef={sanitizedFieldDef}
-			value={value}
-			error={error}
-			colsInRow={colsInRow}
-			id={field.name}
-			spacing={spacing}
-			methods={methods}
-			inputRef={inputRef}
-			disabled={disabled}
-			skeleton={skeleton}
-		>
+		<FieldWrapper {...fieldWrapperProps}>
 			{children}
 		</FieldWrapper>
 	);
