@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement, useEffect, useRef, useMemo, memo } from "react";
+import { ReactElement, useRef, useMemo, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./FieldWrapper.styled";
 
 import { default as Label } from "./Label";
@@ -9,6 +9,7 @@ import { FieldDef, MosaicFieldProps } from "../Field";
 import Skeleton from "@mui/material/Skeleton";
 import { getHtmlText } from "@root/utils/dom/getHtmlText";
 import { getTextLength } from "@root/utils/string";
+import useRegisterField from "@root/utils/hooks/useRegisterField";
 
 function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
@@ -72,21 +73,20 @@ const typesWithRealLabel: FieldDef["type"][] = [
 	"time",
 ];
 
-const FieldWrapper = ({
-	children,
-	error,
-	fieldDef,
-	colsInRow,
-	value,
-	id,
-	methods,
-	spacing,
-	inputRef,
-	disabled,
-	skeleton,
-	useRealLabel,
-}: MosaicFieldProps<any>): ReactElement => {
-	const { mountField } = methods || {};
+const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
+	const {
+		children,
+		error,
+		fieldDef,
+		colsInRow,
+		value,
+		id,
+		spacing,
+		disabled,
+		skeleton,
+		useRealLabel,
+	} = props;
+
 	const fieldRef = useRef<HTMLDivElement | undefined>();
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
@@ -99,19 +99,10 @@ const FieldWrapper = ({
 		limit ||
 		fieldDef?.instructionText;
 
-	useEffect(() => {
-		if (!mountField || !fieldDef?.name || skeleton) {
-			return;
-		}
-
-		const { unmount } = mountField({
-			name: fieldDef.name,
-			fieldRef: fieldRef.current,
-			inputRef: inputRef?.current,
-		});
-
-		return unmount;
-	}, [mountField, fieldDef.name, inputRef, skeleton]);
+	useRegisterField({
+		...props,
+		fieldRef,
+	});
 
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
