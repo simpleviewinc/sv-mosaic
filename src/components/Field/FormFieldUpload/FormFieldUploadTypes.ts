@@ -62,16 +62,10 @@ type OnFileDeleteData = {
 
 export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
 
-type OnError = (message: string) => Promise<void>;
-
 type OnFileAddData = {
 	file: File;
 	onChunkComplete: (data: { percent: number }) => Promise<void>;
 	onUploadComplete: (data: UploadData) => Promise<void>;
-	/**
-	 * @deprecated - Throw an error within `onFileAdd` callback instead.
-	 */
-	onError: OnError;
 };
 
 export type OnFileAdd = (addedData: OnFileAddData) => Promise<void>;

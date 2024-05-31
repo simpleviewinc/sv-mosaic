@@ -49,7 +49,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 	const latLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
 
 	// Supports legacy mapPosition
-	const initialCenter = fieldDef?.inputSettings?.initialCenter || fieldDef?.inputSettings?.mapPosition;
+	const initialCenter = fieldDef?.inputSettings?.initialCenter;
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);

@@ -144,17 +144,6 @@ export interface FieldDefBase<Type, T = any> {
 	 */
 	type: Type;
 	/**
-	 * Object that defines the position of the current field in the
-	 * form layout.
-	 *
-	 * @deprecated
-	 */
-	layout?: {
-		section?: number;
-		row?: number;
-		col?: number;
-	};
-	/**
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
