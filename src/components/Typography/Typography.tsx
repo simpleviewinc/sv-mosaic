@@ -14,8 +14,7 @@ const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
 export default function Typography({
 	children,
 	attrs = {},
-	as,
-	tag: providedTag = as,
+	tag: providedTag,
 	variant = "none",
 	maxLines,
 	color,
