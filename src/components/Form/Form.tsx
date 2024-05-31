@@ -105,6 +105,10 @@ const Form = (props: FormProps) => {
 			.map(([, field]) => field)
 			.sort(({ order: a }, { order: b }) => a - b);
 
+		if (!firstErroneousField) {
+			return;
+		}
+
 		const mount = stable.mounted[firstErroneousField.name];
 
 		if (!mount) {
