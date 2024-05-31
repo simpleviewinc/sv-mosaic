@@ -133,7 +133,6 @@ export const CustomFields = (): ReactElement => {
 					name: "checkbox",
 					label: "Save as draft",
 					type: SaveAsDraftField,
-					validators: [required],
 				},
 			],
 		[],
