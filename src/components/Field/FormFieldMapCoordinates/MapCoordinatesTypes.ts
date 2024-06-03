@@ -22,11 +22,6 @@ export type MapPosition = { lat: number; lng: number };
 
 export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	/**
-	 * Latitude and longitude object.
-	 * @deprecated Use initialCenter instead
-	 */
-	mapPosition?: MapPosition;
-	/**
 	 * Where to center the map initially and when
 	 * the reset button is clicked. Defaults to
 	 * Simpleview HQ in Tucson if not provided

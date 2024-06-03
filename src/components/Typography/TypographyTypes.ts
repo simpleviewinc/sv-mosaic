@@ -13,10 +13,6 @@ export interface TypographyProps {
 	 */
 	variant?: TypographyVariant;
 	/**
-	 * @deprecated Use "tag" prop instead
-	 */
-	as?: TypographyTag;
-	/**
 	 * The HTML element to use.
 	 */
 	tag?: TypographyTag;
@@ -32,10 +28,6 @@ export interface TypographyProps {
 	 * Utilises "word-break: break-all" - useful for displaying long strings with no breaking characters like URLs
 	 */
 	breakAll?: boolean;
-	/**
-	 * @deprecated use attrs
-	 */
-	style?: MosaicObject;
 	/**
 	 * The content, usually text, of the Typography component
 	 */

@@ -216,7 +216,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					file: item?.rawData,
 					onChunkComplete: ({ percent }) => onChunkComplete({ uuid: item.id, percent }),
 					onUploadComplete: (data) => onUploadComplete({ uuid: item.id, data }),
-					onError: (message) => onError({ uuid: item.id, message }),
 				});
 			} catch (err) {
 				const message = err instanceof Error ? err.message : String(err);
