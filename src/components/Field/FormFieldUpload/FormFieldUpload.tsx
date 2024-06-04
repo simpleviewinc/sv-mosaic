@@ -225,23 +225,16 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const handleFileDelete = async (id: UploadData["id"], isPending = false) => {
-		onChange((items = []) => {
-			console.log("CHANGE 1", items);
-
-			return items.map(item => item.id === id ? ({
-				...item,
-				isDeleting: true,
-			}) : item);
-		});
+		onChange((items = []) => items.map(item => item.id === id ? ({
+			...item,
+			isDeleting: true,
+		}) : item));
 
 		if (!isPending) {
 			await onFileDelete({ id });
 		}
 
-		onChange((items = []) => {
-			console.log("CHANGE 2", items);
-			return items.filter(item => item.id !== id);
-		});
+		onChange((items = []) => items.filter(item => item.id !== id));
 	};
 
 	const handleUploadButtonClick = useCallback(() => {
