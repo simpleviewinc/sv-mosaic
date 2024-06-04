@@ -34,4 +34,11 @@ url=$(curl \
     "${github_repo}/compare/develop...${fork}:${branch_name}"
 )
 
+echo "------------"
+echo "Create a PR"
+echo "------------"
 echo "${url}"
+echo "------------"
+echo "Commits since develop"
+echo "-------------"
+git --no-pager log develop..HEAD --oneline --format="- %s"
