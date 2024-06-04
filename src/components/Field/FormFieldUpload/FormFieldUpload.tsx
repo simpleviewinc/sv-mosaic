@@ -3,7 +3,7 @@ import { memo, SyntheticEvent, useCallback, useEffect, useState, useMemo, useRef
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import Snackbar from "@root/components/Snackbar";
-import uniqueId from "lodash/uniqueId";
+import { nanoid } from "nanoid";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileList } from "./FormFieldUpload.styled";
@@ -164,7 +164,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		}
 
 		const uploadQueueItems = newFiles.map<UploadDataPending>(file => ({
-			id: uniqueId(),
+			id: nanoid(),
 			name: file.name,
 			size: file.size,
 			percent: 0,
@@ -225,16 +225,23 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	};
 
 	const handleFileDelete = async (id: UploadData["id"], isPending = false) => {
-		onChange((items = []) => items.map(item => item.id === id ? ({
-			...item,
-			isDeleting: true,
-		}) : item));
+		onChange((items = []) => {
+			console.log("CHANGE 1", items);
+
+			return items.map(item => item.id === id ? ({
+				...item,
+				isDeleting: true,
+			}) : item);
+		});
 
 		if (!isPending) {
 			await onFileDelete({ id });
 		}
 
-		onChange((items = []) => items.filter(item => item.id !== id));
+		onChange((items = []) => {
+			console.log("CHANGE 2", items);
+			return items.filter(item => item.id !== id);
+		});
 	};
 
 	const handleUploadButtonClick = useCallback(() => {
