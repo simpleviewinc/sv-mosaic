@@ -3,7 +3,7 @@ import { memo, SyntheticEvent, useCallback, useEffect, useState, useMemo, useRef
 import Button from "@root/components/Button";
 import { MosaicFieldProps } from "@root/components/Field";
 import Snackbar from "@root/components/Snackbar";
-import uniqueId from "lodash/uniqueId";
+import { nanoid } from "nanoid";
 import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
 import FileCard from "./FileCard";
 import { StyledFileList } from "./FormFieldUpload.styled";
@@ -164,7 +164,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		}
 
 		const uploadQueueItems = newFiles.map<UploadDataPending>(file => ({
-			id: uniqueId(),
+			id: nanoid(),
 			name: file.name,
 			size: file.size,
 			percent: 0,
