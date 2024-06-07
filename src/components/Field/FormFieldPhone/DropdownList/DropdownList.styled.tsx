@@ -2,8 +2,9 @@ import theme from "@root/theme";
 import styled from "styled-components";
 import "./flags.css";
 import Popper from "@mui/material/Popper";
+import { ComponentProps } from "react";
 
-export const DropdownListPopper = styled(Popper)`
+export const DropdownListPopper = styled(Popper)<ComponentProps<typeof Popper>>`
     z-index: 1500;
 `;
 
