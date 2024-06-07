@@ -1,5 +1,35 @@
 # sv-mosaic changelog
 
+## 36.0.0 - 06/11/24
+
+### Improvements & Fixes
+
+* `Form`
+  * [MOS-1378](https://simpleviewtools.atlassian.net/browse/MOS-1378 "https://simpleviewtools.atlassian.net/browse/MOS-1378")
+    * Assign internal form values when set using the `setFormValues` method to avoid them becoming out of sync with state values.
+    * Use `nanoid` as initial key instead of `lodash.uniqueid` for better chance at avoiding key collisions.
+    * Update initial upload field values to something more simpleview-esque.
+    * Downgrades `nanoid` because Jest support for ESM is still experimental.
+  * [MOS-1293](https://simpleviewtools.atlassian.net/browse/MOS-1293 "https://simpleviewtools.atlassian.net/browse/MOS-1293")
+    * Introduces register field hook which is utilised by a new custom field wrapper
+    * Improves custom field story by exhibiting a more cohesive, realistic form
+* `Typography`
+  * [MOS-1292](https://simpleviewtools.atlassian.net/browse/MOS-1292 "https://simpleviewtools.atlassian.net/browse/MOS-1292")
+    * Reduces possible story tags to only those that are most practical.
+* Housekeeping
+  * [MOS-1379](https://simpleviewtools.atlassian.net/browse/MOS-1379 "https://simpleviewtools.atlassian.net/browse/MOS-1379")
+    * Explicitly includes files that aren't used in Mosaic into compilation
+    * Copies CSS assets to distribution after build
+    * Increases the z-index of the phone field's flag menu popper container
+  * [MOS-1366](https://simpleviewtools.atlassian.net/browse/MOS-1366 "https://simpleviewtools.atlassian.net/browse/MOS-1366")
+    * **(BREAKING CHANGES)** Remove the following deprecations:
+      * `gap` from `ButtonRowProps` (no longer used)
+      * `layout` from `FieldDefBase` (use the `sections` property on `FormProps` instead)
+      * `mapPosition` from `MapCoordinatesInputSettings` (use `initialCenter` instead)
+      * `onError` from `OnFileAddData` (throw an error within `onFileAdd` instead)
+      * `as` from `TypographyProps` (use `tag` instead)
+      * `style` from `TypographyProps` (Use a style property on an object provided to `attrs` instead)
+
 ## 35.0.0 - 05/28/24
 
 ### Improvements & Fixes
