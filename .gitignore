@@ -17,3 +17,13 @@ dist/*
 !.yarn/versions
 
 .vscode/terminals.json
+
+# New containerisation
+
+containers/*/.pnp.*
+containers/*/.yarn/*
+!containers/*/.yarn/patches
+!containers/*/.yarn/plugins
+!containers/*/.yarn/releases
+!containers/*/.yarn/sdks
+!containers/*/.yarn/versions
