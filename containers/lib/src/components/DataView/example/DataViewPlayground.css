@@ -1,0 +1,13 @@
+.stickyHtml {
+	height: 100%;
+}
+
+.stickyHtml body {
+	min-height: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.stickyHtml body > #root {
+	height: 100%;
+}
