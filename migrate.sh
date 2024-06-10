@@ -99,7 +99,7 @@ mkdir -p $TEST_DIRECTORY
 cd src
 find . -path '**/*.test.tsx' -exec cp -r --parents \{\} "../$TEST_DIRECTORY" \;
 cd ..
-sed -i -E 's#"\./([^"]+)#"@components/\1#g' $TEST_DIRECTORY/components/**/*.tsx
+# sed -i -E 's#"\./([^"]+)#"@components/\1#g' $TEST_DIRECTORY/components/**/*.tsx
 
 cat <<- EOM
 "Copy ${LIB_DIRECTORY}/tsconfig.json into ${TEST_DIRECTORY}/tsconfig.json and update the compilerOptions.paths key to
