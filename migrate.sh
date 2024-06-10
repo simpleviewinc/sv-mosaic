@@ -1,12 +1,13 @@
 #!/bin/bash
 
 LIB_DIRECTORY="./containers/lib"
+TEST_DIRECTORY="$LIB_DIRECTORY/src/__tests__"
 
 mkdir -p $LIB_DIRECTORY
 
 find . '(' \
         '(' \
-            -path './.yarn' -o \
+            -path './.yarn/releases/*' -o \
             -path './src/**/*.css' -o \
             -path './src/**/*.json' -o \
             -path './src/**/*.ts' -o \
@@ -71,8 +72,9 @@ yarn remove \
 cat > Dockerfile <<- EOM
 FROM node:18.18.2
 
-RUN apt-get update
-RUN apt-get -y install gettext-base jq
+RUN apt-get update && \
+    apt-get -y install gettext-base jq
+
 RUN corepack enable && yarn set version 3.1.1
 
 COPY package.json /app/package.json
@@ -89,3 +91,29 @@ COPY tsconfig.esm.json /app/tsconfig.esm.json
 
 WORKDIR /app
 EOM
+
+# Create unit tests directory and copy test suites
+# into there, preserving the directory structure.
+
+mkdir -p $TEST_DIRECTORY
+cd src
+find . -path '**/*.test.tsx' -exec cp -r --parents \{\} "../$TEST_DIRECTORY" \;
+cd ..
+sed -i -E 's#"\./([^"]+)#"@components/\1#g' $TEST_DIRECTORY/components/**/*.tsx
+
+cat <<- EOM
+"Copy ${LIB_DIRECTORY}/tsconfig.json into ${TEST_DIRECTORY}/tsconfig.json and update the compilerOptions.paths key to
+
+{
+    "@root/*": ["../*"],
+    "@components/*": ["../components/*"],
+    "@transforms/*": ["../transforms/*"],
+}
+
+Then run "yarn types --project src/__tests__/tsconfig.json" inside ${TEST_DIRECTORY}.
+
+EOM
+
+read -p "Fix those errors then press enter to continue."
+
+echo "Finished."
