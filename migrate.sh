@@ -106,8 +106,10 @@ cat <<- EOM
 
 {
     "@root/*": ["../*"],
-    "@components/*": ["../components/*"],
+    "@theme/*": ["../theme/*"],
     "@transforms/*": ["../transforms/*"],
+    "@components/*": ["../components/*"],
+    "@utils/*": ["../utils/*"],
 }
 
 Then run "yarn types --project src/__tests__/tsconfig.json" inside ${TEST_DIRECTORY}.
