@@ -4,12 +4,12 @@ import { screen, cleanup, render, act } from "@testing-library/react";
 import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
-import Button from "../Button";
-import { MenuItemProps } from "../MenuItem";
+import Button from "@root/components/Button";
+import { MenuItemProps } from "@root/components/MenuItem";
 import "@testing-library/jest-dom";
 
 // Components
-import TopSummary, { TopSummaryTypes } from ".";
+import TopSummary, { TopSummaryTypes } from "@root/components/TopSummary";
 import { ReactElement, useState } from "react";
 
 afterEach(cleanup);

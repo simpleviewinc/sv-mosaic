@@ -1,6 +1,6 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
-import RadioButton from "./RadioButton";
+import RadioButton from "@root/components/RadioButton";
 
 afterEach(cleanup);
 

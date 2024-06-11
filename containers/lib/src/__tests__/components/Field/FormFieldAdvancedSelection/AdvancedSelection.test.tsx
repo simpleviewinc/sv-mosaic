@@ -4,9 +4,9 @@ import { render, cleanup, fireEvent, screen, waitFor, act } from "@testing-libra
 import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
-import { optionsWithCategory } from ".";
+import { optionsWithCategory } from "@root/components/Field/FormFieldAdvancedSelection";
 import Form, { useForm } from "@root/components/Form";
-import { additionalOptions } from "./advancedSelectionUtils";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection/advancedSelectionUtils";
 import JSONDB from "@root/utils/JSONDB";
 import categories from "@root/components/DataView/example/categories.json";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";

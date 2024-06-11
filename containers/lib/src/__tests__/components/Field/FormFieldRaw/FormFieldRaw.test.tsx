@@ -1,7 +1,7 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import * as React from "react";
-import FormFieldRaw from "./FormFieldRaw";
-import { RawValueWrapper } from "./FormFieldRaw.styled";
+import FormFieldRaw from "@root/components/Field/FormFieldRaw";
+import { RawValueWrapper } from "@root/components/Field/FormFieldRaw/FormFieldRaw.styled";
 
 afterEach(cleanup);
 

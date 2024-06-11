@@ -3,8 +3,8 @@ import { useState, MouseEvent } from "react";
 import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 
 // Components
-import Popover from "./Popover";
-import Button from "../Button";
+import Popover from "@root/components/Popover";
+import Button from "@root/components/Button";
 
 afterEach(cleanup);
 

@@ -1,6 +1,6 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
-import Chip from "./Chip";
+import Chip from "@root/components/Chip";
 
 afterEach(cleanup);
 

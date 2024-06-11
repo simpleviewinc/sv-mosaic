@@ -3,7 +3,7 @@ import { useState } from "react";
 import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 
 // Components
-import Dialog from "./Dialog";
+import Dialog from "@root/components/Dialog";
 import Button, { ButtonProps } from "@root/components/Button";
 
 afterEach(cleanup);

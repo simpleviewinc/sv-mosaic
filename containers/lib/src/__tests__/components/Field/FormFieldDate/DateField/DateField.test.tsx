@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import * as React from "react";
-import DateField from ".";
+import DateField from "@root/components/Field/FormFieldDate/DateField";
 import { screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 
