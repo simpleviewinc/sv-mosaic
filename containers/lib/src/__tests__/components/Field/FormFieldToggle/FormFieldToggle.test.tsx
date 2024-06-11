@@ -1,7 +1,7 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { useState } from "react";
-import FormFieldToggle from "./FormFieldToggle";
+import FormFieldToggle from "@root/components/Field/FormFieldToggle";
 
 afterEach(cleanup);
 

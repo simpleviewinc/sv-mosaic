@@ -3,7 +3,7 @@ import * as React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 
 // Components
-import HelperText from "./HelperText";
+import HelperText from "@root/components/HelperText";
 
 afterEach(cleanup);
 

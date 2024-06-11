@@ -1,9 +1,9 @@
 import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import FileCard from "./FileCard";
-import FileCardPending from "./FileCardPending";
-import { FileCardPendingProps } from "./FileCardTypes";
+import FileCard from "@root/components/Field/FormFieldUpload/FileCard";
+import FileCardPending from "@root/components/Field/FormFieldUpload/FileCard/FileCardPending";
+import { FileCardPendingProps } from "@root/components/Field/FormFieldUpload/FileCard/FileCardTypes";
 
 const onFileDelete = jest.fn();
 

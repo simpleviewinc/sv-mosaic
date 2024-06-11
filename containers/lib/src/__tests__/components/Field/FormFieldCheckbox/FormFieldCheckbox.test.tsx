@@ -4,10 +4,10 @@ import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/re
 import { act } from "react-dom/test-utils";
 
 // Components
-import FormFieldCheckbox from "./FormFieldCheckbox";
+import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 
 // Utils
-import { checkboxOptions } from "./FormFieldCheckboxUtils";
+import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { getOptions } from "@root/utils/getOptions";
 
 afterEach(cleanup);

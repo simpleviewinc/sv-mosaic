@@ -1,6 +1,6 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
-import DataViewFilters from "./DataViewFilters";
+import DataViewFilters from "@root/components/DataView/DataViewFilters";
 import DataViewFilterText from "@root/components/DataViewFilterText";
 import DataViewFilterMultiselect from "@root/components/DataViewFilterMultiselect";
 import DataViewFilterDate from "@root/components/DataViewFilterDate";

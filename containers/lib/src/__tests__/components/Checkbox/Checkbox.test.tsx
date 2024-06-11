@@ -7,7 +7,7 @@ import {
 	cleanup,
 } from "@testing-library/react";
 
-import Checkbox from "./Checkbox";
+import Checkbox from "@root/components/Checkbox";
 
 afterEach(cleanup);
 

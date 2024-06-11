@@ -1,10 +1,10 @@
 import * as React from "react";
 import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 
-import FormFieldDropdown from "./FormFieldDropdown";
+import FormFieldDropdown from "@root/components/Field/FormFieldDropdown";
 import { getOptions } from "@root/utils/getOptions";
 import "@testing-library/jest-dom";
-import { additionalOptions } from "../FormFieldAdvancedSelection";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
 
 const topFilms = [
 	{ label: "The Shawshank Redemption", value: "1994" },

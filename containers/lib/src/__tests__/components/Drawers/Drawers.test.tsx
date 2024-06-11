@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useCallback, useMemo, useState } from "react";
-import Drawers from "./Drawers";
-import AppContext from "./example/AppContext";
-import Page from "./example/Page";
-import { AppState, DrawerDef } from "./example/ExampleTypes";
+import Drawers from "@root/components/Drawers";
+import AppContext from "@root/components/Drawers/example/AppContext";
+import Page from "@root/components/Drawers/example/Page";
+import { AppState, DrawerDef } from "@root/components/Drawers/example/ExampleTypes";
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 

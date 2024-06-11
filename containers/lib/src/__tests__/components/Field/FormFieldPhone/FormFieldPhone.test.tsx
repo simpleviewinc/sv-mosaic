@@ -3,7 +3,7 @@ import { render, cleanup, screen, fireEvent } from "@testing-library/react";
 import { useState } from "react";
 
 // Components
-import FormFieldPhone from "./FormFieldPhone";
+import FormFieldPhone from "@root/components/Field/FormFieldPhone";
 
 afterEach(cleanup);
 

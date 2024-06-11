@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Components
-import Spinner from "./Spinner";
+import Spinner from "@root/components/Spinner";
 
 describe("Spinner component", () => {
 	it("should render with a progress value of 60", () => {

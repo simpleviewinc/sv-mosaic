@@ -4,9 +4,9 @@ import { render, screen, fireEvent, cleanup, waitFor, act } from "@testing-libra
 import { getOptions } from "@root/utils/getOptions";
 
 // Components
-import FormFieldRadio from "./FormFieldRadio";
+import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import { MosaicLabelValue } from "@root/types";
-import { additionalOptions } from "../FormFieldAdvancedSelection";
+import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
 
 afterEach(cleanup);
 

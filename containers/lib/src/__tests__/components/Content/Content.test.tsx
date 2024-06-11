@@ -5,8 +5,7 @@ import {
 	fireEvent,
 } from "@testing-library/react";
 import * as React from "react";
-import Content from "./Content";
-import { ContentFieldDef } from "./ContentTypes";
+import Content, { ContentFieldDef } from "@root/components/Content";
 import {
 	transform_boolean,
 	transform_chips,

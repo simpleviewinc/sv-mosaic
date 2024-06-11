@@ -10,14 +10,14 @@ import * as React from "react";
 import { ReactElement } from "react";
 
 // Components
-import AddressCard from "./AddressCard";
-import { IAddress, AddressFieldInputSettings } from ".";
+import AddressCard from "@root/components/Field/FormFieldAddress/AddressCard";
+import { IAddress, AddressFieldInputSettings } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
 
 // Utils
-import AddressAutocomplete from "./AddressAutocomplete";
+import AddressAutocomplete from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
-import { StyledClearIcon } from "./AddressAutocomplete/AddressAutocomplete.styled";
+import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 
 const mockGeoCoder = jest
 	.fn()
