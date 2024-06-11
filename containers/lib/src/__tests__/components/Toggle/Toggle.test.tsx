@@ -1,7 +1,7 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import { useState } from "react";
-import Toggle from "./Toggle";
+import Toggle from "@root/components/Toggle";
 
 afterEach(cleanup);
 

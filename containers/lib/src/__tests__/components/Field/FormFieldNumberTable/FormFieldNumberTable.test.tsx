@@ -16,7 +16,7 @@ import {
 	isValidRowCol,
 	numberTableDefaultValue,
 	rows,
-} from "./numberTableUtils";
+} from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 const NumberTableExample = ({
 	displaySumColumn = true,

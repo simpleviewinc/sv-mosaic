@@ -1,7 +1,7 @@
 import * as React from "react";
 import "@testing-library/jest-dom";
 import { screen, cleanup, render, act, fireEvent } from "@testing-library/react";
-import DataViewFilterDate from "./DataViewFilterDate";
+import DataViewFilterDate from "@root/components/DataViewFilterDate";
 import { MosaicLabelValue } from "@root/types";
 import { useState } from "react";
 

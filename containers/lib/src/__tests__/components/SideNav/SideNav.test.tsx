@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ReactElement, useState } from "react";
 import { screen, cleanup, render, fireEvent } from "@testing-library/react";
-import { Item, SideNavArgs } from "./SideNavTypes";
 
 // Components
-import SideNav from "./SideNav";
+import SideNav, { Item, SideNavArgs } from "@root/components/SideNav";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";

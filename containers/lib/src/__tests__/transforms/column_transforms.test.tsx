@@ -1,6 +1,6 @@
 import * as React from "react";
-import * as transforms from "./column_transforms";
-import testArray from "../utils/testArray";
+import * as transforms from "@root/transforms/column_transforms";
+import testArray from "@root/utils/testArray";
 import * as assert from "assert";
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";

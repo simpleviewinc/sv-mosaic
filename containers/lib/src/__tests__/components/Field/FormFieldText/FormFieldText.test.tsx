@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import * as React from "react";
 
 // Components
-import TextField from "./FormFieldText";
+import TextField from "@root/components/Field/FormFieldText";
 
 describe("TextField component", () => {
 	it("should display the placeholder", () => {

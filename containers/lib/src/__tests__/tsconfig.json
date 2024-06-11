@@ -1,0 +1,17 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"paths": {
+			"@root/*": [
+				"../*"
+			]
+		},
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"plugins": []
+	},
+	"include": [
+		"./**/*"
+	],
+	"exclude": []
+}

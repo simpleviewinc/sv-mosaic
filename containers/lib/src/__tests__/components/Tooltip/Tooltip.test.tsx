@@ -1,9 +1,9 @@
 import * as React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import Tooltip from "./Tooltip";
+import Tooltip from "@root/components/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import useTooltip from "./useTooltip";
+import { useTooltip } from "@root/components/Tooltip";
 
 function TooltipTest({ text }: { text: string }) {
 	const { anchorProps, tooltipProps } = useTooltip();

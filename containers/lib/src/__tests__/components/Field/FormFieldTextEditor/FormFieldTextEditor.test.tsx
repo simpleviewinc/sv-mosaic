@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 import Form, { useForm } from "@root/components/Form";
 import { ReactElement } from "react";
 import { FieldDef } from "@root/components/Field";
-import { TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+import { TextEditorInputSettings } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
 import { act } from "react-dom/test-utils";
 

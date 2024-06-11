@@ -1,8 +1,8 @@
-import testArray from "../../utils/testArray";
+import testArray from "@root/utils/testArray";
 import * as assert from "assert";
-import { FieldDef } from "../../components/Field";
-import { generateLayout } from "./Layout/layoutUtils";
-import { SectionDef } from "./FormTypes";
+import { FieldDef } from "@root/components/Field";
+import { generateLayout } from "@root/components/Form/Layout/layoutUtils";
+import { SectionDef } from "@root/components/Form";
 
 describe("Layout logic", () => {
 	const fields: FieldDef[] = [
