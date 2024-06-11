@@ -1,0 +1,20 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from "./DataViewFilterDate.stories";
+
+<Meta title="Components/DataViewFilterDate/Readme"/>
+
+# DataViewFilterDate
+
+`DataViewFilterDate` is a filter that can be used to select records between a set of dates. The filter also allows developers to pass a specific set of "magic values" that when clicked will automatically set a date (e.g. "Today", "Last 2 months", etc). For more please take a look at the props. The `args` object takes an optional `minDate` prop which can be used to define a minimum date that can be chosen using the datepicker. By default, the minimum date is 01/01/1900.
+
+## Props
+
+All filters in `DataView` have a shared props definition. You will need to pass the appropriate `data`, `args` and `onChange` specific to this filter type.
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/DataViewFilterDate/DataViewFilterDateTypes.ts
+
+To see how to use this component, go to any of its stories, make sure you’re on the “Canvas” tab (top left) and look for the “Story” addon (should be next to the knobs, if you can’t see any addons click on the menu to the right of the storybook logo, then make sure “Show addons” is active).
+
+<Preview withSource="none">
+	<stories.Playground/>
+</Preview>

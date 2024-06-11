@@ -1,0 +1,29 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from "./MenuSelect.stories";
+
+<Meta title="Components/MenuSelect/Readme"/>
+
+# MenuSelect
+
+`MenuSelect` is responsible for rendering the content of `Menu` with a behavior similar to a native `<select>`.
+
+* If the trigger for the menu is not a button, you can invoke it via placing it inside `MenuBase`.
+* If the trigger is a `Button`, then pass it to `menuContent`.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/MenuSelect/MenuSelectTypes.tsx
+
+## Default
+
+<Preview withSource="none">
+	<stories.example/>
+</Preview>
+
+## With Placeholder
+
+A placeholder provides a way for a user to clear the selected option.
+
+<Preview withSource="none">
+	<stories.withPlaceholder/>
+</Preview>
