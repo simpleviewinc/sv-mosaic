@@ -1,0 +1,25 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+<Meta title="Utils/Transforms/Get"/>
+
+# transform_get
+
+Executes a [lodash.get](https://lodash.com/docs/#get) which reaches into a deep object and grabs a key.
+
+#### Conversions
+
+* `transform_get("foo.bar")` - `{ foo : { bar : "value" } }` => `"value"`
+
+#### Args
+
+* **path** - A path supported by `lodash.get` so likely something like `path.to.value` or `["path", "to", "value"]`. See their docs for full potential.
+
+#### Example
+
+```js
+import { transform_get } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_get(path)
+]
+```

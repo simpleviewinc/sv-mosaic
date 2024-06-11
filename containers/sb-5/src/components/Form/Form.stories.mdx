@@ -1,0 +1,402 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+<Meta title='Components/Form/Readme' />
+
+# Form
+`Form` is a solution to help all SimpleView products using Mosaic standardise both styling and functionality of forms and the fields within. It comes pre-filled with multiple generic stylised and functional fields so you can focus on your app's functionality and not how to make a form work.
+
+#### On this page
+* [Hook: useForm](#hook-useform)
+  * [Interface: `FormController`](#interface-formcontroller)
+  * [The Form State](#the-form-state)
+    * [Interface: `FormState`](#interface-formstate)
+  * [Manipulating the Form](#manipulating-the-form)
+    * [Interface: `FormMethods`](#interface-formmethods)
+* [Component: Form](#component-form)
+  * [Interface: `FormProps`](#interface-formprops)
+* [Basic Usage](#basic-usage)
+  * [Submission](#submission)
+  * [Layout](#layout)
+    * [Interface: `SectionDef`](#interface-sectiondef)
+* [Form Fields](#form-fields)
+  * [Interface: `FieldDef`](#interface-fielddef)
+  * [Built-in Field Types](#built-in-field-types)
+  * [Smart Validation](#smart-validation)
+    * [Validators](#validators)
+
+The `Form` component should be used in conjunction with the `useForm` hook which provides a form controller instance for the form and its fields to work with. The form controller contains a number of methods that can be used to manipulate the state of the form as well as the state object itself to provide a way of performing side effects based on changes.
+
+## Hook: useForm
+Invoking `useForm` returns an object that implements the `FormController` interface. The properties of the form controller should be spread into the `Form` component.
+
+#### Interface: FormController
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `state` | `FormState` | Contains all of the form state. You can use this to perform side effects. `state` is described in more detail below. |
+| `methods` | `FormMethods` | Contains all of the methods necessary for manipulating form state. `methods` is described in more detail below. |
+| `handleSubmit` | `(onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>` | `handleSubmit` is a higher order function available on the form controller and should be used to wrap a callback to be invoked on a successful submission. `handleSubmit` accepts an optional second callback to be invoked on an invalid submission. Both callbacks will be invoked with the form data as their first parameter. |
+
+### The Form State
+The controller comes with a `state` object that contains not only the values for each field in the form, but other various attributes of the form. This state, or parts of it, can be used as dependencies to perform your own side effects. It implements the `FormState` interface.
+
+#### Interface: FormState
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `data` | `MosaicObject<any>` | Contains a key-value pair object of all of the fields by name and their value |
+| `errors` | `MosaicObject<string>` | A key-value pair object of fields by their name and the error for that field, if any |
+| `disabled` | `boolean` | Whether or not the form is currently enabled. The form is disabled whilst it is being submitted |
+| `touched` | `MosaicObject<boolean>` | A key-value pair object of fields by their name and whether or not they have been touched. Once the user changes the value of any given field, it becomes touched |
+| `submitWarning` | `string` | The reason that the form cannot currently be submitted |
+| `waits` | `FormWait[]` | An array of reasons that the form is waiting. A wait can be created by busy fields or the form itself. |
+| `loadingInitial` | `boolean` | `true` if the form is currently in the initial loading stage, which includes loading initial values. `false` when it's finished. |
+
+### Manipulating the Form
+There is a `methods` object available on the form controller that contains a number of methods that can be used to correctly manipulate the form state. It implements the `FormMethods` interface
+
+#### Interface: FormMethods
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `setFormValues` | `(params: { values:  MosaicObject<any>; initial?: boolean }) => void` | Set the form values using an object of key-value pairs. Optionally have the form use these as initial values. |
+| `setFieldValue` | `(params: { name: string; value: unknown \| ((current: unknown) => unknown); validate?: boolean; touched?: boolean; }) => void` | Set the value for a given field. `value` can be a callback which returns the new value whose parameter is the current field value. Optionally validate the value after it has been set. Optionally mark the field as touched. |
+| `disableForm` | `(params: { disable?: boolean; }) => void` | Disables the form if `disable` is true and enables it if not. |
+| `addWait` | `(params?: { name: string; message: string; disableForm: boolean; }) => { remove: () => void }` | Adds a wait to the form, preventing submission with a message as a reason for prevention. Optionally disables the form whilst waiting. Returns an object containing a `remove` method which, when invoked, will remove the added wait. |
+| `removeWait` | `(params?: { names: string[]; }) => void` | Removes waits by name |
+| `mountField` | `(params: MountFieldParams) => MountFieldResult` | Mount a field. It is necessary to invoke this method for custom fields when their components are mounted. It returns an object containing an `unmount` function to be invoked when the component is unmounted. |
+| `addValidator` | `(params: { name: string; validator: () => undefined \| string }) => { remove: () => void }` | Add a validator for a given field. A good way for fields to register their own field-type based validator functions . Returns an object containing a `remove` method that, when invoked, will unregister the validator |
+| `reset` | `() => void` | Resets the form to it's initial state, including initial values |
+| `init` | `(params: { fields: FieldDef[] }) => void` | Initialise the form with the given fields. Should be used internally by the `Form` component only. |
+
+## Component: Form
+This is the top level component that will render the various parts of your form, including the header with title, description and buttons and the fields. Its properties implement the `FormProps` interface, though you will never need to worry about providing `state` and `methods` explicitely, because these come from `FormController`, which you can just spread into it.
+
+#### Interface: FormProps
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| `state` | ✅ | `FormState` | Contains all of the form state. This is part of the result of `useForm` and you should never have to provide this yourself, though you can use it to perform side effects. `state` is described in more detail below. |
+| `methods` | ✅ | `FormMethods` | Contains all of the methods necessary for manipulating form state. This is part of the result of `useForm` and you should never have to provide this yourself. `methods` is described in more detail below. |
+| `fields` | ✅ | `FieldDef[]` | Array of field definitions containing their respective configuration (see [Form Fields](#form-fields)) |
+| `title` | | `string` | The title of the form to be displayed in a large heading at the top |
+| `description` |  | `string` | The description of the form to be displayed in smaller text below the title |
+| `onBack` |  | `(() => void)` | Callback used to go back to the previous screen / element / drawer. When passed a left arrow will render to the left of the title. |
+| `backLabel` |  | `string` | If `onBack` has been provided, this will be the `aria-label` of the button that is rendered |
+| `sections` |  | `SectionDef[]` | Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row (see [SectionDef subsection](#sectiondef)). |
+| `dialogOpen` |  | `boolean` | When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer". |
+| `handleDialogClose` |  | `boolean` | Function that will get called when closing the dialog (see explanaition of the dialogOpen prop) |
+| `getFormValues` |  | `() => Promise<MosaicObject<any>>` | Function that should return an object representing the initial field values |
+| `buttons` |  | `ButtonProps[]` | Array of buttons that will be rendered at the top of the form, adjacent to the title (if one is provided). |
+| `scrollSpyThreshold` |  | `number` | The threshold at which the scroll spy should consider a section "active". Defaults to 0.15, meaning whenever the top of a section intersects the top 15% of the form's scrollable area. |
+| `fullHeight` |  | `boolean` | Whether to have the form stretch to the full height of it's parent. (`height: 100%`). Defaults to true. |
+| `spacing` |  | `"normal"` or `"compact"` | What spacing to use for the form. Defaults to `"normal"` |
+| `useSectionHash` |  | `string` or `false` | The string that should be used to prefix the section index in the URL hash when scrolling. Provide `false` to disable the URL hash mechanic entirely. |
+| `autoFocus` |  | `boolean` | If true, once mounted, `Form` will attempt to automatically focus the user's cursor on the first field but only the first field is one of the following field types: `date`, `dropdown`, `numberTable`, `phone`, `text`, `textEditor`, `time`.. |
+
+## Basic Usage
+In its simplest usage, the `Form` only needs an instance of the controller and an array of fields to work.
+
+```ts
+import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+];
+
+export default function App() {
+  const controller = useForm();
+
+  return (
+	<Form
+		{...controller}
+		fields={fields}
+	/>
+  );
+}
+```
+We go into field definitions in more detail [below](#form-fields).
+
+### Submission
+You're going to want to do something with that data once the user has finished completing the form and wants to submit it. For that, you can use the `handleSubmit` higher order function that is available on `controller`. `handleSubmit` can be used to wrap a callback that you'd like to invoke when the form is submitted, but only if the form data is successfully validated. You can also provide `handleSubmit` with a second callback to be invoked if form validation fails.
+
+Since `Form` is capable of rendering buttons in the appropriate place in the header area, we'll utilise that in the following example to show a submit button which, when clicked, will trigger the submission process:
+
+```ts
+export default function App() {
+  const controller = useForm();
+
+  // Extract the submit handler HoF from the controller
+  const { handleSubmit } = controller;
+
+  // The function to be invoked when the form is submitted
+  // and validation is successful
+  const onSubmitSuccess = useCallback((data) => {
+    alert(
+      "Submission was successful! The data submitted was: " +
+        JSON.stringify(data),
+    );
+  }, []);
+
+  // The function to be invoked when the form is submitted
+  // but validation fails
+  const onSubmitError = useCallback((data) => {
+    alert("Submission failed! The data submitted was: " + JSON.stringify(data));
+  }, []);
+
+  // Wrap the submission callbacks
+  const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
+
+  // Memoise an array of buttons to be displayed at the top
+  // of the form. It's just one button that kicks off the
+  // internal submission process when clicked.
+  const buttons: ButtonProps[] = useMemo(
+    () => [
+      {
+        label: "Save",
+        onClick: onSubmit,
+        color: "yellow",
+        variant: "contained",
+      },
+    ],
+    [onSubmit],
+  );
+
+  return (
+    <Form
+      {...controller}
+      fields={fields}
+      buttons={buttons}
+    />
+  );
+}
+```
+
+### Layout
+With basic default usage, form fields will be stacked one on top of the other. Think of it as one field per row. However, you can provide `Form` with a `sections` property to have more granular control over how the fields are displayed. They can be organised so that:
+* Each section has it's own title and, optionally, a description. Sections are displayed as accordions and can be collapsed and expanded. Enabling multiple sections will cause a menu with to render to aid in navigating from section to section.
+* Each section can have multiple rows which stack one on top of the other.
+* Each row can have multiple columns. Columns will be evenly distributed across rows. Empty columns can be defined to create row spaces if necessary.
+* Each column can contain multiple fields which stack one on top of the other.
+
+`sections` accepts an array of objects that implement the `SectionDef` interface.
+
+#### Interface: SectionDef
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| **`title`** | | `string` | Text that helps users identify the section. This is also used when rendering tabs to scroll the user to the selected section. |
+| **`description`** | | `string` or `JSX.Element` | Additional text that allows users to understand the purpose or instructions of a section better. |
+| **`fields`** | ✅ | `string[][][]` | Section's field structure as explained above. The outermost array contains rows, the first nested array contains columns and the innermost array contains field names |
+| **`collapsed`** | | `boolean` | Whether or not the section should be collapsed by default. Defaults to false. Only applicable if a `title` is provided for this section. |
+| **`show`** | | [`MosaicToggle`](#MosaicToggle-t-type) | Whether or not to render the section. Show callbacks will be called with `{data: formState.data}` |
+
+Using sections, you can create complex and intuitive layouts to suit your form's context:
+
+```ts
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+  {
+    name: "lastName",
+    label: "Last Name",
+    type: "text",
+  },
+  {
+    name: "isBirthName",
+    label: "Is Birth Name",
+    type: "toggle",
+  },
+  {
+    name: "favouriteColor",
+    label: "Favourite Colour",
+    type: "text",
+  },
+];
+
+const sections: SectionDef[] = [
+  {
+    title: "Personal Details",
+	// Display two columns, with the "Is Birth Name"
+	// checkbox beneath the "Last Name" text field
+    fields: [
+		[["firstName"], ["lastName", "isBirthName"]]
+	],
+  },
+  {
+    title: "Preferences",
+    description: "Help us tailor your experience",
+    fields: [
+		[["favouriteColor"]]
+	],
+  },
+];
+
+export default function App() {
+  const controller = useForm();
+
+  return (
+    <Form
+      {...controller}
+      fields={fields}
+	  sections={sections}
+    />
+  );
+}
+```
+
+## Form Fields
+Fields are the all-important components that make up your form. Mosaic comes with a number of built in field types to suit all kinds of needs, but also allows you to provide custom fields of your own should you need something more specialised.
+
+Field components and their behaviours are derived from an array of configuration objects that you provide as `fields` to the `Form` component. Those objects are what we call the field definitions and they implement the `FieldDef` interface.
+
+#### Interface: FieldDef
+| Name | Required | Type | Description |
+| ---- | -------- | ---- | ----------- |
+| `name` | ✅ | `string` | Significant name related to the field. Names should be unique to each field within the same form. The name will be used as the field's `id` HTML attribute. |
+| `type` | ✅ | `string \| JSX.Element \| () => JSX.Element` | Depicts the type of field that will be rendered. A string value will be mapped to one of Mosaic's built-in field types, providing a function will render a custom field. |
+| `label` | | `string` | Descriptive label for the field which will be rendered in a HTML `label` element before the field's input |
+| `required` | | `boolean` | Whether or not this is a required field. This will render an asterisk to indicate the field is required, as well as automatically adding the `required` validator. |
+| `helperText` | | `string \| JSX.Element` | Text that gives context to the user as what the field does. |
+| `instructionText` | | `string` | Instructions about how to fill the current field. Will be rendered to the right of the field or as a hoverable tooltip next to the field's label, depending on the space available. |
+| `disabled` | | `MosaicToggle<FormState>` | Whether or not the field is disabled. Callbacks will be invoked with the form's current state. |
+| `inputSettings` | | `T` | Please see individual field type documentation for more information on what properties can be provided. |
+| `size` | | `"xs" \| "sm" \| "md" \| "lg"` or any valid CSS width | How wide the field should render. (xs = 100px, sm = 280px, md = 450px, lg = 620px). |
+| `className` | | `string` | A class name to be added to the field's containing element. |
+| `style` | | `HTMLAttributes<HTMLElement>["style"]` | Custom styles to be added to the field's containing element. |
+| `validators` | | `(string \| { fn: ValidatorFn; options: any } \| ValidatorFn)[]` | Validators to be executed when an the applicable validation trigger occurs on this field or when an onSubmit occurs on the Form (see the [validators](#validators) section for more information about default and custom validators). |
+| `validateOn` | | `"onBlur" \| "onChange" \| "onBlurAmend" \| "onBlurChange"` | When the field should be validated. `onBlur` will validate the field when it loses focus. `onChange` will validate when the value of the field changes. `onBlurAmend` will validate the field when it loses focus, but clear any validation errors once it has been amended. `onBlurChange` will validate the field only when it loses focus but will also validate for every subsequent change after losing focus once. |
+| `validates` | | `string[]` | Other fields to "chain" validate when this field is validated. Fields can safely chain validate each other without causing infinite validation. |
+| `id` | | `string` | The ID given to the containing element. |
+| `onBlurCb` | | `() => void` | Callback to invoke when the field loses focus. |
+| `onChangeCb` | | `(value: any) => void` | Callback to invoke when the value of the field changes. |
+| `show` | | `MosaicToggle<FormState>` | Whether or not to render the field. Callbacks are invoked with the current form state. |
+
+### Smart validation
+Generally speaking, fields will be validated whenever is appropriate for their type. For example fields that can be focused on, like text fields, by default will be validated once they lose focus. Address fields on the other hand cannot have focus in the same way, so by default they will be validated when the embedded draw is closed. This can be changed on a per-field basis using the `validatesOn` property, but a sensible default has been carefully chosen for each field type.
+
+When talking about validation, we are ultimately talking about sequentially invoking zero or more callbacks which individually test the current field value. The _"required"_ validator for example, tests the value for a length that is greater than 0. If the value fails the test, the validator returns a string containing the reason for failure, this string will in turn be displayed to the user as the field's error. If the value passes the validation test, the function should return undefined. With that in mind, we can write a simple validator that ensures a value is a string and begins with the uppercase letter "G":
+
+```ts
+async function validateFirstLetter(value: any) {
+	if (typeof value !== "string") {
+		return "Value should be a string";
+	}
+
+	if (value.charAt(0) !== "G") {
+		return "Value should start with the uppercase letter G";
+	}
+}
+```
+
+Since form values don't have type safety, you should always assume an unknown value type and make that runtime check in your validator.
+
+Using our validator for a given field is then trivial, we can simply pass the function into the `validators` array:
+
+```ts
+const fields: FieldDef = [
+	{
+		name: "wordBeginsWithG",
+		label: "What's a word beginning with G?",
+		validators: [validateFirstLetter]
+	}
+];
+```
+
+Though, that might not be enough. We might want to make our validator more versatile. Perhaps we want to use the same validator for other fields to ensure their values are words that start with other letters. We can accept options into our validator to support that:
+
+```ts
+async function validateFirstLetter(value: any, data: any, options: { firstLetter: string }) {
+	if (typeof value !== "string") {
+		return "Value should be a string";
+	}
+
+	if (value.charAt(0) !== options.firstLetter) {
+		return "Value should start with the uppercase letter " + options.firstLetter;
+	}
+}
+```
+
+Note that even though it's unused here, all form values, `data`, is available as a second parameter.
+
+Then slightly modify our definition to provide options to our validator. When the field is validated, the options will automatically be passed through to the validation callback:
+
+```ts
+const fields: FieldDef = [
+	{
+		name: "wordBeginsWithG",
+		label: "What's a word beginning with G?",
+		validators: [{fn: validateFirstLetter, options: {firstLetter: "G"}}]
+	},
+	{
+		name: "wordBeginsWithY",
+		label: "What's a word beginning with Y?",
+		validators: [{fn: validateFirstLetter, options: {firstLetter: "Y"}}]
+	}
+];
+```
+
+Mosaic comes with a number of basic common-use validators so that you don't have to roll your own.
+
+#### Validators
+| Name | Options | Failure message | Description |
+| ---- | ------- | --------------- | ----------- |
+| `required` | | _This field is required, please fill it_ | Validate a string or an array has a length of more than 0. This validator is automatically applied to fields with the `required: true` property in their field definition. |
+| `validateEmail` | | _The value is not a valid email_ | Validates a string is an email address. |
+| `validateLatitude` | | _Latitude should be between -90 and 90_ | Validates a value is a number between -90 and 90. |
+| `validateLongitude` | | _Longitude should be between -180 and 180_ | Validates a value is a number between -180 and 180. |
+| `validateNumber` | | _The value is not a number_ | Validates a string value is a number when cast. |
+| `validateURL` | | _The value is not a valid URL_ | Validates a string value is a valid, complete URL. |
+| `validateDateRange` | `{ startDateName?: string, endDateName?: string }` | _Start date should happen before the end date_ or _End date should happen after the start date_ | Validates a value is a date that preceeds the value of another date field or vise versa. Generally it is used to support date ranges. |
+| `validateCharacterCount` | `{ max?: number }` | _You have exceeded the maximum number of characters_ | Validates that a string value does not exceed a maximum number of characters. |
+| `validatePhoneNumber` | | _Phone number must be exactly 10 numbers excluding the country code_ | Validates that a string value contains 10 digits if it starts with 1. In other words, it validates a US phone number. |
+| `validateSlow` | | _String cannot include test_ | **Exists only for testing.** Takes a second to validate and fails if the value is a string that contains "test". |
+
+## Types
+
+### MosaicLabelValue (Type)
+* **label** - `string` required
+* **value** - `string` required
+
+### MosaicObject (Type)
+* **[key: string]** - `unknown` required
+
+### MosaicToggle T (Type)
+`boolean | (params: T) => boolean | Array<boolean | (params: T) => boolean>`
+
+### MenuItemProps (Type)
+* **label** - `string | JSX Element` required
+* **color** - `"red" | "blue" ` optional
+* **disabled** - `boolean` optional
+* **selected** - `boolean` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void` required
+* **mIcon** - `SvgIconComponent` optional - MUI Icon
+* **attrs** - `MosaicObject` optional
+
+### ButtonAttrs (Type)
+* **label** - `string | JSX Element` optional
+* **className** - `string` optional
+* **href** - `string` optional
+* **color** - `"black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray"` required
+* **mIcon** - `SvgIconComponent` optional - Any Icon from MUI library.
+* **variant** - `"icon" | "outlined" | "contained" | "text"` required
+* **size** - `"small" | "medium" | "large"` optional
+* **iconPosition** - `"left" | "right"` optional
+* **disabled** - `boolean` optional
+* **fullWidth** - `boolean` optional
+* **tooltip** - `string | JSX Element` optional
+* **popover** - `JSX Element` optional
+* **menuItems** - `MenuItemProps[]` optional
+* **menuContent** - `JSX Element` optional
+* **mIconColor** - `string` optional
+* **onClick** - `(event: React.MouseEvent<HTMLButtonElement>) => void` optional
+* **attrs** - `MosaicObject` optional
+* **muiAttrs** - `MosaicObject` optional
+
+### ActionAdditional (Type)
+* **show** - [`MosaicToggle`](#MosaicToggle-t-type) optional
+
+### DataViewActionShow (Interface)
+* `(val?: {[key: string]: any}): void`

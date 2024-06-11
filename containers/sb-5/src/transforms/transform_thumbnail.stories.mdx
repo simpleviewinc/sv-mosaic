@@ -1,0 +1,28 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { transform_thumbnail } from "@root/transforms/column_transforms";
+import { TransformExample } from "@root/transforms/utils/TransformExample";
+
+<Meta title="Utils/Transforms/Thumbnail"/>
+
+# transform_thumbnail
+
+Converts an image URL to an `<img />` element with a given height and width.
+
+#### Conversions
+
+* `"https://myImgUrl.com"` => <TransformExample cb={transform_thumbnail({width: 150, height: 150})} data={"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg"} />
+
+#### Args
+
+* **width** - width of the image in pixels.
+* **height** - height of the image in pixels.
+
+#### Example
+
+```js
+import { transform_thumbnail } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_thumbnail()
+]
+```

@@ -1,0 +1,34 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import * as stories from "./Button.stories";
+
+<Meta title="Components/Button/Readme"/>
+
+# Button
+
+Displays a button.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Button/ButtonTypes.tsx
+
+
+## Popover
+
+When using `popover` if you need to programmatically close it, you can do so by using `onClose` provided by the React context API.
+
+```js
+import * as React from "react";
+import { useContext } from "react";
+import { Button, ButtonPopoverContext } from "@simpleview/sv-mosaic";
+
+function MyComponent(props) {
+	const buttonPopoverContext = useContext(ButtonPopoverContext);
+	// ...rest of component
+}
+```
+
+## Kitchen Sink
+
+<Preview withSource="none">
+	<stories.KitchenSink/>
+</Preview>
