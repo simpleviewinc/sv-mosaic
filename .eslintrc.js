@@ -25,7 +25,7 @@ module.exports = {
 		"react",
 		"react-hooks",
 	],
-	"extends": [
+	extends: [
 		"eslint:recommended",
 		"plugin:react/recommended",
 	],
@@ -130,37 +130,37 @@ module.exports = {
 		"valid-typeof": "error",
 		"no-var": "error",
 	},
-	"overrides": [
+	overrides: [
 		{
-			"parser": "@typescript-eslint/parser",
-			"files": [
+			parser: "@typescript-eslint/parser",
+			files: [
 				"**/*.ts",
 				"**/*.tsx",
 			],
-			"rules": {
+			rules: {
 				"no-redeclare": "off",
 				"@typescript-eslint/no-redeclare": "error",
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
 			},
-			"extends": [
+			extends: [
 				"eslint:recommended",
 				"plugin:react/recommended",
 				"plugin:@typescript-eslint/recommended",
 			],
 		},
 	],
-	"env": {
-		"browser": true,
-		"node": true,
-		"es6": true,
-		"mocha": true,
-		"jest": true,
+	env: {
+		browser: true,
+		node: true,
+		es6: true,
+		mocha: true,
+		jest: true,
 	},
-	"settings": {
-		"react": {
-			"pragma": "React",
-			"version": "detect",
+	settings: {
+		react: {
+			pragma: "React",
+			version: "detect",
 		},
 	},
 };
