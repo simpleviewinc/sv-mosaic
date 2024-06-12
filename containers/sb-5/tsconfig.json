@@ -10,7 +10,7 @@
 		"baseUrl": "./",
 		"paths": {
 			"@root/*": [
-				"../lib/src/*"
+				"../mosaic/src/*"
 			]
 		},
 		"skipLibCheck": true,
