@@ -36,7 +36,7 @@ module.exports = {
 
 		config.watchOptions = webpack_config.devServer.watchOptions;
 
-		config.resolve.alias["@root"] = `${__dirname}/../../lib/src`;
+		config.resolve.alias["@root"] = `${__dirname}/../../mosaic/src`;
 
 		return config;
 	}
