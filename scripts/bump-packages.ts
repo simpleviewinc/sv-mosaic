@@ -14,6 +14,10 @@ containers.forEach(container => {
             throw new Error(`${container} package.json has no version.`);
         }
 
+        if (packageContents.version === version) {
+            throw new Error(`${container} package.json is already ${version}`)
+        }
+
         packageContents.version = version;
 
         const newPackageContents = JSON.stringify(packageContents, undefined, 4) + "\n";
@@ -22,6 +26,6 @@ containers.forEach(container => {
 
         console.log(`Wrote ${container} package.json with new version (${version})`);
     } catch(err) {
-        console.error(err);
+        console.error(err instanceof Error ? err.message : err);
     }
 });
