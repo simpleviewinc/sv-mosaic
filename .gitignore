@@ -30,3 +30,5 @@ containers/*/.yarn/*
 
 containers/publisher/dist/*
 !containers/publisher/dist/.gitkeep
+
+*storybook.log
