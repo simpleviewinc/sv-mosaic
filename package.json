@@ -11,7 +11,8 @@
     },
     "scripts": {
         "release": "release-it",
-        "bump-packages": "ts-node ./scripts/bump-packages.ts"
+        "bump-packages": "ts-node ./scripts/bump-packages.ts",
+        "docker": "docker compose build && docker compose run --service-ports sb5 /bin/bash"
     },
     "packageManager": "yarn@3.1.1",
     "repository": {
