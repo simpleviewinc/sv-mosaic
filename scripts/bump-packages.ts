@@ -19,6 +19,8 @@ containers.forEach(container => {
         const newPackageContents = JSON.stringify(packageContents, undefined, 4);
 
         fs.writeFileSync(packagePath, newPackageContents);
+
+        console.log(`Wrote ${container} package.json with new version (${version})`);
     } catch(err) {
         console.error(err);
     }
