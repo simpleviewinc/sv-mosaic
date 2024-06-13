@@ -3,6 +3,6 @@
         "publish": false
     },
     "hooks": {
-        "after:bump": "./scripts/bump-packages.sh"
+        "after:bump": "yarn bump-packages"
     }
 }
