@@ -4,10 +4,14 @@
 	"description": "Mosaic UI Library",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
 	"devDependencies": {
-		"release-it": "16.1.5"
+		"@types/node": "^20.14.2",
+		"release-it": "16.1.5",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.4.5"
 	},
 	"scripts": {
-		"release": "release-it"
+		"release": "release-it",
+		"bump-packages": "ts-node ./scripts/bump-packages.ts"
 	},
 	"packageManager": "yarn@3.1.1",
 	"repository": {
