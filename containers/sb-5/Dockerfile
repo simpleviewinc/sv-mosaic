@@ -9,6 +9,7 @@ COPY package.json /app/package.json
 COPY .yarnrc.yml /app/.yarnrc.yml
 COPY .yarn /app/.yarn
 COPY yarn.lock /app/yarn.lock
+
 RUN cd /app && yarn install
 
 COPY src /app/src

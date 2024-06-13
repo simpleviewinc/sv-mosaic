@@ -27,3 +27,6 @@ containers/*/.yarn/*
 !containers/*/.yarn/releases
 !containers/*/.yarn/sdks
 !containers/*/.yarn/versions
+
+containers/publisher/dist/*
+!containers/publisher/dist/.gitkeep

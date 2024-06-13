@@ -1,0 +1,24 @@
+services:
+  mosaic:
+    build: ./containers/mosaic
+    volumes:
+      - sv-mosaic-lib:/app
+      - ./containers/mosaic/dist:/app/dist
+  sb5:
+    build: ./containers/sb-5
+    volumes:
+      - sv-mosaic-lib:/mosaic
+      - ./containers/mosaic/src:/mosaic/src
+    ports:
+      - "10000:10000"
+    depends_on:
+      - mosaic
+  publisher:
+    build: ./containers/publisher
+    volumes:
+      - sv-mosaic-lib:/mosaic
+      - ./containers/publisher/dist:/app/dist
+    depends_on:
+      - mosaic
+volumes:
+  sv-mosaic-lib:
