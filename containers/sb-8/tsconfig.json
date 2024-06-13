@@ -12,14 +12,21 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
 
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+		"paths": {
+			"@root/*": [
+				"../mosaic/src/*"
+			],
+      "react": [ "./node_modules/@types/react" ]
+		},
   },
-  "include": ["src"],
+  "include": ["./stories/**/*.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
