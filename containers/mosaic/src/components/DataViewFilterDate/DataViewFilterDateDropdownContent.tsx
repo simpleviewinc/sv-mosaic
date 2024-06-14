@@ -5,7 +5,7 @@ import styled from "styled-components";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import MenuItem from "../MenuItem";
-import { FieldDef } from "../Field";
+import type { FieldDef } from "../Field";
 import Form, { SectionDef, useForm } from "../Form";
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import { VALIDATE_DATE_RANGE } from "../Form/validators";

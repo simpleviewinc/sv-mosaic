@@ -5,7 +5,7 @@ import { Sizes } from "@root/theme";
 // Components
 import { default as MUIAutocomplete } from "@mui/material/Autocomplete";
 import Popper from "@mui/material/Popper";
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)<{ $error?: boolean }>`
   & .MuiFormControl-root .MuiInputBase-root {

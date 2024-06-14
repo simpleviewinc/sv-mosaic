@@ -1,4 +1,5 @@
-import { FieldDef, FormSpacing } from "../FormTypes";
+import type { FormSpacing } from "@root/components/Form";
+import type { FieldDef } from "@root/components/Field";
 import { FormMethods } from "../useForm/types";
 
 export interface FieldProps {

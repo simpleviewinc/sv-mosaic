@@ -1,5 +1,5 @@
 import { Sizes } from "@root/theme";
-import { FieldDef, FieldDefCustom } from "./FieldTypes";
+import type { FieldDef, FieldDefCustom } from "./FieldTypes";
 
 export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, Sizes> = {
 	text: Sizes.md,

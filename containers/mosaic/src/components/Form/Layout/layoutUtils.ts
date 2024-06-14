@@ -1,4 +1,5 @@
-import { FieldDef, SectionDef } from "../FormTypes";
+import type { SectionDef } from "@root/components/Form";
+import type { FieldDef } from "@root/components/Field";
 
 export const generateLayout = ({ sections, fields }: { sections?: SectionDef[]; fields: FieldDef[] }): SectionDef[] => {
 	if (!sections) {

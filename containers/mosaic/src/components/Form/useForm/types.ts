@@ -1,6 +1,6 @@
 import { MosaicObject } from "@root/types";
-import { FieldDef, SectionDef } from "../FormTypes";
-import { FieldDefSanitized } from "@root/components/Field";
+import type { FieldDefSanitized, FieldDef } from "@root/components/Field";
+import type { SectionDef } from "@root/components/Form";
 
 export type ActionTypes =
     | "FIELD_TOUCHED"
