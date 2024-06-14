@@ -13,6 +13,15 @@ services:
       - "10000:10000"
     depends_on:
       - mosaic
+  sb8:
+    build: ./containers/sb-8
+    volumes:
+      - sv-mosaic-lib:/mosaic
+      - ./containers/mosaic/src:/mosaic/src
+    ports:
+      - "10001:10001"
+    depends_on:
+      - mosaic
   publisher:
     build: ./containers/publisher
     volumes:
