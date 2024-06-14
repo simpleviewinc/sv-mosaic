@@ -15,5 +15,17 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  async viteFinal(config) {
+    const { mergeConfig } = await import("vite");
+
+    return mergeConfig(config, {
+      server: {
+        watch: {
+          usePolling: true,
+          interval: 500
+        }
+      }
+    });
+  }
 };
 export default config;
