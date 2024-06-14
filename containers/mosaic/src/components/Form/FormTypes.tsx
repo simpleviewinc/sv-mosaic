@@ -1,6 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
-import { FieldDef } from "@root/components/Field";
-import { FieldDefCustom } from "@root/components/Field";
+import type { FieldDefCustom, FieldDef } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
 import { FormMethods, FormStable, FormState } from "./useForm/types";
@@ -49,5 +48,3 @@ export interface FieldError {
 }
 
 export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any; value: any };
-
-export { FieldDef, FieldDefCustom };

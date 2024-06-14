@@ -1,5 +1,5 @@
-import { FieldDef, FormSpacing } from "../FormTypes";
-import { FormMethods } from "../useForm/types";
+import type { FieldDef } from "@root/components/Field";
+import type { FormSpacing, FormMethods } from "@root/components/Form";
 
 export interface ColPropsTypes {
 	col: string[];

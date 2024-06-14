@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement, useCallback, useEffect, useMemo } from "react";
 import { MapCoordinatesDrawerProps } from "..";
-import { FieldDef } from "@root/components/Field/FieldTypes";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
 import { MapPosition } from "../MapCoordinatesTypes";
 import { ButtonProps } from "@root/components/Button";
 

@@ -1,4 +1,4 @@
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 
 export type PageConfig = FormConfig | GridConfig;
 
