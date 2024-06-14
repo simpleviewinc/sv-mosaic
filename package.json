@@ -12,8 +12,8 @@
     "scripts": {
         "release": "release-it",
         "bump-packages": "ts-node ./scripts/bump-packages.ts",
-        "docker": "docker compose build sb8 && docker compose run --service-ports sb8 /bin/bash",
-        "docker:sb5": "docker compose build sb5 && docker compose run --service-ports sb5 /bin/bash"
+        "docker": "docker compose build sb8 && docker compose run --service-ports sb8 /bin/bash || true",
+        "docker:sb5": "docker compose build sb5 && docker compose run --service-ports sb5 /bin/bash || true"
     },
     "packageManager": "yarn@3.1.1",
     "repository": {
