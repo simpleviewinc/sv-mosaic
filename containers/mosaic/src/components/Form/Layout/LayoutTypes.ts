@@ -1,5 +1,5 @@
-import { FieldDef, FormSpacing, SectionDef } from "../FormTypes";
-import { FormMethods } from "../useForm/types";
+import type { FormMethods, FormSpacing, SectionDef } from "@root/components/Form";
+import type { FieldDef } from "@root/components/Field";
 
 export interface LayoutProps {
 	state: any;

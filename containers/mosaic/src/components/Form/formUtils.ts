@@ -1,5 +1,4 @@
-import { FieldDef, FieldDefCustom } from "./FormTypes";
-import { FieldConfig } from "@root/components/Field";
+import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
 
 import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";

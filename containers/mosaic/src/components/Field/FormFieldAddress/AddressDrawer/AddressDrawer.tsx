@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ReactElement, SyntheticEvent, useCallback, useEffect, useMemo, useState } from "react";
-import { FieldDef } from "@root/components/Field/FieldTypes";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
 import { ButtonProps } from "@root/components/Button";
 
 // Components
