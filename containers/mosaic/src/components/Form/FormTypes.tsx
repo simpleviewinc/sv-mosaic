@@ -1,5 +1,5 @@
 import { ButtonProps } from "@root/components/Button";
-import type { FieldDefCustom, FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
 import { FormMethods, FormStable, FormState } from "./useForm/types";

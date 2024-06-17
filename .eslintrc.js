@@ -142,6 +142,7 @@ module.exports = {
 				"@typescript-eslint/no-redeclare": "error",
 				"no-unused-vars": "off",
 				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
+				"@typescript-eslint/no-explicit-any": "warn",
 			},
 			extends: [
 				"eslint:recommended",
