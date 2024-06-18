@@ -4,6 +4,9 @@ services:
     volumes:
       - sv-mosaic-lib:/app
       - ./containers/mosaic/dist:/app/dist
+      - .eslintrc.js:/app/.eslintrc.js
+      - .eslintrc.ci.js:/app/.eslintrc.ci.js
+      - .eslintignore:/app/.eslintignore
   mosaic-types:
     build: ./containers/mosaic-types
     volumes:
@@ -24,6 +27,7 @@ services:
     volumes:
       - sv-mosaic-lib:/mosaic
       - ./containers/mosaic/src:/mosaic/src
+      - ./containers/sb-8/storybook-static:/app/storybook-static
     ports:
       - "10001:10001"
     depends_on:
