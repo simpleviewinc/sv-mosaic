@@ -31,4 +31,6 @@ containers/*/.yarn/*
 containers/mosaic/dist/*
 !containers/mosaic/dist/.gitkeep
 
+containers/sb-8/storybook-static
+
 *storybook.log
