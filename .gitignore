@@ -28,7 +28,7 @@ containers/*/.yarn/*
 !containers/*/.yarn/sdks
 !containers/*/.yarn/versions
 
-containers/publisher/dist/*
-!containers/publisher/dist/.gitkeep
+containers/mosaic/dist/*
+!containers/mosaic/dist/.gitkeep
 
 *storybook.log

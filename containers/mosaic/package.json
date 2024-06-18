@@ -72,61 +72,15 @@
         "react-i18next": "^11.7.0",
         "styled-components": "^4.3.2"
     },
-    "exports": {
-        ".": {
-            "types": "./dist/types/index.d.ts",
-            "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js"
-        },
-        "./theme": {
-            "types": "./dist/types/theme/index.d.ts",
-            "import": "./dist/esm/theme/index.js",
-            "require": "./dist/cjs/theme/index.js"
-        },
-        "./transforms": {
-            "types": "./dist/types/transforms/index.d.ts",
-            "import": "./dist/esm/transforms/index.js",
-            "require": "./dist/cjs/transforms/index.js"
-        },
-        "./components/*": {
-            "types": "./dist/types/components/*/index.d.ts",
-            "import": "./dist/esm/components/*/index.js",
-            "require": "./dist/cjs/components/*/index.js"
-        },
-        "./utils/*": {
-            "types": "./dist/types/utils/*/index.d.ts",
-            "import": "./dist/esm/utils/*/index.js",
-            "require": "./dist/cjs/utils/*/index.js"
-        }
-    },
     "scripts": {
         "test": "jest --config=./src/__tests__/jest.config.js",
         "test:ci": "jest --ci",
-        "tsc": "tsc",
-        "start": "yarn run storybook",
+        "types": "tsc --noEmit",
         "build": "yarn run build:esm && yarn run build:types && yarn run build:cjs",
         "build:esm": "rm -rf ./dist/esm && rm -rf ./dist/types && ttsc --project ./tsconfig.esm.json && yarn copy-assets:esm",
         "build:cjs": "rm -rf ./dist/cjs && ttsc --project ./tsconfig.cjs.json && yarn copy-assets:cjs",
-        "build:storybook": "build-storybook -c .storybook -o docs",
-        "build:types": "./scripts/build-types",
-        "copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
-        "copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
-        "ci:publish": "ts-node ./scripts/ci-publish.ts",
-        "ci:storybook": "ts-node ./scripts/ci-storybook.ts",
-        "docker": "./scripts/build && ./scripts/run || true",
-        "git-deploy": "node ./scripts/git-deploy.js",
-        "conditional-publish": "./scripts/conditional-publish",
-        "publish:build": "node ./scripts/publish-build.js",
-        "storybook": "start-storybook -p 10000",
-        "style": "eslint . --fix --config .eslintrc.ci.js",
-        "eslint": "eslint",
-        "sync-state": "./scripts/sync-state",
-        "types": "tsc --noEmit",
-        "release": "release-it"
+        "build:types": "./scripts/build-types"
     },
-    "files": [
-        "dist"
-    ],
     "packageManager": "yarn@3.1.1",
     "repository": {
         "type": "git",

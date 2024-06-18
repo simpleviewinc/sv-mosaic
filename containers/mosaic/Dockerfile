@@ -14,5 +14,7 @@ RUN cd /app && yarn install
 
 COPY src /app/src
 COPY tsconfig.json /app/tsconfig.json
+COPY tsconfig.cjs.json /app/tsconfig.cjs.json
+COPY tsconfig.esm.json /app/tsconfig.esm.json
 
 WORKDIR /app
