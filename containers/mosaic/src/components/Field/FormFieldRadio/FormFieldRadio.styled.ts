@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
-// Material UI
-import { default as MUIRadioGroup } from "@mui/material/RadioGroup";
+/**
+ * If we `import "@mui/material/RadioGroup"` here instead
+ * of the component file itself, the onChange handler
+ * doesn't get fired in a Storybook/Vite environment. I
+ * have no idea why.
+ */
+import { default as MUIRadioGroup } from "@mui/material/RadioGroup/RadioGroup";
 
 export const StyledRadioGroup = styled(MUIRadioGroup)`
   margin-left: -12px;
