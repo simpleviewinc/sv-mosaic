@@ -76,10 +76,12 @@
         "test": "jest --config=./src/__tests__/jest.config.js",
         "test:ci": "jest --ci",
         "types": "tsc --noEmit",
-        "build": "yarn run build:esm && yarn run build:types && yarn run build:cjs",
-        "build:esm": "rm -rf ./dist/esm && rm -rf ./dist/types && ttsc --project ./tsconfig.esm.json && yarn copy-assets:esm",
+        "lint": "eslint . --config .eslintrc.ci.js",
+        "build": "yarn run build:esm && yarn run build:cjs",
+        "build:esm": "rm -rf ./dist/esm ./dist/types && ttsc --project ./tsconfig.esm.json && yarn copy-assets:esm",
         "build:cjs": "rm -rf ./dist/cjs && ttsc --project ./tsconfig.cjs.json && yarn copy-assets:cjs",
-        "build:types": "./scripts/build-types"
+        "copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
+        "copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs"
     },
     "packageManager": "yarn@3.1.1",
     "repository": {
