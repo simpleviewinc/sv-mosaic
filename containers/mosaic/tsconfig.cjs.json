@@ -7,8 +7,8 @@
 		"outDir": "./dist/cjs"
 	},
 	"include": [
-		"../mosaic/src/index.ts",
-		"../mosaic/src/transforms/index.ts",
-		"../mosaic/src/utils/index.ts"
+		"./src/index.ts",
+		"./src/transforms/index.ts",
+		"./src/utils/index.ts"
 	]
 }
