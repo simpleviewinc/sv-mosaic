@@ -4,6 +4,12 @@ services:
     volumes:
       - sv-mosaic-lib:/app
       - ./containers/mosaic/dist:/app/dist
+  mosaic-types:
+    build: ./containers/mosaic-types
+    volumes:
+      - ./containers/mosaic/dist/types:/app/types
+    depends_on:
+      - mosaic
   sb5:
     build: ./containers/sb-5
     volumes:
@@ -20,13 +26,6 @@ services:
       - ./containers/mosaic/src:/mosaic/src
     ports:
       - "10001:10001"
-    depends_on:
-      - mosaic
-  publisher:
-    build: ./containers/publisher
-    volumes:
-      - sv-mosaic-lib:/mosaic
-      - ./containers/publisher/dist:/app/dist
     depends_on:
       - mosaic
 volumes:
