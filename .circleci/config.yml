@@ -56,6 +56,40 @@ jobs:
           root: ~/project
           paths:
               - storybook-static
+  publish_sb_static:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: docker23
+      - attach_workspace:
+          at: ~/project
+      - add_ssh_keys:
+          fingerprints:
+            - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
+      - run:
+          name: Spin up publishing container
+          command: |
+            docker-compose build mosaic
+            docker-compose build publisher
+            docker-compose run --name sv-mosaic-publisher publisher
+      - run:
+          name: Copy SSH
+          command: |
+            # Copy base container's .ssh to publishing container's .ssh
+            docker cp ~/.ssh sv-mosaic-publisher:/root/.ssh
+            # Give ~/.ssh and the keys inside the correct ownership and permissions
+            docker exec -t sv-mosaic-publisher sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
+            # Replace the base container's home path with the publishing container's home path in the .ssh/config file
+            docker exec -t sv-mosaic-publisher sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
+      - run:
+          name: Add github to known_hosts
+          command: docker exec -t github-pages sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
+
+
 
 workflows:
   main:
