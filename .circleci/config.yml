@@ -15,7 +15,7 @@ jobs:
           name: Run tests
           command: |
             docker-compose build mosaic
-            docker-compose run mosaic yarn test
+            docker-compose run --name sv-mosaic mosaic yarn test
   build_dist:
     docker:
       - image: cimg/base:2021.04
@@ -30,7 +30,7 @@ jobs:
           name: Build Mosaic distribution
           command: |
             docker-compose build mosaic
-            docker-compose run mosaic yarn build
+            docker-compose run --name sv-mosaic mosaic yarn build
       - run:
           name: List container files
           command: |
