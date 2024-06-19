@@ -36,5 +36,6 @@ services:
     build: ./containers/publisher
     depends_on:
       - sb8
+    tty: true
 volumes:
   sv-mosaic-lib:
