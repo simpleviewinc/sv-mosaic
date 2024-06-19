@@ -28,6 +28,7 @@ const config: StorybookConfig = {
   },
   core: {
     disableTelemetry: true,
+    disableWhatsNewNotifications: true,
   },
 };
 export default config;

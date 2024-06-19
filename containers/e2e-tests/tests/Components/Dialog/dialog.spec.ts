@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { DialogPage } from "../../../pages/Components/Dialog/DialogPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - Dialog - Example", () => {
 	let page: Page;

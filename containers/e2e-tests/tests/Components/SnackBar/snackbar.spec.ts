@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { SnackBarPage } from "../../../pages/Components/SnackBar/SnackBarPagePage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - SnackBarPage - Example", () => {
 	let page: Page;

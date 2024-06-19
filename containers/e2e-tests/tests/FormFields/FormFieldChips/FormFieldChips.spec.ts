@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldChipsPage } from "../../../pages/FormFields/FormFieldChips/FormFieldChipsPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 	let page: Page;

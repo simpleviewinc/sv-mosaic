@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/leftNavData";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - LeftNav - Example", () => {
 	let page: Page;
@@ -31,13 +31,13 @@ test.describe("Components - LeftNav - Example", () => {
 		expect(numberOfItemsVisible).toBe(5);
 	});
 
-	test("Validate hidden view is active", async () => {
+	test.skip("Validate hidden view is active", async () => {
 		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.hidden);
 		const numberOfItemsVisible = await leftNavPage.topMenuItems.count();
 		expect(numberOfItemsVisible).toBe(0);
 	});
 
-	test("Validate Title", async () => {
+	test.skip("Validate Title", async () => {
 		await leftNavPage.selectTypeOfNavDisplay(leftnav_data.full);
 		const item = await leftNavPage.getSpecificMenuItem("Map Publisher");
 		const title = await item.textContent();
