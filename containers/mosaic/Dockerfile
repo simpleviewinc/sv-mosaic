@@ -11,9 +11,12 @@ COPY yarn.lock /app/yarn.lock
 
 RUN cd /app && yarn install
 
-COPY src /app/src
 COPY tsconfig.json /app/tsconfig.json
 COPY tsconfig.cjs.json /app/tsconfig.cjs.json
 COPY tsconfig.esm.json /app/tsconfig.esm.json
+COPY .eslintignore /app/.eslintignore
+COPY .eslintrc.ci.js /app/.eslintrc.ci.js
+COPY .eslintrc.js /app/.eslintrc.js
+COPY src /app/src
 
 WORKDIR /app
