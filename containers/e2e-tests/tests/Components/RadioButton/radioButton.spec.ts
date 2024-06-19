@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { RadioButtonPage } from "../../../pages/Components/RadioButton/RadioButtonPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - RadioButton - Group", () => {
 	let page: Page;

@@ -5,7 +5,7 @@ import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/Adv
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - Data View - Advanced Filters", () => {
 	let page: Page;

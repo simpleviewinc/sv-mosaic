@@ -2,7 +2,7 @@ import { test, expect, Page } from "@playwright/test";
 import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddress/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { us_address, us_address_2 } from "../../../utils/data/addressInformationData";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("FormFields - FormFieldAddress - Playground", () => {
@@ -140,6 +140,7 @@ test.describe("FormFields - FormFieldAddress - Playground", () => {
 
 	test("Validate that button is disabled.", async () => {
 		await ffAddressPage.visit(ffAddressPage.page_path, [knob.knobDisabled + true]);
+		await ffAddressPage.addAddressButton.waitFor({ state: "visible" });
 		await expect(ffAddressPage.addAddressButton).toBeDisabled();
 	});
 });

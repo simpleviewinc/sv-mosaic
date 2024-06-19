@@ -27,6 +27,7 @@ test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
 	});
 
 	test("Validate Disabled Radio Button", async () => {
+		await formFieldRadioPage.disabledRadioButton.waitFor({ state: "visible" });
 		await expect(formFieldRadioPage.disabledRadioButton.locator("input").first()).toBeDisabled();
 	});
 });

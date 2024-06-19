@@ -125,7 +125,7 @@ export const Playground = ({
 					helperText,
 					instructionText,
 					inputSettings: {
-						limit: limit === "No limit" ? undefined : limit,
+						limit: limit === "No limit" ? undefined : Number(limit),
 						onFileAdd,
 						onFileDelete,
 						accept,
@@ -206,7 +206,7 @@ Playground.argTypes = {
 	limit: {
 		name: "Upload Count Limit",
 		control: { type: "select" },
-		options: ["No limit", 1, 2, 3],
+		options: ["No limit", "1", "2", "3"],
 	},
 	prepopulate: {
 		name: "Prepopulate",

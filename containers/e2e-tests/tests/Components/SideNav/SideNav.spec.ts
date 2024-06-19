@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { SideNavPage } from "../../../pages/Components/SideNav/SideNavPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("Components - SideNav - Example", () => {

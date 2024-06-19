@@ -9,7 +9,7 @@ export default {
 	title: "Components/CheckboxList",
 };
 
-export const Example = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const [checked, setChecked] = useState<MosaicLabelValue[]>([]);
 
 	const onChange = (c) => {

@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { TogglePage } from "../../../pages/Components/Toggle/TogglePage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - Toggle - Example", () => {
@@ -16,7 +16,7 @@ test.describe("Components - Toggle - Example", () => {
 	test("Validate Toggle has simplyGold color.", async () => {
 		const expectColor = (theme.newColors.simplyGold["100"]);
 		await togglePage.toggleInput.click();
-		expect(await togglePage.getColorFromElement(togglePage.toggleSpan)).toBe(expectColor);
+		expect(await togglePage.getColorFromElement(togglePage.toggleButton)).toBe(expectColor);
 	});
 
 	test("Validate Toggle switch track has simplyGrey as background color.", async () => {

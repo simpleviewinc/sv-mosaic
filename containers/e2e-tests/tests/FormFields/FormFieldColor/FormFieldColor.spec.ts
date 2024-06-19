@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldColorPage } from "../../../pages/FormFields/FormFieldColor/FormFieldColorPage";
 import { getRandomHexCode } from "../../../utils/helpers/helper";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("FormFields - FormFieldColor - Kitchen Sink", () => {
 	let page: Page;

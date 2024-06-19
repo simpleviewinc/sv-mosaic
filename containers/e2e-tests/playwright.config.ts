@@ -8,7 +8,7 @@ export default defineConfig({
 	testDir: "./tests",
 	testIgnore: "**/DataView_Old/**",
 	forbidOnly: !!process.env.CI,
-	retries: 3,
+	retries: 2,
 	timeout: 30000,
 	reporter: [["html", { open: "never", outputFolder: "./playwright-report" }]],
 	workers: process.env.CI ? 2 : 4,
@@ -21,7 +21,7 @@ export default defineConfig({
 		ignoreHTTPSErrors: true,
 		video: "off",
 		screenshot: "off",
-		baseURL: process.env.ENV ? env[process.env.ENV] : "http://kube.simpleview.io:10000/iframe.html",
+		baseURL: process.env.ENV ? env[process.env.ENV] : "http://kube.simpleview.io:10001/iframe.html",
 	},
 	projects: [
 		{

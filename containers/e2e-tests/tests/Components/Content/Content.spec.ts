@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
-import theme from "../../../../src/theme";
-import { buttonKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
+import theme from "@root/theme";
+import { cardKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - Content - Playground", () => {
 	let page: Page;
@@ -48,6 +48,7 @@ test.describe("Components - Content - Playground", () => {
 
 	test("Validate Card variant for Content component.", async () => {
 		await contentPage.visit(contentPage.page_path, [knob.knobVariant + "card"]);
+		await contentPage.cardWrapperLocator.waitFor({ state: "visible" });
 		await expect(contentPage.cardWrapperLocator).toBeVisible();
 		expect(await contentPage.getBackgroundColorFromElement(contentPage.titleBarLocator)).toBe(theme.newColors.grey2["100"]);
 

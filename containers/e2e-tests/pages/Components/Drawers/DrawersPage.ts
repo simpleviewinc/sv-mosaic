@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class Drawers extends BasePage {
 
-	readonly page_path = "components-drawers--example";
+	readonly page_path = "components-drawers--playground";
 
 	readonly page: Page;
 	readonly addFormButton: Locator;

@@ -17,12 +17,14 @@ test.describe("Components - Page Header - Playground", () => {
 	});
 
 	test("Validate the On Back button visibility", async () => {
+		await pageHeaderPage.backButton.waitFor({ state: "visible" });
 		await expect(pageHeaderPage.backButton).toBeVisible();
 		await pageHeaderPage.visit(pageHeaderPage.page_path, [knob.knobOnBack + "false"]);
 		await expect(pageHeaderPage.backButton).not.toBeVisible();
 	});
 
 	test("Validate the Save and Cancel button visibility", async () => {
+		await pageHeaderPage.cancelBtn.waitFor({ state: "visible" });
 		await expect(pageHeaderPage.cancelBtn).toBeVisible();
 		await expect(pageHeaderPage.saveBtn).toBeVisible();
 		await pageHeaderPage.visit(pageHeaderPage.page_path, [knob.knobButtons + "false"]);

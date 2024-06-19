@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { PopoverPage } from "../../../pages/Components/Popover/PopoverExamplePage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - PopoverPage - Example", () => {
 	let page: Page;

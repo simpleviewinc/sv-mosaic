@@ -19,6 +19,7 @@ import Button, { ButtonProps } from "@root/components/Button";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { useToggle } from "@root/utils/toggle";
+import testIds from "@root/utils/testIds";
 
 const SumaryPageTopComponent = (props: TopSummaryTypes): ReactElement => {
 	const {
@@ -61,7 +62,7 @@ const SumaryPageTopComponent = (props: TopSummaryTypes): ReactElement => {
 	], [mainActions, additionActionsButton]);
 
 	return (
-		<StyledTopSummary>
+		<StyledTopSummary data-testid={testIds.TOP_SUMMARY}>
 			{img && (
 				<Image
 					className="img-rounded"

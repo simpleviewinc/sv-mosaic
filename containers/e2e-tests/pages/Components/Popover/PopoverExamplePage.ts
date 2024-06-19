@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class PopoverPage extends BasePage {
 
-	readonly page_path = "components-popover--example";
+	readonly page_path = "components-popover--playground";
 
 	readonly page: Page;
 	readonly openPopoverButton: Locator;

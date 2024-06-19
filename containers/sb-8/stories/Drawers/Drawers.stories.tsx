@@ -11,7 +11,7 @@ export default {
 	title: "Components/Drawers",
 };
 
-export const Example = (): ReactElement => {
+export const Playground = (): ReactElement => {
 	const [state, setState] = useState<AppState>({
 		content: {},
 		drawers: [],

@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class SnackBarPage extends BasePage {
 
-	readonly page_path = "components-snackbar--example";
+	readonly page_path = "components-snackbar--playground";
 
 	readonly page: Page;
 	readonly openSnackbarButton: Locator;

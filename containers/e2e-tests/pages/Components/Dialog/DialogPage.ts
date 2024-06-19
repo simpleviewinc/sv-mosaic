@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class DialogPage extends BasePage {
 
-	readonly page_path = "components-dialog--example";
+	readonly page_path = "components-dialog--playground";
 
 	readonly page: Page;
 	readonly openDialogButton: Locator;

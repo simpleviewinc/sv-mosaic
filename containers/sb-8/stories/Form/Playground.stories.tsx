@@ -18,6 +18,7 @@ import { columns, numberTableDefaultValue, rows } from "@root/components/Field/F
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
 import { ButtonProps } from "@root/components/Button";
+import testIds from "@root/utils/testIds";
 
 export default {
 	title: "Components/Form",
@@ -448,7 +449,7 @@ export const Playground = ({
 	return (
 		<div style={{ boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight }}>
 			{
-				showState && <pre>{JSON.stringify(state, null, "  ")}</pre>
+				showState && <pre data-testId={testIds.FORM_STATE}>{JSON.stringify(state, null, "  ")}</pre>
 			}
 			<Form
 				{...controller}

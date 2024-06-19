@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPlaygroundPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { buttonKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 import { hexToRgb } from "../../../utils/helpers/helper";
 
@@ -27,13 +27,15 @@ test.describe("Components - Button - Playground", () => {
 	test("Validate Button Popover on Click.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobPopover + true, await buttonPage.getKnobForPopoverEvent("onClick")]);
 		await buttonPage.button.click();
-		await expect(page.locator("text=Popover Content")).toBeVisible();
+		await page.waitForSelector("text=Popover Content", { state: "visible", timeout: 300 });
+		await expect(page.getByText("Popover Content")).toBeVisible();
 	});
 
 	test("Validate Button Popover on Hover.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobPopover + true, await buttonPage.getKnobForPopoverEvent("onHover")]);
 		await buttonPage.button.hover();
-		await expect(page.locator("text=Popover Content")).toBeVisible();
+		await page.waitForSelector("text=Popover Content", { state: "visible", timeout: 300 });
+		await expect(page.getByText("Popover Content")).toBeVisible();
 	});
 
 	test("Validate Buttons has darkRed as background.", async () => {
@@ -88,12 +90,12 @@ test.describe("Components - Button - Playground", () => {
 
 	test("Validate Icon has grey3 as color.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("gray")]);
-		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.grey3["100"]);
+		expect(await buttonPage.getColorFromElement(buttonPage.iconButton)).toBe(theme.newColors.grey3["100"]);
 	});
 
 	test("Validate Icon has simplyGold as color.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("yellow")]);
-		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);
+		expect(await buttonPage.getColorFromElement(buttonPage.iconButton)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
 	test("Validate Contained Buttons has almostBlack as background.", async () => {
@@ -201,7 +203,7 @@ test.describe("Components - Button - Playground", () => {
 	test("Validate that the redirection when clicking the link goes to the expected URL.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobHRef + true]);
 		await buttonPage.hrefLocator.click();
-		await expect(page).toHaveURL("https://www.google.com/");
+		expect(page.url()).toBe("https://www.google.com/");
 	});
 
 	test("Validate menu item knob display a menu with two items.", async () => {

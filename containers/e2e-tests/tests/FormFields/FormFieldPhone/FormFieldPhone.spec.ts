@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldPhonePage } from "../../../pages/FormFields/FormFieldPhone/FormFieldPhonePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 	let page: Page;

@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataviewData";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { dataviewKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - Data View - Playground", () => {

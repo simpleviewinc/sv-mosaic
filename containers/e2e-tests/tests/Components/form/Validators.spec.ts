@@ -21,6 +21,7 @@ test.describe("Components - Form - Validators", () => {
 
 	test("Validate Error when saving with empty mandatory fields.", async () => {
 		const required = validatorPage.requiredTitle;
+		await required.waitFor({ state: "visible" });
 		expect(await required.isVisible()).toBe(true);
 		expect(await required.textContent()).toBe(validatorData.requireAsterisk);
 		await validatorPage.saveBtn.click();

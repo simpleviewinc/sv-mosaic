@@ -6,7 +6,7 @@ import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-import LeftNav from "./LeftNav";
+import LeftNav from ".";
 import { LeftNavProps, LeftNavItemRootDef } from "./LeftNavTypes";
 import { TransientProps } from "@root/types";
 

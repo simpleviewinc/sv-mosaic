@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class SideNavPage extends BasePage {
 
-	readonly page_path = "components-sidenav--example";
+	readonly page_path = "components-sidenav--playground";
 
 	readonly page: Page;
 	readonly title: Locator;

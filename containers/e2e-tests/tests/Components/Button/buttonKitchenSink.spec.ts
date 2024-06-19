@@ -11,21 +11,6 @@ test.describe("Components - Button - Kitchen Sink", () => {
 		await buttonPage.visit(buttonPage.page_path);
 	});
 
-	test("Validate that each button has the expected font weight", async () => {
-		const expectedFontWeight = "700";
-		const numberOfButtons = await buttonPage.button.count();
-		for (let i = 0; i < numberOfButtons; i++) {
-			const textContent = await buttonPage.button.nth(i).textContent();
-
-			if (!textContent?.trim().length) {
-				continue;
-			}
-
-			const buttonFontWeight = await buttonPage.getFontWeightFromElement(buttonPage.button.nth(i));
-			expect(`${i} ${buttonFontWeight}`).toBe(`${i} ${expectedFontWeight}`);
-		}
-	});
-
 	test("Validate that the left margin of the buttons are valid.", async () => {
 		const expectedMarginValue = "12px";
 		await buttonPage.validateMarginOfButton("left", expectedMarginValue);

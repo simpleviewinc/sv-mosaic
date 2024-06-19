@@ -2,8 +2,8 @@ import { expect, Page, Locator } from "@playwright/test";
 import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 import { getDateFormatted } from "../utils/helpers/dateHelper";
-import theme from "../../src/theme";
-
+import theme from "@root/theme";
+import testIds from "@root/utils/testIds";
 export class BasePage {
 
 	readonly page: Page;
@@ -46,6 +46,7 @@ export class BasePage {
 
 	constructor(page: Page) {
 		this.page = page;
+
 		this.loading = page.locator("div.loading");
 		this.title = page.locator("h1");
 		this.description = page.locator("//*[@id='root']/div/div/form/div[1]/div/div[1]/span");
@@ -64,7 +65,7 @@ export class BasePage {
 		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
-		this.showStateLocator = page.locator("#root pre");
+		this.showStateLocator = page.getByTestId(testIds.FORM_STATE);
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
 		this.checkboxInputString = "input[type='checkbox']";
@@ -89,6 +90,21 @@ export class BasePage {
 		} else {
 			await this.page.goto(url(page_path), { waitUntil: "domcontentloaded", timeout: 900000 });
 		}
+
+		/**
+		 * Removes the extra Storybook stuff like docs and error containers
+		 * because they often interferes with the Playwright locator methods
+		 */
+		await this.page.evaluate(() => {
+			[
+				".sb-preparing-story",
+				".sb-preparing-docs",
+				".sb-nopreview",
+				".sb-errordisplay",
+			].forEach(selector => {
+				document.body.removeChild(document.querySelector(selector));
+			});
+		});
 	}
 
 	async validateSnapshot(component: Locator, name: string): Promise<void> {

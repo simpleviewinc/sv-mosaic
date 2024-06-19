@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class FormWithLayout extends BasePage {
 
-	readonly page_path = "components-form--form-with-layout";
+	readonly page_path = "components-form--profile";
 
 	readonly page: Page;
 	readonly topComponentContainer: Locator;

@@ -2,7 +2,7 @@ import { BasePage } from "../../BasePage";
 import { expect, Locator, Page } from "@playwright/test";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
-import testIds from "../../../../src/utils/testIds";
+import testIds from "@root/utils/testIds";
 
 export class DataviewPage extends BasePage {
 
