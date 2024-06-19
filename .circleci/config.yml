@@ -4,7 +4,6 @@ jobs:
   unit_tests:
     docker:
       - image: cimg/base:2021.04
-        name: unit_tests
     resource_class: large
     steps:
       - checkout
@@ -19,7 +18,6 @@ jobs:
   build_dist:
     docker:
       - image: cimg/base:2021.04
-        name: unit_tests
     resource_class: large
     steps:
       - checkout
@@ -38,7 +36,6 @@ jobs:
   build_sb_static:
     docker:
       - image: cimg/base:2021.04
-        name: unit_tests
     resource_class: large
     steps:
       - checkout
@@ -55,10 +52,10 @@ jobs:
           name: Extract static files
           command: |
             docker cp sv-mosaic-sb8:/app/storybook-static storybook-static
-      - run:
-          name: List directory
-          command: |
-            ls -la storybook-static
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+              - storybook-static
 
 workflows:
   main:
