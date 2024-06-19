@@ -18,7 +18,7 @@ jobs:
           name: Run tests
           command: |
             docker-compose build mosaic
-            docker-compose run mosaic ls -la
+            docker-compose run mosaic yarn test
 
 workflows:
   main:
