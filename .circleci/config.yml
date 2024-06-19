@@ -100,3 +100,11 @@ workflows:
             branches:
               only:
                 - sb-upgrade
+      - publish_sb_static:
+          context: default
+          requires:
+            - build_sb_static
+          filters:
+            branches:
+              only:
+                - sb-upgrade
