@@ -1,6 +1,5 @@
 services:
   mosaic:
-    container_name: sv-mosaic
     build: ./containers/mosaic
     volumes:
       - sv-mosaic-lib:/app
