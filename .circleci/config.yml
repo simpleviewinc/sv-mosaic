@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Extract dist files
           command: |
-            docker cp sv-mosaic:/app/dist /dist
+            docker cp sv-mosaic:/app/dist dist
       - run:
           name: List files
           command: |
