@@ -7,6 +7,9 @@ jobs:
         name: unit_tests
     resource_class: large
     steps:
+      - run:
+          name: Run tests
+          command: ls -la
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
