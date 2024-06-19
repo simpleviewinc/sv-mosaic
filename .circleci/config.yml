@@ -48,6 +48,7 @@ jobs:
       - run:
           name: Build static Storybook files
           command: |
+            docker-compose build mosaic
             docker-compose build sb8
             docker-compose run --name sv-mosaic-sb8 sb8 yarn build
       - run:
@@ -57,7 +58,7 @@ jobs:
       - run:
           name: List directory
           command: |
-            ls -la
+            ls -la storybook-static
 
 workflows:
   main:
