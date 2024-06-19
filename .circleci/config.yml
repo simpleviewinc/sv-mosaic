@@ -32,6 +32,10 @@ jobs:
             docker-compose build mosaic
             docker-compose run mosaic yarn build
       - run:
+          name: List container files
+          command: |
+            docker-compose run mosaic ls -la
+      - run:
           name: Extract dist files
           command: |
             docker cp sv-mosaic:/app/dist /dist
