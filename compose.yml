@@ -32,5 +32,9 @@ services:
       - "10001:10001"
     depends_on:
       - mosaic
+  publisher:
+    build: ./containers/publisher
+    depends_on:
+      - sb8
 volumes:
   sv-mosaic-lib:
