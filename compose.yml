@@ -27,6 +27,7 @@ services:
     volumes:
       - sv-mosaic-lib:/mosaic
       - ./containers/mosaic/src:/mosaic/src
+      - ./containers/sb-8/stories:/app/stories
       - ./containers/sb-8/storybook-static:/app/storybook-static
     ports:
       - "10001:10001"
