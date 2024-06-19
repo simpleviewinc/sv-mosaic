@@ -32,26 +32,37 @@ jobs:
             docker-compose build mosaic
             docker-compose run --name sv-mosaic mosaic yarn build
       - run:
-          name: List container files
-          command: |
-            docker-compose run mosaic ls -la
-      - run:
-          name: List containers
-          command: |
-            docker ps -a
-      - run:
           name: Extract dist files
           command: |
             docker cp sv-mosaic:/app/dist dist
+  build_sb_static:
+    docker:
+      - image: cimg/base:2021.04
+        name: unit_tests
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: docker23
       - run:
-          name: List files
+          name: Build static Storybook files
+          command: |
+            docker-compose build sb8
+            docker-compose run --name sv-mosaic-sb8 sb8 yarn build
+      - run:
+          name: Extract static files
+          command: |
+            docker cp sv-mosaic-sb8:/app/storybook-static storybook-static
+      - run:
+          name: List directory
           command: |
             ls -la
 
 workflows:
   main:
     jobs:
-      - build_dist:
+      - build_sb_static:
           context: default
           filters:
             branches:
