@@ -13,18 +13,29 @@ jobs:
           version: docker23
       - run:
           name: Run tests
-          command: ls -la
-      - run:
-          name: Run tests
           command: |
             docker-compose build mosaic
             docker-compose run mosaic yarn test
+  build_dist:
+    docker:
+      - image: cimg/base:2021.04
+        name: unit_tests
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: docker23
+      - run:
+          name: Build Mosaic distribution
+          command: |
+            docker-compose build mosaic
+            sudo docker compose run mosaic yarn build
 
 workflows:
   main:
     jobs:
-      # Pull request branches and the develop branch have tests run for them
-      - unit_tests:
+      - build_dist:
           context: default
           filters:
             branches:
