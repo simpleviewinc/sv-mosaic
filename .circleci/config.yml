@@ -50,6 +50,8 @@ jobs:
           command: |
             docker-compose build mosaic
             docker-compose build sb8
+
+            docker-compose run --name sv-mosaic-sb8 sb8 sh -c "ls -la ../mosaic/src"
             docker-compose run --name sv-mosaic-sb8 sb8 yarn build
       - run:
           name: Extract static files

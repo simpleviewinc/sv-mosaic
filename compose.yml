@@ -24,6 +24,7 @@ services:
     volumes:
       - sv-mosaic-lib:/mosaic
       - ./containers/mosaic/src:/mosaic/src
+      # We need this in development, so maybe have two different compose files?
       # - ./containers/sb-8/stories:/app/stories
       - ./containers/sb-8/storybook-static:/app/storybook-static
     ports:
