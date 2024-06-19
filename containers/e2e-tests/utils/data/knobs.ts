@@ -1,69 +1,70 @@
 export const commonKnobs = {
-	knobShowState: "knob-Show%20state=",
-	knobRequired: "knob-Required=",
-	knobDisabled: "knob-Disabled=",
-	knobShowOptions:"knob-Show%20options=",
-	knobOnBack: "knob-onBack=",
-	knobParentHeight: "knob-Parent%20height%20(px)=",
-	knobShowTime: "knob-Show%20time=",
-	knobAdditionalActions: "knob-Additional%20Actions=",
+	knobShowState: "showState:",
+	knobRequired: "required:",
+	knobDisabled: "disabled:",
+	knobShowOptions:"showOptions:",
+	knobOnBack: "showBack:",
+	knobParentHeight: "parentHeight:",
+	knobShowTime: "showTime:",
+	knobAdditionalActions: "additionalActions:",
 };
 
 export const cardKnobs = {
-	knobBottomActions: "knob-Bottom%20actions=",
-	knobTopActions: "knob-Top%20actions=",
+	knobBottomActions: "quantityOfBottomActions:",
+	knobTopActions: "quantityOfTopActions:",
+	knobVariant: "variant:",
 };
 
 export const playgroundKnobs = {
-	knobDefaultValues: "knob-Default%20Values=",
-	knobGetFormValues: "knob-GetFormValues=",
-	knobPrepopulate: "knob-Prepopulate=",
+	knobDefaultValues: "defaultValues:",
+	knobGetFormValues: "getFormValues:",
+	knobPrepopulate: "prepopulate:",
 	optionHasDefaultValues: "Has%20Defaults",
 	optionNone: "None",
 	optionReturnData: "Returns%20Data",
 	optionReturnUndefined: "Returns%20Undefined",
-	knobCollapseSections: "knob-Collapse%20sections=",
+	knobCollapseSections: "collapseSections:",
 };
 
 export const uploadKnobs = {
-	knobUploadLimit: "knob-Limit=",
-	knobTriggerErrorsWhenLoading: "knob-Trigger%20errors%20when%20loading=",
-	knobSimulateInitialFieldValue: "knob-Prepopulate=",
+	knobUploadLimit: "limit:",
+	knobTriggerErrorsWhenLoading: "error:",
+	knobSimulateInitialFieldValue: "prepopulate:",
 };
 
 export const dataviewKnobs = {
-	knobBulkAllActions: "knob-bulkAllActions=",
-	knobBulkActions: "knob-bulkActions=",
-	knobPrimaryActions: "knob-primaryActions=",
-	knobAdditionalActions: "knob-additionalActions=",
-	knobComparison: "knob-Comparison=",
-	knobPreloadActiveFilters: "knob-Preload%20active%20filters=",
-	knobDefaultComparison: "knob-Default%20comparison=",
+	knobBulkAllActions: "bulkAllActions:",
+	knobBulkActions: "bulkActions:",
+	knobPrimaryActions: "primaryActions:",
+	knobAdditionalActions: "additionalActions:",
+	knobComparison: "comparison:",
+	knobPreloadActiveFilters: "preloadActiveFilters:",
+	knobDefaultComparison: "defaultComparison:",
 };
 
 export const buttonKnobs = {
-	knobColor: "knob-Color=",
-	knobPopover: "knob-Popover=",
-	knobPopoverEvent: "knob-Popover%20event=",
-	knobSize: "knob-Size=",
-	knobVariant: "knob-Variant=",
-	knobHRef: "knob-Href=",
-	knobFullWidth: "knob-Full%20Width=",
-	knobMenuContent: "knob-Menu%20content=",
-	knobMenuItem: "knob-Menu%20items=",
-	knobmIconColor: "knob-mIconColor=",
-	knobShowIcon: "knob-Show%20icon=",
-	knobShow: "knob-Show=",
-	knobTypeOfLabel: "knob-Type%20of%20label=",
+	knobColor: "buttonColor:",
+	knobPopover: "popover:",
+	knobPopoverEvent: "popoverEvent:",
+	knobSize: "size:",
+	knobVariant: "buttonVariant:",
+	knobHRef: "href:",
+	knobFullWidth: "fullWidth:",
+	knobMenuContent: "showMenuContent:",
+	knobMenuItem: "menuItems:",
+	knobmIconColor: "iconColor:",
+	knobShowIcon: "showIcon:",
+	knobShow: "show:",
+	knobTypeOfLabel: "label:",
 };
 
 export const pageHeaderKnobs = {
-	knobOnBack: "knob-onBack=",
-	knobButtons: "knob-Buttons=",
+	knobOnBack: "showBack:",
+	knobButtons: "showButtons:",
 };
 
 export const formFieldNumberTableKnobs = {
-	knobDisplayRowSum: "knob-Display%20rows%20sums=",
-	knobDisplayColumnsSum: "knob-Display%20columns%20sums=",
-	knobNumberFormatOptions: "knob-Number%20format%20options=",
+	knobDisplayRowSum: "displayRowsSums:",
+	knobDisplayColumnsSum: "displayColumnsSums:",
+	knobNumberFormatOptions: "formatOptions:",
 };

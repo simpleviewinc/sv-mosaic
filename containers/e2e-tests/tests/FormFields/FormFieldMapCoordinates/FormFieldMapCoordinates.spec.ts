@@ -68,6 +68,7 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 
 	test("Validate that button is disabled.", async () => {
 		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.playground_page_path, [knob.knobDisabled + true]);
+		await ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton.waitFor({ state: "visible" });
 		await expect(ffMapCoordinatesPage.mapWithoutAddressAndAutocoordinatesDisabledButton).toBeDisabled();
 	});
 });

@@ -1,7 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - Card - Playground", () => {
 	let page: Page;
@@ -17,7 +17,8 @@ test.describe("Components - Card - Playground", () => {
 		const buttonsCount = 3;
 		for (let i = 1; i <= buttonsCount ;i++) {
 			await cardPage.visit(cardPage.page_path, [knob + i.toString()]);
-			expect(await cardPage.sectionTitleLocator.locator("button").count()).toBe(i);
+			expect(cardPage.sectionTitleLocator).not.toBeNull();
+			await expect(cardPage.sectionTitleLocator.getByRole("button")).toHaveCount(i);
 		}
 	}
 

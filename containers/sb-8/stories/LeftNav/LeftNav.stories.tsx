@@ -789,7 +789,9 @@ export const Playground = ({ dataSet, locale }: typeof Playground.args): ReactEl
 
 	return (
 		<MosaicContext.Provider value={mosaicSettings}>
-			<NavWrapper items={items} />
+			<div style={{ height: "100vh" }}>
+				<NavWrapper items={items} />
+			</div>
 		</MosaicContext.Provider>
 	);
 };

@@ -22,7 +22,7 @@ export default {
 
 export const Playground = ({
 	title,
-	onBack,
+	showBack,
 	img,
 	showFavorite,
 	showMainActions,
@@ -137,7 +137,7 @@ export const Playground = ({
 	return (
 		<TopSummary
 			title={title}
-			onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
+			onBack={showBack ? () => alert("Cancelling, going back to previous site") : undefined}
 			backLabel="Go back"
 			favorite={showFavorite && favorite}
 			img={img && "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1436900668/clients/grandrapids/Covered%20bridge%20in%20Ada_19c2ee0d-a43b-4aab-b102-65a0db32288b.jpg"}
@@ -148,17 +148,9 @@ export const Playground = ({
 	);
 };
 
-// const title = text("Title", "Laudantium est optio voluptas");
-// const onBack = boolean("onBack", false);
-// const img = boolean("Image", false);
-// const showFavorite = boolean("Show star", true);
-// const showMainActions = select("Main actions", ["1", "2", "3", "0"], "3");
-// const showAdditionalActions = select("Additional Actions", ["1", "2", "0", "undefined"], "2");
-// const showDescription = boolean("Description Items", true);
-
 Playground.args = {
 	title: "Laudantium est optio voluptas",
-	onBack: false,
+	showBack: false,
 	img: false,
 	showFavorite: true,
 	showMainActions: "3",
@@ -170,7 +162,7 @@ Playground.argTypes = {
 	title: {
 		name: "Title",
 	},
-	onBack: {
+	showBack: {
 		name: "Show back button",
 	},
 	img: {

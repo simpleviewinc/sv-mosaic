@@ -5,7 +5,7 @@ import { leftnav_data } from "../../../utils/data/leftNavData";
 
 export class LeftNavPage extends BasePage {
 
-	readonly page_path = "components-leftnav--example";
+	readonly page_path = "components-leftnav--playground";
 
 	readonly page: Page;
 	readonly title: Locator;

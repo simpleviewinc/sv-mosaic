@@ -3,7 +3,7 @@ import { BasePage } from "../../BasePage";
 
 export class FormFieldMatrixFormVariantPage extends BasePage {
 
-	readonly page_path = "formfields-formfieldmatrix--form-variant";
+	readonly page_path = "formfields-formfieldmatrix--playground";
 
 	readonly page: Page;
 	readonly addMatrixButton: Locator;

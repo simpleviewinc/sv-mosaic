@@ -35,9 +35,8 @@ test.describe("FormFields - FormFieldUpload - Playground", () => {
 
 	test("Validate that no more files are allowed to upload once reached the limit.", async () => {
 		const fileLimit = 2;
-		const knobTriggerErrorsWhenLoading = uploadKnobs.knobTriggerErrorsWhenLoading + "false";
 		const knobUploadLimit = uploadKnobs.knobUploadLimit + fileLimit;
-		await ffUpload.visit(ffUpload.page_path, [knobTriggerErrorsWhenLoading, knobUploadLimit]);
+		await ffUpload.visit(ffUpload.page_path, [knobUploadLimit]);
 		await ffUpload.uploadFilesInput.setInputFiles([imagePath, imagePath]);
 		await expect(ffUpload.uploadFilesButton).toHaveCount(0);
 		expect(await ffUpload.fileCardContainerLocator.count()).toBe(fileLimit);
@@ -46,9 +45,8 @@ test.describe("FormFields - FormFieldUpload - Playground", () => {
 	test("Validate that when trying to upload more than the allowed limit of files at the same time, a snack bar message is displayed.", async () => {
 		const fileLimit = 2;
 		const expectedSnackbar = "Upload limited to only " + fileLimit + " files.";
-		const knobTriggerErrorsWhenLoading = uploadKnobs.knobTriggerErrorsWhenLoading + "false";
 		const knobUploadLimit = uploadKnobs.knobUploadLimit + fileLimit;
-		await ffUpload.visit(ffUpload.page_path, [knobTriggerErrorsWhenLoading, knobUploadLimit]);
+		await ffUpload.visit(ffUpload.page_path, [knobUploadLimit]);
 		await ffUpload.uploadFilesInput.setInputFiles([imagePath, imagePath, imagePath, imagePath, imagePath]);
 		await expect(ffUpload.rolePresentationLocator.locator("p")).toContainText(expectedSnackbar);
 	});

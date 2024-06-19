@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { ChipPage } from "../../../pages/Components/Chip/ChipPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("Components - Chip - Kitchen Sink", () => {
 	let page: Page;

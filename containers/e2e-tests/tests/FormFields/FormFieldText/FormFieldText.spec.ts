@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldTextPage } from "../../../pages/FormFields/FormFieldText/FormFieldTextPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 
 test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 	let page: Page;
@@ -63,6 +63,7 @@ test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 	});
 
 	test("Validate field with an icon", async () => {
+		await ffTextPage.fieldWithIconIcon.waitFor({ state: "visible" });
 		await expect(ffTextPage.fieldWithIconIcon).toBeVisible();
 		await expect(ffTextPage.fieldWithIconTextField).toBeVisible();
 		const sampleText = "With an icon text";

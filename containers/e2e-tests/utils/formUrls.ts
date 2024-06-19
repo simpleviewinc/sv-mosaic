@@ -3,9 +3,5 @@ export const url = (page_path: string): string => {
 };
 
 export const urlWithKnobs = (page_path: string, knobs: string[]): string => {
-	let addedKnobs = "";
-	for (const knob in knobs) {
-		addedKnobs += "&" + knobs[knob];
-	}
-	return `?id=${page_path}${addedKnobs}`;
+	return `?id=${page_path}&args=${knobs.join(";")}`;
 };

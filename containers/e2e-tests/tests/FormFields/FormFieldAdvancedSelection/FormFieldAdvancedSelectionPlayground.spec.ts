@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionPlaygroundPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
@@ -35,6 +35,7 @@ test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
 
 	test("Validate the Disabled Advanced Selection.", async () => {
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path, [knob.knobDisabled + true]);
+		await ffAdvancedSelectionPage.advancedSelectionButton.waitFor({ state: "visible" });
 		await expect(ffAdvancedSelectionPage.advancedSelectionButton).toBeDisabled();
 	});
 });

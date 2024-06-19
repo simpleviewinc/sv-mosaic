@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { TopSummaryPage } from "../../../pages/Components/TopSummary/TopSummaryPage";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - TopSummary - Kitchen Sink", () => {

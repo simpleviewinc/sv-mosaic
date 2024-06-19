@@ -1,7 +1,8 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
+import testIds from "@root/utils/testIds";
 
-export class CardPage extends BasePage {
+export class CardRecentActivityPage extends BasePage {
 
 	readonly page_path = "components-card--recent-activity";
 
@@ -16,7 +17,7 @@ export class CardPage extends BasePage {
 		this.page = page;
 		this.showAllButton = page.locator("button", { hasText: "Show All" });
 		this.activityLocator = page.locator("p");
-		this.cardTitleBar = page.locator("#root div div").first();
-		this.cardWrapper = page.locator("#root div").first();
+		this.cardTitleBar = page.getByTestId(testIds.CARD_HEADING);
+		this.cardWrapper = page.getByTestId(testIds.CARD);
 	}
 }

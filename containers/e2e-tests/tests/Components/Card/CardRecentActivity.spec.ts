@@ -1,14 +1,14 @@
 import { test, expect, Page } from "@playwright/test";
-import { CardPage } from "../../../pages/Components/Card/CardRecentActivityPage";
-import theme from "../../../../src/theme";
+import { CardRecentActivityPage } from "../../../pages/Components/Card/CardRecentActivityPage";
+import theme from "@root/theme";
 
 test.describe("Components - Card - Recent Activity", () => {
 	let page: Page;
-	let cardPage: CardPage;
+	let cardPage: CardRecentActivityPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
-		cardPage = new CardPage(page);
+		cardPage = new CardRecentActivityPage(page);
 		await cardPage.visit(cardPage.page_path);
 	});
 

@@ -19,8 +19,8 @@ const Card = (props: CardProps): ReactElement => {
 	const TitleIcon = titleIcon;
 
 	return (
-		<CardWrapper>
-			<TitleBar>
+		<CardWrapper data-testid={testIds.CARD}>
+			<TitleBar data-testid={testIds.CARD_HEADING}>
 				<TitleWrapper>
 					{titleIcon && <TitleIcon data-testid="contacts-icon-test" />}
 					<SubtitleText maxLines={1}>{title}</SubtitleText>

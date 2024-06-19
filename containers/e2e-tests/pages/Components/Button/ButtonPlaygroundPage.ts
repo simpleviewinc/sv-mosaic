@@ -8,6 +8,7 @@ export class ButtonPage extends BasePage {
 
 	readonly page: Page;
 	readonly button: Locator;
+	readonly iconButton: Locator;
 	readonly listIconLocator: Locator;
 	readonly hrefLocator: Locator;
 
@@ -15,8 +16,9 @@ export class ButtonPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.button = page.locator("button");
+		this.iconButton = page.locator("button", { has: page.getByTestId("icon-button-test") });
 		this.listIconLocator = page.locator("[data-testid='FormatListBulletedOutlinedIcon']");
-		this.hrefLocator = page.locator("a");
+		this.hrefLocator = page.getByRole("link").and(page.getByText("Text"));
 	}
 
 	async getKnobForVariant(variant: "icon" | "outlined" | "contained" | "text"): Promise<string> {

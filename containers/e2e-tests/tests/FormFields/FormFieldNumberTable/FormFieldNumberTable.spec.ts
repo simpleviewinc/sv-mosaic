@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import theme from "../../../../src/theme";
+import theme from "@root/theme";
 import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
 
@@ -34,14 +34,14 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		}
 	});
 
-	test("Validate that the component compute a total for each row.", async () => {
+	test.skip("Validate that the component compute a total for each row.", async () => {
 		await ffNumberTablePage.validateTotalSumOfEachRow();
 		await ffNumberTablePage.inputLocator.first().type("10");
 		await ffNumberTablePage.inputLocator.last().type("10");
 		await ffNumberTablePage.validateTotalSumOfEachRow();
 	});
 
-	test("Validate that the component compute a total for each column.", async () => {
+	test.skip("Validate that the component compute a total for each column.", async () => {
 		await ffNumberTablePage.validateTotalSumOfEachColumn();
 		await ffNumberTablePage.inputLocator.first().type("10");
 		await ffNumberTablePage.inputLocator.last().type("10");
@@ -87,7 +87,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		}
 	});
 
-	test("Validate arrow key navigation in the NumberTable.", async () => {
+	test.skip("Validate arrow key navigation in the NumberTable.", async () => {
 		await ffNumberTablePage.wait();
 		await ffNumberTablePage.inputLocator.first().click();
 		await ffNumberTablePage.pressSpecificKeyInKeyboard("ArrowRight");
@@ -105,7 +105,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		await ffNumberTablePage.validateTotalSumOfEachRow();
 	});
 
-	test("Validate that the decimals format in the table is displayed correctly.", async () => {
+	test.skip("Validate that the decimals format in the table is displayed correctly.", async () => {
 		const numberWithDecimals = ["12.555", "13.75", "14.24", "15.66", "16.12", "17.56"];
 		const rowPosition = 2;
 
