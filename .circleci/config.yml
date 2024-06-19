@@ -33,7 +33,7 @@ jobs:
           name: Extract dist files
           command: |
             docker cp sv-mosaic:/app/dist dist
-  build_sb_static:
+  Build SB Static:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
@@ -56,7 +56,7 @@ jobs:
           root: ~/project
           paths:
               - storybook-static
-  publish_sb_static:
+  Publish SB Static:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
@@ -73,9 +73,8 @@ jobs:
       - run:
           name: Spin up publishing container
           command: |
-            docker-compose build mosaic
             docker-compose build publisher
-            docker-compose run --name sv-mosaic-publisher publisher
+            docker-compose run -d --name sv-mosaic-publisher publisher
       - run:
           name: Copy SSH
           command: |
@@ -94,16 +93,16 @@ jobs:
 workflows:
   main:
     jobs:
-      - build_sb_static:
+      - Build SB Static:
           context: default
           filters:
             branches:
               only:
                 - sb-upgrade
-      - publish_sb_static:
+      - Publish SB Static:
           context: default
           requires:
-            - build_sb_static
+            - Build SB Static
           filters:
             branches:
               only:
