@@ -129,7 +129,7 @@ jobs:
             docker-compose build mosaic
             docker-compose create mosaic
             docker cp dist mosaic:/app/dist
-            ls -la dist
+            docker-compose exec mosaic ls -la /app/dist
             # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
 
 workflows:
