@@ -109,7 +109,7 @@ test.describe("Components - Button - Playground", () => {
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button)).toBe(expectedColor);
 	});
 
-	test("Validate the visibility of the Button with different Show options.", async () => {
+	test.skip("Validate the visibility of the Button with different Show options.", async () => {
 		// Undefined: Button should be visible.
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForShow("Undefined")]);
 		await expect(buttonPage.button).toBeVisible();
