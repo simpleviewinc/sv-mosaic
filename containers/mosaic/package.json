@@ -109,7 +109,7 @@
         "build:cjs": "rm -rf ./dist/cjs && ttsc --project ./tsconfig.cjs.json && yarn copy-assets:cjs",
         "copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
         "copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
-        "publish": "ts-node ./scripts/publish-to-npm.ts"
+        "publish:npm": "ts-node ./scripts/publish-to-npm.ts"
     },
     "files": [
 		"dist"
