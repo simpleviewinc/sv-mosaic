@@ -1,29 +1,31 @@
 version: 2.1
 
-jobs:
-  unit_tests:
-    docker:
-      - image: cimg/base:2021.04
-    resource_class: large
+commands:
+  init:
     steps:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
           version: docker23
+
+jobs:
+  Unit Tests:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - init
       - run:
           name: Run tests
           command: |
             docker-compose build mosaic
             docker-compose run --name sv-mosaic mosaic yarn test
-  build_dist:
+  Build Mosaic Dist:
     docker:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: docker23
+      - init
       - run:
           name: Build Mosaic distribution
           command: |
@@ -38,10 +40,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: docker23
+      - init
       - run:
           name: Build static Storybook files
           command: |
@@ -61,10 +60,7 @@ jobs:
       - image: cimg/base:2021.04
     resource_class: large
     steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: docker23
+      - init
       - attach_workspace:
           at: ~/project
       - add_ssh_keys:
@@ -91,10 +87,8 @@ jobs:
           name: Copy static files into container
           command: docker cp storybook-static sv-mosaic-publisher:/app/docs/sb8
       - run:
-          name: Copy static files into container
+          name: Publish to Github pages
           command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
-
-
 
 workflows:
   main:
