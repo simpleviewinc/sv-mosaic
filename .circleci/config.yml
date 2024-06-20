@@ -115,6 +115,18 @@ jobs:
 workflows:
   main:
     jobs:
+      - Unit Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - sb-upgrade
+      - Build Mosaic Dist:
+          context: default
+          filters:
+            branches:
+              only:
+                - sb-upgrade
       - Build SB Static:
           context: default
           filters:
@@ -129,11 +141,12 @@ workflows:
             branches:
               only:
                 - sb-upgrade
-      # - Publish SB Static:
-      #     context: default
-      #     requires:
-      #       - Build SB Static
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
+      - Publish SB Static:
+          context: default
+          requires:
+            - Build SB Static
+            - E2E Tests
+          filters:
+            branches:
+              only:
+                - sb-upgrade
