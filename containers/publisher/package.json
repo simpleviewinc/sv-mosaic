@@ -5,7 +5,10 @@
     "author": "Owen Allen <owenallenaz@gmail.com>",
     "devDependencies": {
         "@types/gh-pages": "^6.1.0",
-        "gh-pages": "^6.1.1"
+        "@types/node": "^20.14.6",
+        "gh-pages": "^6.1.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5"
     },
     "scripts": {
         "publish:github-pages": "ts-node ./publish-github-pages.ts"

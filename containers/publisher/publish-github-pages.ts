@@ -1,4 +1,3 @@
-import { execSync } from "child_process";
 import ghPages from "gh-pages";
 
 const {
@@ -8,9 +7,6 @@ const {
 if (!CIRCLE_BRANCH) {
 	throw new Error("Must set CIRCLE_BRANCH");
 }
-
-// build the storybook
-execSync("yarn run build:storybook", { stdio: "inherit" });
 
 console.log(`Publishing to GitHub pages at ${CIRCLE_BRANCH}`);
 
