@@ -90,6 +90,9 @@ jobs:
       - run:
           name: Copy static files into container
           command: docker cp storybook-static sv-mosaic-publisher:/app/docs/sb8
+      - run:
+          name: Copy static files into container
+          command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
 
 
 
