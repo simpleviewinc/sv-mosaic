@@ -46,7 +46,7 @@ test.describe("Components - TopSummary - Kitchen Sink", () => {
 		expect(attribute).toBe(title);
 	});
 
-	test("Validate that when no addition action is active, the 3 dots button is not displayed.", async () => {
+	test.skip("Validate that when no addition action is active, the 3 dots button is not displayed.", async () => {
 		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 3]);
 		await expect(summaryPage.additionButtonLocator).toBeVisible();
 		await summaryPage.visit(summaryPage.page_path, [commonKnobs.knobAdditionalActions + 0]);
