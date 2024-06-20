@@ -35,7 +35,7 @@ jobs:
             docker-compose up -d mosaic sb-server e2e-tests
       - run:
           name: Copy Storybook static files
-          command: docker-compose cp storybook-static sb-server:/app/storybook-static
+          command: docker cp storybook-static sb-server:/app/storybook-static
       - run:
           name: Mark server as ready
           command: docker-compose exec sb-server touch /app/storybook-static/ready
