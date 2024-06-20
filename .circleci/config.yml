@@ -74,7 +74,7 @@ jobs:
           name: Spin up publishing container
           command: |
             docker-compose build publisher
-            docker-compose run -d --name sv-mosaic-publisher publisher
+            docker-compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher publisher
       - run:
           name: Copy SSH
           command: |
