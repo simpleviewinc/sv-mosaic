@@ -34,9 +34,8 @@ if (CIRCLE_BRANCH === "master") {
 
     console.log(`Publishing version ${pkg.version}`);
 
-	// writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
+	writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
 
-	// execSync("yarn run build", { stdio: "inherit" });
-	// execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
-	// execSync("npm publish --access public --tag beta", { stdio: "inherit" });
+	execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
+	execSync("npm publish --access public --tag beta", { stdio: "inherit" });
 }
