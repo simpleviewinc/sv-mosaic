@@ -11,6 +11,7 @@ COPY yarn.lock /app/yarn.lock
 
 RUN cd /app && yarn install
 
+RUN mkdir -p /app/docs
 COPY tsconfig.json /app/tsconfig.json
 COPY publish-github-pages.ts /app/publish-github-pages.ts
 
