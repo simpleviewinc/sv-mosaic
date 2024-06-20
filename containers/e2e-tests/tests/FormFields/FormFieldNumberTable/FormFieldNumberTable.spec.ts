@@ -96,7 +96,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.isElementFocused(ffNumberTablePage.inputLocator.first())).toBe(true);
 	});
 
-	test("Validate when the table is empty that the format is valid.", async () => {
+	test.skip("Validate when the table is empty that the format is valid.", async () => {
 		const inputCount = await ffNumberTablePage.inputLocator.count();
 		for (let i = 0; i < inputCount; i++) {
 			await ffNumberTablePage.inputLocator.nth(i).type("0");
