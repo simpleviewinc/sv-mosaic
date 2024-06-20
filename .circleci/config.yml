@@ -57,6 +57,10 @@ jobs:
           name: Extract dist files
           command: |
             docker cp sv-mosaic:/app/dist dist
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+              - dist
   Build SB Static:
     docker:
       - image: cimg/base:2021.04
@@ -111,41 +115,65 @@ jobs:
       - run:
           name: Publish to Github pages
           command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
+  Publish to NPM:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - init
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Spin up container
+          command: |
+            docker-compose build mosaic
+            docker-compose create mosaic
+            docker cp dist mosaic:/app/dist
+            docker-compose run mosaic yarn publish
 
 workflows:
   main:
     jobs:
-      - Unit Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - sb-upgrade
+      # - Unit Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
       - Build Mosaic Dist:
           context: default
           filters:
             branches:
               only:
                 - sb-upgrade
-      - Build SB Static:
-          context: default
-          filters:
-            branches:
-              only:
-                - sb-upgrade
-      - E2E Tests:
+      # - Build SB Static:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
+      # - E2E Tests:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
+      # - Publish SB Static:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #       - Unit Tests
+      #       - E2E Tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
+      - Publish to NPM:
           context: default
           requires:
-            - Build SB Static
-          filters:
-            branches:
-              only:
-                - sb-upgrade
-      - Publish SB Static:
-          context: default
-          requires:
-            - Build SB Static
-            - E2E Tests
+            - Build Mosaic Dist
           filters:
             branches:
               only:
