@@ -128,10 +128,7 @@ jobs:
           command: |
             docker-compose build mosaic
             docker-compose up mosaic
-            docker cp dist mosaic:/app/dist
-            echo "HOST FIND"
-            find . -maxdepth 2
-            echo "CONTAINER FIND"
+            docker cp dist/. mosaic:/app/dist
             docker-compose run mosaic sh -c "find /app -maxdepth 2"
             # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
 
