@@ -134,46 +134,48 @@ jobs:
 workflows:
   main:
     jobs:
-      # - Unit Tests:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
+      - Unit Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - sb-upgrade
       - Build Mosaic Dist:
           context: default
           filters:
             branches:
               only:
                 - sb-upgrade
-      # - Build SB Static:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
-      # - E2E Tests:
-      #     context: default
-      #     requires:
-      #       - Build SB Static
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
-      # - Publish SB Static:
-      #     context: default
-      #     requires:
-      #       - Build SB Static
-      #       - Unit Tests
-      #       - E2E Tests
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
+      - Build SB Static:
+          context: default
+          filters:
+            branches:
+              only:
+                - sb-upgrade
+      - E2E Tests:
+          context: default
+          requires:
+            - Build SB Static
+          filters:
+            branches:
+              only:
+                - sb-upgrade
+      - Publish SB Static:
+          context: default
+          requires:
+            - Build SB Static
+            - Unit Tests
+            - E2E Tests
+          filters:
+            branches:
+              only:
+                - sb-upgrade
       - Publish to NPM:
           context: default
           requires:
             - Build Mosaic Dist
+            - Unit Tests
+            - E2E Tests
           filters:
             branches:
               only:
