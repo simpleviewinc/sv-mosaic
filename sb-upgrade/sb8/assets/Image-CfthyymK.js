@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime-qGIIFXMu.js";import{r as t}from"./index-CDs2tPxN.js";function s(e){return r.jsx("img",{className:e.className,src:e.src})}const i=t.memo(s);s.__docgenInfo={description:"",methods:[],displayName:"Image",props:{className:{required:!0,tsType:{name:"string"},description:""},src:{required:!0,tsType:{name:"string"},description:""}}};export{i as I};
