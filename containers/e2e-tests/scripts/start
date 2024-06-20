@@ -1,9 +1,6 @@
 #!/bin/bash
 
-cd automation_testing
-npm install
-
-STORYBOOK_URL=http://storybook:10001/iframe.html
+STORYBOOK_URL=http://sb-server:10001/ready
 INTERVAL=30
 
 until curl --head --silent --fail $STORYBOOK_URL 1> /dev/null 2>&1; do

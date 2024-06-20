@@ -20,6 +20,25 @@ jobs:
           command: |
             docker-compose build mosaic
             docker-compose run --name sv-mosaic mosaic yarn test
+  E2E Tests:
+    docker:
+      - image: cimg/base:2021.04
+    resource_class: large
+    steps:
+      - init
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Spin up containers
+          command: |
+            docker-compose build mosaic sb-server e2e-tests
+            docker-compose up mosaic sb-server e2e-tests
+      - run:
+          name: Copy Storybook static files
+          command: docker-compose cp storybook-static sb-server:/app/storybook-static
+      - run:
+          name: Mark server as ready
+          command: docker-compose exec sb-server touch /app/storybook-static/ready
   Build Mosaic Dist:
     docker:
       - image: cimg/base:2021.04
@@ -99,7 +118,7 @@ workflows:
             branches:
               only:
                 - sb-upgrade
-      - Publish SB Static:
+      - E2E Tests:
           context: default
           requires:
             - Build SB Static
@@ -107,3 +126,11 @@ workflows:
             branches:
               only:
                 - sb-upgrade
+      # - Publish SB Static:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade

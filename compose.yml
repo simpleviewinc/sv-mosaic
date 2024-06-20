@@ -32,6 +32,22 @@ services:
       - "10001:10001"
     depends_on:
       - mosaic
+  sb-server:
+    container_name: sb-server
+    image: node:18.18.2
+    working_dir: /app
+    command: npx --yes http-server ./storybook-static -p 10001 --silent
+    ports:
+      - "10001:10001"
+  e2e-tests:
+    container_name: e2e-tests
+    build: ./containers/e2e-tests
+    working_dir: /app
+    command: npm start
+    depends_on:
+      - mosaic
+    volumes:
+      - sv-mosaic-lib:/mosaic
   publisher:
     build: ./containers/publisher
     depends_on:
