@@ -32,7 +32,7 @@ if (CIRCLE_BRANCH === "master") {
 	// Creates a version like 1.0.0-qa-abcdef
 	pkg.version = `${pkg.version}-${CIRCLE_BRANCH}-${CIRCLE_SHA1.slice(0, 6)}`;
 
-    console.log(`Publishing version ${pkg.version}`);
+	console.log(`Publishing version ${pkg.version}`);
 
 	writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
 
