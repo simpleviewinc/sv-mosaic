@@ -136,7 +136,7 @@ jobs:
           command: |
             docker-compose build mosaic-types
             docker-compose up mosaic-types
-            docker-compose run mosaic-types cp -r /mosaic/dist /app/dist
+            docker-compose run mosaic-types cp -r /mosaic/dist/types /app/types
             docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
 
 workflows:
