@@ -15,7 +15,7 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 
 execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
-const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
+const raw = execSync("npm view @simpleview/sv-mosaic-types versions --json --quiet");
 const versions = JSON.parse(raw.toString());
 
 if (CIRCLE_BRANCH === "master") {
@@ -34,7 +34,7 @@ if (CIRCLE_BRANCH === "master") {
 	 */
 	pkg.version = `${pkg.version}-${CIRCLE_BRANCH}-${CIRCLE_SHA1.slice(0, 6)}`;
 
-	console.log(`Publishing @simpleview/sv-mosaic@${pkg.version}`);
+	console.log(`Publishing @simpleview/sv-mosaic-types@${pkg.version}`);
 
 	writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
 
