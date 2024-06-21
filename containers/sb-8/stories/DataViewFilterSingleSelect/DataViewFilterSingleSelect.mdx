@@ -1,0 +1,16 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from "./DataViewFilterSingleSelect.stories";
+
+<Meta of={stories} />
+
+# DataViewFilterSingleSelect
+
+`DataViewFilterSingleSelect` is a filter that can be used to pick a single value from an array of options.
+
+## Props
+
+All filters in `DataView` have a shared props definition. You will need to pass the appropriate `data`, `args` and `onChange` specific to this filter type.
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/DataViewFilterSingleSelect/DataViewFilterSingleSelectTypes.ts
+
+<Canvas of={stories.Playground} />
