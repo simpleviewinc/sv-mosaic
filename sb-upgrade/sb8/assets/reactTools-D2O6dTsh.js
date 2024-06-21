@@ -1,0 +1,1 @@
+import{r as e}from"./index-BP8_t0zE.js";function o(t){const s=e.useRef(t);return e.useEffect(()=>{s.current=t}),s}function n(){e.useEffect(()=>(document.body.parentElement.classList.add("resetHtml"),()=>{document.body.parentElement.classList.remove("resetHtml")}),[])}export{n as a,o as u};

@@ -1,1 +1,0 @@
-import{r as t}from"./index-CDs2tPxN.js";const u=t.createContext();function x(){return t.useContext(u)}function C({props:n,states:f,muiFormControl:e}){return f.reduce((o,r)=>(o[r]=n[r],e&&typeof n[r]>"u"&&(o[r]=e[r]),o),{})}export{u as F,C as f,x as u};
