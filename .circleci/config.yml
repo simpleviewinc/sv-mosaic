@@ -123,6 +123,10 @@ jobs:
       - init
       - attach_workspace:
           at: ~/project
+        # This isn't the way to do this, we should probably be
+        # comitting these containers to new images. It only works
+        # because we're mounting volumes sv-mosaic-lib/sv-mosaic-types
+        # volumes to all new mosaic/mosaic-types containers
       - run:
           name: Publish @simpleview/sv-mosaic
           command: |

@@ -46,3 +46,4 @@ services:
     tty: true
 volumes:
   sv-mosaic-lib:
+  sv-mosaic-types:
