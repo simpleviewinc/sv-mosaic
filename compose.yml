@@ -4,12 +4,9 @@ services:
     build: ./containers/mosaic
     volumes:
       - sv-mosaic-lib:/app
-      - ./containers/mosaic/dist:/app/dist
   mosaic-types:
     container_name: mosaic-types
     build: ./containers/mosaic-types
-    volumes:
-      - ./containers/mosaic/dist/types:/app/types
     depends_on:
       - mosaic
   sb5:
