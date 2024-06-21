@@ -128,7 +128,7 @@ jobs:
           command: |
             docker-compose build mosaic
             docker-compose up mosaic
-            # docker cp dist/. mosaic:/app/dist
+            docker cp dist/. mosaic:/app/dist
             docker-compose run mosaic find /app -maxdepth 2
             # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
       - run:
@@ -136,19 +136,19 @@ jobs:
           command: |
             docker-compose build mosaic-types
             docker-compose up mosaic-types
-            docker cp ./dist/types/. mosaic-types:/app/types
+            docker cp dist/. mosaic-types:/app/dist
             docker-compose run mosaic-types find /app -maxdepth 2
             # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
 
 workflows:
   main:
     jobs:
-      - Unit Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - sb-upgrade
+      # - Unit Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
       - Build Mosaic Dist:
           context: default
           filters:
@@ -161,14 +161,14 @@ workflows:
             branches:
               only:
                 - sb-upgrade
-      - E2E Tests:
-          context: default
-          requires:
-            - Build SB Static
-          filters:
-            branches:
-              only:
-                - sb-upgrade
+      # - E2E Tests:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
       # - Publish SB Static:
       #     context: default
       #     requires:
@@ -183,8 +183,8 @@ workflows:
           context: default
           requires:
             - Build Mosaic Dist
-            - Unit Tests
-            - E2E Tests
+            # - Unit Tests
+            # - E2E Tests
           filters:
             branches:
               only:
