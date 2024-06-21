@@ -16,11 +16,11 @@ jobs:
     resource_class: large
     steps:
       - init
-      # - run:
-      #     name: Run tests
-      #     command: |
-      #       docker-compose build mosaic
-      #       docker-compose run --name sv-mosaic mosaic yarn test
+      - run:
+          name: Run tests
+          command: |
+            docker-compose build mosaic
+            docker-compose run --name sv-mosaic mosaic yarn test
   E2E Tests:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
@@ -28,22 +28,22 @@ jobs:
     resource_class: large
     steps:
       - init
-      # - attach_workspace:
-      #     at: ~/project
-      # - run:
-      #     name: Spin up containers
-      #     command: |
-      #       docker-compose build mosaic sb-server e2e-tests
-      #       docker-compose up -d mosaic sb-server e2e-tests
-      # - run:
-      #     name: Copy Storybook static files
-      #     command: docker cp storybook-static sb-server:/app/storybook-static
-      # - run:
-      #     name: Mark server as ready
-      #     command: docker-compose exec sb-server touch /app/storybook-static/ready
-      # - run:
-      #     name: Attach to container
-      #     command: docker container attach e2e-tests
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Spin up containers
+          command: |
+            docker-compose build mosaic sb-server e2e-tests
+            docker-compose up -d mosaic sb-server e2e-tests
+      - run:
+          name: Copy Storybook static files
+          command: docker cp storybook-static sb-server:/app/storybook-static
+      - run:
+          name: Mark server as ready
+          command: docker-compose exec sb-server touch /app/storybook-static/ready
+      - run:
+          name: Attach to container
+          command: docker container attach e2e-tests
   Build Mosaic Dist:
     description: Builds Mosaic library distribution files and persists them to the pipeline workspace at ~/project/dist
     docker:
@@ -151,12 +151,12 @@ jobs:
 workflows:
   main:
     jobs:
-      # - Unit Tests:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
+      - Unit Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - sb-upgrade
       - Build Mosaic Dist:
           context: default
           filters:
@@ -169,30 +169,30 @@ workflows:
             branches:
               only:
                 - sb-upgrade
-      # - E2E Tests:
-      #     context: default
-      #     requires:
-      #       - Build SB Static
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
-      # - Publish SB Static:
-      #     context: default
-      #     requires:
-      #       - Build SB Static
-      #       - Unit Tests
-      #       - E2E Tests
-      #     filters:
-      #       branches:
-      #         only:
-      #           - sb-upgrade
+      - E2E Tests:
+          context: default
+          requires:
+            - Build SB Static
+          filters:
+            branches:
+              only:
+                - sb-upgrade
+      - Publish SB Static:
+          context: default
+          requires:
+            - Build SB Static
+            - Unit Tests
+            - E2E Tests
+          filters:
+            branches:
+              only:
+                - sb-upgrade
       - Publish to NPM:
           context: default
           requires:
             - Build Mosaic Dist
-            # - Unit Tests
-            # - E2E Tests
+            - Unit Tests
+            - E2E Tests
           filters:
             branches:
               only:
