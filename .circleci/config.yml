@@ -131,6 +131,14 @@ jobs:
             docker cp dist/. mosaic:/app/dist
             docker-compose run mosaic find /app -maxdepth 1
             # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
+      - run:
+          name: Spin up @simpleview/sv-mosaic-types
+          command: |
+            docker-compose build mosaic-types
+            docker-compose up mosaic-types
+            docker cp dist/types. mosaic-types:/app/types
+            docker-compose run mosaic-types find /app -maxdepth 1
+            # docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
 
 workflows:
   main:
@@ -161,16 +169,16 @@ workflows:
             branches:
               only:
                 - sb-upgrade
-      - Publish SB Static:
-          context: default
-          requires:
-            - Build SB Static
-            - Unit Tests
-            - E2E Tests
-          filters:
-            branches:
-              only:
-                - sb-upgrade
+      # - Publish SB Static:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #       - Unit Tests
+      #       - E2E Tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - sb-upgrade
       - Publish to NPM:
           context: default
           requires:
