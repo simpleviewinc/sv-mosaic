@@ -157,18 +157,21 @@ workflows:
             branches:
               only:
                 - sb-upgrade
+                - develop
       - Build Mosaic Dist:
           context: default
           filters:
             branches:
               only:
                 - sb-upgrade
+                - develop
       - Build SB Static:
           context: default
           filters:
             branches:
               only:
                 - sb-upgrade
+                - develop
       - E2E Tests:
           context: default
           requires:
@@ -177,6 +180,7 @@ workflows:
             branches:
               only:
                 - sb-upgrade
+                - develop
       - Publish SB Static:
           context: default
           requires:
@@ -187,6 +191,7 @@ workflows:
             branches:
               only:
                 - sb-upgrade
+                - develop
       - Publish to NPM:
           context: default
           requires:
