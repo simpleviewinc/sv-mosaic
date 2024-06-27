@@ -12,7 +12,7 @@ console.log(`Publishing to GitHub pages at ${CIRCLE_BRANCH}`);
 
 ghPages.publish("docs", {
 	branch: "gh-pages",
-	dest: CIRCLE_BRANCH,
+	dest: `sb8/${CIRCLE_BRANCH}`,
 	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
 	user: {
 		name: "Owen Allen",
