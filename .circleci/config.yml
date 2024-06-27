@@ -116,7 +116,7 @@ jobs:
           command: docker exec -t sv-mosaic-publisher sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Copy static files into container
-          command: docker cp storybook-static sv-mosaic-publisher:/app/docs/sb8
+          command: docker cp storybook-static sv-mosaic-publisher:/app/docs
       - run:
           name: Publish to Github pages
           command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
