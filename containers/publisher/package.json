@@ -1,0 +1,22 @@
+{
+    "name": "@simpleview/sv-mosaic-publisher",
+    "version": "36.0.0",
+    "description": "Mosaic UI Library",
+    "author": "Owen Allen <owenallenaz@gmail.com>",
+    "devDependencies": {
+        "@types/gh-pages": "^6.1.0",
+        "@types/node": "^20.14.6",
+        "gh-pages": "^6.1.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5"
+    },
+    "scripts": {
+        "publish:github-pages": "ts-node ./publish-github-pages.ts"
+    },
+    "packageManager": "yarn@3.1.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/simpleviewinc/sv-mosaic"
+    },
+    "license": "MIT"
+}

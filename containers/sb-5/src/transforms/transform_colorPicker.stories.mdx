@@ -1,0 +1,27 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { transform_colorPicker } from "@root/transforms/column_transforms";
+import { TransformExample } from "@root/transforms/utils/TransformExample";
+
+<Meta title="Utils/Transforms/ColorPicker"/>
+
+# transform_colorPicker
+
+Converts a hexadecimal string to a readonly Color Picker.
+
+#### Conversions
+
+* `"#a8001791"` => <TransformExample cb={transform_colorPicker()} data={"#a8001791"} />
+
+#### Args
+
+None
+
+#### Example
+
+```js
+import { transform_colorPicker } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_colorPicker()
+]
+```

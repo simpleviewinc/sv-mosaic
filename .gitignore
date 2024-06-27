@@ -1,5 +1,4 @@
 node_modules
-package-lock.json
 coverage
 automation_testing/node_modules
 automation_testing/test-results
@@ -17,3 +16,20 @@ dist/*
 !.yarn/versions
 
 .vscode/terminals.json
+
+# New containerisation
+
+containers/*/.pnp.*
+containers/*/.yarn/*
+!containers/*/.yarn/patches
+!containers/*/.yarn/plugins
+!containers/*/.yarn/releases
+!containers/*/.yarn/sdks
+!containers/*/.yarn/versions
+
+containers/mosaic/dist/*
+!containers/mosaic/dist/.gitkeep
+
+containers/sb-8/storybook-static
+
+*storybook.log

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+STORYBOOK_URL=http://sb-server:10001/ready
+INTERVAL=30
+
+until curl --head --silent --fail $STORYBOOK_URL 1> /dev/null 2>&1; do
+    echo "Storybook is not ready. Trying again in ${INTERVAL} seconds..."
+    sleep $INTERVAL
+done
+
+ENV=docker npm run test:chrome

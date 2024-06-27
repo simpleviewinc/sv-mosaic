@@ -1,0 +1,27 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { transform_dateFormat } from "@root/transforms/column_transforms";
+import { TransformExample } from "@root/transforms/utils/TransformExample";
+
+<Meta title="Utils/Transforms/DateFormat"/>
+
+# transform_dateFormat
+
+Converts a Date object into a month / day / year string.
+
+#### Conversions
+
+* `new Date("December 25, 2023")` => <TransformExample cb={transform_dateFormat()} data={new Date("December 25, 2023")} />
+
+#### Args
+
+None
+
+#### Example
+
+```js
+import { transform_dateFormat } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_dateFormat()
+]
+```
