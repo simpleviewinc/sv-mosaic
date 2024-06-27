@@ -1,0 +1,27 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { transform_chips } from "@root/transforms/column_transforms";
+import { TransformExample } from "@root/transforms/utils/TransformExample";
+
+<Meta title="Utils/Transforms/Chips"/>
+
+# transform_chips
+
+Converts an array of MosaicLabelValue elements into Chips.
+
+#### Conversions
+
+* `[{label: "Chip 1", value: "chip_1"}]` => <TransformExample cb={transform_chips()} data={[{label: "Chip 1", value: "chip_1"}]} />
+
+#### Args
+
+None
+
+#### Example
+
+```js
+import { transform_chips } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_chips()
+]
+```

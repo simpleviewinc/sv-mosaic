@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"jsx": "react",
+		"lib": [
+			"ES2019",
+			"DOM"
+		],
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"baseUrl": "./",
+		"paths": {
+			"@root/*": [
+				"../*"
+			]
+		},
+		"skipLibCheck": true,
+		"esModuleInterop": true
+	},
+	"include": [
+		"./**/*"
+	],
+	"exclude": []
+}
