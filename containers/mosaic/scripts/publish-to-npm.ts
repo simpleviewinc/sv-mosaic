@@ -23,7 +23,7 @@ if (CIRCLE_BRANCH === "master") {
 	 * When on master we publish to the main semver
 	 */
 	if (!versions.includes(pkg.version)) {
-		// execSync("npm publish --access public", { stdio: "inherit" });
+		execSync("npm publish --access public", { stdio: "inherit" });
 	} else {
 		console.log("Version published...");
 	}
