@@ -1,0 +1,18 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from "./DataViewFilterMultiselect.stories";
+
+<Meta of={stories} />
+
+# DataViewFilterMultiselect
+
+`DataViewFilterMultiselect` is a filter that can be used to pick multiple values from an array of options.
+
+## Props
+
+All filters in `DataView` have a shared props definition. You will need to pass the appropriate `data`, `args` and `onChange` specific to this filter type.
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/DataViewFilterMultiselect/DataViewFilterMultiselectTypes.ts
+
+To see how to use this component, go to any of its stories, make sure you’re on the “Canvas” tab (top left) and look for the “Story” addon (should be next to the knobs, if you can’t see any addons click on the menu to the right of the storybook logo, then make sure “Show addons” is active).
+
+<Canvas of={stories.Playground} />
