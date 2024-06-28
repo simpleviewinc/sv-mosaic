@@ -156,6 +156,7 @@ workflows:
           filters:
             branches:
               only:
+                - /pull.*/
                 - sb-upgrade
                 - develop
                 - qa
@@ -176,6 +177,7 @@ workflows:
           filters:
             branches:
               only:
+                - /pull.*/
                 - sb-upgrade
                 - develop
                 - qa
@@ -188,6 +190,7 @@ workflows:
           filters:
             branches:
               only:
+                - /pull.*/
                 - sb-upgrade
                 - develop
                 - qa
