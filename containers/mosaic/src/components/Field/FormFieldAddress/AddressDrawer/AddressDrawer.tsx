@@ -155,11 +155,11 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				label: "City",
 				/**
 				 * Addresses with a postal town have their city in the town component
-				 * but those without have their city in the administrative_area_level_2
+				 * but those without have their city in the locality
 				 * component. For example, UK addresses have a postal town, US addresses
 				 * do not.
 				 */
-				value: getComponentByType(hasPostalTown ? componentType.town : componentType.area2),
+				value: getComponentByType(hasPostalTown ? componentType.town : componentType.locality),
 				dataKey: "city",
 				emptyWarning: true,
 			},
