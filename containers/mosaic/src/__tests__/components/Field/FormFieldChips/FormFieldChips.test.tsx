@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
-import { render, cleanup, screen, waitFor } from "@testing-library/react";
+import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -12,7 +12,7 @@ import { getOptions } from "@root/utils/getOptions";
 
 afterEach(cleanup);
 
-const { getByText } = screen;
+const { getByText, getAllByRole } = screen;
 
 const FormFieldChipsExample = (props:{ fromDB: boolean }): ReactElement => {
 	const controller = useForm();
@@ -93,6 +93,26 @@ describe("FormFieldChips component", () => {
 		expect(getByText("Option 1")).toBeTruthy();
 		expect(getByText("Option 2")).toBeTruthy();
 		expect(getByText("Option 3")).toBeTruthy();
+	});
+
+	it("should select a Chip when clicked once and deselect it when clicked again", async () => {
+		const [chip1, chip2, chip3] = getAllByRole("option");
+
+		expect(chip1).not.toHaveAttribute("aria-selected");
+		expect(chip2).not.toHaveAttribute("aria-selected");
+		expect(chip3).not.toHaveAttribute("aria-selected");
+
+		await act(async () => {
+			await fireEvent.click(chip1);
+		});
+
+		expect(chip1).toHaveAttribute("aria-selected", "true");
+
+		await act(async () => {
+			await fireEvent.click(chip1);
+		});
+
+		expect(chip1).toHaveAttribute("aria-selected", "false");
 	});
 });
 
