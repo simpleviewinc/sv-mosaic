@@ -10,7 +10,7 @@ import * as React from "react";
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { AddressAutocompleteProps } from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
-import { addressQueryComponentMap } from "./geocodeAddressData";
+import { mockAddressData } from "./mockAddressData";
 import testArray from "@root/utils/testArray";
 
 const mockOnClose = jest.fn();
@@ -39,11 +39,11 @@ jest.mock("@root/components/Field/FormFieldAddress/AddressAutocomplete", () => {
 jest.mock("react-places-autocomplete", () => {
 	return {
 		geocodeByAddress: (query: string) => {
-			if (!addressQueryComponentMap[query]) {
-				throw new Error(`Address components are not defined for query "${query}"`);
+			if (!mockAddressData[query]) {
+				throw new Error(`Mock address data does not exist for query "${query}"`);
 			}
 
-			return addressQueryComponentMap[query];
+			return mockAddressData[query];
 		},
 	};
 });
@@ -51,7 +51,7 @@ jest.mock("react-places-autocomplete", () => {
 describe("Address API components", () => {
 	const tests = [
 		{
-			name: "should place the components returned from the API in the correct drawer fields",
+			name: "should place address components correctly for 337 Russell St, Hadley",
 			args: {
 				query: "337 Russell St, Hadley",
 				address1: "337 Russell Street",
@@ -61,6 +61,32 @@ describe("Address API components", () => {
 				city: "Hadley",
 				state: "Massachusetts",
 				postcode: "01035",
+			},
+		},
+		{
+			name: "should place address components correctly for Simpleview",
+			args: {
+				query: "Simpleview",
+				address1: "8950 North Oracle Road",
+				address2: "",
+				address3: "",
+				country: "United States",
+				city: "Oro Valley",
+				state: "Arizona",
+				postcode: "85704",
+			},
+		},
+		{
+			name: "should place address components correctly for 81 Sussex Gardens, Gloucester",
+			args: {
+				query: "81 Sussex Gardens, Gloucester",
+				address1: "81 Sussex Gardens",
+				address2: "Hucclecote",
+				address3: "",
+				country: "United Kingdom",
+				city: "Gloucester",
+				state: "Gloucestershire",
+				postcode: "GL3 3SP",
 			},
 		},
 	];
