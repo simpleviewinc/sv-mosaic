@@ -17,6 +17,7 @@ import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
 import FieldWrapper from "@root/components/FieldWrapper";
 import addressesAreEqual from "../utils/addressesAreEqual";
+import { validatePostcode } from "@root/components/Form/validators";
 
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
@@ -352,6 +353,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					inputSettings: {
 						getOptions: getOptionsCountries,
 					},
+					validates: [{
+						name: "postalCode",
+						include: [validatePostcode]
+					}]
 				},
 				{
 					name: "address2",
@@ -396,6 +401,9 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					inputSettings: {
 						type: "string",
 					},
+					validators: [
+						{ fn: "validatePostcode", options: { countryField: "country" } }
+					]
 				},
 				...typesField,
 			],
