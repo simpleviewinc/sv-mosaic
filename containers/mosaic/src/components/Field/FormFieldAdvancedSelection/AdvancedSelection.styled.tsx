@@ -7,11 +7,11 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { TransientProps } from "@root/types";
 import { ChipListPropsTypes } from "./AdvancedSelectionTypes";
 
-export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView" | "isModalOpen">>`
+export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView">>`
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
-  width: ${({ $isMobileView, $isModalOpen }) => $isMobileView || !$isModalOpen ? "" : "620px"};
+  width: ${({ $isMobileView }) => $isMobileView ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -20,10 +20,6 @@ export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldD
   & > * {
     margin-top: 8px;
   }
-`;
-
-export const OptionsCheckedModalWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isModalOpen">>`
-  margin: ${({ $isModalOpen }) => ($isModalOpen ? "15px" : "")};
 `;
 
 export const ShowHideSpan = styled.span`
