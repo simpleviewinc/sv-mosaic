@@ -138,6 +138,7 @@ export const StyledWrapper = styled("span")<TransientProps<ButtonProps, "fullWid
 	&.invisible {
 		visbility: hidden;
 		opacity: 0;
+		pointer-events: none;
 	}
 
 	${$fullWidth && `
