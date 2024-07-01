@@ -3205,6 +3205,7 @@ __metadata:
     json-date-parser: 1.0.1
     lodash: ^4.17.15
     nanoid: ^3.3.7
+    postcode-validator: ^3.8.21
     react: ^18.2.0
     react-color: ^2.19.3
     react-dom: ^18.2.0
@@ -8457,6 +8458,13 @@ __metadata:
   version: 1.0.0
   resolution: "possible-typed-array-names@npm:1.0.0"
   checksum: b32d403ece71e042385cc7856385cecf1cd8e144fa74d2f1de40d1e16035dba097bc189715925e79b67bdd1472796ff168d3a90d296356c9c94d272d5b95f3ae
+  languageName: node
+  linkType: hard
+
+"postcode-validator@npm:^3.8.21":
+  version: 3.8.21
+  resolution: "postcode-validator@npm:3.8.21"
+  checksum: d762f951b7df93026f5681e7b49d2dc12a643ef16066a348df5a4d9747175b869cc559e1c2dedd5e8080ead25408f794b4ca78cb3cbb4a111ae264de2db14148
   languageName: node
   linkType: hard
 
