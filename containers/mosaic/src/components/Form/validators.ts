@@ -1,7 +1,9 @@
 import { DATE_FORMAT_FULL } from "@root/constants";
+import { MosaicLabelValue, isLabelValue } from "@root/types";
 import { getHtmlText } from "@root/utils/dom/getHtmlText";
 import { getTextLength } from "@root/utils/string";
 import format from "date-fns/format";
+import { postcodeValidator, postcodeValidatorExistsForCountry } from 'postcode-validator';
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
@@ -204,4 +206,33 @@ export function validatePhoneNumber(value: string) {
 	}
 
 	return "Phone number must be exactly 10 numbers excluding the country code";
+}
+
+/**
+ * Validate that the postcode is a valid postcode according to
+ * the country in the same form data. If a country is not supported then
+ * validation passes regardless.
+ */
+export async function validatePostcode(value: string, data: any, { countryField }: { countryField: string }): Promise<string | undefined> {
+	if (!value) {
+		return;
+	}
+
+	const countryValue: MosaicLabelValue | string = data[countryField];
+
+	if (!countryValue) {
+		return;
+	}
+
+	const country = isLabelValue(countryValue) ? countryValue.value : countryValue;
+
+	if (!country || !postcodeValidatorExistsForCountry(country)) {
+		return;
+	}
+
+	if (!postcodeValidator(value, country)) {
+		return "This is not a valid postcode in the selected country";
+	}
+
+	return;
 }

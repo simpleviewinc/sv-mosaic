@@ -42,3 +42,16 @@ export type TransientProps<T, K extends keyof T = keyof T> = {
 };
 
 export type WithArrayOf<T> = T | T[];
+
+// Guards
+export function isLabelValue(input: unknown): input is MosaicLabelValue {
+	if (input === null || typeof input !== "object") {
+		return false;
+	}
+
+	if (!("value" in input) || !("label" in input)){
+		return false;
+	}
+
+	return true;
+}
