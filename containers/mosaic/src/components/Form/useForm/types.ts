@@ -79,7 +79,7 @@ export type GetFieldErrorParams = {
 export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | undefined>;
 
 export type GetFieldErrorsParams = {
-	names: (string | { name: string, include: Validator["fn"][] })[];
+	names: (string | { name: string; include: Validator["fn"][] })[];
 };
 
 export type GetFieldErrorsResult = {
