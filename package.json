@@ -19,8 +19,8 @@
     "scripts": {
         "release": "release-it",
         "bump-packages": "ts-node ./scripts/bump-packages.ts",
-        "docker": "docker compose -f compose.dev.yml build sb8 && docker compose -f compose.dev.yml run --rm --service-ports sb8 /bin/bash || true",
-        "docker:sb5": "docker compose -f compose.dev.yml build sb5 && docker compose -f compose.dev.yml run --rm --service-ports sb5 /bin/bash || true",
+        "docker": "docker compose -f compose.dev.yml build mosaic sb8 && docker compose -f compose.dev.yml run --rm --service-ports sb8 /bin/bash || true",
+        "docker:sb5": "docker compose -f compose.dev.yml build mosaic sb5 && docker compose -f compose.dev.yml run --rm --service-ports sb5 /bin/bash || true",
         "lint": "eslint . --config .eslintrc.ci.js"
     },
     "packageManager": "yarn@3.1.1",
