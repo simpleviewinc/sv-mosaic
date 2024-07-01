@@ -108,7 +108,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 			onChange({
 				...value,
 				time,
-				validTime: true,
+				// An empty field is still an acceptable input as far as
+				// the time field goes, but it doesn't mean it's a valid time.
+				validTime: Boolean(time),
 			});
 		}
 	};
