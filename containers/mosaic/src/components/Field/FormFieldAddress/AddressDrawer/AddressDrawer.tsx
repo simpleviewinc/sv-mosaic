@@ -355,8 +355,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 					},
 					validates: [{
 						name: "postalCode",
-						include: [validatePostcode]
-					}]
+						include: [validatePostcode],
+					}],
 				},
 				{
 					name: "address2",
@@ -402,8 +402,8 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 						type: "string",
 					},
 					validators: [
-						{ fn: "validatePostcode", options: { countryField: "country" } }
-					]
+						{ fn: "validatePostcode", options: { countryField: "country" } },
+					],
 				},
 				...typesField,
 			],

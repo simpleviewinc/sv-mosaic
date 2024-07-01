@@ -49,7 +49,7 @@ export function isLabelValue(input: unknown): input is MosaicLabelValue {
 		return false;
 	}
 
-	if (!("value" in input) || !("label" in input)){
+	if (!("value" in input) || !("label" in input)) {
 		return false;
 	}
 
