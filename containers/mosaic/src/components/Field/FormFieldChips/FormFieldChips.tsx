@@ -99,6 +99,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 		<StyledChipGroup
 			$error={errorWithMessage || (errorWithMessage && required)}
 			onBlur={onBlur}
+			role="listbox"
 		>
 			{internalOptions.map((option) => (
 				<Chip
@@ -107,6 +108,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 					disabled={disabled}
 					selected={option.selected}
 					onClick={() => updateSelectedOption(option)}
+					role="option"
 				/>
 			))}
 		</StyledChipGroup>
