@@ -19,7 +19,7 @@ import { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import { MosaicToggle } from "@root/types";
 import { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import { FieldValueResolver, FormSpacing } from "../Form";
-import { FormMethods, FormState } from "../Form/useForm/types";
+import { FormMethods, FormState, Validator } from "../Form/useForm/types";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -156,7 +156,7 @@ export interface FieldDefBase<Type, T = any> {
 	 * An array of other field names to validate when
 	 * this one gets validated
 	 */
-	validates?: string[];
+	validates?: (string | { name: string, include: Validator["fn"][] })[];
 	/**
 	 * Identifier passed by the developer
 	 */
