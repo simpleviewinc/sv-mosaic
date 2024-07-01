@@ -31,7 +31,6 @@ export type AdvancedSelectionInputSettings = AdvancedSelectionLocalOptions | Adv
 export interface ChipListPropsTypes {
 	fieldDef: {
 		inputSettings: {
-			isModalOpen: boolean;
 			isMobileView: boolean;
 			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
 		};
