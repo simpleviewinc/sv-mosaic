@@ -157,7 +157,6 @@ workflows:
             branches:
               only:
                 - /pull.*/
-                - sb-upgrade
                 - develop
                 - qa
                 - staging
@@ -167,9 +166,6 @@ workflows:
           filters:
             branches:
               only:
-                - sb-upgrade
-                - develop
-                - qa
                 - staging
                 - master
       - Build SB Static:
@@ -178,7 +174,6 @@ workflows:
             branches:
               only:
                 - /pull.*/
-                - sb-upgrade
                 - develop
                 - qa
                 - staging
@@ -191,7 +186,6 @@ workflows:
             branches:
               only:
                 - /pull.*/
-                - sb-upgrade
                 - develop
                 - qa
                 - staging
@@ -205,7 +199,6 @@ workflows:
           filters:
             branches:
               only:
-                - sb-upgrade
                 - develop
                 - qa
                 - staging
@@ -219,6 +212,5 @@ workflows:
           filters:
             branches:
               only:
-                - sb-upgrade
                 - staging
                 - master
