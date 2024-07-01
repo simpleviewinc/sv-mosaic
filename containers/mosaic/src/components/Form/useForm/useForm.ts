@@ -45,6 +45,7 @@ export function useForm(): UseFormReturn {
 
 	const getFieldError = useCallback<GetFieldError>(async ({
 		name,
+		include,
 	}) => {
 		const { data, internalValidators } = stable.current;
 		const field = getFieldFromExtra(name);
@@ -83,7 +84,7 @@ export function useForm(): UseFormReturn {
 		const validatorsMap = mapsValidators([
 			...(internalValidators[name] || []),
 			...validators,
-		]);
+		]).filter(validator => !include || include.includes(validator.fn));
 
 		const result = await runValidators(validatorsMap, data[name], data);
 
@@ -97,8 +98,13 @@ export function useForm(): UseFormReturn {
 	const getFieldErrors = useCallback<GetFieldErrors>(async ({
 		names,
 	}) => {
-		const list = await Promise.all(names.map(async name => {
-			const error = await getFieldError({ name });
+		const list = await Promise.all(names.map(async item => {
+			const { name, include } = typeof item === "object" ? item : {
+				name: item,
+				include: undefined,
+			};
+
+			const error = await getFieldError({ name, include });
 
 			return {
 				name,
@@ -149,8 +155,12 @@ export function useForm(): UseFormReturn {
 		};
 
 		if (validateLinkedFields && field.validates) {
-			const linkedFieldNames = field.validates.filter(name => fieldCanBeValidated({ name }));
-			const { errors: linkedFieldErrors } = await getFieldErrors({ names: linkedFieldNames });
+			const linkedFields = field.validates.map(item => (typeof item === "object" ? item : {
+				name: item,
+				include: undefined,
+			})).filter(({ name }) => fieldCanBeValidated({ name }));
+
+			const { errors: linkedFieldErrors } = await getFieldErrors({ names: linkedFields });
 
 			Object.assign(errors, linkedFieldErrors);
 		}
