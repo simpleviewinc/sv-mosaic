@@ -156,7 +156,7 @@ export interface FieldDefBase<Type, T = any> {
 	 * An array of other field names to validate when
 	 * this one gets validated
 	 */
-	validates?: (string | { name: string, include: Validator["fn"][] })[];
+	validates?: (string | { name: string; include: Validator["fn"][] })[];
 	/**
 	 * Identifier passed by the developer
 	 */

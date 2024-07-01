@@ -3,7 +3,7 @@ import { MosaicLabelValue, isLabelValue } from "@root/types";
 import { getHtmlText } from "@root/utils/dom/getHtmlText";
 import { getTextLength } from "@root/utils/string";
 import format from "date-fns/format";
-import { postcodeValidator, postcodeValidatorExistsForCountry } from 'postcode-validator';
+import { postcodeValidator, postcodeValidatorExistsForCountry } from "postcode-validator";
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
