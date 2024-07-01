@@ -32,6 +32,7 @@ const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement 
 			ref={ref}
 			disabled={disabled}
 			$selected={selected}
+			aria-selected={selected}
 			onClick={onClick}
 			data-testid="chip-testid"
 		/>
