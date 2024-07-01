@@ -9,7 +9,6 @@ import {
 import { ChipListPropsTypes } from ".";
 import {
 	ChipsWrapper,
-	OptionsCheckedModalWrapper,
 	ShowHideSpan,
 	StyledExpandLessIcon,
 	StyledExpandMoreIcon,
@@ -45,9 +44,8 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 	};
 
 	return value?.length > 0 && (
-		<OptionsCheckedModalWrapper ref={ref} $isModalOpen={fieldDef?.inputSettings?.isModalOpen}>
+		<div ref={ref}>
 			<ChipsWrapper
-				$isModalOpen={fieldDef?.inputSettings?.isModalOpen}
 				$isMobileView={fieldDef?.inputSettings?.isMobileView}
 				data-testid="as-chiplist"
 			>
@@ -87,7 +85,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 					)}
 				</div>
 			)}
-		</OptionsCheckedModalWrapper>
+		</div>
 	);
 });
 

@@ -86,7 +86,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 
 	return (
 		<>
-			{value?.length > 0 && !isModalOpen ? (
+			{value?.length > 0 ? (
 				<AdvancedSelectionWrapper>
 					{(selectLimit < 0 || value?.length < selectLimit) && (
 						<Button
@@ -103,7 +103,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 						value={value}
 						fieldDef={{
 							inputSettings: {
-								isModalOpen,
 								isMobileView,
 								deleteSelectedOption,
 							},
@@ -122,7 +121,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 			)}
 			<Drawer
 				open={isModalOpen}
-				onClose={handleClose} backdropCloseHandler={false}
+				onClose={handleClose}
+				backdropCloseHandler={false}
 			>
 				<AdvancedSelectionDrawer
 					value={value ?? []}
