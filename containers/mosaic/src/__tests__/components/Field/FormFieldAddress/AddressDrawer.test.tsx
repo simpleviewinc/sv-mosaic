@@ -48,6 +48,15 @@ jest.mock("react-places-autocomplete", () => {
 	};
 });
 
+const getCommonAddressDrawerProps = () => ({
+	getOptionsCountries: getOptionsCountries,
+	getOptionsStates: getOptionsStates,
+	googleMapsApiKey: "",
+	handleClose: mockOnClose,
+	handleUnsavedChanges: mockOnUnsavedChanges,
+	onSave: mockOnSave,
+});
+
 describe("Address API components", () => {
 	const tests = [
 		{
@@ -94,14 +103,7 @@ describe("Address API components", () => {
 	testArray(tests, async ({ query, ...values }) => {
 		await act(async () => {
 			render(
-				<AddressDrawer
-					getOptionsCountries={getOptionsCountries}
-					getOptionsStates={getOptionsStates}
-					googleMapsApiKey=""
-					handleClose={mockOnClose}
-					handleUnsavedChanges={mockOnUnsavedChanges}
-					onSave={mockOnSave}
-				/>,
+				<AddressDrawer {...getCommonAddressDrawerProps()} />,
 			);
 		});
 
@@ -126,5 +128,83 @@ describe("Address API components", () => {
 		expect(city).toHaveValue(values.city);
 		expect(state).toHaveValue(values.state);
 		expect(postcode).toHaveValue(values.postcode);
+	});
+});
+
+describe("Address drawer country postcode validation", () => {
+	it("should not produce an error if a postcode is entered when no country is selected", async () => {
+		await act(async () => {
+			render(
+				<AddressDrawer {...getCommonAddressDrawerProps()} />,
+			);
+		});
+
+		const postcodeInput = screen.getByLabelText("Postal Code*");
+
+		await act(async () => {
+			fireEvent.change(postcodeInput, { target: { value: "12345" } });
+			fireEvent.blur(postcodeInput);
+		});
+
+		expect(screen.queryByText("This is not a valid postcode in the selected country")).toBeNull();
+	});
+
+	it("should not produce an error if a postcode is entered when an unsupported country is selected", async () => {
+		await act(async () => {
+			render(
+				<AddressDrawer
+					{...getCommonAddressDrawerProps()}
+					addressToEdit={{
+						address1: "123 Fake St",
+						city: "Malesbury",
+						state: { value: "terson", label: "Terson" },
+						country: { label: "Afghanistan", value: "AF" },
+						postalCode: "12345",
+						types: [],
+					}}
+				/>,
+			);
+		});
+
+		const postcodeInput = screen.getByLabelText("Postal Code*");
+
+		await act(async () => {
+			fireEvent.change(postcodeInput, { target: { value: "gle" } });
+			fireEvent.blur(postcodeInput);
+		});
+
+		expect(screen.queryByText("This is not a valid postcode in the selected country")).toBeNull();
+	});
+
+	it("should produce an error if an invalid postcode is entered for the selected country", async () => {
+		await act(async () => {
+			render(
+				<AddressDrawer
+					getOptionsCountries={getOptionsCountries}
+					getOptionsStates={getOptionsStates}
+					googleMapsApiKey=""
+					handleClose={mockOnClose}
+					handleUnsavedChanges={mockOnUnsavedChanges}
+					onSave={mockOnSave}
+					addressToEdit={{
+						address1: "123 Fake St",
+						city: "Malesbury",
+						state: { value: "terson", label: "Terson" },
+						country: { label: "United States", value: "US" },
+						postalCode: "12345",
+						types: [],
+					}}
+				/>,
+			);
+		});
+
+		const postcodeInput = screen.getByLabelText("Postal Code*");
+
+		await act(async () => {
+			fireEvent.change(postcodeInput, { target: { value: "gl44ab" } });
+			fireEvent.blur(postcodeInput);
+		});
+
+		expect(screen.queryByText("This is not a valid postcode in the selected country")).not.toBeNull();
 	});
 });

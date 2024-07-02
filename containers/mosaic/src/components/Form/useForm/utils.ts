@@ -10,6 +10,7 @@ import {
 	validatePhoneNumber,
 	validateSlow,
 	validateURL,
+	validatePostcode,
 } from "../validators";
 import {
 	FormStable,
@@ -77,6 +78,7 @@ export function mapsValidators(validators): Validator[] {
 		validateSlow: validateSlow,
 		validateURL: validateURL,
 		validatePhoneNumber: validatePhoneNumber,
+		validatePostcode: validatePostcode,
 	};
 
 	return validators.map(validator => {
