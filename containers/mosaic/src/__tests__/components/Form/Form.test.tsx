@@ -1,8 +1,18 @@
-import testArray from "@root/utils/testArray";
 import * as assert from "assert";
+import { testArray, TestDef } from "@simpleview/mochalib";
 import { FieldDef } from "@root/components/Field";
 import { generateLayout } from "@root/components/Form/Layout/layoutUtils";
 import { SectionDef } from "@root/components/Form";
+
+type Test = ({
+	type: "fields";
+	data: FieldDef[];
+} | {
+	type: "sections";
+	data: SectionDef[];
+}) & {
+	result: SectionDef[];
+};
 
 describe("Layout logic", () => {
 	const fields: FieldDef[] = [
@@ -49,7 +59,7 @@ describe("Layout logic", () => {
 		},
 	];
 
-	const tests = [
+	const tests: TestDef<Test>[] = [
 		{
 			name: "Create layout with only fields",
 			args: {

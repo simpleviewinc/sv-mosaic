@@ -6,12 +6,23 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import * as React from "react";
+import { testArray, TestDef } from "@simpleview/mochalib";
 
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { AddressAutocompleteProps } from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import { mockAddressData } from "./mockAddressData";
-import testArray from "@root/utils/testArray";
+
+interface Test {
+	query: string;
+	address1: string;
+	address2: string;
+	address3: string;
+	country: string;
+	city: string;
+	state: string;
+	postcode: string;
+}
 
 const mockOnClose = jest.fn();
 const mockOnUnsavedChanges = jest.fn();
@@ -58,7 +69,7 @@ const getCommonAddressDrawerProps = () => ({
 });
 
 describe("Address API components", () => {
-	const tests = [
+	const tests: TestDef<Test>[] = [
 		{
 			name: "should place address components correctly for 337 Russell St, Hadley",
 			args: {
