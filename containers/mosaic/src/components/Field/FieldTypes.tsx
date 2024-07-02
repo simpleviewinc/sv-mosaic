@@ -8,6 +8,7 @@ import { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
 import { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
 import { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
 import { FieldDefMatrix } from "@root/components/Field/FormFieldMatrix";
+import { FieldDefNumber } from "@root/components/Field/FormFieldNumber";
 import { FieldDefNumberTable } from "@root/components/Field/FormFieldNumberTable";
 import { FieldDefPhoneSelection } from "@root/components/Field/FormFieldPhone";
 import { FieldDefRadio } from "@root/components/Field/FormFieldRadio";
@@ -200,6 +201,7 @@ export type FieldDef =
 	| FieldDefAddress
 	| FieldDefUpload
 	| FieldDefCustom
+	| FieldDefNumber
 	| FieldDefNumberTable
 	| FieldDefRaw;
 

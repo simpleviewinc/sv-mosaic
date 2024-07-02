@@ -17,6 +17,7 @@ import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvanced
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
 import FormFieldUpload, { UploadData, UploadDataPending, isPendingUploadData } from "@root/components/Field/FormFieldUpload";
+import FormFieldNumber from "@root/components/Field/FormFieldNumber";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import { matchTime } from "@root/utils/date";
 
@@ -192,6 +193,11 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 				internalValue: value || [],
 			};
 		},
+	},
+	number: {
+		Component: FormFieldNumber,
+		validate: "onBlurAmend",
+		getResolvedValue: defaultResolver,
 	},
 	numberTable: {
 		Component: FormFieldNumberTable,

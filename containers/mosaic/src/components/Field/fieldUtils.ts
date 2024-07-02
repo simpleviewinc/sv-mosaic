@@ -18,6 +18,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	mapCoordinates: Sizes.sm,
 	matrix: Sizes.full,
 	upload: Sizes.md,
+	number: Sizes.sm,
 	numberTable: Sizes.full,
 	raw: Sizes.full,
 };
