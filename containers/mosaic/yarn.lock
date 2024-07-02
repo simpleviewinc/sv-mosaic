@@ -3146,6 +3146,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@simpleview/mochalib@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@simpleview/mochalib@npm:2.0.2"
+  checksum: 33efc0e10d3b0a6669253d7e975396edb1621ecd50f92992a16f6c35f62fa25b649b6827c3547c45bb1087f263dbd764565f70b2e3eef960b21f08444ed474af
+  languageName: node
+  linkType: hard
+
 "@simpleview/react-phone-input-2@npm:2.16.4":
   version: 2.16.4
   resolution: "@simpleview/react-phone-input-2@npm:2.16.4"
@@ -3179,6 +3186,7 @@ __metadata:
     "@mui/styles": ^5.6.2
     "@mui/x-date-pickers": ^5.0.0-beta.0
     "@react-google-maps/api": ^2.7.0
+    "@simpleview/mochalib": ^2.0.2
     "@simpleview/react-phone-input-2": 2.16.4
     "@stylistic/eslint-plugin": ^1.6.0
     "@testing-library/jest-dom": 5.16.4

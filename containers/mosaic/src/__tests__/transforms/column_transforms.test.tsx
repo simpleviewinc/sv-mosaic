@@ -1,6 +1,7 @@
 import * as React from "react";
+import { testArray, TestDef } from "@simpleview/mochalib";
+
 import * as transforms from "@root/transforms/column_transforms";
-import testArray from "@root/utils/testArray";
 import * as assert from "assert";
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
@@ -9,7 +10,12 @@ afterEach(cleanup);
 
 describe(__filename, function() {
 	describe("transform_boolean", function() {
-		const tests = [
+		interface Test {
+			data: boolean;
+			result: "Yes" | "No";
+		}
+
+		const tests: TestDef<Test>[] = [
 			{
 				name: "true",
 				args: {
@@ -41,7 +47,12 @@ describe(__filename, function() {
 	});
 
 	describe("transform_join", function() {
-		const tests = [
+		interface Test {
+			data: string[];
+			result: string;
+		}
+
+		const tests: TestDef<Test>[] = [
 			{
 				name: "single entry",
 				args: {
@@ -73,7 +84,13 @@ describe(__filename, function() {
 	});
 
 	describe("transform_mapGet", function() {
-		const tests = [
+		interface Test {
+			data: any;
+			path: string;
+			result: string[];
+		}
+
+		const tests: TestDef<Test>[] = [
 			{
 				name: "bottom level key",
 				args: {

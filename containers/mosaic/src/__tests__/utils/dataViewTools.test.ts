@@ -1,23 +1,31 @@
-import testArray from "../utils/testArray";
+import { testArray, TestDef } from "@simpleview/mochalib";
 import * as assert from "assert";
+
+import type { DataViewColumn, DataViewProps } from "@root/components/DataView";
 
 import {
 	transformColumn,
 	transformRows,
-} from "./dataViewTools";
+} from "@root/utils/dataViewTools";
 
 describe(__filename, function() {
 	describe("transformColumn", function() {
-		const tests = [
+		interface Test {
+			data: DataViewProps["data"][number];
+			column: DataViewColumn;
+			result: any;
+		}
+
+		const tests: TestDef<Test>[] = [
 			{
 				name : "simple",
 				args : {
-					data : { foo : 2 },
+					data : { id: "1", foo : 2 },
 					column : {
 						name : "foo",
 						transforms : [
 							({ data }) => {
-								return data * 2;
+								return (data as any) * 2;
 							},
 						],
 					},
@@ -27,15 +35,15 @@ describe(__filename, function() {
 			{
 				name : "multiple transforms",
 				args : {
-					data : { foo : 2 },
+					data : { id: "1", foo : 2 },
 					column : {
 						name : "foo",
 						transforms : [
 							({ data }) => {
-								return data * 2;
+								return (data as any) * 2;
 							},
 							({ data }) => {
-								return data * 3;
+								return (data as any) * 3;
 							},
 						],
 					},
@@ -45,7 +53,7 @@ describe(__filename, function() {
 			{
 				name : "transform with no data return undefined",
 				args : {
-					data : {},
+					data : { id: "1" },
 					column : {
 						name : "foo",
 						transforms : [
@@ -60,7 +68,7 @@ describe(__filename, function() {
 			{
 				name : "transform access another column",
 				args : {
-					data : { id : 2, foo : "fooValue" },
+					data : { id : "2", foo : "fooValue" },
 					column : {
 						name : "foo",
 						transforms : [
@@ -81,13 +89,19 @@ describe(__filename, function() {
 	});
 
 	describe("transformRows", function() {
-		const tests = [
+		interface Test {
+			data: DataViewProps["data"];
+			columns: DataViewColumn[];
+			result: any;
+		}
+
+		const tests: TestDef<Test>[] = [
 			{
 				name : "simple",
 				args : {
 					data : [
-						{ id : 1, foo : "fooValue" },
-						{ id : 2, foo : "fooValue2" },
+						{ id : "1", foo : "fooValue" },
+						{ id : "2", foo : "fooValue2" },
 					],
 					columns : [
 						{
