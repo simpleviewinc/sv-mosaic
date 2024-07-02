@@ -823,6 +823,7 @@ export const Playground = ({
 					alert(`EDIT ${data.id}`);
 				},
 				show: () => primaryActions,
+				tooltip: "Edit",
 			},
 			{
 				name: "draft",
@@ -833,6 +834,7 @@ export const Playground = ({
 					alert(`VIEW DRAFT ${data.id}`);
 				},
 				show: ({ row }) => primaryActions && Boolean(row.hasDraft),
+				tooltip: "Create Draft",
 			},
 		],
 		additionalActions: [
