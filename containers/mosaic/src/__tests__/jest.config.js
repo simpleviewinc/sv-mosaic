@@ -19,6 +19,7 @@ module.exports = {
 	modulePathIgnorePatterns: ["<rootDir>/automation_testing"],
 	testMatch: [
 		"**/src/__tests__/**/*.test.tsx",
+		"**/src/__tests__/**/*.test.ts",
 		"**/src/__tests__/quality/**/*.test.js",
 	],
 };
