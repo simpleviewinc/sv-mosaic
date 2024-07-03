@@ -1,0 +1,26 @@
+import { Meta  } from '@storybook/blocks';
+
+<Meta title="Utils/Transforms/Join"/>
+
+# transform_join
+
+Converts array of values into comma separated string.
+
+#### Conversions
+
+* `["foo", "bar", "baz"]` => `"Foo, bar, baz"`
+* `[]` => `""`
+
+#### Args
+
+None
+
+#### Example
+
+```js
+import { transform_join } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_join()
+]
+```

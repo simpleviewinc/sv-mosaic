@@ -1,0 +1,27 @@
+import { Meta  } from '@storybook/blocks';
+
+<Meta title="Utils/Transforms/MapGet"/>
+
+# transform_mapGet
+
+Executes a [lodash.map](https://lodash.com/docs/#map) and a [lodash.get](https://lodash.com/docs/#get). This is useful when you want to convert an array of objects into an array of values.
+
+You may often combine this transform with `transform_join` to extract an array of values, and then join it into a comma-separated list.
+
+#### Conversions
+
+* `transform_get("foo.bar")` - `[{ foo : { bar : "value" } }, { foo : { bar : "value2" } }]` => `["value", "value2"]`
+
+#### Args
+
+* **path** - A path supported by `lodash.get` so likely something like `path.to.value` or `["path", "to", "value"]`. See their docs for full potential.
+
+#### Example
+
+```js
+import { transform_mapGet } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_mapGet(path)
+]
+```
