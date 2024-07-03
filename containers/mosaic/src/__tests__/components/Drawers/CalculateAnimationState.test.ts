@@ -1,9 +1,16 @@
-import testArray from "../../utils/testArray";
-import calculateAnimationState from "./calculateAnimationState";
 import * as assert from "assert";
+import { testArray, TestDef } from "@simpleview/mochalib";
+
+import calculateAnimationState from "@root/components/Drawers/calculateAnimationState";
 
 describe("Calculate animation state", () => {
-	const tests = [
+	interface Test {
+		bools: boolean[];
+		animating: boolean;
+		result: ("closing" | "opening" | "open" | "stacking" | "stacked" | "unstacking")[];
+	}
+
+	const tests: TestDef<Test>[] = [
 		{
 			name: "Pass an empty array of booleans",
 			args: {
