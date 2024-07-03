@@ -1,0 +1,70 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './FormFieldRadio.stories';
+
+<Meta of={stories} />
+
+# Radio
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- A group of radio buttons allows users to select a single item from a list of possible options.
+- All possible options are exposed up front for comparison.
+- Users can only make a single selection from the list of possible options.
+- [**Playground**](/?path=/story/formfields-formfieldradio--playground)
+- Data: `string` - Value of the selected option.
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`options`** | `MosaicLabelValue[]` | required - Predefined set of mutually exclusive options. |
+| **`getOptions`** | `() => Promise<MosaicLabelValue[]>` | required - Function to get a set of options. This prop only applies when getting options from a DB. |
+
+
+### How to use in a form?
+```ts
+//Option recommended when getting options locally.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					options: [
+						{
+							label: "Label 1",
+							value: "label_1",
+						},
+						{
+							label: "Label 2",
+							value: "label_2",
+						},
+						{
+							label: "Label 3",
+							value: "label_3",
+						},
+					],
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+
+//Option recommended when getting options from a database.
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "radio",
+				inputSettings: {
+					getOptions: myGetOptionsFn,
+				}
+			},
+			//...other fields
+		],
+	[]
+);
+```

@@ -1,0 +1,36 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './SideNav.stories';
+
+<Meta of={stories} />
+
+# SideNav
+
+A `SideNav` section tab helps users navigate through different sections under the record.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/SideNav/SideNavTypes.ts
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`active`** | `boolean` | Optional - Defines which is the active link and highlights it. |
+| **`items`** | `Item[][]` | Required - List of sections of links that contains a list of links items.|
+| **`onNav`** | `(args: item: Item, event: MouseEvent): void` | Optional - When a nav item does not have its own onNav function defined, this function will be executed.|
+
+### Item
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`action`** | `{ icon: SvgIconComponent; onClick: () => void }` | Optional - Each link could have an optional action which consists of an icon that will be displayed when hovering over the link and an onClick callback. |
+| **`attrs`** | `AnchorHTMLAttributes<HTMLAnchorElement>` | Optional - Anchor element attributes.|
+| **`badge`** | `string` | Optional - Descriptive mark of the link. |
+| **`icon`** | `SvgIconComponent` | Optional - Icon that will be rendered to the left of the link.|
+| **`label`** | `string` | Required - Label that names the link. |
+| **`name`** | `string` | Required - Name of the item. It is used to set it as active when is clicked.. |
+| **`onNav`** | `(args: item: Item, event: MouseEvent): void` | Optional - Callback that each link will execute on an onClick event.. |
+| **`show`** | `MosaicToggle` | Optional - Whether or not to show or hide this item |
+
+
+## SideNav
+
+<Canvas of={stories.Playground} />

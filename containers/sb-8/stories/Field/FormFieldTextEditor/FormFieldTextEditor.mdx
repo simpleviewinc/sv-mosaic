@@ -1,0 +1,43 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './FormFieldTextEditor.stories';
+
+<Meta of={stories} />
+
+## Text Editor
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area.
+- This implementation is based on the [Jodit WYSIWYG Editor](https://www.npmjs.com/package/jodit) package.
+- [**Playground**](/?path=/story/formfields-formfieldtexteditor--playground)
+- Data: `string` - Value of the input typed.
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`direction`** | `"rtl" | "ltr" | ""` | optional - Defines the starting point at which the typed words will be displayed, "lrt" starts from the left moving to the right and "rlt" vice versa. Default is "rlt". |
+| **`language`** | `string` | optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter. |
+| **`maxCharacters`** | `number` | optional - Defines the limit of characters that are allow to type in the input element. |
+| **`spellcheck`** | `boolean` | optional - If it's enabled the text editor will mark misspellings. |
+
+### How to use in a form?
+
+```ts
+const fields: FieldDef[] = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "textEditor",
+				inputSettings: {
+					spellcheck: true,
+					direction: "rlt",
+					language: "en",
+					maxCharacters: 20,
+				},
+			},
+			//...other fields
+		],
+	[]
+);
+```
