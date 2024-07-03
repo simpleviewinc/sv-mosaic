@@ -1,0 +1,22 @@
+import { Meta  } from '@storybook/blocks';
+
+<Meta title='Utils/Hooks/useScrollSpy' />
+
+# useScrollSpy
+
+The useScrollSpy hook can be used to align navigation active states with other elements - such as sections - on the page.
+
+## Parameters
+
+| name | required | type | description |
+| ---- | -------- | ---- | ----------- |
+| refs | ✅ | `HTMLElement[]` | Array of references to the sections to spy on. The references should DOM elements and the array should be in the order that the elements appear on the page |
+| container | | `HTMLElement` | The DOM element that is the scrollable viewport |
+| threshold | | `number` | The amount of the page that the top of each section should intersect to be considered active. Defaults to 0.2 |
+
+## Result
+
+| name | type | description |
+| ---- | ---- | ----------- |
+| activeSection | `number` | The active section's index |
+| setActiveSection | `(index: number) => void` | A function that can be used to set the active section. The corresponding section will be scrolled into view. The active section that was previously determined by scroll events will be overridden by the given section. |
