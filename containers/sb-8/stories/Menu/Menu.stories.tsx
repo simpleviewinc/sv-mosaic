@@ -67,7 +67,7 @@ Playground.argTypes = {
 	},
 };
 
-export const withIcons = (): ReactElement => {
+export const WithIcons = (): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = [
 		{
 			label : "Item A",
