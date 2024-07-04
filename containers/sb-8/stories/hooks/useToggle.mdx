@@ -1,0 +1,125 @@
+import { Meta  } from '@storybook/blocks';
+
+<Meta title='Utils/Hooks/useToggle' />
+
+# useToggle
+
+The `useToggle` and `useWrappedToggle` hooks can be used to evaluate a `MosaicToggle` and return a boolean or filtered list depending on what is required.
+It takes a single item or array of items containing a toggle property that is of type `MosaicToggle`. It returns either true or false if a single item is
+provided, or the filtered array if an array is provided.
+
+If an array-based `MosaicToggle` is provided, the resulting toggle is based on whether or not the `defaultToggle` property is true or false. If `true`,
+the resulting toggle will be `true` if **all** of the evaluated array items are true. If `false`, that will be inverted and the resulting toggle will be
+`true` if **at least one** of the evaluated array items are true.
+
+## Parameters
+
+| name | required | type | description |
+| ---- | -------- | ---- | ----------- |
+| items | ✅ | `T` or `T[]` | The item or items containing the show property |
+| key | ✅ | `keyof T` | The property that holds a valid toggle boolean/callback/array |
+| defaultToggle | | `boolean` | What the result should fall back to when the toggle property is undefined. Default `true`. |
+
+```tsx
+import { useToggle } from "@simpleview/sv-mosaic/utils";
+import { MosaicToggle } from "@simpleview/sv-mosaic-types";
+
+interface ListItemProps {
+	title: string;
+	show: MosaicToggle;
+}
+
+function List() {
+	const [numberToShow, setNumberToShow] = useState(1);
+
+	const items: ListItemProps[] = useMemo(() => [
+		{
+			title: "Dog",
+			show: () => numberToShow > 0,
+		},
+		{
+			title: "Cat",
+			show: () => numberToShow > 1,
+		},
+		{
+			title: "Turtle",
+			show: () => numberToShow > 2,
+		},
+	], [numberToShow]);
+
+	const itemsToShow = useToggle(items, "show", true);
+
+	return (
+		<ul>
+			<input
+				value={numberToShow}
+				onChange={({ target: { value } }) => setNumberToShow(Number(value))}
+				type="number"
+			/>
+			{itemsToShow.map(({ title }) => (
+				<li key={title}>{title}</li>
+			))}
+		</ul>
+	);
+}
+```
+
+# useWrappedToggle
+
+The same as `useToggle` but also accepts a context against which to test any toggle callbacks. The context will be provided as the first parameter to
+the toggle callbacks at the time of each test.
+
+## Parameters
+
+| name | required | type | description |
+| ---- | -------- | ---- | ----------- |
+| items | ✅ | `T` or `T[]` | The item or items containing the show property |
+| params | ✅ | `P` | The context to be provided to any toggle callbacks |
+| key | ✅ | `keyof T` | The property that holds a valid toggle boolean/callback/array |
+| defaultToggle | | `boolean` | What the result should fall back to when the toggle property is undefined. Default `true`. |
+
+
+```tsx
+import { useToggle } from "@simpleview/sv-mosaic/utils";
+import { MosaicToggle } from "@simpleview/sv-mosaic-types";
+
+interface ListItemProps {
+	title: string;
+	show: MosaicToggle<number>;
+}
+
+function List() {
+	const [numberToShow, setNumberToShow] = useState(1);
+
+	const items: ListItemProps[] = useMemo(() => [
+		{
+			title: "Dog",
+			show: ({ numberToShow }) => numberToShow > 0,
+		},
+		{
+			title: "Cat",
+			show: ({ numberToShow }) => numberToShow > 1,
+		},
+		{
+			title: "Turtle",
+			show: ({ numberToShow }) => numberToShow > 2,
+		},
+	], []);
+
+    const wrappedParams = useMemo(() => ({ numberToShow }), [numberToShow]);
+	const itemsToShow = useWrappedToggle(items, wrappedParams, "show", true);
+
+	return (
+		<ul>
+			<input
+				value={numberToShow}
+				onChange={({ target: { value } }) => setNumberToShow(Number(value))}
+				type="number"
+			/>
+			{itemsToShow.map(({ title }) => (
+				<li key={title}>{title}</li>
+			))}
+		</ul>
+	);
+}
+```

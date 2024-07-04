@@ -1,0 +1,16 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './PageHeader.stories';
+
+<Meta of={stories} />
+
+# PageHeader
+
+The `PageHeader` component is used to maintain consistency across different types of pages. This is a simplified version of the headers used in Forms, Summary Pages, and Data Views as this component only needs a title, buttons, and an onBack callback.
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/PageHeader/PageHeaderTypes.ts
+
+## PageHeader Example
+
+<Canvas of={stories.Playground} />

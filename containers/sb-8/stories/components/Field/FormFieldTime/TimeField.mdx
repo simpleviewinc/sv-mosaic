@@ -1,0 +1,28 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './TimeField.stories';
+
+<Meta of={stories} />
+
+# Time
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- It allows the user to view and pick a time from a calendar widget or manually type the time in the text field.
+- [**Playground**](/?path=/story/formfields-formfieldtimefield--playground)
+- Data: `string` - Time in `HH:MM` 24 hour format.
+- This field accepts no inputSettings
+
+### How to use in a form?
+```ts
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "time",
+			},
+			//...other fields
+		],
+	[]
+);
+```

@@ -1,0 +1,118 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './Drawers.stories';
+
+<Meta of={stories} />
+
+# Drawers
+The `Drawers` component is wrapper that generates several [Material-UI Drawers](https://mui.com/material-ui/react-drawer/#main-content) but with SimpleView brand colors.
+
+The component does not provide a mechanism for navigating between drawers, it only helps stacking one on top of another.
+All the navgitation mechanism should be defined on the parent app creating the Drawers component.
+
+* While animating, the UI is locked to prevent race conditions with opening/closing new drawers.
+* Can open infinite amount of stacked drawers.
+* When a drawer is opened, the opener passes callbacks to it to execute when save() is clicked.
+* Animations custom built via keyframes rather than using material-ui drawer defaults to handle stacking cleanly.
+* App passes to Drawers a JSON Def for each drawer and passes a render prop. This separates the concerns of animating and displaying the drawer (Mosaic) from rendering the content of the drawer (App).
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Drawers/DrawersTypes.ts
+
+## Usage
+```ts
+const App = (props) => {
+	const [state, setState] = useState<AppState>({
+		content: {},
+		drawers: [],
+	});
+
+	const addDrawer = useCallback((drawerDef: DrawerDef) => {
+		setState((state) => ({
+			...state,
+			drawers: [...state.drawers, drawerDef],
+		}));
+	}, []);
+
+	const removeDrawer = useCallback(() => {
+		setState((state) => ({
+			...state,
+			drawers: [...state.drawers.slice(0, -1)],
+		}));
+	}, []);
+
+	const appContext = useMemo(
+		() => ({
+			addDrawer,
+			removeDrawer,
+		}),
+		[addDrawer, removeDrawer]
+	);
+
+	return (
+		<AppContext.Provider value={appContext}>
+			<div className="App">
+				<h1>Drawer Demo</h1>
+				<p>From Form: {JSON.stringify(state.content)}</p>
+				<button
+					onClick={() =>
+						addDrawer({
+							config: {
+								type: "form",
+								title: "New Form",
+								fields: [
+									{
+										name: "foo",
+										label: "Foo",
+										type: "text",
+									},
+									{
+										name: "bar",
+										label: "Bar",
+										type: "text",
+									},
+									{
+										name: "baz",
+										label: "Baz",
+										type: "text",
+									},
+									{
+										name: "from_parent",
+										label: "From Parent",
+										type: "text",
+									},
+								],
+							},
+							callbacks: {
+								save: (data) => {
+									setState((state) => ({
+										...state,
+										content: data,
+									}));
+
+									removeDrawer();
+								},
+							},
+						})
+					}
+				>
+					Add Form
+				</button>
+
+				<Drawers drawers={state.drawers}>
+					{(drawerDef) => {
+						return (
+							<Page
+								config={drawerDef.config}
+								callbacks={drawerDef.callbacks ?? {}}
+							/>
+						);
+					}}
+				</Drawers>
+			</div>
+		</AppContext.Provider>
+	);
+}
+```
+
+<Canvas of={stories.Playground} />
