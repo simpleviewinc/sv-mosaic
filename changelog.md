@@ -1,5 +1,46 @@
 # sv-mosaic changelog
 
+## 36.1.0 - 07/09/24
+
+### Improvements and Fixes
+
+* `Chip`
+
+  * [MOS-1394](https://simpleviewtools.atlassian.net/browse/MOS-1394) **Add a aria-selected attribute to Chips used in FormFieldChip to represent selected state**
+    * Gives chip container the listbox role and each chip an option role.
+    * Gives selected chips the`aria-selected` attribute.
+* `DataView`
+
+  * [MOS-1387](https://simpleviewtools.atlassian.net/browse/MOS-1387) **Hidden buttons still have hoverable tooltips**
+    * (DataView) Add tooltips to story row actions
+    * (Button) Disable pointer events for invisible buttons
+* `FormFieldAddress`
+
+  * [MOS-1389](https://simpleviewtools.atlassian.net/browse/MOS-1389) **Validate Postal code relative to country**
+    * (AddressField) Adds a postcode validator and applies it to the
+      postcode field used in the address drawer. The validator will be
+      automatically tested when the country field changes. If there is no
+      country selected or the selected country is not supported by the
+      postcode validator, the postcode will pass validation regardless of its
+      value.
+    * (Form) Adds support to provide a filter for which validators to test when providing a validates property to a field definition.
+    * (AddressField) Adds postcode-validator dependency
+  * [MOS-1391](https://simpleviewtools.atlassian.net/browse/MOS-1391) **Incorrect City for Address**
+    Swaps the address component used for the "City" address field for `locality` instead of `administrative_area_zone_2` when there is no postal town component.
+* `FormFieldAdvancedSelection`
+
+  * [MOS-1386](https://simpleviewtools.atlassian.net/browse/MOS-1386) **Advanced Selection chips vanish when you are adding new options**
+    Have selected chips retain their rendered position whilst the selection draw is open instead of being hidden.
+* Housekeeping
+
+  * [MOS-1418](https://simpleviewtools.atlassian.net/browse/MOS-1418) **Migrate remaining documentation**
+    * (chore) Migrates the remaining component documentation.
+    * (chore) Installs`remark-gfm` dependency to support GitHub flavoured markdown and by further extension, tables.
+    * (chore) Ensure first visits to Storybook land on the introduction page
+  * [MOS-1419](https://simpleviewtools.atlassian.net/browse/MOS-1419) **Unit test tidy up**
+    * Moves remaining test files into the correct location
+    * Removes local`testArray` implementation and replaces it with`@simpleview/mochalib`'s implementation
+
 ## 36.0.0 - 06/11/24
 
 ### Improvements & Fixes
