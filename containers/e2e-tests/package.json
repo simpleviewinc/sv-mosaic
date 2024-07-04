@@ -1,18 +1,18 @@
 {
-  "name": "automation_testing",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test:chrome": "playwright test --project=Chromium",
-    "test:firefox": "playwright test --project=Firefox",
-    "test:webkit": "playwright test --project=Webkit",
-    "start": "./scripts/start"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.44.0",
-    "@types/node": "^20.12.12"
-  }
+	"name": "automation_testing",
+	"version": "36.1.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test:chrome": "playwright test --project=Chromium",
+		"test:firefox": "playwright test --project=Firefox",
+		"test:webkit": "playwright test --project=Webkit",
+		"start": "./scripts/start"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@playwright/test": "^1.44.0",
+		"@types/node": "^20.12.12"
+	}
 }
