@@ -1,0 +1,68 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './Address.stories';
+
+<Meta of={stories} />
+
+# Address
+This field implements the [**FieldDef**](#generic-field-props-fielddef) interface.
+
+- Countries, states and cities information retrieved from: [Countries States Cities Database](https://github.com/dr5hn/countries-states-cities-database)
+- Features a draw with an embedded "child" form which can be used to create or edit addresses.
+- [**Playground**](/?path=/story/formfields-formfieldaddress--playground)
+- Data: `object`
+	* **address1** - `string` required - Main address.
+	* **address2** - `string` optional - Additional address.
+	* **address3** - `string` optional - Additional address.
+	* **city** - `string` required - Name of the city.
+	* **country** - `MosaicLabelValue` required - Object containing the label and value of the country.
+	* **postalCode** - `string` required - Postal code of the address.
+	* **state** - `MosaicLabelValue` required - Object containing the label and value of the state.
+	* **types** - `array` of `string` required - Could be one of the following: Physical, Billing, Shipping.
+- inputSettings:
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| **`amountPerType`** | `number` | optional - When defined, limits the amount of address types. For example: If a dev adds “amountPerType: 2” then users will be able to add 2 physical, 2 billing, and 2 shipping addresses. Defaults to 1 if no other amount properties are defined and 0 otherwise. |
+| **`amountShipping`** | `number` | optional - When defined, limits the amount of address type of "shipping". Takes precedence over amountPerType. |
+| **`amountPhysical`** | `number` | optional - When defined, limits the amount of address type of "physical". Takes precedence over amountPerType.|
+| **`amountBilling`** | `number` | optional - When defined, limits the amount of address type of "billing". Takes precedence over amountPerType. |
+| **`getOptionsCountries`** | `(): Promise<MosaicLabelValue[]>` | Required - Returns a list of mapped countries in the shape of label-value array. |
+| **`getOptionsStates`** | `(country: string): Promise<MosaicLabelValue[]>` | Given a country value it returns the list of states of the given country in the shape of label-value array. |
+| **`googleMapsApiKey`** | `string` | Required - Google Maps API key needed to access Place Autocomplete Google web service that returns place predictions in response to an HTTP request. |
+
+Note that if the amount rules mean that only 1 type of address is allowed, the type field will not appear in the address drawer.
+
+### How to use in a form?
+```ts
+const getOptionsCountries = async () => {
+	const countriesArr: MosaicLabelValue[] = await countriesMicroService();
+	return countriesArr;
+}
+
+const getOptionsStates = async (country) => {
+	const statesArr: MosaicLabelValue[] = await statesMicroService(country);
+	return statesArr;
+}
+
+const fields = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props,
+				type: "address",
+				inputSettings: {
+					amountPerType: 1,
+					amountShipping: 0,
+					amountPhysical: 2,
+					amountBilling: 3,
+					getOptionsCountries,
+					getOptionsStates,
+					googleMapsApiKey: "ABCDEFG1234567890"
+				},
+			},
+			//...other fields
+		],
+	[]
+);
+```

@@ -1,0 +1,18 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './Spinner.stories';
+
+<Meta of={stories} />
+
+# Spinner
+
+The `Spínner` component is built over a wrapper for [MUI Circular Progress](https://mui.com/joy-ui/react-circular-progress/) but with SimpleView brand colors.
+
+Used when wanting to show the user that something is loading, for example when fetching data from a Data Base. The component can be set to spin indifinitely or to show a specific progress value (from 0 to 100).
+
+## Props
+
+https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Spinner/Spinner.tsx
+
+## Spinner Example
+
+<Canvas of={stories.Playground} />
