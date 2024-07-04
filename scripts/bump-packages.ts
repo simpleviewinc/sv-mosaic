@@ -20,7 +20,7 @@ containers.forEach(container => {
 
 		packageContents.version = version;
 
-		const newPackageContents = JSON.stringify(packageContents, undefined, 4) + "\n";
+		const newPackageContents = JSON.stringify(packageContents, undefined, "\t") + "\n";
 
 		fs.writeFileSync(packagePath, newPackageContents);
 
