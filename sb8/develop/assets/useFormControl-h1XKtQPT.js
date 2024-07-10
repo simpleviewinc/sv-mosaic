@@ -1,0 +1,1 @@
+import{r as t}from"./index-BP8_t0zE.js";function x({props:n,states:f,muiFormControl:e}){return f.reduce((o,r)=>(o[r]=n[r],e&&typeof n[r]>"u"&&(o[r]=e[r]),o),{})}const u=t.createContext();function C(){return t.useContext(u)}export{u as F,x as f,C as u};
