@@ -25,6 +25,7 @@ const columns_data = {
 		"Categories",
 		"Created",
 		"Image",
+		"Rating",
 		"Title",
 	],
 	defaultColumnsOrder: [
@@ -32,6 +33,7 @@ const columns_data = {
 		"Title",
 		"Categories",
 		"Created",
+		"Rating",
 	],
 	changeItemDown: "Image",
 	changeColumnsOrderDown: [
@@ -53,16 +55,18 @@ const columns_data = {
 		"Title",
 		"Categories",
 		"Created",
+		"Rating",
 		"Content Owner",
 	],
-	addColumnHeadersCount: 5,
+	addColumnHeadersCount: 6,
 	removeItem: "Categories",
 	removeItemOrder: [
 		"Image",
 		"Title",
 		"Created",
+		"Rating",
 	],
-	removeColumnHeadersCount: 3,
+	removeColumnHeadersCount: 4,
 	removeAllItemsCount: 0,
 	allItemsChecked: [
 		"Categories",
@@ -74,6 +78,7 @@ const columns_data = {
 		"Image Deleted",
 		"Image Notes",
 		"Image Title",
+		"Rating",
 		"Style - bold",
 		"Style - ellipsis",
 		"Style - italic",
@@ -89,6 +94,7 @@ const columns_data = {
 		"Title",
 		"Categories",
 		"Created",
+		"Rating",
 		"Content Owner",
 		"Description",
 		"ID",
@@ -104,7 +110,7 @@ const columns_data = {
 		"Style - textTransform",
 		"Updated",
 	],
-	allItemsCount: 18,
+	allItemsCount: 19,
 };
 
 const filter_data = {
