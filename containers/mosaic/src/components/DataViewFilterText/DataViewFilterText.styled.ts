@@ -9,6 +9,7 @@ export const StyledContents = styled.div`
 		display: flex;
 		align-items: center;
 		padding: 12px 16px 0;
+		margin-bottom: 16px;
 	}
 
 	.MuiFormControl-root {

@@ -9,7 +9,6 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 	readonly topBlockLocator: Locator;
 	readonly optionsLocator: Locator;
 	readonly selectedOptionsLocator: Locator;
-	readonly optionDivider: Locator;
 	readonly hideComparisonSelectorButton: Locator;
 	readonly showComparisonSelectorButton: Locator;
 	readonly comparisonDropdown: Locator;
@@ -24,7 +23,6 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.topBlockLocator = page.locator(".topBlock");
 		this.optionsLocator = this.topBlockLocator.locator(".options");
 		this.selectedOptionsLocator = this.topBlockLocator.locator(".selected");
-		this.optionDivider = page.locator(".topBlock hr");
 		this.hideComparisonSelectorButton = page.locator("#root button").first();
 		this.showComparisonSelectorButton = page.locator("#root button").last();
 		this.comparisonDropdown = page.locator(".comparisonDropdown");
@@ -36,7 +34,6 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 
 	async validateMultiselectSectionsAreVisible(): Promise<void> {
 		await expect(this.optionsLocator).toBeVisible();
-		await expect(this.optionDivider).toBeVisible();
 		await expect(this.selectedOptionsLocator).toBeVisible();
 	}
 }

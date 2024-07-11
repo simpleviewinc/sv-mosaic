@@ -11,6 +11,7 @@ export const REQUIRED_TYPE = "required";
 export const VALIDATE_NUMBER_TYPE = "validateNumber";
 export const VALIDATE_URL = "validateURL";
 export const VALIDATE_DATE_RANGE = "validateDateRange";
+export const VALIDATE_NUMBER_RANGE = "validateNumberRange";
 
 /**
  * Validates an email address using a regular expression taken from:
@@ -157,6 +158,32 @@ export function validateDateRange(value: string, data: any, options: { [key: str
 	}
 
 	return undefined;
+}
+
+export function validateNumberRange(value: string, data: any, { minName, maxName }: { minName?: number; maxName?: number }): string | undefined {
+	if (value === undefined) {
+		return;
+	}
+
+	const min = minName && data[minName];
+	const max = maxName && data[maxName];
+
+	const numberValue = Number(value);
+	if (Number.isNaN(numberValue) || !Number.isFinite(numberValue)) {
+		return;
+	}
+
+	if (min && !max && numberValue < min) {
+		return `Number must be greater than or equal to ${min}`;
+	}
+
+	if (!min && max && numberValue > max) {
+		return `Number must be less than or equal to ${max}`;
+	}
+
+	if (min && max && (numberValue < min || numberValue > max)) {
+		return `Number must be between ${min} and ${max}`;
+	}
 }
 
 export function validateMinDate(value: any, data: any, { min, max }: { min?: Date; max?: Date }): string | undefined {

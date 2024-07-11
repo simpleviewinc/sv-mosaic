@@ -81,6 +81,10 @@ export const StyledWrapper = styled.div`
 			color: ${theme.newColors.realTeal[100]};
 		}
 	}
+
+	& .selected {
+		border-left: 2px solid ${theme.newColors.grey2[100]};
+	}
 `;
 
 export const StyledComparisonHeader = styled.div`
@@ -94,9 +98,4 @@ export const PopoverP = styled.p`
 export const StyledHr = styled.hr<{ $margin?: string }>`
 	border: 2px solid ${theme.newColors.grey2[100]};
 	margin:  ${({ $margin }) => $margin ? $margin : "0px -16px"};
-`;
-
-export const StyledVerticalHr = styled.hr<{ $margin?: string }>`
-	border: 2px solid ${theme.newColors.grey2[100]};
-	margin: ${({ $margin }) => $margin ? $margin : "-32px 0px 0px 0px"};
 `;
