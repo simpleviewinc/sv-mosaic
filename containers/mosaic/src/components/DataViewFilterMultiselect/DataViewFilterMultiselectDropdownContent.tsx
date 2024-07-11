@@ -14,7 +14,7 @@ import Spinner from "../Spinner";
 import Chip from "@root/components/Chip";
 import { SubtitleText } from "../Typography";
 import { useMosaicTranslation } from "@root/i18n";
-import { PopoverP, StyledHr, StyledVerticalHr, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
+import { PopoverP, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import InputAdornment from "@mui/material/InputAdornment";
 import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
@@ -296,7 +296,6 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						)
 					}
 				</div>
-				<StyledVerticalHr />
 				<div className="selected">
 					{comparisonDropdown}
 					{
@@ -325,7 +324,6 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			{
 				!props.hideButtons && (
 					<>
-						<StyledHr />
 						<DataViewFilterDropdownButtons
 							onApply={onApply}
 							onClear={onClear}
