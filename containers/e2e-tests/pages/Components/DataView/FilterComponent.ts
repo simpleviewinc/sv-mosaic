@@ -104,7 +104,7 @@ export class FilterComponent extends BasePage {
 	async selectCategory(category: string): Promise<void> {
 		await super.wait();
 		const item1 = await this.getItemByName(category);
-		await this.checkItem(item1, true);
+		await this.page.getByLabel(category).check();
 	}
 
 	async validateCategoryFilterIsVisible(isVisible: boolean): Promise<void> {
