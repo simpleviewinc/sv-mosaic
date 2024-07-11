@@ -15,11 +15,6 @@ const StyledMainContent = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	width: ${BREAKPOINTS.sm};
-
-	& > div .inputRow {
-		display: flex;
-		align-items: center;
-	}
 `;
 
 const StyledFilterDate = styled.div`
@@ -41,10 +36,6 @@ const StyledLeftOptions = styled.ul`
 	max-width: 130px;
 	max-height: 284px;
 	overflow-y: auto;
-`;
-
-const StyledFooter = styled.div`
-	border-top: 2px solid ${theme.newColors.grey2[100]};
 `;
 
 const sections: SectionDef[] = [
@@ -167,9 +158,11 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 						getFormValues={getFormValues}
 					/>
 				</div>
-				<StyledFooter>
-					<DataViewFilterDropdownButtons onApply={onApply} onClear={onClear} disableApply={disableApply} />
-				</StyledFooter>
+				<DataViewFilterDropdownButtons
+					onApply={onApply}
+					onClear={onClear}
+					disableApply={disableApply}
+				/>
 			</StyledMainContent>
 		</StyledFilterDate>
 	);
