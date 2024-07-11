@@ -13,7 +13,7 @@ export class DataViewFilterDateComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.dateFilterButton = page.locator("#root button", { hasText: "Date filter example" });
+		this.dateFilterButton = page.getByRole('button', { name: 'Date filter example' });
 		this.dataviewFilterDateDropdownContent = page.locator("[data-testid='dataview-filter-date-dropdown-content']");
 		this.dataviewFilterDateOptionsList = page.locator("[data-testid='dataview-filter-date-options-list']");
 	}
