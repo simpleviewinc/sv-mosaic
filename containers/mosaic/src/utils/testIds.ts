@@ -5,6 +5,7 @@ const testIds = {
 	CARD: "mos:Card:root",
 	CARD_HEADING: "mos:Card:heading",
 	CARD_ITEM: "mos:Card:item",
+	DATA_VIEW_TITLE_BAR: "mos:DataView:titleBar",
 	DATA_VIEW_VIEW_APPLY: "mos:DataView:view:apply",
 	DATA_VIEW_VIEW_DELETE: "mos:DataView:view:delete",
 	TOP_SUMMARY: "mos:TopSummary:root",
