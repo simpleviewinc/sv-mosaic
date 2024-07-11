@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
 import Visibility from "@mui/icons-material/Visibility";
 import Delete from "@mui/icons-material/Delete";
+import Star from "@mui/icons-material/Star";
 
 import JSONDB from "@root/utils/JSONDB";
 import rawData from "@root/components/DataView/example/rawData.json";
@@ -41,6 +42,7 @@ import { useStateRef } from "@root/utils/reactTools";
 
 import "@root/components/DataView/example/DataViewPlayground.css";
 import testIds from "@root/utils/testIds";
+import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
 
 export default {
 	title : "Components/DataView",
@@ -69,6 +71,28 @@ const api = new JSONDB(mappedData, {
 		},
 	],
 });
+
+const colors = [
+    { pct: 0.0, color: { r: 227, g: 77, b: 77 } },
+    { pct: 0.5, color: { r: 255, g: 143, b: 0 } },
+    { pct: 1.0, color: { r: 53, g: 181, b: 26 } } ];
+
+const getColorForPercentage = function(colors, percent) {
+	const i = colors.findIndex(({ pct }) => percent < pct);
+    const lower = colors[i - 1];
+    const upper = colors[i];
+    const range = upper.pct - lower.pct;
+    const rangePct = (percent - lower.pct) / range;
+    const pctLower = 1 - rangePct;
+    const pctUpper = rangePct;
+    const color = {
+        r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
+        g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
+        b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
+    };
+    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+    // or output as hex if preferred
+};
 
 const processStringFilter = function ({ name, data, output }) {
 	if (data.value === undefined) {
@@ -111,6 +135,22 @@ const processDateFilter = function ({ name, data, output }) {
 		output[name] = outputFilter;
 	}
 };
+
+const processNumberFilter = function({ name, data, output }) {
+	const outputFilter = {};
+
+	if (data.min !== undefined) {
+		outputFilter["$gte"] = data.min;
+	}
+
+	if (data.max !== undefined) {
+		outputFilter["$lte"] = data.max;
+	}
+
+	if (Object.keys(outputFilter).length > 0) {
+		output[name] = outputFilter;
+	}
+}
 
 const processArrayFilter = function ({ name, data, output }) {
 	if (data.comparison === "exists") {
@@ -230,6 +270,15 @@ const filters: {
 			comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 		},
 	},
+	{
+		name: "rating",
+		label: "Rating",
+		component: DataViewFilterNumber,
+		toFilter: processNumberFilter,
+		args: {
+			suffix: "stars",
+		},
+	},
 ];
 
 const listColumns: DataViewColumn[] = [
@@ -265,6 +314,29 @@ const listColumns: DataViewColumn[] = [
 			transform_mapGet("tag"),
 			transform_join(),
 		],
+	},
+	{
+		name: "rating",
+		label: "Rating",
+		column: "rating",
+		transforms: [
+			({ data }: { data: string }) => (
+				<div style={{
+					whiteSpace: "nowrap",
+					display: "flex",
+					alignItems: "center",
+					gap: 4,
+					backgroundColor: getColorForPercentage(colors, Number(data) / 10),
+					color: "white",
+					borderRadius: 4,
+					padding: "2px 6px 2px 4px",
+					fontWeight: "bold",
+				}}>
+					<Star />
+					{data}
+				</div>
+			)
+		]
 	},
 	{
 		name: "image_title",
@@ -662,7 +734,7 @@ export const Playground = ({
 		},
 		display: displayList ? "list" : displayGrid ? "grid" : undefined,
 		activeFilters: preloadedActiveFilters ? ["updated", "title", "keyword"] : [],
-		activeColumns: ["image", "title", "categories", "created"],
+		activeColumns: ["image", "title", "categories", "created", "rating"],
 	}), [displayGrid, displayList, preloadedActiveFilters]);
 
 	const [state, setState] = useState<Record<string, any> & { sort: DataViewProps["sort"] }>({
