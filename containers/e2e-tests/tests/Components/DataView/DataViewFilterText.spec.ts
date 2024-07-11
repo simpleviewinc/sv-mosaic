@@ -47,15 +47,18 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 			await dvFilterComponent.visitPageWithDefaultComparison(comparisonsToValidate[i]);
 			await dvFilterComponent.filterTextButton.waitFor();
 			await dvFilterComponent.filterTextButton.click();
-			expect.soft(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
+			expect(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
 			if (i === 0) {
 				await dvFilterComponent.selectComparison(comparisonsToValidate[i + 1]);
 			} else {
 				await dvFilterComponent.selectComparison(comparisonsToValidate[0]);
 			}
 			await dvFilterComponent.clearBtn.click();
-			expect.soft(await dvFilterComponent.comparisonButton.textContent()).toBe(comparisonsToValidate[i]);
+			const comparisonButtonText = await dvFilterComponent.comparisonButton.textContent();
+			const expectedText = comparisonsToValidate[i];
+			expect(comparisonButtonText).toBe(expectedText);
 		}
+		dvFilterComponent.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that the padding in the input row.", async () => {

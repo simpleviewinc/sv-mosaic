@@ -39,7 +39,7 @@ export const dataviewKnobs = {
 	knobSecondaryActions: "secondaryActions:",
 	knobComparison: "comparison:",
 	knobPreloadActiveFilters: "preloadActiveFilters:",
-	knobDefaultComparison: "defaultComparison:",
+	knobDefaultComparison: "comparisonDefault:",
 };
 
 export const buttonKnobs = {
