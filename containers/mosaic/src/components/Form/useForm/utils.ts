@@ -11,6 +11,7 @@ import {
 	validateSlow,
 	validateURL,
 	validatePostcode,
+	validateNumberRange,
 } from "../validators";
 import {
 	FormStable,
@@ -72,6 +73,7 @@ export function mapsValidators(validators): Validator[] {
 		validateLongitude: validateLongitude,
 		validateDateRange: validateDateRange,
 		validateMinDate: validateMinDate,
+		validateNumberRange: validateNumberRange,
 		validateCharacterCount: validateCharacterCount,
 		validateEmail: validateEmail,
 		validateNumber: validateNumber,
