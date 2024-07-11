@@ -8,7 +8,7 @@ export const StyledContents = styled.div`
 	& > .inputRow {
 		display: flex;
 		align-items: center;
-		padding: 12px 16px 0;
+		padding: 16px 16px 0;
 		margin-bottom: 16px;
 	}
 

@@ -35,6 +35,7 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 		}
 
 		if (data.comparison) {
+			console.log("Uses data");
 			return data.comparison;
 		}
 
