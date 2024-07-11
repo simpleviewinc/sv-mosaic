@@ -91,6 +91,10 @@ export class BasePage {
 			await this.page.goto(url(page_path), { waitUntil: "domcontentloaded", timeout: 900000 });
 		}
 
+		await this.clean();
+	}
+
+	async clean() {
 		/**
 		 * Removes the extra Storybook stuff like docs and error containers
 		 * because they often interferes with the Playwright locator methods
