@@ -6,7 +6,6 @@ import { env } from "./utils/urls/environments";
  */
 export default defineConfig({
 	testDir: "./tests",
-	testIgnore: "**/DataView_Old/**",
 	forbidOnly: !!process.env.CI,
 	retries: 2,
 	timeout: 30000,
