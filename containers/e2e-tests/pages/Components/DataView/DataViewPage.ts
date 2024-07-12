@@ -249,4 +249,9 @@ export class DataviewPage extends BasePage {
 		await this.listViewsDrawerApply.nth(0).click();
 		expect(await this.listViewsDropdownAllSelected.count()).toBe(1);
 	}
+
+	async selectViewByDescription(description: string) {
+		await this.page.getByRole('button', { name: 'No view selected' }).click();
+		await this.page.locator('tr').filter({ hasText: description }).getByTestId(testIds.DATA_VIEW_VIEW_APPLY).click();
+	}
 }

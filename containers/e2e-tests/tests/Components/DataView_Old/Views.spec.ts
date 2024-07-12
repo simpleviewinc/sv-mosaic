@@ -8,56 +8,47 @@ test.describe.parallel("Components - Data View - Views", () => {
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dataviewPage = new DataviewPage(page);
+		await dataviewPage.visit(dataviewPage.page_path);
+	});
+
+	test.beforeEach(async () => {
+		await page.reload();
+		await dataviewPage.clean();
 	});
 
 	test("Selecting a view should update the list views dropdown", async () => {
-		await dataviewPage.visit(dataviewPage.page_path);
-		await dataviewPage.selectAllView();
+  		await dataviewPage.selectViewByDescription('Records in the beaches category.');
+  		await expect(page.getByRole('button', { name: 'View: Beaches' })).toBeVisible();
 	});
 
+
 	test("Selecting the overwrite button should alert the user that the view has been saved", async () => {
-		await dataviewPage.visit(dataviewPage.page_path);
+		const expectAlertMessage = dataviewPage.addExpectedAlertHandler();
 
-		let didShowDialog = false;
+		await dataviewPage.selectViewByDescription('Art related records displayed in a grid ordered by most recent first.');
+		await expect(page.getByRole('button', { name: 'View: Art audit' })).toBeVisible();
 
-		page.on("dialog", async dialog => {
-			didShowDialog = true;
-			expect(dialog.message()).toBe("Current view saved");
-			await dialog.accept();
-		});
+		await page.getByRole('button', { name: 'Save View' }).click();
+		await page.getByRole('menuitem', { name: 'Overwrite Current View' }).click();
 
-		await dataviewPage.selectAllView();
-
-		expect(await dataviewPage.saveViewDropdown.count()).toBe(1);
-		await dataviewPage.saveViewDropdown.click();
-		expect(await dataviewPage.overwriteViewButton.count()).toBe(1);
-		await dataviewPage.overwriteViewButton.click();
-
-		while (!didShowDialog) {
-			await page.waitForTimeout(100);
-		}
+		await expectAlertMessage("Current view saved");
 	});
 
 	test("Selecting the save as view button and submitting the form should set the view and register it in saved views", async () => {
-		await dataviewPage.visit(dataviewPage.page_path);
+		const name = "No Filters Applied";
+		const description = "A test view with no filters applied to it";
 
-		expect(await dataviewPage.saveViewDropdown.count()).toBe(1);
-		await dataviewPage.saveViewDropdown.click();
-		expect(await dataviewPage.viewSaveAsButton.count()).toBe(1);
-		await dataviewPage.viewSaveAsButton.click();
-		expect(await dataviewPage.saveNewViewHeading.count()).toBe(1);
-		expect(await dataviewPage.saveNewViewFields.count()).toBe(2);
+		await page.getByRole('button', { name: 'Save View' }).click();
+		await page.getByRole('menuitem', { name: 'Save as New View' }).click();
+		await expect(page.getByRole('heading', { name: 'Save new view' })).toBeVisible();
 
-		const nameField = dataviewPage.saveNewViewFields.nth(0);
-		const descriptionField = dataviewPage.saveNewViewFields.nth(1);
+		await page.getByLabel('Name*').fill(name);
+		await page.getByLabel("Description*").fill(description);
 
-		await nameField.type("My New View");
-		await descriptionField.type("This is a custom view, just for testing");
+		await page.getByRole('button', { name: 'Save' }).click();
+		await expect(page.getByRole('button', { name: `View: ${name}` })).toBeVisible();
 
-		expect(await dataviewPage.saveNewViewSubmit.count()).toBe(1);
-		await dataviewPage.saveNewViewSubmit.click();
-		await new Promise((resolve) => setTimeout(() => resolve(null), 5000));
-
-		expect(await dataviewPage.listViewsDropdownCustomSelected.count()).toBe(1);
+		await page.getByRole('button', { name: `View: ${name}` }).click();
+		await expect(page.locator('tr').filter({ hasText: description })).toBeVisible();
 	});
 });
