@@ -121,8 +121,29 @@ export class BasePage {
 	async setDialogValidationListener(_message: string): Promise<void> {
 		this.page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(_message);
+
+			if (!this.page.isClosed()) {
+				await dialog.accept();
+			}
+		});
+	}
+
+	addExpectedAlertHandler() {
+		let alertMessage: null | string = null;
+
+		this.page.once("dialog", async dialog => {
+			alertMessage = dialog.message();
 			await dialog.accept();
 		});
+
+		return async (message: string) => {
+			while (alertMessage === null) {
+				await this.page.waitForTimeout(100);
+			}
+
+			expect(alertMessage).toBe(message);
+			alertMessage = null;
+		};
 	}
 
 	async wait(timeout = 500): Promise<void> {
