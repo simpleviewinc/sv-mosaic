@@ -19,6 +19,7 @@ test.describe("Components - Data View - Filter", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
+		await _dataviewPage.clean();
 	});
 
 	test("Filter title with a valid keyword and 1 result", async () => {
