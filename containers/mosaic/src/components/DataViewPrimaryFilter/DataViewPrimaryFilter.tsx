@@ -1,6 +1,9 @@
 import React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import Button from "@root/components/Button";
+import testIds from "@root/utils/testIds";
+
 import Tooltip, { useTooltip } from "../Tooltip";
 import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
 import { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
@@ -17,7 +20,10 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 					<Value title={props.value}>{props.value}</Value>
 					{props.multiselect?.length > 1 && (
 						<>
-							<MultiselectCounter {...anchorProps}>
+							<MultiselectCounter
+								{...anchorProps}
+								data-testid={testIds.DATA_VIEW_FILTER_MULTI_COUNTER}
+							>
 								<Count>
 									+
 									{props.multiselect.length - 1}
