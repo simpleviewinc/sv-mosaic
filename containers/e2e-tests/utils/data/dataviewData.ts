@@ -15,7 +15,7 @@ const saveAs_data = {
 	defaultType: "default",
 	viewNotSharedType: "mine",
 	viewSharedType: "shared",
-	defaultColumnHeadersList: 4,
+	defaultColumnHeadersList: 5,
 };
 
 const columns_data = {
