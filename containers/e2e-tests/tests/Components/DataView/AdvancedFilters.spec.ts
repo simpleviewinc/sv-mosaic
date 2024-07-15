@@ -188,7 +188,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilter("titleWithComparisons");
 		await advancedFilters.titleWithComparisonBtn.click();
 		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Contains");
+		await advancedFilters.selectTitleComparisonOptionFromDropdown("Does not contain...");
 		await advancedFilters.applyBtn.click();
 		await pagination.selectResultOption(100);
 		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title", 100);
