@@ -208,6 +208,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 											<b>{item.label}</b>
 											{" "}
 											-
+											{" "}
 											{popoverP[item.label]}
 											<br />
 										</span>

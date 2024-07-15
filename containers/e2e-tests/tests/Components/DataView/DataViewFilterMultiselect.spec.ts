@@ -13,11 +13,14 @@ test.describe("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 	});
 
 	async function validateSelectedOption(comparisonLocator: Locator) {
-		const optionLocator = multiSelectComponent.page.locator(multiSelectComponent.checkboxInputString).first();
-		const optionSelected = await optionLocator.textContent();
+		const optionLocator = multiSelectComponent.page.locator("label").first();
 		await optionLocator.click();
 		await multiSelectComponent.applyBtn.click();
-		expect(await comparisonLocator.textContent()).toContain(optionSelected);
+
+		const comparisonText = await comparisonLocator.textContent();
+		const optionText = await optionLocator.textContent()
+
+		expect(comparisonText).toContain(optionText);
 	}
 
 	test("Validate that DataView Filter MultiSelect hide the Comparison dropdown.", async () => {
@@ -32,6 +35,7 @@ test.describe("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 		expect(await multiSelectComponent.comparisonDropdown.locator("h3").textContent()).toBe("Comparison");
 		await expect(multiSelectComponent.comparisonDropdownButton).toBeVisible();
 		await expect(multiSelectComponent.helpDialogButton).toBeVisible();
+		await multiSelectComponent.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that the selected option in Hide Comparison is shown properly.", async () => {

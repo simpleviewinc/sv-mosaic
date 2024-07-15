@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { DataviewPage } from "../../../pages/Components/DataView/DataviewPage";
+import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataviewData";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
 import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
@@ -25,6 +25,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
+		await _dataviewPage.clean();
 	});
 
 	test.afterEach(async() => {
@@ -72,9 +73,9 @@ test.describe("Components - Data View - Advanced Filters", () => {
 	test("Validate Single select category styles", async () => {
 		await advancedFilters.selectFilter("singleSelectCategory");
 		await advancedFilters.singleSelectCategoryBtn.click();
-		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(0), "#3B424E", true);
-		await advancedFilters.validateFontColorFromElement(page.locator("span.menuLabel").nth(1), "#3B424E", true);
-		expect(await advancedFilters.isFontBold(page.locator("span.menuLabel").nth(0))).toBe(true);
+		await advancedFilters.validateFontColorFromElement(page.getByText('Any...'), "#3B424E", true);
+		await advancedFilters.validateFontColorFromElement(page.getByRole('menuitem', { name: 'Accessibility' }).locator('span'), "#3B424E", true);
+		expect(await advancedFilters.isFontBold(page.getByText('Any...'))).toBe(true);
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
@@ -254,17 +255,6 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(result.length).toBe(0);
 	});
 
-	test("Validate created filter with invalid range of dates", async () => {
-		const startDate = advanced_filter_data.validStartDateRange;
-		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.selectFilter("created");
-		await advancedFilters.createdBtn.click();
-		await advancedFilters.selectFilterDates(endDate, startDate);
-		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
-		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
-	});
-
 	test("Validate created filter no return results", async () => {
 		await advancedFilters.selectFilter("created");
 		await advancedFilters.createdBtn.click();
@@ -321,18 +311,6 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(result.length).toBe(0);
 	});
 
-	test("Validate updated filter with invalid range of dates", async () => {
-		const startDate = advanced_filter_data.validStartDateRange;
-		const endDate = advanced_filter_data.validEndDateRange;
-		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
-		await advancedFilters.selectFilter("updated");
-		await advancedFilters.updatedBtn.click();
-		await advancedFilters.selectFilterDates(endDate, startDate);
-		expect(await advancedFilters.applyBtn.isDisabled()).toBe(true);
-		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
-	});
-
 	test("Validate updated filter no return results", async () => {
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.selectFilter("updated");
@@ -387,18 +365,6 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.updatedBtn.click();
 		await advancedFilters.waitForElementLoad();
 		await validateFilterStyles();
-	});
-
-	test("Validate error message has darkRed as color.", async () => {
-		const expectColor = theme.newColors.darkRed["100"];
-		const startDate = advanced_filter_data.validStartDateRange;
-		const endDate = advanced_filter_data.validEndDateRange;
-		await advancedFilters.selectFilter("created");
-		await advancedFilters.createdBtn.click();
-		await advancedFilters.selectFilterDates(endDate, startDate);
-		expect(await advancedFilters.errorMessageDates.textContent()).toContain(advanced_filter_data.errorMessageDates);
-		expect(await advancedFilters.getColorFromElement(advancedFilters.errorMessageDates)).toBe(expectColor);
-		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {

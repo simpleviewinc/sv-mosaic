@@ -91,6 +91,10 @@ export class BasePage {
 			await this.page.goto(url(page_path), { waitUntil: "domcontentloaded", timeout: 900000 });
 		}
 
+		await this.clean();
+	}
+
+	async clean() {
 		/**
 		 * Removes the extra Storybook stuff like docs and error containers
 		 * because they often interferes with the Playwright locator methods
@@ -117,8 +121,29 @@ export class BasePage {
 	async setDialogValidationListener(_message: string): Promise<void> {
 		this.page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(_message);
+
+			if (!this.page.isClosed()) {
+				await dialog.accept();
+			}
+		});
+	}
+
+	addExpectedAlertHandler() {
+		let alertMessage: null | string = null;
+
+		this.page.once("dialog", async dialog => {
+			alertMessage = dialog.message();
 			await dialog.accept();
 		});
+
+		return async (message: string) => {
+			while (alertMessage === null) {
+				await this.page.waitForTimeout(100);
+			}
+
+			expect(alertMessage).toBe(message);
+			alertMessage = null;
+		};
 	}
 
 	async wait(timeout = 500): Promise<void> {

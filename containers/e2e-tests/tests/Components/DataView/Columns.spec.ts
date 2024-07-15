@@ -22,6 +22,7 @@ test.describe("Components - Data View - Columns", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
+		await dataviewPage.clean();
 	});
 
 	test("Validate Default Columns Information", async () => {
@@ -118,7 +119,7 @@ test.describe("Components - Data View - Columns", () => {
 		const columnIndex = await dataviewPage.getPositionOfColumn("Style - bold", true);
 		const titles = await dataviewPage.getRowLocators(columnIndex);
 		for (let i = 0; i < titles.length; i++) {
-			expect(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.bold).toString());
+			expect(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.semiBold).toString());
 		}
 	});
 });

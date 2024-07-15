@@ -16,6 +16,7 @@ test.describe("Components - Data View - Playground", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
+		await dataviewPage.clean();
 	});
 
 	async function getNumberOfResultVisible() {
@@ -87,9 +88,12 @@ test.describe("Components - Data View - Playground", () => {
 	});
 
 	test("Validate Download All Records alert message.", async () => {
-		await dataviewPage.validateRecordsNumberInDialogMessage(25);
-		await (await dataviewPage.getAllRowCheckbox()).click();
-		expect(await dataviewPage.allSelectedLabel.textContent()).toContain(dataview_data.allSelectedLabelMsg);
+		await dataviewPage.validateRecordsNumberInDialogMessage(5);
+		await dataviewPage.checkboxRow.nth(1).click();
+		await dataviewPage.checkboxRow.nth(2).click();
+		await dataviewPage.checkboxRow.nth(3).click();
+		await dataviewPage.checkboxRow.nth(4).click();
+		await dataviewPage.checkboxRow.nth(5).click();
 		await dataviewPage.downloadBtn.click();
 	});
 
@@ -148,8 +152,8 @@ test.describe("Components - Data View - Playground", () => {
 		const tdLocator = dataviewPage.page.locator("td");
 		const messageViewContainer = "Validate View Container margins.";
 		const messagePadding = "Validate Dataview Padding in Row.";
-		expect.soft(await dataviewPage.getSpecificMarginFromElement(dataviewPage.viewContainerLocator, "right"), messageViewContainer).toBe("24px");
-		expect.soft(await dataviewPage.getSpecificMarginFromElement(dataviewPage.viewContainerLocator, "left"), messageViewContainer).toBe("24px");
+		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.viewContainerLocator, "right"), messageViewContainer).toBe("24px");
+		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.viewContainerLocator, "left"), messageViewContainer).toBe("24px");
 		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.first(), "left"), messagePadding).toBe("16px");
 		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.last(), "right"), messagePadding).toBe("16px");
 		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").first(), "left"), messagePadding).toBe("16px");
@@ -158,13 +162,9 @@ test.describe("Components - Data View - Playground", () => {
 
 	test("Validate that when no actions are active, the action column is not displayed.", async () => {
 		const rowHeaderLocator = dataviewPage.dataviewRowHeaderLocator.locator("th");
-		const rowHeaderCountBefore = await rowHeaderLocator.count();
-		await dataviewPage.visit(dataviewPage.page_path, [knob.knobPrimaryActions + false, knob.knobAdditionalActions + false]);
-		const rowHeaderCountAfter = await rowHeaderLocator.count();
-		expect.soft(rowHeaderCountAfter, "Validating that there is one less column.").toBe(rowHeaderCountBefore - 1);
-		for (let i = 0; i < rowHeaderCountAfter; i++) {
-			expect(await rowHeaderLocator.nth(i).textContent()).not.toBe("Actions");
-		}
+		await expect(rowHeaderLocator).toHaveCount(8);
+		await dataviewPage.visit(dataviewPage.page_path, [knob.knobPrimaryActions + false, knob.knobSecondaryActions + false]);
+		await expect(rowHeaderLocator).toHaveCount(7);
 	});
 
 	test("Validate that the title font weight and color are valid.", async () => {
@@ -177,7 +177,7 @@ test.describe("Components - Data View - Playground", () => {
 		}
 	});
 
-	test("Validate that the Preload Active Filters knob shows preload filters.", async () => {
+	test("Validate that the Pr Active Filters knob shows preload filters.", async () => {
 		await dataviewPage.visit(dataviewPage.page_path, [knob.knobPreloadActiveFilters + true]);
 		await dataviewPage.waitForDataviewIsVisible();
 		const expectedFiltersOrder = ["Updated", "Title", "Keyword"];

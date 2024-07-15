@@ -13,7 +13,7 @@ test.describe("Components - DataViewFilterDate - Playground", () => {
 	});
 
 	test("Validate Dataview Filter Date select pre filled values.", async () => {
-		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "true"]);
+		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "13"]);
 		await dvFilterDate.dateFilterButton.click();
 		const randomPosition = randomIntFromInterval(1, await dvFilterDate.menuItem.count() - 1);
 		const optionToSelect = await dvFilterDate.menuItem.nth(randomPosition).textContent();
@@ -22,13 +22,13 @@ test.describe("Components - DataViewFilterDate - Playground", () => {
 	});
 
 	test("Validate that options are displayed.", async () => {
-		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "true"]);
+		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "13"]);
 		await dvFilterDate.dateFilterButton.click();
 		await expect(dvFilterDate.dataviewFilterDateOptionsList).toBeVisible();
 	});
 
 	test("Validate that options are not displayed.", async () => {
-		await dvFilterDate.visit(dvFilterDate.page_path, [commonKnobs.knobShowOptions + "false"]);
+		await dvFilterDate.visit(dvFilterDate.page_path);
 		await dvFilterDate.dateFilterButton.click();
 		await expect(dvFilterDate.dataviewFilterDateOptionsList).not.toBeVisible();
 	});
