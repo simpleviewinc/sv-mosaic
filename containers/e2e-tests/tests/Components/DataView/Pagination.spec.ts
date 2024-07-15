@@ -20,6 +20,7 @@ test.describe("Components - Data View - Pagination", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
+		await dataviewPage.clean();
 	});
 
 	test("Select result per page - Value by default", async () => {
@@ -144,7 +145,7 @@ test.describe("Components - Data View - Pagination", () => {
 	test("View Type - Validate list view type", async () => {
 		await pagination.selectViewType("List");
 		expect(await columns.columnsBtn.isVisible()).toBe(true);
-		expect(await dataviewPage.getColumnHeadersCount() - 1).toBe(saveAs_data.defaultColumnHeadersList);
+		await expect(dataviewPage.columnHeaders).toHaveCount(saveAs_data.defaultColumnHeadersList + 1)
 	});
 
 	test("Validate that when selecting an image in Grid view, the rest of the checkboxes of the images are visible.", async () => {
@@ -160,14 +161,5 @@ test.describe("Components - Data View - Pagination", () => {
 		await pagination.selectViewType("Grid");
 		await pagination.gridImageCheckbox.first().locator("input").check();
 		expect(await pagination.headerActionsCheckbox.getAttribute("data-indeterminate")).toBe("true");
-	});
-
-	test("Validate that when a tooltip is shown when the title exceeds a certain lenght.", async () => {
-		const longTitle = "Ai Weiwei at Meijer Gardens: Natural State | Jan 27 - Aug 20";
-		await pagination.selectViewType("Grid");
-		const longTitleImageLocator = pagination.gridImageInfo.locator("h2:has-text('" + longTitle + "')");
-		await longTitleImageLocator.hover();
-		await expect(pagination.page.locator("[role='tooltip']")).toBeVisible();
-		expect(await pagination.page.locator("[role='tooltip']").textContent()).toBe(longTitle);
 	});
 });

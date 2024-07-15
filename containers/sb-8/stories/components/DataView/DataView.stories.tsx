@@ -685,7 +685,7 @@ const ViewsListGrid = ({
 
 export const Playground = ({
 	noData,
-	onBack,
+	showBack,
 	bulkActions,
 	bulkAllActions,
 	primaryActions,
@@ -882,7 +882,7 @@ export const Playground = ({
 
 	const gridConfig: DataViewProps = {
 		title: "Your Uploads",
-		onBack: onBack ? () => alert("Cancelling, going back to previous site") : undefined,
+		onBack: showBack ? () => alert("Cancelling, going back to previous site") : undefined,
 		columns: (display === "list" || display === undefined) ? listColumns : gridColumns,
 		gridColumnsMap,
 		primaryActions: [
@@ -1145,7 +1145,7 @@ export const Playground = ({
 
 Playground.args = {
 	noData: false,
-	onBack: false,
+	showBack: false,
 	bulkActions: true,
 	bulkAllActions: true,
 	primaryActions: true,
@@ -1170,7 +1170,7 @@ Playground.argTypes = {
 	noData: {
 		name: "Empty dataset",
 	},
-	onBack: {
+	showBack: {
 		name: "onBack",
 	},
 	bulkActions: {

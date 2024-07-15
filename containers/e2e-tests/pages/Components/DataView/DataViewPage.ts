@@ -74,7 +74,7 @@ export class DataviewPage extends BasePage {
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();
 		this.clearFiltersBtn = this.filterRowBtn.locator(":scope", { hasText: "Clear filters" });
 		this.headerActionsLocator = page.locator(".headerActions");
-		this.dataviewTopComponent = page.locator("//*[@id='root']/div/div/div[1]/div");
+		this.dataviewTopComponent = page.getByTestId(testIds.DATA_VIEW_TITLE_BAR);
 		this.dataviewTableHeadLocator = page.locator("thead th");
 		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
 		this.dataviewRowHeaderLocator = page.locator(".row-header");
@@ -248,5 +248,10 @@ export class DataviewPage extends BasePage {
 		expect(await this.listViewsDrawerApply.count()).toBe(3);
 		await this.listViewsDrawerApply.nth(0).click();
 		expect(await this.listViewsDropdownAllSelected.count()).toBe(1);
+	}
+
+	async selectViewByDescription(description: string) {
+		await this.page.getByRole('button', { name: 'No view selected' }).click();
+		await this.page.locator('tr').filter({ hasText: description }).getByTestId(testIds.DATA_VIEW_VIEW_APPLY).click();
 	}
 }
