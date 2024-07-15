@@ -115,7 +115,7 @@ export const KitchenSink = (): ReactElement => {
 			<h2>Hide comparison selector</h2>
 			<DataViewFilterMultiselect
 				key="multi_select_category"
-				label="Multi Select Category"
+				label="Multi Select Category Without Comparisons"
 				args={{
 					getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
 					getSelected: categoriesHelper.getSelected.bind(categoriesHelper),

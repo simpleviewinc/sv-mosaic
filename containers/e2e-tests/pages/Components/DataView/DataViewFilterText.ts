@@ -18,7 +18,7 @@ export class DataViewFilterTextComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.inputRowLocator = page.locator(".inputRow");
-		this.filterTextButton = page.locator("#root button");
+		this.filterTextButton = page.getByRole('button', { name: 'Filter text example' });
 		this.inputLocator = this.inputRowLocator.locator("input");
 		this.wordFilterLocator = this.filterTextButton.locator("p");
 		this.comparisonButton = page.locator(".inputRow .comparisonButton button");
@@ -72,6 +72,6 @@ export class DataViewFilterTextComponent extends BasePage {
 			comparisonOption = "equals";
 			break;
 		}
-		await this.visit(this.page_path, [knob.knobComparison + true, knob.knobDefaultComparison + comparisonOption]);
+		await this.visit(this.page_path, [knob.knobComparison + "!true", knob.knobDefaultComparison + comparisonOption]);
 	}
 }

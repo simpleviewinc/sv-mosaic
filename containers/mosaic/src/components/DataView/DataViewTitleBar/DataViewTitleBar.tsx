@@ -7,6 +7,7 @@ import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
 import TitleWrapper from "@root/components/Title";
 import { ButtonProps } from "@root/components/Button";
 import DataViewViewControls from "../DataViewViewControls";
+import testIds from "@root/utils/testIds";
 
 function DataViewTitleBar({
 	activeFilters,
@@ -39,7 +40,7 @@ function DataViewTitleBar({
 	const hasViewControls = currentView || onViewSave || onViewSaveAs || onViewList;
 
 	return (
-		<TitleBarWrapper>
+		<TitleBarWrapper data-testid={testIds.DATA_VIEW_TITLE_BAR}>
 			<StyledWrapper>
 				<div className="left">
 					{title && (

@@ -3,13 +3,15 @@ import { useState, useMemo } from "react";
 import styled from "styled-components";
 import pick from "lodash/pick";
 import xor from "lodash/xor";
-
 import FilterListIcon from "@mui/icons-material/FilterList";
+
+import testIds from "@root/utils/testIds";
+import theme from "@root/theme";
+import { useMosaicTranslation } from "@root/i18n";
+
 import DataViewFilterDropdown from "../../DataViewFilterDropdown";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
 import Button from "../../Button";
-import theme from "@root/theme";
-import { useMosaicTranslation } from "@root/i18n";
 import { DataViewProps } from "../DataViewTypes";
 import { DataViewFiltersProps } from "./DataViewFiltersTypes";
 
@@ -125,7 +127,7 @@ function DataViewFilters(props: DataViewFiltersProps) {
 			<div className="filterRow">
 				{
 					props?.filters?.length > 0 && (
-						<FiltersRow>
+						<FiltersRow data-testid={testIds.DATA_VIEW_FILTER_BAR}>
 							<Button
 								label={t("mosaic:DataView.filters")}
 								variant="text"
