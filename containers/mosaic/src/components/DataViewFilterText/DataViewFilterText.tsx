@@ -9,7 +9,7 @@ const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Contains...", value : "contains" },
 	{ label : "Does not contain...", value : "not_contains" },
 	{ label : "Equals...", value : "equals" },
-	{ label : "Does not equal...", value : "not_equals" },
+	{ label : "Not equal to...", value : "not_equals" },
 	{ label : "Exists", value : "exists" },
 	{ label : "Not Exists", value : "not_exists" },
 ];
