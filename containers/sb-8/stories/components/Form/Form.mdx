@@ -17,6 +17,7 @@ import * as stories from './Playground.stories';
   * [Interface: `FormProps`](#interface-formprops)
 * [Basic Usage](#basic-usage)
   * [Submission](#submission)
+    * [External Submission](#external-submission)
   * [Layout](#layout)
     * [Interface: `SectionDef`](#interface-sectiondef)
 * [Form Fields](#form-fields)
@@ -169,6 +170,37 @@ export default function App() {
       fields={fields}
       buttons={buttons}
     />
+  );
+}
+```
+
+#### External Submission
+You're encouraged to provide a submit button to the form component in order to leverage the browsers native form submission behaviour. However, if you'd like the utilise some external method of submission, like a button of your own that is rendered outside of the `Form` component, you can do so by simply invoking the handler that `handleSubmit` creates for you:
+
+```ts
+export default function App() {
+  const controller = useForm();
+  const { handleSubmit } = controller;
+
+  const onSubmitSuccess = useCallback((data) => {
+    // Handle the submission...
+  }, []);
+
+  const onSubmit = handleSubmit(onSubmitSuccess, onSubmitError);
+
+  return (
+    <>
+      <Form
+        {...controller}
+        fields={fields}
+      />
+      <button
+        type="button"
+        onClick={onSubmit}
+      >
+        Click here to submit
+      </button>
+    </>
   );
 }
 ```
