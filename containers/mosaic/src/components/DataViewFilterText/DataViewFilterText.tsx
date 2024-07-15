@@ -15,10 +15,10 @@ const validComparisons: { label: string; value: FilterTextComparison }[] = [
 ];
 
 const comparisonMap = {
-	equals : "",
-	not_equals : "!=",
-	contains : "~",
-	not_contains : "!~",
+	equals : "is",
+	not_equals : "is not",
+	contains : "contains",
+	not_contains : "does not contain",
 };
 
 function DataViewFilterText(props: DataViewFilterTextProps) {
@@ -60,9 +60,9 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 	// based on the state lets figure out what our value should be
 	let valueString: string;
 	if (comparison === "exists") {
-		valueString = "EXISTS";
+		valueString = "exists";
 	} else if (comparison === "not_exists") {
-		valueString = "NOT EXISTS";
+		valueString = "does not exist";
 	} else if (value === "") {
 		valueString = "";
 	} else {
