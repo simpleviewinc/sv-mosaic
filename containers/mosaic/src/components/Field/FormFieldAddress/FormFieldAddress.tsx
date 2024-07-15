@@ -77,7 +77,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				return address.types.map(({ value }) => value).includes(type.value);
 			});
 
-			if (valuesOfType.length >= limits[type.value]) {
+			if (limits[type.value] > -1 && valuesOfType.length >= limits[type.value]) {
 				return false;
 			}
 
