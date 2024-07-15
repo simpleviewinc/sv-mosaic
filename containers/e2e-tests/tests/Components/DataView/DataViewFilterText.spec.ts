@@ -16,7 +16,7 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 	test("Validate that the filter is displayed when searched.", async () => {
 		const expectedWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.searchForWord(expectedWord);
-		expect(await dvFilterComponent.getOnlyStringWithLetters(await dvFilterComponent.wordFilterLocator.textContent())).toBe(expectedWord);
+		expect(await dvFilterComponent.getOnlyStringWithLetters(await dvFilterComponent.wordFilterLocator.textContent())).toBe(`is ${expectedWord}`);
 	});
 
 	test("Validate that the comparison button is displayed.", async () => {
@@ -30,15 +30,15 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 		const searchWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.visit(dvFilterComponent.page_path, [knob.knobComparison + "true"]);
 		await dvFilterComponent.searchWithComparison(searchWord, "Contains");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("~");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("contains");
 		await dvFilterComponent.searchWithComparison(searchWord, "Not Contains");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("!~");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("does not contain");
 		await dvFilterComponent.searchWithComparison(searchWord, "Not Equal");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("!=");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("is not");
 		await dvFilterComponent.searchWithComparison(searchWord, ("Exists"));
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("Exists").toUpperCase());
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("exists"));
 		await dvFilterComponent.searchWithComparison(searchWord, "Not Exists");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("Not Exists").toUpperCase());
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("does not exist"));
 	});
 
 	test("Validate that the text filter comparison logic is consistent.", async () => {
