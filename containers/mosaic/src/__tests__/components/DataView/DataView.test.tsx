@@ -48,7 +48,7 @@ describe("DataViewFilterText component", () => {
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
-		const filter = await screen.findByText("Equals");
+		const filter = await screen.findByText("Equals...");
 		expect(filter).toBeTruthy();
 	});
 
@@ -67,7 +67,7 @@ describe("DataViewFilterText component", () => {
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
-		const filter = await screen.findByText("Not Equal");
+		const filter = await screen.findByText("Not equal to...");
 		expect(filter).toBeTruthy();
 	});
 
@@ -85,7 +85,7 @@ describe("DataViewFilterText component", () => {
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
 		fireEvent.click(titleWithComparisonsButton);
-		const filter = await screen.findByText("Equals");
+		const filter = await screen.findByText("Equals...");
 		expect(filter).toBeTruthy();
 	});
 

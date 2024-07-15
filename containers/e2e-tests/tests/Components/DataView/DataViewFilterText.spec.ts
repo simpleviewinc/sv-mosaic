@@ -16,7 +16,7 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 	test("Validate that the filter is displayed when searched.", async () => {
 		const expectedWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.searchForWord(expectedWord);
-		expect(await dvFilterComponent.getOnlyStringWithLetters(await dvFilterComponent.wordFilterLocator.textContent())).toBe(expectedWord);
+		expect(await dvFilterComponent.getOnlyStringWithLetters(await dvFilterComponent.wordFilterLocator.textContent())).toBe(`is ${expectedWord}`);
 	});
 
 	test("Validate that the comparison button is displayed.", async () => {
@@ -29,20 +29,20 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 	test("Validate that each comparison is displayed.", async () => {
 		const searchWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.visit(dvFilterComponent.page_path, [knob.knobComparison + "true"]);
-		await dvFilterComponent.searchWithComparison(searchWord, "Contains");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("~");
-		await dvFilterComponent.searchWithComparison(searchWord, "Not Contains");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("!~");
-		await dvFilterComponent.searchWithComparison(searchWord, "Not Equal");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("!=");
+		await dvFilterComponent.searchWithComparison(searchWord, "Contains...");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("contains");
+		await dvFilterComponent.searchWithComparison(searchWord, "Does not contain...");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("does not contain");
+		await dvFilterComponent.searchWithComparison(searchWord, "Not equal to...");
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("is not");
 		await dvFilterComponent.searchWithComparison(searchWord, ("Exists"));
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("Exists").toUpperCase());
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("exists"));
 		await dvFilterComponent.searchWithComparison(searchWord, "Not Exists");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("Not Exists").toUpperCase());
+		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("does not exist"));
 	});
 
 	test("Validate that the text filter comparison logic is consistent.", async () => {
-		const comparisonsToValidate = ["Equals", "Not Equal", "Contains", "Not Contains", "Exists", "Not Exists"];
+		const comparisonsToValidate = ["Equals...", "Not equal to...", "Contains...", "Does not contain...", "Exists", "Not Exists"];
 		for (let i = 0; i < comparisonsToValidate.length; i++) {
 			await dvFilterComponent.visitPageWithDefaultComparison(comparisonsToValidate[i]);
 			await dvFilterComponent.filterTextButton.waitFor();
@@ -58,10 +58,10 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 			const expectedText = comparisonsToValidate[i];
 			expect(comparisonButtonText).toBe(expectedText);
 		}
-		dvFilterComponent.pressSpecificKeyInKeyboard("Escape");
 	});
 
 	test("Validate that the padding in the input row.", async () => {
+		await dvFilterComponent.visit(dvFilterComponent.page_path);
 		const expectedPadding = "16px 16px 0px";
 		await dvFilterComponent.filterTextButton.click();
 		expect(await dvFilterComponent.getSpecificPaddingFromElement(dvFilterComponent.inputRowLocator, "all")).toBe(expectedPadding);
