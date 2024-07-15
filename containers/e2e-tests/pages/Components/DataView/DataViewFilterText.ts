@@ -36,10 +36,10 @@ export class DataViewFilterTextComponent extends BasePage {
 		await this.menuItem.locator(":scope", { hasText: comparison }).first().click({ force: true });
 	}
 
-	async searchWithComparison(word: string, comparison: "Contains" | "Not Contains" | "Equals" | "Not Equal" | "Exists" | "Not Exists"): Promise<void> {
+	async searchWithComparison(word: string, comparison: "Contains..." | "Does not contain..." | "Equals..." | "Not equal to..." | "Exists" | "Not Exists"): Promise<void> {
 		await this.filterTextButton.click();
 		await this.selectComparison(comparison);
-		if (comparison == "Contains" || comparison == "Not Contains" || comparison == "Equals" || comparison == "Not Equal") {
+		if (comparison == "Contains..." || comparison == "Does not contain..." || comparison == "Equals..." || comparison == "Not equal to...") {
 			await this.inputLocator.fill(word);
 		}
 		await this.wait();
@@ -47,19 +47,19 @@ export class DataViewFilterTextComponent extends BasePage {
 		await this.filterTextButton.waitFor();
 	}
 
-	async visitPageWithDefaultComparison(comparison: "Equals" | "Not Equal" | "Contains" | "Not Contains" | "Exists" | "Not Exists" | string): Promise<void> {
+	async visitPageWithDefaultComparison(comparison: "Equals..." | "Not equal to..." | "Contains..." | "Does not contain..." | "Exists" | "Not Exists" | string): Promise<void> {
 		let comparisonOption: string;
 		switch (comparison) {
-		case "Equals":
+		case "Equals...":
 			comparisonOption = "equals";
 			break;
-		case "Not Equal":
+		case "Not equal to...":
 			comparisonOption = "not_equals";
 			break;
-		case "Contains":
+		case "Contains...":
 			comparisonOption = "contains";
 			break;
-		case "Not Contains":
+		case "Does not contain...":
 			comparisonOption = "not_contains";
 			break;
 		case "Exists":
