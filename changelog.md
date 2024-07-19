@@ -1,6 +1,6 @@
 # sv-mosaic changelog
 
-## 36.2.0 - 07/23/24
+## 36.2.1 - 07/23/24
 
 ### Improvements and Fixes
 
@@ -28,6 +28,8 @@
     * (chore) Updates Storybook from 8.1.9 to 8.1.11
   * [MOS-1423](https://simpleviewtools.atlassian.net/browse/MOS-1423 "https://simpleviewtools.atlassian.net/browse/MOS-1423") **Address issues with DataView e2e tests**
     * A number of e2e tests for the DataView are brittle, use bad locators or are skipped altogether. This takes care of all of those issues.
+  * [MOS-1425](https://simpleviewtools.atlassian.net/browse/MOS-1425 "https://simpleviewtools.atlassian.net/browse/MOS-1425") **Broken FieldDef export**
+    * (Field) Exports field types from library main entry point
 
 ## 36.1.0 - 07/09/24
 
