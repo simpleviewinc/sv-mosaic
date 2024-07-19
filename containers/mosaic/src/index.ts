@@ -3,6 +3,8 @@ export * from "./types";
 export { default as Form } from "./components/Form";
 export * from "./components/Form";
 
+export * from "./components/Field";
+
 export { default as DataViewFilterDate } from "./components/DataViewFilterDate";
 export * from "./components/DataViewFilterDate";
 
