@@ -1,5 +1,34 @@
 # sv-mosaic changelog
 
+## 36.2.0 - 07/23/24
+
+### Improvements and Fixes
+
+* `DataView`
+
+  * [MOS-1296](https://simpleviewtools.atlassian.net/browse/MOS-1296 "https://simpleviewtools.atlassian.net/browse/MOS-1296") **Selected Title Comparison representation**
+    * (DataViewTextFilter) Use verbiage for the comparison description labels instead of technical operators.
+  * [MOS-1390](https://simpleviewtools.atlassian.net/browse/MOS-1390 "https://simpleviewtools.atlassian.net/browse/MOS-1390") **Implement number filter**
+    * (NumberFilter) Adds numerical "rating" mock data to be displayed and filtered in the `DataView` story
+    * (DataViewFilters) Standardises the footers of all filter drop-down contents. Performs a little cleanup.
+    * (NumberFilter) Initial implementation using the form's newly introduced `number` field. This filter allows for a minimum and maximum number to be entered and used as a filter. Accepts all of the input settings that the number field accepts apart from `placeholder`.
+    * (NumberField) Moves story to the correct location
+    * (NumberFilter) Creates an isolated story for the new filter component and also exhibits it in the main DataView story using record ratings.
+* `FormFieldDate`
+
+  * [MOS-1396](https://simpleviewtools.atlassian.net/browse/MOS-1396 "https://simpleviewtools.atlassian.net/browse/MOS-1396") **Clearing dates breaks the dateTime input**
+    * (DateField) Ensures that an empty input (nullish time) - even though it is an acceptable input - is not considered a valid time.
+* `FormFieldNumber`
+
+  * [MOS-1392](https://simpleviewtools.atlassian.net/browse/MOS-1392 "https://simpleviewtools.atlassian.net/browse/MOS-1392") **Create a new "number" field type**
+    * Introduces a number field type that supports restricting input to a given number of decimal places or whole numbers, signed numbers and prefix and suffixes.
+* Housekeeping
+
+  * [MOS-1417](https://simpleviewtools.atlassian.net/browse/MOS-1417 "https://simpleviewtools.atlassian.net/browse/MOS-1417") **Upgrade Storybook from 8.1.9 to 8.1.11**
+    * (chore) Updates Storybook from 8.1.9 to 8.1.11
+  * [MOS-1423](https://simpleviewtools.atlassian.net/browse/MOS-1423 "https://simpleviewtools.atlassian.net/browse/MOS-1423") **Address issues with DataView e2e tests**
+    * A number of e2e tests for the DataView are brittle, use bad locators or are skipped altogether. This takes care of all of those issues.
+
 ## 36.1.0 - 07/09/24
 
 ### Improvements and Fixes
