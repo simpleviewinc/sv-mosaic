@@ -31,11 +31,13 @@ const menuItemsLibrary = [
 	},
 ];
 
-export const Playground = ({ menuItemCount }: typeof Playground.args): ReactElement => {
+export const Playground = ({ menuItemCount, showIcons, iconColor }: typeof Playground.args): ReactElement => {
 	const menuItems: ButtonProps["menuItems"] = menuItemsLibrary.map((val, index) => {
 		return {
 			...val,
 			show: menuItemCount >= index + 1,
+			mIcon: showIcons ? CreateIcon : undefined,
+			color: iconColor,
 			onClick : function() {
 				alert(`Clicked ${val.label}`);
 			},
@@ -54,6 +56,8 @@ export const Playground = ({ menuItemCount }: typeof Playground.args): ReactElem
 
 Playground.args = {
 	menuItemCount: menuItemsLibrary.length,
+	showIcons: false,
+	iconColor: "black",
 };
 
 Playground.argTypes = {
@@ -65,6 +69,14 @@ Playground.argTypes = {
 			max: menuItemsLibrary.length,
 		},
 	},
+	showIcons: {
+		name: "Show Icons",
+	},
+	iconColor: {
+		name: "Icon Color",
+		control: { type: "select" },
+		options: ["black", "blue", "red", "yellow", "teal", "gray", "purple"],
+	}
 };
 
 export const WithIcons = (): ReactElement => {
