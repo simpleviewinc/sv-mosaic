@@ -6,7 +6,7 @@ import { colors, StyledIcon, StyledMenuItem } from "./MenuItem.styled";
 
 export default function MenuItem({
 	mIcon: Icon,
-	color,
+	color = "black",
 	attrs: providedAttrs,
 	title,
 	label,
