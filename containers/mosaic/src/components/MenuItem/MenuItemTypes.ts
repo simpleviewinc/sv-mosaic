@@ -1,8 +1,9 @@
 import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
+import { colors } from "./MenuItem.styled";
 
 export interface MenuItemProps {
 	label: string | JSX.Element;
-	color?: "red" | "blue" | "black";
+	color?: (typeof colors)[number];
 	mIcon?: SvgIconComponent;
 	disabled?: boolean;
 	selected?: boolean;
