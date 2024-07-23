@@ -74,6 +74,7 @@ function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
 			/>
 			<span>
 				of
+				{" "}
 				{props.totalPages}
 			</span>
 			<Button
