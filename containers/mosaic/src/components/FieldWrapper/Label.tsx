@@ -107,6 +107,7 @@ const Label = (props: LabelProps): ReactElement => {
 				htmlFor={as === "label" && name ? `${name}-input` : undefined}
 				as={as === "label" ? InputLabel : InputLabelDiv}
 				data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
+				title={typeof children === "string" ? children : undefined}
 			>
 				{children}
 				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
