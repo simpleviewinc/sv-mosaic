@@ -17,6 +17,7 @@ const amountOptions = [
 	3,
 	4,
 	5,
+	-1,
 ];
 
 const commonInputSettings = {
