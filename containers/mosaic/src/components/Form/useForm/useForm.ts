@@ -339,6 +339,11 @@ export function useForm(): UseFormReturn {
 			.map(([, field]) => field.name)
 			.filter(name => fieldCanBeValidated({ name }));
 
+		stable.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
+			...prev,
+			[curr]: true,
+		}), {});
+
 		const { count, errors } = await getFieldErrors({ names });
 
 		if (count) {
@@ -378,11 +383,6 @@ export function useForm(): UseFormReturn {
 		const cleanData = activeDataList.reduce((acc, { name, value }) => ({
 			...acc,
 			[name]: value,
-		}), {});
-
-		stable.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
-			...prev,
-			[curr]: true,
 		}), {});
 
 		return {
