@@ -157,7 +157,7 @@ describe("Address drawer country postcode validation", () => {
 			fireEvent.blur(postcodeInput);
 		});
 
-		expect(screen.queryByText("This is not a valid postcode in the selected country")).toBeNull();
+		expect(screen.queryByText("This is not a valid postal code in the selected country")).toBeNull();
 	});
 
 	it("should not produce an error if a postcode is entered when an unsupported country is selected", async () => {
@@ -184,7 +184,7 @@ describe("Address drawer country postcode validation", () => {
 			fireEvent.blur(postcodeInput);
 		});
 
-		expect(screen.queryByText("This is not a valid postcode in the selected country")).toBeNull();
+		expect(screen.queryByText("This is not a valid postal code in the selected country")).toBeNull();
 	});
 
 	it("should produce an error if an invalid postcode is entered for the selected country", async () => {
@@ -216,6 +216,6 @@ describe("Address drawer country postcode validation", () => {
 			fireEvent.blur(postcodeInput);
 		});
 
-		expect(screen.queryByText("This is not a valid postcode in the selected country")).not.toBeNull();
+		expect(screen.queryByText("This is not a valid postal code in the selected country")).not.toBeNull();
 	});
 });
