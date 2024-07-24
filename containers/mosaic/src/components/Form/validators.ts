@@ -258,7 +258,7 @@ export async function validatePostcode(value: string, data: any, { countryField 
 	}
 
 	if (!postcodeValidator(value, country)) {
-		return "This is not a valid postcode in the selected country";
+		return "This is not a valid postal code in the selected country";
 	}
 
 	return;
