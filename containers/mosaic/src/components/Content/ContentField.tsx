@@ -25,7 +25,10 @@ const ContentField = ({ label, transforms, value: rawValue }: ContentFieldProps)
 	}, [transforms, rawValue]);
 
 	return (
-		<FieldContainer data-testid={testIds.CONTENT_FIELD}>
+		<FieldContainer
+			data-testid={testIds.CONTENT_FIELD}
+			$margin
+		>
 			<FieldTerm>{label}</FieldTerm>
 			<FieldDefinition>
 				<FieldDefinitionInner>
