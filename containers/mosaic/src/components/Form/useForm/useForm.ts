@@ -165,7 +165,10 @@ export function useForm(): UseFormReturn {
 			Object.assign(errors, linkedFieldErrors);
 		}
 
-		stable.current.errors = errors;
+		stable.current.errors = {
+			...stable.current.errors,
+			...errors,
+		};
 
 		dispatch({
 			type: "SET_FIELD_ERRORS",
