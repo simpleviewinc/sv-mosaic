@@ -14,7 +14,7 @@ import {
 	FieldContainer,
 } from "./Content.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
-import ContentField from "./ContentRow";
+import ContentField from "./ContentField";
 import { MosaicGridConfig } from "@root/types";
 import { SubtitleText } from "../Typography";
 import { getToggle } from "@root/utils";
@@ -25,7 +25,7 @@ const Content = (props: ContentProps): ReactElement => {
 
 	const cardVariant = variant === "card" ? true : false;
 
-	const sectionsWithFields = useMemo<MosaicGridConfig<ContentFieldDef>>(() => {
+	const rows = useMemo<MosaicGridConfig<ContentFieldDef>>(() => {
 		const sections: MosaicGridConfig = providedSections || fields.map(({ name, column }) => [[column || name]]);
 
 		return sections.map((rows, sectionIdx) => rows.map((columns, rowIdx) => columns.map(fieldName => {
@@ -59,20 +59,22 @@ const Content = (props: ContentProps): ReactElement => {
 				)}
 			</TitleWrapper>
 			<FieldsList className={cardVariant ? "card-content" : ""}>
-				{sectionsWithFields.map((rows, idx) => (
+				{rows.map((columns, idx) => (
 					<ContentRowWrapper
 						key={`${idx}-row`}
 						className={cardVariant ? "card-row" : ""}
-						$columns={rows.length}
+						$columns={columns.length}
+						data-testid={testIds.CONTENT_ROW}
 					>
-						{rows.map(([field], rowIdx) => field ? (
+						{columns.map(([field], colIdx) => field ? (
 							<ContentField
 								{...field}
 								key={field.name}
 								value={data[field.column || field.name]}
+								data-testid={testIds.CONTENT_COL}
 							/>
 						) : (
-							<FieldContainer key={rowIdx} data-testid={testIds.CONTENT_FIELD} />
+							<FieldContainer key={colIdx} data-testid={testIds.CONTENT_FIELD} />
 						))}
 					</ContentRowWrapper>
 				))}

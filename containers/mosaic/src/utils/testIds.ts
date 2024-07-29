@@ -1,6 +1,9 @@
 const testIds = {
 	FORM_STATE: "mos:Form:state",
 	FORM_FIELD_LABEL: "mos:Field:label",
+	CONTENT_SECTION: "mos:Content:section",
+	CONTENT_ROW: "mos:Content:row",
+	CONTENT_COL: "mos:Content:col",
 	CONTENT_FIELD: "mos:Content:field",
 	CARD: "mos:Card:root",
 	CARD_HEADING: "mos:Card:heading",
