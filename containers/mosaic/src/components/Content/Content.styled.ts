@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import EditIcon from "@mui/icons-material/Edit";
+import { CONTAINERS } from "@root/theme/theme";
+import { containerQuery } from "@root/utils/css";
 
 export const MainWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -64,23 +66,41 @@ export const ColorValue = styled.p`
 	margin-top: 0;
 `;
 
-export const FieldsList = styled.div``;
+export const FieldsList = styled.div`
+	container-type: inline-size;
+	container-name: ${CONTAINERS.CONTENT};
+`;
 
 export const ContentRowWrapper = styled.dl<{ $columns?: number }>`
 	display: grid;
-	grid-template-columns: repeat(${({ $columns }) => $columns} ,minmax(0,1fr));
-	gap: 12px;
+	row-gap: 12px;
 	width: 100%;
 	margin: 0;
+	grid-template-columns: repeat(${({ $columns }) => $columns} ,minmax(0,1fr));
 
 	&.card-row + .card-row {
 		border-top: 2px solid ${theme.newColors.grey2["100"]};
 		padding-top: 16px;
 	}
+
+	${({ $columns }) => `
+		grid-template-columns: repeat(1,minmax(0,1fr));
+
+		${containerQuery("md", "CONTENT")} {
+			grid-template-columns: repeat(${$columns > 1 ? 2 : 1},minmax(0,1fr));
+		}
+
+		${containerQuery("lg", "CONTENT")} {
+			grid-template-columns: repeat(${$columns},minmax(0,1fr));
+		}
+	`}
+
 `;
 
-export const FieldContainer = styled.div`
-	margin-bottom: 24px;
+export const FieldContainer = styled.div<{ $margin?: boolean }>`
+	${({ $margin }) => $margin && `
+		margin-bottom: 24px;
+	`}
 `;
 
 export const FieldTerm = styled.dt`
