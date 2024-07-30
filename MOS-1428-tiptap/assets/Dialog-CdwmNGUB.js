@@ -1,0 +1,10 @@
+import{j as o}from"./jsx-runtime-nGUw9YhZ.js";import{useMDXComponents as e}from"./index-3-_tf5dF.js";import{M as n,C as s}from"./index-D7r7IB1o.js";import{s as p,P as a}from"./Dialog.stories-BGZCOnAZ.js";import"./index-BP8_t0zE.js";import"./iframe-BrDELV_Q.js";import"../sb-preview/runtime.js";import"./index-BxmsGmlx.js";import"./extends-CF3RwP-h.js";import"./tslib.es6-CRos2fHm.js";import"./index-DXimoRZY.js";import"./inheritsLoose-CMy1E8oj.js";import"./toString-BjCnz-8e.js";import"./index-DJqTsaQd.js";import"./index-DrFu-skq.js";import"./Dialog-BV4XmHEB.js";import"./Button-OJc5Vo8h.js";import"./theme-CtvfJOCv.js";import"./useThemeProps-Ds-LJhvX.js";import"./ButtonBase-BVb7KZlV.js";import"./emotion-react.browser.esm-DIgfljIv.js";import"./assertThisInitialized-CO-dlV3K.js";import"./Popper-Cx7DIS0Z.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useToggle-lipGlewK.js";import"./useId-BlXdlps1.js";function r(t){const i={a:"a",code:"code",h1:"h1",h2:"h2",p:"p",...e(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(n,{of:p}),`
+`,o.jsx(i.h1,{id:"dialog",children:"Dialog"}),`
+`,o.jsxs(i.p,{children:["The ",o.jsx(i.code,{children:"Dialog"})," component is built over a wrapper for ",o.jsx(i.a,{href:"https://mui.com/components/dialogs/",rel:"nofollow",children:"Material-UI Dialog"})," but with SimpleView brand colors."]}),`
+`,o.jsx(i.p,{children:`A dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision.\r
+Is a warning states: It’s possible to use modal windows when the user is about to take an action that has serious consequences and\r
+is difficult or impossible to reverse.`}),`
+`,o.jsx(i.h2,{id:"props",children:"Props"}),`
+`,o.jsx(i.p,{children:"https://github.com/simpleviewinc/sv-mosaic/blob/develop/src/components/Dialog/DialogTypes.tsx"}),`
+`,o.jsx(i.h2,{id:"dialog-example",children:"Dialog Example"}),`
+`,o.jsx(s,{of:a})]})}function L(t={}){const{wrapper:i}={...e(),...t.components};return i?o.jsx(i,{...t,children:o.jsx(r,{...t})}):r(t)}export{L as default};
