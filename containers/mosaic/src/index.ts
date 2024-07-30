@@ -36,6 +36,8 @@ export { default as DataViewFilterDropdown } from "./components/DataViewFilterDr
 
 export { default as DataViewFilterText } from "./components/DataViewFilterText";
 
+export { default as DataViewFilterNumber } from "./components/DataViewFilterNumber";
+
 export { default as DataViewFilterDropdownButtons } from "./components/DataViewFilterDropdownButtons";
 
 export { default as DataViewFilterMultiselect } from "./components/DataViewFilterMultiselect";
