@@ -1,5 +1,45 @@
 # sv-mosaic changelog
 
+### 36.2.2 - 08/05/2024
+
+### Improvements and Fixes
+
+* `Content`
+
+  * [MOS-1321](https://simpleviewtools.atlassian.net/browse/MOS-1321 "https://simpleviewtools.atlassian.net/browse/MOS-1321") **Content responsiveness**
+    * (Content) Use container media queries to stack content fields on top of one another where less space is available.
+* `DataView`
+
+  * [MOS-1314](https://simpleviewtools.atlassian.net/browse/MOS-1314 "https://simpleviewtools.atlassian.net/browse/MOS-1314") **Missing space in pager popover**
+    * (DataView) Forces a space between "of" keyword and number of pages in pager popover.
+* `Form`
+
+  * [MOS-1298](https://simpleviewtools.atlassian.net/browse/MOS-1298 "https://simpleviewtools.atlassian.net/browse/MOS-1298") **Form label tooltips**
+    * (Form) Adds title attributes to field labels to enable a native tooltip.
+  * [MOS-1303](https://simpleviewtools.atlassian.net/browse/MOS-1303 "https://simpleviewtools.atlassian.net/browse/MOS-1303") **Validation onBlurChange validation behaviour issues**
+    * (Form) Marks all fields as blurred if submission is attempted so that appropriate validation strategies work as expected.
+* `FormFieldAddress`
+
+  * [MOS-1302](https://simpleviewtools.atlassian.net/browse/MOS-1302 "https://simpleviewtools.atlassian.net/browse/MOS-1302") **Provide a way to allow an unlimited number of addresses**
+    * (AddressField) Adds support to set no limit on the number of addresses that can be added for each or all types
+  * [MOS-1427](https://simpleviewtools.atlassian.net/browse/MOS-1427 "https://simpleviewtools.atlassian.net/browse/MOS-1427") **Postcode validation message correction**
+    * (AddressField) Updates the message given when an invalid postcode is provided to better reflect the label of the field.
+* `FormFieldNumber`
+
+  * [MOS-1429](https://simpleviewtools.atlassian.net/browse/MOS-1429 "https://simpleviewtools.atlassian.net/browse/MOS-1429") **Ensure new DataViewFilterNumber component is exported at the root**
+    * (NumberFilter) Export at the root to ensure component is included in build.
+* `Menu`
+
+  * [MOS-1416](https://simpleviewtools.atlassian.net/browse/MOS-1416 "https://simpleviewtools.atlassian.net/browse/MOS-1416") **Add additional color options for icons on MenuItem**
+    * (Menu) Adds menu item support for all appropriate icon colours.
+* Housekeeping
+
+  * [MOS-1294](https://simpleviewtools.atlassian.net/browse/MOS-1294 "https://simpleviewtools.atlassian.net/browse/MOS-1294") **Query about Submit External Buttons > Age field**
+    * (Form) Updates the form documentation to demonstrate using an external method of submission
+    * (chore) Remove redundant story
+  * [MOS-1309](https://simpleviewtools.atlassian.net/browse/MOS-1309 "https://simpleviewtools.atlassian.net/browse/MOS-1309") **Replace non secure Storybook links**
+    * (chore) Replace resource data images with SSL-enabled URLs
+
 ## 36.2.1 - 07/23/24
 
 ### Improvements and Fixes
