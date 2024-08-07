@@ -114,6 +114,7 @@ export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitEr
 export type SetFormValuesParams = {
 	values: MosaicObject<any>;
 	initial?: boolean;
+	validate?: boolean;
 };
 
 export type SetFormValues = (params: SetFormValuesParams) => void;
