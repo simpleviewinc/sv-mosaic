@@ -34,7 +34,7 @@ Invoking `useForm` returns an object that implements the `FormController` interf
 | ---- | ---- | ----------- |
 | `state` | `FormState` | Contains all of the form state. You can use this to perform side effects. `state` is described in more detail below. |
 | `methods` | `FormMethods` | Contains all of the methods necessary for manipulating form state. `methods` is described in more detail below. |
-| `handleSubmit` | `(onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>` | `handleSubmit` is a higher order function available on the form controller and should be used to wrap a callback to be invoked on a successful submission. `handleSubmit` accepts an optional second callback to be invoked on an invalid submission. Both callbacks will be invoked with the form data as their first parameter. |
+| `handleSubmit` | `(onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>` | `handleSubmit` is a higher order function available on the form controller and should be used to wrap a callback to be invoked on a successful submission. `handleSubmit` accepts an optional second callback to be invoked on an invalid submission. Both callbacks will be invoked with an object containing at least the `data` property - this will contain the form data. The parameter provided to the success handler will have an additional property: `activeFields` will contain a list of field names that are considered active. |
 
 ### The Form State
 The controller comes with a `state` object that contains not only the values for each field in the form, but other various attributes of the form. This state, or parts of it, can be used as dependencies to perform your own side effects. It implements the `FormState` interface.
@@ -131,7 +131,7 @@ export default function App() {
 
   // The function to be invoked when the form is submitted
   // and validation is successful
-  const onSubmitSuccess = useCallback((data) => {
+  const onSubmitSuccess = useCallback(({ data }) => {
     alert(
       "Submission was successful! The data submitted was: " +
         JSON.stringify(data),
@@ -140,7 +140,7 @@ export default function App() {
 
   // The function to be invoked when the form is submitted
   // but validation fails
-  const onSubmitError = useCallback((data) => {
+  const onSubmitError = useCallback(({ data }) => {
     alert("Submission failed! The data submitted was: " + JSON.stringify(data));
   }, []);
 
