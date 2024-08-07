@@ -77,7 +77,7 @@ export function FormFieldMatrixSkeleton({ buttonCount = 0 }: { buttonCount?: num
 	return (
 		<div>
 			<StyledSkeletonRowWrapper>
-				{[...Array(buttonCount)].map((i) => (
+				{[...Array(buttonCount)].map((_, i) => (
 					<SkeletonPrimaryAction key={i} />
 				))}
 			</StyledSkeletonRowWrapper>
