@@ -7,6 +7,7 @@ import Button from "@root/components/Button";
 import DataView from "@root/components/DataView";
 import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
+import { FormFieldMatrixSkeleton } from "./FormFieldMatrixSkeleton";
 
 const FormFieldMatrix = (
 	props: MosaicFieldProps<"matrix", MatrixInputSettings, MatrixData>,
@@ -15,11 +16,20 @@ const FormFieldMatrix = (
 		value,
 		disabled,
 		fieldDef,
+		skeleton,
 	} = props;
 
-	const { buttons, dataView } = fieldDef.inputSettings;
+	const { buttons = [], dataView } = fieldDef.inputSettings;
 	const data = (dataView.data !== undefined ? dataView.data : value) || [];
 	const hasValue = data.length > 0;
+
+	if (skeleton) {
+		return (
+			<FormFieldMatrixSkeleton
+				buttonCount={buttons.length}
+			/>
+		);
+	}
 
 	return (
 		<MatrixWrapper>
