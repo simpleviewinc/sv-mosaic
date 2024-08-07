@@ -156,6 +156,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				lat: String(lat),
 				lng: String(lng),
 			},
+			validate: true,
 		});
 	}, [setFormValues]);
 
