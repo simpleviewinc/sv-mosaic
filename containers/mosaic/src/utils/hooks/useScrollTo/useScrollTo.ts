@@ -53,7 +53,7 @@ export default function useScrollTo<E extends HTMLElement>({
 		const valueEnd = Math.min(newScrollTop, scrollMax);
 
 		animation.start({
-			fn: (n) => container.scrollTo({ top: n }),
+			fn: (n) => typeof container.scrollTo === "function" && container.scrollTo({ top: n }),
 			valueStart,
 			valueEnd,
 			duration: clamp(Math.abs(valueEnd - valueStart) * 0.75, {
