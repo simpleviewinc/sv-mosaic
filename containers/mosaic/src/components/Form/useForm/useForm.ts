@@ -177,9 +177,10 @@ export function useForm(): UseFormReturn {
 		});
 	}, [fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
 
-	const setFormValues = useCallback<SetFormValues>(({
+	const setFormValues = useCallback<SetFormValues>(async ({
 		values = {},
 		initial,
+		validate,
 	}) => {
 		const internalValues = Object.keys(values).reduce((acc, curr) => ({
 			...acc,
@@ -192,6 +193,21 @@ export function useForm(): UseFormReturn {
 		if (initial) {
 			stable.current.initialData = { ...values };
 			stable.current.disabled = false;
+		}
+
+		if (validate) {
+			const names = Object.keys(stable.current.fields);
+			const { errors } = await getFieldErrors({ names });
+
+			stable.current.errors = {
+				...stable.current.errors,
+				...errors,
+			};
+
+			dispatch({
+				type: "SET_FIELD_ERRORS",
+				errors,
+			});
 		}
 
 		return dispatch({
