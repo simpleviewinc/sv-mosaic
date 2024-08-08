@@ -16,7 +16,7 @@ function MapWithMarker({
 }: MapWithMarkerProps) {
 
 	return (
-		<>
+		<div>
 			<Map
 				initialCenter={initialCenter}
 				value={value}
@@ -29,7 +29,7 @@ function MapWithMarker({
 			<StyledSpan>
 				Click on the map to update the latitude and longitude coordinates
 			</StyledSpan>
-		</>
+		</div>
 	);
 }
 
