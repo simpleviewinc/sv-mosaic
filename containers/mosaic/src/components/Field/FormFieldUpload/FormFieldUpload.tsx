@@ -167,7 +167,6 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			id: nanoid(),
 			name: file.name,
 			size: file.size,
-			percent: 0,
 			error: undefined,
 			rawData: file,
 			isPending: true,
