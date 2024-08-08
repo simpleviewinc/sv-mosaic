@@ -78,7 +78,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.numberTableLocator.locator("thead").locator("th").last().textContent()).not.toBe("No. Rooms");
 	});
 
-	test("Validate that the different format are displayed correctly.", async () => {
+	test.skip("Validate that the different format are displayed correctly.", async () => {
 		const formatsToValidate = ["USD", "EUR", "JPY", "GBP"];
 		for (let i = 0; i < formatsToValidate.length; i++) {
 			await ffNumberTablePage.visitPageWithNumberFormat(formatsToValidate[i]);

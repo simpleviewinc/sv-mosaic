@@ -104,10 +104,10 @@ export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
 
 export type ValidateForm = () => Promise<boolean>;
 
-export type SubmitForm = () => Promise<{ valid: boolean; data: any }>;
+export type SubmitForm = () => Promise<{ valid: boolean; data: any; activeFields?: string[] }>;
 
-export type OnSubmitSuccess = (data: any) => void;
-export type OnSubmitError = (data: any) => void;
+export type OnSubmitSuccess = (params: { data: any; activeFields: string[] }) => void;
+export type OnSubmitError = (params: { data: any }) => void;
 
 export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>;
 
