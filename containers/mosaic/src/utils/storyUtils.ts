@@ -15,7 +15,7 @@ export const renderButtons = (handleSubmit: FormHandleSubmit, show = { showCance
 	},
 	{
 		label: "Save",
-		onClick: handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " "))),
+		onClick: handleSubmit(({ data, activeFields }) => alert(`Form submitted with the following data: ${JSON.stringify(data, null, " ")}\nActive fields: ${JSON.stringify(activeFields, null, "")}`)),
 		color: "yellow",
 		variant: "contained",
 		show: show.showSave,

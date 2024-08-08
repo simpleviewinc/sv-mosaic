@@ -335,6 +335,13 @@ export function useForm(): UseFormReturn {
 		});
 	}, []);
 
+	const setSubmitWarning = useCallback<SetSubmitWarning>((params) => {
+		dispatch({
+			type: "SET_SUBMIT_WARNING",
+			...params,
+		});
+	}, []);
+
 	const submitForm = useCallback<SubmitForm>(async () => {
 		const { data, fields, waits } = stable.current;
 
@@ -378,21 +385,13 @@ export function useForm(): UseFormReturn {
 		}
 
 		const activeFields = Object.keys(fields).filter(name => fieldCanBeValidated({ name }));
-		const activeDataList = activeFields.map(name => ({
-			name,
-			value: data[name],
-		}));
-
-		const cleanData = activeDataList.reduce((acc, { name, value }) => ({
-			...acc,
-			[name]: value,
-		}), {});
 
 		return {
 			valid: true,
-			data: cleanData,
+			data,
+			activeFields,
 		};
-	}, [fieldCanBeValidated, getFieldErrors]);
+	}, [fieldCanBeValidated, getFieldErrors, setSubmitWarning]);
 
 	const removeWait = useCallback<RemoveWait>(({
 		names,
@@ -491,13 +490,6 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
-	const setSubmitWarning = useCallback<SetSubmitWarning>((params) => {
-		dispatch({
-			type: "SET_SUBMIT_WARNING",
-			...params,
-		});
-	}, []);
-
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -527,14 +519,14 @@ export function useForm(): UseFormReturn {
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {
-		const { data, valid } = await submitForm();
+		const { data, activeFields, valid } = await submitForm();
 
 		if (!valid) {
-			onError && onError(data);
+			onError && onError({ data });
 			return;
 		}
 
-		onSuccess(data);
+		onSuccess({ data, activeFields });
 	}, [submitForm]);
 
 	return {
