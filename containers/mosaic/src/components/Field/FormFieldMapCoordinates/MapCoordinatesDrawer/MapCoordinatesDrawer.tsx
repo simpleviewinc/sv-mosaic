@@ -184,12 +184,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 					label: "Latitude",
 					type: "text",
 					validators: [validateLatitude],
+					required: true,
 				},
 				{
 					name: "lng",
 					label: "Longitude",
 					type: "text",
 					validators: [validateLongitude],
+					required: true,
 				},
 				{
 					name: "resetButton",
@@ -211,7 +213,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		[zoom, focusZoom, initialCenter, onCoordinatesChange, googleMapsApiKey, setFormValues],
 	);
 
-	const buttons: ButtonProps[] = [
+	const buttons: ButtonProps[] = useMemo(() => [
 		{
 			label: "Cancel",
 			onClick: () => handleClose(),
@@ -224,9 +226,8 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			type: "submit",
 			color: "yellow",
 			variant: "contained",
-			disabled: !latLng,
 		},
-	];
+	], [handleClose, onSubmit]);
 
 	return (
 		<FormDrawerWrapper className="mapCoordinates">
