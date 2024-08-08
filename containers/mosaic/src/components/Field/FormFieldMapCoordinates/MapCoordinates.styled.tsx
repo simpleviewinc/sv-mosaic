@@ -3,11 +3,11 @@ import theme from "@root/theme";
 
 // Styles for the MapCoordinates component
 
-export const StyledSpan = styled.span`
+export const StyledSpan = styled.div`
   color: ${theme.newColors.grey3["100"]};
   font-family: ${theme.fontFamily};
   font-size: 14px;
-  margin: 0px 20px 15px 20px;
+  margin-top: 4px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: calc(100vw - 40px);
@@ -84,8 +84,6 @@ export const LatitudeValue = styled(CoordinatesValues)`
 // Styles for the Map component
 
 export const MapContainer = styled.div`
-  margin: 0px 20px 16px 20px;
-
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: calc(100vw - 40px);
   };
@@ -95,15 +93,6 @@ export const MapContainer = styled.div`
 
 export const ResetButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
   flex-grow: 1;
-  position: relative;
-
-
-  .reset-button {
-    align-self: center;
-    position: absolute;
-    top: 56px;
-    left: 0;
-}
+  align-items: end;
 `;
