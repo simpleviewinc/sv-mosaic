@@ -148,9 +148,8 @@ describe("FormFieldMatrix component", () => {
 	});
 
 	it("it should display the Add button", () => {
-
-		expect(screen.getByText("Add")).toBeDefined();
-		expect(screen.getByTestId("AddIcon")).toBeDefined();
+		expect(screen.findByText("Add")).toBeDefined();
+		expect(screen.findByTestId("AddIcon")).toBeDefined();
 	});
 });
 
