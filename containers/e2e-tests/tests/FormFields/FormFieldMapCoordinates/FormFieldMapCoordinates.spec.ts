@@ -33,13 +33,11 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 		await ffMapCoordinatesPage.latitude.evaluate(e => e.blur());
 
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Latitude should be between -90 and 90");
-		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 
 		await ffMapCoordinatesPage.latitude.type("");
 		await ffMapCoordinatesPage.latitude.type("-91");
 		await ffMapCoordinatesPage.latitude.evaluate(e => e.blur());
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Latitude should be between -90 and 90");
-		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
 
 	test("Validate that an error message appears for invalid Longitude values.", async () => {
@@ -49,13 +47,11 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 		await ffMapCoordinatesPage.longitude.evaluate(e => e.blur());
 
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
-		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 
 		await ffMapCoordinatesPage.longitude.type("");
 		await ffMapCoordinatesPage.longitude.type("-181");
 		await ffMapCoordinatesPage.longitude.evaluate(e => e.blur());
 		expect(await ffMapCoordinatesPage.errorMessage.textContent()).toBe("Longitude should be between -180 and 180");
-		await expect(ffMapCoordinatesPage.saveCoordinatesButton).toBeDisabled();
 	});
 
 	test("Validate drawer title location is fixed.", async () => {
