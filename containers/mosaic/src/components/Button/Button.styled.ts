@@ -129,6 +129,10 @@ function getPadding(variant: ButtonProps["variant"], size: ButtonProps["size"] =
 		return variant === "outlined" ? "1px 12px" : "3px 14px";
 	}
 
+	if (size === "large") {
+		return variant === "outlined" ? "7px 22px" : "9px 24px";
+	}
+
 	return variant === "outlined" ? "4px 16px" : "6px 18px";
 }
 

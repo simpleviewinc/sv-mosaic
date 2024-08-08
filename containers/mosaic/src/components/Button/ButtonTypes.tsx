@@ -11,7 +11,7 @@ export interface ButtonProps {
 	color: ColorTypes;
 	mIcon?: SvgIconComponent;
 	variant: "icon" | "outlined" | "contained" | "text" | "input";
-	size?: "small" | "medium";
+	size?: "small" | "medium" | "large";
 	iconPosition?: "left" | "right";
 	disabled?: MosaicToggle;
 	/** Button will occupy 100% of the width provided to it */
