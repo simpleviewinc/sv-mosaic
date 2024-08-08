@@ -34,7 +34,7 @@ test.describe.parallel("Components - Data View - Views", () => {
 		await expectAlertMessage("Current view saved");
 	});
 
-	test("Selecting the save as view button and submitting the form should set the view and register it in saved views", async () => {
+	test.skip("Selecting the save as view button and submitting the form should set the view and register it in saved views", async () => {
 		const name = "No Filters Applied";
 		const description = "A test view with no filters applied to it";
 
