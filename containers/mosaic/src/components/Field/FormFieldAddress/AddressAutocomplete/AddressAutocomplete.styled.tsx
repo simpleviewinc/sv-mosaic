@@ -8,7 +8,6 @@ import ClearIcon from "@mui/icons-material/Clear";
 export const LocationSearchInputWrapper = styled.div`
 	&.mapCoordinates {
 		margin-bottom: 8px;
-		margin-top: 15px;
 	}
 `;
 

@@ -19,6 +19,7 @@ function ResetButton({
 				variant="text"
 				label="Reset"
 				onClick={onClick}
+				size="large"
 			/>
 		</ResetButtonContainer>
 	);
