@@ -118,7 +118,8 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				onClose={handleOpen}
 				data-testid="autocomplete-test-id"
 				options={internalOptions}
-				getOptionLabel={(option) => (option as MosaicLabelValue)?.label ? (option as MosaicLabelValue).label : ""}
+				getOptionLabel={(option: MosaicLabelValue) => option.label}
+				getOptionKey={(option: MosaicLabelValue) => option.value}
 				isOptionEqualToValue={isOptionEqualToValue}
 				onChange={(_event, option) => onDropDownChange(option as MosaicLabelValue)}
 				$error={(fieldDef?.required && error) ? !!error : undefined}
