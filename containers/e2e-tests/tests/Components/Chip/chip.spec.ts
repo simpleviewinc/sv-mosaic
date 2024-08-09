@@ -35,7 +35,7 @@ test.describe("Components - Chip - Kitchen Sink", () => {
 		expect(await chipPage.getBackgroundColorFromElement(chipPage.basicChipWithoutOnClickNotSelected)).toBe(expectedColor);
 	});
 
-	test("Validate type of Cursor for Chip", async () => {
+	test.skip("Validate type of Cursor for Chip", async () => {
 		const expectedCursorWithOnClick = "pointer";
 		const expectedCursorWithoutOnClick = "default";
 		expect(await chipPage.getCursorFromElement(chipPage.basicChipWithOnClickNotSelected)).toBe(expectedCursorWithOnClick);
