@@ -31,9 +31,13 @@ Resources are categorised and made available using the `exports` key in the libr
 
 * components e.g: `import DataView from "@simpleview/sv-mosaic/components/DataView"`
   * For components, you should not only reach into the `components` directory, but also the directory named after component you are looking for.
+  * Component-specific types are also available for import from these locations e.g. `import DataView, { type DataViewProps } from "@simpleview/sv-mosaic/components/DataView"`
 * theme e.g: `import theme from "@simpleview/sv-mosaic/theme"`
 * transforms e.g: `import transform_boolean from "@simpleview/sv-mosaic/transforms"`
 * utils e.g `import prettyBytes from "@simpleview/sv-mosaic/utils"`
+* types e.g `import type { MosaicLabelValue } from "@simpleview/sv-mosaic"`
+  * Types are the *only resource* that should be imported from the root of the library.
+  * Also note that all types are available from a standalone types-only package called `@simpleview/sv-mosaic-types`. This is useful for applications that need to reference Mosaic types without installing the dependencies that come with the library.
 
 ## Optimization Guidelines
 
