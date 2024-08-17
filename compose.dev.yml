@@ -3,6 +3,8 @@ services:
     extends:
       file: compose.yml
       service: mosaic
+    volumes:
+      - ./containers/mosaic/dist:/app/dist
   sb5:
     extends:
       file: compose.yml
