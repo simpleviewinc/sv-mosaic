@@ -1,5 +1,32 @@
 # sv-mosaic changelog
 
+### 37.0.0 - 08/20/2024
+
+### Improvements and Fixes
+
+* `Form`
+  * [MOS-1334](https://simpleviewtools.atlassian.net/browse/MOS-1334 "https://simpleviewtools.atlassian.net/browse/MOS-1334") **Tighten up the mechanics of form data**
+    * (Form) We no longer "clean" the data that is provided within the submission handler, it will always match the data object that is in state. Instead, we now also provide a list of active fields that the consumer can use to transform the data themselves however they see fit.
+    * **(BREAKING CHANGE)** The parameter provided to the submission callback is no longer the data object. Instead, it is an object containing the data and the names of the active fields: `{ data: any, activeFields: string[] }`
+  * [MOS-1346](https://simpleviewtools.atlassian.net/browse/MOS-1346 "https://simpleviewtools.atlassian.net/browse/MOS-1346") **Setting form values does not provide a way to validate**
+    * (Form) Validate values that are set as a result of the user picking coordinates on the map
+    * (Form) Add support to validate when setting field values using `setFormValues`
+* `FormFieldMapCoordinates`
+  * [MOS-1355](https://simpleviewtools.atlassian.net/browse/MOS-1355 "https://simpleviewtools.atlassian.net/browse/MOS-1355") **Standardise the behaviour of the map coordinates draw**
+    * (CoordField) Standardise the submission process of the drawer to use the form validation rather than disabling the save button.
+  * [MOS-1434](https://simpleviewtools.atlassian.net/browse/MOS-1434 "https://simpleviewtools.atlassian.net/browse/MOS-1434") **Map Coordinates field Indenting inconsistent**
+    * (CoordsField) Amend styling issues to reduce padding around the coordinate drawer map and bring the reset button in line with the coordinate fields.
+    * (Button) Adds support for a large button size
+* `FormFieldMatrix`
+  * [MOS-1343](https://simpleviewtools.atlassian.net/browse/MOS-1343 "https://simpleviewtools.atlassian.net/browse/MOS-1343") **Matrix Add button not skeletonised**
+    * (MatrixField) Implement a skeleton for the matrix field
+* `FormFieldUpload`
+  * [MOS-1433](https://simpleviewtools.atlassian.net/browse/MOS-1433 "https://simpleviewtools.atlassian.net/browse/MOS-1433") **Unable to upload new file after failed upload**
+    * (UploadField) Default file upload percentage to undefined thereby correctly displaying the remove icon when there is no percentage
+* Housekeeping
+  * [MOS-1353](https://simpleviewtools.atlassian.net/browse/MOS-1353 "https://simpleviewtools.atlassian.net/browse/MOS-1353") **Stop exporting components from root entry file**
+    * **(BREAKING CHANGE)** (chore) Moves component exports into a dedicated index file
+
 ### 36.2.2 - 08/05/2024
 
 ### Improvements and Fixes
