@@ -1,6 +1,6 @@
 {
 	"name": "@simpleview/sv-mosaic-types",
-	"version": "36.2.2",
+	"version": "37.0.0",
 	"types": "./types/index.d.ts",
 	"repository": {
 		"type": "git",
