@@ -33,6 +33,13 @@ services:
       - mosaic
     volumes:
       - sv-mosaic-lib:/mosaic
+  consumer-tests:
+    container_name: consumer-tests
+    build: ./containers/consumer-tests
+    working_dir: /app
+    volumes:
+      - sv-mosaic-lib:/mosaic
+    tty: true
   publisher:
     build: ./containers/publisher
     depends_on:
