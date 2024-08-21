@@ -41,12 +41,9 @@ export const FormDrawerWrapper = styled.div`
   }
 `;
 
-export const DragAndDropContainer = styled.label<{ $isOver?: boolean }>`
+export const DragAndDropContainer = styled.label<{ $isOver?: boolean; $disabled?: boolean }>`
+  border: 1px dashed transparent;
   align-items: center;
-  border: ${({ $isOver }) =>
-		$isOver ? `1px dashed ${theme.newColors.realTeal["100"]}` : ""};
-  background-color: ${({ $isOver }) =>
-		$isOver ? theme.newColors.realTeal["20"] : theme.newColors.grey2["100"]};
   display: flex;
   flex-direction: column;
   height: 204px;
@@ -57,6 +54,13 @@ export const DragAndDropContainer = styled.label<{ $isOver?: boolean }>`
   & .button {
     z-index: 1000;
   }
+
+	${({ $isOver, $disabled }) => ($isOver && !$disabled) ? `
+		border-color: ${theme.newColors.realTeal["100"]};
+		background: ${theme.newColors.realTeal["20"]};
+  	` : `
+		background: ${theme.newColors.grey2["100"]};
+	`}
 `;
 
 export const DragAndDropSpan = styled.span<{ $isOver?: boolean }>`
