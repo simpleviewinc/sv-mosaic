@@ -98,9 +98,9 @@ describe("FormFieldChips component", () => {
 	it("should select a Chip when clicked once and deselect it when clicked again", async () => {
 		const [chip1, chip2, chip3] = getAllByRole("option");
 
-		expect(chip1).not.toHaveAttribute("aria-selected");
-		expect(chip2).not.toHaveAttribute("aria-selected");
-		expect(chip3).not.toHaveAttribute("aria-selected");
+		expect(chip1).toHaveAttribute("aria-selected", "false");
+		expect(chip2).toHaveAttribute("aria-selected", "false");
+		expect(chip3).toHaveAttribute("aria-selected", "false");
 
 		await act(async () => {
 			await fireEvent.click(chip1);
