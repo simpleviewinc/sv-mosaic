@@ -102,6 +102,11 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		e.preventDefault();
 		e.stopPropagation();
 		setIsOver(0);
+
+		if (disabled) {
+			return;
+		}
+
 		const droppedFiles = { target: { files: e.dataTransfer.files } };
 		handleNewFileUpload(droppedFiles);
 	};
@@ -263,6 +268,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 			{!isMaxedOut && (
 				<DragAndDropContainer
 					$isOver={Boolean(isOver)}
+					$disabled={disabled}
 					onDragOver={dragOver}
 					onDragEnter={dragEnter}
 					onDragLeave={dragLeave}
@@ -270,7 +276,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					data-testid="drag-and-drop-container"
 					htmlFor={`${id}-input`}
 				>
-					{isOver ? (
+					{!disabled && isOver ? (
 						<DragAndDropSpan $isOver={Boolean(isOver)}>
 							Release and Drop
 						</DragAndDropSpan>
