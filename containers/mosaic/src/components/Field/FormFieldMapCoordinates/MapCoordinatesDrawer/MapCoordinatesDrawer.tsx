@@ -235,6 +235,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			<Form
 				{...controller}
 				onBack={handleClose}
+				backLabel="Cancel coordinates entry"
 				title="Map Coordinates"
 				buttons={buttons}
 				sections={sections}
