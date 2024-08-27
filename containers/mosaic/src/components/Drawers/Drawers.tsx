@@ -86,7 +86,6 @@ function Drawers<T>(props: DrawersProps<T>) {
 						transitionDuration={ANIMATION_DURATION}
 						PaperProps={{
 							className,
-							//@ts-expect-error: TS thinks this is bogus, but it's not https://github.com/mui/material-ui/issues/27703
 							component: PaperDiv,
 						}}
 					>
