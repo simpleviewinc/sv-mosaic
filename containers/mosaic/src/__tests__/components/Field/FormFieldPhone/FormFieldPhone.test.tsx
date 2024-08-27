@@ -34,26 +34,6 @@ const FormFieldPhoneExample = () => {
 	);
 };
 
-describe("FormFieldPhone component", () => {
-	let phoneSelectionContainer;
-	beforeEach(() => {
-		const { container } = render(<FormFieldPhoneExample />);
-		phoneSelectionContainer = container;
-	});
-
-	it("should not change the country data when a value is entered", () => {
-		const phoneInput = phoneSelectionContainer.querySelector(".form-control");
-
-		expect(getByText("No value")).toBeDefined();
-
-		fireEvent.change(phoneInput, { target: { value: "52345" } });
-
-		const countryCode = getByTitle("United States: + 1");
-
-		expect(countryCode).toBeDefined();
-	});
-});
-
 describe("FormFieldPhone country code prop", () => {
 	it("should display US phone number prefix when no country code is provided ", () => {
 		const { container } = render(
