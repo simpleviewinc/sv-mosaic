@@ -352,7 +352,7 @@ export const DrawerForm = ({
 					sx: { width: "90%" },
 				}}
 			>
-				<div style={{ width: drawWidth }}>
+				<div style={{ width: drawWidth, height: "100vh" }}>
 					<Form
 						{...controller}
 						buttons={buttons}
