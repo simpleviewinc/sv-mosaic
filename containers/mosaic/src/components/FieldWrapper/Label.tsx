@@ -14,17 +14,18 @@ import testIds from "@root/utils/testIds";
 
 const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
-	align-items: center;
+	align-items: end;
 	margin-bottom: 8px;
 	font-family: ${theme.fontFamily};
 	gap: 8px;
-	height: 28px;
 
 	.MuiInputLabel-root {
 		font-family: inherit;
 		font-size: 16px;
 		color:  ${theme.newColors.almostBlack["100"]};
 		word-wrap: break-word;
+		text-overflow: clip;
+		white-space: normal;
 	}
 `;
 
@@ -39,9 +40,6 @@ const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: auto;
-	// Aligns the bottom of the character counter with the field label
-	align-self: end;
-	margin-bottom: 4px;
 `;
 
 const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
