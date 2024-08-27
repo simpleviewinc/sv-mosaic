@@ -8,7 +8,7 @@ import { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip } from "./Chip.styled";
 
 const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
-	const { label, disabled, selected, onDelete, onClick } = props;
+	const { label, disabled, selected = false, onDelete, onClick } = props;
 	const ref = useRef<HTMLDivElement>();
 
 	return onDelete ? (
