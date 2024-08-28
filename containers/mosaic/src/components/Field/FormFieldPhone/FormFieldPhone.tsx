@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement, memo, useState } from "react";
+import { ReactElement, memo } from "react";
 
 // Components
-import PhoneInput, { CountryData } from "@simpleview/react-phone-input-2";
+import PhoneInput from "@simpleview/react-phone-input-2";
 
 // Types and styles
 import "@simpleview/react-phone-input-2/lib/bootstrap.css";
@@ -29,17 +29,6 @@ const FormFieldPhone = (
 		skeleton,
 	} = props;
 
-	const [dialCode, setDialCode] = useState("");
-
-	const onPhoneChange = (phoneValue: string, data: CountryData) => {
-		if (phoneValue === data.dialCode) {
-			onChange(undefined);
-			setDialCode(data.dialCode);
-		} else {
-			onChange(phoneValue);
-		}
-	};
-
 	if (skeleton) {
 		return (
 			<Skeleton
@@ -60,9 +49,8 @@ const FormFieldPhone = (
 				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
 				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
 				disabled={disabled}
-				onChange={onPhoneChange}
-				value={value || dialCode}
-				countryCodeEditable={false}
+				onChange={onChange}
+				value={value}
 				inputProps={{
 					required: fieldDef?.required,
 					ref: inputRef,
