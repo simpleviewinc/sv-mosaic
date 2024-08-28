@@ -46,6 +46,7 @@ import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
 
 export default {
 	title : "Components/DataView",
+	layout: "fullscreen",
 };
 
 // set an artificial delay of 500ms to simulate DB queries
@@ -460,7 +461,7 @@ const gridColumnsMap = {
 
 const StyledDiv = styled.div`
 	padding: 0px 16px;
-	height: 100%;
+	height: 100vh;
 `;
 
 const newSavedFormFields: FieldDef[] = [
