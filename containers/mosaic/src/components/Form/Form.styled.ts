@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CONTAINERS } from "@root/theme/theme";
+import theme, { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
 import { FormSpacing } from "./FormTypes";
@@ -54,4 +54,10 @@ export const StyledSideNav = styled(SideNav)`
 	${containerQuery("xl", "FORM")} {
 		margin-top: 0;
 	}
+`;
+
+export const StyledFormFooter = styled.div<{ $spacing?: FormSpacing }>`
+	border-top: 2px solid ${theme.newColors.grey2[100]};
+	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
+	display: flex;
 `;

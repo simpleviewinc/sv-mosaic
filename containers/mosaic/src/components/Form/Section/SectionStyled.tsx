@@ -52,14 +52,17 @@ export const StyledDescription = styled.p`
 	padding: 0 24px;
 `;
 
-export const StyledRows = styled.div<TransientProps<SectionPropTypes, "title">>`
+export const StyledRows = styled.div<TransientProps<SectionPropTypes, "title" | "spacing">>`
 	margin: 0px;
 	display: grid;
 	grid-template-columns: repeat(1,minmax(0,1fr));
-	gap: 24px 0;
 
 	${({ $title }) => $title && `
 		padding: 18px 24px;
+	`}
+
+	${({ $spacing }) => `
+		gap: ${$spacing === "compact" ? "24px" : "12px"} 0;
 	`}
 `;
 

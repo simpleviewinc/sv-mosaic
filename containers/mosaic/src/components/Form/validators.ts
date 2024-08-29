@@ -1,6 +1,6 @@
 import { DATE_FORMAT_FULL } from "@root/constants";
 import { MosaicLabelValue, isLabelValue } from "@root/types";
-import { getHtmlText } from "@root/utils/dom/getHtmlText";
+import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
 import { getTextLength } from "@root/utils/string";
 import format from "date-fns/format";
 import { postcodeValidator, postcodeValidatorExistsForCountry } from "postcode-validator";
@@ -213,10 +213,13 @@ export function validateCharacterCount(value: string, data: any, options: { max?
 		return;
 	}
 
-	const sanitized = options.ignoreHTML ? getHtmlText(value) : value;
+	const message = "You have exceeded the maximum number of characters";
 
-	if (getTextLength(sanitized) > options.max) {
-		return "You have exceeded the maximum number of characters";
+	if (
+		(options.ignoreHTML && getHtmlCharacterCount(value) > options.max) ||
+		(!options.ignoreHTML && getTextLength(value) > options.max)
+	) {
+		return message;
 	}
 }
 
