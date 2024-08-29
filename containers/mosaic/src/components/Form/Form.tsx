@@ -53,6 +53,7 @@ const Form = (props: FormProps) => {
 		stable,
 		autoFocus,
 		skeleton: providedSkeleton,
+		bottomSlot = null,
 	} = props;
 
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
@@ -149,7 +150,8 @@ const Form = (props: FormProps) => {
 		}
 
 		doneAutoFocus.current = true;
-		mount.inputRef.focus();
+
+		window.requestAnimationFrame(() => mount.inputRef.focus());
 	}, [disabled, loadingInitial, autoFocus, stable.fields, stable.mounted]);
 
 	useEffect(() => {
@@ -331,6 +333,7 @@ const Form = (props: FormProps) => {
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>
+					{bottomSlot}
 				</StyledForm>
 			</StyledContainerForm>
 			<Dialog

@@ -3,6 +3,7 @@ import type { FieldDef } from "@root/components/Field";
 import { TitleWrapperProps } from "@root/components/Title";
 import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
 import { FormMethods, FormStable, FormState } from "./useForm/types";
+import { ReactNode } from "react";
 
 export type FormSpacing = "normal" | "compact";
 
@@ -41,6 +42,7 @@ export interface FormProps {
 	methods: FormMethods;
 	autoFocus?: boolean;
 	skeleton?: boolean;
+	bottomSlot?: ReactNode;
 }
 
 export interface FieldError {

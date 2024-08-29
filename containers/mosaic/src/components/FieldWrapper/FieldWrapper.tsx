@@ -5,18 +5,18 @@ import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledL
 import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
-import type { FieldDef, MosaicFieldProps } from "../Field";
+import { FormFieldTextEditorTipTapExperimental, type FieldDef, type MosaicFieldProps } from "../Field";
 import Skeleton from "@mui/material/Skeleton";
-import { getHtmlText } from "@root/utils/dom/getHtmlText";
 import { getTextLength } from "@root/utils/string";
 import useRegisterField from "@root/utils/hooks/useRegisterField";
+import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
 
 function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
 		return;
 	}
 
-	if (def.type === "text" || def.type === "textEditor") {
+	if (def.type === "text" || def.type === "textEditor" || typeof def.type === "function") {
 		return def.inputSettings.maxCharacters;
 	}
 
@@ -31,8 +31,8 @@ function getValueLimit(def: FieldDef): number | undefined {
 
 function getValueLength(value: any, fieldDef: FieldDef): number {
 	if (typeof value === "string") {
-		if (fieldDef.type === "textEditor") {
-			return getTextLength(getHtmlText(value));
+		if (fieldDef.type === "textEditor" || fieldDef.type === FormFieldTextEditorTipTapExperimental) {
+			return getHtmlCharacterCount(value);
 		}
 
 		return getTextLength(value);

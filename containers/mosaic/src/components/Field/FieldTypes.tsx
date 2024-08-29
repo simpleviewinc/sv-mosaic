@@ -215,7 +215,7 @@ export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
 	order: number;
 };
 
-export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange";
+export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange" | "onSubmit";
 
 export type FieldConfig = {
 	Component: ElementType;

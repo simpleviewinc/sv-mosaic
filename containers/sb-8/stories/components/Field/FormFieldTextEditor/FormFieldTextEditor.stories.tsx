@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useMemo, ReactElement } from "react";
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
+import { FieldDef, FormFieldTextEditorTipTapExperimental } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
 
 export default {
@@ -195,4 +195,119 @@ export const KitchenSink = (): ReactElement => {
 			/>
 		</>
 	);
+};
+
+export const Tiptap = ({
+	label,
+	disabled,
+	required,
+	skeleton,
+	instructionText,
+	helperText,
+	toggleLabel,
+	spellcheck,
+	direction,
+	language,
+	maxCharacters,
+}): ReactElement => {
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
+
+	const tiptapFields = useMemo(
+		(): FieldDef[] =>
+			[
+				{
+					name: "textEditor",
+					label,
+					type: FormFieldTextEditorTipTapExperimental,
+					required,
+					inputSettings: {
+						spellcheck,
+						direction,
+						language,
+						maxCharacters,
+					},
+					disabled,
+					helperText,
+					instructionText,
+				},
+			],
+		[
+			direction,
+			required,
+			disabled,
+			toggleLabel,
+			label,
+			helperText,
+			instructionText,
+			maxCharacters,
+			spellcheck,
+			language,
+		],
+	);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				{...controller}
+				title="Text Editor Tiptap"
+				fields={tiptapFields}
+				buttons={renderButtons(handleSubmit)}
+				skeleton={skeleton}
+			/>
+		</>
+	);
+};
+
+Tiptap.args = {
+	label: "Label",
+	disabled: false,
+	required: false,
+	skeleton: false,
+	instructionText: "Instruction text",
+	helperText: "Helper text",
+	toggleLabel: "Toggle label",
+	spellcheck: false,
+	direction: "ltr",
+	language: "en",
+	maxCharacters: 100,
+};
+
+Tiptap.argTypes = {
+	label: {
+		name: "Label",
+	},
+	disabled: {
+		name: "Disabled",
+	},
+	required: {
+		name: "Required",
+	},
+	skeleton: {
+		name: "Skeleton",
+	},
+	instructionText: {
+		name: "Instruction Text",
+	},
+	helperText: {
+		name: "Helper Text",
+	},
+	toggleLabel: {
+		name: "Toggle Label",
+	},
+	spellcheck: {
+		name: "Direction",
+		control: { type: "select" },
+		options: ["ltr", "rtl"],
+	},
+	direction: {
+		name: "Direction",
+	},
+	language: {
+		name: "Language",
+	},
+	maxCharacters: {
+		name: "Maximum Characters",
+	},
 };
