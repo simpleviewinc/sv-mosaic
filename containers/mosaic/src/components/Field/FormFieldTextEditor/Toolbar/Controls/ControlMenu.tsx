@@ -7,6 +7,7 @@ import type { Control, MenuButtonProps, NodeFormSet, TextEditorNextInputSettings
 import { StyledControlMenu } from "../../FormFieldTextEditorNext.styled";
 import { ControlMenuItem } from "./ControlMenuItem";
 import { ControlButton } from "./ControlButton";
+import testIds from "@root/utils/testIds";
 
 export function ControlMenuDropdown({
 	editor,
@@ -63,6 +64,7 @@ export function ControlMenuDropdown({
 						key={index}
 						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
+						data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 					/>
 				) : (
 					<ControlMenuItem
@@ -70,6 +72,7 @@ export function ControlMenuDropdown({
 						onClose={onClose}
 						editor={editor}
 						key={index}
+						data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 					/>
 				))}
 			</StyledControlMenu>
