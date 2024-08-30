@@ -1,7 +1,7 @@
 import React, { useCallback, ReactElement } from "react";
 import { Editor } from "@tiptap/react";
 import Popper from "@mui/material/Popper";
-import ClickAwayListener from "@mui/base/ClickAwayListener";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 import type { NodeFormState, NodeFormType, NodeFormTypeProps } from "../FormFieldTextEditorTypes";
 
