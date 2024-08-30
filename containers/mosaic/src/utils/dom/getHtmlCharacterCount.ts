@@ -1,14 +1,9 @@
 import { getTextLength } from "../string";
 import { isElement } from "./guards";
-import { traverseHtml } from "./traverseHtml";
+import { reduceHtml } from "./reduceHtml";
 
 export function getHtmlCharacterCount(html: string): number {
-	const parser = new DOMParser();
-	const dom = parser.parseFromString(html, "text/html");
-
-	let result = 0;
-
-	traverseHtml(dom.body, ({ parent, siblings, text, elem }) => {
+	return reduceHtml(html, (acc, { parent, siblings, text, elem }) => {
 		if (
 			text &&
 			text.textContent &&
@@ -33,7 +28,7 @@ export function getHtmlCharacterCount(html: string): number {
 				// Now we can parse any HTML entitites
 				container.innerHTML = textContent;
 
-				result += getTextLength(container.textContent || "");
+				return acc + getTextLength(container.textContent || "");
 			}
 		}
 
@@ -51,17 +46,15 @@ export function getHtmlCharacterCount(html: string): number {
 					// type, then remove it.
 					const clone = elem.cloneNode() as HTMLElement;
 					document.body.appendChild(clone);
-					const styles = window.getComputedStyle(clone, "");
 
-					if (styles && styles.display === "block") {
-						result++;
-					}
+					const styles = window.getComputedStyle(clone, "");
+					const returnValue = acc + (styles && styles.display === "block" ? 1 : 0);
 
 					document.body.removeChild(clone);
+
+					return returnValue;
 				}
 			}
 		}
-	});
-
-	return result;
+	}, 0);
 }

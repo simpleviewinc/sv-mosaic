@@ -1,11 +1,8 @@
-import { traverseHtml } from "./traverseHtml";
 import { isElement } from "./guards";
+import { mutateHtml } from "./mutateHtml";
 
 export function escapeHtmlSpaces(html: string, entity = "&nbsp"): string {
-	const parser = new DOMParser();
-	const dom = parser.parseFromString(html, "text/html");
-
-	traverseHtml(dom.body, ({ parent, siblings, text }) => {
+	return mutateHtml(html, ({ parent, siblings, text }) => {
 		const parentTagName = parent.tagName.toLowerCase();
 		if (parentTagName === "script" || parentTagName === "style") {
 			return;
@@ -25,6 +22,4 @@ export function escapeHtmlSpaces(html: string, entity = "&nbsp"): string {
 			text.replaceWith(fragment);
 		}
 	});
-
-	return dom.body.innerHTML;
 }

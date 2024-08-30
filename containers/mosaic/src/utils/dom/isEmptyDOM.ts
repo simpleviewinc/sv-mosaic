@@ -1,16 +1,10 @@
+import { isElement, isTextNode } from "./guards";
+
 const blockLevels = [
 	"block",
 	"flex",
 	"grid",
 ];
-
-function isTextNode(el: Node): el is Text {
-	return el.nodeType === Node.TEXT_NODE;
-}
-
-function isElement(el: Node): el is HTMLElement {
-	return el.nodeType === Node.ELEMENT_NODE;
-}
 
 export function isEmptyDOM(parent: HTMLElement): boolean {
 	if (parent.textContent.length) {
