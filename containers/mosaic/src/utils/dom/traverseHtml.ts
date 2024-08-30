@@ -1,6 +1,6 @@
 import { isElement, isTextNode } from "./guards";
 
-type TraverseHtmlCallback = (params: {
+export type TraverseHtmlCallback = (params: {
 	node: Node;
 	elem?: HTMLElement;
 	text?: Text;
@@ -11,14 +11,12 @@ type TraverseHtmlCallback = (params: {
 export function traverseHtml(parent: HTMLElement, callback: TraverseHtmlCallback) {
 	const children = Array.from(parent.childNodes);
 
-	for (let i = 0; i < children.length; i++) {
-		const node = children[i];
-
+	children.forEach((node) => {
 		const elem = isElement(node) ? node : undefined;
 		const text = isTextNode(node) ? node : undefined;
 
 		callback({
-			node: node,
+			node,
 			parent,
 			elem,
 			text,
@@ -28,5 +26,5 @@ export function traverseHtml(parent: HTMLElement, callback: TraverseHtmlCallback
 		if (elem) {
 			traverseHtml(elem, callback);
 		}
-	}
+	});
 }
