@@ -5,6 +5,7 @@ import type { ControlsConfig, SelectionType, NodeFormSet, TextEditorNextInputSet
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
 import { ControlGroup } from "../FormFieldTextEditorNext.styled";
+import testIds from "@root/utils/testIds";
 
 export interface ToolbarControlsProps {
 	controls: ControlsConfig;
@@ -43,6 +44,7 @@ export function ToolbarControls({
 							MenuButton={control.MenuButton}
 							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
+							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 						/>
 					) : "Component" in control ? (
 						<control.Component
@@ -51,6 +53,7 @@ export function ToolbarControls({
 							editor={editor}
 							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
+							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 						/>
 					) : (
 						<ControlButton
@@ -60,6 +63,7 @@ export function ToolbarControls({
 							shortcut={control.shortcut}
 							active={editor.isActive(control.name)}
 							square
+							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 						>
 							<control.Icon />
 						</ControlButton>

@@ -1,6 +1,9 @@
 const testIds = {
 	FORM_STATE: "mos:Form:state",
 	FORM_FIELD_LABEL: "mos:Field:label",
+	TEXT_EDITOR_CONTROL: "mos:TextEditor:control",
+	TEXT_EDITOR_CANVAS: "mos:TextEditor:canvas",
+	TEXT_EDITOR_CODE: "mos:TextEditor:code",
 	CONTENT_SECTION: "mos:Content:section",
 	CONTENT_ROW: "mos:Content:row",
 	CONTENT_COL: "mos:Content:col",
