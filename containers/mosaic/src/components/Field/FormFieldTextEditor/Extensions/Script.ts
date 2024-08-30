@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import { ScriptNodeView } from "./ScriptNodeView";
-import { traverseHtml } from "@root/utils/dom/traverseHtml";
+import { mutateHtml } from "@root/utils/dom/mutateHtml";
 
 export const Script = Node.create({
 	name: "script",
@@ -44,10 +44,7 @@ export function transformScriptTags(html: string): string {
 		return html;
 	}
 
-	const parser = new DOMParser();
-	const dom = parser.parseFromString(html, "text/html");
-
-	traverseHtml(dom.body, ({ elem }) => {
+	return mutateHtml(html, ({ elem }) => {
 		if (!elem) {
 			return;
 		}
@@ -66,6 +63,4 @@ export function transformScriptTags(html: string): string {
 
 		elem.outerHTML = outerHTML;
 	});
-
-	return dom.body.innerHTML;
 }
