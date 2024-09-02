@@ -6,6 +6,14 @@ const blockLevels = [
 	"grid",
 ];
 
+const voidElements = [
+	"embed",
+	"hr",
+	"img",
+	"input",
+	"link",
+];
+
 export function isEmptyDOM(parent: HTMLElement): boolean {
 	if (parent.textContent.length) {
 		return false;
@@ -17,7 +25,7 @@ export function isEmptyDOM(parent: HTMLElement): boolean {
 	}
 
 	const counters = {
-		text: 0,
+		content: 0,
 		totalElements: 0,
 		inlineElements: 0,
 		blockElements: 0,
@@ -27,6 +35,11 @@ export function isEmptyDOM(parent: HTMLElement): boolean {
 		const node = children[i];
 
 		if (isElement(node)) {
+			if (voidElements.includes(node.tagName.toLowerCase())) {
+				counters.content++;
+				continue;
+			}
+
 			if (!isEmptyDOM(node)) {
 				return false;
 			}
@@ -43,11 +56,11 @@ export function isEmptyDOM(parent: HTMLElement): boolean {
 		}
 
 		if (isTextNode(node)) {
-			counters.text++;
+			counters.content++;
 		}
 	}
 
-	if (counters.text) {
+	if (counters.content) {
 		return false;
 	}
 

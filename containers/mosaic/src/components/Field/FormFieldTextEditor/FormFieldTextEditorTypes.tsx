@@ -117,18 +117,30 @@ export type TextEditorInputSettings = {
 	maxCharacters?: number;
 };
 
-export type TextEditorUpdateLink = (params: {
+export interface TextEditorUpdateLinkValues {
 	url: string;
 	newTab?: boolean;
-}) => void;
+}
+
+export type TextEditorUpdateLink = (params: TextEditorUpdateLinkValues) => void;
+export type TextEditorOnLinkParams = Partial<TextEditorUpdateLinkValues> & {
+	updateLink: TextEditorUpdateLink;
+};
+
+export interface TextEditorUpdateImageValues {
+	src: string;
+	alt?: string;
+}
+
+export type TextEditorUpdateImage = (params: TextEditorUpdateImageValues) => void;
+export type TextEditorOnImageParams = Partial<TextEditorUpdateImageValues> & {
+	updateImage: TextEditorUpdateImage;
+};
 
 export type TextEditorNextInputSettings = {
 	extensions?: Extensions;
-	onLink?: (params: {
-		url?: string;
-		newTab?: boolean;
-		updateLink: TextEditorUpdateLink;
-	}) => void;
+	onLink?: (params: TextEditorOnLinkParams) => void;
+	onImage?: (params: TextEditorOnImageParams) => void;
 };
 
 export type TextEditorData = string;

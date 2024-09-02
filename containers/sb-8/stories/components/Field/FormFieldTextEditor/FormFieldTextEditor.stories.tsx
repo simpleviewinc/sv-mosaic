@@ -1,9 +1,14 @@
 // BUG TO BE FIXED
 import * as React from "react";
-import { useMemo, ReactElement } from "react";
+import { useMemo, useState, ReactElement } from "react";
+
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef, FormFieldTextEditorTipTapExperimental } from "@root/components/Field";
+import { FieldDef, FormFieldTextEditorTipTapExperimental, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
+import Drawer from "@root/components/Drawer";
+
+import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
+import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
@@ -16,7 +21,6 @@ export const Playground = ({
 	skeleton,
 	instructionText,
 	helperText,
-	toggleLabel,
 	spellcheck,
 	direction,
 	language,
@@ -48,7 +52,6 @@ export const Playground = ({
 			direction,
 			required,
 			disabled,
-			toggleLabel,
 			label,
 			helperText,
 			instructionText,
@@ -79,7 +82,6 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	toggleLabel: "Toggle label",
 	spellcheck: false,
 	direction: "ltr",
 	language: "en",
@@ -104,9 +106,6 @@ Playground.argTypes = {
 	},
 	helperText: {
 		name: "Helper Text",
-	},
-	toggleLabel: {
-		name: "Toggle Label",
 	},
 	spellcheck: {
 		name: "Direction",
@@ -204,14 +203,21 @@ export const Tiptap = ({
 	skeleton,
 	instructionText,
 	helperText,
-	toggleLabel,
 	spellcheck,
-	direction,
-	language,
 	maxCharacters,
-}): ReactElement => {
+	customImageHandler,
+	customLinkHandler,
+}: typeof Tiptap.args): ReactElement => {
 	const controller = useForm();
+	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
+	const [linkDrawer, setLinkDrawer] = useState<null | TextEditorOnLinkParams>(null);
+
 	const { state, handleSubmit } = controller;
+
+	const onClose = () => {
+		setMediaDrawer(null);
+		setLinkDrawer(null);
+	};
 
 	const tiptapFields = useMemo(
 		(): FieldDef[] =>
@@ -222,10 +228,25 @@ export const Tiptap = ({
 					type: FormFieldTextEditorTipTapExperimental,
 					required,
 					inputSettings: {
-						spellcheck,
-						direction,
-						language,
-						maxCharacters,
+						onImage: customImageHandler ? ({ updateImage, ...params }) => {
+							setMediaDrawer({
+								...params,
+								updateImage: (params) => {
+									updateImage(params);
+									onClose();
+								}
+							});
+						} : undefined,
+						onLink: customLinkHandler ? ({ updateLink, ...params }) => {
+							setLinkDrawer({
+								...params,
+								updateLink: (params) => {
+									updateLink(params);
+									onClose();
+								}
+							});
+						} : undefined,
+						maxCharacters: 100,
 					},
 					disabled,
 					helperText,
@@ -233,16 +254,15 @@ export const Tiptap = ({
 				},
 			],
 		[
-			direction,
 			required,
 			disabled,
-			toggleLabel,
 			label,
 			helperText,
 			instructionText,
 			maxCharacters,
 			spellcheck,
-			language,
+			customImageHandler,
+			customLinkHandler,
 		],
 	);
 
@@ -256,6 +276,28 @@ export const Tiptap = ({
 				buttons={renderButtons(handleSubmit)}
 				skeleton={skeleton}
 			/>
+			<Drawer
+				open={Boolean(mediaDrawer)}
+				onClose={onClose}
+			>
+				{mediaDrawer && (
+					<MediaGalleryDrawer
+						onClose={onClose}
+						{...mediaDrawer}
+					/>
+				)}
+			</Drawer>
+			<Drawer
+				open={Boolean(linkDrawer)}
+				onClose={onClose}
+			>
+				{linkDrawer && (
+					<LinkLibraryDrawer
+						onClose={onClose}
+						{...linkDrawer}
+					/>
+				)}
+			</Drawer>
 		</>
 	);
 };
@@ -267,11 +309,10 @@ Tiptap.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	toggleLabel: "Toggle label",
 	spellcheck: false,
-	direction: "ltr",
-	language: "en",
 	maxCharacters: 100,
+	customImageHandler: false,
+	customLinkHandler: false,
 };
 
 Tiptap.argTypes = {
@@ -293,21 +334,18 @@ Tiptap.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
-	toggleLabel: {
-		name: "Toggle Label",
-	},
 	spellcheck: {
 		name: "Direction",
 		control: { type: "select" },
 		options: ["ltr", "rtl"],
 	},
-	direction: {
-		name: "Direction",
-	},
-	language: {
-		name: "Language",
-	},
 	maxCharacters: {
 		name: "Maximum Characters",
+	},
+	customImageHandler: {
+		name: "Custom Image Handler",
+	},
+	customLinkHandler: {
+		name: "Custom Link Handler",
 	},
 };
