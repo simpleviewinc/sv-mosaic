@@ -10,7 +10,7 @@ export function NodeFormImage({ editor, getFormValues, onClose }: NodeFormTypePr
 	const controller = useForm();
 	const { handleSubmit } = controller;
 
-	const onSubmit = handleSubmit(useCallback(({ alt, src }) => {
+	const onSubmit = handleSubmit(useCallback(({ data: { alt, src } }) => {
 		editor.chain().focus()
 			.setImage({ alt, src })
 			.run();
