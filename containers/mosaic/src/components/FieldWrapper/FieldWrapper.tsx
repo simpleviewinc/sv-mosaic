@@ -16,7 +16,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 		return;
 	}
 
-	if (def.type === "text" || def.type === "textEditor" || typeof def.type === "function") {
+	if (def.type === "text" || def.type === "textEditor" || def.type === FormFieldTextEditorTipTapExperimental) {
 		return def.inputSettings.maxCharacters;
 	}
 
