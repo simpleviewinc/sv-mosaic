@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 
 import type { MenuButtonProps } from "../../FormFieldTextEditorTypes";
 
-import { StyledTextStyleMenuButton } from "../../FormFieldTextEditorNext.styled";
+import { StyledTextStyleMenuButton } from "../../FormFieldTextEditorTipTap.styled";
 
 export function TextStyleMenuButton({ editor, onClick }: MenuButtonProps): ReactElement {
 	const textStyles = {

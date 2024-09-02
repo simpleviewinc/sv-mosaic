@@ -3,7 +3,7 @@ import { Editor } from "@tiptap/core";
 
 import type { ControlWithProps } from "../../FormFieldTextEditorTypes";
 
-import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorNext.styled";
+import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
 
 export function ControlMenuItem({
 	name,

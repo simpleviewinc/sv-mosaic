@@ -4,7 +4,7 @@ import { Editor } from "@tiptap/core";
 import type { ControlsConfig, SelectionType, NodeFormSet, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
-import { ControlGroup } from "../FormFieldTextEditorNext.styled";
+import { ControlGroup } from "../FormFieldTextEditorTipTap.styled";
 import testIds from "@root/utils/testIds";
 
 export interface ToolbarControlsProps {

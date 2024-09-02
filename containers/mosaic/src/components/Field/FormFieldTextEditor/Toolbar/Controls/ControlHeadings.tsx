@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 import { Editor } from "@tiptap/core";
 import { Level } from "@tiptap/extension-heading";
 
-import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorNext.styled";
+import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
 import { ControlWithComponent } from "../../FormFieldTextEditorTypes";
 import { Shortcut } from "..";
 

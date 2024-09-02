@@ -1,6 +1,6 @@
 import React from "react";
 import FieldWrapper from "@root/components/FieldWrapper";
-import { FormFieldTextEditorNext } from "./FormFieldTextEditorNext";
+import { FormFieldTextEditorTipTap } from "./FormFieldTextEditorTipTap";
 
 export function FormFieldTextEditorTipTapExperimental(props: any) {
 	const {
@@ -25,7 +25,7 @@ export function FormFieldTextEditorTipTapExperimental(props: any) {
 			disabled={disabled}
 			skeleton={skeleton}
 		>
-			<FormFieldTextEditorNext
+			<FormFieldTextEditorTipTap
 				{...props}
 			/>
 		</FieldWrapper>

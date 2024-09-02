@@ -3,7 +3,7 @@ import Popper from "@mui/material/Popper";
 
 import type { FloatingToolbarState } from "./FormFieldTextEditorTypes";
 
-import { Toolbar } from "./FormFieldTextEditorNext.styled";
+import { Toolbar } from "./FormFieldTextEditorTipTap.styled";
 import { ToolbarControls, ToolbarControlsProps } from "./Toolbar";
 
 type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState;
