@@ -4,7 +4,7 @@ import { useEditor, posToDOMRect, EditorOptions, Extensions } from "@tiptap/reac
 import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
-import { Editor, Toolbar, CodeView, StyledTextEditor } from "./FormFieldTextEditorNext.styled";
+import { Editor, Toolbar, CodeView, StyledTextEditor } from "./FormFieldTextEditorTipTap.styled";
 import { NodeForm } from "./NodeForm";
 import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
@@ -48,7 +48,7 @@ const floatingControls: ControlsConfig = [
 	],
 ];
 
-export function FormFieldTextEditorNext({
+export function FormFieldTextEditorTipTap({
 	value = "",
 	onChange,
 	onBlur: onBlurProvided,

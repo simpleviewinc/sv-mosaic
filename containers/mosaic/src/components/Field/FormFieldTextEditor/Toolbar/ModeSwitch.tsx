@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 
 import type { EditorMode } from "../FormFieldTextEditorTypes";
 
-import { ModeButton, StyledModeSwitch } from "../FormFieldTextEditorNext.styled";
+import { ModeButton, StyledModeSwitch } from "../FormFieldTextEditorTipTap.styled";
 
 interface ModeSwitchProps {
 	mode: EditorMode;
