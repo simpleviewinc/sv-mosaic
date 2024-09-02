@@ -1,5 +1,48 @@
 # sv-mosaic changelog
 
+### 37.1.0 - 09/03/2024
+
+### Improvements and Fixes
+
+* `Form`
+
+  * [MOS-1361](https://simpleviewtools.atlassian.net/browse/MOS-1361 "https://simpleviewtools.atlassian.net/browse/MOS-1361") **Questions being truncated instead of repositioned**
+    * (Form) Have long form labels wrap into a new line rather than being truncated.
+* `FormFieldChipSingleSelect`
+
+  * [MOS-1430](https://simpleviewtools.atlassian.net/browse/MOS-1430 "https://simpleviewtools.atlassian.net/browse/MOS-1430") **Render the aria-selected attribute for Chips even when there is no selection**
+    * (ChipField) Fallback to a false selected state to ensure aria-selected is always provided
+* `FormFieldDropdownSingleSelection`
+
+  * [MOS-1435](https://simpleviewtools.atlassian.net/browse/MOS-1435 "https://simpleviewtools.atlassian.net/browse/MOS-1435") **Dropdown with duplicate labels results in react `key` error spam**
+    * (DropdownField) Ensure the dropdown (autocomplete) component uses the option's value as the key instead of the label to avoid React errors
+* `FormFieldMapCoordinates`
+
+  * [MOS-1431](https://simpleviewtools.atlassian.net/browse/MOS-1431 "https://simpleviewtools.atlassian.net/browse/MOS-1431") **Add Mousehover Tooltip to Drawer back arrows**
+    * (TitleWrapper) Use back button label as a tooltip when hovered
+    * (CoordsField) Updates back button label for coordinates entry draw
+    * (AddressField) Updates back button label for address entry draw
+* `FormFieldPhoneSelectionDropdown`
+
+  * [MOS-1384](https://simpleviewtools.atlassian.net/browse/MOS-1384 "https://simpleviewtools.atlassian.net/browse/MOS-1384") **Phone field accessibility**
+    * (PhoneField) Prevent opinionated phone functionality from causing accessibility issues.
+* `FormFieldUpload`
+
+  * [MOS-1381](https://simpleviewtools.atlassian.net/browse/MOS-1381 "https://simpleviewtools.atlassian.net/browse/MOS-1381") **Drag and Drop file area still functional when disabled**
+    * (UploadField) Prevents file dropping and style changes on the upload drop zone if the field is disabled.
+* Housekeeping
+
+  * [MOS-1383](https://simpleviewtools.atlassian.net/browse/MOS-1383 "https://simpleviewtools.atlassian.net/browse/MOS-1383") **Scroll to section not working on Drawer form**
+    * (Form) Set window height for drawer story to match the height of the viewport
+  * [MOS-1405](https://simpleviewtools.atlassian.net/browse/MOS-1405 "https://simpleviewtools.atlassian.net/browse/MOS-1405") **Sticky not working in Dataview**
+    * (DataView) Ensures the sticky parameter works by forcing the story to take up the full height of the viewport.
+  * [MOS-1436](https://simpleviewtools.atlassian.net/browse/MOS-1436 "https://simpleviewtools.atlassian.net/browse/MOS-1436") **Upgrade MUI**
+    * (chore) Upgrades MUI and sister packages to their latest stable version in the same major.
+
+      * @mui/icons-material@^5.8.4 → @mui/icons-material@5.16.7
+      * @mui/material@^5.8.7 → @mui/material@5.16.7
+      * @mui/styles@^5.6.2 → @mui/styles@5.16.7
+
 ### 37.0.0 - 08/20/2024
 
 ### Improvements and Fixes
