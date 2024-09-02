@@ -11,7 +11,7 @@ export function NodeFormLink({ editor, getFormValues, onClose }: NodeFormTypePro
 	const controller = useForm();
 	const { state: { data: { url } }, handleSubmit } = controller;
 
-	const onSubmit = handleSubmit(useCallback(({ url, newTab }) => {
+	const onSubmit = handleSubmit(useCallback(({ data: { url, newTab } }) => {
 		editor.chain().focus()
 			.extendMarkRange("link")
 			.setLink({
