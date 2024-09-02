@@ -1,6 +1,6 @@
 export { default } from "./FormFieldTextEditor";
 export * from "./FormFieldTextEditor";
-export * from "./FormFieldTextEditorNext";
+export * from "./FormFieldTextEditorTipTap";
 export * from "./FormFieldTextEditorTypes";
 
 export * from "./FormFieldTextEditorTipTapExperimental";

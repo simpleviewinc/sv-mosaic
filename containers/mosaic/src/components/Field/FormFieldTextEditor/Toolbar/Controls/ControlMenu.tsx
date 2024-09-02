@@ -4,7 +4,7 @@ import { Editor } from "@tiptap/core";
 
 import type { Control, MenuButtonProps, NodeFormSet, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
 
-import { StyledControlMenu } from "../../FormFieldTextEditorNext.styled";
+import { StyledControlMenu } from "../../FormFieldTextEditorTipTap.styled";
 import { ControlMenuItem } from "./ControlMenuItem";
 import { ControlButton } from "./ControlButton";
 import testIds from "@root/utils/testIds";
