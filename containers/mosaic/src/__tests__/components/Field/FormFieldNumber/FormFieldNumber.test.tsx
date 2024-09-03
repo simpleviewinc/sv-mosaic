@@ -5,7 +5,7 @@ import NumberField from "@root/components/Field/FormFieldNumber";
 
 describe("NumberField component", () => {
 	it("should dispatch a change event a float value with a sign", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -22,7 +22,7 @@ describe("NumberField component", () => {
 	});
 
 	it("should dispatch a change event a whole number with a sign", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -39,7 +39,7 @@ describe("NumberField component", () => {
 	});
 
 	it("should dispatch a change event with a trailing period", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -58,7 +58,7 @@ describe("NumberField component", () => {
 
 describe("NumberField component invalid entries", () => {
 	it("should not dispatch a change event if an invalid character is entered", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -75,7 +75,7 @@ describe("NumberField component invalid entries", () => {
 	});
 
 	it("should not dispatch a change event if a duplicate decimal point is entered", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -92,7 +92,7 @@ describe("NumberField component invalid entries", () => {
 	});
 
 	it("should not dispatch a change event if a decimal point is entered and no decimal places are allowed", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -112,7 +112,7 @@ describe("NumberField component invalid entries", () => {
 	});
 
 	it("should not dispatch a change event if more decimal places are entered than is allowed", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField
@@ -132,7 +132,7 @@ describe("NumberField component invalid entries", () => {
 	});
 
 	it("should not dispatch a change event if a sign is entered that is not allowed", async () => {
-		const mockOnChange = jest.fn();
+		const mockOnChange = vi.fn();
 
 		render(
 			<NumberField

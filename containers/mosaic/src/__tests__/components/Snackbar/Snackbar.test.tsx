@@ -15,8 +15,8 @@ afterAll(() => {
 	jest.clearAllTimers();
 });
 
-const closeSnackbar = jest.fn();
-const snackbarAction = jest.fn();
+const closeSnackbar = vi.fn();
+const snackbarAction = vi.fn();
 
 const SnackbarExample = () => {
 	const [open, setOpen] = useState(false);

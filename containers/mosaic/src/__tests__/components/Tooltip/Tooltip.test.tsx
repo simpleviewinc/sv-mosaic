@@ -18,8 +18,8 @@ function TooltipTest({ text }: { text: string }) {
 
 beforeEach(() => {
 	document.createRange = () => ({
-		setStart: jest.fn(),
-		setEnd: jest.fn(),
+		setStart: vi.fn(),
+		setEnd: vi.fn(),
 		// The types of the common Ancestor Container object in the following line
 		// are ignored just for practical purposes to run the test.
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment

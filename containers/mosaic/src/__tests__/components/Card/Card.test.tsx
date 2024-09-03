@@ -9,8 +9,8 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 afterEach(cleanup);
 
 const { getByText, getByTestId, queryByTestId } = screen;
-const topAction = jest.fn();
-const bottomAction = jest.fn();
+const topAction = vi.fn();
+const bottomAction = vi.fn();
 const content = [
 	<p key="first-element">First Element</p>,
 	<p key="second-element">Second Element</p>,

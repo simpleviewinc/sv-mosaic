@@ -28,19 +28,19 @@ const ComponentExample = (props: {
 			label: "Text link",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 		},
 		{
 			label: "Text link",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 		},
 		{
 			label: "Text link",
 			mIcon: Public,
 			href: "https://www.google.com/",
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 		},
 	];
 
@@ -84,21 +84,21 @@ const ComponentExample = (props: {
 		{
 			label: "Button 1",
 			mIcon: Mail,
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 			color: "black",
 			variant: "text",
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 			color: "black",
 			variant: "text",
 		},
 		{
 			label: "Button 3",
 			mIcon: Edit,
-			onClick: jest.fn(),
+			onClick: vi.fn(),
 			color: "black",
 			variant: "text",
 		},
@@ -114,11 +114,11 @@ const ComponentExample = (props: {
 		additionalActions = [
 			{
 				label : "Edit",
-				onClick : jest.fn(),
+				onClick : vi.fn(),
 			},
 			{
 				label : "Download",
-				onClick : jest.fn(),
+				onClick : vi.fn(),
 			},
 		];
 	}

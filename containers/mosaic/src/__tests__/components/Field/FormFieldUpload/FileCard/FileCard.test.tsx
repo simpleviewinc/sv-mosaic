@@ -5,7 +5,7 @@ import FileCard from "@root/components/Field/FormFieldUpload/FileCard";
 import FileCardPending from "@root/components/Field/FormFieldUpload/FileCard/FileCardPending";
 import { FileCardPendingProps } from "@root/components/Field/FormFieldUpload/FileCard/FileCardTypes";
 
-const onFileDelete = jest.fn();
+const onFileDelete = vi.fn();
 
 const fileCards = [
 	{ // Uploaded with img

@@ -8,10 +8,10 @@ import Button, { ButtonProps } from "@root/components/Button";
 
 afterEach(cleanup);
 
-const handlePrimaryAction = jest.fn();
-const handleSecondaryAction = jest.fn();
-const handleThirdButtonClick = jest.fn();
-const handleFourthButtonClick = jest.fn();
+const handlePrimaryAction = vi.fn();
+const handleSecondaryAction = vi.fn();
+const handleThirdButtonClick = vi.fn();
+const handleFourthButtonClick = vi.fn();
 
 const buttons: ButtonProps[] = [
 	{

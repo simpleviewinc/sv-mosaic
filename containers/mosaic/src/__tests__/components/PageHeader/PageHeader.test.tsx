@@ -9,9 +9,9 @@ afterAll(() => {
 	jest.clearAllTimers();
 });
 
-const onCancel = jest.fn();
-const onSubmit = jest.fn();
-const onBack = jest.fn();
+const onCancel = vi.fn();
+const onSubmit = vi.fn();
+const onBack = vi.fn();
 
 const buttons: ButtonProps[] = [
 	{

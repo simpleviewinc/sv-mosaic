@@ -89,8 +89,8 @@ const data = {
 	header: <h1>H1 Header</h1>,
 };
 
-const onClickEdit = jest.fn();
-const onClickAdd = jest.fn();
+const onClickEdit = vi.fn();
+const onClickAdd = vi.fn();
 
 const buttons: ButtonProps[] = [
 	{

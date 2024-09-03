@@ -97,7 +97,7 @@ const DrawersExample = () => {
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
