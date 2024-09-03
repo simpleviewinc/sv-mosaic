@@ -4,7 +4,6 @@ import { testArray, TestDef } from "@simpleview/mochalib";
 import * as transforms from "@root/transforms/column_transforms";
 import * as assert from "assert";
 import { render, screen, cleanup } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
