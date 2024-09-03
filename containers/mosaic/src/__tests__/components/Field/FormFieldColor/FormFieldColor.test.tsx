@@ -1,6 +1,5 @@
 import * as React from "react";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 // Components
 import FormFieldColor, { RGBAToHexA } from "@root/components/Field/FormFieldColor";

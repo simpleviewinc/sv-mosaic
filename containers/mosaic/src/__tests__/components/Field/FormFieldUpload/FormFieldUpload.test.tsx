@@ -1,6 +1,5 @@
 import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import FormFieldUpload from "@root/components/Field/FormFieldUpload";
 import { defaultValues } from "@root/components/Field/FormFieldUpload/uploadUtils";
 import { FieldDef } from "@root/components/Field";
@@ -11,8 +10,8 @@ const fieldDef: FieldDef = {
 	type: "upload",
 	inputSettings: {
 		limit: undefined,
-		onFileAdd: jest.fn(),
-		onFileDelete: jest.fn(),
+		onFileAdd: vi.fn(),
+		onFileDelete: vi.fn(),
 	},
 };
 
@@ -22,8 +21,8 @@ const fieldDefWithLimit: FieldDef = {
 	type: "upload",
 	inputSettings: {
 		limit: 2,
-		onFileAdd: jest.fn(),
-		onFileDelete: jest.fn(),
+		onFileAdd: vi.fn(),
+		onFileDelete: vi.fn(),
 	},
 };
 
@@ -37,7 +36,7 @@ describe("FormFieldUpload", () => {
 		render(
 			<FormFieldUpload
 				fieldDef={fieldDef}
-				onChange={jest.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 
@@ -56,7 +55,7 @@ describe("FormFieldUpload", () => {
 			<FormFieldUpload
 				fieldDef={fieldDef}
 				value={defaultValues.uploadField}
-				onChange={jest.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 
@@ -68,7 +67,7 @@ describe("FormFieldUpload", () => {
 		render(
 			<FormFieldUpload
 				fieldDef={fieldDefWithLimit}
-				onChange={jest.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 

@@ -63,9 +63,9 @@ const MapCoordinatesExample = (): ReactElement => {
 	);
 };
 
-const mockGeoCoder = jest
+const mockGeoCoder = vi
 	.fn()
-	.mockImplementation(() => ({ geocode: jest.fn() }));
+	.mockImplementation(() => ({ geocode: vi.fn() }));
 
 /**
  * Mock Google Maps JavaScript API
@@ -74,7 +74,7 @@ export const setupGoogleMock = (): void => {
 	const google = {
 		maps: {
 			places: {
-				AutocompleteService: jest.fn(),
+				AutocompleteService: vi.fn(),
 				PlacesServiceStatus: {
 					INVALID_REQUEST: "INVALID_REQUEST",
 					NOT_FOUND: "NOT_FOUND",
@@ -116,7 +116,7 @@ export const setupGoogleMock = (): void => {
 // 	});
 // };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
@@ -130,7 +130,7 @@ beforeAll(() => {
 
 afterEach(cleanup);
 
-jest.mock("@react-google-maps/api", () => ({
+vi.mock("@react-google-maps/api", () => ({
 	useLoadScript: () => ({
 		isLoaded: true,
 		loadError: null,

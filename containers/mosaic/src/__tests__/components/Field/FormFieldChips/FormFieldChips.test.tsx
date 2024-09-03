@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMemo, ReactElement } from "react";
 import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import "@testing-library/jest-dom/extend-expect";
 
 //Components
 import Form, { useForm } from "@root/components/Form";
@@ -74,7 +73,7 @@ const FormFieldChipsExample = (props:{ fromDB: boolean }): ReactElement => {
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,

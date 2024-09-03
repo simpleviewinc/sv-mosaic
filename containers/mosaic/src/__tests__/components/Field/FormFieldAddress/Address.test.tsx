@@ -5,7 +5,6 @@ import {
 	fireEvent,
 	screen,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import * as React from "react";
 import { ReactElement } from "react";
 
@@ -19,9 +18,9 @@ import AddressAutocomplete from "@root/components/Field/FormFieldAddress/Address
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 
-const mockGeoCoder = jest
+const mockGeoCoder = vi
 	.fn()
-	.mockImplementation(() => ({ geocode: jest.fn() }));
+	.mockImplementation(() => ({ geocode: vi.fn() }));
 
 /**
  * Mock Google Maps JavaScript API
@@ -31,7 +30,7 @@ export const setupGoogleMock = (): void => {
 		maps: {
 			places: {
 				AutocompleteService: function() {
-					return { getPlacePredictions: jest.fn() };
+					return { getPlacePredictions: vi.fn() };
 				},
 				PlacesServiceStatus: {
 					INVALID_REQUEST: "INVALID_REQUEST",
@@ -61,7 +60,7 @@ export const setupGoogleMock = (): void => {
   global.window.google = google as any;
 };
 
-jest.mock("@react-google-maps/api", () => ({
+vi.mock("@react-google-maps/api", () => ({
 	useLoadScript: () => ({
 		isLoaded: true,
 		loadError: null,
@@ -108,25 +107,25 @@ const {
 	getByTestId,
 } = screen;
 
-const mockOnChange = jest.fn();
-const mockOnSelect = jest.fn();
-const mockClear = jest.fn();
+const mockOnChange = vi.fn();
+const mockOnSelect = vi.fn();
+const mockClear = vi.fn();
 
 beforeAll(() => {
 	setupGoogleMock();
 });
 afterEach(cleanup);
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
 	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
-jest.setTimeout(60000);
+// jest.setTimeout(60000);
 
-const mockScrollIntoView = jest.fn();
+const mockScrollIntoView = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = mockScrollIntoView;
 
 describe("AddressCard component", () => {
