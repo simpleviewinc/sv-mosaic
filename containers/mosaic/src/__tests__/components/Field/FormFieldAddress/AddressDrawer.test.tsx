@@ -40,14 +40,14 @@ function MockAddressAutocomplete({ value, onChange, onSelect }: AddressAutocompl
 	);
 }
 
-jest.mock("@root/components/Field/FormFieldAddress/AddressAutocomplete", () => {
+vi.mock("@root/components/Field/FormFieldAddress/AddressAutocomplete", () => {
 	return {
 		__esModule: true,
 		default: MockAddressAutocomplete,
 	};
 });
 
-jest.mock("react-places-autocomplete", () => {
+vi.mock("react-places-autocomplete", () => {
 	return {
 		geocodeByAddress: (query: string) => {
 			if (!mockAddressData[query]) {

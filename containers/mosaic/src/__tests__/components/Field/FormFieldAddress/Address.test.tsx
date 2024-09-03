@@ -19,7 +19,7 @@ import AddressAutocomplete from "@root/components/Field/FormFieldAddress/Address
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 
-const mockGeoCoder = jest
+const mockGeoCoder = vi
 	.fn()
 	.mockImplementation(() => ({ geocode: vi.fn() }));
 
@@ -61,7 +61,7 @@ export const setupGoogleMock = (): void => {
   global.window.google = google as any;
 };
 
-jest.mock("@react-google-maps/api", () => ({
+vi.mock("@react-google-maps/api", () => ({
 	useLoadScript: () => ({
 		isLoaded: true,
 		loadError: null,
@@ -124,7 +124,7 @@ mockResizeObserver.mockReturnValue({
 	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
-jest.setTimeout(60000);
+// jest.setTimeout(60000);
 
 const mockScrollIntoView = vi.fn();
 window.HTMLElement.prototype.scrollIntoView = mockScrollIntoView;
