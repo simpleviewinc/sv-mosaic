@@ -21,7 +21,7 @@ export class DatePickerComponent {
 		this.leftArrow = page.locator("button[title='Previous month']");
 		this.rightArrow = page.locator("button[title='Next month']");
 		this.selectorDay = page.locator("button[role='gridcell']");
-		this.monthLabel = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root");
+		this.monthLabel = page.locator(".MuiPickersCalendarHeader-label");
 	}
 
 	async selectYear(year: string): Promise<void> {
