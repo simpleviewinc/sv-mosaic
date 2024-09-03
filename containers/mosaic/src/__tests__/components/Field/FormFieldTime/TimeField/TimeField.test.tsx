@@ -5,7 +5,7 @@ import { screen } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 
 function setup({ value }: { value?: TimeData } = {}) {
-	const onChange = jest.fn();
+	const onChange = vi.fn();
 
 	render(
 		<TimeField
