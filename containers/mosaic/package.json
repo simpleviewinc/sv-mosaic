@@ -105,7 +105,7 @@
 	},
 	"scripts": {
 		"test": "vitest --config='./src/__tests__/vite.config.mts'",
-		"coverage": "yarn test run --coverage --coverage.enabled=true --coverage.reporter=html",
+		"test:ui": "vitest --config='./src/__tests__/vite.config.mts' --ui --coverage.enabled=true",
 		"types": "tsc --noEmit",
 		"lint": "eslint . --config .eslintrc.ci.js",
 		"build": "yarn run build:esm && yarn run build:cjs",
