@@ -20,7 +20,7 @@ jobs:
           name: Run tests
           command: |
             docker-compose build mosaic
-            docker-compose run --name sv-mosaic mosaic yarn test
+            docker-compose run -e CI=true --name sv-mosaic mosaic yarn test
   E2E Tests:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
