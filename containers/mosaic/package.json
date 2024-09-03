@@ -46,7 +46,9 @@
 		"ts-node": "10.9.1",
 		"ttypescript": "1.5.15",
 		"typescript": "4.7.4",
-		"typescript-transform-paths": "3.3.1"
+		"typescript-transform-paths": "3.3.1",
+		"vite-tsconfig-paths": "^5.0.1",
+		"vitest": "^2.0.5"
 	},
 	"dependencies": {
 		"@dnd-kit/core": "6.1.0",
@@ -104,6 +106,7 @@
 	"scripts": {
 		"test": "jest --config=./src/__tests__/jest.config.js",
 		"test:ci": "jest --ci",
+		"vitest": "vitest --config='./src/__tests__/vite.config.mts'",
 		"types": "tsc --noEmit",
 		"lint": "eslint . --config .eslintrc.ci.js",
 		"build": "yarn run build:esm && yarn run build:cjs",
