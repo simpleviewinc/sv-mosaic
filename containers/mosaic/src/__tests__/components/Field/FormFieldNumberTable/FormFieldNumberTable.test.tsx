@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ReactElement, useCallback, useMemo } from "react";
-import "@testing-library/jest-dom";
 import {
 	act,
 	cleanup,

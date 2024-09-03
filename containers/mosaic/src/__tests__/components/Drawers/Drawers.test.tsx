@@ -5,7 +5,6 @@ import AppContext from "@root/components/Drawers/example/AppContext";
 import Page from "@root/components/Drawers/example/Page";
 import { AppState, DrawerDef } from "@root/components/Drawers/example/ExampleTypes";
 import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 const DrawersExample = () => {
 	const [state, setState] = useState<AppState>({
