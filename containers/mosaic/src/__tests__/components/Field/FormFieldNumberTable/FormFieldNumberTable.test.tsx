@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ReactElement, useCallback, useMemo } from "react";
-import "@testing-library/jest-dom";
 import {
 	act,
 	cleanup,
@@ -78,14 +77,14 @@ const NumberTableExample = ({
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
 	disconnect: () => null,
 });
 window.ResizeObserver = mockResizeObserver;
-const scrollIntoViewMock = jest.fn();
+const scrollIntoViewMock = vi.fn();
 window.HTMLElement.prototype.scrollTo = scrollIntoViewMock;
 
 const labels = {

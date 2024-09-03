@@ -12,7 +12,7 @@ import FolderIcon from "@mui/icons-material/Folder";
 
 afterEach(cleanup);
 
-const addTaskMock = jest.fn();
+const addTaskMock = vi.fn();
 
 export const SideNavExample = (): ReactElement => {
 	const [content, setContent] = useState<JSX.Element>(<h1>Accounts Content</h1>);

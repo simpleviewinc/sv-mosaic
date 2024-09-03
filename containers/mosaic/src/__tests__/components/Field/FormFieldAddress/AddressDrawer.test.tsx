@@ -4,7 +4,6 @@ import {
 	render,
 	screen,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import * as React from "react";
 import { testArray, TestDef } from "@simpleview/mochalib";
 
@@ -24,9 +23,9 @@ interface Test {
 	postcode: string;
 }
 
-const mockOnClose = jest.fn();
-const mockOnUnsavedChanges = jest.fn();
-const mockOnSave = jest.fn();
+const mockOnClose = vi.fn();
+const mockOnUnsavedChanges = vi.fn();
+const mockOnSave = vi.fn();
 
 function MockAddressAutocomplete({ value, onChange, onSelect }: AddressAutocompleteProps) {
 	return (
@@ -40,14 +39,14 @@ function MockAddressAutocomplete({ value, onChange, onSelect }: AddressAutocompl
 	);
 }
 
-jest.mock("@root/components/Field/FormFieldAddress/AddressAutocomplete", () => {
+vi.mock("@root/components/Field/FormFieldAddress/AddressAutocomplete", () => {
 	return {
 		__esModule: true,
 		default: MockAddressAutocomplete,
 	};
 });
 
-jest.mock("react-places-autocomplete", () => {
+vi.mock("react-places-autocomplete", () => {
 	return {
 		geocodeByAddress: (query: string) => {
 			if (!mockAddressData[query]) {

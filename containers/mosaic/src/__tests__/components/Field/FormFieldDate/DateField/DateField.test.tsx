@@ -2,7 +2,6 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 import DateField from "@root/components/Field/FormFieldDate/DateField";
 import { screen } from "@testing-library/dom";
-import "@testing-library/jest-dom";
 
 describe("DateField component", () => {
 	it("Should display the date value", () => {
