@@ -48,7 +48,9 @@
 		"typescript": "4.7.4",
 		"typescript-transform-paths": "3.3.1",
 		"vite-tsconfig-paths": "^5.0.1",
-		"vitest": "^2.0.5"
+		"vitest": "^2.0.5",
+		"vitest-canvas-mock": "^0.3.3",
+		"vitest-fail-on-console": "^0.7.1"
 	},
 	"dependencies": {
 		"@dnd-kit/core": "6.1.0",
