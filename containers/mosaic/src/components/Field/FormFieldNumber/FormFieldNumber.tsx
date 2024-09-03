@@ -25,7 +25,7 @@ const NumberField = (
 	} = props;
 
 	const [errorFlash, setErrorFlash] = useState(false);
-	const errorFlashTimer = useRef<NodeJS.Timeout>();
+	const errorFlashTimer = useRef<ReturnType<typeof setTimeout>>();
 
 	const { tooltipProps, anchorProps } = useTooltip();
 
