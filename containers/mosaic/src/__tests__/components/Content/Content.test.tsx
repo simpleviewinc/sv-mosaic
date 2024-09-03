@@ -16,7 +16,6 @@ import {
 import { ButtonProps } from "@root/components/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
