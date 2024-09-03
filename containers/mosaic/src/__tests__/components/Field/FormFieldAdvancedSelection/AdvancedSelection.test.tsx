@@ -1,7 +1,6 @@
 import { ButtonProps } from "@root/components/Button";
 import { FieldDef } from "@root/components/Field";
 import { render, cleanup, fireEvent, screen, waitFor, act } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import * as React from "react";
 import { useMemo } from "react";
 import { optionsWithCategory } from "@root/components/Field/FormFieldAdvancedSelection";
@@ -119,7 +118,7 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,

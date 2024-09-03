@@ -6,12 +6,12 @@ import { ButtonProps } from "@root/components/Button";
 afterEach(cleanup);
 
 afterAll(() => {
-	jest.clearAllTimers();
+	vi.clearAllTimers();
 });
 
-const onCancel = jest.fn();
-const onSubmit = jest.fn();
-const onBack = jest.fn();
+const onCancel = vi.fn();
+const onSubmit = vi.fn();
+const onBack = vi.fn();
 
 const buttons: ButtonProps[] = [
 	{

@@ -16,7 +16,6 @@ import {
 import { ButtonProps } from "@root/components/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import "@testing-library/jest-dom";
 
 afterEach(cleanup);
 
@@ -89,8 +88,8 @@ const data = {
 	header: <h1>H1 Header</h1>,
 };
 
-const onClickEdit = jest.fn();
-const onClickAdd = jest.fn();
+const onClickEdit = vi.fn();
+const onClickAdd = vi.fn();
 
 const buttons: ButtonProps[] = [
 	{

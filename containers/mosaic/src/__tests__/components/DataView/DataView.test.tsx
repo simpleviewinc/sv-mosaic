@@ -42,8 +42,8 @@ describe("DataViewFilterText component", () => {
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "",
 				}}
-				onRemove={jest.fn()}
-				onChange={jest.fn()}
+				onRemove={vi.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -61,8 +61,8 @@ describe("DataViewFilterText component", () => {
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "not_equals",
 				}}
-				onRemove={jest.fn()}
-				onChange={jest.fn()}
+				onRemove={vi.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -79,8 +79,8 @@ describe("DataViewFilterText component", () => {
 				args={{
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 				}}
-				onRemove={jest.fn()}
-				onChange={jest.fn()}
+				onRemove={vi.fn()}
+				onChange={vi.fn()}
 			/>,
 		);
 		const titleWithComparisonsButton = screen.getByText("Title with Comparisons:");
@@ -90,7 +90,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should throw an error when the developer has passed an invalid comparisonDefault prop", async () => {
-		jest.spyOn(console, "error").mockImplementation(() => jest.fn());
+		vi.spyOn(console, "error").mockImplementation(() => vi.fn());
 		expect(() => render(
 			<DataViewFilterText
 				label="Title with Comparisons:"
@@ -99,8 +99,8 @@ describe("DataViewFilterText component", () => {
 					comparisons: ["equals", "not_equals", "contains", "not_contains", "exists", "not_exists"],
 					comparisonDefault: "invalid_comparison",
 				}}
-				onRemove={jest.fn()}
-				onChange={jest.fn()}
+				onRemove={vi.fn()}
+				onChange={vi.fn()}
 			/>,
 		)).toThrow("The selected comparison is not a valid comparison");
 	});
@@ -173,7 +173,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should display the name of the current view inside the view list button if a current view and list view handler is provided", async () => {
-		const onViewList = jest.fn();
+		const onViewList = vi.fn();
 
 		render(
 			<DataView
@@ -190,7 +190,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should display the list views button if a handler is provided and fire that handler when clicked", async () => {
-		const onViewList = jest.fn();
+		const onViewList = vi.fn();
 
 		render(
 			<DataView
@@ -211,7 +211,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should display the save view dropdown menu when an onViewSave handler is provided and correctly invoke that handler", async () => {
-		const onViewSave = jest.fn();
+		const onViewSave = vi.fn();
 
 		render(
 			<DataView
@@ -239,7 +239,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should display the save view dropdown menu when an onViewSaveAs handler is provided and correctly invoke that handler", async () => {
-		const onViewSaveAs = jest.fn();
+		const onViewSaveAs = vi.fn();
 
 		render(
 			<DataView

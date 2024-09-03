@@ -81,7 +81,7 @@ describe("DataViewFilters", () => {
 				activeFilters={activeFilters}
 				filters={filters}
 				filter={{}}
-				onActiveFiltersChange={jest.fn}
+				onActiveFiltersChange={vi.fn}
 			/>,
 		);
 

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { render, cleanup, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -52,7 +51,7 @@ const TextEditorExample = (
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,

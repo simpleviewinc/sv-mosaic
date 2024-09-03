@@ -2,10 +2,9 @@ import { act, render, fireEvent } from "@testing-library/react";
 import * as React from "react";
 import TimeField, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import { screen } from "@testing-library/dom";
-import "@testing-library/jest-dom";
 
 function setup({ value }: { value?: TimeData } = {}) {
-	const onChange = jest.fn();
+	const onChange = vi.fn();
 
 	render(
 		<TimeField

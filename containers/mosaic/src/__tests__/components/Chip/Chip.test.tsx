@@ -24,7 +24,7 @@ describe("Chip component", () => {
 
 describe("The deletable Chip component", () => {
 	it("should display the delete icon an execute the handleDelete function", () => {
-		const handleDelete = jest.fn();
+		const handleDelete = vi.fn();
 		const DeletableChip = () => {
 			return (
 				<Chip
@@ -46,7 +46,7 @@ describe("The deletable Chip component", () => {
 
 describe("A selected Chip component", () => {
 	it("should be able to select a chip", () => {
-		const handleClick = jest.fn();
+		const handleClick = vi.fn();
 
 		render(
 			<Chip
