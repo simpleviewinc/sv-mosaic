@@ -9,7 +9,7 @@ import Button from "@root/components/Button";
 afterEach(cleanup);
 
 afterAll(() => {
-	jest.clearAllTimers();
+	vi.clearAllTimers();
 });
 
 const PopoverExample = () => {

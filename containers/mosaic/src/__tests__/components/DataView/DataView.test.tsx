@@ -90,7 +90,7 @@ describe("DataViewFilterText component", () => {
 	});
 
 	it("Should throw an error when the developer has passed an invalid comparisonDefault prop", async () => {
-		jest.spyOn(console, "error").mockImplementation(() => vi.fn());
+		vi.spyOn(console, "error").mockImplementation(() => vi.fn());
 		expect(() => render(
 			<DataViewFilterText
 				label="Title with Comparisons:"
