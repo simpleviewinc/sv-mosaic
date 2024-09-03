@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
+import { act, useState } from "react";
 import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 
 // Components
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
