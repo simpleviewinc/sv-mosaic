@@ -103,9 +103,7 @@
 		}
 	},
 	"scripts": {
-		"test": "jest --config=./src/__tests__/jest.config.js",
-		"test:ci": "jest --ci",
-		"vitest": "vitest --config='./src/__tests__/vite.config.mts'",
+		"test": "vitest --config='./src/__tests__/vite.config.mts'",
 		"types": "tsc --noEmit",
 		"lint": "eslint . --config .eslintrc.ci.js",
 		"build": "yarn run build:esm && yarn run build:cjs",
