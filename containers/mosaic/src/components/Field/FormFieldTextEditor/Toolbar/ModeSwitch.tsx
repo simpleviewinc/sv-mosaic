@@ -16,7 +16,7 @@ const modes: { label: string; value: EditorMode }[] = [
 		value: "visual",
 	},
 	{
-		label: "Code",
+		label: "Source",
 		value: "code",
 	},
 ];

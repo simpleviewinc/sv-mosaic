@@ -359,7 +359,7 @@ export const StyledModeSwitch = styled.div`
     gap: 4px;
 `;
 
-const type: HTMLButtonElement["type"] = "button";
+const type = "button" as const;
 
 export const ModeButton = styled.button.attrs((props) => ({ ...props, type }))<{ $active?: boolean; $focus?: boolean }>`
     background: none;
