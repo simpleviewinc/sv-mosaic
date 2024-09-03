@@ -6,7 +6,7 @@ import { ButtonProps } from "@root/components/Button";
 afterEach(cleanup);
 
 afterAll(() => {
-	jest.clearAllTimers();
+	vi.clearAllTimers();
 });
 
 const onCancel = vi.fn();

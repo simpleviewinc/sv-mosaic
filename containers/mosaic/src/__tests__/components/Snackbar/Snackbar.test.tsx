@@ -12,7 +12,7 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 afterEach(cleanup);
 
 afterAll(() => {
-	jest.clearAllTimers();
+	vi.clearAllTimers();
 });
 
 const closeSnackbar = vi.fn();

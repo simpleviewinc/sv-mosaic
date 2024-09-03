@@ -63,7 +63,7 @@ const MapCoordinatesExample = (): ReactElement => {
 	);
 };
 
-const mockGeoCoder = jest
+const mockGeoCoder = vi
 	.fn()
 	.mockImplementation(() => ({ geocode: vi.fn() }));
 
@@ -130,7 +130,7 @@ beforeAll(() => {
 
 afterEach(cleanup);
 
-jest.mock("@react-google-maps/api", () => ({
+vi.mock("@react-google-maps/api", () => ({
 	useLoadScript: () => ({
 		isLoaded: true,
 		loadError: null,
