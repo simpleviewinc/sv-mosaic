@@ -24,9 +24,9 @@ interface Test {
 	postcode: string;
 }
 
-const mockOnClose = jest.fn();
-const mockOnUnsavedChanges = jest.fn();
-const mockOnSave = jest.fn();
+const mockOnClose = vi.fn();
+const mockOnUnsavedChanges = vi.fn();
+const mockOnSave = vi.fn();
 
 function MockAddressAutocomplete({ value, onChange, onSelect }: AddressAutocompleteProps) {
 	return (

@@ -119,7 +119,7 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	);
 };
 
-const mockResizeObserver = jest.fn();
+const mockResizeObserver = vi.fn();
 mockResizeObserver.mockReturnValue({
 	observe: () => null,
 	unobserve: () => null,
