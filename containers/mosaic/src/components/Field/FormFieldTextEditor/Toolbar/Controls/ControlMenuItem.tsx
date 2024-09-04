@@ -4,6 +4,7 @@ import { Editor } from "@tiptap/core";
 import type { ControlWithProps } from "../../FormFieldTextEditorTypes";
 
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
+import testIds from "@root/utils/testIds";
 
 export function ControlMenuItem({
 	name,
@@ -24,6 +25,7 @@ export function ControlMenuItem({
 			<StyledMenuItem
 				onClick={onClick}
 				$active={editor.isActive(name)}
+				data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${name}`}
 			>
 				<MenuItemLabel>
 					{Icon && <Icon />}

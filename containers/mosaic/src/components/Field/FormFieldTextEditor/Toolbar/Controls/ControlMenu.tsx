@@ -15,12 +15,14 @@ export function ControlMenuDropdown({
 	MenuButton,
 	setNodeForm,
 	inputSettings,
+	testId,
 }: {
 	editor: Editor;
 	controls: Control[];
 	MenuButton?: (props: MenuButtonProps) => ReactElement;
 	setNodeForm: NodeFormSet;
 	inputSettings: TextEditorNextInputSettings;
+	testId?: string;
 }): ReactElement {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -47,6 +49,7 @@ export function ControlMenuDropdown({
 					onClick={onClick}
 					square
 					active={isActive}
+					data-testid={testId}
 				>
 					<MoreIcon />
 				</ControlButton>
@@ -72,7 +75,6 @@ export function ControlMenuDropdown({
 						onClose={onClose}
 						editor={editor}
 						key={index}
-						data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 					/>
 				))}
 			</StyledControlMenu>

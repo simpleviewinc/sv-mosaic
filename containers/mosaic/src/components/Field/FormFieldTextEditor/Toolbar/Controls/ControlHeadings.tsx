@@ -5,6 +5,7 @@ import { Level } from "@tiptap/extension-heading";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
 import { ControlWithComponent } from "../../FormFieldTextEditorTypes";
 import { Shortcut } from "..";
+import testIds from "@root/utils/testIds";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {
 	editor: Editor;
@@ -21,6 +22,7 @@ export function ControlHeading({ editor, level, onClose, shortcut }: ControlHead
 		<StyledMenuItem
 			onClick={onClick}
 			$active={editor.isActive("heading", { level })}
+			data-testid={`${testIds.TEXT_EDITOR_HEADING_CONTROL}-${level}`}
 		>
 			<MenuItemLabel>
 				{React.createElement(`h${level}`, null, `Heading ${level}`)}

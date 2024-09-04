@@ -3,6 +3,7 @@ import React, { ReactElement } from "react";
 import type { MenuButtonProps } from "../../FormFieldTextEditorTypes";
 
 import { StyledTextStyleMenuButton } from "../../FormFieldTextEditorTipTap.styled";
+import testIds from "@root/utils/testIds";
 
 export function TextStyleMenuButton({ editor, onClick }: MenuButtonProps): ReactElement {
 	const textStyles = {
@@ -21,6 +22,7 @@ export function TextStyleMenuButton({ editor, onClick }: MenuButtonProps): React
 		<StyledTextStyleMenuButton
 			onClick={onClick}
 			disabled={!currentStyle}
+			data-testid={testIds.TEXT_EDITOR_HEADING_MENU}
 		>
 			{currentStyle || "Normal Text"}
 		</StyledTextStyleMenuButton>

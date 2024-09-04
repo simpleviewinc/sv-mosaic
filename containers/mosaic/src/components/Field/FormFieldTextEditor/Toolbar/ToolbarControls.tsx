@@ -20,7 +20,7 @@ export function ToolbarControls({
 	controls: controlsDef,
 	selectionTypes,
 	setNodeForm,
-	inputSettings,
+	inputSettings = {},
 }: ToolbarControlsProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
 
@@ -35,6 +35,7 @@ export function ToolbarControls({
 							controls={control}
 							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
+							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${index}`}
 						/>
 					) : "MenuButton" in control ? (
 						<ControlMenuDropdown
@@ -44,7 +45,6 @@ export function ToolbarControls({
 							MenuButton={control.MenuButton}
 							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
-							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 						/>
 					) : "Component" in control ? (
 						<control.Component
