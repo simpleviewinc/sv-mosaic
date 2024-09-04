@@ -26,8 +26,8 @@ export function ToolbarControls({
 
 	return (
 		<ControlGroups>
-			{groups.map((group, index) => (
-				<ControlGroup key={index}>
+			{groups.map((group, groupIndex) => (
+				<ControlGroup key={groupIndex}>
 					{group.map((control, index) => Array.isArray(control) ? (
 						<ControlMenuDropdown
 							key={index}
@@ -35,7 +35,7 @@ export function ToolbarControls({
 							controls={control}
 							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
-							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${index}`}
+							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${groupIndex}-${index}`}
 						/>
 					) : "MenuButton" in control ? (
 						<ControlMenuDropdown
