@@ -23,7 +23,7 @@ export function ToolbarControls({
 	inputSettings = {},
 }: ToolbarControlsProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
-	console.log(inputSettings);
+
 	return (
 		<ControlGroups>
 			{groups.map((group, index) => (
