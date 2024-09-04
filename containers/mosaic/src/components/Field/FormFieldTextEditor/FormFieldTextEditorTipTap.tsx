@@ -20,8 +20,8 @@ const controls: ControlsConfig = [
 	["headings"],
 	["bold", "italic", ["underline", "strike", "superscript", "subscript", "clear"]],
 	["bulletList", "orderedList"],
-	["link", "image"],
-	["codeBlock", "blockquote"],
+	["alignLeft", "alignCenter", ["alignRight", "alignJustify"]],
+	["link", ["image", "codeBlock", "blockquote"]],
 ];
 
 const formattingShow: ControlBase["show"] = ({ selectionTypes = [] }) => selectionTypes.includes("formatting");

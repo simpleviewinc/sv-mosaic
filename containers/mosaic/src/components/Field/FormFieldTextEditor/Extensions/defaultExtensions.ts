@@ -22,6 +22,7 @@ import Strike from "@tiptap/extension-strike";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
 import Text from "@tiptap/extension-text";
+import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { WildCardContent } from "./WildCardContent";
 
@@ -56,5 +57,8 @@ export const defaultExtensions = [
 	HardBreak,
 	History,
 	Script,
+	TextAlign.configure({
+		types: ["heading", "paragraph"],
+	}),
 	WildCardContent,
 ];
