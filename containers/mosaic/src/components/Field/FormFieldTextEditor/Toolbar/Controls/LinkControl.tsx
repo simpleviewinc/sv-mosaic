@@ -4,6 +4,7 @@ import LinkIcon from "@mui/icons-material/Link";
 
 import type { ControlComponentProps } from "../../FormFieldTextEditorTypes";
 import { ControlButton } from ".";
+import testIds from "@root/utils/testIds";
 
 export function LinkControl({
 	editor,
@@ -51,6 +52,7 @@ export function LinkControl({
 			label="Link"
 			square
 			$active={editor.isActive("link")}
+			data-testid={`${testIds.TEXT_EDITOR_CONTROL}:link`}
 		>
 			<LinkIcon />
 		</ControlButton>
