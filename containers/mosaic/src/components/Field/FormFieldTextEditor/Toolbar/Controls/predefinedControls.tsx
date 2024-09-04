@@ -1,8 +1,16 @@
 import "highlight.js/styles/stackoverflow-light.min.css";
+import { Node } from "@tiptap/pm/model";
+import { posToDOMRect } from "@tiptap/core";
 
 import BoldIcon from "@mui/icons-material/FormatBold";
 import ClearIcon from "@mui/icons-material/FormatClear";
+import AlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import AlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import AlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import AlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
+import ImageIcon from "@mui/icons-material/Image";
 import ItalicIcon from "@mui/icons-material/FormatItalic";
+import LinkIcon from "@mui/icons-material/Link";
 import UnderlineIcon from "@mui/icons-material/FormatUnderlined";
 import StrikeIcon from "@mui/icons-material/FormatStrikethrough";
 import SuperscriptIcon from "@mui/icons-material/Superscript";
@@ -14,8 +22,6 @@ import CodeIcon from "@mui/icons-material/Code";
 
 import type { Control, ControlMenu } from "../../FormFieldTextEditorTypes";
 
-import { LinkControl } from "./LinkControl";
-import { ImageControl } from "./ImageControl";
 import {
 	ControlHeading1,
 	ControlHeading2,
@@ -115,7 +121,7 @@ export const controlHeadings: ControlMenu = {
 export const controlBold: Control = {
 	name: "bold",
 	label: "Bold",
-	cmd: (editor) => editor.chain().focus().toggleBold().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleBold().run(),
 	Icon: BoldIcon,
 	shortcut: {
 		mac: "Cmd+B",
@@ -126,7 +132,7 @@ export const controlBold: Control = {
 export const controlItalic: Control = {
 	name: "italic",
 	label: "Italic",
-	cmd: (editor) => editor.chain().focus().toggleItalic().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleItalic().run(),
 	Icon: ItalicIcon,
 	shortcut: {
 		mac: "Cmd+I",
@@ -137,7 +143,7 @@ export const controlItalic: Control = {
 export const controlUnderline: Control = {
 	name: "underline",
 	label: "Underline",
-	cmd: (editor) => editor.chain().focus().toggleUnderline().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleUnderline().run(),
 	Icon: UnderlineIcon,
 	shortcut: {
 		mac: "Cmd+U",
@@ -148,7 +154,7 @@ export const controlUnderline: Control = {
 export const controlStrikethrough: Control = {
 	name: "strike",
 	label: "Strikethrough",
-	cmd: (editor) => editor.chain().focus().toggleStrike().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleStrike().run(),
 	Icon: StrikeIcon,
 	shortcut: {
 		mac: "Cmd+Shift+S",
@@ -159,7 +165,7 @@ export const controlStrikethrough: Control = {
 export const controlSuperscript: Control = {
 	name: "superscript",
 	label: "Superscript",
-	cmd: (editor) => editor.chain().focus().toggleSuperscript().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleSuperscript().run(),
 	Icon: SuperscriptIcon,
 	shortcut: {
 		mac: "Cmd+.",
@@ -170,7 +176,7 @@ export const controlSuperscript: Control = {
 export const controlSubscript: Control = {
 	name: "subscript",
 	label: "Subscript",
-	cmd: (editor) => editor.chain().focus().toggleSubscript().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleSubscript().run(),
 	Icon: SubscriptIcon,
 	shortcut: {
 		mac: "Cmd+,",
@@ -181,14 +187,14 @@ export const controlSubscript: Control = {
 export const controlClear: Control = {
 	name: "clear",
 	label: "Clear Formatting",
-	cmd: (editor) => editor.chain().focus().unsetAllMarks().run(),
+	cmd: ({ editor }) => editor.chain().focus().unsetAllMarks().run(),
 	Icon: ClearIcon,
 };
 
 export const controlBulletList: Control = {
 	name: "bulletList",
 	label: "Bullet List",
-	cmd: (editor) => editor.chain().focus().toggleBulletList().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleBulletList().run(),
 	Icon: BulletListIcon,
 	shortcut: {
 		mac: "Cmd+Shift+8",
@@ -199,7 +205,7 @@ export const controlBulletList: Control = {
 export const controlOrderedList: Control = {
 	name: "orderedList",
 	label: "Ordered List",
-	cmd: (editor) => editor.chain().focus().toggleOrderedList().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleOrderedList().run(),
 	Icon: OrderedListIcon,
 	shortcut: {
 		mac: "Cmd+Shift+7",
@@ -207,22 +213,132 @@ export const controlOrderedList: Control = {
 	},
 };
 
+export const controlAlignLeft: Control = {
+	name: "alignLeft",
+	label: "Align Left",
+	cmd: ({ editor }) => editor.chain().focus().setTextAlign("left").run(),
+	Icon: AlignLeftIcon,
+	shortcut: {
+		mac: "Cmd+Shift+L",
+		pc: "Ctrl+Shift+L",
+	},
+};
+
+export const controlAlignCenter: Control = {
+	name: "alignCenter",
+	label: "Align Center",
+	cmd: ({ editor }) => editor.chain().focus().setTextAlign("center").run(),
+	Icon: AlignCenterIcon,
+	shortcut: {
+		mac: "Cmd+Shift+E",
+		pc: "Ctrl+Shift+E",
+	},
+};
+
+export const controlAlignRight: Control = {
+	name: "alignRight",
+	label: "Align Right",
+	cmd: ({ editor }) => editor.chain().focus().setTextAlign("right").run(),
+	Icon: AlignRightIcon,
+	shortcut: {
+		mac: "Cmd+Shift+R",
+		pc: "Ctrl+Shift+R",
+	},
+};
+
+export const controlAlignJustify: Control = {
+	name: "alignJustify",
+	label: "Align Justify",
+	cmd: ({ editor }) => editor.chain().focus().setTextAlign("justify").run(),
+	Icon: AlignJustifyIcon,
+	shortcut: {
+		mac: "Cmd+Shift+R",
+		pc: "Ctrl+Shift+R",
+	},
+};
+
 export const controlLink: Control = {
 	name: "link",
 	label: "Link",
-	Component: LinkControl,
+	cmd: ({ editor, inputSettings: { onLink }, setNodeForm }) => {
+		const { view } = editor;
+		const { state: { selection: { from, to } } } = view;
+
+		const link = editor.state.selection.$to.marks()
+			.find(({ type }) => type.name === "link");
+
+		const values = {
+			url: link?.attrs.href || "",
+			newTab: link?.attrs.target === "_blank",
+		};
+
+		if (onLink) {
+			onLink({
+				...values,
+				updateLink: ({ url, newTab }) => editor.chain().focus()
+					.extendMarkRange("link")
+					.setLink({
+						href: url,
+						target: newTab ? "_blank" : "",
+					})
+					.run(),
+			});
+
+			return;
+		}
+
+		setNodeForm({
+			open: true,
+			anchorEl: { getBoundingClientRect: () => posToDOMRect(view, from, to) },
+			values,
+			type: "link",
+		});
+	},
+	Icon: LinkIcon,
 };
 
 export const controlImage: Control = {
 	name: "image",
 	label: "Image",
-	Component: ImageControl,
+	cmd: ({ editor, inputSettings: { onImage }, setNodeForm }) => {
+		const { view } = editor;
+		const { state: { selection: { from, to } } } = view;
+
+		// TypeScript thinks that selection doesn't have an
+		// associated node even though it does
+		const selectedNode = (editor.state.selection as unknown as { node: Node }).node;
+		const image = selectedNode?.type.name === "image" ? selectedNode : undefined;
+
+		const values = {
+			src: image?.attrs.src || "",
+			alt: image?.attrs.alt,
+		};
+
+		if (onImage) {
+			onImage({
+				...values,
+				updateImage: (params) => editor.chain().focus()
+					.setImage(params)
+					.run(),
+			});
+
+			return;
+		}
+
+		setNodeForm({
+			open: true,
+			anchorEl: { getBoundingClientRect: () => posToDOMRect(view, from, to) },
+			values,
+			type: "image",
+		});
+	},
+	Icon: ImageIcon,
 };
 
 export const controlCodeBlock: Control = {
 	name: "codeBlock",
 	label: "Code Block",
-	cmd: (editor) => editor.chain().focus().toggleCodeBlock().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleCodeBlock().run(),
 	Icon: CodeIcon,
 	shortcut: {
 		mac: "Cmd+Alt+C",
@@ -233,7 +349,7 @@ export const controlCodeBlock: Control = {
 export const controlBlockquote: Control = {
 	name: "blockquote",
 	label: "Quote",
-	cmd: (editor) => editor.chain().focus().toggleBlockquote().run(),
+	cmd: ({ editor }) => editor.chain().focus().toggleBlockquote().run(),
 	Icon: BlockquoteIcon,
 	shortcut: {
 		mac: "Cmd+Shift+B",
@@ -242,6 +358,10 @@ export const controlBlockquote: Control = {
 };
 
 export const predefinedControls: (Control | ControlMenu)[] = [
+	controlAlignLeft,
+	controlAlignCenter,
+	controlAlignRight,
+	controlAlignJustify,
 	controlHeadings,
 	controlBold,
 	controlItalic,

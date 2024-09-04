@@ -36,6 +36,10 @@ export interface NodeFormState {
 export type NodeFormSet = Dispatch<SetStateAction<NodeFormState>>;
 
 export type ControlName =
+	| "alignLeft"
+	| "alignCenter"
+	| "alignRight"
+	| "alignJustify"
 	| "headings"
 	| "normal-text"
 	| "heading-1"
@@ -66,7 +70,11 @@ export type ControlBase = {
 };
 
 export type ControlWithProps = ControlBase & {
-	cmd: (editor: Editor) => void;
+	cmd: (params: {
+		editor: Editor;
+		setNodeForm: NodeFormSet;
+		inputSettings: TextEditorNextInputSettings;
+	}) => void;
 	Icon?: SvgIconComponent;
 };
 

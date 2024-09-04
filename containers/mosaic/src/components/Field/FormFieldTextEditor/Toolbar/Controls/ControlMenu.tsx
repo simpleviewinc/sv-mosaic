@@ -74,6 +74,8 @@ export function ControlMenuDropdown({
 						{...control}
 						onClose={onClose}
 						editor={editor}
+						setNodeForm={setNodeForm}
+						inputSettings={inputSettings}
 						key={index}
 					/>
 				))}

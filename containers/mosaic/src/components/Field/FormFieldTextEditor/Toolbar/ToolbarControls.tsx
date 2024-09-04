@@ -4,7 +4,7 @@ import { Editor } from "@tiptap/core";
 import type { ControlsConfig, SelectionType, NodeFormSet, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
-import { ControlGroup } from "../FormFieldTextEditorTipTap.styled";
+import { ControlGroup, ControlGroups } from "../FormFieldTextEditorTipTap.styled";
 import testIds from "@root/utils/testIds";
 
 export interface ToolbarControlsProps {
@@ -23,9 +23,9 @@ export function ToolbarControls({
 	inputSettings = {},
 }: ToolbarControlsProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
-
+	console.log(inputSettings);
 	return (
-		<>
+		<ControlGroups>
 			{groups.map((group, index) => (
 				<ControlGroup key={index}>
 					{group.map((control, index) => Array.isArray(control) ? (
@@ -58,7 +58,7 @@ export function ToolbarControls({
 					) : (
 						<ControlButton
 							key={control.name}
-							onClick={() => control.cmd(editor)}
+							onClick={() => control.cmd({ editor, setNodeForm, inputSettings })}
 							label={control.label}
 							shortcut={control.shortcut}
 							active={editor.isActive(control.name)}
@@ -70,6 +70,6 @@ export function ToolbarControls({
 					))}
 				</ControlGroup>
 			))}
-		</>
+		</ControlGroups>
 	);
 }

@@ -1,10 +1,17 @@
 import React, { ReactElement } from "react";
 import { Editor } from "@tiptap/core";
 
-import type { ControlWithProps } from "../../FormFieldTextEditorTypes";
+import type { ControlWithProps, NodeFormSet, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
 
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
 import testIds from "@root/utils/testIds";
+
+type ControlMenuItemProps = ControlWithProps & {
+	editor: Editor;
+	setNodeForm: NodeFormSet;
+	inputSettings: TextEditorNextInputSettings;
+	onClose: () => void;
+};
 
 export function ControlMenuItem({
 	name,
@@ -14,9 +21,11 @@ export function ControlMenuItem({
 	cmd,
 	editor,
 	onClose,
-}: ControlWithProps & { editor: Editor; onClose: () => void }): ReactElement {
+	setNodeForm,
+	inputSettings,
+}: ControlMenuItemProps): ReactElement {
 	const onClick = () => {
-		cmd(editor);
+		cmd({ editor, setNodeForm, inputSettings });
 		onClose();
 	};
 

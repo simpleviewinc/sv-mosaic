@@ -202,6 +202,7 @@ export const Toolbar = styled.div<{ $focus?: boolean }>`
     align-items: center;
     background: white;
     display: flex;
+    flex-wrap: wrap;
     border: 1px solid ${theme.colors.gray300};
     position: sticky;
     top: 16px;
@@ -214,6 +215,11 @@ export const Toolbar = styled.div<{ $focus?: boolean }>`
     `}
 `;
 
+export const ControlGroups = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
+
 export const ControlGroup = styled.div`
     display: flex;
     align-items: center;
@@ -224,13 +230,13 @@ export const ControlGroup = styled.div`
     margin-left: 1px;
     gap: 2px;
 
-    &:not(:first-child)::before {
+    &::after {
         content: " ";
         position: absolute;
-        border-left: 1px solid ${theme.colors.gray300};
+        border-right: 1px solid ${theme.colors.gray300};
         top: 6px;
         bottom: 6px;
-        left: -1px;
+        right: -1px;
     }
 `;
 
@@ -240,7 +246,7 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
     border-radius: 4px;
     border: 0;
     display: flex;
-    height: 36px;
+    height: 32px;
     justify-content: center;
     position: relative;
 
@@ -254,14 +260,14 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
     }
 
     ${({ $square }) => $square && `
-        width: 36px;
+        width: 32px;
     `}
 
     ${controlColors}
 `;
 
 export const StyledTextStyleMenuButton = styled(StyledControlButton)`
-    width: 80px;
+    width: 90px;
 `;
 
 export const CodeView = styled(TextareaAutosize)`
