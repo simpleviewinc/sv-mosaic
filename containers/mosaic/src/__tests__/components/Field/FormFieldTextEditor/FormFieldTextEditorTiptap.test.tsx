@@ -1,7 +1,7 @@
 import { FormFieldTextEditorTipTap, MosaicFieldProps, TextEditorNextInputSettings } from "@root/components/Field";
 import testIds from "@root/utils/testIds";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 import React, { act } from "react";
 
 type SetupParams = Pick<MosaicFieldProps, "value"> & {
@@ -31,6 +31,19 @@ async function setup({ value = "<p>Test</p>", onLink, onImage }: SetupParams = {
 		onChangeMock,
 		user: userEvent.setup(),
 	};
+}
+
+/**
+ * Only used when a control is clicked that results in the canvas
+ * being immediately focused afterwards. Without waiting for the
+ * short promise, it can get flaky. Presumably due to the way Tiptap
+ * dispatches the focus event asynchronously.
+ */
+function clickAndWait(user: UserEvent, element: HTMLElement) {
+	return waitFor(async () => {
+		await user.click(element);
+		await new Promise((resolve) => setTimeout(() => resolve(null)));
+	});
 }
 
 describe("TextEditorTiptap component - Text formatting", () => {
@@ -94,7 +107,7 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
 		const control = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:bold`);
 
-		await user.click(control);
+		await clickAndWait(user, control);
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<strong>A</strong></p>");
@@ -111,7 +124,7 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
 		const control = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:italic`);
 
-		await user.click(control);
+		await clickAndWait(user, control);
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<em>A</em></p>");
@@ -126,11 +139,11 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const { user, onChangeMock } = await setup();
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-2`);
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
 
 		await user.click(menu);
 
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:underline`));
+		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:underline`));
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<u>A</u></p>");
@@ -146,11 +159,11 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const { user, onChangeMock } = await setup();
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-2`);
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
 
 		await user.click(menu);
 
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:strike`));
+		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:strike`));
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<s>A</s></p>");
@@ -166,11 +179,11 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const { user, onChangeMock } = await setup();
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-2`);
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
 
 		await user.click(menu);
 
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:superscript`));
+		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:superscript`));
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<sup>A</sup></p>");
@@ -186,11 +199,11 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const { user, onChangeMock } = await setup();
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-2`);
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
 
 		await user.click(menu);
 
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:subscript`));
+		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:subscript`));
 		await user.type(canvas, "A");
 
 		expect(onChangeMock).toBeCalledWith("<p>Test<sub>A</sub></p>");
@@ -206,7 +219,7 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		const { user, onChangeMock } = await setup({ value: "<p><em><strong>Test</strong></em></p>" });
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-2`);
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
 
 		await user.tripleClick(canvas);
 		await user.click(menu);
@@ -229,6 +242,48 @@ describe("TextEditorTiptap component - Text formatting", () => {
 		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:orderedList`));
 
 		expect(onChangeMock).toBeCalledWith("<ol><li><p>Test</p></li></ol>");
+	});
+
+	it("should render the correct element attribute text alignments are chosen", async () => {
+		const { user, onChangeMock } = await setup();
+
+		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-3-2`);
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignCenter`));
+
+		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: center\">Test</p>");
+
+		await user.click(menu);
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignRight`));
+
+		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: right\">Test</p>");
+
+		await user.click(menu);
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignJustify`));
+
+		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: justify\">Test</p>");
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignLeft`));
+
+		expect(onChangeMock).toBeCalledWith("<p>Test</p>");
+	});
+
+	it("should render the correct elements when code block is chosen", async () => {
+		const { user, onChangeMock } = await setup();
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:codeBlock`));
+
+		expect(onChangeMock).toBeCalledWith("<pre><code>Test</code></pre>");
+	});
+
+	it("should render the correct elements when quote is chosen", async () => {
+		const { user, onChangeMock } = await setup();
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:blockquote`));
+
+		expect(onChangeMock).toBeCalledWith("<blockquote><p>Test</p></blockquote>");
 	});
 });
 
@@ -321,6 +376,7 @@ describe("TextEditorTiptap component - Managing images", () => {
 	it("should render the correct elements when an image is added", async () => {
 		const { user, onChangeMock } = await setup({ value: "" });
 
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
 
 		const source = screen.getByLabelText("Source*");
@@ -341,6 +397,7 @@ describe("TextEditorTiptap component - Managing images", () => {
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
 
 		await user.tripleClick(canvas);
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
 
 		expect(onImageMock).toBeCalledWith(expect.objectContaining({
@@ -357,6 +414,7 @@ describe("TextEditorTiptap component - Managing images", () => {
 
 		const { user, onChangeMock } = await setup({ value: "", onImage: onImageMock });
 
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
 
 		expect(onChangeMock).toBeCalledWith("<img src=\"https://www.placehold.it/200\" alt=\"Placeholder Image\">");
