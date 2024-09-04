@@ -5,6 +5,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import type { ControlComponentProps } from "../../FormFieldTextEditorTypes";
 import { ControlButton } from ".";
 import { Node } from "@tiptap/pm/model";
+import testIds from "@root/utils/testIds";
 
 export function ImageControl({
 	editor,
@@ -50,6 +51,7 @@ export function ImageControl({
 			label="Add Image"
 			square
 			$active={editor.isActive("image")}
+			data-testid={`${testIds.TEXT_EDITOR_CONTROL}:image`}
 		>
 			<ImageIcon />
 		</ControlButton>

@@ -14,6 +14,7 @@ import { controlBold, controlClear, controlImage, controlItalic, controlLink, co
 import { arrayDifference } from "@root/utils/array";
 import { defaultExtensions } from "./Extensions/defaultExtensions";
 import { escapeHtmlSpaces } from "@root/utils/dom/escapeHtmlSpaces";
+import testIds from "@root/utils/testIds";
 
 const controls: ControlsConfig = [
 	["headings"],
@@ -133,6 +134,11 @@ export function FormFieldTextEditorTipTap({
 			onChange(content);
 		},
 		onSelectionUpdate,
+		editorProps: {
+			attributes: {
+				"data-testid": testIds.TEXT_EDITOR_CANVAS,
+			},
+		},
 	}, []);
 
 	useEffect(() => {
@@ -161,7 +167,10 @@ export function FormFieldTextEditorTipTap({
 
 	return (
 		<StyledTextEditor>
-			<Toolbar $focus={focus}>
+			<Toolbar
+				$focus={focus}
+				data-testid={testIds.TEXT_EDITOR_PRIMARY_TOOLBAR}
+			>
 				{mode === "visual" && (
 					<ToolbarControls
 						editor={editor}
