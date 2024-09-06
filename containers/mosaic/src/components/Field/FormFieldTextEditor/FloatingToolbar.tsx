@@ -1,12 +1,14 @@
-import React, { ReactElement } from "react";
+import React, { MutableRefObject, ReactElement } from "react";
 import Popper from "@mui/material/Popper";
 
 import type { FloatingToolbarState } from "./FormFieldTextEditorTypes";
 
-import { Toolbar } from "./FormFieldTextEditorTipTap.styled";
+import { StyledFloatingToolbar } from "./FormFieldTextEditorTipTap.styled";
 import { ToolbarControls, ToolbarControlsProps } from "./Toolbar";
 
-type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState;
+type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState & {
+	isBusy: MutableRefObject<boolean>;
+};
 
 const popperModifiers = [
 	{
@@ -17,18 +19,22 @@ const popperModifiers = [
 	},
 ];
 
-export function FloatingToolbar({ anchor, open, ...props }: FloatingToolbarProps): ReactElement {
+export function FloatingToolbar({ anchor, open, isBusy, ...props }: FloatingToolbarProps): ReactElement {
 	return (
 		<Popper
 			anchorEl={anchor as HTMLElement}
 			open={open}
 			modifiers={popperModifiers}
 		>
-			<Toolbar>
+			<StyledFloatingToolbar
+				onMouseEnter={() => (isBusy.current = true)}
+				onMouseDown={() => (isBusy.current = true)}
+				onMouseLeave={() => (isBusy.current = false)}
+			>
 				<ToolbarControls
 					{...props}
 				/>
-			</Toolbar>
+			</StyledFloatingToolbar>
 		</Popper>
 	);
 }

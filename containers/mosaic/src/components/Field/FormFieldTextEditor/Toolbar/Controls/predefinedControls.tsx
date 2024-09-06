@@ -11,6 +11,8 @@ import AlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import ImageIcon from "@mui/icons-material/Image";
 import ItalicIcon from "@mui/icons-material/FormatItalic";
 import LinkIcon from "@mui/icons-material/Link";
+import UndoIcon from "@mui/icons-material/Undo";
+import RedoIcon from "@mui/icons-material/Redo";
 import UnderlineIcon from "@mui/icons-material/FormatUnderlined";
 import StrikeIcon from "@mui/icons-material/FormatStrikethrough";
 import SuperscriptIcon from "@mui/icons-material/Superscript";
@@ -357,6 +359,28 @@ export const controlBlockquote: Control = {
 	},
 };
 
+export const controlUndo: Control = {
+	name: "undo",
+	label: "Undo",
+	cmd: ({ editor }) => editor.chain().focus().undo().run(),
+	Icon: UndoIcon,
+	shortcut: {
+		mac: "Cmd+Z",
+		pc: "Ctrl+Z",
+	},
+};
+
+export const controlRedo: Control = {
+	name: "redo",
+	label: "Redo",
+	cmd: ({ editor }) => editor.chain().focus().redo().run(),
+	Icon: RedoIcon,
+	shortcut: {
+		mac: "Cmd+Y",
+		pc: "Ctrl+Y",
+	},
+};
+
 export const predefinedControls: (Control | ControlMenu)[] = [
 	controlAlignLeft,
 	controlAlignCenter,
@@ -376,4 +400,6 @@ export const predefinedControls: (Control | ControlMenu)[] = [
 	controlImage,
 	controlCodeBlock,
 	controlBlockquote,
+	controlUndo,
+	controlRedo,
 ];

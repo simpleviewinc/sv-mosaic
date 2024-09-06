@@ -1,6 +1,14 @@
 import React from "react";
 import FieldWrapper from "@root/components/FieldWrapper";
 import { FormFieldTextEditorTipTap } from "./FormFieldTextEditorTipTap";
+import { FieldDef } from "../FieldTypes";
+
+/**
+ * TODO: Remove once tip tap field is stable
+ */
+export function isTipTapField(type: FieldDef["type"]) {
+	return typeof type === "function" && type.name === "FormFieldTextEditorTipTapExperimental";
+}
 
 export function FormFieldTextEditorTipTapExperimental(props: any) {
 	const {

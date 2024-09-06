@@ -41,6 +41,7 @@ export const Editor = styled(EditorContent)`
     .tiptap {
         background-color: ${theme.newColors.grey1["100"]};
         border: 1px solid ${theme.colors.gray300};
+        border-top: 0;
         padding: 16px;
 
         &:focus {
@@ -67,21 +68,13 @@ export const Editor = styled(EditorContent)`
         .script-tag,
         .tiptap-block {
             margin-bottom: 20px;
+            line-height: 1.4;
         }
 
         h1,
         h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h3 {
             line-height: 1.2;
-        }
-
-        h4,
-        h5,
-        h6 {
-            line-height: 1.4;
         }
 
         h1 {
@@ -198,20 +191,33 @@ export const Editor = styled(EditorContent)`
     }
 `;
 
-export const Toolbar = styled.div<{ $focus?: boolean }>`
-    align-items: center;
+export const StyledFloatingToolbar = styled.div`
     background: white;
-    display: flex;
-    flex-wrap: wrap;
+    box-shadow: box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     border: 1px solid ${theme.colors.gray300};
+    padding: 4px 0;
+`;
+
+export const PrimaryToolbar = styled.div<{ $focus?: boolean }>`
+    background: ${theme.newColors.grey1["100"]};
+    border: 1px solid ${theme.colors.gray300};
+    border-bottom: 0;
     position: sticky;
+    padding: 4px 0;
     top: 16px;
     z-index: 1;
-    min-height: 40px;
-    margin-bottom: -1px;
+
+    &::after {
+        border-bottom: 1px solid ${theme.colors.gray300};
+        bottom: -1px;
+        content: " ";
+        left: 16px;
+        right: 16px;
+        position: absolute;
+    }
 
     ${({ $focus }) => $focus && `
-		border-bottom-color: ${theme.newColors.almostBlack["100"]};
+        border-color: ${theme.newColors.almostBlack["100"]};
     `}
 `;
 
@@ -355,34 +361,34 @@ export const MenuItemShortcut = styled.div`
 `;
 
 export const StyledModeSwitch = styled.div`
+    background: white;
+    border: 1px solid ${theme.colors.gray300};
+    border-bottom: 0;
+    justify-content: end;
     align-items: center;
     display: flex;
-    margin-left: auto;
-    margin-right: 8px;
-    margin-bottom: -1px;
-    margin-top: 15px;
+    padding: 8px 8px 0 8px;
     align-self: end;
     gap: 4px;
+    position: relative;
+    z-index: 2;
 `;
 
 const type = "button" as const;
 
 export const ModeButton = styled.button.attrs((props) => ({ ...props, type }))<{ $active?: boolean; $focus?: boolean }>`
-    background: none;
     border-radius: 0;
-    border: 1px solid ${theme.colors.gray300};
+    border: 1px solid transparent;
     padding: 4px 8px;
 
-    ${({ $active }) => $active ? `
-        background-color: ${theme.newColors.grey1["100"]};
-        border-bottom-color: ${theme.newColors.grey1["100"]};
-    ` : `
+    ${({ $active, $focus }) => !$active ? `
+        background: white;
         cursor: pointer;
+    ` : `
+        background: ${theme.newColors.grey1["100"]};
+        border-color: ${$focus ? theme.newColors.almostBlack["100"] : theme.colors.gray300};
+        border-bottom-color: ${theme.newColors.grey1["100"]};
+        padding-bottom: 5px;
+        margin-bottom: -1px;
     `}
-
-    ${({ $active, $focus }) => $active && $focus && `
-        border-color: ${theme.newColors.almostBlack["100"]};
-    `}
-
-    border-bottom-color: transparent;
 `;
