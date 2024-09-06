@@ -294,7 +294,7 @@ describe("TextEditorTiptap component - Linking text", () => {
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
 
 		await user.tripleClick(canvas);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
 
 		const url = screen.getByLabelText("URL*");
 		const submit = screen.getByRole("button", { name: "Submit" });
@@ -308,7 +308,7 @@ describe("TextEditorTiptap component - Linking text", () => {
 	it("should render the correct elements when a link is applied to new text", async () => {
 		const { user, onChangeMock } = await setup({ value: "" });
 
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
 
 		const url = screen.getByLabelText("URL*");
 		const submit = screen.getByRole("button", { name: "Submit" });
