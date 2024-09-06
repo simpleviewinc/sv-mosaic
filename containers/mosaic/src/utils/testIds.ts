@@ -1,6 +1,13 @@
 const testIds = {
 	FORM_STATE: "mos:Form:state",
 	FORM_FIELD_LABEL: "mos:Field:label",
+	TEXT_EDITOR_PRIMARY_TOOLBAR: "mos:TextEditor:primaryToolbar",
+	TEXT_EDITOR_FLOATING_TOOLBAR: "mos:TextEditor:floatingToolbar",
+	TEXT_EDITOR_CONTROL: "mos:TextEditor:control",
+	TEXT_EDITOR_HEADING_MENU: "mos:TextEditor:headingMenu",
+	TEXT_EDITOR_HEADING_CONTROL: "mos:TextEditor:headingControl",
+	TEXT_EDITOR_CANVAS: "mos:TextEditor:canvas",
+	TEXT_EDITOR_CODE: "mos:TextEditor:code",
 	CONTENT_SECTION: "mos:Content:section",
 	CONTENT_ROW: "mos:Content:row",
 	CONTENT_COL: "mos:Content:col",

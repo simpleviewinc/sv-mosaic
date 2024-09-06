@@ -1,6 +1,7 @@
 import { validateLatitude, validateLongitude } from "@root/components/Form/validators";
-import { Libraries, MapPosition } from "./MapCoordinatesTypes";
+import { MapPosition } from "./MapCoordinatesTypes";
 import { IAddress } from "@root/components/Field/FormFieldAddress/AddressTypes";
+import { Libraries } from "@react-google-maps/api";
 
 export const libraries: Libraries = ["places"];
 

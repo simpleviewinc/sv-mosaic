@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useMemo, ReactElement } from "react";
+import { act, useMemo, ReactElement } from "react";
 import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 
 //Components
 import Form, { useForm } from "@root/components/Form";

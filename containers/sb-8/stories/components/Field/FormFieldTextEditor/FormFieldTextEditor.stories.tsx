@@ -1,9 +1,14 @@
 // BUG TO BE FIXED
 import * as React from "react";
-import { useMemo, ReactElement } from "react";
+import { useMemo, useState, ReactElement } from "react";
+
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
+import { FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
+import Drawer from "@root/components/Drawer";
+
+import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
+import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
@@ -16,7 +21,6 @@ export const Playground = ({
 	skeleton,
 	instructionText,
 	helperText,
-	toggleLabel,
 	spellcheck,
 	direction,
 	language,
@@ -48,7 +52,6 @@ export const Playground = ({
 			direction,
 			required,
 			disabled,
-			toggleLabel,
 			label,
 			helperText,
 			instructionText,
@@ -79,7 +82,6 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	toggleLabel: "Toggle label",
 	spellcheck: false,
 	direction: "ltr",
 	language: "en",
@@ -104,9 +106,6 @@ Playground.argTypes = {
 	},
 	helperText: {
 		name: "Helper Text",
-	},
-	toggleLabel: {
-		name: "Toggle Label",
 	},
 	spellcheck: {
 		name: "Direction",
@@ -195,4 +194,158 @@ export const KitchenSink = (): ReactElement => {
 			/>
 		</>
 	);
+};
+
+export const Tiptap = ({
+	label,
+	disabled,
+	required,
+	skeleton,
+	instructionText,
+	helperText,
+	spellcheck,
+	maxCharacters,
+	customImageHandler,
+	customLinkHandler,
+}: typeof Tiptap.args): ReactElement => {
+	const controller = useForm();
+	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
+	const [linkDrawer, setLinkDrawer] = useState<null | TextEditorOnLinkParams>(null);
+
+	const { state, handleSubmit } = controller;
+
+	const onClose = () => {
+		setMediaDrawer(null);
+		setLinkDrawer(null);
+	};
+
+	const tiptapFields = useMemo(
+		(): FieldDef[] =>
+			[
+				{
+					name: "textEditor",
+					label,
+					type: FormFieldTextEditorTipTapFieldType,
+					required,
+					inputSettings: {
+						onImage: customImageHandler ? ({ updateImage, ...params }) => {
+							setMediaDrawer({
+								...params,
+								updateImage: (params) => {
+									updateImage(params);
+									onClose();
+								}
+							});
+						} : undefined,
+						onLink: customLinkHandler ? ({ updateLink, ...params }) => {
+							setLinkDrawer({
+								...params,
+								updateLink: (params) => {
+									updateLink(params);
+									onClose();
+								}
+							});
+						} : undefined,
+						maxCharacters: 100,
+					},
+					disabled,
+					helperText,
+					instructionText,
+				},
+			],
+		[
+			required,
+			disabled,
+			label,
+			helperText,
+			instructionText,
+			maxCharacters,
+			spellcheck,
+			customImageHandler,
+			customLinkHandler,
+		],
+	);
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				{...controller}
+				title="Text Editor Tiptap"
+				fields={tiptapFields}
+				buttons={renderButtons(handleSubmit)}
+				skeleton={skeleton}
+			/>
+			<Drawer
+				open={Boolean(mediaDrawer)}
+				onClose={onClose}
+			>
+				{mediaDrawer && (
+					<MediaGalleryDrawer
+						onClose={onClose}
+						{...mediaDrawer}
+					/>
+				)}
+			</Drawer>
+			<Drawer
+				open={Boolean(linkDrawer)}
+				onClose={onClose}
+			>
+				{linkDrawer && (
+					<LinkLibraryDrawer
+						onClose={onClose}
+						{...linkDrawer}
+					/>
+				)}
+			</Drawer>
+		</>
+	);
+};
+
+Tiptap.args = {
+	label: "Label",
+	disabled: false,
+	required: false,
+	skeleton: false,
+	instructionText: "Instruction text",
+	helperText: "Helper text",
+	spellcheck: false,
+	maxCharacters: 100,
+	customImageHandler: false,
+	customLinkHandler: false,
+};
+
+Tiptap.argTypes = {
+	label: {
+		name: "Label",
+	},
+	disabled: {
+		name: "Disabled",
+	},
+	required: {
+		name: "Required",
+	},
+	skeleton: {
+		name: "Skeleton",
+	},
+	instructionText: {
+		name: "Instruction Text",
+	},
+	helperText: {
+		name: "Helper Text",
+	},
+	spellcheck: {
+		name: "Direction",
+		control: { type: "select" },
+		options: ["ltr", "rtl"],
+	},
+	maxCharacters: {
+		name: "Maximum Characters",
+	},
+	customImageHandler: {
+		name: "Custom Image Handler",
+	},
+	customLinkHandler: {
+		name: "Custom Link Handler",
+	},
 };
