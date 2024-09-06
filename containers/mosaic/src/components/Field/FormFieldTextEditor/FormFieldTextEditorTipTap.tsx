@@ -158,8 +158,9 @@ function FormFieldTextEditorTipTapUnmemoised({
 			const content = String(value);
 			editor.commands.setContent(content, false);
 			lastValidContent.current = content;
-		} catch (err) {
+		} catch (error) {
 			editor.commands.setContent(lastValidContent.current, false);
+			console.warn("Could not set rich text content for given value", { error, value });
 		}
 	}, [editor, value]);
 
