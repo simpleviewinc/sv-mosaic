@@ -60,7 +60,9 @@ export type ControlName =
 	| "link"
 	| "image"
 	| "codeBlock"
-	| "blockquote";
+	| "blockquote"
+	| "undo"
+	| "redo";
 
 export type ControlBase = {
 	name: ControlName;
@@ -146,6 +148,7 @@ export type TextEditorOnImageParams = Partial<TextEditorUpdateImageValues> & {
 };
 
 export type TextEditorNextInputSettings = {
+	controls?: ControlsConfig;
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
