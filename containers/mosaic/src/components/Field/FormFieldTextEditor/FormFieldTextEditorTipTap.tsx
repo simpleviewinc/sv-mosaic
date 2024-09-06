@@ -1,10 +1,10 @@
-import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback } from "react";
+import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
 import { useEditor, posToDOMRect, EditorOptions, Extensions } from "@tiptap/react";
 
 import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
-import { Editor, Toolbar, CodeView, StyledTextEditor } from "./FormFieldTextEditorTipTap.styled";
+import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditorTipTap.styled";
 import { NodeForm } from "./NodeForm";
 import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
@@ -16,12 +16,13 @@ import { defaultExtensions } from "./Extensions/defaultExtensions";
 import { escapeHtmlSpaces } from "@root/utils/dom/escapeHtmlSpaces";
 import testIds from "@root/utils/testIds";
 
-const controls: ControlsConfig = [
+const defaultControls: ControlsConfig = [
 	["headings"],
 	["bold", "italic", ["underline", "strike", "superscript", "subscript", "clear"]],
 	["bulletList", "orderedList"],
 	["alignLeft", "alignCenter", ["alignRight", "alignJustify"]],
 	["link", ["image", "codeBlock", "blockquote"]],
+	["undo", "redo"],
 ];
 
 const formattingShow: ControlBase["show"] = ({ selectionTypes = [] }) => selectionTypes.includes("formatting");
@@ -40,7 +41,7 @@ const floatingControls: ControlsConfig = [
 	[
 		{
 			...controlLink,
-			show: ({ selectionTypes = [] }) => selectionTypes.includes("link"),
+			show: ({ selectionTypes = [] }) => !selectionTypes.includes("image"),
 		},
 		{
 			...controlImage,
@@ -49,7 +50,7 @@ const floatingControls: ControlsConfig = [
 	],
 ];
 
-export function FormFieldTextEditorTipTap({
+function FormFieldTextEditorTipTapUnmemoised({
 	value = "",
 	onChange,
 	onBlur: onBlurProvided,
@@ -57,16 +58,18 @@ export function FormFieldTextEditorTipTap({
 		inputSettings,
 		inputSettings: {
 			extensions: providedExtensions,
+			controls = defaultControls,
 		} = {},
 	},
 }: MosaicFieldProps<"textEditor", TextEditorNextInputSettings, TextEditorData>): ReactElement {
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
+	const floatingToolbarBusy = useRef(false);
 	const [floatingToolbar, setFloatingToolbar] = useState<FloatingToolbarState>({
 		open: false,
 		selectionTypes: [],
 	});
-	const [nodeForm, setNodeForm] = useState<NodeFormState | null>(null);
+	const [nodeForm, _setNodeForm] = useState<NodeFormState | null>(null);
 
 	const extensions = useMemo<Extensions>(() => providedExtensions || defaultExtensions, [providedExtensions]);
 	const updatesBlocked = useRef(false);
@@ -160,6 +163,11 @@ export function FormFieldTextEditorTipTap({
 		}
 	}, [editor, value]);
 
+	const setNodeForm: typeof _setNodeForm = (value) => {
+		floatingToolbarBusy.current = false;
+		_setNodeForm(value);
+	};
+
 	const closeNodeForm = () => {
 		setNodeForm((state) => ({ ...state, open: false }));
 		editor.chain().focus();
@@ -167,24 +175,21 @@ export function FormFieldTextEditorTipTap({
 
 	return (
 		<StyledTextEditor>
-			<Toolbar
-				$focus={focus}
-				data-testid={testIds.TEXT_EDITOR_PRIMARY_TOOLBAR}
-			>
-				{mode === "visual" && (
+			<ModeSwitch
+				mode={mode}
+				onChange={setMode}
+				focus={focus}
+			/>
+			{mode === "visual" && (
+				<PrimaryToolbar $focus={focus} data-testid={testIds.TEXT_EDITOR_PRIMARY_TOOLBAR}>
 					<ToolbarControls
 						editor={editor}
 						controls={controls}
 						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
 					/>
-				)}
-				<ModeSwitch
-					mode={mode}
-					onChange={setMode}
-					focus={focus}
-				/>
-			</Toolbar>
+				</PrimaryToolbar>
+			)}
 			{mode === "code" ? (
 				<CodeView
 					value={value}
@@ -206,15 +211,18 @@ export function FormFieldTextEditorTipTap({
 					onClose={closeNodeForm}
 				/>
 			)}
-			{(!nodeForm || !nodeForm.open) && (
+			{(focus || floatingToolbarBusy.current) && (!nodeForm || !nodeForm.open) && (
 				<FloatingToolbar
 					{...floatingToolbar}
 					editor={editor}
 					controls={floatingControls}
 					setNodeForm={setNodeForm}
 					inputSettings={inputSettings}
+					isBusy={floatingToolbarBusy}
 				/>
 			)}
 		</StyledTextEditor>
 	);
 }
+
+export const FormFieldTextEditorTipTap = memo(FormFieldTextEditorTipTapUnmemoised);
