@@ -1,4 +1,5 @@
 import * as React from "react";
+import { act } from "react";
 import { render, cleanup, screen } from "@testing-library/react";
 
 // Components
@@ -7,7 +8,6 @@ import { ReactElement } from "react";
 import { FieldDef } from "@root/components/Field";
 import { TextEditorInputSettings } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
 import { renderButtons } from "@root/utils/storyUtils";
-import { act } from "react-dom/test-utils";
 
 afterEach(cleanup);
 
