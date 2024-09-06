@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef, FormFieldTextEditorTipTapExperimental, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
 import Drawer from "@root/components/Drawer";
 
@@ -225,7 +225,7 @@ export const Tiptap = ({
 				{
 					name: "textEditor",
 					label,
-					type: FormFieldTextEditorTipTapExperimental,
+					type: FormFieldTextEditorTipTapFieldType,
 					required,
 					inputSettings: {
 						onImage: customImageHandler ? ({ updateImage, ...params }) => {
