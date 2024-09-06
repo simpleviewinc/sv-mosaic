@@ -131,11 +131,9 @@ describe("Layout logic", () => {
 	];
 
 	testArray(tests, test => {
-		let result: unknown;
-		test.type === "fields" ?
-			result = generateLayout({ fields })
-			:
-			result = generateLayout({ fields, sections: test.data as SectionDef[] });
+		const result = test.type === "fields" ?
+			generateLayout({ fields }) :
+			generateLayout({ fields, sections: test.data as SectionDef[] });
 
 		assert.deepStrictEqual(result, test.result);
 	});
