@@ -374,9 +374,7 @@ export const StyledModeSwitch = styled.div`
     z-index: 2;
 `;
 
-const type = "button" as const;
-
-export const ModeButton = styled.button.attrs((props) => ({ ...props, type }))<{ $active?: boolean; $focus?: boolean }>`
+export const ModeButton = styled.button.attrs((props) => ({ ...props, type: "button" }))<{ $active?: boolean; $focus?: boolean }>`
     border-radius: 0;
     border: 1px solid transparent;
     padding: 4px 8px;
