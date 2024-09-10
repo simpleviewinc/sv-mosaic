@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo } from "react";
 import { Editor } from "@tiptap/core";
 
-import type { ControlsConfig, SelectionType, NodeFormSet, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
+import type { ControlsConfig, SelectionType, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
 import { ControlGroup, ControlGroups } from "../FormFieldTextEditorTipTap.styled";
@@ -11,7 +11,6 @@ export interface ToolbarControlsProps {
 	controls: ControlsConfig;
 	editor: Editor;
 	selectionTypes?: SelectionType[];
-	setNodeForm: NodeFormSet;
 	inputSettings: TextEditorNextInputSettings;
 }
 
@@ -19,7 +18,6 @@ export function ToolbarControls({
 	editor,
 	controls: controlsDef,
 	selectionTypes,
-	setNodeForm,
 	inputSettings = {},
 }: ToolbarControlsProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
@@ -33,7 +31,6 @@ export function ToolbarControls({
 							key={index}
 							editor={editor}
 							controls={control}
-							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
 							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${groupIndex}-${index}`}
 						/>
@@ -43,7 +40,6 @@ export function ToolbarControls({
 							editor={editor}
 							controls={control.controls}
 							MenuButton={control.MenuButton}
-							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
 						/>
 					) : "Component" in control ? (
@@ -51,14 +47,13 @@ export function ToolbarControls({
 							{...control}
 							key={index}
 							editor={editor}
-							setNodeForm={setNodeForm}
 							inputSettings={inputSettings}
 							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
 						/>
 					) : (
 						<ControlButton
 							key={control.name}
-							onClick={() => control.cmd({ editor, setNodeForm, inputSettings })}
+							onClick={() => control.cmd({ editor, inputSettings })}
 							label={control.label}
 							shortcut={control.shortcut}
 							active={editor.isActive(control.name)}
