@@ -264,25 +264,29 @@ export const controlLink: Control = {
 	label: "Link",
 	cmd: ({ editor, inputSettings: { onLink }, setNodeForm }) => {
 		const { view } = editor;
-		const { state: { selection: { from, to } } } = view;
+		const { state, state: { selection: { from, to } } } = view;
 
 		const link = editor.state.selection.$to.marks()
 			.find(({ type }) => type.name === "link");
 
+		const text = link ? editor.state.doc.nodeAt(to - 1)?.textContent : state.doc.textBetween(from, to);
+
 		const values = {
 			url: link?.attrs.href || "",
 			newTab: link?.attrs.target === "_blank",
+			text,
 		};
 
 		if (onLink) {
 			onLink({
 				...values,
-				updateLink: ({ url, newTab }) => editor.chain().focus()
+				updateLink: ({ url, newTab, text }) => editor.chain().focus()
 					.extendMarkRange("link")
 					.setLink({
 						href: url,
 						target: newTab ? "_blank" : "",
 					})
+					.insertContent(text)
 					.run(),
 			});
 

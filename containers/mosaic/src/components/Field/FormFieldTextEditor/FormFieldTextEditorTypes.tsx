@@ -130,6 +130,7 @@ export type TextEditorInputSettings = {
 export interface TextEditorUpdateLinkValues {
 	url: string;
 	newTab?: boolean;
+	text?: string;
 }
 
 export type TextEditorUpdateLink = (params: TextEditorUpdateLinkValues) => void;
