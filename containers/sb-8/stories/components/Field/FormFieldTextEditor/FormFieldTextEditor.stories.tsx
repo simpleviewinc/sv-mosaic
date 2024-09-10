@@ -246,7 +246,7 @@ export const Tiptap = ({
 								}
 							});
 						} : undefined,
-						maxCharacters: 100,
+						maxCharacters,
 					},
 					disabled,
 					helperText,
