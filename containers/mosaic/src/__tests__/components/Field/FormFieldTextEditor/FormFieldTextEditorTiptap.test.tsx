@@ -311,15 +311,14 @@ describe("TextEditorTiptap component - Linking text", () => {
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
 
 		const url = screen.getByLabelText("URL*");
+		const text = screen.getByLabelText("Text*");
 		const submit = screen.getByRole("button", { name: "Submit" });
 
 		await user.type(url, "https://www.example.com");
+		await user.type(text, "My Link");
 		await user.click(submit);
 
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">A</a></p>");
+		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">My Link</a></p>");
 	});
 
 	it("should remove the correct elements when text is unlinked", async () => {
@@ -359,6 +358,7 @@ describe("TextEditorTiptap component - Linking text", () => {
 		const onLinkMock = vi.fn<TextEditorNextInputSettings["onLink"]>(({ updateLink }) => updateLink({
 			url: "https://www.example.com",
 			newTab: true,
+			text: "My Link",
 		}));
 
 		const { user, onChangeMock } = await setup({ onLink: onLinkMock });
@@ -368,7 +368,7 @@ describe("TextEditorTiptap component - Linking text", () => {
 		await user.tripleClick(canvas);
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
 
-		expect(onChangeMock).toBeCalledWith("<p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">Test</a></p>");
+		expect(onChangeMock).toBeCalledWith("<p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">My Link</a></p>");
 	});
 });
 
