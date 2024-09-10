@@ -1,28 +1,23 @@
 import React, { useMemo, useCallback, ReactElement } from "react";
 
 import type { FieldDef } from "@root/components/Field";
-import type { NodeFormTypeProps } from "../FormFieldTextEditorTypes";
+import type { NodeFormTypeProps, TextEditorUpdateLink } from "../FormFieldTextEditorTypes";
 
 import Form, { useForm } from "@root/components/Form";
 import { LinkOpen } from "./LinkOpen";
 import { NodeFormFooter } from "./NodeFormFooter";
 
-export function NodeFormLink({ editor, getFormValues, onClose }: NodeFormTypeProps): ReactElement {
+type NodeFormLinkProps = NodeFormTypeProps & {
+	update: TextEditorUpdateLink;
+};
+
+export function NodeFormLink({ editor, getFormValues, onClose, update }: NodeFormLinkProps): ReactElement {
 	const controller = useForm();
 	const { state: { data: { url } }, handleSubmit } = controller;
 
 	const onSubmit = handleSubmit(useCallback(({ data: { url, newTab, text } }) => {
-		editor.chain().focus()
-			.extendMarkRange("link")
-			.setLink({
-				href: url,
-				target: newTab ? "_blank" : "",
-			})
-			.insertContent(text)
-			.run();
-
-		onClose();
-	}, [editor, onClose]));
+		update({ url, newTab, text });
+	}, [update]));
 
 	const onRemove = useCallback(() => {
 		editor.chain().focus()

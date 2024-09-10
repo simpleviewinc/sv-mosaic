@@ -1,9 +1,9 @@
-import React, { useCallback, ReactElement } from "react";
+import React, { useCallback } from "react";
 import { Editor } from "@tiptap/react";
 import Popper from "@mui/material/Popper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
-import type { NodeFormState, NodeFormType, NodeFormTypeProps } from "../FormFieldTextEditorTypes";
+import type { NodeFormState } from "../FormFieldTextEditorTypes";
 
 import { StyledNodeForm } from "./NodeForm.styled";
 import { NodeFormLink } from "./NodeFormLink";
@@ -24,21 +24,15 @@ const popperModifiers = [
 	},
 ];
 
-const nodeTypeComponentMap: Record<NodeFormType, (editor: NodeFormTypeProps) => ReactElement> = {
-	link: NodeFormLink,
-	image: NodeFormImage,
-};
-
 export function NodeForm({
 	editor,
 	onClose,
 	type,
 	values,
+	update,
 	anchorEl,
 	open,
 }: NodeFormProps) {
-	const TypeComponent = nodeTypeComponentMap[type];
-
 	const getFormValues = useCallback(async () => {
 		if (!values) {
 			return {};
@@ -55,11 +49,21 @@ export function NodeForm({
 		>
 			<ClickAwayListener onClickAway={onClose}>
 				<StyledNodeForm>
-					<TypeComponent
-						editor={editor}
-						onClose={onClose}
-						getFormValues={getFormValues}
-					/>
+					{type === "link" ? (
+						<NodeFormLink
+							editor={editor}
+							getFormValues={getFormValues}
+							onClose={onClose}
+							update={update}
+						/>
+					) : type === "image" ? (
+						<NodeFormImage
+							editor={editor}
+							getFormValues={getFormValues}
+							onClose={onClose}
+							update={update}
+						/>
+					) : null}
 				</StyledNodeForm>
 			</ClickAwayListener>
 		</Popper>

@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
-import { useEditor, posToDOMRect, EditorOptions, Extensions } from "@tiptap/react";
+import { useEditor, posToDOMRect, EditorOptions, Extensions, Editor as TipTapEditor } from "@tiptap/react";
 
-import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
+import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData, VirtualElement } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
 import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditorTipTap.styled";
@@ -50,12 +50,18 @@ const floatingControls: ControlsConfig = [
 	],
 ];
 
+function selectionVirtualElement({ view, state: { selection: { from, to } } }: TipTapEditor): VirtualElement {
+	return {
+		getBoundingClientRect: () => posToDOMRect(view, from, to),
+	};
+}
+
 function FormFieldTextEditorTipTapUnmemoised({
 	value = "",
 	onChange,
 	onBlur: onBlurProvided,
 	fieldDef: {
-		inputSettings,
+		inputSettings: providedInputSettings,
 		inputSettings: {
 			extensions: providedExtensions,
 			controls = defaultControls,
@@ -71,7 +77,13 @@ function FormFieldTextEditorTipTapUnmemoised({
 	});
 	const [nodeForm, _setNodeForm] = useState<NodeFormState | null>(null);
 
+	const setNodeForm: typeof _setNodeForm = (value) => {
+		floatingToolbarBusy.current = false;
+		_setNodeForm(value);
+	};
+
 	const extensions = useMemo<Extensions>(() => providedExtensions || defaultExtensions, [providedExtensions]);
+
 	const updatesBlocked = useRef(false);
 	const lastValidContent = useRef<string>(value);
 
@@ -109,7 +121,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 
 			return {
 				open: true,
-				anchor: { getBoundingClientRect: () => posToDOMRect(view, from, to) } as HTMLElement,
+				anchor: selectionVirtualElement(editor),
 				// Avoid a new array if it's the same to support downstream memoisation.
 				selectionTypes: arrayDifference(state.selectionTypes, selectionTypes).length ? selectionTypes : state.selectionTypes,
 			};
@@ -143,6 +155,32 @@ function FormFieldTextEditorTipTapUnmemoised({
 			},
 		},
 	}, []);
+	const { view } = editor;
+	const { state: { selection: { from, to } } } = view;
+
+	const inputSettings = useMemo<TextEditorNextInputSettings>(() => ({
+		...providedInputSettings,
+		onLink: providedInputSettings.onLink || (({ updateLink, ...values }) => setNodeForm({
+			open: true,
+			type: "link",
+			values,
+			anchorEl: selectionVirtualElement(editor),
+			update: (...params) => {
+				setNodeForm(null);
+				updateLink(...params);
+			},
+		})),
+		onImage: providedInputSettings.onImage || (({ updateImage, ...values }) => setNodeForm({
+			open: true,
+			type: "image",
+			values,
+			anchorEl: selectionVirtualElement(editor),
+			update: (...params) => {
+				setNodeForm(null);
+				updateImage(...params);
+			},
+		})),
+	}), [from, providedInputSettings, to, view]);
 
 	useEffect(() => {
 		if (updatesBlocked.current) {
@@ -160,13 +198,9 @@ function FormFieldTextEditorTipTapUnmemoised({
 			lastValidContent.current = content;
 		} catch (err) {
 			editor.commands.setContent(lastValidContent.current, false);
+			console.error(err);
 		}
 	}, [editor, value]);
-
-	const setNodeForm: typeof _setNodeForm = (value) => {
-		floatingToolbarBusy.current = false;
-		_setNodeForm(value);
-	};
 
 	const closeNodeForm = () => {
 		setNodeForm((state) => ({ ...state, open: false }));
@@ -185,7 +219,6 @@ function FormFieldTextEditorTipTapUnmemoised({
 					<ToolbarControls
 						editor={editor}
 						controls={controls}
-						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
 					/>
 				</PrimaryToolbar>
@@ -216,7 +249,6 @@ function FormFieldTextEditorTipTapUnmemoised({
 					{...floatingToolbar}
 					editor={editor}
 					controls={floatingControls}
-					setNodeForm={setNodeForm}
 					inputSettings={inputSettings}
 					isBusy={floatingToolbarBusy}
 				/>

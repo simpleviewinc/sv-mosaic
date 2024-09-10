@@ -11,13 +11,15 @@ export type SelectionType =
 	| "image"
 	| "link";
 
-export interface FloatingToolbarState {
-	open: boolean;
-	anchor?: { getBoundingClientRect: () => DOMRect };
-	selectionTypes: SelectionType[];
+export interface VirtualElement {
+	getBoundingClientRect: () => DOMRect;
 }
 
-export type NodeFormType = "link" | "image";
+export interface FloatingToolbarState {
+	open: boolean;
+	anchor?: VirtualElement;
+	selectionTypes: SelectionType[];
+}
 
 export interface NodeFormTypeProps {
 	editor: Editor;
@@ -25,13 +27,18 @@ export interface NodeFormTypeProps {
 	getFormValues: FormProps["getFormValues"];
 }
 
-export interface NodeFormState {
+export type NodeFormState = {
 	open: boolean;
 	anchorEl?: PopperProps["anchorEl"];
-	values?: any;
-	type: NodeFormType;
-
-}
+} & ({
+	type: "link";
+	values: Partial<TextEditorUpdateLinkValues>;
+	update: TextEditorUpdateLink;
+} | {
+	type: "image";
+	values: Partial<TextEditorUpdateImageValues>;
+	update: TextEditorUpdateImage;
+});
 
 export type NodeFormSet = Dispatch<SetStateAction<NodeFormState>>;
 
@@ -74,7 +81,6 @@ export type ControlBase = {
 export type ControlWithProps = ControlBase & {
 	cmd: (params: {
 		editor: Editor;
-		setNodeForm: NodeFormSet;
 		inputSettings: TextEditorNextInputSettings;
 	}) => void;
 	Icon?: SvgIconComponent;
@@ -83,7 +89,6 @@ export type ControlWithProps = ControlBase & {
 export type ControlComponentProps = {
 	editor: Editor;
 	onClose?: () => void;
-	setNodeForm: NodeFormSet;
 	inputSettings: TextEditorNextInputSettings;
 } & Omit<ControlWithComponent, "component">;
 
@@ -153,6 +158,7 @@ export type TextEditorNextInputSettings = {
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
+	allowedLinkProtocols?: string[];
 };
 
 export type TextEditorData = string;
