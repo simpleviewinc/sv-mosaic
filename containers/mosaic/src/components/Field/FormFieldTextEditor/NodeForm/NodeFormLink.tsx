@@ -11,13 +11,14 @@ export function NodeFormLink({ editor, getFormValues, onClose }: NodeFormTypePro
 	const controller = useForm();
 	const { state: { data: { url } }, handleSubmit } = controller;
 
-	const onSubmit = handleSubmit(useCallback(({ data: { url, newTab } }) => {
+	const onSubmit = handleSubmit(useCallback(({ data: { url, newTab, text } }) => {
 		editor.chain().focus()
 			.extendMarkRange("link")
 			.setLink({
 				href: url,
 				target: newTab ? "_blank" : "",
 			})
+			.insertContent(text)
 			.run();
 
 		onClose();
@@ -36,6 +37,13 @@ export function NodeFormLink({ editor, getFormValues, onClose }: NodeFormTypePro
 		{
 			name: "url",
 			label: "URL",
+			type: "text",
+			required: true,
+			validateOn: "onSubmit",
+		},
+		{
+			name: "text",
+			label: "Text",
 			type: "text",
 			required: true,
 			validateOn: "onSubmit",
