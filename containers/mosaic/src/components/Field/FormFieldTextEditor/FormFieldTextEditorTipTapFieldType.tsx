@@ -7,7 +7,7 @@ import { FieldDef } from "../FieldTypes";
  * TODO: Remove once tip tap field is stable
  */
 export function isTipTapField(type: FieldDef["type"]) {
-	return typeof type === "function" && type.name === "FormFieldTextEditorTipTapFieldType";
+	return typeof type === "function";
 }
 
 export function FormFieldTextEditorTipTapFieldType(props: any) {
