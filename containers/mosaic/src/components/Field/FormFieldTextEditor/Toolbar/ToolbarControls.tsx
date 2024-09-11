@@ -12,6 +12,7 @@ export interface ToolbarControlsProps {
 	editor: Editor;
 	selectionTypes?: SelectionType[];
 	inputSettings: TextEditorNextInputSettings;
+	disabled?: boolean;
 }
 
 export function ToolbarControls({
@@ -19,6 +20,7 @@ export function ToolbarControls({
 	controls: controlsDef,
 	selectionTypes,
 	inputSettings = {},
+	disabled,
 }: ToolbarControlsProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
 
@@ -33,6 +35,7 @@ export function ToolbarControls({
 							controls={control}
 							inputSettings={inputSettings}
 							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${groupIndex}-${index}`}
+							disabled={disabled}
 						/>
 					) : "MenuButton" in control ? (
 						<ControlMenuDropdown
@@ -41,6 +44,7 @@ export function ToolbarControls({
 							controls={control.controls}
 							MenuButton={control.MenuButton}
 							inputSettings={inputSettings}
+							disabled={disabled}
 						/>
 					) : "Component" in control ? (
 						<control.Component
@@ -49,6 +53,7 @@ export function ToolbarControls({
 							editor={editor}
 							inputSettings={inputSettings}
 							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
+							disabled={disabled}
 						/>
 					) : (
 						<ControlButton
@@ -59,6 +64,7 @@ export function ToolbarControls({
 							active={editor.isActive(control.name)}
 							square
 							data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
+							disabled={disabled}
 						>
 							<control.Icon />
 						</ControlButton>
