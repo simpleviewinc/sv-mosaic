@@ -39,7 +39,9 @@ export const defaultExtensions = [
 	CodeBlock.configure({
 		lowlight,
 	}),
-	Image,
+	Image.configure({
+		inline: true,
+	}),
 	Italic,
 	Underline,
 	Strike,
