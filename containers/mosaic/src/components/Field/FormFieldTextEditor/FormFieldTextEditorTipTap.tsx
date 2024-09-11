@@ -1,7 +1,7 @@
 import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
-import { useEditor, posToDOMRect, EditorOptions, Extensions, Editor as TipTapEditor } from "@tiptap/react";
+import { useEditor, EditorOptions, Extensions } from "@tiptap/react";
 
-import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData, VirtualElement } from "./FormFieldTextEditorTypes";
+import type { SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
 import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditorTipTap.styled";
@@ -10,51 +10,11 @@ import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
 import { isEmptyDOM } from "@root/utils/dom/isEmptyDOM";
 import { FloatingToolbar } from "./FloatingToolbar";
-import { controlBold, controlClear, controlImage, controlItalic, controlLink, controlStrikethrough, controlSuperscript, controlUnderline } from "./Toolbar/Controls/predefinedControls";
 import { arrayDifference } from "@root/utils/array";
 import { defaultExtensions } from "./Extensions/defaultExtensions";
 import { escapeHtmlSpaces } from "@root/utils/dom/escapeHtmlSpaces";
 import testIds from "@root/utils/testIds";
-
-const defaultControls: ControlsConfig = [
-	["headings"],
-	["bold", "italic", ["underline", "strike", "superscript", "subscript", "clear"]],
-	["bulletList", "orderedList"],
-	["alignLeft", "alignCenter", ["alignRight", "alignJustify"]],
-	["link", ["image", "codeBlock", "blockquote"]],
-	["undo", "redo"],
-];
-
-const formattingShow: ControlBase["show"] = ({ selectionTypes = [] }) => selectionTypes.includes("formatting");
-
-const floatingControls: ControlsConfig = [
-	[
-		{ ...controlBold, show: formattingShow },
-		{ ...controlItalic, show: formattingShow },
-		[
-			{ ...controlUnderline, show: formattingShow },
-			{ ...controlStrikethrough, show: formattingShow },
-			{ ...controlSuperscript, show: formattingShow },
-			{ ...controlClear, show: formattingShow },
-		],
-	],
-	[
-		{
-			...controlLink,
-			show: ({ selectionTypes = [] }) => !selectionTypes.includes("image"),
-		},
-		{
-			...controlImage,
-			show: ({ selectionTypes = [] }) => selectionTypes.includes("image"),
-		},
-	],
-];
-
-function selectionVirtualElement({ view, state: { selection: { from, to } } }: TipTapEditor): VirtualElement {
-	return {
-		getBoundingClientRect: () => posToDOMRect(view, from, to),
-	};
-}
+import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
 
 function FormFieldTextEditorTipTapUnmemoised({
 	value = "",
@@ -67,6 +27,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 			controls = defaultControls,
 		} = {},
 	},
+	disabled,
 }: MosaicFieldProps<"textEditor", TextEditorNextInputSettings, TextEditorData>): ReactElement {
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
@@ -154,6 +115,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 				"data-testid": testIds.TEXT_EDITOR_CANVAS,
 			},
 		},
+		editable: !disabled,
 	}, []);
 	const { view } = editor;
 	const { state: { selection: { from, to } } } = view;
@@ -208,7 +170,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 	};
 
 	return (
-		<StyledTextEditor>
+		<StyledTextEditor $disabled={disabled}>
 			<ModeSwitch
 				mode={mode}
 				onChange={setMode}
@@ -220,6 +182,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 						editor={editor}
 						controls={controls}
 						inputSettings={inputSettings}
+						disabled={disabled}
 					/>
 				</PrimaryToolbar>
 			)}
@@ -229,12 +192,14 @@ function FormFieldTextEditorTipTapUnmemoised({
 					onChange={({ target: { value } }) => onChange(value)}
 					onFocus={onFocus}
 					onBlur={onBlur}
+					disabled={disabled}
 				/>
 			) : (
 				<Editor
 					editor={editor}
 					onFocus={onFocus}
 					onBlur={onBlur}
+					disabled={disabled}
 				/>
 			)}
 			{nodeForm && (

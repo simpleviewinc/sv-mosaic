@@ -9,19 +9,23 @@ import { ControlMenuItem } from "./ControlMenuItem";
 import { ControlButton } from "./ControlButton";
 import testIds from "@root/utils/testIds";
 
+interface ControlMenuDropdownProps {
+	editor: Editor;
+	controls: Control[];
+	MenuButton?: (props: MenuButtonProps) => ReactElement;
+	inputSettings: TextEditorNextInputSettings;
+	testId?: string;
+	disabled?: boolean;
+}
+
 export function ControlMenuDropdown({
 	editor,
 	controls,
 	MenuButton,
 	inputSettings,
 	testId,
-}: {
-	editor: Editor;
-	controls: Control[];
-	MenuButton?: (props: MenuButtonProps) => ReactElement;
-	inputSettings: TextEditorNextInputSettings;
-	testId?: string;
-}): ReactElement {
+	disabled,
+}: ControlMenuDropdownProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
 	const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -41,6 +45,7 @@ export function ControlMenuDropdown({
 				<MenuButton
 					onClick={onClick}
 					editor={editor}
+					disabled={disabled}
 				/>
 			) : (
 				<ControlButton
@@ -48,6 +53,7 @@ export function ControlMenuDropdown({
 					square
 					active={isActive}
 					data-testid={testId}
+					disabled={disabled}
 				>
 					<MoreIcon />
 				</ControlButton>
@@ -65,6 +71,7 @@ export function ControlMenuDropdown({
 						key={index}
 						inputSettings={inputSettings}
 						data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
+						disabled={disabled}
 					/>
 				) : (
 					<ControlMenuItem

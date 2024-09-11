@@ -32,15 +32,22 @@ const selectedNode = css`
     outline-offset: 1px;
 `;
 
-export const StyledTextEditor = styled.div`
+export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
     font-family: ${theme.fontFamily};
-    color: ${theme.colors.black};
+
+    ${({ $disabled }) => $disabled ? `
+        --border-color: ${theme.colors.disableBorder};
+        color: ${theme.colors.disabledTextColor};
+    ` : `
+        --border-color: ${theme.newColors.simplyGrey["100"]};
+        color: ${theme.newColors.almostBlack["100"]};
+    `}
 `;
 
 export const Editor = styled(EditorContent)`
     .tiptap {
         background-color: ${theme.newColors.grey1["100"]};
-        border: 1px solid ${theme.colors.gray300};
+        border: 1px solid var(--border-color);
         border-top: 0;
         padding: 16px;
 
@@ -118,7 +125,7 @@ export const Editor = styled(EditorContent)`
         .tiptap-pill {
             background-color: ${theme.colors.gray200};
             border-radius: 3px;
-            border: 1px solid ${theme.colors.gray300};
+            border: 1px solid var(--border-color);
             color: ${theme.colors.gray600};
             padding: 0;
             font-size: 12px;
@@ -161,20 +168,20 @@ export const Editor = styled(EditorContent)`
         pre {
             background-color: ${theme.colors.gray200};
             border-radius: 3px;
-            border: 1px solid ${theme.colors.gray300};
+            border: 1px solid var(--border-color);
             font-size: 0.85rem;
             line-height: 1.4em;
             padding: 8px 12px;
         }
 
         blockquote {
-            border-left: 3px solid ${theme.colors.gray300};
+            border-left: 3px solid var(--border-color);
             padding: 4px 16px;
         }
 
         hr {
             border: none;
-            border-top: 1px solid ${theme.colors.gray300};
+            border-top: 1px solid var(--border-color);
             margin: 20px 0;
         }
 
@@ -191,16 +198,20 @@ export const Editor = styled(EditorContent)`
     }
 `;
 
-export const StyledFloatingToolbar = styled.div`
+export const StyledFloatingToolbar = styled.div<{ $disabled?: boolean }>`
+    ${({ $disabled }) => `
+        --border-color: ${$disabled ? theme.colors.disableBorder : theme.newColors.simplyGrey["100"]};
+    `}
+
     background: white;
     box-shadow: box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    border: 1px solid ${theme.colors.gray300};
+    border: 1px solid var(--border-color);
     padding: 4px 0;
 `;
 
 export const PrimaryToolbar = styled.div<{ $focus?: boolean }>`
     background: ${theme.newColors.grey1["100"]};
-    border: 1px solid ${theme.colors.gray300};
+    border: 1px solid var(--border-color);
     border-bottom: 0;
     position: sticky;
     padding: 4px 0;
@@ -208,7 +219,7 @@ export const PrimaryToolbar = styled.div<{ $focus?: boolean }>`
     z-index: 1;
 
     &::after {
-        border-bottom: 1px solid ${theme.colors.gray300};
+        border-bottom: 1px solid var(--border-color);
         bottom: -1px;
         content: " ";
         left: 16px;
@@ -239,7 +250,7 @@ export const ControlGroup = styled.div`
     &::after {
         content: " ";
         position: absolute;
-        border-right: 1px solid ${theme.colors.gray300};
+        border-right: 1px solid var(--border-color);
         top: 6px;
         bottom: 6px;
         right: -1px;
@@ -278,7 +289,7 @@ export const StyledTextStyleMenuButton = styled(StyledControlButton)`
 
 export const CodeView = styled(TextareaAutosize)`
     background: ${theme.newColors.grey1["100"]};
-    border: 1px solid ${theme.colors.gray300};
+    border: 1px solid var(--border-color);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -362,7 +373,7 @@ export const MenuItemShortcut = styled.div`
 
 export const StyledModeSwitch = styled.div`
     background: white;
-    border: 1px solid ${theme.colors.gray300};
+    border: 1px solid var(--border-color);
     border-bottom: 0;
     justify-content: end;
     align-items: center;

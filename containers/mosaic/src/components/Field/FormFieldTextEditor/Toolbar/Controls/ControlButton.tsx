@@ -11,9 +11,18 @@ interface ControlButtonProps extends ComponentProps<typeof StyledControlButton> 
 	active?: boolean;
 	square?: boolean;
 	shortcut?: ShortcutDef;
+	disabled?: boolean;
 }
 
-export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<ControlButtonProps>>(function ControlButton({ label, children, active, square, shortcut, ...props }, providedRef): ReactElement {
+export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<ControlButtonProps>>(function ControlButton({
+	label,
+	children,
+	active,
+	square,
+	shortcut,
+	disabled,
+	...props
+}, providedRef): ReactElement {
 	const { anchorProps, tooltipProps } = useTooltip();
 
 	const setRef = (ref: HTMLButtonElement) => {
@@ -36,6 +45,7 @@ export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<Con
 				ref={setRef}
 				$active={active}
 				$square={square}
+				disabled={disabled}
 			>
 				{children}
 			</StyledControlButton>

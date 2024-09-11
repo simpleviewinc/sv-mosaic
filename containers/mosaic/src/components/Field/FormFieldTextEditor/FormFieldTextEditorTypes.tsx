@@ -90,6 +90,7 @@ export type ControlComponentProps = {
 	editor: Editor;
 	onClose?: () => void;
 	inputSettings: TextEditorNextInputSettings;
+	disabled?: boolean;
 } & Omit<ControlWithComponent, "component">;
 
 export type ControlWithComponent = ControlBase & {
@@ -106,6 +107,7 @@ export type ControlMenu = ControlBase & {
 export interface MenuButtonProps {
 	onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 	editor: Editor;
+	disabled?: boolean;
 }
 
 export type Controls = (
