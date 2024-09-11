@@ -4,7 +4,7 @@ import { posToDOMRect } from "@tiptap/react";
 
 import type { ControlBase, ControlsConfig, VirtualElement } from "./FormFieldTextEditorTypes";
 
-import { controlBold, controlClear, controlImage, controlItalic, controlLink, controlStrikethrough, controlSuperscript, controlUnderline } from "./Toolbar/Controls/predefinedControls";
+import { controlBold, controlClear, controlImage, controlItalic, controlLink, controlLinkPreview, controlStrikethrough, controlSuperscript, controlUnderline } from "./Toolbar/Controls/predefinedControls";
 
 export const defaultControls: ControlsConfig = [
 	["headings"],
@@ -33,6 +33,12 @@ export const floatingControls: ControlsConfig = [
 			...controlLink,
 			show: ({ selectionTypes = [] }) => !selectionTypes.includes("image"),
 		},
+		{
+			...controlLinkPreview,
+			show: ({ selectionTypes = [] }) => !selectionTypes.includes("image") && selectionTypes.includes("link"),
+		},
+	],
+	[
 		{
 			...controlImage,
 			show: ({ selectionTypes = [] }) => selectionTypes.includes("image"),
