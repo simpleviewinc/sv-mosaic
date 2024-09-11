@@ -1,4 +1,6 @@
-import React, { ComponentProps, forwardRef, PropsWithChildren, ReactElement } from "react";
+import type { ComponentProps, PropsWithChildren, ReactElement } from "react";
+
+import React, { forwardRef } from "react";
 
 import type { ShortcutDef } from "../../FormFieldTextEditorTypes";
 

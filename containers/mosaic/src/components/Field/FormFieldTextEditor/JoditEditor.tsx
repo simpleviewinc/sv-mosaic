@@ -1,10 +1,13 @@
-import * as React from "react";
-import { memo, ReactElement, useEffect, useRef, useMemo } from "react";
-import { MosaicFieldProps } from "@root/components/Field";
-import { EditorWrapper } from "./FormFieldTextEditor.styled";
+import type { ReactElement } from "react";
+
 import { Jodit } from "jodit";
 import "jodit/build/jodit.min.css";
-import { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+import React, { memo, useEffect, useRef, useMemo } from "react";
+
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+
+import { EditorWrapper } from "./FormFieldTextEditor.styled";
 
 const buttonList = [
 	"source",
