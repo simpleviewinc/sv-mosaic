@@ -1,5 +1,7 @@
-import React, { ReactElement } from "react";
-import { Editor } from "@tiptap/core";
+import type { ReactElement } from "react";
+import type { Editor } from "@tiptap/core";
+
+import React from "react";
 
 import type { ControlWithProps, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
 

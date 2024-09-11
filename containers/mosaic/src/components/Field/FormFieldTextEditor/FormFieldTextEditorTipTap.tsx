@@ -1,5 +1,9 @@
-import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
-import { useEditor, EditorOptions, Extensions } from "@tiptap/react";
+import type { ReactElement } from "react";
+import type { EditorOptions, Extensions } from "@tiptap/react";
+
+import React, { useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
+import { useEditor } from "@tiptap/react";
+import Skeleton from "@mui/material/Skeleton";
 
 import type { SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
@@ -28,6 +32,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 		} = {},
 	},
 	disabled,
+	skeleton,
 }: MosaicFieldProps<"textEditor", TextEditorNextInputSettings, TextEditorData>): ReactElement {
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
@@ -117,8 +122,6 @@ function FormFieldTextEditorTipTapUnmemoised({
 		},
 		editable: !disabled,
 	}, []);
-	const { view } = editor;
-	const { state: { selection: { from, to } } } = view;
 
 	const inputSettings = useMemo<TextEditorNextInputSettings>(() => ({
 		...providedInputSettings,
@@ -142,7 +145,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 				updateImage(...params);
 			},
 		})),
-	}), [from, providedInputSettings, to, view]);
+	}), [editor, providedInputSettings]);
 
 	useEffect(() => {
 		if (updatesBlocked.current) {
@@ -168,6 +171,16 @@ function FormFieldTextEditorTipTapUnmemoised({
 		setNodeForm((state) => ({ ...state, open: false }));
 		editor.chain().focus();
 	};
+
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={130}
+			/>
+		);
+	}
 
 	return (
 		<StyledTextEditor $disabled={disabled}>

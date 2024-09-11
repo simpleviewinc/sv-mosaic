@@ -1,6 +1,8 @@
-import React, { useState, ReactElement, MouseEvent } from "react";
+import type { ReactElement, MouseEvent } from "react";
+import type { Editor } from "@tiptap/core";
+
+import React, { useState } from "react";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Editor } from "@tiptap/core";
 
 import type { Control, MenuButtonProps, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
 

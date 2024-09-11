@@ -1,4 +1,5 @@
-import React, { useMemo, useCallback, ReactElement } from "react";
+import type { ReactElement } from "react";
+import React, { useMemo, useCallback } from "react";
 
 import type { FieldDef } from "@root/components/Field";
 import type { NodeFormTypeProps, TextEditorUpdateLink } from "../FormFieldTextEditorTypes";

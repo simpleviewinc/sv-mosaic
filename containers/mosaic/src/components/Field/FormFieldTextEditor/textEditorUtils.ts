@@ -1,4 +1,6 @@
-import { posToDOMRect, Editor as TipTapEditor } from "@tiptap/react";
+import type { Editor as TipTapEditor } from "@tiptap/react";
+
+import { posToDOMRect } from "@tiptap/react";
 
 import type { ControlBase, ControlsConfig, VirtualElement } from "./FormFieldTextEditorTypes";
 

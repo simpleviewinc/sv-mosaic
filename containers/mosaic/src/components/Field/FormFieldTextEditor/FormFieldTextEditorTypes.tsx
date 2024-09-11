@@ -4,7 +4,7 @@ import type { Editor, Extensions } from "@tiptap/core";
 import type { FieldDefBase } from "@root/components/Field";
 import type { MosaicToggle, SvgIconComponent } from "@root/types";
 import type { PopperProps } from "@mui/material/Popper";
-import { FormProps } from "@root/components/Form";
+import type { FormProps } from "@root/components/Form";
 
 export type SelectionType =
 	| "formatting"
