@@ -254,8 +254,8 @@ export const controlAlignJustify: Control = {
 	cmd: ({ editor }) => editor.chain().focus().setTextAlign("justify").run(),
 	Icon: AlignJustifyIcon,
 	shortcut: {
-		mac: "Cmd+Shift+R",
-		pc: "Ctrl+Shift+R",
+		mac: "Cmd+Shift+J",
+		pc: "Ctrl+Shift+J",
 	},
 };
 
