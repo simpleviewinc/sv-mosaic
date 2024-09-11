@@ -1,5 +1,7 @@
-import React, { ReactElement, useMemo } from "react";
-import { Editor } from "@tiptap/core";
+import type { ReactElement } from "react";
+import type { Editor } from "@tiptap/core";
+
+import React, { useMemo } from "react";
 
 import type { ControlsConfig, SelectionType, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
 

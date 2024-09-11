@@ -1,5 +1,6 @@
+import type { Editor } from "@tiptap/react";
+
 import React, { useCallback } from "react";
-import { Editor } from "@tiptap/react";
 import Popper from "@mui/material/Popper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
