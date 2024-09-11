@@ -65,6 +65,7 @@ export type ControlName =
 	| "bulletList"
 	| "orderedList"
 	| "link"
+	| "linkPreview"
 	| "image"
 	| "codeBlock"
 	| "blockquote"

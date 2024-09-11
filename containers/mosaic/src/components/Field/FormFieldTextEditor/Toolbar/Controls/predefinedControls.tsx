@@ -11,6 +11,7 @@ import AlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import ImageIcon from "@mui/icons-material/Image";
 import ItalicIcon from "@mui/icons-material/FormatItalic";
 import LinkIcon from "@mui/icons-material/Link";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import UnderlineIcon from "@mui/icons-material/FormatUnderlined";
@@ -297,6 +298,22 @@ export const controlLink: Control = {
 	Icon: LinkIcon,
 };
 
+export const controlLinkPreview: Control = {
+	name: "linkPreview",
+	label: "Open URL in new tab",
+	cmd: ({ editor }) => {
+		const link = editor.state.selection.$to.marks()
+			.find(({ type }) => type.name === "link");
+
+		if (!link || !link.attrs.href) {
+			return;
+		}
+
+		window.open(link.attrs.href, "_blank");
+	},
+	Icon: OpenInNewIcon,
+};
+
 export const controlImage: Control = {
 	name: "image",
 	label: "Image",
@@ -381,6 +398,7 @@ export const predefinedControls: (Control | ControlMenu)[] = [
 	controlBulletList,
 	controlOrderedList,
 	controlLink,
+	controlLinkPreview,
 	controlImage,
 	controlCodeBlock,
 	controlBlockquote,
