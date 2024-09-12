@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from "react";
+import React, { ReactElement, useCallback, useEffect, useMemo } from "react";
 import BulletinIcon from "@mui/icons-material/PushPin";
 import CalendarIcon from "@mui/icons-material/CalendarMonth";
 import ContactIcon from "@mui/icons-material/PermContactCalendar";
@@ -12,7 +12,7 @@ import Form, { useForm } from "@root/components/Form";
 import FieldWrapper from "@root/components/FieldWrapper";
 import { ButtonProps } from "@root/components/Button";
 
-import { DrawerWrapper, MediaGalleryChecked, MediaGalleryImage, MediaGalleryItem } from "./MediaGalleryDrawer.styled";
+import { DrawerWrapper } from "./MediaGalleryDrawer.styled";
 import { LinkLibraryAvatar } from "./LinkLibraryDrawer.styled";
 
 type LinkLibraryDrawerProps = Partial<TextEditorOnLinkParams> & {
@@ -92,7 +92,7 @@ function LinkSelectionField(props: any) {
     )
 }
 
-export function LinkLibraryDrawer({ onClose, updateLink, url, newTab }: LinkLibraryDrawerProps): ReactElement {
+export function LinkLibraryDrawer({ onClose, updateLink, url, newTab, text }: LinkLibraryDrawerProps): ReactElement {
     const controller = useForm();
     const { handleSubmit } = controller;
 
@@ -103,9 +103,14 @@ export function LinkLibraryDrawer({ onClose, updateLink, url, newTab }: LinkLibr
             label: "Open in New Tab"
         },
         {
+            name: "text",
+            type: "text",
+            label: "Text"
+        },
+        {
             name: "url",
             type: LinkSelectionField,
-            label: "target",
+            label: "Target",
             required: true,
         },
     ], []);
@@ -133,13 +138,15 @@ export function LinkLibraryDrawer({ onClose, updateLink, url, newTab }: LinkLibr
         updateLink({
             url: data.url,
             newTab: data.newTab,
+            text: data.text,
         });
     });
 
     const getFormValues = useCallback(async () => {
         return {
             newTab,
-            url
+            url,
+            text
         }
     }, [newTab, url]);
 
