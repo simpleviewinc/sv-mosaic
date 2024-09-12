@@ -141,8 +141,10 @@ module.exports = {
 				"no-redeclare": "off",
 				"@typescript-eslint/no-redeclare": "error",
 				"no-unused-vars": "off",
+				"react/prop-types": "off",
 				"@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true, argsIgnorePattern: "^_" }],
 				"@typescript-eslint/no-explicit-any": "warn",
+				"@typescript-eslint/no-unused-expressions": ["error", { allowShortCircuit: true }],
 				"@typescript-eslint/consistent-type-imports": ["warn"],
 			},
 			extends: [

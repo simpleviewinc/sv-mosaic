@@ -16,12 +16,12 @@ export class DatePickerComponent {
 	constructor(page: Page) {
 		this.page = page;
 		this.datepickerDiv = page.locator("div[role='dialog']");
-		this.year = page.locator("[aria-live='polite'][role='presentation'] button");
+		this.year = page.getByLabel('calendar view is open, switch');
 		this.selectorYear = page.locator(".MuiPickersYear-root");
 		this.leftArrow = page.locator("button[title='Previous month']");
 		this.rightArrow = page.locator("button[title='Next month']");
 		this.selectorDay = page.locator("button[role='gridcell']");
-		this.monthLabel = page.locator(".MuiPickersCalendarHeader-label");
+		this.monthLabel = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root");
 	}
 
 	async selectYear(year: string): Promise<void> {

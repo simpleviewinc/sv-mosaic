@@ -109,8 +109,7 @@ describe("FormFieldRadio component from DB", () => {
 
 	it("should check the clicked option", () => {
 		radioButtons.forEach( (radioButton, i) => {
-			i === 6 ? expect(radioButton.checked).toEqual(true)
-				: expect(radioButton.checked).toEqual(false);
+			expect(radioButton.checked).toEqual(i === 6);
 		});
 	});
 });

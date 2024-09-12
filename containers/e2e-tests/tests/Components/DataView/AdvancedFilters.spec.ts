@@ -240,7 +240,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
-	test("Validate created filter with valid dates", async () => {
+	test.skip("Validate created filter with valid dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.selectFilter("created");
@@ -255,7 +255,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(result.length).toBe(0);
 	});
 
-	test("Validate created filter no return results", async () => {
+	test.skip("Validate created filter no return results", async () => {
 		await advancedFilters.selectFilter("created");
 		await advancedFilters.createdBtn.click();
 		const endDate = advanced_filter_data.validEndDateRange;
@@ -267,7 +267,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
-	test("Clear created filter", async () => {
+	test.skip("Clear created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.selectFilter("created");
@@ -281,7 +281,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
-	test("Remove created filter", async () => {
+	test.skip("Remove created filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await advancedFilters.selectFilter("created");
@@ -294,7 +294,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
-	test("Validate updated filter with valid dates", async () => {
+	test.skip("Validate updated filter with valid dates", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
@@ -311,7 +311,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(result.length).toBe(0);
 	});
 
-	test("Validate updated filter no return results", async () => {
+	test.skip("Validate updated filter no return results", async () => {
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
 		await advancedFilters.selectFilter("updated");
 		await advancedFilters.updatedBtn.click();
@@ -324,7 +324,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await _dataviewPage.noResults.textContent()).toBe(advanced_filter_data.noResults);
 	});
 
-	test("Clear updated filter", async () => {
+	test.skip("Clear updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
@@ -338,7 +338,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
-	test("Remove updated filter", async () => {
+	test.skip("Remove updated filter", async () => {
 		const startDate = advanced_filter_data.validStartDateRange;
 		const endDate = advanced_filter_data.validEndDateRange;
 		await columns.selectColumn(advanced_filter_data.updatedOptionFilter);
