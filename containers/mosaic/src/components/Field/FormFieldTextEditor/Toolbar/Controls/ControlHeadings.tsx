@@ -1,11 +1,14 @@
-import React, { ReactElement } from "react";
-import { Editor } from "@tiptap/core";
-import { Level } from "@tiptap/extension-heading";
+import type { ReactElement } from "react";
+import type { Editor } from "@tiptap/core";
+import type { Level } from "@tiptap/extension-heading";
 
-import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
-import { ControlWithComponent } from "../../FormFieldTextEditorTypes";
-import { Shortcut } from "..";
+import React from "react";
+
+import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
+
 import testIds from "@root/utils/testIds";
+import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
+import { Shortcut } from "..";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {
 	editor: Editor;

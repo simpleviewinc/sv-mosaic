@@ -1,29 +1,33 @@
-import React, { useState, ReactElement, MouseEvent } from "react";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import { Editor } from "@tiptap/core";
+import type { ReactElement, MouseEvent } from "react";
+import type { Editor } from "@tiptap/core";
 
-import type { Control, MenuButtonProps, NodeFormSet, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
+import React, { useState } from "react";
+import MoreIcon from "@mui/icons-material/MoreVert";
+
+import type { Control, MenuButtonProps, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
 
 import { StyledControlMenu } from "../../FormFieldTextEditorTipTap.styled";
 import { ControlMenuItem } from "./ControlMenuItem";
 import { ControlButton } from "./ControlButton";
 import testIds from "@root/utils/testIds";
 
+interface ControlMenuDropdownProps {
+	editor: Editor;
+	controls: Control[];
+	MenuButton?: (props: MenuButtonProps) => ReactElement;
+	inputSettings: TextEditorNextInputSettings;
+	testId?: string;
+	disabled?: boolean;
+}
+
 export function ControlMenuDropdown({
 	editor,
 	controls,
 	MenuButton,
-	setNodeForm,
 	inputSettings,
 	testId,
-}: {
-	editor: Editor;
-	controls: Control[];
-	MenuButton?: (props: MenuButtonProps) => ReactElement;
-	setNodeForm: NodeFormSet;
-	inputSettings: TextEditorNextInputSettings;
-	testId?: string;
-}): ReactElement {
+	disabled,
+}: ControlMenuDropdownProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
 	const onClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -43,6 +47,7 @@ export function ControlMenuDropdown({
 				<MenuButton
 					onClick={onClick}
 					editor={editor}
+					disabled={disabled}
 				/>
 			) : (
 				<ControlButton
@@ -50,6 +55,7 @@ export function ControlMenuDropdown({
 					square
 					active={isActive}
 					data-testid={testId}
+					disabled={disabled}
 				>
 					<MoreIcon />
 				</ControlButton>
@@ -65,16 +71,15 @@ export function ControlMenuDropdown({
 						onClose={onClose}
 						editor={editor}
 						key={index}
-						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
 						data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${control.name}`}
+						disabled={disabled}
 					/>
 				) : (
 					<ControlMenuItem
 						{...control}
 						onClose={onClose}
 						editor={editor}
-						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
 						key={index}
 					/>
