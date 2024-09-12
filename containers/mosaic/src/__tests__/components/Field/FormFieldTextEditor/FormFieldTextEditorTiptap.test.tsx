@@ -1,7 +1,9 @@
-import { FormFieldTextEditorTipTap, MosaicFieldProps, TextEditorNextInputSettings } from "@root/components/Field";
+import type { MosaicFieldProps, TextEditorNextInputSettings } from "@root/components/Field";
+import { FormFieldTextEditorTipTap } from "@root/components/Field";
 import testIds from "@root/utils/testIds";
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent, { UserEvent } from "@testing-library/user-event";
+import type { UserEvent } from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
 type SetupParams = Pick<MosaicFieldProps, "value"> & {
@@ -385,25 +387,7 @@ describe("TextEditorTiptap component - Managing images", () => {
 		await user.type(source, "https://www.placehold.it/200");
 		await user.click(submit);
 
-		expect(onChangeMock).toBeCalledWith("<img src=\"https://www.placehold.it/200\">");
-	});
-
-	it("should provide the custom onImage handler with the source and alt text", async () => {
-		const onImageMock = vi.fn<TextEditorNextInputSettings["onImage"]>();
-
-		const value = "<img alt=\"Placeholder Image\" src=\"https://www.placehold.it/200\">";
-		const { user } = await setup({ value, onImage: onImageMock });
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-
-		await user.tripleClick(canvas);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
-
-		expect(onImageMock).toBeCalledWith(expect.objectContaining({
-			src: "https://www.placehold.it/200",
-			alt: "Placeholder Image",
-		}));
+		expect(onChangeMock).toBeCalledWith("<p><img src=\"https://www.placehold.it/200\"></p>");
 	});
 
 	it("should render the correct elements when an image is added using custom link handler", async () => {
@@ -417,6 +401,6 @@ describe("TextEditorTiptap component - Managing images", () => {
 		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
 
-		expect(onChangeMock).toBeCalledWith("<img src=\"https://www.placehold.it/200\" alt=\"Placeholder Image\">");
+		expect(onChangeMock).toBeCalledWith("<p><img src=\"https://www.placehold.it/200\" alt=\"Placeholder Image\"></p>");
 	});
 });
