@@ -7,6 +7,7 @@ import type { ControlWithProps, TextEditorNextInputSettings } from "../../FormFi
 
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
 import testIds from "@root/utils/testIds";
+import { Shortcut } from "../Shortcut";
 
 type ControlMenuItemProps = ControlWithProps & {
 	editor: Editor;
@@ -42,7 +43,7 @@ export function ControlMenuItem({
 				</MenuItemLabel>
 				{shortcut && (
 					<MenuItemShortcut>
-						{shortcut.pc}
+						<Shortcut shortcut={shortcut} />
 					</MenuItemShortcut>
 				)}
 			</StyledMenuItem>
