@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useState, useEffect, useMemo, useRef, ReactElement, MouseEventHandler } from "react";
+import { useState, useEffect, useRef, ReactElement, MouseEventHandler } from "react";
 import styled from "styled-components";
-import { LoremIpsum } from "react-lorem-ipsum";
 import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -12,6 +11,16 @@ import { TransientProps } from "@root/types";
 
 import { useStoryBookCssReset } from "../../utils/reactTools";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+const loremIpsum = `Lorem ipsum odor amet, consectetuer adipiscing elit. Pellentesque placerat praesent dignissim iaculis eget fusce. Aliquet praesent quis purus id iaculis est himenaeos. Eu mi luctus pellentesque id magnis natoque placerat. Aenean erat semper dolor, luctus libero tellus convallis. Parturient eros nisi feugiat malesuada augue hendrerit nulla.
+
+Venenatis pharetra taciti aptent pretium et. Habitasse id egestas platea eu; himenaeos ex nec gravida. Suspendisse habitasse eget varius neque; taciti sociosqu sem auctor. Arcu justo odio proin cursus tempus sem. Ac viverra inceptos lacinia congue lectus. Iaculis litora tempor eget non quam euismod nascetur.
+
+Fringilla ultrices erat convallis lobortis augue ullamcorper amet. Ac lobortis taciti facilisis proin duis tortor elit. Taciti viverra nostra hac dapibus himenaeos ac. Etiam faucibus tortor praesent sollicitudin penatibus vulputate ipsum nullam. Suscipit nostra penatibus venenatis pulvinar ac. Erat massa commodo elit nulla tellus lectus sollicitudin. Cubilia fames potenti lacus posuere; tortor fusce! Sagittis pellentesque at class pulvinar vivamus; justo hac habitant.
+
+Diam vitae consequat est nullam vitae proin rutrum porta. Per cubilia ante tempor; sollicitudin aenean platea neque purus. Suspendisse hendrerit ultricies finibus magnis lacinia natoque fames. Conubia neque felis torquent iaculis diam eros. Massa sit imperdiet dictum, cubilia orci adipiscing. Quisque quam commodo elementum, proin duis sit?
+
+Interdum ante cursus iaculis amet dui cubilia; arcu est. Vel vivamus potenti dui vivamus nulla egestas rhoncus amet neque. Commodo ex dapibus a; odio conubia quisque magnis. Ornare massa quam volutpat euismod convallis commodo netus rhoncus. Mus magnis praesent sem integer vivamus maecenas donec. Ultricies dui vivamus viverra pretium eros parturient parturient non. Torquent neque in sociosqu adipiscing, vitae montes. Lacinia metus laoreet ante nunc orci.`;
 
 const StyledTopBar = styled.div`
 	flex: 0 0 auto;
@@ -138,10 +147,6 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		});
 	};
 
-	const lorem = useMemo(() => {
-		return <LoremIpsum p={10} />;
-	}, []);
-
 	// on item change scroll to the top
 	const contentRef = useRef(null);
 	useEffect(() => {
@@ -173,7 +178,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 						</>
 					)}
 
-					{props.children ? props.children : lorem}
+					{props.children ? props.children : loremIpsum}
 				</div>
 			</div>
 		</AppDiv>

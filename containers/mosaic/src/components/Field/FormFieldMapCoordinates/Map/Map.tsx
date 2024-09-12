@@ -54,6 +54,7 @@ const Map = (props: MapProps): ReactElement => {
 			onCoordinatesChange(latLng);
 		} catch (error) {
 			// TODO Catch this
+			console.error("Could not change coordinates: ", { error, value });
 		}
 	};
 
