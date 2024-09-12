@@ -1,7 +1,7 @@
 import { isElement } from "./guards";
 import { mutateHtml } from "./mutateHtml";
 
-export function escapeHtmlSpaces(html: string, entity = "&nbsp"): string {
+export function escapeHtml(html: string, entity = "&nbsp"): string {
 	return mutateHtml(html, ({ parent, siblings, text }) => {
 		const parentTagName = parent.tagName.toLowerCase();
 		if (parentTagName === "script" || parentTagName === "style") {
@@ -17,7 +17,10 @@ export function escapeHtmlSpaces(html: string, entity = "&nbsp"): string {
 			const newText = text.textContent.replace(
 				/\s(?:\s+)/g,
 				(a) => ` ${entity.repeat(a.length - 1)}`,
-			);
+			)
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;");
+
 			const fragment = document.createRange().createContextualFragment(newText);
 			text.replaceWith(fragment);
 		}
