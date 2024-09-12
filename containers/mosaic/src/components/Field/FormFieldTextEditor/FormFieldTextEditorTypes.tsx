@@ -4,20 +4,22 @@ import type { Editor, Extensions } from "@tiptap/core";
 import type { FieldDefBase } from "@root/components/Field";
 import type { MosaicToggle, SvgIconComponent } from "@root/types";
 import type { PopperProps } from "@mui/material/Popper";
-import { FormProps } from "@root/components/Form";
+import type { FormProps } from "@root/components/Form";
 
 export type SelectionType =
 	| "formatting"
 	| "image"
 	| "link";
 
-export interface FloatingToolbarState {
-	open: boolean;
-	anchor?: { getBoundingClientRect: () => DOMRect };
-	selectionTypes: SelectionType[];
+export interface VirtualElement {
+	getBoundingClientRect: () => DOMRect;
 }
 
-export type NodeFormType = "link" | "image";
+export interface FloatingToolbarState {
+	open: boolean;
+	anchor?: VirtualElement;
+	selectionTypes: SelectionType[];
+}
 
 export interface NodeFormTypeProps {
 	editor: Editor;
@@ -25,13 +27,18 @@ export interface NodeFormTypeProps {
 	getFormValues: FormProps["getFormValues"];
 }
 
-export interface NodeFormState {
+export type NodeFormState = {
 	open: boolean;
 	anchorEl?: PopperProps["anchorEl"];
-	values?: any;
-	type: NodeFormType;
-
-}
+} & ({
+	type: "link";
+	values: Partial<TextEditorUpdateLinkValues>;
+	update: TextEditorUpdateLink;
+} | {
+	type: "image";
+	values: Partial<TextEditorUpdateImageValues>;
+	update: TextEditorUpdateImage;
+});
 
 export type NodeFormSet = Dispatch<SetStateAction<NodeFormState>>;
 
@@ -58,6 +65,7 @@ export type ControlName =
 	| "bulletList"
 	| "orderedList"
 	| "link"
+	| "linkPreview"
 	| "image"
 	| "codeBlock"
 	| "blockquote"
@@ -74,7 +82,6 @@ export type ControlBase = {
 export type ControlWithProps = ControlBase & {
 	cmd: (params: {
 		editor: Editor;
-		setNodeForm: NodeFormSet;
 		inputSettings: TextEditorNextInputSettings;
 	}) => void;
 	Icon?: SvgIconComponent;
@@ -83,8 +90,8 @@ export type ControlWithProps = ControlBase & {
 export type ControlComponentProps = {
 	editor: Editor;
 	onClose?: () => void;
-	setNodeForm: NodeFormSet;
 	inputSettings: TextEditorNextInputSettings;
+	disabled?: boolean;
 } & Omit<ControlWithComponent, "component">;
 
 export type ControlWithComponent = ControlBase & {
@@ -101,6 +108,7 @@ export type ControlMenu = ControlBase & {
 export interface MenuButtonProps {
 	onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 	editor: Editor;
+	disabled?: boolean;
 }
 
 export type Controls = (
@@ -130,6 +138,7 @@ export type TextEditorInputSettings = {
 export interface TextEditorUpdateLinkValues {
 	url: string;
 	newTab?: boolean;
+	text?: string;
 }
 
 export type TextEditorUpdateLink = (params: TextEditorUpdateLinkValues) => void;
@@ -152,6 +161,7 @@ export type TextEditorNextInputSettings = {
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
+	allowedLinkProtocols?: string[];
 };
 
 export type TextEditorData = string;

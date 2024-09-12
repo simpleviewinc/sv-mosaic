@@ -1,7 +1,9 @@
 import React from "react";
+
+import type { FieldDef } from "../FieldTypes";
+
 import FieldWrapper from "@root/components/FieldWrapper";
 import { FormFieldTextEditorTipTap } from "./FormFieldTextEditorTipTap";
-import { FieldDef } from "../FieldTypes";
 
 /**
  * TODO: Remove once tip tap field is stable

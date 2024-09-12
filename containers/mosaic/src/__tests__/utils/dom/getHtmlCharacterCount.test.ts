@@ -20,13 +20,6 @@ describe(__filename, function () {
 		expect(getHtmlCharacterCount(html)).toBe(21);
 	});
 
-	it("should not count inline elements as a single character", async () => {
-		const html = `<span>Test 12345</span>
-		<span>Test 12345</span>`;
-
-		expect(getHtmlCharacterCount(html)).toBe(20);
-	});
-
 	it("should ignore leading whitespace when counting text content", async () => {
 		const html = `<p>
 			Test 12345</p>`;
@@ -50,5 +43,11 @@ describe(__filename, function () {
 		const html = "<p>🙂</p>";
 
 		expect(getHtmlCharacterCount(html)).toBe(1);
+	});
+
+	it("should count spaces between inline elements", async () => {
+		const html = "<p><span>Test</span> <span>12345</span></p>";
+
+		expect(getHtmlCharacterCount(html)).toBe(10);
 	});
 });

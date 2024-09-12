@@ -15,7 +15,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 	if (!def || !def.inputSettings) {
 		return;
 	}
-	console.log(typeof def.type === "function" && def.type.name);
+
 	if (def.type === "text" || def.type === "textEditor" || isTipTapField(def.type)) {
 		return def.inputSettings.maxCharacters;
 	}
