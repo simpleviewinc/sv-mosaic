@@ -1,6 +1,6 @@
+import type { Node } from "@tiptap/pm/model";
+
 import "highlight.js/styles/stackoverflow-light.min.css";
-import { Node } from "@tiptap/pm/model";
-import { posToDOMRect } from "@tiptap/core";
 
 import BoldIcon from "@mui/icons-material/FormatBold";
 import ClearIcon from "@mui/icons-material/FormatClear";
@@ -11,6 +11,7 @@ import AlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
 import ImageIcon from "@mui/icons-material/Image";
 import ItalicIcon from "@mui/icons-material/FormatItalic";
 import LinkIcon from "@mui/icons-material/Link";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import UndoIcon from "@mui/icons-material/Undo";
 import RedoIcon from "@mui/icons-material/Redo";
 import UnderlineIcon from "@mui/icons-material/FormatUnderlined";
@@ -34,6 +35,7 @@ import {
 	ControlNormalText,
 } from "./ControlHeadings";
 import { TextStyleMenuButton } from ".";
+import { defaultAllowedProtocols, sanitizeUrl } from "@root/utils/string";
 
 const controlNormalText: Control = {
 	name: "normal-text",
@@ -254,58 +256,68 @@ export const controlAlignJustify: Control = {
 	cmd: ({ editor }) => editor.chain().focus().setTextAlign("justify").run(),
 	Icon: AlignJustifyIcon,
 	shortcut: {
-		mac: "Cmd+Shift+R",
-		pc: "Ctrl+Shift+R",
+		mac: "Cmd+Shift+J",
+		pc: "Ctrl+Shift+J",
 	},
 };
 
 export const controlLink: Control = {
 	name: "link",
 	label: "Link",
-	cmd: ({ editor, inputSettings: { onLink }, setNodeForm }) => {
+	cmd: ({ editor, inputSettings: { onLink, allowedLinkProtocols = defaultAllowedProtocols } }) => {
 		const { view } = editor;
-		const { state: { selection: { from, to } } } = view;
+		const { state, state: { selection: { from, to } } } = view;
 
 		const link = editor.state.selection.$to.marks()
 			.find(({ type }) => type.name === "link");
 
+		const text = link ?
+			// If the cursor is over an existing link, get the text content of that link
+			editor.state.doc.nodeAt(to - 1)?.textContent :
+			// Otherwise get the text of the selection
+			state.doc.textBetween(from, to);
+
 		const values = {
-			url: link?.attrs.href || "",
+			url: link?.attrs.href,
 			newTab: link?.attrs.target === "_blank",
+			text,
 		};
 
-		if (onLink) {
-			onLink({
-				...values,
-				updateLink: ({ url, newTab }) => editor.chain().focus()
-					.extendMarkRange("link")
-					.setLink({
-						href: url,
-						target: newTab ? "_blank" : "",
-					})
-					.run(),
-			});
-
-			return;
-		}
-
-		setNodeForm({
-			open: true,
-			anchorEl: { getBoundingClientRect: () => posToDOMRect(view, from, to) },
-			values,
-			type: "link",
+		onLink({
+			...values,
+			updateLink: ({ url, newTab, text }) => editor.chain().focus()
+				.extendMarkRange("link")
+				.setLink({
+					href: sanitizeUrl(url, allowedLinkProtocols),
+					target: newTab ? "_blank" : "",
+				})
+				.insertContent(text)
+				.run(),
 		});
 	},
 	Icon: LinkIcon,
 };
 
+export const controlLinkPreview: Control = {
+	name: "linkPreview",
+	label: "Open URL in new tab",
+	cmd: ({ editor }) => {
+		const link = editor.state.selection.$to.marks()
+			.find(({ type }) => type.name === "link");
+
+		if (!link || !link.attrs.href) {
+			return;
+		}
+
+		window.open(link.attrs.href, "_blank");
+	},
+	Icon: OpenInNewIcon,
+};
+
 export const controlImage: Control = {
 	name: "image",
 	label: "Image",
-	cmd: ({ editor, inputSettings: { onImage }, setNodeForm }) => {
-		const { view } = editor;
-		const { state: { selection: { from, to } } } = view;
-
+	cmd: ({ editor, inputSettings: { onImage } }) => {
 		// TypeScript thinks that selection doesn't have an
 		// associated node even though it does
 		const selectedNode = (editor.state.selection as unknown as { node: Node }).node;
@@ -316,22 +328,11 @@ export const controlImage: Control = {
 			alt: image?.attrs.alt,
 		};
 
-		if (onImage) {
-			onImage({
-				...values,
-				updateImage: (params) => editor.chain().focus()
-					.setImage(params)
-					.run(),
-			});
-
-			return;
-		}
-
-		setNodeForm({
-			open: true,
-			anchorEl: { getBoundingClientRect: () => posToDOMRect(view, from, to) },
-			values,
-			type: "image",
+		onImage({
+			...values,
+			updateImage: (params) => editor.chain().focus()
+				.setImage(params)
+				.run(),
 		});
 	},
 	Icon: ImageIcon,
@@ -397,6 +398,7 @@ export const predefinedControls: (Control | ControlMenu)[] = [
 	controlBulletList,
 	controlOrderedList,
 	controlLink,
+	controlLinkPreview,
 	controlImage,
 	controlCodeBlock,
 	controlBlockquote,
