@@ -21,9 +21,15 @@ describe(__filename, function () {
 		expect(escapeHtml(html)).toBe("<p>Foo Bar</p>");
 	});
 
-	it("should not convert space-only content between tags", async () => {
-		const html = "<p><span>Foo</span>    <span>Bar</span></p>";
+	it("should convert space-only content between inline tags", async () => {
+		const html = "<p><span>Foo</span>  <span>Bar</span></p>";
 
-		expect(escapeHtml(html)).toBe("<p><span>Foo</span>    <span>Bar</span></p>");
+		expect(escapeHtml(html)).toBe("<p><span>Foo</span> &nbsp;<span>Bar</span></p>");
+	});
+
+	it("should not convert space-only content between block tags", async () => {
+		const html = "<div><p>Foo</p>  <p>Bar</p></div>";
+
+		expect(escapeHtml(html)).toBe("<div><p>Foo</p>  <p>Bar</p></div>");
 	});
 });

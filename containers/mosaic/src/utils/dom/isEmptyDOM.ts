@@ -1,10 +1,5 @@
 import { isElement, isTextNode } from "./guards";
-
-const blockLevels = [
-	"block",
-	"flex",
-	"grid",
-];
+import { isBlockElement } from "./isBlockElement";
 
 const voidElements = [
 	"embed",
@@ -46,9 +41,7 @@ export function isEmptyDOM(parent: HTMLElement): boolean {
 
 			counters.totalElements++;
 
-			const display = window.getComputedStyle(node, null).display;
-
-			if (blockLevels.includes(display)) {
+			if (isBlockElement(node)) {
 				counters.blockElements++;
 			} else {
 				counters.inlineElements++;
