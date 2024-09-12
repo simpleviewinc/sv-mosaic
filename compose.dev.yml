@@ -5,15 +5,6 @@ services:
       service: mosaic
     volumes:
       - ./containers/mosaic/dist:/app/dist
-  sb5:
-    extends:
-      file: compose.yml
-      service: sb5
-    volumes:
-      - ./containers/mosaic/src:/mosaic/src
-      - ./containers/sb-5/src:/app/src
-    ports:
-      - 10000:10000
   sb8:
     extends:
       file: compose.yml
