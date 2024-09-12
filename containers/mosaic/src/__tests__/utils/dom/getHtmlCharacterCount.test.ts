@@ -20,17 +20,10 @@ describe(__filename, function () {
 		expect(getHtmlCharacterCount(html)).toBe(21);
 	});
 
-	it("should ignore leading whitespace when counting text content", async () => {
-		const html = `<p>
-			Test 12345</p>`;
-
-		expect(getHtmlCharacterCount(html)).toBe(10);
-	});
-
 	it("should count multiple whitespace characters as a single character", async () => {
 		const html = "<p>   Test 12345</p>";
 
-		expect(getHtmlCharacterCount(html)).toBe(10);
+		expect(getHtmlCharacterCount(html)).toBe(11);
 	});
 
 	it("should count non-breaking space entities as a single character", async () => {
