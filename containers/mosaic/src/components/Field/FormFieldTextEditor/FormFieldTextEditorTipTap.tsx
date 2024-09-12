@@ -16,7 +16,7 @@ import { isEmptyDOM } from "@root/utils/dom/isEmptyDOM";
 import { FloatingToolbar } from "./FloatingToolbar";
 import { arrayDifference } from "@root/utils/array";
 import { defaultExtensions } from "./Extensions/defaultExtensions";
-import { escapeHtmlSpaces } from "@root/utils/dom/escapeHtmlSpaces";
+import { escapeHtml } from "@root/utils/dom/escapeHtml";
 import testIds from "@root/utils/testIds";
 import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
 
@@ -110,7 +110,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 		onUpdate: ({ editor }) => {
 			updatesBlocked.current = true;
 
-			const content = isEmptyDOM(editor.view.dom) ? "" : escapeHtmlSpaces(transformScriptTags(editor.getHTML()));
+			const content = isEmptyDOM(editor.view.dom) ? "" : escapeHtml(transformScriptTags(editor.getHTML()));
 			lastValidContent.current = content;
 			onChange(content);
 		},
