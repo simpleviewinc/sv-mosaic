@@ -1,4 +1,6 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
+
+import React from "react";
 import Code from "@mui/icons-material/Code";
 import { NodeViewWrapper } from "@tiptap/react";
 

@@ -1,10 +1,13 @@
-import React, { MutableRefObject, ReactElement } from "react";
+import type { MutableRefObject, ReactElement } from "react";
+
+import React from "react";
 import Popper from "@mui/material/Popper";
 
 import type { FloatingToolbarState } from "./FormFieldTextEditorTypes";
+import type { ToolbarControlsProps } from "./Toolbar";
 
 import { StyledFloatingToolbar } from "./FormFieldTextEditorTipTap.styled";
-import { ToolbarControls, ToolbarControlsProps } from "./Toolbar";
+import { ToolbarControls } from "./Toolbar";
 
 type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState & {
 	isBusy: MutableRefObject<boolean>;

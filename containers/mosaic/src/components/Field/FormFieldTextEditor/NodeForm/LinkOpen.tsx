@@ -1,4 +1,6 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
+
+import React from "react";
 import NewTabIcon from "@mui/icons-material/OpenInNew";
 
 import { StyledLinkOpen } from "./NodeForm.styled";
