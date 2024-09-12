@@ -11,12 +11,6 @@ services:
       - sv-mosaic-types:/app
     depends_on:
       - mosaic
-  sb5:
-    build: ./containers/sb-5
-    volumes:
-      - sv-mosaic-lib:/mosaic
-    depends_on:
-      - mosaic
   sb8:
     build: ./containers/sb-8
     volumes:
