@@ -203,7 +203,6 @@ export const Tiptap = ({
 	skeleton,
 	instructionText,
 	helperText,
-	spellcheck,
 	maxCharacters,
 	customImageHandler,
 	customLinkHandler,
@@ -246,7 +245,7 @@ export const Tiptap = ({
 								}
 							});
 						} : undefined,
-						maxCharacters: 100,
+						maxCharacters,
 					},
 					disabled,
 					helperText,
@@ -260,7 +259,6 @@ export const Tiptap = ({
 			helperText,
 			instructionText,
 			maxCharacters,
-			spellcheck,
 			customImageHandler,
 			customLinkHandler,
 		],
@@ -309,7 +307,6 @@ Tiptap.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	spellcheck: false,
 	maxCharacters: 100,
 	customImageHandler: false,
 	customLinkHandler: false,
@@ -333,11 +330,6 @@ Tiptap.argTypes = {
 	},
 	helperText: {
 		name: "Helper Text",
-	},
-	spellcheck: {
-		name: "Direction",
-		control: { type: "select" },
-		options: ["ltr", "rtl"],
 	},
 	maxCharacters: {
 		name: "Maximum Characters",

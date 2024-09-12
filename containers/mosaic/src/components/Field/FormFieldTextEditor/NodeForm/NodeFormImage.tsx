@@ -1,22 +1,23 @@
-import React, { useMemo, useCallback, ReactElement } from "react";
+import type { ReactElement } from "react";
+import React, { useMemo, useCallback } from "react";
 
 import type { FieldDef } from "@root/components/Field";
-import type { NodeFormTypeProps } from "../FormFieldTextEditorTypes";
+import type { NodeFormTypeProps, TextEditorUpdateImage } from "../FormFieldTextEditorTypes";
 
 import Form, { useForm } from "@root/components/Form";
 import { NodeFormFooter } from "./NodeFormFooter";
 
-export function NodeFormImage({ editor, getFormValues, onClose }: NodeFormTypeProps): ReactElement {
+type NodeFormImageProps = NodeFormTypeProps & {
+	update: TextEditorUpdateImage;
+};
+
+export function NodeFormImage({ getFormValues, update }: NodeFormImageProps): ReactElement {
 	const controller = useForm();
 	const { handleSubmit } = controller;
 
 	const onSubmit = handleSubmit(useCallback(({ data: { alt, src } }) => {
-		editor.chain().focus()
-			.setImage({ alt, src })
-			.run();
-
-		onClose();
-	}, [editor, onClose]));
+		update({ alt, src });
+	}, [update]));
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{

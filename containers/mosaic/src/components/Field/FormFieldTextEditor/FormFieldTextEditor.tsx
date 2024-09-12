@@ -1,10 +1,13 @@
-import * as React from "react";
-import { memo, ReactElement } from "react";
-import { MosaicFieldProps } from "@root/components/Field";
-import { StyledSkeletonWrapper } from "./FormFieldTextEditor.styled";
-import "jodit/build/jodit.min.css";
-import { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+import type { ReactElement } from "react";
+
+import React, { memo } from "react";
 import Skeleton from "@mui/material/Skeleton";
+import "jodit/build/jodit.min.css";
+
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { TextEditorData, TextEditorInputSettings } from "./FormFieldTextEditorTypes";
+
+import { StyledSkeletonWrapper } from "./FormFieldTextEditor.styled";
 import JoditEditor from "./JoditEditor";
 
 const FormFieldTextEditor = (

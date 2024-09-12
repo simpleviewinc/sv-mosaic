@@ -1,11 +1,13 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
+
+import React from "react";
 
 import type { MenuButtonProps } from "../../FormFieldTextEditorTypes";
 
 import { StyledTextStyleMenuButton } from "../../FormFieldTextEditorTipTap.styled";
 import testIds from "@root/utils/testIds";
 
-export function TextStyleMenuButton({ editor, onClick }: MenuButtonProps): ReactElement {
+export function TextStyleMenuButton({ disabled, editor, onClick }: MenuButtonProps): ReactElement {
 	const textStyles = {
 		"Normal Text": editor.isActive("paragraph"),
 		"Heading 1": editor.isActive("heading", { level: 1 }),
@@ -21,7 +23,7 @@ export function TextStyleMenuButton({ editor, onClick }: MenuButtonProps): React
 	return (
 		<StyledTextStyleMenuButton
 			onClick={onClick}
-			disabled={!currentStyle}
+			disabled={disabled || !currentStyle}
 			data-testid={testIds.TEXT_EDITOR_HEADING_MENU}
 		>
 			{currentStyle || "Normal Text"}

@@ -1,7 +1,11 @@
-import React, { ReactElement, useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
-import { useEditor, posToDOMRect, EditorOptions, Extensions } from "@tiptap/react";
+import type { ReactElement } from "react";
+import type { EditorOptions, Extensions } from "@tiptap/react";
 
-import type { ControlBase, ControlsConfig, SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
+import React, { useState, useMemo, useEffect, useRef, useCallback, memo } from "react";
+import { useEditor } from "@tiptap/react";
+import Skeleton from "@mui/material/Skeleton";
+
+import type { SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorNextInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
 import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditorTipTap.styled";
@@ -10,57 +14,25 @@ import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
 import { isEmptyDOM } from "@root/utils/dom/isEmptyDOM";
 import { FloatingToolbar } from "./FloatingToolbar";
-import { controlBold, controlClear, controlImage, controlItalic, controlLink, controlStrikethrough, controlSuperscript, controlUnderline } from "./Toolbar/Controls/predefinedControls";
 import { arrayDifference } from "@root/utils/array";
 import { defaultExtensions } from "./Extensions/defaultExtensions";
-import { escapeHtmlSpaces } from "@root/utils/dom/escapeHtmlSpaces";
+import { escapeHtml } from "@root/utils/dom/escapeHtml";
 import testIds from "@root/utils/testIds";
-
-const defaultControls: ControlsConfig = [
-	["headings"],
-	["bold", "italic", ["underline", "strike", "superscript", "subscript", "clear"]],
-	["bulletList", "orderedList"],
-	["alignLeft", "alignCenter", ["alignRight", "alignJustify"]],
-	["link", ["image", "codeBlock", "blockquote"]],
-	["undo", "redo"],
-];
-
-const formattingShow: ControlBase["show"] = ({ selectionTypes = [] }) => selectionTypes.includes("formatting");
-
-const floatingControls: ControlsConfig = [
-	[
-		{ ...controlBold, show: formattingShow },
-		{ ...controlItalic, show: formattingShow },
-		[
-			{ ...controlUnderline, show: formattingShow },
-			{ ...controlStrikethrough, show: formattingShow },
-			{ ...controlSuperscript, show: formattingShow },
-			{ ...controlClear, show: formattingShow },
-		],
-	],
-	[
-		{
-			...controlLink,
-			show: ({ selectionTypes = [] }) => !selectionTypes.includes("image"),
-		},
-		{
-			...controlImage,
-			show: ({ selectionTypes = [] }) => selectionTypes.includes("image"),
-		},
-	],
-];
+import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
 
 function FormFieldTextEditorTipTapUnmemoised({
 	value = "",
 	onChange,
 	onBlur: onBlurProvided,
 	fieldDef: {
-		inputSettings,
+		inputSettings: providedInputSettings,
 		inputSettings: {
 			extensions: providedExtensions,
 			controls = defaultControls,
 		} = {},
 	},
+	disabled,
+	skeleton,
 }: MosaicFieldProps<"textEditor", TextEditorNextInputSettings, TextEditorData>): ReactElement {
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
@@ -71,7 +43,13 @@ function FormFieldTextEditorTipTapUnmemoised({
 	});
 	const [nodeForm, _setNodeForm] = useState<NodeFormState | null>(null);
 
+	const setNodeForm: typeof _setNodeForm = (value) => {
+		floatingToolbarBusy.current = false;
+		_setNodeForm(value);
+	};
+
 	const extensions = useMemo<Extensions>(() => providedExtensions || defaultExtensions, [providedExtensions]);
+
 	const updatesBlocked = useRef(false);
 	const lastValidContent = useRef<string>(value);
 
@@ -109,7 +87,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 
 			return {
 				open: true,
-				anchor: { getBoundingClientRect: () => posToDOMRect(view, from, to) } as HTMLElement,
+				anchor: selectionVirtualElement(editor),
 				// Avoid a new array if it's the same to support downstream memoisation.
 				selectionTypes: arrayDifference(state.selectionTypes, selectionTypes).length ? selectionTypes : state.selectionTypes,
 			};
@@ -132,7 +110,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 		onUpdate: ({ editor }) => {
 			updatesBlocked.current = true;
 
-			const content = isEmptyDOM(editor.view.dom) ? "" : escapeHtmlSpaces(transformScriptTags(editor.getHTML()));
+			const content = isEmptyDOM(editor.view.dom) ? "" : escapeHtml(transformScriptTags(editor.getHTML()));
 			lastValidContent.current = content;
 			onChange(content);
 		},
@@ -142,7 +120,32 @@ function FormFieldTextEditorTipTapUnmemoised({
 				"data-testid": testIds.TEXT_EDITOR_CANVAS,
 			},
 		},
+		editable: !disabled,
 	}, []);
+
+	const inputSettings = useMemo<TextEditorNextInputSettings>(() => ({
+		...providedInputSettings,
+		onLink: providedInputSettings.onLink || (({ updateLink, ...values }) => setNodeForm({
+			open: true,
+			type: "link",
+			values,
+			anchorEl: selectionVirtualElement(editor),
+			update: (...params) => {
+				setNodeForm(null);
+				updateLink(...params);
+			},
+		})),
+		onImage: providedInputSettings.onImage || (({ updateImage, ...values }) => setNodeForm({
+			open: true,
+			type: "image",
+			values,
+			anchorEl: selectionVirtualElement(editor),
+			update: (...params) => {
+				setNodeForm(null);
+				updateImage(...params);
+			},
+		})),
+	}), [editor, providedInputSettings]);
 
 	useEffect(() => {
 		if (updatesBlocked.current) {
@@ -164,18 +167,23 @@ function FormFieldTextEditorTipTapUnmemoised({
 		}
 	}, [editor, value]);
 
-	const setNodeForm: typeof _setNodeForm = (value) => {
-		floatingToolbarBusy.current = false;
-		_setNodeForm(value);
-	};
-
 	const closeNodeForm = () => {
 		setNodeForm((state) => ({ ...state, open: false }));
 		editor.chain().focus();
 	};
 
+	if (skeleton) {
+		return (
+			<Skeleton
+				variant="rectangular"
+				width="100%"
+				height={130}
+			/>
+		);
+	}
+
 	return (
-		<StyledTextEditor>
+		<StyledTextEditor $disabled={disabled}>
 			<ModeSwitch
 				mode={mode}
 				onChange={setMode}
@@ -186,8 +194,8 @@ function FormFieldTextEditorTipTapUnmemoised({
 					<ToolbarControls
 						editor={editor}
 						controls={controls}
-						setNodeForm={setNodeForm}
 						inputSettings={inputSettings}
+						disabled={disabled}
 					/>
 				</PrimaryToolbar>
 			)}
@@ -197,12 +205,14 @@ function FormFieldTextEditorTipTapUnmemoised({
 					onChange={({ target: { value } }) => onChange(value)}
 					onFocus={onFocus}
 					onBlur={onBlur}
+					disabled={disabled}
 				/>
 			) : (
 				<Editor
 					editor={editor}
 					onFocus={onFocus}
 					onBlur={onBlur}
+					disabled={disabled}
 				/>
 			)}
 			{nodeForm && (
@@ -217,7 +227,6 @@ function FormFieldTextEditorTipTapUnmemoised({
 					{...floatingToolbar}
 					editor={editor}
 					controls={floatingControls}
-					setNodeForm={setNodeForm}
 					inputSettings={inputSettings}
 					isBusy={floatingToolbarBusy}
 				/>
