@@ -42,35 +42,7 @@ export type NodeFormState = {
 
 export type NodeFormSet = Dispatch<SetStateAction<NodeFormState>>;
 
-export type ControlName =
-	| "alignLeft"
-	| "alignCenter"
-	| "alignRight"
-	| "alignJustify"
-	| "headings"
-	| "normal-text"
-	| "heading-1"
-	| "heading-2"
-	| "heading-3"
-	| "heading-4"
-	| "heading-5"
-	| "heading-6"
-	| "bold"
-	| "italic"
-	| "underline"
-	| "strike"
-	| "superscript"
-	| "subscript"
-	| "clear"
-	| "bulletList"
-	| "orderedList"
-	| "link"
-	| "linkPreview"
-	| "image"
-	| "codeBlock"
-	| "blockquote"
-	| "undo"
-	| "redo";
+export type ControlName = string;
 
 export type ControlBase = {
 	name: ControlName;

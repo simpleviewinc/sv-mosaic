@@ -3,12 +3,16 @@ import * as React from "react";
 import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { ControlsConfig, ControlWithProps, defaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "@root/utils/storyUtils";
 import Drawer from "@root/components/Drawer";
 
 import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
 import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
+import SelectAllIcon from "@mui/icons-material/SelectAll";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { SimpleViewAlert } from "./SimpleviewAlertExtension";
+import { controls } from "./controls";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
@@ -196,6 +200,13 @@ export const KitchenSink = (): ReactElement => {
 	);
 };
 
+const customExtensionControl: ControlWithProps = {
+	name: "simpleviewAlert",
+	label: "Simpleview Alert",
+	cmd: ({ editor }) => editor.chain().toggleSimpleviewAlert().run(),
+	Icon: ChatBubbleIcon
+};
+
 export const Tiptap = ({
 	label,
 	disabled,
@@ -204,8 +215,10 @@ export const Tiptap = ({
 	instructionText,
 	helperText,
 	maxCharacters,
+	customControlConfig,
 	customImageHandler,
 	customLinkHandler,
+	customExtensionExample,
 }: typeof Tiptap.args): ReactElement => {
 	const controller = useForm();
 	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
@@ -227,6 +240,11 @@ export const Tiptap = ({
 					type: FormFieldTextEditorTipTapFieldType,
 					required,
 					inputSettings: {
+						controls: [
+							...customControlConfig?.length ? customControlConfig : controls,
+							...customExtensionExample ? [[customExtensionControl]] : [],
+						],
+						extensions: customExtensionExample ? [...defaultExtensions, SimpleViewAlert] : undefined,
 						onImage: customImageHandler ? ({ updateImage, ...params }) => {
 							setMediaDrawer({
 								...params,
@@ -259,8 +277,10 @@ export const Tiptap = ({
 			helperText,
 			instructionText,
 			maxCharacters,
+			customControlConfig,
 			customImageHandler,
 			customLinkHandler,
+			customExtensionExample,
 		],
 	);
 
@@ -308,8 +328,10 @@ Tiptap.args = {
 	instructionText: "Instruction text",
 	helperText: "Helper text",
 	maxCharacters: 100,
+	customControlConfig: [],
 	customImageHandler: false,
 	customLinkHandler: false,
+	customExtensionExample: false,
 };
 
 Tiptap.argTypes = {
@@ -334,10 +356,19 @@ Tiptap.argTypes = {
 	maxCharacters: {
 		name: "Maximum Characters",
 	},
+	customControlConfig: {
+		name: "Custom Control Config",
+		type: {
+			control: "object",
+		}
+	},
 	customImageHandler: {
 		name: "Custom Image Handler",
 	},
 	customLinkHandler: {
 		name: "Custom Link Handler",
 	},
+	customExtensionExample: {
+		name: "Custom Extension Example",
+	}
 };
