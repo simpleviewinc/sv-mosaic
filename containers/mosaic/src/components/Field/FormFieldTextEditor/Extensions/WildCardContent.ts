@@ -55,6 +55,9 @@ export const WildCardContent = Node.create({
 			id: {
 				default: undefined,
 			},
+			src: {
+				default: undefined,
+			},
 			...this.options.HTMLAttributes,
 		};
 	},
