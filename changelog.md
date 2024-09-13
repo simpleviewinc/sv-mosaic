@@ -1,5 +1,30 @@
 # sv-mosaic changelog
 
+### 37.2.0 - 09/17/2024
+
+## Improvements and Fixes
+
+* `FormFieldTextEditor`
+
+  * [MOS-1335](https://simpleviewtools.atlassian.net/browse/MOS-1335 "https://simpleviewtools.atlassian.net/browse/MOS-1335") **Text Editor Miscount of max character and odd behaviour**
+    See [https://simpleviewtools.atlassian.net/browse/MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
+  * [MOS-1388](https://simpleviewtools.atlassian.net/browse/MOS-1388 "https://simpleviewtools.atlassian.net/browse/MOS-1388") **TextEditor character count is still not completely accurate**
+    See [https://simpleviewtools.atlassian.net/browse/MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
+  * [MOS-1422](https://simpleviewtools.atlassian.net/browse/MOS-1422 "https://simpleviewtools.atlassian.net/browse/MOS-1422") **Bizarre busted test in Apex**
+    See [https://simpleviewtools.atlassian.net/browse/MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
+  * [MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
+    * Implement new TipTap rich text editor which will become the replacement for Jodit
+* Housekeeping
+
+  * [MOS-1441](https://simpleviewtools.atlassian.net/browse/MOS-1441 "https://simpleviewtools.atlassian.net/browse/MOS-1441") **Upgrade test suite**
+    * Replaces Jest with Vitest as test framework. That includes all test utility functions, plugins and mockers.
+    * Cleanup any redundant Jest files. Note that Vitest still requires `@testing-library/jest-dom` for some assertions.
+    * Provides the test container with the `CI=true` envvar.
+    * Adds a script to launch Vitest UI locally with test coverage data
+    * Installs the `@testing-library/user-events` library.
+  * [MOS-1454](https://simpleviewtools.atlassian.net/browse/MOS-1454 "https://simpleviewtools.atlassian.net/browse/MOS-1454") **Reorder story navigation**
+    * (chore) Reorder story entry query to ensure documentation gets listed after component stories in the Storybook navigation.
+
 ### 37.1.0 - 09/03/2024
 
 ### Improvements and Fixes
