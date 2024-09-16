@@ -1,5 +1,4 @@
-import SvgIcon from "@mui/material/SvgIcon";
-import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
+import type { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
 
 /** Simple object with { label, value } strings */
 export interface MosaicLabelValue {
@@ -16,7 +15,14 @@ export interface MosaicCallback {
 	(): void;
 }
 
-export type SvgIconComponent = typeof SvgIcon;
+// Using a proper type for SvgIconComponent gets VSCode TS
+// server into a mess. I've tried
+// - `OverridableComponent<IconTypeMap> & { muiName: string }`
+// - `typeof SvgIcon`
+// And both cause TS analysis to lose it, eventually throwing a
+// "Excessive complexity comparing types" error.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SvgIconComponent = any;
 
 export type MosaicToggleResult = boolean;
 
