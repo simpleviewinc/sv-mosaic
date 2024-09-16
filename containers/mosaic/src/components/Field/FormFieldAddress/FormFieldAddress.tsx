@@ -1,15 +1,19 @@
 import * as React from "react";
-import { memo, ReactElement, useCallback, useMemo, useState } from "react";
+import type { ReactElement } from "react";
+
+import { memo, useCallback, useMemo, useState } from "react";
+
+import type { ButtonProps } from "@root/components/Button";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { AddressFieldInputSettings, AddressData, AddressType, AddressItem } from ".";
 
 // Components
 import AddressDrawer from "./AddressDrawer";
-import Button, { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
 // Utils
 import AddressCard from "./AddressCard";
-import { MosaicFieldProps } from "@root/components/Field";
-import { AddressFieldInputSettings, AddressData, IAddress, AddressType } from ".";
 import { AddressItems, Footer } from "./Address.styled";
 import Dialog from "@root/components/Dialog/Dialog";
 import { FormFieldAddressSkeleton } from "./FormFieldAddressSkeleton";
@@ -43,11 +47,11 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	} = props;
 
 	// State variables
-	const [open, setOpen] = useState<IAddress | true | false>(false);
+	const [open, setOpen] = useState<AddressItem | true | false>(false);
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
-	const [removeDialog, setRemoveDialog] = useState<IAddress | null>(null);
+	const [removeDialog, setRemoveDialog] = useState<AddressItem | null>(null);
 
 	const { singleType, limits } = useMemo<{ singleType: AddressType | false; limits: Record<string, number> }>(() => {
 		const defaultLimits = types.map(type => ({
@@ -131,7 +135,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		setIsDialogOpen(false);
 	};
 
-	const onDrawerSave = (address: IAddress) => {
+	const onDrawerSave = (address: AddressItem) => {
 		const newValue = [...(value || [])];
 		const newAddress = { ...address, types: singleType ? [{ value: singleType.value, label: singleType.label }] : address.types };
 
