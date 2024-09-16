@@ -1,22 +1,33 @@
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+
 import {
 	render,
 	cleanup,
 	fireEvent,
 	screen,
 } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
-import { ReactElement } from "react";
+
+import type { IAddress, AddressFieldInputSettings } from "@root/components/Field/FormFieldAddress";
+import type { FieldDef } from "@root/components/Field";
 
 // Components
 import AddressCard from "@root/components/Field/FormFieldAddress/AddressCard";
-import { IAddress, AddressFieldInputSettings } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
 
 // Utils
 import AddressAutocomplete from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
+import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
+import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+
+const commonInputSettings = {
+	getOptionsCountries,
+	getOptionsStates,
+	googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+};
 
 const mockGeoCoder = vi
 	.fn()
@@ -136,6 +147,51 @@ describe("AddressCard component", () => {
 		expect(getByText("Physical and Billing Address")).toBeTruthy();
 		expect(getByText("Oro Valley, Arizona 85704")).toBeTruthy();
 		expect(getByText("United States")).toBeTruthy();
+	});
+});
+
+describe("Address drawer", () => {
+	it("Address drawer should preserve extra address object properties", async () => {
+		const user = userEvent.setup();
+		const onSaveMock = vi.fn();
+
+		const addressData = {
+			id: 1,
+			address1: "137 Teaticket Highway",
+			address2: "",
+			city: "Falmouth",
+			state: {
+				label: "Massachusetts",
+				value: "MA",
+			},
+			postalCode: "02536",
+			country: {
+				label: "United States",
+				value: "US",
+			},
+			types: [
+				{
+					label: "Physical",
+					value: "physical",
+				},
+			],
+		};
+
+		const addressTypes = [{ value: "physical", label: "Physical" }];
+
+		render(
+			<AddressDrawer
+				{...commonInputSettings}
+				handleClose={() => null}
+				onSave={onSaveMock}
+				addressToEdit={addressData}
+				addressTypes={addressTypes}
+			/>,
+		);
+
+		await user.click(await screen.findByText("Save"));
+
+		expect(onSaveMock).toBeCalledWith(expect.objectContaining(addressData));
 	});
 });
 
