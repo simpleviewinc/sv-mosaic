@@ -1,16 +1,17 @@
 import type { ReactElement, SyntheticEvent } from "react";
+
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { geocodeByAddress } from "react-places-autocomplete";
 
+import type { MosaicLabelValue } from "@root/types";
+import type { AddressDrawerProps, IAddress } from "../AddressTypes";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
 import type { SectionDef } from "@root/components/Form";
-import type { AddressDrawerProps, IAddress } from "../AddressTypes";
-import type { MosaicLabelValue } from "@root/types";
 
 import Form, { useForm } from "@root/components/Form";
-import { FormDrawerWrapper } from "@root/components/common";
 import AddressAutocomplete from "../AddressAutocomplete";
+import { FormDrawerWrapper } from "@root/components/common";
 import { componentType } from "../utils/addressUtils";
 import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
@@ -84,6 +85,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	 */
 	const onSubmit = handleSubmit(useCallback(async () => {
 		onSave({
+			...(addressToEdit || {}),
 			address1: state.data.address1,
 			address2: state.data.address2,
 			address3: state.data.address3,
@@ -98,6 +100,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [
 		handleClose,
 		onSave,
+		addressToEdit,
 		state.data.address1,
 		state.data.address2,
 		state.data.address3,
