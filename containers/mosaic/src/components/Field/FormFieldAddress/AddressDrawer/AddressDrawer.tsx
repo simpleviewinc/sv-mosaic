@@ -41,6 +41,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 
 	useEffect(() => {
+		if (!handleUnsavedChanges) {
+			return;
+		}
+
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
 	}, [addressToEdit, state.data]);
 
