@@ -2328,7 +2328,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:5.16.7":
+"@mui/icons-material@npm:^5.8.4":
   version: 5.16.7
   resolution: "@mui/icons-material@npm:5.16.7"
   dependencies:
@@ -2344,7 +2344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:5.16.7":
+"@mui/material@npm:^5.8.7":
   version: 5.16.7
   resolution: "@mui/material@npm:5.16.7"
   dependencies:
@@ -2415,7 +2415,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/styles@npm:5.16.7":
+"@mui/styles@npm:^5.6.2":
   version: 5.16.7
   resolution: "@mui/styles@npm:5.16.7"
   dependencies:
@@ -10141,9 +10141,9 @@ __metadata:
   dependencies:
     "@emotion/react": 11.9.0
     "@emotion/styled": 11.8.1
-    "@mui/icons-material": 5.16.7
-    "@mui/material": 5.16.7
-    "@mui/styles": 5.16.7
+    "@mui/icons-material": ^5.8.4
+    "@mui/material": ^5.8.7
+    "@mui/styles": ^5.6.2
     "@mui/x-date-pickers": 5.0.0-beta.0
     "@storybook/addon-essentials": ^8.1.11
     "@storybook/addon-interactions": ^8.1.11
