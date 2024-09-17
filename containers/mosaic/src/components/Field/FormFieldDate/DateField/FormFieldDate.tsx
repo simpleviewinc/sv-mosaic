@@ -48,7 +48,6 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	});
 
 	useEffect(() => {
-		console.log("setter effect..");
 		if (providedValue || !defaultTime) {
 			return;
 		}
