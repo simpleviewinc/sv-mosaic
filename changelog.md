@@ -1,6 +1,6 @@
 # sv-mosaic changelog
 
-### 37.2.0 - 09/17/2024
+### 37.2.1 - 09/17/2024
 
 ## Improvements and Fixes
 
@@ -14,16 +14,32 @@
     See [https://simpleviewtools.atlassian.net/browse/MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
   * [MOS-1428](https://simpleviewtools.atlassian.net/browse/MOS-1428 "https://simpleviewtools.atlassian.net/browse/MOS-1428")
     * Implement new TipTap rich text editor which will become the replacement for Jodit
+    * This field is currently being shipped alongside the current text editor field. Therefore, the `type` of fields using this field type should refer to the component `FormFieldTextEditorTipTapFieldType`. Found at `@root/components/Field`.
+    * More information can be found in the documentation FormFields → FormFieldTextEditor → Docs - Tiptap
 * Housekeeping
 
   * [MOS-1441](https://simpleviewtools.atlassian.net/browse/MOS-1441 "https://simpleviewtools.atlassian.net/browse/MOS-1441") **Upgrade test suite**
     * Replaces Jest with Vitest as test framework. That includes all test utility functions, plugins and mockers.
     * Cleanup any redundant Jest files. Note that Vitest still requires `@testing-library/jest-dom` for some assertions.
-    * Provides the test container with the `CI=true` envvar.
-    * Adds a script to launch Vitest UI locally with test coverage data
+    * Provides the test container with the `<span data-highlighted="true"><span class="_11q7y4f7 _5pioz8co _189eyh40 _n3tdv77o _1il9nqa1 _19lc184f _d0altlke acronym-highlight" data-testid="acronym-highlight">CI</span></span>=true` envvar.
+    * Adds a script to launch Vitest **UI** locally with test coverage data
     * Installs the `@testing-library/user-events` library.
   * [MOS-1454](https://simpleviewtools.atlassian.net/browse/MOS-1454 "https://simpleviewtools.atlassian.net/browse/MOS-1454") **Reorder story navigation**
     * (chore) Reorder story entry query to ensure documentation gets listed after component stories in the Storybook navigation.
+  * [MOS-1455](https://simpleviewtools.atlassian.net/browse/MOS-1455 "https://simpleviewtools.atlassian.net/browse/MOS-1455") **Perform Mosaic container upgrades/maintenance**
+    Perform Mosaic container upgrade tasks:
+    * Upgrade `typescript@4.7.4` → `typescript@5.5.4`
+    * Upgrade `typescript-transform-paths@3.3.1` → `typescript-transform-paths@3.5.0`
+    * Upgrade `react^18.2.0` → `react@18.3.1`
+    * Upgrade `react-dom@^18.2.0` → `react-dom@18.3.1`
+    * Upgrade `@types/react@^18.0.15` → `@types/react@18.3.5`
+    * Upgrade `@types/react-dom@^18.0.6` → `@types/react-dom@18.3.0`
+    * Drop `ts-loader`
+    * Drop `react-lorem-ipsum`
+    * Drop `json-date-parser`
+    * Pin all package versions
+  * [MOS-1463](https://simpleviewtools.atlassian.net/browse/MOS-1463 "https://simpleviewtools.atlassian.net/browse/MOS-1463") **Replace ttypescript**
+    * (chore) Swap out ttypescript for ts-patch
 
 ### 37.1.0 - 09/03/2024
 
