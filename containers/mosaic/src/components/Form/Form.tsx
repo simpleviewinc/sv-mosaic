@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
-import { FormProps } from "./FormTypes";
-import { MosaicCSSContainer } from "@root/types";
+
+import type { MosaicCSSContainer } from "@root/types";
+import type { FormProps } from "./FormTypes";
+import type { ButtonProps } from "../Button";
+import type { Item, SideNavArgs } from "../SideNav";
 
 import {
 	StyledFormContent,
@@ -13,8 +16,6 @@ import {
 import Layout from "./Layout";
 import Top from "./Top";
 import Dialog from "@root/components/Dialog";
-import { ButtonProps } from "../Button";
-import { Item, SideNavArgs } from "../SideNav";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
@@ -250,7 +251,7 @@ const Form = (props: FormProps) => {
 	const isBusy = state.disabled || state.waits.length > 0;
 	const skeleton = providedSkeleton || loadingInitial;
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		init({ fields, sections });
 	}, [init, fields, sections]);
 
