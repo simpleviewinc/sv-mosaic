@@ -166,6 +166,7 @@ workflows:
           filters:
             branches:
               only:
+                - develop
                 - staging
                 - master
       - Build SB Static:
