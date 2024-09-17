@@ -1,5 +1,7 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
-import {
+
+import type { MosaicObject } from "@root/types";
+import type {
 	FieldCanBeValidated,
 	FormStable,
 	FormMethods,
@@ -22,9 +24,10 @@ import {
 	FormReset,
 	SetSubmitWarning,
 } from "./types";
+import type { FieldDefSanitized } from "../../Field";
+
 import { getToggle, wrapToggle } from "@root/utils/toggle";
-import { MosaicObject } from "@root/types";
-import { FieldDefSanitized, isTipTapField } from "../../Field";
+import { isTipTapField } from "../../Field";
 import { getFieldConfig } from "..";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
