@@ -1,4 +1,4 @@
-import { TimeTuple } from "@root/components/Field";
+import type { TimeTuple } from "@root/components/Field";
 
 function matchTime(date: Date, time: Date | TimeTuple) {
 	const clone = new Date(date.getTime());
