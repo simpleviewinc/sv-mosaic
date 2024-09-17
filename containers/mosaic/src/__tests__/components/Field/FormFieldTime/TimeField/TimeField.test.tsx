@@ -1,7 +1,8 @@
 import { act, render, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
-import TimeField, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
+import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
+import TimeField from "@root/components/Field/FormFieldTime/TimeField";
 import { screen } from "@testing-library/dom";
 
 function setup({ value }: { value?: TimeData } = {}) {
@@ -41,8 +42,6 @@ describe("TimeField component", () => {
 	it.skip("Should emit the correct date object with a valid input", async () => {
 		const { input, onChange, user } = setup();
 		await user.type(input, "06:30 am");
-
-		console.log(input);
 
 		expect(onChange).toBeCalledWith(
 			expect.objectContaining({
