@@ -1,4 +1,4 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 export type DateFieldInputSettings = {
 	/**
@@ -24,6 +24,14 @@ export type DateFieldInputSettings = {
 	 * midnight
 	 */
 	fixedTime?: TimeTuple;
+	/**
+	 * The time to default to if the value for
+	 * this field is undefined. Can be a tuple like
+	 * `[hr, min, sec?, ms?]` or a 24hr string like `"HH:MM"`
+	 *
+	 * Only applicable if `showTime` is true.
+	 */
+	defaultTime?: TimeString | TimeTuple;
 };
 
 export type DateData = {
@@ -35,6 +43,8 @@ export type DateData = {
 
 export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings>;
 
-export type TimeTuple = [number, number, number, number];
+export type TimeTuple = [number, number, number?, number?];
+
+export type TimeString = `${number}${number}:${number}${number}`;
 
 export type FormFieldDateSkeletonProps = Pick<DateFieldInputSettings, "showTime">;

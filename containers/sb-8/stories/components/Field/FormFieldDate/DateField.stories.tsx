@@ -19,6 +19,7 @@ export const Playground = ({
 	helperText,
 	showTime,
 	minDateStr,
+	defaultTime,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -42,10 +43,11 @@ export const Playground = ({
 				inputSettings: {
 					showTime,
 					minDate,
+					defaultTime: "12:05",
 				},
 			},
 		],
-		[label, required, disabled, helperText, instructionText, showTime, minDate],
+		[label, required, disabled, helperText, instructionText, showTime, minDate, defaultTime],
 	);
 
 	return (
@@ -71,6 +73,7 @@ Playground.args = {
 	helperText: "Helper text",
 	showTime: false,
 	minDateStr: "",
+	defaultTime: "",
 };
 
 Playground.argTypes = {
@@ -98,6 +101,9 @@ Playground.argTypes = {
 	minDateStr: {
 		name: "Minimum Date",
 	},
+	defaultTime: {
+		name: "Default Time",
+	}
 };
 
 const getFormValues = async () => {
