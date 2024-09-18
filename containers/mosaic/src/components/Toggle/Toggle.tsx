@@ -1,8 +1,9 @@
-import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-// Types and styles
-import { ToggleProps } from "./ToggleTypes";
+import * as React from "react";
+
+import type { ToggleProps } from "./ToggleTypes";
+
 import { StyledSwitch } from "./Toggle.styled";
 import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 import testIds from "@root/utils/testIds";

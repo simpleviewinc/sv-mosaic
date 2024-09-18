@@ -1,12 +1,12 @@
+import type { ReactElement } from "react";
+
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import { memo } from "react";
 
-// Components
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { ToggleInputSettings, FieldDefToggleData } from "./FormFieldToggleTypes";
+
 import Toggle from "@root/components/Toggle";
-
-// Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import { ToggleInputSettings, FieldDefToggleData } from "./FormFieldToggleTypes";
 import { FormFieldSwitchSkeleton } from "./FormFieldToggleSkeleton";
 
 const FormFieldToggle = (
@@ -32,7 +32,6 @@ const FormFieldToggle = (
 			label={fieldDef?.inputSettings?.toggleLabel}
 			onChange={onChange}
 			onBlur={onBlur}
-			required={fieldDef?.required}
 		/>
 	);
 };
