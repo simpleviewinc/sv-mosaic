@@ -1,13 +1,16 @@
-import * as React from "react";
-import { memo, SyntheticEvent, useCallback, useEffect, useState, useMemo, useRef, useId } from "react";
-import Button from "@root/components/Button";
-import { MosaicFieldProps } from "@root/components/Field";
-import Snackbar from "@root/components/Snackbar";
+import type { SyntheticEvent } from "react";
 import { nanoid } from "nanoid";
-import { DragAndDropContainer, DragAndDropSpan, FileInput } from "../../../forms/shared/styledComponents";
+
+import React, { memo, useCallback, useEffect, useState, useMemo, useRef, useId } from "react";
+
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { UploadDataPending, UploadData, UploadFieldInputSettings } from "./FormFieldUploadTypes";
+
+import Button from "@root/components/Button";
+import Snackbar from "@root/components/Snackbar";
 import FileCard from "./FileCard";
-import { StyledFileList } from "./FormFieldUpload.styled";
-import { UploadDataPending, UploadData, UploadFieldInputSettings, isPendingUploadData } from "./FormFieldUploadTypes";
+import { StyledFileList, DragAndDropContainer, DragAndDropSpan, FileInput } from "./FormFieldUpload.styled";
+import { isPendingUploadData } from "./FormFieldUploadTypes";
 import { FileExtensions } from "@root/utils/classes";
 import { pretty } from "@root/utils/formatters";
 import { sum } from "@root/utils/math/sum";
