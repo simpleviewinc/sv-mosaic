@@ -1,6 +1,6 @@
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 
-export const additionalOptions: MosaicLabelValue[] = [
+export const optionsLibrary: MosaicLabelValue[] = [
 	{
 		label: "Option 1",
 		value: "option_1-cat_1",
@@ -66,3 +66,11 @@ export const additionalOptions: MosaicLabelValue[] = [
 		value: "abc123",
 	},
 ];
+
+export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve(optionsLibrary);
+		}, 500);
+	});
+};

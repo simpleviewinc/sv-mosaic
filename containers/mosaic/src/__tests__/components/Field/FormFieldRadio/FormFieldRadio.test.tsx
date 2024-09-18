@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useState } from "react";
 import { render, screen, fireEvent, cleanup, waitFor, act } from "@testing-library/react";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
-// Components
+import type { MosaicLabelValue } from "@root/types";
+
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
-import { MosaicLabelValue } from "@root/types";
-import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
+import { optionsLibrary } from "@root/mock";
 
 afterEach(cleanup);
 
@@ -104,7 +104,7 @@ describe("FormFieldRadio component from DB", () => {
 	});
 
 	it("should display the value of the clicked option", async () => {
-		expect(getByText(additionalOptions[6].value)).toBeDefined();
+		expect(getByText(optionsLibrary[6].value)).toBeDefined();
 	});
 
 	it("should check the clicked option", () => {

@@ -1,13 +1,14 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
+import { nanoid } from "nanoid";
+
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
-import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
+import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import categories from "@root/components/DataView/example/categories.json";
-import { nanoid } from "nanoid";
 import { MosaicLabelValue } from "@root/types";
 
 export default {
@@ -29,7 +30,7 @@ export const Playground = ({
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
 
-	const options: MosaicLabelValue[] = additionalOptions ? additionalOptions : [];
+	const options: MosaicLabelValue[] = optionsLibrary ? optionsLibrary : [];
 	const categoriesApi = new JSONDB(categories);
 
 	const categoriesHelper = new MultiSelectHelper({
@@ -51,7 +52,7 @@ export const Playground = ({
 		};
 
 		//Insert to db
-		additionalOptions.push({ label: newOption.tag, value: newOption.id });
+		optionsLibrary.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 
@@ -162,7 +163,7 @@ Playground.argTypes = {
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
-	const options = additionalOptions ? additionalOptions : [];
+	const options = optionsLibrary ? optionsLibrary : [];
 
 	const categoriesApi = new JSONDB(categories);
 
@@ -185,7 +186,7 @@ export const KitchenSink = (): ReactElement => {
 		};
 
 		//Insert to db
-		additionalOptions.push({ label: newOption.tag, value: newOption.id });
+		optionsLibrary.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 

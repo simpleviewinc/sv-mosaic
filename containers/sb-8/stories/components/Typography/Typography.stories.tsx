@@ -118,7 +118,7 @@ Playground.args = {
 	title: "",
 	children: "Lorem ipsum",
 	color: "black",
-};
+} as const;
 
 Playground.argTypes = {
 	variant: {

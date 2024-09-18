@@ -1,12 +1,14 @@
+import type { ReactElement } from "react";
+
 import * as React from "react";
-import { act, useMemo, ReactElement } from "react";
+import { act, useMemo } from "react";
 import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
 
-//Components
+import type { FieldDef } from "@root/components/Field";
+import type { ButtonProps } from "@root/components/Button";
+
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
-import { ButtonProps } from "@root/components/Button";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
 afterEach(cleanup);
 
