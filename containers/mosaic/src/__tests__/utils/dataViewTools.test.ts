@@ -1,4 +1,6 @@
-import { testArray, TestDef } from "@simpleview/mochalib";
+import type { TestDef } from "@simpleview/mochalib";
+
+import { testArray } from "@simpleview/mochalib";
 import * as assert from "assert";
 
 import type { DataViewColumn, DataViewProps } from "@root/components/DataView";
@@ -6,7 +8,7 @@ import type { DataViewColumn, DataViewProps } from "@root/components/DataView";
 import {
 	transformColumn,
 	transformRows,
-} from "@root/utils/dataViewTools";
+} from "@root/components/DataView/dataViewTools";
 
 describe(__filename, function() {
 	describe("transformColumn", function() {

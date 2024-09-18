@@ -15,9 +15,8 @@ import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 import MenuItem from "@mui/material/MenuItem";
 
 import ButtonRow from "@root/components/ButtonRow";
-import { useStoryBookCssReset } from "@root/utils/reactTools";
 import { useToggle } from "@root/utils/toggle";
-import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "@root/utils/storyUtils";
+import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "../../../utils";
 
 export default {
 	title: "Components/Button",
@@ -81,8 +80,6 @@ export const Playground = ({
 	};
 
 	const showButton = useToggle(action, "show");
-
-	useStoryBookCssReset();
 
 	return (
 		<div style={{ backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20 }}>

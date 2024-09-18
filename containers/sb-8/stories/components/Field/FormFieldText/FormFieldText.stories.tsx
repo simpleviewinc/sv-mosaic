@@ -2,7 +2,7 @@ import * as React from "react";
 import { useMemo, ReactElement } from "react";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";

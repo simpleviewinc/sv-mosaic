@@ -4,7 +4,7 @@ import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
 import { ControlWithProps, defaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
 import { MediaGalleryDrawer } from "./MediaGalleryDrawer";

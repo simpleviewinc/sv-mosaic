@@ -1,12 +1,13 @@
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
+import React from "react";
 import { useMemo } from "react";
 
 import Checkbox from "../../Checkbox";
 import DataViewActionsButtonRow from "../DataViewActionsButtonRow/DataViewActionsButtonRow";
-import { transformRows } from "../../../utils/dataViewTools";
+import { transformRows } from "../dataViewTools";
 
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
-import { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
+import type { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
 import Typography from "@root/components/Typography";
 

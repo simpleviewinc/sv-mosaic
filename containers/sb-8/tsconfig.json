@@ -27,6 +27,9 @@
       "react": [ "./node_modules/@types/react" ]
 		},
   },
-  "include": ["./stories/**/*.tsx"],
+  "include": [
+    "./stories/**/*.tsx",
+    "./utils/**/*.ts",
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

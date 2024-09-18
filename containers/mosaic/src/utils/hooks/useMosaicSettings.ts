@@ -1,6 +1,8 @@
+import type { i18n } from "i18next";
+
 import { useMemo } from "react";
-import { defaulti18n } from "../i18n";
-import { i18n } from "i18next";
+
+import { defaulti18n } from "../../i18n";
 
 interface UseMosaicSettingsProps {
 	i18nNamespace?: string;
