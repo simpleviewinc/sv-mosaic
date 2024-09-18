@@ -12,7 +12,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import Link from "@mui/icons-material/Link";
-import { toggleMap, toggleOptions } from "@root/utils/storyUtils";
+import { toggleMap, toggleOptions } from "../../../utils";
 
 export default {
 	title: "Components/SideNav",

@@ -4,7 +4,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 // Utils
 import { useForm } from "@root/components/Form";
 import { validateEmail, validateSlow } from "@root/components/Form/validators";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../utils";
 
 // Components
 import Form from "@root/components/Form";

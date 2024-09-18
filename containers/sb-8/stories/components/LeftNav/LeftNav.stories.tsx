@@ -11,7 +11,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import LinkIcon from "@mui/icons-material/Link";
 
 import MosaicContext from "@root/components/MosaicContext";
-import useMosaicSettings from "@root/utils/useMosaicSettings";
+import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
 
 import { LeftNavItemRootDef } from "@root/components/LeftNav";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement } from "react";
 import PageHeader from "@root/components/PageHeader";
-import { onCancel } from "@root/utils/storyUtils";
+import { onCancel } from "../../../utils";
 
 export default {
 	title: "Components/PageHeader",
