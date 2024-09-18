@@ -43,7 +43,7 @@ export const Playground = ({
 				inputSettings: {
 					showTime,
 					minDate,
-					defaultTime: "12:05",
+					defaultTime,
 				},
 			},
 		],
