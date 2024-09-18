@@ -2,7 +2,7 @@ import * as React from "react";
 import { useMemo, ReactElement, useCallback, useEffect, useState } from "react";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 import { nanoid } from "nanoid";
 import { UploadFieldInputSettings } from "@root/components/Field/FormFieldUpload";
 

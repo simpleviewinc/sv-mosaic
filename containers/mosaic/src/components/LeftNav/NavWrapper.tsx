@@ -1,15 +1,15 @@
 import * as React from "react";
-import { useState, useEffect, useRef, ReactElement, MouseEventHandler } from "react";
+import type { ReactElement, MouseEventHandler } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
 import LeftNav from ".";
-import { LeftNavProps, LeftNavItemRootDef } from "./LeftNavTypes";
-import { TransientProps } from "@root/types";
+import type { LeftNavProps, LeftNavItemRootDef } from "./LeftNavTypes";
+import type { TransientProps } from "@root/types";
 
-import { useStoryBookCssReset } from "../../utils/reactTools";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const loremIpsum = `Lorem ipsum odor amet, consectetuer adipiscing elit. Pellentesque placerat praesent dignissim iaculis eget fusce. Aliquet praesent quis purus id iaculis est himenaeos. Eu mi luctus pellentesque id magnis natoque placerat. Aenean erat semper dolor, luctus libero tellus convallis. Parturient eros nisi feugiat malesuada augue hendrerit nulla.
@@ -102,8 +102,6 @@ interface NavWrapperProps {
 }
 
 export const NavWrapper = function(props: NavWrapperProps): ReactElement {
-	useStoryBookCssReset();
-
 	const [state, setState] = useState({
 		open : false,
 		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],

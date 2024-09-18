@@ -1,4 +1,4 @@
-import { DataViewColumn, DataViewProps } from "../components/DataView";
+import type { DataViewColumn, DataViewProps } from ".";
 
 export function transformColumn(row: DataViewProps["data"][number], column: DataViewColumn): unknown {
 	let data = row[column.column || column.name];
