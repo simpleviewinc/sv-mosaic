@@ -1,5 +1,4 @@
-import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import React, { ReactElement, useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
@@ -10,12 +9,17 @@ export default {
 	title: "FormFields/FormFieldDateField",
 };
 
+const prepopulateData = {
+	date: new Date(2024, 12, 25, 11, 30),
+};
+
 export const Playground = ({
 	label,
 	required,
 	skeleton,
 	disabled,
 	instructionText,
+	prepopulate,
 	helperText,
 	showTime,
 	minDateStr,
@@ -23,6 +27,11 @@ export const Playground = ({
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
+
+	const getFormValues = useMemo(() => prepopulate ?
+		async () => prepopulateData :
+		undefined,
+	[prepopulate]);
 
 	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
 		Number(minDateStr.split("/")[2]),
@@ -59,6 +68,7 @@ export const Playground = ({
 				title="Date Field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);
@@ -70,6 +80,7 @@ Playground.args = {
 	required: false,
 	skeleton: false,
 	instructionText: "Instruction text",
+	prepopulate: false,
 	helperText: "Helper text",
 	showTime: false,
 	minDateStr: "",
@@ -91,6 +102,9 @@ Playground.argTypes = {
 	},
 	instructionText: {
 		name: "Instruction Text",
+	},
+	prepopulate: {
+		name: "Prepopulate",
 	},
 	helperText: {
 		name: "Helper Text",
