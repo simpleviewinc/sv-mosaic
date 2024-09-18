@@ -524,7 +524,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 				},
 				// automate 20 entries to create a vertical scroller in the flyout
 				...(
-					new Array(35).fill(0).map((val, i) => {
+					new Array(35).fill(0).map((_, i) => {
 						return {
 							name : `short_icon_children.filler_item_${i}`,
 							label : `Filler ${i}`,

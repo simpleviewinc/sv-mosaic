@@ -12,6 +12,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import Delete from "@mui/icons-material/Delete";
 import Star from "@mui/icons-material/Star";
 
+import type { FieldDef } from "@root/components/Field";
+import type { ButtonProps } from "@root/components/Button";
+import type { MosaicLabelValue } from "@root/types";
+
 import JSONDB from "@root/utils/JSONDB";
 import rawData from "@root/components/DataView/example/rawData.json";
 import DataView, { DataViewProps, DataViewFilterDef, DataViewColumn, DataViewRowData } from "@root/components/DataView";
@@ -27,9 +31,6 @@ import MosaicContext from "@root/components/MosaicContext";
 import Drawer from "@root/components/Drawer";
 import Form from "@root/components/Form/Form";
 import { useForm } from "@root/components/Form/useForm/useForm";
-import type { FieldDef } from "@root/components/Field";
-import { ButtonProps } from "@root/components/Button";
-import { MosaicLabelValue } from "@root/types";
 import {
 	transform_boolean,
 	transform_dateFormat,
@@ -40,7 +41,6 @@ import {
 } from "@root/transforms";
 import { useStateRef } from "@root/utils/reactTools";
 
-import "@root/components/DataView/example/DataViewPlayground.css";
 import testIds from "@root/utils/testIds";
 import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
 
@@ -569,7 +569,7 @@ const NewSavedViewForm = ({
 	const controller = useForm();
 	const { handleSubmit } = controller;
 
-	const submitHandler = handleSubmit(({ name, description }) => {
+	const submitHandler = handleSubmit(({ data: { name, description } }) => {
 		onFinish({ name, description });
 	});
 
@@ -795,20 +795,6 @@ export const Playground = ({
 
 		return queryFilter;
 	};
-
-	// in order to support the sticky boolean we need to add a class to the html root
-	// then we use the css off that class to apply the proper css to ensure the parent hierarchy will be correct for sticky mechanics
-	useEffect(() => {
-		if (sticky) {
-			document.body.parentElement.classList.add("stickyHtml");
-		} else {
-			document.body.parentElement.classList.remove("stickyHtml");
-		}
-
-		return () => {
-			document.body.parentElement.classList.remove("stickyHtml");
-		};
-	}, [sticky]);
 
 	const addDraftsPrimaryAction = useCallback((data: Record<string, any>[]) => {
 		const titlesWithDraftsParsed = titlesWithDrafts
