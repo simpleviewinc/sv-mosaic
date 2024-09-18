@@ -1,11 +1,12 @@
-import { ButtonProps } from "@root/components/Button";
-import { FieldDef } from "@root/components/Field";
 import { render, cleanup, fireEvent, screen, waitFor, act } from "@testing-library/react";
-import * as React from "react";
-import { useMemo } from "react";
-import { optionsWithCategory } from "@root/components/Field/FormFieldAdvancedSelection";
+import React, { useMemo } from "react";
+
+import type { ButtonProps } from "@root/components/Button";
+import type { FieldDef } from "@root/components/Field";
+import type { optionsWithCategory } from "@root/components/Field/FormFieldAdvancedSelection";
+
 import Form, { useForm } from "@root/components/Form";
-import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection/advancedSelectionUtils";
+import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import categories from "@root/components/DataView/example/categories.json";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
@@ -53,7 +54,7 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 		};
 
 		//Insert to db
-		additionalOptions.push({ label: newOption.tag, value: newOption.id });
+		optionsLibrary.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 

@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useMemo } from "react";
-import Drawer from "@root/components/Drawer";
 import { DrawerWrapper, MediaGalleryChecked, MediaGalleryImage, MediaGalleryItem } from "./MediaGalleryDrawer.styled";
 import { FieldDef, TextEditorOnImageParams } from "@root/components/Field";
 import Grid from "@mui/material/Grid";

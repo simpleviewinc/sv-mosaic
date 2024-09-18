@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useMemo } from "react";
+import React, { ReactElement, useCallback, useMemo } from "react";
 import BulletinIcon from "@mui/icons-material/PushPin";
 import CalendarIcon from "@mui/icons-material/CalendarMonth";
 import ContactIcon from "@mui/icons-material/PermContactCalendar";

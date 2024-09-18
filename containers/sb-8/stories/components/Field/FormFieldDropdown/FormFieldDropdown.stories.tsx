@@ -5,7 +5,7 @@ import { renderButtons } from "@root/utils/storyUtils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldDropdown",

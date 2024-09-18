@@ -1,4 +1,3 @@
-import { SelectAll } from "@mui/icons-material";
 import { ControlsConfig } from "@root/components/Field";
 
 export const controls: ControlsConfig = [
