@@ -2,12 +2,9 @@ import * as React from "react";
 import { act, useState } from "react";
 import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/react";
 
-// Components
-import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
-
-// Utils
+import { getOptions } from "@root/mock";
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
-import { getOptions } from "@root/utils/getOptions";
+import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 
 afterEach(cleanup);
 

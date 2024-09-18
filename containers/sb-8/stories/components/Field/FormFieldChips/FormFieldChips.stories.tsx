@@ -3,7 +3,7 @@ import { ReactElement, useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "@root/utils/storyUtils";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldChips",

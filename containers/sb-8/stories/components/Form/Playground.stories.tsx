@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo, useCallback } from "react";
+import { nanoid } from "nanoid";
 
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
@@ -11,9 +12,8 @@ import Form from "@root/components/Form";
 
 // Types
 import { FieldDef } from "@root/components/Field";
-import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
+import { optionsLibrary } from "@root/mock";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
-import { nanoid } from "nanoid";
 import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
@@ -25,14 +25,14 @@ export default {
 };
 
 const createNewOption = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${additionalOptions.length}`;
+	const value = `${newOptionLabel}_${optionsLibrary.length}`;
 	const newOption = {
 		label: newOptionLabel,
 		value,
 	};
 
 	//Insert to db
-	additionalOptions.push(newOption);
+	optionsLibrary.push(newOption);
 
 	return newOption;
 };
@@ -320,7 +320,7 @@ export const Playground = ({
 					disabled,
 					required,
 					inputSettings: {
-						options: additionalOptions,
+						options: optionsLibrary,
 						createNewOption,
 					},
 				},

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { memo } from "react";
 
+import type { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRowTypes";
+
 import ButtonRow from "../../ButtonRow";
-import { DataViewBulkActionsButtonsRowProps } from "./DataViewBulkActionsButtonsRowTypes";
 
 function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps) {
 	const buttons = props.bulkActions.map(action => {
@@ -21,7 +22,7 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 				if (props.checkedAllPages === true) {
 					onAllClick();
 				} else {
-					const checkedData = props.data.filter((val, i) => props.checked?.[i] === true);
+					const checkedData = props.data.filter((_, i) => props.checked?.[i] === true);
 					onClick({ data : checkedData });
 				}
 			},

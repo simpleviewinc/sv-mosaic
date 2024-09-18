@@ -1,9 +1,12 @@
-import { DATE_FORMAT_FULL } from "@root/constants";
-import { MosaicLabelValue, isLabelValue } from "@root/types";
-import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
-import { getTextLength } from "@root/utils/string";
 import format from "date-fns/format";
 import { postcodeValidator, postcodeValidatorExistsForCountry } from "postcode-validator";
+
+import type { MosaicLabelValue } from "@root/types";
+
+import { DATE_FORMAT_FULL } from "@root/constants";
+import { isLabelValue } from "@root/types";
+import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
+import { getTextLength } from "@root/utils/string";
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
@@ -186,7 +189,7 @@ export function validateNumberRange(value: string, data: any, { minName, maxName
 	}
 }
 
-export function validateMinDate(value: any, data: any, { min, max }: { min?: Date; max?: Date }): string | undefined {
+export function validateMinDate(value: any, _: any, { min, max }: { min?: Date; max?: Date }): string | undefined {
 	if (!(value instanceof Date)) {
 		return;
 	}
@@ -204,7 +207,7 @@ export function validateMinDate(value: any, data: any, { min, max }: { min?: Dat
 	}
 }
 
-export function validateCharacterCount(value: string, data: any, options: { max?: number; ignoreHTML?: boolean }): string | undefined {
+export function validateCharacterCount(value: string, _: any, options: { max?: number; ignoreHTML?: boolean }): string | undefined {
 	if (!options.max) {
 		return;
 	}

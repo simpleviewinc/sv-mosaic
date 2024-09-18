@@ -8,7 +8,7 @@ import Form, { useForm } from "@root/components/Form";
 // Utils
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { renderButtons } from "@root/utils/storyUtils";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
