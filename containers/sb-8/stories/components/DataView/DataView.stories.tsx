@@ -26,7 +26,7 @@ import DataViewFilterDate from "@root/components/DataViewFilterDate";
 import DataViewFilterSingleSelect from "@root/components/DataViewFilterSingleSelect";
 import DataViewFilterText from "@root/components/DataViewFilterText";
 import DataViewFilterMultiselect from "@root/components/DataViewFilterMultiselect";
-import useMosaicSettings from "@root/utils/useMosaicSettings";
+import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
 import MosaicContext from "@root/components/MosaicContext";
 import Drawer from "@root/components/Drawer";
 import Form from "@root/components/Form/Form";
@@ -39,7 +39,6 @@ import {
 	transform_mapGet,
 	transform_join,
 } from "@root/transforms";
-import { useStateRef } from "@root/utils/reactTools";
 
 import testIds from "@root/utils/testIds";
 import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
@@ -767,8 +766,6 @@ export const Playground = ({
 		}
 	}, [locale]);
 
-	const stateRef = useStateRef(state);
-
 	const filterChange = function (name, value) {
 		setState((prev) => ({
 			...prev,
@@ -973,25 +970,25 @@ export const Playground = ({
 			});
 		},
 		onSkipChange: useCallback(function ({ skip }) {
-			setState({
-				...stateRef.current,
+			setState((state) => ({
+				...state,
 				skip,
-			});
-		}, [stateRef]),
+			}));
+		}, []),
 		onLimitChange: useCallback(function ({ limit }) {
-			setState({
-				...stateRef.current,
+			setState((state) => ({
+				...state,
 				limit,
 				skip: 0,
-			});
-		}, [stateRef]),
+			}));
+		}, []),
 		onSortChange: useCallback(function (data) {
-			setState({
-				...stateRef.current,
+			setState((state) => ({
+				...state,
 				sort: data,
 				skip: 0,
-			});
-		}, [stateRef]),
+			}));
+		}, []),
 		onDisplayChange: function (data) {
 			setState({
 				...state,

@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";

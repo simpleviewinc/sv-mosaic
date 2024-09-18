@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactElement, useEffect, useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
