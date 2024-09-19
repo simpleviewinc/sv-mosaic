@@ -1,9 +1,15 @@
-import Button from "@root/components/Button";
-import type { ButtonRowProps } from "@root/components/ButtonRow";
-import ButtonRow from "@root/components/ButtonRow";
-import testIds from "@root/utils/testIds";
 import { render, screen } from "@testing-library/react";
 import React, { act } from "react";
+
+import type { ButtonRowProps } from "@root/components/ButtonRow";
+
+import Button from "@root/components/Button";
+import ButtonRow from "@root/components/ButtonRow";
+import testIds from "@root/utils/testIds";
+
+const buttonDefs: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
+const buttonDefsNoLabels: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained" }, { color: "black", variant: "contained" }];
+const buttonChildren: ButtonRowProps["children"] = [<Button key={0} {...buttonDefs[0]} />, <Button key={1} {...buttonDefs[0]} />];
 
 async function setup(props: Partial<ButtonRowProps> = {}) {
 	const renderResult = await act(() => render(
@@ -14,10 +20,6 @@ async function setup(props: Partial<ButtonRowProps> = {}) {
 		...renderResult,
 	};
 }
-
-const buttonDefs: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
-const buttonDefsNoLabels: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained" }, { color: "black", variant: "contained" }];
-const buttonChildren: ButtonRowProps["children"] = [<Button key={0} {...buttonDefs[0]} />, <Button key={1} {...buttonDefs[0]} />];
 
 describe(__dirname, () => {
 	it("should render a row of buttons by button definition", async () => {
