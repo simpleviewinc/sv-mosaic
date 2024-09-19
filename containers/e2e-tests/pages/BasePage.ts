@@ -72,7 +72,7 @@ export class BasePage {
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
-		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
+		this.deleteIconSelectedOptionChip = page.locator(`[data-testid='${testIds.CHIP_DELETE_ICON}']`);
 		this.formLocator = page.locator("form");
 		this.button = page.locator("button");
 		this.inputLocator = page.locator("input");

@@ -1,39 +1,39 @@
-/* eslint-disable react/no-children-prop */
-import * as React from "react";
-import { ReactElement, HTMLAttributes, useRef } from "react";
+import type { ReactElement, HTMLAttributes } from "react";
+import React, { useRef } from "react";
 
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { ChipsProps } from "./ChipTypes";
+import type { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledDeletableChip } from "./Chip.styled";
+import testIds from "@root/utils/testIds";
 
-const Chip = (props: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
-	const { label, disabled, selected = false, onDelete, onClick } = props;
+const Chip = ({
+	children,
+	selected = false,
+	onDelete,
+	...props
+}: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const ref = useRef<HTMLDivElement>();
+	const { label } = props;
+	const common = {
+		...props,
+		color: "default",
+		title: label,
+		ref,
+	} as const;
 
 	return onDelete ? (
 		<StyledDeletableChip
-			{...props}
-			color="default"
-			children={props.children as null}
-			title={typeof label === "string" ? label : undefined}
-			ref={ref}
-			disabled={disabled}
-			deleteIcon={<ClearIcon data-testid="delete-icon-test-id" />}
+			{...common}
+			deleteIcon={<ClearIcon data-testid={testIds.CHIP_DELETE_ICON} />}
 			onDelete={onDelete}
 			data-testid="delete-chip-testid"
 		/>
 	) : (
 		<StyledChip
-			{...props}
-			color="default"
-			children={props.children as null}
-			title={typeof label === "string" ? label : undefined}
-			ref={ref}
-			disabled={disabled}
+			{...common}
 			$selected={selected}
 			aria-selected={selected}
-			onClick={onClick}
 			data-testid="chip-testid"
 		/>
 	);
