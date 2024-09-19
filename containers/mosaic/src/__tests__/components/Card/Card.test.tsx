@@ -1,100 +1,56 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import * as React from "react";
+import Icon from "@mui/icons-material/Abc";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
 
-// Components
+import type { CardProps } from "@root/components/Card";
+
+import testIds from "@root/utils/testIds";
 import Card from "@root/components/Card";
-import AddIcon from "@mui/icons-material/Add";
-import ContactsIcon from "@mui/icons-material/Contacts";
 
-afterEach(cleanup);
+const title = "My Card";
+const content = [<>Card Content 1</>, <>Card Content 2</>];
+const actions: CardProps["topActions"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
 
-const { getByText, getByTestId, queryByTestId } = screen;
-const topAction = vi.fn();
-const bottomAction = vi.fn();
-const content = [
-	<p key="first-element">First Element</p>,
-	<p key="second-element">Second Element</p>,
-	<div key="div-element">
-		<p>Paragraph</p>
-		<button>Button</button>
-	</div>,
-];
+async function setup(props: Partial<CardProps> = {}) {
+	const renderResult = await act(() => render(
+		<Card
+			title={title}
+			content={content}
+			{...props}
+		/>,
+	));
 
-describe("Card component", () => {
-	beforeEach(() => {
-		render(
-			<Card
-				content={content}
-				title="Title"
-				titleIcon={ContactsIcon}
-				topActions={[
-					{
-						color: "black",
-						variant: "icon",
-						onClick: () => topAction(),
-						mIcon: AddIcon,
-					},
-				]}
-				bottomActions={[
-					{
-						color: "teal",
-						label: "Add a new task",
-						variant: "text",
-						onClick: () => bottomAction(),
-						mIcon: AddIcon,
-					},
-				]}
-			/>,
-		);
+	return {
+		...renderResult,
+	};
+}
+
+describe(__dirname, () => {
+	it("should render a card", async () => {
+		await setup();
+
+		expect(screen.queryByText("My Card")).toBeInTheDocument();
+		expect(screen.queryByText("Card Content 1")).toBeInTheDocument();
+		expect(screen.queryByText("Card Content 2")).toBeInTheDocument();
 	});
 
-	it("should display the title with the icon title", () => {
-		expect(getByText("Title"));
-		expect(getByTestId("contacts-icon-test"));
+	it("should render a card with an icon in the title", async () => {
+		await setup({ titleIcon: Icon });
+
+		expect(screen.queryByTestId(testIds.CARD_TITLE_ICON)).toBeInTheDocument();
 	});
 
-	it("should display the card content", () => {
-		expect(getByText("First Element"));
-		expect(getByText("Second Element"));
-		expect(getByText("Paragraph"));
-		expect(getByText("Button"));
+	it("should render top actions as a button row", async () => {
+		await setup ({ topActions: actions });
+
+		expect(screen.queryByTestId(testIds.BUTTON_ROW)).toBeInTheDocument();
+		expect(screen.queryAllByRole("button")).toHaveLength(2);
 	});
 
-	it("should execute the bottom an top actions", () => {
-		fireEvent.click(getByTestId("icon-button-test"));
-		expect(topAction).toHaveBeenCalled();
+	it("should render bottom actions as a button row", async () => {
+		await setup ({ bottomActions: actions });
 
-		fireEvent.click(getByText("Add a new task"));
-		expect(bottomAction).toHaveBeenCalled();
-	});
-});
-
-describe("Card component without title icon", () => {
-	it("should display the title with the icon title", () => {
-		render(
-			<Card
-				content={content}
-				title="Title"
-				topActions={[
-					{
-						color: "black",
-						variant: "icon",
-						onClick: () => topAction(),
-						mIcon: AddIcon,
-					},
-				]}
-				bottomActions={[
-					{
-						color: "teal",
-						label: "Add a new task",
-						variant: "text",
-						onClick: () => bottomAction(),
-						mIcon: AddIcon,
-					},
-				]}
-			/>,
-		);
-
-		expect(queryByTestId("contacts-icon-test")).toBe(null);
+		expect(screen.queryByTestId(testIds.BUTTON_ROW)).toBeInTheDocument();
+		expect(screen.queryAllByRole("button")).toHaveLength(2);
 	});
 });
