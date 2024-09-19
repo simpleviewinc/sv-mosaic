@@ -1,14 +1,16 @@
-import * as React from "react";
 import type { ReactElement, HTMLAttributes } from "react";
+
+import * as React from "react";
 import { useId, useMemo, useCallback } from "react";
 import xorBy from "lodash/xorBy";
 
-import Checkbox from "@root/components/Checkbox";
 import type { CheckboxListProps } from "./CheckboxListTypes";
-import FormGroup from "@mui/material/FormGroup";
 import type { MosaicLabelValue } from "@root/types";
 
-const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
+import Checkbox from "@root/components/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
+
+const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputElement>, "onChange">): ReactElement => {
 	const fallbackId = useId();
 	const id = props.id || fallbackId;
 
