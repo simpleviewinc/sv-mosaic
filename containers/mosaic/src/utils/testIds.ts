@@ -19,6 +19,7 @@ const testIds = {
 	CARD_HEADING: "mos:Card:heading",
 	CARD_TITLE_ICON: "mos:Card:titleIcon",
 	CARD_ITEM: "mos:Card:item",
+	CHIP_DELETE_ICON: "mos:Chip:deleteIcon",
 	DATA_VIEW_TITLE_BAR: "mos:DataView:titleBar",
 	DATA_VIEW_FILTER_BAR: "mos:DataView:filterBar",
 	DATA_VIEW_VIEW_APPLY: "mos:DataView:view:apply",
