@@ -1,16 +1,27 @@
-import type { ButtonProps } from "@root/components/Button";
-import Button from "@root/components/Button";
 import { render, screen, waitFor } from "@testing-library/react";
 import React, { act } from "react";
 import Icon from "@mui/icons-material/Abc";
 import userEvent from "@testing-library/user-event";
 
+import type { ButtonProps } from "@root/components/Button";
+
+import Button from "@root/components/Button";
+
+const color = "black";
+const variant = "contained";
+const label = "My Button";
+const buttonColors: ButtonProps["color"][] = ["black", "blue", "gray", "lightBlue", "red", "teal", "white", "yellow"];
+const buttonVariants: ButtonProps["variant"][] = ["contained", "icon", "input", "outlined", "text"];
+const menuContent: ButtonProps["menuContent"] = <>Menu Content</>;
+const menuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null }, { label: "Test 2", onClick: () => null }];
+const notShownMenuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null, show: false }];
+
 async function setup(props: Partial<ButtonProps> = {}) {
 	const renderResult = await act(() => render(
 		<Button
-			color="black"
-			variant="contained"
-			label="My Button"
+			color={color}
+			variant={variant}
+			label={label}
 			{...props}
 		/>,
 	));
@@ -20,12 +31,6 @@ async function setup(props: Partial<ButtonProps> = {}) {
 		user: userEvent.setup(),
 	};
 }
-
-const buttonColors: ButtonProps["color"][] = ["black", "blue", "gray", "lightBlue", "red", "teal", "white", "yellow"];
-const buttonVariants: ButtonProps["variant"][] = ["contained", "icon", "input", "outlined", "text"];
-const menuContent: ButtonProps["menuContent"] = <>Menu Content</>;
-const menuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null }, { label: "Test 2", onClick: () => null }];
-const notShownMenuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null, show: false }];
 
 describe(__dirname, () => {
 	it("should render a standard button", async () => {
