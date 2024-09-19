@@ -34,7 +34,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 
 	const buttonProps = {
 		$variant: props.variant,
-		$color: props.color || "gray",
+		$color: props.color,
 		disabled: props.invisible || shouldDisable,
 		size: props.size,
 		$size: props.size,
