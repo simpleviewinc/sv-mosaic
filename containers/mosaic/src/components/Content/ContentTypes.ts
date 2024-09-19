@@ -46,7 +46,7 @@ export interface ContentProps {
 	 * Data that will be used by the transform function of each
 	 * field to generate the corresponding JSX element.
 	 */
-	data: MosaicObject;
+	data?: MosaicObject;
 	/**
 	 * Includes the configuration of where each field is going to be
 	 * render. Fields will be render in a max of two columns.
