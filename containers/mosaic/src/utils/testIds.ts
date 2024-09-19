@@ -11,6 +11,7 @@ const testIds = {
 	TEXT_EDITOR_CANVAS: "mos:TextEditor:canvas",
 	TEXT_EDITOR_CODE: "mos:TextEditor:code",
 	CHECKBOX_WRAPPER: "mos:Checkbox:wrapper",
+	CONTENT: "mos:Content:root",
 	CONTENT_SECTION: "mos:Content:section",
 	CONTENT_ROW: "mos:Content:row",
 	CONTENT_COL: "mos:Content:col",
@@ -27,6 +28,6 @@ const testIds = {
 	DATA_VIEW_FILTER_MULTI_COUNTER: "mos:DataView:filterMultiCounter",
 	TOP_SUMMARY: "mos:TopSummary:root",
 	TOGGLE: "mos:Toggle:root",
-};
+} as const;
 
 export default testIds;

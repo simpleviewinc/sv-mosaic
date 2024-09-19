@@ -1,218 +1,87 @@
-import {
-	render,
-	screen,
-	cleanup,
-	fireEvent,
-} from "@testing-library/react";
-import * as React from "react";
-import Content, { ContentFieldDef } from "@root/components/Content";
-import {
-	transform_boolean,
-	transform_chips,
-	transform_colorPicker,
-	transform_dateFormat,
-	transform_thumbnail,
-} from "@root/transforms";
-import { ButtonProps } from "@root/components/Button";
-import EditIcon from "@mui/icons-material/Edit";
-import AddIcon from "@mui/icons-material/Add";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import React, { act } from "react";
 
-afterEach(cleanup);
+import type { ContentProps } from "@root/components/Content";
 
-const fields: ContentFieldDef[] = [
-	{
-		name: "chips",
-		label: "Chips",
-		transforms: [transform_chips()],
-		column: "tags",
-		show: [true, true, () => true],
-	},
-	{
-		name: "toggle",
-		label: "Toggle",
-		transforms: [transform_boolean()],
-		show: [false, false, () => false],
-	},
-	{
-		name: "date",
-		label: "Date using",
-		transforms: [transform_dateFormat()],
-	},
-	{
-		name: "color",
-		label: "Color",
-		transforms: [transform_colorPicker()],
-		column: "colorPicker",
-	},
-	{
-		name: "thumbnail",
-		label: "Thumbnail",
-		transforms: [transform_thumbnail({ width: 150, height: 150 })],
-	},
-	{
-		name: "header",
-		label: "Header with no transforms",
-	},
-];
+import Content from "@root/components/Content";
+import testIds from "@root/utils/testIds";
 
-const sections = [
-	[["tags"], ["colorPicker"]],
-	[["toggle"], ["date"]],
-	[["thumbnail"], ["header"]],
-];
+const fields: ContentProps["fields"] = [{ name: "content1", label: "My Content 1" }, { name: "content2", label: "My Content 2" }];
+const data: ContentProps["data"] = { content1: "My first content", content2: "My second content" };
+const buttons: ContentProps["buttons"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
 
-const data = {
-	tags: [
-		{
-			label: "Chip 1",
-			value: "chip-1",
-		},
-		{
-			label: "Chip 2",
-			value: "chip-2",
-		},
-		{
-			label: "Chip 3",
-			value: "chip-3",
-		},
-		{
-			label: "Chip 4",
-			value: "chip-4",
-		},
-	],
-	date: new Date("December 17, 1995 03:24:00"),
-	toggle: false,
-	colorPicker: "#a8001791",
-	thumbnail:
-		"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
-	header: <h1>H1 Header</h1>,
-};
+async function setup(props: Partial<ContentProps> = {}) {
+	const renderResult = await act(() => render(
+		<Content
+			fields={fields}
+			data={data}
+			title="My Content Title"
+			{...props}
+		/>,
+	));
 
-const onClickEdit = vi.fn();
-const onClickAdd = vi.fn();
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
 
-const buttons: ButtonProps[] = [
-	{
-		name: "edit",
-		label: "Edit",
-		mIcon: EditIcon,
-		color: "gray",
-		variant: "icon",
-		onClick: onClickEdit,
-	},
-	{
-		name: "add",
-		label: "Add",
-		mIcon: AddIcon,
-		color: "gray",
-		variant: "icon",
-		onClick: onClickAdd,
-	},
-	{
-		name: "hidden",
-		label: "Hidden button",
-		color: "teal",
-		variant: "text",
-		onClick: onClickAdd,
-		show: false,
-	},
-];
+describe(__dirname, () => {
+	it("should render a content component with title", async () => {
+		await setup();
 
-describe("Content component", () => {
-	beforeEach(() => {
-		render(
-			<Content
-				title="Main Section"
-				data={data}
-				fields={fields}
-				sections={sections}
-				buttons={buttons}
-			/>,
-		);
+		expect(screen.queryByTestId(testIds.CONTENT)).toBeInTheDocument();
+		expect(screen.queryByText("My Content Title")).toBeInTheDocument();
+		expect(screen.queryByText("My Content 1")).toBeInTheDocument();
+		expect(screen.queryByText("My Content 2")).toBeInTheDocument();
 	});
 
-	it("should display the content", () => {
-		const chips = screen.getAllByTestId("chip-testid");
-		const thumbnail = screen.getByRole("img");
-		const date = screen.getByText("12/17/1995");
-		const colorPicker = screen.getByText("#a8001791");
-		const header = screen.getByText("H1 Header");
+	it("should render a content component using the card variant", async () => {
+		await setup({ variant: "card" });
 
-		expect(thumbnail).toBeInTheDocument();
-		expect(chips).toHaveLength(4);
-		expect(date).toBeInTheDocument();
-		expect(colorPicker).toBeInTheDocument();
-		expect(header).toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.CONTENT)).toHaveClass("card-wrapper");
 	});
 
-	it("should hide the toggle since all its show values are false", () => {
-		const toggle = screen.queryByText("No");
+	it("should throw an error if a field in the sections provided does not exist in the field definitions provided", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => {});
 
-		expect(toggle).not.toBeInTheDocument();
+		await expect(() => setup({ sections: [[["noExist"]]] }))
+			.rejects
+			.toThrow("No field declared for field name 'noExist'. (section 0, row 0)");
 	});
 
-	it("should execute the button's onClick callbacks", () => {
-		const [editButton, addButton] = screen.getAllByTestId("icon-button-test");
-		fireEvent.click(editButton);
-		fireEvent.click(addButton);
+	it("should evaluate a fields show property if provided", async () => {
+		await setup({
+			fields: [
+				fields[0],
+				{
+					...fields[1],
+					show: false,
+				},
+			],
+		});
 
-		expect(onClickEdit).toHaveBeenCalled();
-		expect(onClickAdd).toHaveBeenCalled();
+		expect(screen.queryByText("My Content 1")).toBeInTheDocument();
+		expect(screen.queryByText("My Content 2")).not.toBeInTheDocument();
 	});
 
-	it("should not show the buttons that its prop show is set as false", () => {
-		const hiddenButton = screen.queryByText("Hidden button");
+	it("should not render content if there is no data", async () => {
+		await setup({ data: undefined });
 
-		expect(hiddenButton).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.CONTENT)).not.toBeInTheDocument();
 	});
-});
 
-describe("Content componenent with no sections", () => {
-	it("should display the content even if no sections are defined", async () => {
-		render(
-			<Content
-				title="Main Section"
-				data={data}
-				fields={fields}
-				buttons={buttons}
-			/>,
-		);
+	it("should render a button row in the title if the button property is provided", async () => {
+		await setup({ buttons });
 
-		const chips = screen.getAllByTestId("chip-testid");
-		const thumbnail = screen.getByRole("img");
-		const date = screen.getByText("12/17/1995");
-		const colorPicker = screen.getByText("#a8001791");
-		const header = screen.getByText("H1 Header");
-
-		expect(thumbnail).toBeInTheDocument();
-		expect(chips).toHaveLength(4);
-		expect(date).toBeInTheDocument();
-		expect(colorPicker).toBeInTheDocument();
-		expect(header).toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.BUTTON_ROW)).toBeInTheDocument();
+		expect(screen.queryAllByRole("button")).toHaveLength(2);
 	});
-});
 
-describe("Content componenent with no buttons", () => {
-	it("should display the content when buttons are not defined", async () => {
-		render(
-			<Content
-				title="Main Section"
-				data={data}
-				fields={fields}
-				buttons={undefined}
-			/>,
-		);
+	it("should render an empty column if there are no fields within", async () => {
+		await setup({ sections: [[["content1"], ["content2"], []]] });
 
-		const chips = screen.getAllByTestId("chip-testid");
-		const thumbnail = screen.getByRole("img");
-		const date = screen.getByText("12/17/1995");
-		const colorPicker = screen.getByText("#a8001791");
-		const header = screen.getByText("H1 Header");
-
-		expect(thumbnail).toBeInTheDocument();
-		expect(chips).toHaveLength(4);
-		expect(date).toBeInTheDocument();
-		expect(colorPicker).toBeInTheDocument();
-		expect(header).toBeInTheDocument();
+		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(3);
 	});
 });
