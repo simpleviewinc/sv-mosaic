@@ -1,4 +1,6 @@
 const testIds = {
+	BUTTON_ROW: "mos:ButtonRow:row",
+	BUTTON_SKELETON: "mos:ButtonRow:skeleton",
 	FORM_STATE: "mos:Form:state",
 	FORM_FIELD_LABEL: "mos:Field:label",
 	TEXT_EDITOR_PRIMARY_TOOLBAR: "mos:TextEditor:primaryToolbar",
