@@ -10,6 +10,7 @@ import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import categories from "@root/components/DataView/example/categories.json";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
+import testIds from "@root/utils/testIds";
 
 afterEach(cleanup);
 
@@ -141,7 +142,7 @@ describe("AdvancedSelection component", () => {
 		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
 
-		const optionChip = await screen.findByTestId("delete-icon-test-id");
+		const optionChip = await screen.findByTestId(testIds.CHIP_DELETE_ICON);
 		expect(optionChip).toBeTruthy();
 	});
 
@@ -158,11 +159,11 @@ describe("AdvancedSelection component", () => {
 		const optionCheckbox = await screen.findByText("Accessibility");
 		fireEvent.click(optionCheckbox);
 
-		const optionChip = await screen.findAllByTestId("delete-icon-test-id");
+		const optionChip = await screen.findAllByTestId(testIds.CHIP_DELETE_ICON);
 		expect(optionChip.length).toBe(1);
 		fireEvent.click(optionChip[0]);
 
-		const remainingChips = screen.queryAllByTestId("delete-icon-test-id");
+		const remainingChips = screen.queryAllByTestId(testIds.CHIP_DELETE_ICON);
 
 		await waitFor(() => {
 			expect(remainingChips.length).toBe(0);
@@ -222,7 +223,7 @@ describe("AdvancedSelection component", () => {
 			fireEvent.click(optionCheckbox[i]);
 		}
 
-		const optionChip = await screen.findAllByTestId("delete-icon-test-id");
+		const optionChip = await screen.findAllByTestId(testIds.CHIP_DELETE_ICON);
 
 		expect(optionChip.length === 3).toBeTruthy();
 		expect(optionCheckbox[3]).toHaveClass("Mui-disabled");
