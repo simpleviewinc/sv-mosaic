@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ReactElement } from "react";
-import { CardProps } from "./CardTypes";
+import type { ReactElement } from "react";
+import type { CardProps } from "./CardTypes";
 
 import testIds from "@root/utils/testIds";
 import {
@@ -15,14 +15,13 @@ import ButtonRow from "../ButtonRow/ButtonRow";
 import { SubtitleText } from "../Typography";
 
 const Card = (props: CardProps): ReactElement => {
-	const { bottomActions, content, title, titleIcon, topActions } = props;
-	const TitleIcon = titleIcon;
+	const { bottomActions, content, title, titleIcon: TitleIcon, topActions } = props;
 
 	return (
 		<CardWrapper data-testid={testIds.CARD}>
 			<TitleBar data-testid={testIds.CARD_HEADING}>
 				<TitleWrapper>
-					{titleIcon && <TitleIcon data-testid="contacts-icon-test" />}
+					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
 					<SubtitleText maxLines={1}>{title}</SubtitleText>
 				</TitleWrapper>
 				{topActions?.length > 0 && (

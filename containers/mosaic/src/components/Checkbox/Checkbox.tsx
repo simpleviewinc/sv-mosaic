@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useId, memo } from "react";
-import { CheckboxProps } from "./CheckboxTypes";
+import type { CheckboxProps } from "./CheckboxTypes";
 
 import { StyledCheckbox, StyledFormControlLabel } from "./Checkbox.styled";
+import testIds from "@root/utils/testIds";
 
 const Checkbox = (props: CheckboxProps) => {
 	const fallbackId = useId();
@@ -19,7 +20,7 @@ const Checkbox = (props: CheckboxProps) => {
 				htmlFor={id}
 				control={(
 					<StyledCheckbox
-						data-testid="checkbox-test-id"
+						data-testid={testIds.CHECKBOX_WRAPPER}
 						className={`
 							custom-checkbox
 							${props.checked ? "checked" : ""}
