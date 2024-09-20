@@ -1,4 +1,4 @@
-import { DataViewColumn, DataViewSort, DataViewOnSortChange } from "../DataViewTypes";
+import type { DataViewColumn, DataViewSort, DataViewOnSortChange } from "../DataViewTypes";
 
 export interface DataViewDisplayGridSortControlProps {
 	columns: DataViewColumn[];
