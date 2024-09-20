@@ -10,6 +10,7 @@ import type { MosaicLabelValue } from "@root/types";
 
 import Form, { useForm } from "@root/components/Form";
 import { FormDrawerWrapper } from "@root/components/common";
+
 import AddressAutocomplete from "../AddressAutocomplete";
 import { componentType } from "../utils/addressUtils";
 import Snackbar from "@root/components/Snackbar";
@@ -40,6 +41,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const [openSnackBar, setOpenSnackbar] = useState(false);
 
 	useEffect(() => {
+		if (!handleUnsavedChanges) {
+			return;
+		}
+
 		handleUnsavedChanges(!addressesAreEqual(addressToEdit, state.data as any));
 	}, [addressToEdit, state.data]);
 
@@ -84,6 +89,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	 */
 	const onSubmit = handleSubmit(useCallback(async () => {
 		onSave({
+			...(addressToEdit || {}),
 			address1: state.data.address1,
 			address2: state.data.address2,
 			address3: state.data.address3,
@@ -98,6 +104,7 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	}, [
 		handleClose,
 		onSave,
+		addressToEdit,
 		state.data.address1,
 		state.data.address2,
 		state.data.address3,

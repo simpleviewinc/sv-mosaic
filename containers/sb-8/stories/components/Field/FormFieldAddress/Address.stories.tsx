@@ -1,7 +1,10 @@
-import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+
+import React, { useMemo } from "react";
 import { renderButtons } from "../../../../utils";
-import { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
+
+import type { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
+        
 import Form, { useForm } from "@root/components/Form";
 import { FieldDef } from "@root/components/Field";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
@@ -26,11 +29,57 @@ const commonInputSettings = {
 	googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 };
 
+const addresses: AddressData = [
+	{
+		id: 1,
+		address1: "137 Teaticket Highway",
+		address2: "",
+		city: "Falmouth",
+		state: {
+		label: "Massachusetts",
+			value: "MA"
+		},
+		postalCode: "02536",
+		country: {
+			label: "United States",
+			value: "US"
+		},
+		types: [
+			{
+				label: "Physical",
+				value: "physical",
+			}
+		]
+	},
+	{
+		id: 2,
+		address1: "555 East Main Street",
+		address2: "",
+		city: "Norfolk",
+		state: {
+			label: "Virginia",
+			value: "VA"
+		},
+		postalCode: "23510",
+		country: {
+			label: "United States",
+			value: "US"
+		},
+		types: [
+			{
+				label: "Physical",
+				value: "physical",
+			}
+		]
+	}
+];
+
 export const Playground = ({
 	label,
 	disabled,
 	required,
 	skeleton,
+	prepopulate,
 	amountPerType,
 	amountShipping,
 	amountPhysical,
@@ -38,6 +87,10 @@ export const Playground = ({
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
+
+	const getFormValues = useMemo(() => (prepopulate ? async () => {
+		return { address: addresses }
+	} : undefined), [prepopulate]);
 
 	const fields = useMemo(
 		() : FieldDef[] => (
@@ -63,14 +116,15 @@ export const Playground = ({
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
 				buttons={renderButtons(handleSubmit)}
 				title="Address field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };
@@ -80,6 +134,7 @@ Playground.args = {
 	disabled: false,
 	required: false,
 	skeleton: false,
+	prepopulate: false,
 	amountPerType: "undefined",
 	amountShipping: "undefined",
 	amountPhysical: "undefined",
@@ -98,6 +153,9 @@ Playground.argTypes = {
 	},
 	skeleton: {
 		name: "Skeleton",
+	},
+	prepopulate: {
+		name: "Prepopulate",
 	},
 	amountPerType: {
 		name: "Maximum of Each Type",

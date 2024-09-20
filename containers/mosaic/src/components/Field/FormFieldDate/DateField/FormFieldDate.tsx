@@ -1,28 +1,24 @@
-import * as React from "react";
-import { ReactElement, memo, useRef } from "react";
+import type { ReactElement } from "react";
 
-// Components
-import DatePicker from "../DatePicker";
-import TimePicker from "../../FormFieldTime/TimePicker";
+import React, { memo, useEffect, useMemo, useRef } from "react";
 
-// Styles
-import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
-import { MosaicFieldProps } from "@root/components/Field";
-import { DateFieldInputSettings, DateData } from "./DateFieldTypes";
-import { textIsValidDate } from "@root/utils/date";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { DateFieldInputSettings, DateData } from "./DateFieldTypes";
+
+import { matchTime, parseTime, textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER, TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
 import { useFieldErrors } from "@root/utils/hooks";
+import DatePicker from "../DatePicker";
+import TimePicker from "../../FormFieldTime/TimePicker";
+import { DateTimePickerWrapper, DateTimeInputRow } from "./DateField.styled";
 import { FormFieldDateSkeleton } from "./FormFieldDateSkeleton";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
 		fieldDef,
 		onChange,
-		value = {
-			validDate: false,
-			validTime: false,
-		},
+		value: providedValue,
 		onBlur,
 		disabled,
 		error,
@@ -31,19 +27,48 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		skeleton,
 		id,
 	} = props;
+	const {
+		inputSettings: {
+			showTime,
+			minDate,
+			maxDate,
+			defaultTime,
+		} = {},
+	} = fieldDef;
 
-	const showTime = fieldDef?.inputSettings?.showTime;
 	const blurred = useRef<{ date: boolean; time: boolean }>({ date: false, time: false });
+	const value = useMemo(() => providedValue || {
+		validDate: false,
+		validTime: false,
+	}, [providedValue]);
 
 	const { addError, removeError } = useFieldErrors({
 		methods,
 		name: fieldDef.name,
 	});
 
+	useEffect(() => {
+		if (providedValue || !defaultTime) {
+			return;
+		}
+
+		try {
+			const time = matchTime(new Date(), parseTime(defaultTime));
+			onChange({
+				date: undefined,
+				validDate: false,
+				time,
+				validTime: true,
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	}, [defaultTime, providedValue, onChange]);
+
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
 
-		if (fieldDef?.inputSettings?.showTime && date && !value.validTime) {
+		if (showTime && date && !value.validTime) {
 			addError(TIME_REQUIRED);
 		} else {
 			removeError(TIME_REQUIRED);
@@ -120,7 +145,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 		if (
 			blurred.current.date &&
-			(!fieldDef?.inputSettings?.showTime || blurred.current.time)
+			(!showTime || blurred.current.time)
 		) {
 			onBlur();
 		}
@@ -143,8 +168,8 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 						type: "",
 						inputSettings: {
 							placeholder: DATE_FORMAT_FULL_PLACEHOLDER,
-							minDate: fieldDef?.inputSettings?.minDate,
-							maxDate: fieldDef?.inputSettings?.maxDate,
+							minDate,
+							maxDate,
 						},
 						required: fieldDef?.required,
 					}}
