@@ -1,9 +1,11 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Button from "../../Button";
-import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
+
+import type { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
+
 import { useWrappedToggle } from "@root/utils/toggle";
+import Button from "../../Button";
 import { StyledButtonRow } from "./DataViewActionsButtonRow.styled";
 
 function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
@@ -97,10 +99,6 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 			...additionalActionsButton,
 		];
 	}, [primaryActionButtons, additionalActionsButton]);
-
-	if (buttons.length === 0) {
-		return null;
-	}
 
 	return (
 		<StyledButtonRow $hidden={props.actionsHidden}>
