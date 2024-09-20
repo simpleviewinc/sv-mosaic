@@ -1,5 +1,5 @@
-import { MosaicLabelValue } from "@root/types";
-import { FieldDefBase } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
+import type { FieldDefBase } from "@root/components/Field";
 
 export type IAddress = {
 	address1: string;
@@ -33,9 +33,9 @@ export interface AddressCardProps {
 	onEdit?: (address: IAddress) => void;
 }
 export interface AddressDrawerProps {
-	addressToEdit?: IAddress;
+	addressToEdit?: AddressItem;
 	googleMapsApiKey: string;
-	onSave: (address: IAddress) => void;
+	onSave: (address: AddressItem) => void;
 	handleClose: (save?: boolean) => Promise<void>;
 	addressTypes?: MosaicLabelValue[];
 	handleUnsavedChanges?: (val: boolean) => void;
@@ -55,7 +55,9 @@ export type AddressFieldInputSettings = {
 	googleMapsApiKey: string;
 };
 
-export type AddressData = IAddress[];
+export type AddressItem = IAddress & Record<PropertyKey, unknown>;
+
+export type AddressData = AddressItem[];
 
 export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings>;
 
