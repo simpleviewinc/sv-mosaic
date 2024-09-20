@@ -26,6 +26,8 @@ const testIds = {
 	DATA_VIEW_VIEW_APPLY: "mos:DataView:view:apply",
 	DATA_VIEW_VIEW_DELETE: "mos:DataView:view:delete",
 	DATA_VIEW_FILTER_MULTI_COUNTER: "mos:DataView:filterMultiCounter",
+	DATA_VIEW_SORT_ASC: "mos:DataView:sortAsc",
+	DATA_VIEW_SORT_DESC: "mos:DataView:sortDesc",
 	TOP_SUMMARY: "mos:TopSummary:root",
 	TOGGLE: "mos:Toggle:root",
 } as const;
