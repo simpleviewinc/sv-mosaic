@@ -1,7 +1,7 @@
 import React, { ReactElement, useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL } from "@root/constants";
 

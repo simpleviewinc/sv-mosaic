@@ -2,8 +2,7 @@ import * as React from "react";
 import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
 
 import FormFieldDropdown from "@root/components/Field/FormFieldDropdown";
-import { getOptions } from "@root/utils/getOptions";
-import { additionalOptions } from "@root/components/Field/FormFieldAdvancedSelection";
+import { optionsLibrary, getOptions } from "@root/mock";
 
 const topFilms = [
 	{ label: "The Shawshank Redemption", value: "1994" },
@@ -82,13 +81,13 @@ describe("Dropdown component with options from DB", () => {
 							placeholder: "Placeholder test",
 						},
 					}}
-					value={additionalOptions[7]}
+					value={optionsLibrary[7]}
 				/>,
 			);
 		});
 		await waitFor(() => {
 			const inputDropdown = getByRole("combobox") as HTMLInputElement;
-			expect(inputDropdown.value).toEqual(additionalOptions[7].label);
+			expect(inputDropdown.value).toEqual(optionsLibrary[7].label);
 		}, { timeout: 3000 });
 	});
 
@@ -116,7 +115,7 @@ describe("Dropdown component with options from DB", () => {
 
 		await waitFor(() => {
 			const singleSelectOptions = screen.getAllByRole("option");
-			expect(singleSelectOptions[0]).toHaveTextContent(additionalOptions[0].label);
+			expect(singleSelectOptions[0]).toHaveTextContent(optionsLibrary[0].label);
 		}, { timeout: 1000 });
 	});
 });

@@ -11,7 +11,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import LinkIcon from "@mui/icons-material/Link";
 
 import MosaicContext from "@root/components/MosaicContext";
-import useMosaicSettings from "@root/utils/useMosaicSettings";
+import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
 
 import { LeftNavItemRootDef } from "@root/components/LeftNav";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
@@ -524,7 +524,7 @@ const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
 				},
 				// automate 20 entries to create a vertical scroller in the flyout
 				...(
-					new Array(35).fill(0).map((val, i) => {
+					new Array(35).fill(0).map((_, i) => {
 						return {
 							name : `short_icon_children.filler_item_${i}`,
 							label : `Filler ${i}`,

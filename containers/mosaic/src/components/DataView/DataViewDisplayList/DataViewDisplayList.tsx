@@ -1,29 +1,16 @@
-import * as React from "react";
-import { useCallback, useMemo, useRef } from "react";
+import type { Modifier } from "@dnd-kit/core";
+
+import React, { useCallback, useMemo, useRef } from "react";
+import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { arrayMove, sortableKeyboardCoordinates, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import styled from "styled-components";
-import {
-	closestCenter,
-	DndContext,
-	KeyboardSensor,
-	Modifier,
-	PointerSensor,
-	useSensor,
-	useSensors,
-} from "@dnd-kit/core";
-import {
-	restrictToVerticalAxis,
-} from "@dnd-kit/modifiers";
-import {
-	arrayMove,
-	sortableKeyboardCoordinates,
-	SortableContext,
-	verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+
+import type { DataViewDisplayListProps } from "./DataViewDisplayListTypes";
 
 import DataViewTHead from "../DataViewTHead";
 import DataViewTBody from "../DataViewTBody";
-import { transformRows } from "@root/utils/dataViewTools";
-import { DataViewDisplayListProps } from "./DataViewDisplayListTypes";
+import { transformRows } from "../dataViewTools";
 import { restrictToBoundingRect } from "@root/utils/dom/restrictToBoundingRect";
 import { sum } from "@root/utils/math/sum";
 

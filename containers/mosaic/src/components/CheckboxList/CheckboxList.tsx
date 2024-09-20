@@ -1,26 +1,25 @@
 import * as React from "react";
-import { useId, useMemo, useCallback, ReactElement, HTMLAttributes } from "react";
+import type { ReactElement, HTMLAttributes } from "react";
+import { useId, useMemo, useCallback } from "react";
 import xorBy from "lodash/xorBy";
 
 import Checkbox from "@root/components/Checkbox";
-import { useStateRef } from "@root/utils/reactTools";
-import { CheckboxListProps } from "./CheckboxListTypes";
+import type { CheckboxListProps } from "./CheckboxListTypes";
 import FormGroup from "@mui/material/FormGroup";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 
 const CheckboxList = (props: CheckboxListProps & HTMLAttributes<HTMLInputElement>): ReactElement => {
-	const checkedRef = useStateRef(props.checked);
 	const fallbackId = useId();
 	const id = props.id || fallbackId;
 
 	const handleToggle = useCallback(
 		(value: MosaicLabelValue | { [key: string]: unknown }) => () => {
 			// toggle the item in the array
-			const newChecked = xorBy(checkedRef.current, [value], (option) => option.value);
+			const newChecked = xorBy(props.checked, [value], (option) => option.value);
 			props.onChange(newChecked);
 			props?.onChangeCb && props.onChangeCb(newChecked);
 		},
-		[checkedRef, props.onChange, props.options],
+		[props.checked, props.onChange, props.options],
 	);
 
 	const callbacks = useMemo(() => {

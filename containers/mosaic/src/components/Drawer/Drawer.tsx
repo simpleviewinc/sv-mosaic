@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useRef, Key, ReactElement } from "react";
+import type { Key, ReactElement } from "react";
+import type { DrawerProps as MUIDrawerProps } from "@mui/material/Drawer";
+import type { SxProps } from "@mui/system";
+
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import MUIDrawer, { DrawerProps as MUIDrawerProps } from "@mui/material/Drawer";
+import MUIDrawer from "@mui/material/Drawer";
 
 import theme from "@root/theme";
-import { SxProps } from "@mui/system";
 
 const StyledDrawerContent = styled.div`
 	font-family: ${theme.fontFamily};
@@ -98,7 +101,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		if (exitCB) exitCB();
 	};
 
-	const onDrawClose = (e, r) => {
+	const onDrawClose = (_, r: string) => {
 		if (!backdropCloseHandler && r === "backdropClick") {
 			return;
 		}

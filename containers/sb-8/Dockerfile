@@ -13,6 +13,7 @@ COPY yarn.lock /app/yarn.lock
 RUN cd /app && yarn install
 
 COPY stories /app/stories
+COPY utils /app/utils
 COPY .storybook /app/.storybook
 COPY tsconfig.json /app/tsconfig.json
 COPY tsconfig.node.json /app/tsconfig.node.json

@@ -1,16 +1,15 @@
-import * as React from "react";
-import { ButtonProps } from "@root/components/Button";
-import {
-	memo,
-	ReactElement,
-	useCallback,
-	useState,
-} from "react";
-import { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
-import { FormDrawerWrapper } from "../../../forms/shared/styledComponents";
-import { DataViewFilterMultiselectDropdownContent, GetOptions } from "@root/components/DataViewFilterMultiselect";
+import type { ReactElement } from "react";
+
+import React, { memo, useCallback, useState } from "react";
+
+import type { ButtonProps } from "@root/components/Button";
+import type { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
+import type { GetOptions } from "@root/components/DataViewFilterMultiselect";
+import type { MosaicLabelValue } from "@root/types";
+
+import { FormDrawerWrapper } from "@root/components/common";
+import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
 import PageHeader from "@root/components/PageHeader";
-import { MosaicLabelValue } from "@root/types";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {

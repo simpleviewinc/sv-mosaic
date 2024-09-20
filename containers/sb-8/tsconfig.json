@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ES2022.Intl"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -27,6 +27,9 @@
       "react": [ "./node_modules/@types/react" ]
 		},
   },
-  "include": ["./stories/**/*.tsx"],
+  "include": [
+    "./stories/**/*.tsx",
+    "./utils/**/*.ts",
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

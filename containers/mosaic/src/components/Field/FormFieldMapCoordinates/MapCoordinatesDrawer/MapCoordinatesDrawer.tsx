@@ -1,14 +1,13 @@
-import * as React from "react";
-import { ReactElement, useCallback, useEffect, useMemo } from "react";
-import { MapCoordinatesDrawerProps } from "..";
+import type { ReactElement } from "react";
+
+import React, { useCallback, useEffect, useMemo } from "react";
+
+import type { MapCoordinatesDrawerProps } from "..";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
-import { MapPosition } from "../MapCoordinatesTypes";
-import { ButtonProps } from "@root/components/Button";
+import type { MapPosition } from "../MapCoordinatesTypes";
+import type { ButtonProps } from "@root/components/Button";
 
-// Components
-import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
-
-// Utils
+import { FormDrawerWrapper } from "@root/components/common";
 import { defaultMapPosition, isSameCoords, isValidCoords, isValidLatLng } from "../MapCoordinatesUtils";
 import Form, { useForm } from "@root/components/Form";
 import { validateLatitude, validateLongitude } from "@root/components/Form/validators";

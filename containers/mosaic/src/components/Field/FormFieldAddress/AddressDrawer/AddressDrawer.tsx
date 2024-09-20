@@ -1,17 +1,17 @@
 import type { ReactElement, SyntheticEvent } from "react";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { geocodeByAddress } from "react-places-autocomplete";
 
-import type { MosaicLabelValue } from "@root/types";
-import type { AddressDrawerProps, IAddress } from "../AddressTypes";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
 import type { SectionDef } from "@root/components/Form";
+import type { AddressDrawerProps, IAddress } from "../AddressTypes";
+import type { MosaicLabelValue } from "@root/types";
 
 import Form, { useForm } from "@root/components/Form";
+import { FormDrawerWrapper } from "@root/components/common";
 
-import { FormDrawerWrapper } from "@root/forms/shared/styledComponents";
 import AddressAutocomplete from "../AddressAutocomplete";
-import { geocodeByAddress } from "react-places-autocomplete";
 import { componentType } from "../utils/addressUtils";
 import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";

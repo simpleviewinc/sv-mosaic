@@ -3,13 +3,12 @@ import * as React from "react";
 import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { ControlsConfig, ControlWithProps, defaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
-import { renderButtons } from "@root/utils/storyUtils";
+import { ControlWithProps, defaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
 import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
 import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
-import SelectAllIcon from "@mui/icons-material/SelectAll";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { SimpleViewAlert } from "./SimpleviewAlertExtension";
 import { controls } from "./controls";

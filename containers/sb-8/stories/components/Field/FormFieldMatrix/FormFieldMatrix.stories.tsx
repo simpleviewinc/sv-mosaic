@@ -10,11 +10,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Drawers from "@root/components/Drawers";
 
 // Utils
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 import { DataViewProps } from "@root/components/DataView";
 import { listColumns } from "@root/components/Field/FormFieldMatrix/matrixUtils";
 import MosaicContext from "@root/components/MosaicContext";
-import useMosaicSettings from "@root/utils/useMosaicSettings";
+import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
 import Button from "@root/components/Button/Button";
 
 export default {

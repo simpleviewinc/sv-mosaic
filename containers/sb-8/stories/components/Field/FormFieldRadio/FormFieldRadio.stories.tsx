@@ -1,11 +1,11 @@
 import * as React from "react";
 import { ReactElement, useMemo } from "react";
 import { FieldDef } from "@root/components/Field";
-import { renderButtons } from "@root/utils/storyUtils";
+import { renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions } from "@root/utils/getOptions";
+import { getOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldRadio",
