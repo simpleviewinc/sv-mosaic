@@ -1,7 +1,9 @@
-import { MosaicObject, MosaicToggle } from "@root/types";
-import { DataViewColumnTransform } from "../DataView";
-import { SectionDef } from "../Form/FormTypes";
-import { ButtonProps } from "@root/components/Button";
+import type { ReactNode } from "react";
+
+import type { MosaicObject, MosaicToggle } from "@root/types";
+import type { DataViewColumnTransform } from "../DataView";
+import type { SectionDef } from "../Form/FormTypes";
+import type { ButtonProps } from "@root/components/Button";
 
 export interface ContentFieldDef {
 	/**
@@ -13,6 +15,11 @@ export interface ContentFieldDef {
    * The label is render above of the component.
    */
 	label: React.ReactNode;
+	/**
+    * If provided, will render a tooltip icon alongside
+    * the content item's label
+    */
+	tooltip?: ReactNode;
 	/**
    * Functions which will receive raw data that will be use to render
    * a component.
