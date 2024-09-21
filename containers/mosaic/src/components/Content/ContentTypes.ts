@@ -71,3 +71,5 @@ export interface ContentProps {
 export type ContentFieldProps = ContentFieldDef & {
 	value: unknown;
 };
+
+export type ContentFieldTooltipProps = Pick<ContentFieldProps, "tooltip">;
