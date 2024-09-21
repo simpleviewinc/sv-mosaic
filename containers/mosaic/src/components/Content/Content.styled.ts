@@ -108,6 +108,10 @@ export const FieldTerm = styled.dt`
 	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 24px;
 `;
 
 export const FieldDefinition = styled.dd`

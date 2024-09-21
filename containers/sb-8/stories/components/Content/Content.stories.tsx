@@ -148,6 +148,7 @@ export const Playground = ({
 		{
 			name: "chips",
 			label: "Chips using transform_chips()",
+			tooltip: "This is a list of chips",
 			transforms: [transform_chips()],
 			column: "tags",
 			show: showFirstRowItems,
@@ -155,6 +156,7 @@ export const Playground = ({
 		{
 			name: "toggle",
 			label: "Toggle using transform_boolean()",
+			tooltip: <>This came in as a boolean, but<br />will displayed as yes or no</>,
 			transforms: [transform_boolean()],
 		},
 		{
