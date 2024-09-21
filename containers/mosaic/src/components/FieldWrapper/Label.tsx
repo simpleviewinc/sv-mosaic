@@ -1,16 +1,15 @@
-import * as React from "react";
-import { ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
+import React from "react";
 import styled from "styled-components";
-
-// Material UI
 import InputLabel from "@mui/material/InputLabel";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
+import type { TransientProps } from "@root/types";
 
 import theme from "@root/theme";
-import { TransientProps } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 import Tooltip, { useTooltip } from "../Tooltip";
 import testIds from "@root/utils/testIds";
+import { TooltipIcon } from "../common";
 
 const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
@@ -40,15 +39,6 @@ const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: 12px;
 	margin-left: auto;
-`;
-
-const StyledInfoOutlinedIcon = styled(InfoOutlinedIcon)`
-  && {
-	fill: ${theme.newColors.realTeal["100"]};
-	font-size: 16px;
-	width: 24px;
-	height: 24px;
-  }
 `;
 
 const StyledInputLabel = styled(InputLabel)`
@@ -112,7 +102,7 @@ const Label = (props: LabelProps): ReactElement => {
 			</StyledInputLabel>
 			{instructionText && (
 				<StyledTooltipWrapper $colsInRow={colsInRow}>
-					<StyledInfoOutlinedIcon {...anchorProps} />
+					<TooltipIcon {...anchorProps} />
 					<Tooltip {...tooltipProps}>
 						{instructionText}
 					</Tooltip>
