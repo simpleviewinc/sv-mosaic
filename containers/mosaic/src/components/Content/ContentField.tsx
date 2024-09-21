@@ -7,16 +7,13 @@ import {
 } from "./Content.styled";
 import Blank from "@root/components/Blank";
 import testIds from "@root/utils/testIds";
-import { TooltipIcon } from "../common";
-import Tooltip, { useTooltip } from "../Tooltip";
+import { ContentFieldTooltip } from "./ContentFieldTooltip";
 
 /**
  * Checks if the field exists, can be shown and executes its transform function
  * if any otherwise it will render the data.
  */
 const ContentField = ({ label, transforms, value: rawValue, tooltip }: ContentFieldProps) => {
-	const { anchorProps, tooltipProps } = useTooltip();
-
 	const value = useMemo(() => {
 		if (rawValue === undefined || rawValue === "" || (Array.isArray(rawValue) && !rawValue.length)) {
 			return <Blank />;
@@ -36,14 +33,7 @@ const ContentField = ({ label, transforms, value: rawValue, tooltip }: ContentFi
 		>
 			<FieldTerm>
 				{label}
-				{tooltip && (
-					<>
-						<TooltipIcon {...anchorProps} />
-						<Tooltip {...tooltipProps}>
-							{tooltip}
-						</Tooltip>
-					</>
-				)}
+				{tooltip && <ContentFieldTooltip tooltip={tooltip} />}
 			</FieldTerm>
 			<FieldDefinition>
 				<FieldDefinitionInner>
