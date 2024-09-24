@@ -2634,7 +2634,6 @@ __metadata:
     "@tiptap/extension-bullet-list": ^2.5.6
     "@tiptap/extension-code": ^2.5.6
     "@tiptap/extension-code-block": 2.5.6
-    "@tiptap/extension-code-block-lowlight": 2.5.6
     "@tiptap/extension-document": ^2.5.6
     "@tiptap/extension-dropcursor": ^2.5.6
     "@tiptap/extension-hard-break": ^2.5.6
@@ -2673,7 +2672,6 @@ __metadata:
     jodit: 3.19.3
     jsdom: 25.0.0
     lodash: ^4.17.15
-    lowlight: ^3.1.0
     nanoid: ^3.3.7
     postcode-validator: ^3.8.21
     react: 18.3.1
@@ -2889,17 +2887,6 @@ __metadata:
   peerDependencies:
     "@tiptap/core": ^2.6.6
   checksum: 27cedba469755f59600b3bd1673467f837514f952bdad3ef1be276b658957f483ac89ab87421b10d6087f7217720f07125e7093fa84179e148bb69e29e542ff8
-  languageName: node
-  linkType: hard
-
-"@tiptap/extension-code-block-lowlight@npm:2.5.6":
-  version: 2.5.6
-  resolution: "@tiptap/extension-code-block-lowlight@npm:2.5.6"
-  peerDependencies:
-    "@tiptap/core": ^2.5.6
-    "@tiptap/extension-code-block": ^2.5.6
-    "@tiptap/pm": ^2.5.6
-  checksum: 508d14958981149ba2f531376d4bdb052a448ad591150b0cd1cf78e63ba9525eae891d73c5aa2f2f508c30ee7545d07b6ad22f1aa153bde00ead657996581b74
   languageName: node
   linkType: hard
 
@@ -3203,15 +3190,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hast@npm:^3.0.0":
-  version: 3.0.4
-  resolution: "@types/hast@npm:3.0.4"
-  dependencies:
-    "@types/unist": "*"
-  checksum: 7a973e8d16fcdf3936090fa2280f408fb2b6a4f13b42edeb5fbd614efe042b82eac68e298e556d50f6b4ad585a3a93c353e9c826feccdc77af59de8dd400d044
-  languageName: node
-  linkType: hard
-
 "@types/json-schema@npm:*, @types/json-schema@npm:^7.0.12":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -3288,13 +3266,6 @@ __metadata:
   version: 4.2.6
   resolution: "@types/stylis@npm:4.2.6"
   checksum: 3a1685f2b465eb943805252b5b2934fc8054fe8706f76e3e28544f69532296f42c042d0b402fadc486ef8e86cc3d8a2c66d2345241e0af8e07974dd36d85a79c
-  languageName: node
-  linkType: hard
-
-"@types/unist@npm:*":
-  version: 3.0.3
-  resolution: "@types/unist@npm:3.0.3"
-  checksum: 96e6453da9e075aaef1dc22482463898198acdc1eeb99b465e65e34303e2ec1e3b1ed4469a9118275ec284dc98019f63c3f5d49422f0e4ac707e5ab90fb3b71a
   languageName: node
   linkType: hard
 
@@ -4443,19 +4414,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dequal@npm:^2.0.0, dequal@npm:^2.0.3":
+"dequal@npm:^2.0.3":
   version: 2.0.3
   resolution: "dequal@npm:2.0.3"
   checksum: 8679b850e1a3d0ebbc46ee780d5df7b478c23f335887464023a631d1b9af051ad4a6595a44220f9ff8ff95a8ddccf019b5ad778a976fd7bbf77383d36f412f90
-  languageName: node
-  linkType: hard
-
-"devlop@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "devlop@npm:1.1.0"
-  dependencies:
-    dequal: ^2.0.0
-  checksum: d2ff650bac0bb6ef08c48f3ba98640bb5fec5cce81e9957eb620408d1bab1204d382a45b785c6b3314dc867bb0684936b84c6867820da6db97cbb5d3c15dd185
   languageName: node
   linkType: hard
 
@@ -5447,13 +5409,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight.js@npm:~11.9.0":
-  version: 11.9.0
-  resolution: "highlight.js@npm:11.9.0"
-  checksum: 4043d31c5de9d27d13387d9a9e5e1939557254b7b85f0fab85d9cae0e420e131a3456ebf6148552020a1d8a216d671d583f2433d6c4de6179b8a66487a8325cb
-  languageName: node
-  linkType: hard
-
 "hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
@@ -6319,17 +6274,6 @@ __metadata:
   dependencies:
     get-func-name: ^2.0.1
   checksum: c7efa6bc6d71f25ca03eb13c9a069e35ed86799e308ca27a7a3eff8cdf9500e7c22d1f2411468d154a8e960e91e5e685e0c6c83e96db748f177c1adf30811153
-  languageName: node
-  linkType: hard
-
-"lowlight@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "lowlight@npm:3.1.0"
-  dependencies:
-    "@types/hast": ^3.0.0
-    devlop: ^1.0.0
-    highlight.js: ~11.9.0
-  checksum: 023389ae4685234735e821594875ccd72b0c2255e6d6fa1c5b77f256df71d683c64c54d71e49b6f2532f2ccf8b89ef82d49cac7c30c94872cc60d9e9512879d2
   languageName: node
   linkType: hard
 

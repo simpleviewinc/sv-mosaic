@@ -1,5 +1,12 @@
 # sv-mosaic changelog
 
+### 37.2.2 - 09/24/2024
+
+## Improvements and Fixes
+
+* `FormFieldTextEditor`
+  * Due to compatibility issues, the syntax highlighting for the code block extension has been dropped. Code blocks will now be rendered with the standard black text.
+
 ### 37.2.1 - 09/17/2024
 
 ## Improvements and Fixes
