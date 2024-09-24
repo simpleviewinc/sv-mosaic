@@ -1,11 +1,8 @@
-import { common, createLowlight } from "lowlight";
-import "highlight.js/styles/stackoverflow-light.min.css";
-
 import Blockquote from "@tiptap/extension-blockquote";
 import Bold from "@tiptap/extension-bold";
 import BulletList from "@tiptap/extension-bullet-list";
 import Code from "@tiptap/extension-code";
-import CodeBlock from "@tiptap/extension-code-block-lowlight";
+import CodeBlock from "@tiptap/extension-code-block";
 import Dropcursor from "@tiptap/extension-dropcursor";
 import Document from "@tiptap/extension-document";
 import HardBreak from "@tiptap/extension-hard-break";
@@ -26,8 +23,6 @@ import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { WildCardContent } from "./WildCardContent";
 
-const lowlight = createLowlight(common);
-
 export const defaultExtensions = [
 	Dropcursor,
 	Document,
@@ -36,9 +31,7 @@ export const defaultExtensions = [
 	Bold,
 	Blockquote,
 	Code,
-	CodeBlock.configure({
-		lowlight,
-	}),
+	CodeBlock,
 	Image.configure({
 		inline: true,
 	}),

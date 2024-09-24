@@ -1,6 +1,6 @@
 {
 	"name": "automation_testing",
-	"version": "37.2.1",
+	"version": "37.2.2",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
