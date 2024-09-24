@@ -25,15 +25,15 @@ function FormFieldTextEditorTipTapUnmemoised({
 	onChange,
 	onBlur: onBlurProvided,
 	fieldDef: {
-		inputSettings: providedInputSettings,
-		inputSettings: {
-			extensions: providedExtensions,
-			controls = defaultControls,
-		} = {},
+		inputSettings: providedInputSettings = {},
 	},
 	disabled,
 	skeleton,
 }: MosaicFieldProps<"textEditor", TextEditorNextInputSettings, TextEditorData>): ReactElement {
+	const {
+		extensions: providedExtensions,
+		controls = defaultControls,
+	} = providedInputSettings;
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
 	const floatingToolbarBusy = useRef(false);
