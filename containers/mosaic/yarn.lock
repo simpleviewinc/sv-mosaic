@@ -2667,6 +2667,7 @@ __metadata:
     eslint: 8.56.0
     eslint-plugin-react: 7.30.1
     eslint-plugin-react-hooks: 4.6.0
+    highlight.js: ^11.10.0
     i18next: 19.5.0
     identity-obj-proxy: 3.0.0
     jodit: 3.19.3
@@ -5434,6 +5435,13 @@ __metadata:
   dependencies:
     function-bind: ^1.1.2
   checksum: e8516f776a15149ca6c6ed2ae3110c417a00b62260e222590e54aa367cbcd6ed99122020b37b7fbdf05748df57b265e70095d7bf35a47660587619b15ffb93db
+  languageName: node
+  linkType: hard
+
+"highlight.js@npm:^11.10.0":
+  version: 11.10.0
+  resolution: "highlight.js@npm:11.10.0"
+  checksum: 65f89966a164f283a3083ce90f65d6f78c5d91c2ab753c70dc2f1d117ee8fe982ed428e51e663c37c562c88b7dad18cdd84769e522f0f8764462c448017c6dfa
   languageName: node
   linkType: hard
 
