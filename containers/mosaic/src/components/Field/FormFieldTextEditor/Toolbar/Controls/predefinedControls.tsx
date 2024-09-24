@@ -1,7 +1,5 @@
 import type { Node } from "@tiptap/pm/model";
 
-import "highlight.js/styles/stackoverflow-light.min.css";
-
 import BoldIcon from "@mui/icons-material/FormatBold";
 import ClearIcon from "@mui/icons-material/FormatClear";
 import AlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
