@@ -41,4 +41,4 @@ echo "${url}"
 echo "------------"
 echo "Commits since develop"
 echo "-------------"
-git --no-pager log develop..HEAD --oneline --format="- %s"
+git --no-pager log develop..HEAD --oneline --format="- %s" --reverse
