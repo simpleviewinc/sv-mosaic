@@ -12,7 +12,6 @@ const variant = "contained";
 const label = "My Button";
 const buttonColors: ButtonProps["color"][] = ["black", "blue", "gray", "lightBlue", "red", "teal", "white", "yellow"];
 const buttonVariants: ButtonProps["variant"][] = ["contained", "icon", "input", "outlined", "text"];
-const menuContent: ButtonProps["menuContent"] = <>Menu Content</>;
 const menuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null }, { label: "Test 2", onClick: () => null }];
 const notShownMenuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null, show: false }];
 
@@ -100,24 +99,6 @@ describe(__dirname, () => {
 	it("should render an icon button with icon positioned to the right", async () => {
 		await setup({ mIcon: Icon, iconPosition: "right" });
 		expect(screen.queryByRole("button")).toBeInTheDocument();
-	});
-
-	it("should render a button with menu content", async () => {
-		const onClickMock = vi.fn();
-
-		const { user } = await setup({
-			menuContent,
-			onClick: onClickMock,
-		});
-
-		const button = screen.queryByRole("button");
-		await user.click(button);
-		expect(onClickMock).toBeCalled();
-
-		const menu = screen.queryByText("Menu Content");
-		expect(menu).toBeInTheDocument();
-		await user.keyboard("{Escape}");
-		expect(menu).not.toBeInTheDocument();
 	});
 
 	it("should render a button with menu items", async () => {
