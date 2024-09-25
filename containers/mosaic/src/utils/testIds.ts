@@ -32,6 +32,7 @@ const testIds = {
 	DATA_VIEW_TBODY: "mos:DataView:tableBody",
 	DATA_VIEW_CELL_DRAG: "mos:DataView:cellDrag",
 	DATA_VIEW_CELL_CHECK: "mos:DataView:cellCheck",
+	DATA_VIEW_DISPLAY_CONTROL: "mos:DataView:displayControl",
 	TOP_SUMMARY: "mos:TopSummary:root",
 	TOGGLE: "mos:Toggle:root",
 } as const;
