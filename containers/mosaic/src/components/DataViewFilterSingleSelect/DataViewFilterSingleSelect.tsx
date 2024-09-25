@@ -87,6 +87,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 				items={state.options}
 				onChange={onChange}
 				value={value}
+				placeholder={!props.args?.required ? "Any..." : undefined}
 			/>
 		</StyledWrapper>
 	);

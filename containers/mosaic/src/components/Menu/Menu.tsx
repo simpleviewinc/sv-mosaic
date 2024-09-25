@@ -17,11 +17,11 @@ function Menu({
 }: MenuProps) {
 	const menuItems = useMemo(() => {
 		const itemsWithPlaceholder: MenuItemProps[] = [
-			...items,
 			...(placeholder ? [{
 				label: placeholder,
 				value: undefined,
 			}] : []),
+			...items,
 		];
 
 		const menuItems = itemsWithPlaceholder.map(({ onClick, ...item }, i) => {
