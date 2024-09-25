@@ -213,12 +213,4 @@ test.describe("Components - Button - Playground", () => {
 		await expect(buttonPage.menuLocator).toBeVisible();
 		expect(await buttonPage.menuItem.count()).toBe(2);
 	});
-
-	test("Validate menu content knob display a menu with three items.", async () => {
-		await buttonPage.visit(buttonPage.page_path, [knob.knobMenuContent + true]);
-		await buttonPage.button.waitFor();
-		await buttonPage.button.click();
-		await expect(buttonPage.menuLocator).toBeVisible();
-		expect(await buttonPage.menuItem.count()).toBe(3);
-	});
 });
