@@ -1,13 +1,12 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
 import styled from "styled-components";
-
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-import MenuSelect from "../../MenuSelect";
+import type { DataViewDisplayGridSortControlProps } from "./DataViewDisplayGridSortControlTypes";
+
 import Button from "../../Button";
-import { DataViewDisplayGridSortControlProps } from "./DataViewDisplayGridSortControlTypes";
 
 const StyledDiv = styled.div`
 	${/* The arrow is comically large without this */""}
@@ -54,13 +53,9 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 				variant="text"
 				color="black"
 				size="small"
-				menuContent={(
-					<MenuSelect
-						options={labelOptions}
-						value={props.sort.name}
-						onChange={onColumnChange}
-					/>
-				)}
+				menuItems={labelOptions}
+				menuOnChange={onColumnChange}
+				menuValue={props.sort.name}
 			/>
 			<Button
 				className="directionButton"

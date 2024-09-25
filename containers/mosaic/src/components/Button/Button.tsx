@@ -1,8 +1,12 @@
-import React, { MouseEvent, createContext, memo, useState, forwardRef } from "react";
-import Popover, { PopoverProps } from "@mui/material/Popover";
+import type { MouseEvent } from "react";
+import type { PopoverProps } from "@mui/material/Popover";
+
+import React, { createContext, memo, useState, forwardRef } from "react";
+import Popover from "@mui/material/Popover";
+
+import type { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 
 import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
-import { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 import Menu from "../Menu";
 import MenuBase from "../MenuBase";
 import { PopoverWrapper } from "./Button.styled";
@@ -152,7 +156,14 @@ function ButtonWithState(props: ButtonProps) {
 					</PopoverWrapper>
 				</Popover>
 			) : props.menuItems ? (
-				<Menu items={shownMenuItems} anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu} />
+				<Menu
+					items={shownMenuItems}
+					onChange={props.menuOnChange}
+					value={props.menuValue}
+					anchorEl={anchorEl}
+					open={Boolean(anchorEl)}
+					onClose={closeMenu}
+				/>
 			) : props.menuContent && (
 				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
 					{props.menuContent}

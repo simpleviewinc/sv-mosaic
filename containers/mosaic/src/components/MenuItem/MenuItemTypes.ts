@@ -1,13 +1,14 @@
-import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
-import { colors } from "./MenuItem.styled";
+import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
+import type { colors } from "./MenuItem.styled";
 
 export interface MenuItemProps {
 	label: string | JSX.Element;
+	value?: string;
 	color?: (typeof colors)[number];
 	mIcon?: SvgIconComponent;
 	disabled?: boolean;
 	selected?: boolean;
-	onClick(event?: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>): void;
+	onClick?: (event?: React.MouseEvent<HTMLButtonElement | HTMLLIElement, MouseEvent>) => void;
 	attrs?: MosaicObject;
 	name?: string;
 	show?: MosaicToggle;
@@ -19,4 +20,6 @@ export interface MenuItemProps {
 	 * instead.
 	 */
 	title?: boolean | string;
+	tabIndex?: number;
+	autoFocus?: boolean;
 }

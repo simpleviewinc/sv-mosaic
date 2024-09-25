@@ -1,15 +1,16 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
-import { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
 import theme from "@root/theme";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { default as MenuSelect, MenuSelectProps } from "../../MenuSelect";
+import type { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
+import type { MenuProps } from "@root/components/Menu/MenuTypes";
+
 import { StyledButton } from "./DataViewControlLimit.styled";
 
 function DataViewLimit(props: DataViewControlLimitProps) {
-	const onChange = useCallback<MenuSelectProps["onChange"]>(function(val) {
-		props.onLimitChange({ limit : Number(val) });
+	const onChange = useCallback<MenuProps["onChange"]>((value) => {
+		props.onLimitChange({ limit : Number(value) });
 	}, [props.onLimitChange]);
 
 	const options = useMemo(function() {
@@ -21,14 +22,6 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 		});
 	}, [props.options]);
 
-	const menuContent = (
-		<MenuSelect
-			options={options}
-			onChange={onChange}
-			value={props.limit.toString()}
-		/>
-	);
-
 	return (
 		<StyledButton
 			color="black"
@@ -38,7 +31,9 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
 			mIconColor={theme.newColors.almostBlack["100"]}
-			menuContent={menuContent}
+			menuItems={options}
+			menuOnChange={onChange}
+			menuValue={props.limit.toString()}
 		/>
 	);
 }

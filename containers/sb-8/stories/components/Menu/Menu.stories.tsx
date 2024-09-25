@@ -1,13 +1,16 @@
-import * as React from "react";
-import { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 import { default as Button, ButtonProps } from "@root/components/Button";
+import Typography from "@root/components/Typography";
 
 export default {
 	title : "Components/Menu",
+	parameters: {
+		layout: "centered",
+	},
 };
 
 const menuItemsLibrary = [
@@ -113,5 +116,48 @@ export const WithIcons = (): ReactElement => {
 			variant="contained"
 			menuItems={menuItems}
 		/>
+	);
+};
+
+export const Selectable = (): ReactElement => {
+	const [value, setValue] = useState("");
+
+	const menuItems: ButtonProps["menuItems"] = [
+		{
+			label : "Item A",
+			value: "item1",
+		},
+		{
+			label : "Item B",
+			color : "blue",
+			value: "item2",
+		},
+		{
+			label : "Item C",
+			color : "red",
+			value: "item3",
+		},
+	];
+
+	return (
+		<div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 8 }}>
+			<Typography variant="title">Current value: {value || "Not set"}</Typography>
+			<div style={{ display: "flex", gap: 8 }}>
+				<Button
+					label="Set Value"
+					color="blue"
+					variant="contained"
+					menuItems={menuItems}
+					menuOnChange={setValue}
+					menuValue={value}
+				/>
+				<Button
+					label="CLear"
+					color="red"
+					variant="contained"
+					onClick={() => setValue("")}
+				/>
+			</div>
+		</div>
 	);
 };
