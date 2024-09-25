@@ -25,7 +25,6 @@ export interface ButtonProps {
 	menuItems?: MenuItemProps[];
 	menuOnChange?: MenuProps["onChange"];
 	menuValue?: MenuProps["value"];
-	menuContent?: JSX.Element;
 	mIconColor?: string;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
