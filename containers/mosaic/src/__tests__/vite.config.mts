@@ -1,5 +1,5 @@
 import path from "path";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
@@ -17,6 +17,10 @@ export default defineConfig({
 		},
 		coverage: {
 			provider: "istanbul",
+			exclude: [
+				...configDefaults.coverage.exclude,
+				"scripts/*",
+			],
 		},
 	},
 });
