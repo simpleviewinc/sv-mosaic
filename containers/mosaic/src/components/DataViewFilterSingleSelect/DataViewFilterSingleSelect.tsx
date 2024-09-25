@@ -1,12 +1,12 @@
 import * as React from "react";
-import { useState, useEffect, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
-import DataViewFilterSingleSelectContent from "./DataViewFilterSingleSelectContent";
-import MenuSelect from "../MenuSelect";
 
-import { DataViewFilterSingleSelectProps, DataViewFilterSingleSelectState } from "./DataViewFilterSingleSelectTypes";
+import type { DataViewFilterSingleSelectProps, DataViewFilterSingleSelectState } from "./DataViewFilterSingleSelectTypes";
+import Menu from "../Menu";
 
 const StyledWrapper = styled.span``;
 
@@ -80,17 +80,15 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 				value={valueString}
 				onClick={onClick}
 			/>
-			<DataViewFilterSingleSelectContent
+			<Menu
 				onClose={onClose}
 				anchorEl={state.anchorEl}
-			>
-				<MenuSelect
-					placeholder={!props.args?.required ? "Any..." : undefined}
-					value={value}
-					options={state.options}
-					onChange={onChange}
-				/>
-			</DataViewFilterSingleSelectContent>
+				open={Boolean(state.anchorEl)}
+				items={state.options}
+				onChange={onChange}
+				value={value}
+				placeholder={!props.args?.required ? "Any..." : undefined}
+			/>
 		</StyledWrapper>
 	);
 }

@@ -1,8 +1,7 @@
 import * as React from "react";
 import { memo } from "react";
-import { DataViewControlDisplayProps } from "./DataViewControlDisplayTypes";
+import type { DataViewControlDisplayProps } from "./DataViewControlDisplayTypes";
 import Button from "../../Button";
-import { default as MenuSelect } from "../../MenuSelect";
 import { StyledSpan } from "./DataViewControlDisplay.styled";
 
 function DataViewControlDisplay(props: DataViewControlDisplayProps) {
@@ -17,14 +16,6 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 		};
 	});
 
-	const menuContent = (
-		<MenuSelect
-			options={options}
-			onChange={props.onDisplayChange}
-			value={props.display}
-		/>
-	);
-
 	return (
 		<StyledSpan>
 			<Button
@@ -33,7 +24,9 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 				mIcon={Icon}
 				iconPosition="right"
 				size="small"
-				menuContent={menuContent}
+				menuItems={options}
+				menuValue={props.display}
+				menuOnChange={props.onDisplayChange}
 			/>
 		</StyledSpan>
 	);
