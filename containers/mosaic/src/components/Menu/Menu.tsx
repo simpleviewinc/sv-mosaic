@@ -1,36 +1,54 @@
-import React from "react";
+import React, { useMemo } from "react";
+
+import type { MenuProps } from "./MenuTypes";
+import type { MenuItemProps } from "../MenuItem";
 
 import MenuBase from "../MenuBase";
-import MenuItem, { MenuItemProps } from "../MenuItem";
+import MenuItem from "../MenuItem";
 
-export interface MenuProps {
-	items?: MenuItemProps[];
-	anchorEl?: HTMLElement;
-	open: boolean;
-	onClose: () => void;
-}
+function Menu({
+	onClose,
+	open,
+	anchorEl,
+	items,
+	onChange,
+	placeholder,
+	value,
+}: MenuProps) {
+	const menuItems = useMemo(() => {
+		const itemsWithPlaceholder: MenuItemProps[] = [
+			...items,
+			...(placeholder ? [{
+				label: placeholder,
+				value: undefined,
+			}] : []),
+		];
 
-function Menu(props: MenuProps) {
-	const menuItems = props.items.map((item, i) => {
-		const onClick = function() {
-			item.onClick();
-			props.onClose();
-		};
+		const menuItems = itemsWithPlaceholder.map(({ onClick, ...item }, i) => {
+			const onMenuItemClick = function() {
+				onClick && onClick();
+				onChange && onChange(item.value);
+				onClose();
+			};
 
-		return (
-			<MenuItem
-				key={i}
-				{...item}
-				onClick={onClick}
-			/>
-		);
-	});
+			return (
+				<MenuItem
+					key={i}
+					{...item}
+					selected={onChange && value === item.value}
+					onClick={onMenuItemClick}
+				/>
+			);
+		});
+
+		return menuItems;
+	}, [items, onChange, onClose, placeholder, value]);
 
 	return (
 		<MenuBase
-			anchorEl={props.anchorEl}
-			open={props.open}
-			onClose={props.onClose}
+			anchorEl={anchorEl}
+			open={open}
+			onClose={onClose}
 		>
 			{menuItems}
 		</MenuBase>
