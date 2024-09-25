@@ -1,9 +1,8 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
-import { Property } from "csstype";
 
-import { DataViewTdProps } from "./DataViewTdTypes";
+import type { DataViewTdProps } from "./DataViewTdTypes";
 
 const StyledTd = styled.td`
 	height: 40px;
@@ -42,16 +41,18 @@ const StyledTd = styled.td`
 	}
 `;
 
-function DataViewTd(props: DataViewTdProps) {
-	const expandCell = props.expandCell !== undefined ? props.expandCell : false;
-	const bold = props.bold !== undefined ? props.bold : false;
-	const italic = props.italic !== undefined ? props.italic : false;
-	const strikeThrough = props.strikeThrough !== undefined ? props.strikeThrough : false;
-	const noWrap = props.noWrap !== undefined ? props.noWrap : false;
-	const ellipsis = props.ellipsis !== undefined ? props.ellipsis : false;
-	const maxWidth = props.maxWidth !== undefined ? props.maxWidth : undefined;
-	const textTransform = (props.textTransform !== undefined ? props.textTransform : undefined) as Property.TextTransform;
-
+function DataViewTd({
+	ariaLabel,
+	expandCell = false,
+	bold = false,
+	italic = false,
+	strikeThrough = false,
+	noWrap = false,
+	ellipsis = false,
+	maxWidth,
+	textTransform,
+	...props
+}: DataViewTdProps) {
 	return (
 		<StyledTd
 			className={`
@@ -60,7 +61,7 @@ function DataViewTd(props: DataViewTdProps) {
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
-			aria-label={props.ariaLabel}
+			{...props}
 		>
 			<div
 				className={`
