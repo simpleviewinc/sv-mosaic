@@ -65,9 +65,6 @@ export * from "./MenuBase";
 export { default as MenuItem } from "./MenuItem";
 export * from "./MenuItem";
 
-export { default as MenuSelect } from "./MenuSelect";
-export * from "./MenuSelect";
-
 export { default as Toggle } from "./Toggle";
 export * from "./Toggle";
 

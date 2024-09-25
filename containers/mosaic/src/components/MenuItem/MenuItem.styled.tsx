@@ -6,27 +6,33 @@ import theme from "@root/theme";
 export const colors = ["black", "blue", "red", "yellow", "teal", "gray"];
 
 export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
-	&.MuiMenuItem-root {
+	&& {
+		color: ${theme.newColors.grey4["100"]};
+		font-family: ${theme.fontFamily};
+		font-size: 14px;
 		min-height: 42px;
-		background-color: ${theme.colors.white} !important;
-	}
-
-	&.menu-item.Mui-selected {
-		.menuLabel {
-			font-weight: ${theme.fontWeight.bold};
-		}
-	}
-
-	&.menu-item {
 		padding: 8px 16px;
-		&:hover {
-			background-color: ${theme.newColors.grey2["100"]} !important;
-		}
-		&:active span {
+
+		&:active {
 			color: ${theme.newColors.almostBlack["100"]};
 		}
-		& .MuiTouchRipple-child {
+
+		&:hover {
+			background-color: ${theme.newColors.grey2["60"]};
+		}
+
+		&:focus-visible {
 			background-color: ${theme.newColors.grey2["100"]};
+		}
+
+		&.Mui-selected {
+			font-weight: ${theme.fontWeight.bold};
+			background-color: ${theme.newColors.realTeal["10"]};
+
+			&:hover,
+			&.Mui-focusVisible {
+				background-color: ${theme.newColors.realTeal["20"]};
+			}
 		}
 	}
 
@@ -39,9 +45,6 @@ export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	}
 
 	& > .menuLabel {
-		font-family: ${theme.fontFamily};
-		font-size: 14px;
-		color: ${theme.newColors.grey4["100"]};
 		${({ $truncateText }) => $truncateText && `
 			overflow: hidden;
 			text-overflow: ellipsis;

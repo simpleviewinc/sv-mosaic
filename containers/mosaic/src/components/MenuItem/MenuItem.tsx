@@ -1,7 +1,8 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 
-import { MenuItemProps } from "./MenuItemTypes";
+import type { MenuItemProps } from "./MenuItemTypes";
 import { colors, StyledIcon, StyledMenuItem } from "./MenuItem.styled";
 
 export default function MenuItem({
@@ -14,6 +15,8 @@ export default function MenuItem({
 	disabled,
 	selected,
 	truncateText,
+	autoFocus,
+	tabIndex,
 }: MenuItemProps): ReactElement {
 	if (!colors.includes(color)) {
 		throw new Error(
@@ -39,6 +42,8 @@ export default function MenuItem({
 			className="menu-item"
 			disableRipple={true}
 			$truncateText={truncateText}
+			autoFocus={autoFocus}
+			tabIndex={tabIndex}
 		>
 			{Icon && (
 				<StyledIcon

@@ -1,6 +1,7 @@
-import { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
-import { MenuItemProps } from "../MenuItem";
-import { WebTarget } from "styled-components";
+import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
+import type { MenuItemProps } from "../MenuItem";
+import type { WebTarget } from "styled-components";
+import type { MenuProps } from "../Menu/MenuTypes";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 export interface ButtonProps {
@@ -22,7 +23,8 @@ export interface ButtonProps {
 	popover?: JSX.Element;
 	popoverEvent?: "onClick" | "onHover";
 	menuItems?: MenuItemProps[];
-	menuContent?: JSX.Element;
+	menuOnChange?: MenuProps["onChange"];
+	menuValue?: MenuProps["value"];
 	mIconColor?: string;
 	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
