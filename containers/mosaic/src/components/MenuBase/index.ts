@@ -1,2 +1,2 @@
-export { default, MenuBaseContext } from "./MenuBase";
+export { default } from "./MenuBase";
 export * from "./MenuBaseTypes";

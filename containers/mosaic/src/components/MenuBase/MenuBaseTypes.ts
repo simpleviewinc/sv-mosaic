@@ -1,7 +1,3 @@
-export interface MenuBaseContextProps {
-	onClose(): void;
-}
-
 export interface MenuBaseProps {
 	open: boolean;
 	anchorEl?: HTMLElement;
