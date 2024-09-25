@@ -8,7 +8,6 @@ import type { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 
 import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
 import Menu from "../Menu";
-import MenuBase from "../MenuBase";
 import { PopoverWrapper } from "./Button.styled";
 import { useToggle } from "@root/utils/toggle";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
@@ -164,11 +163,7 @@ function ButtonWithState(props: ButtonProps) {
 					open={Boolean(anchorEl)}
 					onClose={closeMenu}
 				/>
-			) : props.menuContent && (
-				<MenuBase anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={closeMenu}>
-					{props.menuContent}
-				</MenuBase>
-			)}
+			) : null}
 		</>
 	);
 }
@@ -180,7 +175,7 @@ function Button(props: ButtonProps) {
 		return null;
 	}
 
-	return (props.menuItems || props.menuContent || props.popover || props.tooltip) ? (
+	return (props.menuItems || props.popover || props.tooltip) ? (
 		<ButtonWithState {...props} />
 	) : (
 		<ButtonBase {...props} />
