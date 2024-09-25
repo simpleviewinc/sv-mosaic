@@ -16,6 +16,7 @@ const testIds = {
 	CONTENT_ROW: "mos:Content:row",
 	CONTENT_COL: "mos:Content:col",
 	CONTENT_FIELD: "mos:Content:field",
+	CONTENT_TOOLTIP_ICON: "mos:Content:tooltipIcon",
 	CARD: "mos:Card:root",
 	CARD_HEADING: "mos:Card:heading",
 	CARD_TITLE_ICON: "mos:Card:titleIcon",
@@ -29,6 +30,8 @@ const testIds = {
 	DATA_VIEW_SORT_ASC: "mos:DataView:sortAsc",
 	DATA_VIEW_SORT_DESC: "mos:DataView:sortDesc",
 	DATA_VIEW_TBODY: "mos:DataView:tableBody",
+	DATA_VIEW_CELL_DRAG: "mos:DataView:cellDrag",
+	DATA_VIEW_CELL_CHECK: "mos:DataView:cellCheck",
 	TOP_SUMMARY: "mos:TopSummary:root",
 	TOGGLE: "mos:Toggle:root",
 } as const;
