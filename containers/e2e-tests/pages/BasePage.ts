@@ -62,7 +62,7 @@ export class BasePage {
 		this.saveCoordinatesButton = this.formTestIDLocator.nth(1).locator("button", { hasText: "Save" });
 		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
-		this.checkboxTestIdLocator = page.locator("[data-testid='checkbox-test-id'] input");
+		this.checkboxTestIdLocator = page.locator(`[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`);
 		this.tooltip = page.locator("[role='tooltip']");
 		this.checkboxLabel = page.locator("[data-testid='label-test-id']");
 		this.showStateLocator = page.getByTestId(testIds.FORM_STATE);
@@ -72,7 +72,7 @@ export class BasePage {
 		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
-		this.deleteIconSelectedOptionChip = page.locator("[data-testid='delete-icon-test-id']");
+		this.deleteIconSelectedOptionChip = page.locator(`[data-testid='${testIds.CHIP_DELETE_ICON}']`);
 		this.formLocator = page.locator("form");
 		this.button = page.locator("button");
 		this.inputLocator = page.locator("input");
