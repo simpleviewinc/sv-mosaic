@@ -58,4 +58,10 @@ describe(__dirname, () => {
 
 		expect(screen.getByText("My Content Value with appended data")).toBeInTheDocument();
 	});
+
+	it("should render the content tooltip if a tooltip has been provided", async () => {
+		await setup({ tooltip: "My Tooltip" });
+
+		expect(screen.queryByTestId(testIds.CONTENT_TOOLTIP_ICON)).toBeInTheDocument();
+	});
 });

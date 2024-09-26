@@ -3,7 +3,8 @@ import { memo, Fragment } from "react";
 import styled from "styled-components";
 import Button from "../../Button";
 import theme from "@root/theme";
-import { DataViewBulkAllBarProps } from "./DataViewBulkAllBarTypes";
+import type { DataViewBulkAllBarProps } from "./DataViewBulkAllBarTypes";
+import testIds from "@root/utils/testIds";
 
 const StyledDiv = styled.div`
 	text-align: center;
@@ -22,7 +23,7 @@ const StyledDiv = styled.div`
 
 function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 	return (
-		<StyledDiv>
+		<StyledDiv data-testid={testIds.DATA_VIEW_BULK_ALL}>
 			<span className="bulkText">
 				{
 					props.checkedAllPages && (

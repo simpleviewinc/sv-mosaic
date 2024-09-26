@@ -1,15 +1,19 @@
-import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+
+import React, { useMemo } from "react";
+
+import type { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
+
+import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import DataViewColumnControl from "../DataViewColumnControl";
 import DataViewControlDisplay from "../DataViewControlDisplay";
 import DataViewControlLimit from "../DataViewLimit";
 import DataViewPager from "../DataViewPager";
 import { DataViewActionsRowWrapper, LeftControlsContainer } from "./DataViewActionsRow.styled";
-import { DataViewActionsRowProps } from "./DataViewActionsRowTypes";
 import Checkbox from "../../Checkbox";
 import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "../DataViewDisplayGridSortControl";
-import ButtonRow from "@root/components/ButtonRow/ButtonRow";
+import testIds from "@root/utils/testIds";
 
 const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	const {
@@ -43,7 +47,10 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	const hasSortControl = onSortChange !== undefined && sort !== undefined;
 
 	return (
-		<DataViewActionsRowWrapper className={`${display}`}>
+		<DataViewActionsRowWrapper
+			className={`${display}`}
+			data-testid={testIds.DATA_VIEW_ACTIONS_ROW}
+		>
 			{
 				display === "grid" && (
 					<LeftControlsContainer>

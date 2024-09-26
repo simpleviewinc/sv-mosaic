@@ -1,4 +1,4 @@
-import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
+import type { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 
 export interface DataViewDisplayGridProps {
 	bulkActions?: DataViewProps["bulkActions"];
@@ -19,5 +19,5 @@ export interface DataViewDisplayGridProps {
 	anyChecked?: boolean;
 	allChecked?: boolean;
 	showBulkAll?: boolean;
-	disabled: DataViewProps["disabled"];
+	disabled?: DataViewProps["disabled"];
 }
