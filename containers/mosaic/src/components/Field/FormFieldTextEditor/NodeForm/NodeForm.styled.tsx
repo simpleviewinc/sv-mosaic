@@ -2,6 +2,11 @@ import styled from "styled-components";
 
 import theme from "@root/theme";
 import Button from "@root/components/Button";
+import Popper from "@mui/material/Popper";
+
+export const StyledPopper = styled(Popper)`
+    z-index: 5;
+`;
 
 export const StyledNodeForm = styled.div`
     border: 1px solid ${theme.colors.gray300};
