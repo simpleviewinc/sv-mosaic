@@ -6,9 +6,10 @@ import ButtonRow from "../../ButtonRow";
 import Button from "../../Button";
 
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewViewControlsProps } from "./DataViewViewControlsTypes";
-import { MenuItemProps } from "@root/components/MenuItem";
+import type { DataViewViewControlsProps } from "./DataViewViewControlsTypes";
+import type { MenuItemProps } from "@root/components/MenuItem";
 import theme from "@root/theme";
+import testIds from "@root/utils/testIds";
 
 const TitleButton = styled(Button)`
 	&& {
@@ -61,7 +62,7 @@ function DataViewViewControls({
 	}, [onViewSave, onViewSaveAs, t]);
 
 	return (
-		<div>
+		<div data-testid={testIds.DATA_VIEW_VIEW_CONTROL}>
 			<div className="right">
 				<ButtonRow>
 					{onViewList ? (

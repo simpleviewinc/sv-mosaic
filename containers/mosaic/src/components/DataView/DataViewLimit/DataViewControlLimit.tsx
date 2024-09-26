@@ -7,6 +7,9 @@ import type { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
 import type { MenuProps } from "@root/components/Menu/MenuTypes";
 
 import { StyledButton } from "./DataViewControlLimit.styled";
+import testIds from "@root/utils/testIds";
+
+const attrs = { "data-testid": testIds.DATA_VIEW_LIMIT_CONTROL };
 
 function DataViewLimit(props: DataViewControlLimitProps) {
 	const onChange = useCallback<MenuProps["onChange"]>((value) => {
@@ -25,7 +28,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 	return (
 		<StyledButton
 			color="black"
-			label={props.limit.toString()}
+			label={(props.limit || 0).toString()}
 			variant="text"
 			size="small"
 			iconPosition="right"
@@ -34,6 +37,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 			menuItems={options}
 			menuOnChange={onChange}
 			menuValue={props.limit.toString()}
+			attrs={attrs}
 		/>
 	);
 }
