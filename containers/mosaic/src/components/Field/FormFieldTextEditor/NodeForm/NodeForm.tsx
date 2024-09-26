@@ -1,12 +1,11 @@
 import type { Editor } from "@tiptap/react";
 
 import React, { useCallback } from "react";
-import Popper from "@mui/material/Popper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 import type { NodeFormState } from "../FormFieldTextEditorTypes";
 
-import { StyledNodeForm } from "./NodeForm.styled";
+import { StyledNodeForm, StyledPopper } from "./NodeForm.styled";
 import { NodeFormLink } from "./NodeFormLink";
 import { NodeFormImage } from "./NodeFormImage";
 
@@ -43,7 +42,7 @@ export function NodeForm({
 	}, [values]);
 
 	return (
-		<Popper
+		<StyledPopper
 			anchorEl={anchorEl}
 			open={open}
 			modifiers={popperModifiers}
@@ -67,6 +66,6 @@ export function NodeForm({
 					) : null}
 				</StyledNodeForm>
 			</ClickAwayListener>
-		</Popper>
+		</StyledPopper>
 	);
 }
