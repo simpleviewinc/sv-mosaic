@@ -1,0 +1,2 @@
+const a=()=>{alert("Cancelling form, going back to previous site")},t=(e,o={showCancel:!0,showSave:!0})=>[{label:"Cancel",onClick:a,color:"gray",variant:"outlined",show:o.showCancel},{label:"Save",onClick:e(({data:l,activeFields:n})=>alert(`Form submitted with the following data: ${JSON.stringify(l,null," ")}
+Active fields: ${JSON.stringify(n,null,"")}`)),color:"yellow",variant:"contained",show:o.showSave}];export{a as o,t as r};
