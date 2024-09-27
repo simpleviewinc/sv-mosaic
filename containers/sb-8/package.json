@@ -1,7 +1,7 @@
 {
 	"name": "sb-8",
 	"private": true,
-	"version": "37.2.2",
+	"version": "37.3.0",
 	"type": "module",
 	"scripts": {
 		"start": "storybook dev -p 10001",
