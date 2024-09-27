@@ -1,5 +1,39 @@
 # sv-mosaic changelog
 
+### 37.3.0 - 10/01/2024
+
+## Improvements and Fixes
+
+* `FormFieldAddress`
+
+  * [MOS-1456](https://simpleviewtools.atlassian.net/browse/MOS-1456 "https://simpleviewtools.atlassian.net/browse/MOS-1456") **Address array needs to retain ID**
+    * (AddressField) Ensure extra address object properties are preserved when being updated using the address drawer.
+* `FormFieldDate`
+
+  * [MOS-1457](https://simpleviewtools.atlassian.net/browse/MOS-1457 "https://simpleviewtools.atlassian.net/browse/MOS-1457") **Update date picker to allow defaulting of time on date selection**
+    * (DateField) Adds default time input setting
+    * (Form) Ensure field registration happens as early as possible. Organise Form and useForm imports.
+* `FormFieldTextEditor`
+
+  * [MOS-1476](https://simpleviewtools.atlassian.net/browse/MOS-1476 "https://simpleviewtools.atlassian.net/browse/MOS-1476") **TipTap Text Editor - Link and Image overlay issue**
+    * (TextEditor) Increase the z-index of the built-in Tiptap node form to prevent it from appearing beneath the editor toolbar.
+* `Menu`
+
+  * [MOS-1473](https://simpleviewtools.atlassian.net/browse/MOS-1473 "https://simpleviewtools.atlassian.net/browse/MOS-1473") **Menu Items Not Keyboard Accessible**
+    * (Menu) Drop the MenuSelect component and merge functionality in with the existing menu component.
+    * (Menu) Improve menu item state colours and keyboard a11y.
+* `ToggleSwitch`
+
+  * [MOS-1466](https://simpleviewtools.atlassian.net/browse/MOS-1466 "https://simpleviewtools.atlassian.net/browse/MOS-1466") **Toggle field set to required:true should not show asterisk next to toggleLabel**
+    * (ToggleField) Stop passing down the required prop to Material's switch to prevent duplicate asterisks.
+* Housekeeping
+
+  * [MOS-1420](https://simpleviewtools.atlassian.net/browse/MOS-1420 "https://simpleviewtools.atlassian.net/browse/MOS-1420") **Clean up codebase of legacy components and files**
+    * (chore) Bunch of cleanup
+    * (chore) Move upload-related styled components into the appropriate directory.
+    * (chore) Remove MenuFormFieldCard
+    * (chore) Tidy. Move mock functions away from library file structure. Remove redundant files.
+
 ### 37.2.2 - 09/24/2024
 
 ## Improvements and Fixes
