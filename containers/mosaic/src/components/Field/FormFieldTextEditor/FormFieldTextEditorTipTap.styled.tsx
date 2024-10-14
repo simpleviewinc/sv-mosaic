@@ -214,7 +214,7 @@ export const PrimaryToolbar = styled.div<{ $focus?: boolean }>`
     border-bottom: 0;
     position: sticky;
     padding: 4px 0;
-    top: 16px;
+    top: -25px;
     z-index: 1;
 
     &::after {
