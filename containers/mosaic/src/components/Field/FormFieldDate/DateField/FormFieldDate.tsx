@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import React, { memo, useEffect, useMemo, useRef } from "react";
+import React, { memo, useMemo, useRef } from "react";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { DateFieldInputSettings, DateData } from "./DateFieldTypes";
@@ -37,6 +37,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	} = fieldDef;
 
 	const blurred = useRef<{ date: boolean; time: boolean }>({ date: false, time: false });
+	const usingDefaultTime = useRef(false);
 	const value = useMemo(() => providedValue || {
 		validDate: false,
 		validTime: false,
@@ -47,26 +48,20 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		name: fieldDef.name,
 	});
 
-	useEffect(() => {
-		if (providedValue || !defaultTime) {
-			return;
-		}
+	const onBlurProxy = (type: "date" | "time") => async () => {
+		blurred.current[type] = true;
 
-		try {
-			const time = matchTime(new Date(), parseTime(defaultTime));
-			onChange({
-				date: undefined,
-				validDate: false,
-				time,
-				validTime: true,
-			});
-		} catch (err) {
-			console.error(err);
+		if (
+			blurred.current.date &&
+			(!showTime || blurred.current.time)
+		) {
+			onBlur();
 		}
-	}, [defaultTime, providedValue, onChange]);
+	};
 
 	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
 		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
+		const changeByDatepicker = date && !keyboardInputValue;
 
 		if (showTime && date && !value.validTime) {
 			addError(TIME_REQUIRED);
@@ -76,17 +71,29 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 
 		if (
 			// The datepicker was used
-			(date && !keyboardInputValue) ||
+			changeByDatepicker ||
 			// A valid date was entered using the keyboard
 			(keyboardInputValue && validKeyboardInput)
 		) {
 			removeError(INVALID_DATE);
 
-			onChange({
+			const result = {
 				...value,
 				date,
 				validDate: true,
-			});
+			};
+
+			if (!value.validTime && defaultTime) {
+				removeError([INVALID_TIME, TIME_REQUIRED]);
+
+				const time = matchTime(new Date(), parseTime(defaultTime));
+
+				result.time = time;
+				result.validTime = true;
+				usingDefaultTime.current = true;
+			}
+
+			onChange(result, { validate: true });
 		} else {
 			if (keyboardInputValue && !validKeyboardInput) {
 				addError(INVALID_DATE);
@@ -94,11 +101,18 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				removeError(INVALID_DATE);
 			}
 
-			onChange({
+			const result = {
 				...value,
 				date,
 				validDate: false,
-			});
+			};
+
+			if (usingDefaultTime.current) {
+				result.time = undefined;
+				result.validTime = false;
+			}
+
+			onChange(result, { validate: true });
 		}
 	};
 
@@ -114,7 +128,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				...value,
 				time,
 				validTime: false,
-			});
+			}, { validate: true });
 		} else if (isKeyboardEvent && !validKeyboardInput) {
 			// This handler was caused by keyboard input, but it's not a valid date
 			removeError(TIME_REQUIRED);
@@ -124,10 +138,9 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				...value,
 				time,
 				validTime: false,
-			});
-
-			return;
+			}, { validate: true });
 		} else {
+			usingDefaultTime.current = false;
 			removeError([TIME_REQUIRED, INVALID_TIME]);
 
 			onChange({
@@ -136,18 +149,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				// An empty field is still an acceptable input as far as
 				// the time field goes, but it doesn't mean it's a valid time.
 				validTime: Boolean(time),
-			});
-		}
-	};
-
-	const onBlurProxy = (type: "date" | "time") => async () => {
-		blurred.current[type] = true;
-
-		if (
-			blurred.current.date &&
-			(!showTime || blurred.current.time)
-		) {
-			onBlur();
+			}, { validate: true });
 		}
 	};
 
