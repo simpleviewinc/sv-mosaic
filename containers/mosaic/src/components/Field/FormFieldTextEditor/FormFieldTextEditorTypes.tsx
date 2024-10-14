@@ -134,6 +134,7 @@ export type TextEditorNextInputSettings = {
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
 	allowedLinkProtocols?: string[];
+	autolink?: boolean;
 };
 
 export type TextEditorData = string;
