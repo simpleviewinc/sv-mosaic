@@ -283,14 +283,19 @@ export const controlLink: Control = {
 
 		onLink({
 			...values,
-			updateLink: ({ url, newTab, text }) => editor.chain().focus()
-				.extendMarkRange("link")
-				.setLink({
-					href: sanitizeUrl(url, allowedLinkProtocols),
-					target: newTab ? "_blank" : "",
-				})
-				.insertContent(text)
-				.run(),
+			updateLink: ({ url, newTab, text }) => {
+				const { state: { selection: { $from } } } = editor;
+				editor.chain()
+					.insertContent(text, { updateSelection: true })
+					.setTextSelection({ from: $from.pos, to: $from.pos + text.length })
+					.focus()
+					.extendMarkRange("link")
+					.setLink({
+						href: sanitizeUrl(url, allowedLinkProtocols),
+						target: newTab ? "_blank" : "",
+					})
+					.run();
+			},
 		});
 	},
 	Icon: LinkIcon,
