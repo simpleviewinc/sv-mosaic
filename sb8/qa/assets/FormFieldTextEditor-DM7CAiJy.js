@@ -1,0 +1,31 @@
+import{j as t}from"./jsx-runtime-nGUw9YhZ.js";import{useMDXComponents as o}from"./index-3-_tf5dF.js";import{M as n}from"./index-wSrRoDRU.js";import{s}from"./FormFieldTextEditor.stories-BynKHnEk.js";import"./index-BP8_t0zE.js";import"./iframe-CBwE24Sn.js";import"../sb-preview/runtime.js";import"./index-BxmsGmlx.js";import"./extends-CF3RwP-h.js";import"./tslib.es6-CRos2fHm.js";import"./index-DXimoRZY.js";import"./inheritsLoose-CMy1E8oj.js";import"./toString-BjCnz-8e.js";import"./index-DJqTsaQd.js";import"./index-DrFu-skq.js";import"./formUtils-C6CCf70J.js";import"./FormFieldText.styled-CDQUwglR.js";import"./theme-DRtZtbPc.js";import"./Button-BrUhf9jf.js";import"./generateUtilityClasses-CplxKB4o.js";import"./ButtonBase-Btj-nnLi.js";import"./useIsFocusVisible-De2ftVE9.js";import"./Popper-CA50KEz-.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-vMmOGwbU.js";import"./useToggle-lipGlewK.js";import"./useMosaicTranslation-CZCb37QS.js";import"./formControlState-D52vkf9K.js";import"./createSvgIcon-XnU1Ta54.js";import"./createSvgIcon-BwurTq3z.js";import"./useId-DLncWxdO.js";import"./useControlled-im5M3O13.js";import"./index-CiJN4qBb.js";import"./CheckboxList-9J3AJhZb.js";import"./isSymbol-CEVJpixJ.js";import"./Checkbox-Daz-CCp_.js";import"./FormControlLabel-2HxiQW27.js";import"./getThemeProps-CBTZRUO9.js";import"./debounce-C_xMouBr.js";import"./DataViewPrimaryFilter.styled-CJaR1K_8.js";import"./ButtonRow-C8VNIQ4B.js";import"./Spinner-Cxn5F_rN.js";import"./Chip-CuADowIf.js";import"./Typography-Br_RMLnS.js";import"./SubtitleText-Vdwjg1jD.js";import"./sizes-C6oSOElx.js";import"./RadioButton-D1cjnaj9.js";import"./StyledFormControl.styled-DR5TItxT.js";import"./Toggle-DqBdDGXG.js";import"./testIds-BmLWG2HQ.js";import"./ColorSelected-CUu1BnTo.js";import"./TitleWrapper-B_5wLb-y.js";import"./containerQuery-C0QVV4Kt.js";import"./TitleText-C9TlfF_O.js";import"./MoreVert-CHB9Iy9y.js";import"./ChevronRight-Bc3jAIO-.js";import"./PageHeader-B0SeyLtR.js";import"./formats-CDjt32hU.js";import"./Dialog-DYdX5JhR.js";import"./useMediaQuery-B5e8eNzK.js";import"./SideNav-biYpQHtM.js";import"./TooltipIcon-B3ORSSfg.js";import"./Snackbar-CeVWLZcc.js";import"./Close-40L3pRZX.js";import"./ClickAwayListener-DnjBLK-5.js";import"./renderButtons-BmHfsf_z.js";import"./styled-components.browser.esm-8MQ3dTkk.js";import"./emotion-unitless.esm-sScrWPmR.js";import"./styled-BZzorW7R.js";import"./createSvgIcon-DciBzaZt.js";import"./Grid-_WYMoC7-.js";import"./listItemTextClasses-BvmMUX95.js";import"./Typography-CTURfk0p.js";import"./TridentIcon-BhHO-Q2T.js";function r(e){const i={a:"a",code:"code",h2:"h2",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",ul:"ul",...o(),...e.components};return t.jsxs(t.Fragment,{children:[t.jsx(n,{of:s,name:"Docs - Jodit (Legacy)"}),`
+`,t.jsx(i.h2,{id:"text-editor---jodit-legacy",children:"Text Editor - Jodit (Legacy)"}),`
+`,t.jsxs(i.p,{children:["This field implements the ",t.jsx(i.a,{href:"#generic-field-props-fielddef",children:t.jsx(i.strong,{children:"FieldDef"})})," interface."]}),`
+`,t.jsxs(i.ul,{children:[`
+`,t.jsx(i.li,{children:"The text editor is a text area with added capabilities for use in various publishers, allowing the users to format their input in a text area."}),`
+`,t.jsxs(i.li,{children:["This implementation is based on the ",t.jsx(i.a,{href:"https://www.npmjs.com/package/jodit",rel:"nofollow",children:"Jodit WYSIWYG Editor"})," package."]}),`
+`,t.jsx(i.li,{children:t.jsx(i.a,{href:"/?path=/story/formfields-formfieldtexteditor--playground",children:t.jsx(i.strong,{children:"Playground"})})}),`
+`,t.jsxs(i.li,{children:["Data: ",t.jsx(i.code,{children:"string"})," - Value of the input typed."]}),`
+`,t.jsx(i.li,{children:"inputSettings:"}),`
+`]}),`
+`,t.jsxs(i.table,{children:[t.jsx(i.thead,{children:t.jsxs(i.tr,{children:[t.jsx(i.th,{children:"Name"}),t.jsx(i.th,{children:"Type"}),t.jsx(i.th,{children:"Description"})]})}),t.jsxs(i.tbody,{children:[t.jsxs(i.tr,{children:[t.jsx(i.td,{children:t.jsx(i.strong,{children:t.jsx(i.code,{children:"direction"})})}),t.jsx(i.td,{children:'`"rtl"'}),t.jsx(i.td,{children:'"ltr"'})]}),t.jsxs(i.tr,{children:[t.jsx(i.td,{children:t.jsx(i.strong,{children:t.jsx(i.code,{children:"language"})})}),t.jsx(i.td,{children:t.jsx(i.code,{children:"string"})}),t.jsx(i.td,{children:"optional - Defines the language in which the assistive elements of the text editor will be displayed. For example the placeholder and the character and word counter."})]}),t.jsxs(i.tr,{children:[t.jsx(i.td,{children:t.jsx(i.strong,{children:t.jsx(i.code,{children:"maxCharacters"})})}),t.jsx(i.td,{children:t.jsx(i.code,{children:"number"})}),t.jsx(i.td,{children:"optional - Defines the limit of characters that are allow to type in the input element."})]}),t.jsxs(i.tr,{children:[t.jsx(i.td,{children:t.jsx(i.strong,{children:t.jsx(i.code,{children:"spellcheck"})})}),t.jsx(i.td,{children:t.jsx(i.code,{children:"boolean"})}),t.jsx(i.td,{children:"optional - If it's enabled the text editor will mark misspellings."})]})]})]}),`
+`,t.jsx(i.h3,{id:"how-to-use-in-a-form",children:"How to use in a form?"}),`
+`,t.jsx(i.pre,{children:t.jsx(i.code,{className:"language-ts",children:`const fields: FieldDef[] = useMemo(
+	() =>
+		[
+			//...other fields
+			{
+				//...all generic field props
+				type: "textEditor",
+				inputSettings: {
+					spellcheck: true,
+					direction: "rlt",
+					language: "en",
+					maxCharacters: 20,
+				},
+			},
+			//...other fields
+		],
+	[]
+);
+`})})]})}function Ft(e={}){const{wrapper:i}={...o(),...e.components};return i?t.jsx(i,{...e,children:t.jsx(r,{...e})}):r(e)}export{Ft as default};
