@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo, useRef } from "react";
 import type { FieldConfig, FieldDef } from "@root/components/Field";
 import { getFieldConfig } from "@root/components/Form";
-import { FieldProps } from "./FieldTypes";
+import type { FieldProps } from "./FieldTypes";
 import { sanitizeFieldSize } from "@root/components/Field";
 import FieldWrapper, { CustomFieldWrapper } from "@root/components/FieldWrapper";
 import { useWrappedToggle } from "@root/utils/toggle";
@@ -35,13 +35,14 @@ const Field = ({
 	const disabled = useWrappedToggle(field, state, "disabled", false);
 	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>();
 
-	const onChange = useCallback((value: any) => {
+	const onChange = useCallback((value: any, options: any = {}) => {
 		field.onChangeCb && field.onChangeCb();
 
 		setFieldValue({
 			name: field.name,
 			value,
 			touched: true,
+			validate: options.validate,
 		});
 	}, [field, setFieldValue]);
 
