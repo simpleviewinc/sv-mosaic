@@ -287,14 +287,14 @@ export const Tiptap = ({
 	);
 
 	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
+		<div style={{ height: "100vh" }}>
 			<Form
 				{...controller}
 				title="Text Editor Tiptap"
 				fields={tiptapFields}
 				buttons={renderButtons(handleSubmit)}
 				skeleton={skeleton}
+				fullHeight
 			/>
 			<Drawer
 				open={Boolean(mediaDrawer)}
@@ -318,7 +318,7 @@ export const Tiptap = ({
 					/>
 				)}
 			</Drawer>
-		</>
+		</div>
 	);
 };
 
