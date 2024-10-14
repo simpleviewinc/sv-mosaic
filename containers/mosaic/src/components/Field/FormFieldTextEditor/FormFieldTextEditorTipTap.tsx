@@ -15,7 +15,7 @@ import { transformScriptTags } from "./Extensions/Script";
 import { isEmptyDOM } from "@root/utils/dom/isEmptyDOM";
 import { FloatingToolbar } from "./FloatingToolbar";
 import { arrayDifference } from "@root/utils/array";
-import { defaultExtensions } from "./Extensions/defaultExtensions";
+import { getDefaultExtensions } from "./Extensions/defaultExtensions";
 import { escapeHtml } from "@root/utils/dom/escapeHtml";
 import testIds from "@root/utils/testIds";
 import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
@@ -33,6 +33,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 	const {
 		extensions: providedExtensions,
 		controls = defaultControls,
+		autolink = true,
 	} = providedInputSettings;
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
@@ -48,7 +49,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 		_setNodeForm(value);
 	};
 
-	const extensions = useMemo<Extensions>(() => providedExtensions || defaultExtensions, [providedExtensions]);
+	const extensions = useMemo<Extensions>(() => providedExtensions || getDefaultExtensions({ autolink }), [autolink, providedExtensions]);
 
 	const updatesBlocked = useRef(false);
 	const lastValidContent = useRef<string>(value);
