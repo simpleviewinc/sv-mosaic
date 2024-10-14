@@ -23,37 +23,41 @@ import TextAlign from "@tiptap/extension-text-align";
 import Underline from "@tiptap/extension-underline";
 import { WildCardContent } from "./WildCardContent";
 
-export const defaultExtensions = [
-	Dropcursor,
-	Document,
-	Paragraph,
-	Text,
-	Bold,
-	Blockquote,
-	Code,
-	CodeBlock,
-	Image.configure({
-		inline: true,
-	}),
-	Italic,
-	Underline,
-	Strike,
-	Superscript,
-	Subscript,
-	Link.configure({
-		openOnClick: false,
-	}),
-	Heading.configure({
-		levels: [1, 2, 3, 4, 5, 6],
-	}),
-	OrderedList,
-	BulletList,
-	ListItem,
-	HardBreak,
-	History,
-	Script,
-	TextAlign.configure({
-		types: ["heading", "paragraph"],
-	}),
-	WildCardContent,
-];
+export const getDefaultExtensions = ({ autolink }: { autolink?: boolean } = {}) => {
+	console.log(autolink);
+	return [
+		Dropcursor,
+		Document,
+		Paragraph,
+		Text,
+		Bold,
+		Blockquote,
+		Code,
+		CodeBlock,
+		Image.configure({
+			inline: true,
+		}),
+		Italic,
+		Underline,
+		Strike,
+		Superscript,
+		Subscript,
+		Link.configure({
+			openOnClick: false,
+			autolink,
+		}),
+		Heading.configure({
+			levels: [1, 2, 3, 4, 5, 6],
+		}),
+		OrderedList,
+		BulletList,
+		ListItem,
+		HardBreak,
+		History,
+		Script,
+		TextAlign.configure({
+			types: ["heading", "paragraph"],
+		}),
+		WildCardContent,
+	];
+};

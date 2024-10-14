@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { ControlWithProps, defaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { ControlWithProps, getDefaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
@@ -214,6 +214,7 @@ export const Tiptap = ({
 	instructionText,
 	helperText,
 	maxCharacters,
+	autolink,
 	customControlConfig,
 	customImageHandler,
 	customLinkHandler,
@@ -239,11 +240,12 @@ export const Tiptap = ({
 					type: FormFieldTextEditorTipTapFieldType,
 					required,
 					inputSettings: {
+						autolink,
 						controls: [
 							...customControlConfig?.length ? customControlConfig : controls,
 							...customExtensionExample ? [[customExtensionControl]] : [],
 						],
-						extensions: customExtensionExample ? [...defaultExtensions, SimpleViewAlert] : undefined,
+						extensions: customExtensionExample ? [...getDefaultExtensions(), SimpleViewAlert] : undefined,
 						onImage: customImageHandler ? ({ updateImage, ...params }) => {
 							setMediaDrawer({
 								...params,
@@ -276,6 +278,7 @@ export const Tiptap = ({
 			helperText,
 			instructionText,
 			maxCharacters,
+			autolink,
 			customControlConfig,
 			customImageHandler,
 			customLinkHandler,
@@ -327,6 +330,7 @@ Tiptap.args = {
 	instructionText: "Instruction text",
 	helperText: "Helper text",
 	maxCharacters: 100,
+	autolink: true,
 	customControlConfig: [],
 	customImageHandler: false,
 	customLinkHandler: false,
@@ -354,6 +358,9 @@ Tiptap.argTypes = {
 	},
 	maxCharacters: {
 		name: "Maximum Characters",
+	},
+	autolink: {
+		name: "Auto Link",
 	},
 	customControlConfig: {
 		name: "Custom Control Config",
