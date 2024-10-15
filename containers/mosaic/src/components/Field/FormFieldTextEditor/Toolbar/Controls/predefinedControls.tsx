@@ -271,7 +271,7 @@ export const controlLink: Control = {
 
 		const text = link ?
 			// If the cursor is over an existing link, get the text content of that link
-			editor.state.doc.nodeAt(to - 1)?.textContent :
+			editor.state.doc.nodeAt(from - 1)?.textContent :
 			// Otherwise get the text of the selection
 			state.doc.textBetween(from, to);
 
@@ -284,11 +284,23 @@ export const controlLink: Control = {
 		onLink({
 			...values,
 			updateLink: ({ url, newTab, text }) => {
-				const { state: { selection: { $from } } } = editor;
-				editor.chain()
-					.insertContent(text, { updateSelection: true })
-					.setTextSelection({ from: $from.pos, to: $from.pos + text.length })
-					.focus()
+				const { state: { selection: { from, to } } } = editor;
+				const chain = editor.chain();
+
+				// If the cursor is over an active link
+				if (!editor.state.selection.$to.marks().some(({ type }) => type.name === "link")) {
+					chain.insertContentAt({ from, to }, text)
+						.setTextSelection({ from, to: from + text.length });
+				} else {
+					editor.state.doc.nodesBetween(from - 1, from, (node, pos) => {
+						if (node.type.name === "text") {
+							chain.insertContentAt({ from: pos, to: pos + node.nodeSize }, text);
+							return false;
+						}
+					});
+				}
+
+				chain.focus()
 					.extendMarkRange("link")
 					.setLink({
 						href: sanitizeUrl(url, allowedLinkProtocols),
