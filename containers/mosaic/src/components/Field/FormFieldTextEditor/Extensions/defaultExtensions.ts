@@ -24,7 +24,6 @@ import Underline from "@tiptap/extension-underline";
 import { WildCardContent } from "./WildCardContent";
 
 export const getDefaultExtensions = ({ autolink }: { autolink?: boolean } = {}) => {
-	console.log(autolink);
 	return [
 		Dropcursor,
 		Document,
