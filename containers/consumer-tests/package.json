@@ -4,7 +4,8 @@
 	"scripts": {
 		"types:cjs": "tsc --project tsconfig.cjs.json --noEmit",
 		"types:esm": "tsc --project tsconfig.esm.json --noEmit",
-		"types": "yarn types:cjs && yarn types:esm"
+		"types": "yarn types:cjs && yarn types:esm",
+		"start": "yarn types"
 	},
 	"dependencies": {
 		"@simpleview/sv-mosaic": "../mosaic"
