@@ -1,7 +1,7 @@
 /**
  * Components
  */
-import Button, { Barf } from "@simpleview/sv-mosaic/components/Button";
+import Button from "@simpleview/sv-mosaic/components/Button";
 import Card from "@simpleview/sv-mosaic/components/Card";
 import Checkbox from "@simpleview/sv-mosaic/components/Checkbox";
 import CheckboxList from "@simpleview/sv-mosaic/components/CheckboxList";
@@ -25,7 +25,6 @@ import LeftNav from "@simpleview/sv-mosaic/components/LeftNav";
 import Menu from "@simpleview/sv-mosaic/components/Menu";
 import MenuBase from "@simpleview/sv-mosaic/components/MenuBase";
 import MenuItem from "@simpleview/sv-mosaic/components/MenuItem";
-import MenuSelect from "@simpleview/sv-mosaic/components/MenuSelect";
 import MosaicContext from "@simpleview/sv-mosaic/components/MosaicContext";
 import PageHeader from "@simpleview/sv-mosaic/components/PageHeader";
 import Popover from "@simpleview/sv-mosaic/components/Popover";

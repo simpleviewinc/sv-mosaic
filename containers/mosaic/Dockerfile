@@ -21,3 +21,5 @@ COPY .eslintrc.js /app/.eslintrc.js
 COPY src /app/src
 
 WORKDIR /app
+
+RUN yarn run build
