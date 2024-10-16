@@ -64,6 +64,18 @@ jobs:
           root: ~/project
           paths:
               - dist
+  Consumer Tests:
+    description: Ensures all modules that should be importable from the built library, can be
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - init
+      - run:
+          name: Build Mosaic image
+          command: docker-compose build mosaic
+      - run:
+          name: Build and bring up consumer tests
+          command: docker-compose up consumer-tests --build
   Build SB Static:
     description: Builds Storybook 8 static files and persists them to the pipeline workspace at ~/project/storybook-static
     docker:
@@ -189,6 +201,19 @@ workflows:
           filters:
             branches:
               only:
+                - /pull.*/
+                - develop
+                - qa
+                - staging
+                - master
+      - Consumer Tests:
+          context: default
+          requires:
+            - Build Mosaic Dist
+          filters:
+            branches:
+              only:
+                - /.*publish-ci$/
                 - /pull.*/
                 - develop
                 - qa
