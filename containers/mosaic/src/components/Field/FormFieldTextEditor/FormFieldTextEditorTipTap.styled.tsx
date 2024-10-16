@@ -50,6 +50,7 @@ export const Editor = styled(EditorContent)`
         border: 1px solid var(--border-color);
         border-top: 0;
         padding: 16px;
+        overflow: auto;
 
         &:focus {
 			border-color: ${theme.newColors.almostBlack["100"]};
