@@ -1,4 +1,4 @@
-import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
+import type { FieldConfig, FieldDef, FieldDefCustom, FieldDefToggleData } from "@root/components/Field";
 
 import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
@@ -9,14 +9,17 @@ import FormFieldRadio from "@root/components/Field/FormFieldRadio";
 import FormFieldRaw from "@root/components/Field/FormFieldRaw";
 import FormFieldToggle from "@root/components/Field/FormFieldToggle";
 import FormFieldColor from "@root/components/Field/FormFieldColor";
-import FormFieldDate, { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
-import FormFieldTime, { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
+import type { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
+import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
+import FormFieldTime from "@root/components/Field/FormFieldTime/TimeField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress";
 import FormFieldTextEditor from "@root/components/Field/FormFieldTextEditor";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection";
 import FormFieldMapCoordinates from "@root/components/Field/FormFieldMapCoordinates";
 import FormFieldMatrix from "@root/components/Field/FormFieldMatrix";
-import FormFieldUpload, { UploadData, UploadDataPending, isPendingUploadData } from "@root/components/Field/FormFieldUpload";
+import type { UploadData, UploadDataPending } from "@root/components/Field/FormFieldUpload";
+import FormFieldUpload, { isPendingUploadData } from "@root/components/Field/FormFieldUpload";
 import FormFieldNumber from "@root/components/Field/FormFieldNumber";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable";
 import { matchTime } from "@root/utils/date";
@@ -67,7 +70,24 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	toggle: {
 		Component: FormFieldToggle,
 		validate: "onChange",
-		getResolvedValue: defaultResolver,
+		getResolvedValue: (
+			value: FieldDefToggleData,
+		): {
+			internalValue: FieldDefToggleData;
+			value: FieldDefToggleData;
+		} => {
+			if (!value) {
+				return {
+					internalValue: undefined,
+					value: undefined,
+				};
+			}
+
+			return {
+				internalValue: true,
+				value: true,
+			};
+		},
 	},
 	color: {
 		Component: FormFieldColor,
