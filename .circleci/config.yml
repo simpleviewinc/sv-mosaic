@@ -225,6 +225,7 @@ workflows:
             - Build SB Static
             - Unit Tests
             - E2E Tests
+            - Consumer Tests
           filters:
             branches:
               only:
@@ -239,6 +240,7 @@ workflows:
             - Build Mosaic Dist
             - Unit Tests
             - E2E Tests
+            - Consumer Tests
           filters:
             branches:
               only:
