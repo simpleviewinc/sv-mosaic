@@ -1,8 +1,8 @@
-import { TitleWrapperProps } from "@root/components/Title";
-import { ButtonProps } from "../Button";
-import { MenuItemProps } from "../MenuItem";
+import type { TitleWrapperProps } from "@root/components/Title";
+import type { ButtonProps } from "../Button";
+import type { MenuItemProps } from "../MenuItem";
 
-export interface TopSummaryTypes {
+export interface TopSummaryProps {
 	/**
 	 * Mandatory title.
 	 */
