@@ -6,7 +6,7 @@ import StarRateRounded from "@mui/icons-material/StarRateRounded";
 import StarBorder from "@mui/icons-material/StarBorderRounded";
 
 import type { ButtonProps } from "@root/components/Button";
-import type { TopSummaryProps } from ".";
+import type { TopSummaryProps } from "./TopSummaryTypes";
 
 import {
 	StyledTopSummary,
