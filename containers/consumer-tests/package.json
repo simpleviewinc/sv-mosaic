@@ -1,0 +1,19 @@
+{
+	"name": "@simpleview/sv-mosaic-consumer-tests",
+	"packageManager": "yarn@3.1.1",
+	"scripts": {
+		"types:cjs": "tsc --project tsconfig.cjs.json --noEmit",
+		"types:esm": "tsc --project tsconfig.esm.json --noEmit",
+		"types": "yarn types:cjs && yarn types:esm",
+		"start": "yarn types"
+	},
+	"dependencies": {
+		"@simpleview/sv-mosaic": "../mosaic"
+	},
+	"resolutions": {
+		"@simpleview/sv-mosaic": "portal:../mosaic"
+	},
+	"devDependencies": {
+		"typescript": "^5.5.4"
+	}
+}

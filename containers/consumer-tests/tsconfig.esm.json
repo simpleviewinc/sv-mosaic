@@ -1,0 +1,8 @@
+{
+    "extends": "./tsconfig.json",
+	"compilerOptions": {
+		"preserveSymlinks": true,
+		"module": "ES2022",
+		"moduleResolution": "Bundler",
+	},
+}

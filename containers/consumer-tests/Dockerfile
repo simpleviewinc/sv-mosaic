@@ -9,17 +9,16 @@ COPY .yarnrc.yml /app/.yarnrc.yml
 COPY .yarn /app/.yarn
 COPY yarn.lock /app/yarn.lock
 
+COPY --from=mosaic:local /app/package.json /mosaic/package.json
+COPY --from=mosaic:local /app/dist /mosaic/dist
+
 RUN cd /app && yarn install
 
-COPY scripts /app/scripts
+COPY index.ts /app/index.ts
 COPY tsconfig.json /app/tsconfig.json
 COPY tsconfig.cjs.json /app/tsconfig.cjs.json
 COPY tsconfig.esm.json /app/tsconfig.esm.json
-COPY .eslintignore /app/.eslintignore
-COPY .eslintrc.ci.js /app/.eslintrc.ci.js
-COPY .eslintrc.js /app/.eslintrc.js
-COPY src /app/src
 
 WORKDIR /app
 
-RUN yarn run build
+CMD ["yarn", "start"]

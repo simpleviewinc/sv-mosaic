@@ -1,66 +1,9 @@
-import type { Key, ReactElement } from "react";
-import type { DrawerProps as MUIDrawerProps } from "@mui/material/Drawer";
-import type { SxProps } from "@mui/system";
+import type { ReactElement } from "react";
 
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-import MUIDrawer from "@mui/material/Drawer";
 
-import theme from "@root/theme";
-
-const StyledDrawerContent = styled.div`
-	font-family: ${theme.fontFamily};
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	font-size: 14px;
-`;
-
-const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle; previousStyle: AnchorStyle }; $display?: boolean }>`
-	z-index: 1100;
-	${({ $anchorStyle, $display }) => $anchorStyle &&
-		`.MuiDrawer-paper {
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "right") &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-25vw) !important;
-`
-}
-
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && $display) &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-25vw) !important;
-`
-}
-
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && !$display) &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-100vw) !important;
-`
-}
-		}`
-}
-`;
-
-type AnchorStyle = "left" | "right";
-
-interface DrawerProps extends MUIDrawerProps {
-	open: boolean;
-	onClose?: () => unknown;
-	children: JSX.Element;
-	anchor?: AnchorStyle;
-	sx?: SxProps;
-	idx?: Key;
-	exitCB?: () => void;
-	anchorstyle?: AnchorStyle;
-	display?: boolean;
-	backdropCloseHandler?: boolean;
-}
+import type { DrawerProps } from "./DrawerTypes";
+import { MUIDrawerStyled, StyledDrawerContent } from "./Drawer.styled";
 
 const Drawer = (props: DrawerProps): ReactElement => {
 	const {

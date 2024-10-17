@@ -4,17 +4,19 @@ import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import Button from "@root/components/Button";
-import { MenuItemProps } from "@root/components/MenuItem";
+import type { MenuItemProps } from "@root/components/MenuItem";
 
 // Components
-import TopSummary, { TopSummaryTypes } from "@root/components/TopSummary";
-import { ReactElement, useState } from "react";
+import type { TopSummaryProps } from "@root/components/TopSummary";
+import TopSummary from "@root/components/TopSummary";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
 afterEach(cleanup);
 
 const ComponentExample = (props: {
-	descriptionItems?: TopSummaryTypes["descriptionItems"];
-	mainActions?: TopSummaryTypes["mainActions"];
+	descriptionItems?: TopSummaryProps["descriptionItems"];
+	mainActions?: TopSummaryProps["mainActions"];
 	showAdditionalActions?: boolean;
 }): ReactElement => {
 
@@ -78,7 +80,7 @@ const ComponentExample = (props: {
 		/>,
 	];
 
-	const tempMainActions: TopSummaryTypes["mainActions"] = [
+	const tempMainActions: TopSummaryProps["mainActions"] = [
 		{
 			label: "Button 1",
 			mIcon: Mail,

@@ -1,17 +1,12 @@
 import React, { useMemo } from "react";
-import styled from "styled-components";
 
-import { DrawerTopBarProps } from "./DrawerTopBar";
-import DrawerBottom, { DrawerBottomProps } from "./DrawerBottom";
-import PageHeader from "../PageHeader";
-import { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
+import type { DrawerContentProps } from "./DrawerTypes";
+
 import { useMosaicTranslation } from "@root/i18n";
-
-const StyledDiv = styled.div`
-	width: 600px;
-`;
-
-type DrawerContentProps = DrawerTopBarProps & DrawerBottomProps;
+import DrawerBottom from "./DrawerBottom";
+import PageHeader from "../PageHeader";
+import { StyledDrawerContent } from "./DrawerContent.styled";
 
 function DrawerContent(props: DrawerContentProps) {
 
@@ -56,7 +51,7 @@ function DrawerContent(props: DrawerContentProps) {
 	}, [props.onSave, props.onApply, props.onCancel]);
 
 	return (
-		<StyledDiv>
+		<StyledDrawerContent>
 			<PageHeader
 				title={t(`mosaic:${props.title}`)}
 				buttons={drawerButtons}
@@ -68,7 +63,7 @@ function DrawerContent(props: DrawerContentProps) {
 			>
 				{props.children}
 			</DrawerBottom>
-		</StyledDiv>
+		</StyledDrawerContent>
 	);
 }
 
