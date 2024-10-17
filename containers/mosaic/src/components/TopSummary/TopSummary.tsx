@@ -1,7 +1,13 @@
 import * as React from "react";
-import { ReactElement, memo, useMemo } from "react";
-import { TopSummaryTypes } from ".";
+import type { ReactElement } from "react";
+import { memo, useMemo } from "react";
 import MoreVert from "@mui/icons-material/MoreVert";
+import StarRateRounded from "@mui/icons-material/StarRateRounded";
+import StarBorder from "@mui/icons-material/StarBorderRounded";
+
+import type { ButtonProps } from "@root/components/Button";
+import type { TopSummaryProps } from ".";
+
 import {
 	StyledTopSummary,
 	Container,
@@ -9,19 +15,14 @@ import {
 	Item,
 	ContainerTitle,
 } from "./TopSummary.styled";
-
-import StarRateRounded from "@mui/icons-material/StarRateRounded";
-import StarBorder from "@mui/icons-material/StarBorderRounded";
-
-// Components
 import Image from "@root/components/Image";
-import Button, { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { useToggle } from "@root/utils/toggle";
 import testIds from "@root/utils/testIds";
 
-const SumaryPageTopComponent = (props: TopSummaryTypes): ReactElement => {
+const SumaryPageTopComponent = (props: TopSummaryProps): ReactElement => {
 	const {
 		title,
 		onBack,
