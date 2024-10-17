@@ -1,49 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
+
+import type { DrawerTopBarProps } from "./DrawerTypes";
 
 import { TitleText } from "../Typography";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import { useMosaicTranslation } from "@root/i18n";
-import { TitleWrapperProps } from "@root/components/Title";
-
-const StyledWrapper = styled.div`
-	& {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 12px;
-	}
-
-	& > .left {
-		display: flex;
-		align-items: center;
-	}
-
-	& > .left > h1 {
-		display: inline;
-		padding: 0px 50px 0px 20px;
-		margin: 0;
-		position: relative;
-		top: -2px;
-	}
-`;
-
-export interface DrawerTopBarProps {
-	title: string | JSX.Element;
-	onBack: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	backLabel?: TitleWrapperProps["backLabel"];
-	onCancel?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	onSave?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-	onApply?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
+import { StyledDrawerTopBar } from "./DrawerContent.styled";
 
 function DrawerTopBar(props: DrawerTopBarProps) {
 	const { t } = useMosaicTranslation();
 
 	return (
-		<StyledWrapper>
+		<StyledDrawerTopBar>
 			<div className="left">
 				<Button
 					mIcon={CloseIcon}
@@ -71,7 +41,7 @@ function DrawerTopBar(props: DrawerTopBarProps) {
 					}
 				</ButtonRow>
 			</div>
-		</StyledWrapper>
+		</StyledDrawerTopBar>
 	);
 }
 

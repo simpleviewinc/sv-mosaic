@@ -12,19 +12,19 @@ jobs:
   Unit Tests:
     description: Runs Mosaic library unit tests
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
       - run:
           name: Run tests
           command: |
-            docker-compose build mosaic
-            docker-compose run -e CI=true --name sv-mosaic mosaic yarn test
+            docker compose build mosaic
+            docker compose run -e CI=true --name sv-mosaic mosaic yarn test
   E2E Tests:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
@@ -33,29 +33,29 @@ jobs:
       - run:
           name: Spin up containers
           command: |
-            docker-compose build mosaic sb-server e2e-tests
-            docker-compose up -d mosaic sb-server e2e-tests
+            docker compose build mosaic sb-server e2e-tests
+            docker compose up -d mosaic sb-server e2e-tests
       - run:
           name: Copy Storybook static files
           command: docker cp storybook-static sb-server:/app/storybook-static
       - run:
           name: Mark server as ready
-          command: docker-compose exec sb-server touch /app/storybook-static/ready
+          command: docker compose exec sb-server touch /app/storybook-static/ready
       - run:
           name: Attach to container
           command: docker container attach e2e-tests
   Build Mosaic Dist:
     description: Builds Mosaic library distribution files and persists them to the pipeline workspace at ~/project/dist
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
       - run:
           name: Build Mosaic distribution
           command: |
-            docker-compose build mosaic
-            docker-compose run --name sv-mosaic mosaic yarn build
+            docker compose build mosaic
+            docker compose run --name sv-mosaic mosaic yarn build
       - run:
           name: Extract dist files
           command: |
@@ -64,19 +64,33 @@ jobs:
           root: ~/project
           paths:
               - dist
+  Consumer Tests:
+    description: Ensures all modules that should be importable from the built library, can be
+    docker:
+      - image: cimg/base:current
+    steps:
+      - init
+      - run:
+          name: Build Mosaic image
+          command: docker compose build mosaic
+      - run:
+          name: Build and bring up consumer tests
+          command: |
+            docker compose build consumer-tests
+            docker compose up --exit-code-from consumer-tests consumer-tests
   Build SB Static:
     description: Builds Storybook 8 static files and persists them to the pipeline workspace at ~/project/storybook-static
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
       - run:
           name: Build static Storybook files
           command: |
-            docker-compose build mosaic
-            docker-compose build sb8
-            docker-compose run --name sv-mosaic-sb8 sb8 yarn build
+            docker compose build mosaic
+            docker compose build sb8
+            docker compose run --name sv-mosaic-sb8 sb8 yarn build
       - run:
           name: Extract static files
           command: |
@@ -88,7 +102,7 @@ jobs:
   Publish SB Static:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
@@ -100,8 +114,8 @@ jobs:
       - run:
           name: Spin up publishing container
           command: |
-            docker-compose build publisher
-            docker-compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher publisher
+            docker compose build publisher
+            docker compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher publisher
       - run:
           name: Copy SSH
           command: |
@@ -123,7 +137,7 @@ jobs:
   Publish to NPM:
     description: Publishes distribution files to both @simpleview/sv-mosaic and @simpleview/sv-mosaic-types on NPM
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/base:current
     resource_class: large
     steps:
       - init
@@ -136,39 +150,30 @@ jobs:
       - run:
           name: Publish @simpleview/sv-mosaic
           command: |
-            docker-compose build mosaic
-            docker-compose up mosaic
+            docker compose build mosaic
+            docker compose up mosaic
             docker cp dist/. mosaic:/app/dist
             docker cp README.md mosaic:/app/README.md
             docker cp LICENSE mosaic:/app/LICENSE
-            docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
+            docker compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
       - run:
           name: Publish @simpleview/sv-mosaic-types
           command: |
-            docker-compose build mosaic-types
-            docker-compose up mosaic-types
+            docker compose build mosaic-types
+            docker compose up mosaic-types
             docker cp dist/types/. mosaic-types:/app/types
-            docker-compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
+            docker compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
 
 workflows:
   main:
     jobs:
-      - Unit Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - develop
-                - qa
-                - staging
-                - master
       - Build Mosaic Dist:
           context: default
           filters:
             branches:
               only:
                 - /.*publish-ci$/
+                - /pull.*/
                 - staging
                 - master
       - Build SB Static:
@@ -178,6 +183,18 @@ workflows:
               only:
                 - /pull.*/
                 - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
+      - Unit Tests:
+          context: default
+          requires:
+            - Build Mosaic Dist
+          filters:
+            branches:
+              only:
+                - /pull.*/
                 - develop
                 - qa
                 - staging
@@ -194,12 +211,26 @@ workflows:
                 - qa
                 - staging
                 - master
+      - Consumer Tests:
+          context: default
+          requires:
+            - Build Mosaic Dist
+          filters:
+            branches:
+              only:
+                - /.*publish-ci$/
+                - /pull.*/
+                - develop
+                - qa
+                - staging
+                - master
       - Publish SB Static:
           context: default
           requires:
             - Build SB Static
             - Unit Tests
             - E2E Tests
+            - Consumer Tests
           filters:
             branches:
               only:
@@ -214,6 +245,7 @@ workflows:
             - Build Mosaic Dist
             - Unit Tests
             - E2E Tests
+            - Consumer Tests
           filters:
             branches:
               only:

@@ -1,12 +1,9 @@
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import theme from "@root/theme";
+import type { SpinnerProps } from "./SpinnerTypes";
 
-interface SpinnerProps {
-	className?: string;
-	progress?: number;
-}
+import theme from "@root/theme";
 
 function Spinner(props: SpinnerProps) {
 	return (
