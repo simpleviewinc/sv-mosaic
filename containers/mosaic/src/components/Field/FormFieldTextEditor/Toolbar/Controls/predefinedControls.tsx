@@ -266,8 +266,7 @@ export const controlLink: Control = {
 		const { view } = editor;
 		const { state, state: { selection: { from, to } } } = view;
 
-		const link = editor.state.selection.$to.marks()
-			.find(({ type }) => type.name === "link");
+		const link: ReturnType<typeof editor.getAttributes> | false = editor.isActive("link") && editor.getAttributes("link");
 
 		const text = link ?
 			// If the cursor is over an existing link, get the text content of that link
@@ -276,8 +275,8 @@ export const controlLink: Control = {
 			state.doc.textBetween(from, to);
 
 		const values = {
-			url: link?.attrs.href,
-			newTab: link?.attrs.target === "_blank",
+			url: link.href,
+			newTab: link.target === "_blank",
 			text,
 		};
 
@@ -285,28 +284,37 @@ export const controlLink: Control = {
 			...values,
 			updateLink: ({ url, newTab, text }) => {
 				const { state: { selection: { from, to } } } = editor;
-				const chain = editor.chain();
 
-				// If the cursor is over an active link
-				if (!editor.state.selection.$to.marks().some(({ type }) => type.name === "link")) {
-					chain.insertContentAt({ from, to }, text)
-						.setTextSelection({ from, to: from + text.length });
+				if (!editor.isActive("link")) {
+					editor.chain()
+						.insertContentAt({ from, to }, text)
+						.setTextSelection({ from, to: from + text.length })
+						.focus()
+						.extendMarkRange("link")
+						.setLink({
+							href: sanitizeUrl(url, allowedLinkProtocols),
+							target: newTab ? "_blank" : "",
+						})
+						.run();
 				} else {
 					editor.state.doc.nodesBetween(from - 1, from, (node, pos) => {
 						if (node.type.name === "text") {
-							chain.insertContentAt({ from: pos, to: pos + node.nodeSize }, text);
+							editor.chain()
+								.focus()
+								.extendMarkRange("link")
+								.setLink({
+									href: sanitizeUrl(url, allowedLinkProtocols),
+									target: newTab ? "_blank" : "",
+								})
+								.insertContentAt({ from: pos, to: pos + node.nodeSize - 1 }, text)
+								.insertContentAt({ from: pos + text.length, to: pos + text.length + 1 }, "")
+								.extendMarkRange("link")
+								.run();
 							return false;
 						}
 					});
-				}
 
-				chain.focus()
-					.extendMarkRange("link")
-					.setLink({
-						href: sanitizeUrl(url, allowedLinkProtocols),
-						target: newTab ? "_blank" : "",
-					})
-					.run();
+				}
 			},
 		});
 	},
