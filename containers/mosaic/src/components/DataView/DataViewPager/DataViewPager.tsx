@@ -1,14 +1,17 @@
-import * as React from "react";
-import { memo } from "react";
-
+import React, { memo } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
+import type { DataViewPagerProps } from "./DataViewPagerTypes";
+
+import { useMosaicTranslation } from "@root/i18n";
 import Button from "../../Button";
 import DataViewPagerPopover from "../DataViewPagerPopover";
-import { useMosaicTranslation } from "@root/i18n";
-import { DataViewPagerProps } from "./DataViewPagerTypes";
 import { StyledSpan, StyledLabel, StyledButton } from "./DataViewPager.styled";
+import testIds from "@root/utils/testIds";
+
+const prevPageAttrs = { "aria-label": "Previous Page" };
+const nextPageAttrs = { "aria-label": "Next Page" };
 
 function DataViewPager(props: DataViewPagerProps) {
 	const { t } = useMosaicTranslation();
@@ -30,7 +33,7 @@ function DataViewPager(props: DataViewPagerProps) {
 	}
 
 	return (
-		<StyledSpan>
+		<StyledSpan data-testid={testIds.DATA_VIEW_PAGER}>
 			<Button
 				color="black"
 				variant="text"
@@ -63,6 +66,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				mIcon={ChevronLeftIcon}
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
+				muiAttrs={prevPageAttrs}
 			/>
 			<StyledButton
 				color="gray"
@@ -71,6 +75,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				mIcon={ChevronRightIcon}
 				onClick={skipClick(props.skip + props.limit)}
 				disabled={nextDisabled}
+				muiAttrs={nextPageAttrs}
 			/>
 		</StyledSpan>
 	);

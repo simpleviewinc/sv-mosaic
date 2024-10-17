@@ -1,8 +1,11 @@
 import React, { forwardRef, memo } from "react";
 import styled from "styled-components";
+
+import type { DataViewTBodyProps } from "./DataViewTBodyTypes";
+
 import DataViewTr from "../DataViewTr";
 import theme from "@root/theme";
-import { DataViewTBodyProps } from "./DataViewTBodyTypes";
+import testIds from "@root/utils/testIds";
 
 const StyledTBody = styled.tbody`
 	& > tr {
@@ -27,7 +30,10 @@ const StyledTBody = styled.tbody`
 `;
 
 const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((props, ref) => (
-	<StyledTBody ref={ref}>
+	<StyledTBody
+		ref={ref}
+		data-testid={testIds.DATA_VIEW_TBODY}
+	>
 		{props.transformedData.map((row, i) => (
 			<DataViewTr
 				key={row.id}
