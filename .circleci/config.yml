@@ -183,6 +183,7 @@ workflows:
             branches:
               only:
                 - /.*publish-ci$/
+                - /pull.*/
                 - staging
                 - master
       - Build SB Static:
