@@ -1,10 +1,12 @@
 services:
   mosaic:
+    image: mosaic:local
     container_name: mosaic
     build: ./containers/mosaic
     volumes:
       - sv-mosaic-lib:/app
   mosaic-types:
+    image: mosaic-types:local
     container_name: mosaic-types
     build: ./containers/mosaic-types
     volumes:
@@ -33,6 +35,11 @@ services:
       - mosaic
     volumes:
       - sv-mosaic-lib:/mosaic
+  consumer-tests:
+    image: consumer-tests:local
+    container_name: consumer-tests
+    build: ./containers/consumer-tests
+    working_dir: /app
   publisher:
     build: ./containers/publisher
     depends_on:
