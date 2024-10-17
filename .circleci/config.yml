@@ -77,7 +77,7 @@ jobs:
           name: Build and bring up consumer tests
           command: |
             docker compose build consumer-tests
-            docker compose up consumer-tests
+            docker compose up --exit-code-from consumer-tests consumer-tests
   Build SB Static:
     description: Builds Storybook 8 static files and persists them to the pipeline workspace at ~/project/storybook-static
     docker:
