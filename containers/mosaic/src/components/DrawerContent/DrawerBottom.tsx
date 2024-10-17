@@ -1,30 +1,17 @@
-import React, { ReactNode } from "react";
-import styled from "styled-components";
+import React from "react";
 
-const StyledDiv = styled.div`
-	& {
-		flex: 1;
-		padding: 12px;
-	}
+import type { DrawerBottomProps } from "./DrawerTypes";
 
-	&.background-gray {
-		background: #FAFBFC;
-	}
-`;
-
-export interface DrawerBottomProps {
-	background?: string;
-	children: ReactNode;
-}
+import { StyledDrawerBottom } from "./DrawerContent.styled";
 
 function DrawerBottom(props: DrawerBottomProps) {
 	return (
-		<StyledDiv className={`
+		<StyledDrawerBottom className={`
 			${props.background ? `background-${props.background}` : ""}
 		`}
 		>
 			{props.children}
-		</StyledDiv>
+		</StyledDrawerBottom>
 	);
 }
 
