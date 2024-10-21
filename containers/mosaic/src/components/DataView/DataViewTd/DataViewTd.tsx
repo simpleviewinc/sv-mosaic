@@ -61,6 +61,7 @@ function DataViewTd({
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
+			aria-label={ariaLabel}
 			{...props}
 		>
 			<div
