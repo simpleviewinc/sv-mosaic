@@ -6,7 +6,7 @@ import testIds from "@root/utils/testIds";
 
 import Tooltip, { useTooltip } from "../Tooltip";
 import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
-import { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
+import type { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
 
 function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 	const { anchorProps, tooltipProps } = useTooltip();
@@ -48,6 +48,7 @@ function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
 			label={label}
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
+			muiAttrs={{ "aria-label": `Filter: ${props.label}` }}
 		/>
 	);
 }
