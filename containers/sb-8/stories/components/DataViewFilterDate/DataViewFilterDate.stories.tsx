@@ -70,14 +70,11 @@ export const Playground = ({ showOptions }: typeof Playground.args): ReactElemen
 		setState(data);
 	};
 
-	const onRemove = () => undefined;
-
 	return (
 		<DataViewFilterDate
 			label="Date filter example"
 			data={state}
 			args={{ options: showOptions > 0 ? options : undefined }}
-			onRemove={onRemove}
 			onChange={onChange}
 		/>
 	);
@@ -139,14 +136,11 @@ export const KitchenSink = (): ReactElement => {
 		setState(newState);
 	};
 
-	const onRemove = () => undefined;
-
 	return (
 		<div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 			<DataViewFilterDate
 				label="Regular Date filter"
 				data={state.regular}
-				onRemove={onRemove}
 				onChange={(data) => onChange("regular", data)}
 				args={{ options: undefined }}
 			/>
@@ -154,7 +148,6 @@ export const KitchenSink = (): ReactElement => {
 				label="Date filter with options"
 				data={state.options}
 				args={{ options }}
-				onRemove={onRemove}
 				onChange={(data) => onChange("options", data)}
 			/>
 		</div>

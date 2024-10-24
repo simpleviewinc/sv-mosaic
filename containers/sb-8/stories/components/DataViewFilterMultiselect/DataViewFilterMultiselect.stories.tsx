@@ -38,10 +38,6 @@ export const Playground = ({ showComparisons, limit }: typeof Playground.args): 
 		});
 	};
 
-	const onRemove = () => {
-		alert("on remove");
-	};
-
 	return (
 		<>
 			<DataViewFilterMultiselect
@@ -54,7 +50,6 @@ export const Playground = ({ showComparisons, limit }: typeof Playground.args): 
 					limit,
 				}}
 				data={state}
-				onRemove={onRemove}
 				onChange={value => onChange(value)}
 			/>
 		</>
@@ -106,10 +101,6 @@ export const KitchenSink = (): ReactElement => {
 		});
 	};
 
-	const onRemove = () => {
-		alert("on remove");
-	};
-
 	return (
 		<>
 			<h2>Hide comparison selector</h2>
@@ -121,7 +112,6 @@ export const KitchenSink = (): ReactElement => {
 					getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 				}}
 				data={state}
-				onRemove={onRemove}
 				onChange={value => onChange(value)}
 			/>
 
@@ -135,7 +125,6 @@ export const KitchenSink = (): ReactElement => {
 					comparisons: ["in", "not_in", "all", "exists", "not_exists"],
 				}}
 				data={stateComparisons}
-				onRemove={onRemove}
 				onChange={value => onChangeComparisons(value)}
 			/>
 		</>

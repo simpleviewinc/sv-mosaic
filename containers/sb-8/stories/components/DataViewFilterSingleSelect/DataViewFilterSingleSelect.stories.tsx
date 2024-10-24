@@ -29,8 +29,6 @@ export const Playground = ({ defaultValue, required }: typeof Playground.args): 
 		setState(data);
 	};
 
-	const onRemove = () => undefined;
-
 	const getOptions = function() {
 		return {
 			docs : options,
@@ -47,7 +45,6 @@ export const Playground = ({ defaultValue, required }: typeof Playground.args): 
 			label="Testing"
 			data={state}
 			args={{ getOptions, getSelected, required }}
-			onRemove={onRemove}
 			onChange={onChange}
 		/>
 	);
@@ -87,8 +84,6 @@ export const KitchenSink = (): ReactElement => {
 		setStateRequired(data);
 	};
 
-	const onRemove = () => undefined;
-
 	const getOptions = function() {
 		return {
 			docs : options,
@@ -107,7 +102,6 @@ export const KitchenSink = (): ReactElement => {
 				label="Required"
 				data={stateRequired}
 				args={{ getOptions, getSelected, required: true }}
-				onRemove={onRemove}
 				onChange={onChangeRequired}
 			/>
 			<h2>No required</h2>
@@ -115,7 +109,6 @@ export const KitchenSink = (): ReactElement => {
 				label="No required"
 				data={state}
 				args={{ getOptions, getSelected, required: false }}
-				onRemove={onRemove}
 				onChange={onChange}
 			/>
 		</>

@@ -1,11 +1,12 @@
 import * as React from "react";
-import { ReactElement, memo, useEffect, useState } from "react";
+import type { ReactElement } from "react";
+import { memo, useEffect, useState } from "react";
 
 // Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import { FormFieldCheckboxSkeleton } from "./FormFieldCheckboxSkeleton";
 
 const FormFieldCheckbox = (
@@ -69,7 +70,7 @@ const FormFieldCheckbox = (
 			disabled={disabled}
 			checked={checked}
 			options={internalOptions}
-			onChange={(val) => internalOnChange(val, onChange)}
+			onChange={(val) => internalOnChange(val as MosaicLabelValue[], onChange)}
 			onChangeCb={(val) => internalOnChange(val as MosaicLabelValue[], fieldDef.onChangeCb)}
 			onBlur={onBlur}
 			style={fieldDef.style}

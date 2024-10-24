@@ -1,13 +1,15 @@
 import * as React from "react";
-import { forwardRef, useEffect, useMemo, useRef, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { forwardRef, useEffect, useMemo, useRef } from "react";
 import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
 import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
-import { DataViewProps, DataViewRowActions } from "./DataViewTypes";
+import type { DataViewProps, DataViewRowActions } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
 import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
+import testIds from "@root/utils/testIds";
 
 const StyledWrapper = styled.div`
 	font-family: ${theme.fontFamily};
@@ -56,19 +58,13 @@ const StyledWrapper = styled.div`
 `;
 
 const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement {
-	/**
-	 * Checks if a provided active filter is a
-	 * valid filter based on the name.
-	 */
-	useEffect(() => {
-		props?.activeFilters?.forEach(activeFilter => {
-			const filterFound = props?.filters?.find(val => val.name === activeFilter);
+	props.activeFilters?.forEach(activeFilter => {
+		const isValidFilter = props.filters?.some(({ name }) => name === activeFilter);
 
-			if (!filterFound) {
-				throw new Error(`Active filter "${activeFilter}" is not a valid filter.`);
-			}
-		});
-	}, [props.activeFilters, props.filters]);
+		if (!isValidFilter) {
+			throw new Error(`Active filter "${activeFilter}" is not a valid filter.`);
+		}
+	});
 
 	const { noResults = "No results were found." } = props;
 
@@ -152,10 +148,8 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 				return DataViewDisplayList;
 			} else if (val === "grid") {
 				return DataViewDisplayGrid;
-			} else if (typeof val === "string") {
-				throw new Error("Unknown view option");
 			} else {
-				return val;
+				throw new Error("Unknown view option");
 			}
 		});
 	}, [displayOptions]);
@@ -278,12 +272,12 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			...acc,
 			[curr]: {
 				...rows[curr],
-				primary: (rows[curr].primary || []).filter((_, i) => Boolean(primaryActionShow[i])),
+				primary: rows[curr].primary.filter((_, i) => Boolean(primaryActionShow[i])),
 			},
 		}), {});
 
 		return result;
-	}, [props.data, props.additionalActions, props.primaryActions]);
+	}, [props.primaryActions, props.additionalActions, props.data, display]);
 
 	return (
 		<StyledWrapper
@@ -293,6 +287,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 				${props.sticky ? "sticky" : ""}
 			`}
 			ref={ref}
+			data-testid={testIds.DATA_VIEW}
 			{...(props.attrs || {})}
 		>
 			{shouldRenderHeading && (

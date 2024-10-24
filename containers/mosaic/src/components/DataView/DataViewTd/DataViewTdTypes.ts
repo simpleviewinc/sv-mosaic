@@ -1,6 +1,7 @@
-import { DataViewColumn } from "../DataViewTypes";
+import type { ComponentProps, Ref } from "react";
+import type { DataViewColumn } from "../DataViewTypes";
 
-export interface DataViewTdProps {
+export interface DataViewTdProps extends ComponentProps<"td"> {
 	expandCell?: boolean;
 	bold?: DataViewColumn["style"]["bold"];
 	italic?: DataViewColumn["style"]["italic"];
@@ -11,4 +12,6 @@ export interface DataViewTdProps {
 	textTransform?: DataViewColumn["style"]["textTransform"];
 	children: React.ReactNode;
 	ariaLabel?: HTMLElement["ariaLabel"];
+	testId?: string;
+	ref?: Ref<HTMLTableCellElement>;
 }

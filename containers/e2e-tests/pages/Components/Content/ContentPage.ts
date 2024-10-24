@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
+import testIds from "@root/utils/testIds";
 
 export class ContentPage extends BasePage {
 
@@ -18,8 +19,8 @@ export class ContentPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.mainContentTitle = page.getByRole("heading");
-		this.editButton = page.locator("[data-testid='button-row'] button [data-testid='icon-button-test']");
-		this.detailsButton = page.locator("[data-testid='button-row'] button", { hasText: "More Details" });
+		this.editButton = page.locator(`[data-testid='${testIds.BUTTON_ROW}'] button [data-testid='icon-button-test']`);
+		this.detailsButton = page.locator(`[data-testid='${testIds.BUTTON_ROW}'] button`, { hasText: "More Details" });
 		this.mainWrapperLocator = page.locator("#root div").first();
 		this.contentWrapperLocator = page.locator(".content-wrapper");
 		this.cardWrapperLocator = page.locator(".card-wrapper");

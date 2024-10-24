@@ -15,8 +15,6 @@ export const Playground = ({
 }: typeof Playground.args): ReactElement => {
 	const [state, setState] = useState({});
 
-	const onRemove = () => undefined;
-
 	return (
 		<DataViewFilterNumber
 			label="Number filter example"
@@ -27,7 +25,6 @@ export const Playground = ({
                 suffix,
                 sign,
             }}
-			onRemove={onRemove}
 			onChange={setState}
 		/>
 	);

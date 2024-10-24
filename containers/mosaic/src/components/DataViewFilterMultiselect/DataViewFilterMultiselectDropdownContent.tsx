@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import debounce from "lodash/debounce";
 import xor from "lodash/xor";
-
+import InputAdornment from "@mui/material/InputAdornment";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from "@mui/icons-material/Help";
 import AddIcon from "@mui/icons-material/Add";
 
+import type { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
+
+import Chip from "@root/components/Chip";
+import { useMosaicTranslation } from "@root/i18n";
+import testIds from "@root/utils/testIds";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
-import Chip from "@root/components/Chip";
 import { SubtitleText } from "../Typography";
-import { useMosaicTranslation } from "@root/i18n";
 import { PopoverP, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
-import InputAdornment from "@mui/material/InputAdornment";
-import { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
 import CheckboxList from "../CheckboxList";
 
 function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
@@ -116,20 +117,21 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	};
 
 	const debouncedSetKeyword = debounce(function(value) {
+		const keyword = value || undefined;
 		setShowCreateOptionButton(!!props.createNewOption && value.trim().length > 0);
 
 		async function fetchData() {
 			const newOptions = await props.getOptions({
 				limit,
 				skip : 0,
-				keyword : value,
+				keyword,
 			});
 
 			setState({
 				...state,
 				options : newOptions.docs,
 				hasMore : newOptions.hasMore === true,
-				keyword : value === "" ? undefined : value,
+				keyword,
 				skip : limit,
 			});
 		}
@@ -239,9 +241,12 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 	};
 
 	return (
-		<StyledWrapper>
+		<StyledWrapper data-testid={testIds.DATA_VIEW_FILTER_MULTI_CONTENT}>
 			<div className="topBlock">
-				<div className={`options ${optionsDisabled ? "disabled" : "" }`}>
+				<div
+					data-testid={testIds.DATA_VIEW_FILTER_MULTI_OPTIONS}
+					className={`options ${optionsDisabled ? "disabled" : "" }`}
+				>
 					<StyledTextField
 						autoComplete="off"
 						InputProps={{

@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-
 import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
+
+import type { DataViewTHeadProps } from "./DataViewTHeadTypes";
 
 import Checkbox from "@root/components/Checkbox";
 import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
 import DataViewBulkAllBar from "../DataViewBulkAllBar";
-
 import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewTHeadProps } from "./DataViewTHeadTypes";
+import testIds from "@root/utils/testIds";
 
 const StyledWrapper = styled.thead`
 	text-align: left;
@@ -141,21 +141,20 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				{
 					!props.anyChecked &&
 					props.columns.map(column => {
-						const onClick = function() {
-							props.onSortChange({
-								name : column.name,
-								dir : clickDir,
-							});
-						};
-
 						let active;
 						let Icon;
-						let clickDir;
+						let onClick;
 
 						if (column.sortable) {
 							active = props.sort.name === column.name;
 							Icon = active && props.sort.dir === "desc" ? SwitchLeftIcon : SwitchRightIcon;
-							clickDir = active ? flipDir(props.sort.dir) : "asc";
+
+							onClick = function() {
+								props.onSortChange({
+									name : column.name,
+									dir : active ? flipDir(props.sort.dir) : "asc",
+								});
+							};
 						}
 
 						return (
@@ -168,7 +167,8 @@ function DataViewTHead(props: DataViewTHeadProps) {
 							>
 								<span
 									className="columnHeader"
-									onClick={column.sortable ? onClick : undefined}
+									onClick={onClick}
+									data-testid={testIds.DATA_VIEW_TH_INNER}
 								>
 									{column.label}
 									{column.sortable && (

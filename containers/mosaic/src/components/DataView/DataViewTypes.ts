@@ -1,10 +1,11 @@
-import { ReactElement } from "react";
-import { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicToggle } from "@root/types";
-import { ButtonProps } from "../Button";
-import { MenuItemProps } from "../MenuItem";
-import * as React from "react";
-import { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRow";
-import { TitleWrapperProps } from "@root/components/Title";
+import type { ReactElement } from "react";
+import type { Property } from "csstype";
+
+import type { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicToggle } from "@root/types";
+import type { ButtonProps } from "../Button";
+import type { MenuItemProps } from "../MenuItem";
+import type { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRow";
+import type { TitleWrapperProps } from "@root/components/Title";
 
 export interface DataViewColumnTransformArgs<T = unknown> {
 	/** The value of the specific column that is being transformed */
@@ -40,7 +41,7 @@ export interface DataViewColumn {
 		/** Limit the widget of the column to a specific width, pass CSS like `maxWidth : "50px"`. */
 		maxWidth?: string;
 		/** Pass css `text-transform`. */
-		textTransform?: string;
+		textTransform?: Property.TextTransform;
 	};
 	/** Functions which will receive the data from the column, manipulate the value, and then return it. An example of a transformation would be converting a JS `Date` object into a user-friendly string or converting boolean `true` to string `Yes`. */
 	transforms?: DataViewColumnTransform[];
@@ -67,7 +68,6 @@ export interface DataViewFilterProps {
 	args: MosaicObject;
 	data: unknown;
 	onChange: unknown;
-	onRemove: () => void;
 }
 
 interface DataViewActionOnClick {

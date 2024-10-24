@@ -20,10 +20,10 @@ function DataViewBulkActionsButtonsRow(props: DataViewBulkActionsButtonsRowProps
 			attrs : { "data-mosaic-id" : `action_bulk_${name}` },
 			onClick : function() {
 				if (props.checkedAllPages === true) {
-					onAllClick();
+					onAllClick && onAllClick();
 				} else {
 					const checkedData = props.data.filter((_, i) => props.checked?.[i] === true);
-					onClick({ data : checkedData });
+					onClick && onClick({ data : checkedData });
 				}
 			},
 		};

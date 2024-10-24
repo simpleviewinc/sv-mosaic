@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+
+import type { DataViewFilterMultiselectProps, MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
+
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import { DataViewFilterMultiselectProps, MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
 
 const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
@@ -30,23 +32,16 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 	const comparison = props.data.comparison || "in";
 
 	useEffect(() => {
-		let isMouting = true;
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
 
-			setState({
+			setState((state) => ({
 				...state,
 				selected,
-			});
+			}));
 		}
 
-		if (isMouting) {
-			fetchData();
-		}
-
-		return () => {
-			isMouting = false;
-		};
+		fetchData();
 	}, [props.data]);
 
 	const onClick = function(event) {
