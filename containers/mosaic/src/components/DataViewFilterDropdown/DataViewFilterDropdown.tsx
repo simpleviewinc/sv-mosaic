@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import type { DataViewFilterDropdownProps } from "./DataViewFilterDropdownTypes";
+
 import { StyledPopover, StyledWrapper } from "./DataViewFilterDropdown.styled";
-import { DataViewFilterDropdownProps } from "./DataViewFilterDropdownTypes";
+import testIds from "@root/utils/testIds";
 
 function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 	// track whether the content of the dropdown should be visible
@@ -37,7 +40,7 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 				onEntered : props.onEntered,
 			}}
 		>
-			<StyledWrapper>
+			<StyledWrapper data-testid={testIds.DATA_VIEW_FILTERS_DROPDOWN}>
 				{props.children}
 			</StyledWrapper>
 		</StyledPopover>

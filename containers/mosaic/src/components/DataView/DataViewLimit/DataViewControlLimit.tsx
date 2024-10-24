@@ -28,7 +28,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 	return (
 		<StyledButton
 			color="black"
-			label={(props.limit || 0).toString()}
+			label={String(props.limit)}
 			variant="text"
 			size="small"
 			iconPosition="right"
