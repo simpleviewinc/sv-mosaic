@@ -1,4 +1,4 @@
-import type { Editor as TipTapEditor } from "@tiptap/react";
+import type { Editor as TipTapEditor } from "@tiptap/core";
 
 import { posToDOMRect } from "@tiptap/react";
 
