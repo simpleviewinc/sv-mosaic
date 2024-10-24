@@ -46,6 +46,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		type: props.type || "button",
 		as: props.as,
 		ref,
+		"aria-label": typeof props.label === "string" ? props.label : typeof props.tooltip === "string" ? props.tooltip : undefined,
 		...props.muiAttrs,
 	};
 
