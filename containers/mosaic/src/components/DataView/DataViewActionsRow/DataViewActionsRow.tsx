@@ -99,14 +99,14 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 						onDisplayChange={onDisplayChange}
 					/>
 				)}
-				{onLimitChange !== undefined && (
+				{onLimitChange !== undefined && limit !== undefined && (
 					<DataViewControlLimit
 						limit={limit}
 						options={limitOptionsValue}
 						onLimitChange={onLimitChange}
 					/>
 				)}
-				{onSkipChange !== undefined && (
+				{onSkipChange !== undefined && skip !== undefined && limit !== undefined && count !== undefined && (
 					<DataViewPager
 						limit={limit}
 						skip={skip}

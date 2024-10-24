@@ -1,4 +1,4 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps, Ref } from "react";
 import type { DataViewColumn } from "../DataViewTypes";
 
 export interface DataViewTdProps extends ComponentProps<"td"> {
@@ -13,4 +13,5 @@ export interface DataViewTdProps extends ComponentProps<"td"> {
 	children: React.ReactNode;
 	ariaLabel?: HTMLElement["ariaLabel"];
 	testId?: string;
+	ref?: Ref<HTMLTableCellElement>;
 }

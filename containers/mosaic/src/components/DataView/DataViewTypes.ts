@@ -68,7 +68,6 @@ export interface DataViewFilterProps {
 	args: MosaicObject;
 	data: unknown;
 	onChange: unknown;
-	onRemove: () => void;
 }
 
 interface DataViewActionOnClick {

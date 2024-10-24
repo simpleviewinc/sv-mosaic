@@ -18,8 +18,9 @@ import {
 	restrictToVerticalAxis,
 } from "@dnd-kit/modifiers";
 
+import type { DataViewColumnDrawerColumnsProps } from "./DataViewColumnDrawerTypes";
+
 import DataViewColumnDrawerColumn from "./DataViewColumnDrawerColumn";
-import { DataViewColumnDrawerColumnsProps } from "./DataViewColumnDrawerTypes";
 
 function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: DataViewColumnDrawerColumnsProps) {
 	const sensors = useSensors(

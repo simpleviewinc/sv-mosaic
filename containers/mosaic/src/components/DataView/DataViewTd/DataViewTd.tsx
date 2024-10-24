@@ -3,6 +3,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 import type { DataViewTdProps } from "./DataViewTdTypes";
+import testIds from "@root/utils/testIds";
 
 const StyledTd = styled.td`
 	height: 40px;
@@ -71,6 +72,7 @@ function DataViewTd({
 				`}
 				style={{ maxWidth, textTransform }}
 				title={ellipsis && typeof props.children === "string" ? props.children : undefined}
+				data-testid={testIds.DATA_VIEW_TD_INNER}
 			>
 				{props.children}
 			</div>

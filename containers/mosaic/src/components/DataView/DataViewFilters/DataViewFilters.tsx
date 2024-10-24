@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useMemo } from "react";
 import styled from "styled-components";
 import pick from "lodash/pick";
-import xor from "lodash/xor";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 import testIds from "@root/utils/testIds";
@@ -38,14 +37,9 @@ function DataViewFilters(props: DataViewFiltersProps) {
 
 	const optionsSelected = useMemo(() => {
 		return activeFilters
-			.map(value => options.find(option => option.value === value) || null)
+			.map(value => options.find(option => option.value === value))
 			.filter(Boolean);
 	}, [options, activeFilters]);
-
-	const onRemove = (name: string) => () => {
-		const activeFilters = xor(props.activeFilters, [name]);
-		onActiveFiltersChange({ value: activeFilters });
-	};
 
 	const onClick = (event) => {
 		setState({
@@ -108,18 +102,11 @@ function DataViewFilters(props: DataViewFiltersProps) {
 	};
 
 	const onChange = (value, filter) => {
-		if (value !== undefined) {
-			if (!props.filter[filter.name] && Object.keys(value) === undefined) {
-				return onClose();
-			} else {
-				filter.onChange(value);
-			}
-		} else {
-			if (props.filter[filter.name]) {
-				filter.onChange(value);
-			}
+		if (value === undefined) {
+			return;
 		}
-		return onClose();
+
+		filter.onChange(value);
 	};
 
 	return (
@@ -166,7 +153,6 @@ function DataViewFilters(props: DataViewFiltersProps) {
 													label={filter.label}
 													args={filter.args || {}}
 													data={props.filter[filter.name] || {}}
-													onRemove={onRemove(filter.name)}
 													onChange={value => onChange(value, filter)}
 												/>
 											);

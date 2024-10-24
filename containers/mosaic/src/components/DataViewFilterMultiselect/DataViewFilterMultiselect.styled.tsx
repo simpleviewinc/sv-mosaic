@@ -94,8 +94,3 @@ export const StyledComparisonHeader = styled.div`
 export const PopoverP = styled.p`
 	margin: 0px;
 `;
-
-export const StyledHr = styled.hr<{ $margin?: string }>`
-	border: 2px solid ${theme.newColors.grey2[100]};
-	margin:  ${({ $margin }) => $margin ? $margin : "0px -16px"};
-`;
