@@ -1,3 +1,4 @@
+import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
 import { Locator, Page } from "@playwright/test";
 
@@ -14,7 +15,7 @@ export class DataViewFilterDateComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.dateFilterButton = page.getByRole('button', { name: 'Date filter example' });
-		this.dataviewFilterDateDropdownContent = page.locator("[data-testid='dataview-filter-date-dropdown-content']");
-		this.dataviewFilterDateOptionsList = page.locator("[data-testid='dataview-filter-date-options-list']");
+		this.dataviewFilterDateDropdownContent = page.locator(`[data-testid='${testIds.DATA_VIEW_FILTER_DATE_CONTENT}']`);
+		this.dataviewFilterDateOptionsList = page.locator(`[data-testid='${testIds.DATA_VIEW_FILTER_DATE_OPTIONS}']`);
 	}
 }

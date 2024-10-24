@@ -91,7 +91,7 @@ describe(__dirname, () => {
 	it("should render the pager control if skip change handler, limit, skip and count is provided", async () => {
 		const onSkipChangeMock = vi.fn();
 
-		await setup({ onSkipChange: onSkipChangeMock });
+		await setup({ onSkipChange: onSkipChangeMock, limit: 10, skip: 0, count: 50 });
 
 		expect(screen.queryByTestId(testIds.DATA_VIEW_PAGER)).toBeInTheDocument();
 	});
