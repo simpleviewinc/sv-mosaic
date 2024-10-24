@@ -6,6 +6,7 @@ export default defineConfig({
 	plugins: [tsconfigPaths()],
 	test: {
 		globals: true,
+		globalSetup: path.resolve(__dirname, "./vitest.global-setup.ts"),
 		environment: "jsdom",
         setupFiles: [path.resolve(__dirname, "setup.mts")],
 		deps: {
