@@ -145,5 +145,8 @@
 		"type": "git",
 		"url": "https://github.com/simpleviewinc/sv-mosaic"
 	},
-	"license": "MIT"
+	"license": "MIT",
+	"resolutions": {
+		"prosemirror-model": "1.22.3"
+	}
 }
