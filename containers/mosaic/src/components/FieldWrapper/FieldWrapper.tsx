@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useRef, useMemo, memo } from "react";
+import type { ReactElement } from "react";
+import { useRef, useMemo, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./FieldWrapper.styled";
 
 import { default as Label } from "./Label";
@@ -63,6 +64,7 @@ const typesWithRealLabel: FieldDef["type"][] = [
 	"color",
 	"date",
 	"dropdown",
+	"number",
 	"phone",
 	"text",
 	/**

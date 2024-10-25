@@ -1,13 +1,17 @@
-import React from "react";
-import { useCallback, useMemo, ReactElement } from "react";
+import type { ReactElement } from "react";
+
+import React, { useCallback, useMemo } from "react";
+
+import type { SectionDef } from "@root/components/Form";
+import type { FieldDef } from "@root/components/Field";
+import type { DataViewFilterNumberDropdownContentProps } from "./DataViewFilterNumberTypes";
 
 import { BREAKPOINTS } from "@root/theme/theme";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
-import Form, { SectionDef, useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
-import { DataViewFilterNumberDropdownContentProps } from "./DataViewFilterNumberTypes";
+import Form, { useForm } from "@root/components/Form";
 import { StyledMainContent } from "./DataViewFilterNumber.styled";
 import { VALIDATE_NUMBER_RANGE } from "../Form/validators";
+import testIds from "@root/utils/testIds";
 
 const sections: SectionDef[] = [
 	{
@@ -93,7 +97,7 @@ export default function DataViewFilterNumberDropdownContent({
 	const disableApply = Object.values(errors).filter(Boolean).length > 0;
 
 	return (
-		<StyledMainContent>
+		<StyledMainContent data-testid={testIds.DATA_VIEW_FILTER_NUMBER_CONTENT}>
 			<Form
 				{...controller}
 				fields={fields}
