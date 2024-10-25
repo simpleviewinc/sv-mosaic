@@ -7,6 +7,7 @@ const testIds = {
 	CARD_ITEM: "mos:Card:item",
 	CARD_TITLE_ICON: "mos:Card:titleIcon",
 	CHECKBOX_WRAPPER: "mos:Checkbox:wrapper",
+	CHIP: "mos:Chip:root",
 	CHIP_DELETE_ICON: "mos:Chip:deleteIcon",
 	CONTENT: "mos:Content:root",
 	CONTENT_COL: "mos:Content:col",
