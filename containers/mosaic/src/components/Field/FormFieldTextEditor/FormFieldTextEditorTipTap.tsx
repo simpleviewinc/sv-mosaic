@@ -122,7 +122,7 @@ function FormFieldTextEditorTipTapUnmemoised({
 			},
 		},
 		editable: !disabled,
-	}, []);
+	}, [disabled, extensions]);
 
 	const inputSettings = useMemo<TextEditorNextInputSettings>(() => ({
 		...providedInputSettings,
