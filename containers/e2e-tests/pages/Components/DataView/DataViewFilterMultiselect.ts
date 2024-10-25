@@ -1,3 +1,4 @@
+import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
 import { Locator, Page, expect } from "@playwright/test";
 
@@ -28,7 +29,9 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.comparisonDropdown = page.locator(".comparisonDropdown");
 		this.comparisonDropdownButton = this.comparisonDropdown.locator("button").first();
 		this.helpDialogButton = this.comparisonDropdown.locator("button").last();
-		this.selectedChips = page.locator(".chips [data-testid='delete-chip-testid']");
+		this.selectedChips = page.locator(".chips")
+			.getByTestId(testIds.CHIP)
+			.filter({ has: page.getByTestId(testIds.CHIP_DELETE_ICON) });
 		this.inputSearchLocator = this.topBlockLocator.locator("input[type='text']");
 	}
 

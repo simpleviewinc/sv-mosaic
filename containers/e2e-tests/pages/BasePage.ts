@@ -69,7 +69,7 @@ export class BasePage {
 		this.menuItem = page.locator("[role='menuitem']");
 		this.menuLocator = page.locator("[role='menu']");
 		this.checkboxInputString = "input[type='checkbox']";
-		this.chipTestIDLocator = page.locator("[data-testid='chip-testid']");
+		this.chipTestIDLocator = page.getByTestId(testIds.CHIP);
 		this.roleOptionLocator = page.locator("[role='option']");
 		this.rolePresentationLocator = page.locator("[role='presentation']");
 		this.deleteIconSelectedOptionChip = page.locator(`[data-testid='${testIds.CHIP_DELETE_ICON}']`);

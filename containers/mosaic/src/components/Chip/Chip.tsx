@@ -20,21 +20,20 @@ const Chip = ({
 		color: "default",
 		title: label,
 		ref,
+		"data-testid": testIds.CHIP,
 	} as const;
 
 	return onDelete ? (
 		<StyledDeletableChip
-			{...common}
 			deleteIcon={<ClearIcon data-testid={testIds.CHIP_DELETE_ICON} />}
 			onDelete={onDelete}
-			data-testid="delete-chip-testid"
+			{...common}
 		/>
 	) : (
 		<StyledChip
 			{...common}
 			$selected={selected}
 			aria-selected={selected}
-			data-testid="chip-testid"
 		/>
 	);
 };

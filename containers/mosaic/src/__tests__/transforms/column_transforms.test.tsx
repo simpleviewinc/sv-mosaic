@@ -1,9 +1,11 @@
 import * as React from "react";
-import { testArray, TestDef } from "@simpleview/mochalib";
+import type { TestDef } from "@simpleview/mochalib";
+import { testArray } from "@simpleview/mochalib";
 
 import * as transforms from "@root/transforms/column_transforms";
 import * as assert from "assert";
 import { render, screen, cleanup } from "@testing-library/react";
+import testIds from "@root/utils/testIds";
 
 afterEach(cleanup);
 
@@ -161,7 +163,7 @@ describe(__filename, function() {
 		it("should render a list of chips given some data", () => {
 			render(<>{transforms.transform_chips()({ data })}</>);
 
-			const chips = screen.getAllByTestId("chip-testid");
+			const chips = screen.getAllByTestId(testIds.CHIP);
 
 			expect(chips).toHaveLength(4);
 			expect(screen.getByText("Chip 1")).toBeInTheDocument();
