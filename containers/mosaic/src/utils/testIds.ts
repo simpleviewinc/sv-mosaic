@@ -32,6 +32,7 @@ const testIds = {
 	DATA_VIEW_FILTER_MULTI_CONTENT: "mos:DataView:filterMultiContent",
 	DATA_VIEW_FILTER_MULTI_COUNTER: "mos:DataView:filterMultiCounter",
 	DATA_VIEW_FILTER_MULTI_OPTIONS: "mos:DataView:filterMultiOptions",
+	DATA_VIEW_FILTER_NUMBER_CONTENT: "mos:DataView:filterNumberContent",
 	DATA_VIEW_GRID_ITEM: "mos:DataView:gridItem",
 	DATA_VIEW_GRID_ITEM_CHECK: "mos:DataView:gridItemCheck",
 	DATA_VIEW_LIMIT_CONTROL: "mos:DataView:limitControl",
