@@ -1,5 +1,53 @@
 # sv-mosaic changelog
 
+### 38.0.0 - 10/29/2024
+
+## Improvements and Fixes
+
+* `FormFieldDate`
+
+  * [MOS-1480](https://simpleviewtools.atlassian.net/browse/MOS-1480 "https://simpleviewtools.atlassian.net/browse/MOS-1480") **Default time setting behaviour**
+    * (DateField) Modify the way that the default time is utilised, by only populating the time field once a date is chosen. The default time will be cleared when the date is cleared only if it has not been manually modified.
+* `FormFieldTextEditor`
+
+  * [MOS-1479](https://simpleviewtools.atlassian.net/browse/MOS-1479 "https://simpleviewtools.atlassian.net/browse/MOS-1479") **TipTap Text Editor : Copy paste moves content outside window bounds**
+    * (TextEditor) Ensures text editor uses a scrollbar if the content is wider than the text area to prevent leakage outside of the boundaries.
+  * [MOS-1482](https://simpleviewtools.atlassian.net/browse/MOS-1482 "https://simpleviewtools.atlassian.net/browse/MOS-1482") **Tip Tap Text Editor scrolled above viewport locks control panel at top of screen**
+    * (TextEditor) Adjust control top offset when in a sticky position.
+  * [MOS-1483](https://simpleviewtools.atlassian.net/browse/MOS-1483 "https://simpleviewtools.atlassian.net/browse/MOS-1483") **Add a text editor input setting to prevent auto linking**
+    * (TextEditor) Introduces an input setting `autolink` that can disable the automatic linking strings that look like URLs/hosts.
+* `FormFieldToggleSwitch`
+
+  * [MOS-1475](https://simpleviewtools.atlassian.net/browse/MOS-1475 "https://simpleviewtools.atlassian.net/browse/MOS-1475") **FormFieldToggle - Required Control not working correctly**
+    * (ToggleField) Ensure toggle value reverts to undefined when it is false for correct validation.
+* Housekeeping
+
+  * [MOS-1380](https://simpleviewtools.atlassian.net/browse/MOS-1380 "https://simpleviewtools.atlassian.net/browse/MOS-1380") **Utilise a new container to test the contents of distribution**
+    * Introduces a container that imports consumable components, utils and transforms and runs a type check against them to prevent any regression when restructuring.
+    * Updates CircleCI config to use the *current* base image
+    * Consistently export component property types
+    * **(BREAKING CHANGE)** Renamed `TopSummaryTypes` to `TopSummaryProps`
+  * [MOS-1467](https://simpleviewtools.atlassian.net/browse/MOS-1467 "https://simpleviewtools.atlassian.net/browse/MOS-1467") **Improve unit test coverage Blank through DataView**
+    * Covering components `Blank` through `DataViewFilterText`
+    * Utilising the newly-added `@testing-library/user-event` for firing user events
+    * Rewriting test suites to ensure all code that can be covered, is covered
+    * Utilising better test locators, introducing more test IDs where other selectors aren’t viable
+      * Standardising test IDs
+    * Standardising test suites using a `setup`
+    * A number of changes have also been made to the library better assist with testing. All new test IDs are available on the `testIds` object available at `@simpleview/sv-mosaic/utils/testIds`:
+      * `Button` component now has an `aria-label` as the button label if it's a string, or the button tooltip if it's a string
+      * `ButtonRow` test ID has changed from "button-row" to "mos:ButtonRow:row"
+      * `Content` title icon test ID has changed from "contacts-icon-test" to "mos:Card:titleIcon"
+      * `Checkbox` test ID has changed from "checkbox-test-id" to "mos:Checkbox:wrapper"
+      * `Chip` test ID has changed from "delete-chip-testid"/"chip-testid" to "mos:Chip:root"
+      * `Chip` delete icon test ID has changed from "delete-icon-test-id" to "mos:Chip:deleteIcon"
+      * `Content` has a new test ID "mos:Content:root"
+      * `Content` field tooltip icon has a new test ID "mos:Content:tooltipIcon"
+      * `DataView` has a new test ID "mos:DataView:root"
+      * A large number of new test IDs have been introduced to other `DataView` sub components. Those can be explored in the `testIds` [object](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/utils/testIds.ts "https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/utils/testIds.ts").
+  * [MOS-1494](https://simpleviewtools.atlassian.net/browse/MOS-1494 "https://simpleviewtools.atlassian.net/browse/MOS-1494") **Lock down tiptap to a specific version**
+    * (chore) Pin Tiptap package versions to 2.8.0
+
 ### 37.3.0 - 10/01/2024
 
 ## Improvements and Fixes
