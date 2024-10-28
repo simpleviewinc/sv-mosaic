@@ -1,13 +1,16 @@
-import * as React from "react";
-import { useState, useCallback, useMemo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import styled from "styled-components";
 
-import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
-import { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
-import MenuItem from "../MenuItem";
+import type { DataViewFilterDateDropdownContentProps } from "./DataViewFilterDateTypes";
 import type { FieldDef } from "../Field";
-import Form, { SectionDef, useForm } from "../Form";
+import type { SectionDef } from "../Form";
+
 import theme, { BREAKPOINTS } from "@root/theme/theme";
+import testIds from "@root/utils/testIds";
+import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
+import MenuItem from "../MenuItem";
+import Form, { useForm } from "../Form";
 import { VALIDATE_DATE_RANGE } from "../Form/validators";
 
 const StyledMainContent = styled.div`
@@ -53,16 +56,9 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	const [selectedOption, setSelectedOption] = useState("selectedOption" in props ? props.selectedOption : undefined);
 
 	const getFormValues = useCallback(async () => {
-		if (
-			!("rangeStart" in props) ||
-			!("rangeEnd" in props)
-		) {
-			return;
-		}
-
 		return {
-			rangeStart: props.rangeStart,
-			rangeEnd: props.rangeEnd,
+			rangeStart: "rangeStart" in props ? props.rangeStart : undefined,
+			rangeEnd: "rangeEnd" in props ? props.rangeEnd : undefined,
 		};
 	}, [props]);
 
@@ -129,10 +125,10 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 	const disableApply = Object.values(state.errors).filter(Boolean).length > 0;
 
 	return (
-		<StyledFilterDate data-testid="dataview-filter-date-dropdown-content">
+		<StyledFilterDate data-testid={testIds.DATA_VIEW_FILTER_DATE_CONTENT}>
 			{"options" in props && props.options && (
 				<StyledLeft>
-					<StyledLeftOptions data-testid="dataview-filter-date-options-list">
+					<StyledLeftOptions data-testid={testIds.DATA_VIEW_FILTER_DATE_OPTIONS}>
 						{props.options.map(option => (
 							<MenuItem
 								key={option.value}

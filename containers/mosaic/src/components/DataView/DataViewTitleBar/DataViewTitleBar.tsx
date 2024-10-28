@@ -1,13 +1,14 @@
 import React, { useMemo } from "react";
-import ButtonRow from "../../ButtonRow";
-// import DataViewViewControls from "../DataViewViewControls";
-import DataViewFilters from "../DataViewFilters";
-import { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
-import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
-import TitleWrapper from "@root/components/Title";
-import { ButtonProps } from "@root/components/Button";
-import DataViewViewControls from "../DataViewViewControls";
+
+import type { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
+import type { ButtonProps } from "@root/components/Button";
+
 import testIds from "@root/utils/testIds";
+import TitleWrapper from "@root/components/Title";
+import ButtonRow from "../../ButtonRow";
+import DataViewFilters from "../DataViewFilters";
+import { TitleBarWrapper, StyledWrapper } from "./DataViewTitleBar.styled";
+import DataViewViewControls from "../DataViewViewControls";
 
 function DataViewTitleBar({
 	activeFilters,

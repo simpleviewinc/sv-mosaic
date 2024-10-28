@@ -1,4 +1,4 @@
-import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
+import type { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 
 export interface DataViewDisplayListProps {
 	activeColumns?: DataViewProps["activeColumns"];

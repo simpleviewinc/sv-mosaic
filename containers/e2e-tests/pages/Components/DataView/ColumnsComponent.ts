@@ -1,3 +1,4 @@
+import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
 import { Locator, Page } from "@playwright/test";
 
@@ -20,8 +21,8 @@ export class ColumnsComponent extends BasePage {
 		this.rightItems = page.locator(".right [role='button']");
 		this.leftItems = this.listItemLabelLocator;
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
-		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
-		this.columnCheckbox = page.locator(".left [data-testid='checkbox-test-id']");
+		this.checkboxLocator = `[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`;
+		this.columnCheckbox = page.locator(`.left [data-testid='${testIds.CHECKBOX_WRAPPER}']`);
 		this.columnDrawerTitle = page.locator("[data-testid='page-header-test-id'] h1");
 	}
 

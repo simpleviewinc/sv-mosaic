@@ -1,11 +1,12 @@
 import path from "path";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	plugins: [tsconfigPaths()],
 	test: {
 		globals: true,
+		globalSetup: path.resolve(__dirname, "./vitest.global-setup.ts"),
 		environment: "jsdom",
         setupFiles: [path.resolve(__dirname, "setup.mts")],
 		deps: {
@@ -17,6 +18,10 @@ export default defineConfig({
 		},
 		coverage: {
 			provider: "istanbul",
+			exclude: [
+				...configDefaults.coverage.exclude,
+				"scripts/*",
+			],
 		},
 	},
 });

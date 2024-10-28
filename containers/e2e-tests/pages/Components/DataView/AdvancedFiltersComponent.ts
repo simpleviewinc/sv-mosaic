@@ -2,6 +2,7 @@ import { Locator, Page } from "@playwright/test";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { FilterComponent } from "../../Components/DataView/FilterComponent";
+import testIds from "@root/utils/testIds";
 
 export class AdvancedFiltersComponent extends FilterComponent {
 	readonly page: Page;
@@ -44,7 +45,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.datepicker = new DatePickerComponent(page);
 		this.dropdownOptions = page.locator("ul[role='menu'] li");
 		this.advancedFilterLocator = "button";
-		this.checkboxLocator = "[data-testid='checkbox-test-id'] input";
+		this.checkboxLocator = `[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`;
 
 		this.singleSelectCategoryBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Single Select Category" }).first();
 		this.categoryWithComparisonBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Categories with Comparisons" }).first();

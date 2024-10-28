@@ -2,6 +2,7 @@ import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData";
+import testIds from "@root/utils/testIds";
 
 export class PlaygroundPage extends BasePage {
 
@@ -50,7 +51,7 @@ export class PlaygroundPage extends BasePage {
 		this.simpleText = page.locator("input#textField-input");
 		this.textArea = page.locator("textarea#textArea-input");
 		this.checkboxInput = page.locator("#check input");
-		this.chipSingleSelect = page.locator("#chipSelect div[data-testid='chip-testid']");
+		this.chipSingleSelect = page.locator("#chipSelect").getByTestId(testIds.CHIP);
 		this.singleSelectDropdown = page.locator("[data-testid='textfield-test-id'] input");
 		this.phoneTextbox = page.locator("input.form-control");
 		this.phoneSelectedFlagDropdown = page.locator(".selected-flag");
