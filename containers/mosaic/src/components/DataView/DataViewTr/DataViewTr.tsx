@@ -3,13 +3,14 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
-import Checkbox from "@root/components/Checkbox";
+import type { DataViewTrDndProps, DataViewTrProps } from "./DataViewTrTypes";
 
+import Checkbox from "@root/components/Checkbox";
 import DataViewTd from "../DataViewTd";
 import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
 import { TableRow, TableRowDragHandle } from "./DataViewTr.styled";
-import { DataViewTrDndProps, DataViewTrProps } from "./DataViewTrTypes";
 import Button from "@root/components/Button";
+import testIds from "@root/utils/testIds";
 
 const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 	checked,
@@ -35,7 +36,10 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 			$isDragOverlay={isDragOverlay}
 		>
 			{onReorder && (
-				<DataViewTd key="_draggable">
+				<DataViewTd
+					key="_draggable"
+					data-testid={testIds.DATA_VIEW_CELL_DRAG}
+				>
 					<Button
 						disabled={disabled}
 						color="black"
@@ -47,7 +51,10 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 				</DataViewTd>
 			)}
 			{onCheckboxClick && (
-				<DataViewTd key="_bulk">
+				<DataViewTd
+					key="_bulk"
+					data-testid={testIds.DATA_VIEW_CELL_CHECK}
+				>
 					<Checkbox
 						checked={checked === true}
 						onClick={onCheckboxClick}
@@ -73,13 +80,13 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 						key={column.name}
 						ariaLabel={column.label}
 						expandCell={true}
-						bold={column.style && column.style.bold}
-						italic={column.style && column.style.italic}
-						strikeThrough={column.style && column.style.strikeThrough}
-						noWrap={column.style && column.style.noWrap}
-						ellipsis={column.style && column.style.ellipsis}
-						maxWidth={column.style && column.style.maxWidth}
-						textTransform={column.style && column.style.textTransform}
+						bold={column.style?.bold}
+						italic={column.style?.italic}
+						strikeThrough={column.style?.strikeThrough}
+						noWrap={column.style?.noWrap}
+						ellipsis={column.style?.ellipsis}
+						maxWidth={column.style?.maxWidth}
+						textTransform={column.style?.textTransform}
 					>
 						{row[column.name]}
 					</DataViewTd>

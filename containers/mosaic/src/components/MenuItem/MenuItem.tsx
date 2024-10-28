@@ -13,7 +13,7 @@ export default function MenuItem({
 	label,
 	onClick,
 	disabled,
-	selected,
+	selected = false,
 	truncateText,
 	autoFocus,
 	tabIndex,
@@ -44,6 +44,7 @@ export default function MenuItem({
 			$truncateText={truncateText}
 			autoFocus={autoFocus}
 			tabIndex={tabIndex}
+			aria-selected={selected}
 		>
 			{Icon && (
 				<StyledIcon

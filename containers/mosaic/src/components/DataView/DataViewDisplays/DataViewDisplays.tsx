@@ -1,7 +1,8 @@
 import GridOnIcon from "@mui/icons-material/GridOn";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
-import { DataViewDisplay } from "./DataViewDisplaysTypes";
+import type { DataViewDisplay } from "./DataViewDisplaysTypes";
+
 import { default as List } from "../DataViewDisplayList";
 import { default as Grid } from "../DataViewDisplayGrid";
 

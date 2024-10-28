@@ -3,14 +3,15 @@ import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+import type { DataViewColumnDrawerColumnProps } from "./DataViewColumnDrawerTypes";
+
 import { ColumnItem } from "./DataViewColumnDrawer.styled";
-import { DataViewColumnDrawerColumnProps } from "./DataViewColumnDrawerTypes";
 
 function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerColumnProps) {
 	const column = allColumns.find((c) => c.name === name);
 
 	if (!column) {
-		throw new Error(`Column "${name}" not found in column list: ${allColumns.join(", ")}`);
+		throw new Error(`Column "${name}" not found in column list: ${allColumns.map(({ name }) => name).join(", ")}`);
 	}
 
 	const {

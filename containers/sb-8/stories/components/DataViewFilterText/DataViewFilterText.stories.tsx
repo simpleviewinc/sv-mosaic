@@ -13,8 +13,6 @@ export const Playground = ({ comparison, placeholder, comparisonDefault }: typeo
 		setState(data ?? {});
 	};
 
-	const onRemove = () => undefined;
-
 	return (
 		<DataViewFilterText
 			label="Filter text example"
@@ -24,7 +22,6 @@ export const Playground = ({ comparison, placeholder, comparisonDefault }: typeo
 				placeholder,
 				comparisonDefault: comparisonDefault === "undefined" ? undefined : comparisonDefault,
 			}}
-			onRemove={onRemove}
 			onChange={onChange}
 		/>
 	);
@@ -64,15 +61,12 @@ export const KitchenSink = (): ReactElement => {
 		setState(newState);
 	};
 
-	const onRemove = () => undefined;
-
 	return (
 		<div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 			<DataViewFilterText
 				label="Filter text example"
 				data={state.regular}
 				args={{}}
-				onRemove={onRemove}
 				onChange={(data) => onChange("regular", data)}
 			/>
 			<DataViewFilterText
@@ -81,7 +75,6 @@ export const KitchenSink = (): ReactElement => {
 				args={{
 					comparisons: ["contains", "not_contains", "equals", "not_equals", "exists", "not_exists"],
 				}}
-				onRemove={onRemove}
 				onChange={(data) => onChange("comparisons", data)}
 			/>
 		</div>

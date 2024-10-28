@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
+import testIds from "@root/utils/testIds";
 
 export class CheckboxPage extends BasePage {
 
@@ -18,6 +19,6 @@ export class CheckboxPage extends BasePage {
 		this.checkboxList = page.locator(".listItem");
 		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
 		this.checkboxInput = this.checkboxList.locator(this.checkboxInputString);
-		this.checkboxIcon = page.locator("span[data-testid='checkbox-test-id']");
+		this.checkboxIcon = page.locator(`span[data-testid='${testIds.CHECKBOX_WRAPPER}']`);
 	}
 }

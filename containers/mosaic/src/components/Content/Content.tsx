@@ -1,11 +1,10 @@
-import * as React from "react";
-import {
-	ReactElement,
-	useMemo,
-} from "react";
-import { ContentFieldDef, ContentProps } from "./ContentTypes";
+import type { ReactElement } from "react";
 
-// Components
+import React, { useMemo } from "react";
+
+import type { ContentFieldDef, ContentProps } from "./ContentTypes";
+import type { MosaicGridConfig } from "@root/types";
+
 import {
 	MainWrapper,
 	TitleWrapper,
@@ -15,7 +14,6 @@ import {
 } from "./Content.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentField from "./ContentField";
-import { MosaicGridConfig } from "@root/types";
 import { SubtitleText } from "../Typography";
 import { getToggle } from "@root/utils";
 import testIds from "@root/utils/testIds";
@@ -32,7 +30,7 @@ const Content = (props: ContentProps): ReactElement => {
 			const field = fields.find(({ name, column }) => (column || name) === fieldName);
 
 			if (!field) {
-				throw new Error(`No field declared for field name '${fieldName}'. (${providedSections ? `section ${sectionIdx}, row ${rowIdx}` : `field ${sectionIdx}`})`);
+				throw new Error(`No field declared for field name '${fieldName}'. (section ${sectionIdx}, row ${rowIdx})`);
 			}
 
 			if (!getToggle(field.show, true)) {
@@ -48,7 +46,10 @@ const Content = (props: ContentProps): ReactElement => {
 	}
 
 	return (
-		<MainWrapper className={cardVariant ? "card-wrapper" : "content-wrapper"}>
+		<MainWrapper
+			className={cardVariant ? "card-wrapper" : "content-wrapper"}
+			data-testid={testIds.CONTENT}
+		>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
 				<SubtitleText maxLines={1}>{title}</SubtitleText>
 				{buttons.length > 0 && (
@@ -71,7 +72,6 @@ const Content = (props: ContentProps): ReactElement => {
 								{...field}
 								key={field.name}
 								value={data[field.column || field.name]}
-								data-testid={testIds.CONTENT_COL}
 							/>
 						) : (
 							<FieldContainer key={colIdx} data-testid={testIds.CONTENT_FIELD} />

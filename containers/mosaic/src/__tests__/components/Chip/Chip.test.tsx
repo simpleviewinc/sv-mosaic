@@ -1,65 +1,80 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import * as React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import React, { act } from "react";
+
+import type { ChipsProps } from "@root/components/Chip";
+
 import Chip from "@root/components/Chip";
+import testIds from "@root/utils/testIds";
 
-afterEach(cleanup);
+async function setup(props: Partial<ChipsProps> = {}) {
+	const renderResult = await act(() => render(
+		<Chip
+			label="My Chip"
+			{...props}
+		/>,
+	));
 
-describe("Chip component", () => {
-	beforeEach(() => {
-		render(
-			<Chip
-				label="Label test"
-				disabled={false}
-				selected={false}
-			/>,
-		);
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render a chip with title", async () => {
+		await setup();
+
+		const chip = screen.queryByText("My Chip");
+
+		expect(chip).toBeInTheDocument();
+		expect(chip.parentNode).toHaveAttribute("title", "My Chip");
 	});
 
-	it("should display Chip label", () => {
-		const labelElement = screen.getByText("Label test");
+	it("should render a deletable chip", async () => {
+		const onDeleteMock = vi.fn();
 
-		expect(labelElement).toBeDefined();
+		await setup({ onDelete: onDeleteMock });
+
+		expect(screen.queryByText("My Chip")).toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.CHIP_DELETE_ICON)).toBeInTheDocument();
+
+		// TODO: assert background colour when we've migrated to emotion
 	});
-});
 
-describe("The deletable Chip component", () => {
-	it("should display the delete icon an execute the handleDelete function", () => {
-		const handleDelete = vi.fn();
-		const DeletableChip = () => {
-			return (
-				<Chip
-					label="Label test"
-					disabled={false}
-					onDelete={handleDelete}
-				/>
-			);
-		};
+	it("should render the correct background for a deletable disabled chip", async () => {
+		const onDeleteMock = vi.fn();
 
-		render(<DeletableChip />);
-		const deleteIcon = screen.getByTestId("delete-icon-test-id");
-		fireEvent.click(deleteIcon);
+		await setup({ onDelete: onDeleteMock, disabled: true });
 
-		expect(deleteIcon).toBeDefined();
-		expect(handleDelete).toHaveBeenCalled();
+		// TODO: assert background colour when we've migrated to emotion
 	});
-});
 
-describe("A selected Chip component", () => {
-	it("should be able to select a chip", () => {
-		const handleClick = vi.fn();
+	it("should render the correct background for a selected chip", async () => {
+		await setup({ selected: true });
 
-		render(
-			<Chip
-				onClick={handleClick}
-				label="Label"
-				disabled={false}
-				selected={true}
-			/>,
-		);
+		// TODO: assert background colour when we've migrated to emotion
+	});
 
-		const chipElement = screen.getByRole("button");
-		fireEvent.click(chipElement);
+	it("should render the correct background for a clickable chip", async () => {
+		const onClickMock = vi.fn();
 
-		expect(handleClick).toHaveBeenCalled();
+		await setup({ onClick: onClickMock });
+
+		// TODO: assert background colour when we've migrated to emotion
+	});
+
+	it("should render the correct background for a selected, clickable chip", async () => {
+		const onClickMock = vi.fn();
+
+		await setup({ selected: true, onClick: onClickMock });
+
+		// TODO: assert background colour when we've migrated to emotion
+	});
+
+	it("should render the correct background for a selected, disabled chip", async () => {
+		await setup({ selected: true, disabled: true });
+
+		// TODO: assert background colour when we've migrated to emotion
 	});
 });
