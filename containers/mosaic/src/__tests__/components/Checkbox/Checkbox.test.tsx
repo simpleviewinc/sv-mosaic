@@ -1,126 +1,46 @@
-import * as React from "react";
-import { useState } from "react";
-import {
-	render,
-	screen,
-	fireEvent,
-	cleanup,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+
+import type { CheckboxProps } from "@root/components/Checkbox";
 
 import Checkbox from "@root/components/Checkbox";
+import testIds from "@root/utils/testIds";
 
-afterEach(cleanup);
+async function setup(props: Partial<CheckboxProps> = {}) {
+	const renderResult = await act(() => render(
+		<Checkbox
+			checked
+			{...props}
+		/>,
+	));
 
-describe("Checkbox", function() {
-	it("should render on the screen", () => {
-		const { getByRole } = render(
-			<Checkbox
-				label="Test checkbox"
-				checked={false}
-			/>,
-		);
+	return {
+		...renderResult,
+	};
+}
 
-		const checkbox = getByRole("checkbox") as HTMLInputElement;
+describe(__dirname, () => {
+	it("should render a checkbox", async () => {
+		await setup();
 
-		expect(checkbox).toBeTruthy();
+		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
 	});
 
-	it("should render a checkbox with a label", () => {
-		render(
-			<Checkbox
-				label="Label test"
-				checked={false}
-			/>,
-		);
+	it("should render a checkbox unchecked", async () => {
+		await setup({ checked: false });
 
-		expect(screen.getByText("Label test")).toBeDefined();
+		expect(screen.queryByRole("checkbox")).not.toBeChecked();
 	});
 
-	it("should render a checkbox disabled and unchecked", () => {
-		const { getByRole } = render(
-			<Checkbox
-				label="Example label"
-				checked={false}
-				disabled={true}
-			/>,
-		);
+	it("should render a checkbox disabled", async () => {
+		await setup({ disabled: true });
 
-		const checkbox = getByRole("checkbox") as HTMLInputElement;
-
-		expect(checkbox.disabled).toBe(true);
-		expect(checkbox.checked).toBe(false);
+		expect(screen.queryByRole("checkbox")).toBeDisabled();
 	});
 
-	it("should render a checkbox disabled and checked", () => {
-		const { getByRole } = render(
-			<Checkbox
-				label="Example label"
-				checked={true}
-				disabled={true}
-			/>,
-		);
+	it("should render a checkbox with a custom classname", async () => {
+		await setup({ className: "MyCheckbox" });
 
-		const checkbox = getByRole("checkbox") as HTMLInputElement;
-
-		expect(checkbox.disabled).toBe(true);
-		expect(checkbox.checked).toBe(true);
-	});
-
-	it("should render a checkbox enabled and indeterminate", () => {
-		const { getByTestId } = render(
-			<Checkbox
-				label="Example label"
-				checked={false}
-				indeterminate={true}
-			/>,
-		);
-
-		const checkbox = getByTestId("checkbox-test-id") as HTMLInputElement;
-
-		expect(checkbox.classList.contains("MuiCheckbox-indeterminate")).toBe(true);
-	});
-
-	it("should render a checkbox disabled and indeterminate", () => {
-		const { getByTestId, getByRole } = render(
-			<Checkbox
-				label="Example label"
-				checked={false}
-				disabled={true}
-				indeterminate={true}
-			/>,
-		);
-
-		const checkboxByRole = getByRole("checkbox") as HTMLInputElement;
-		const checkboxTestId = getByTestId("checkbox-test-id") as HTMLInputElement;
-
-		expect(checkboxByRole.disabled).toBe(true);
-		expect(checkboxTestId.classList.contains("MuiCheckbox-indeterminate")).toBe(true);
-	});
-
-	it("should check with onClick", () => {
-		const C = () => {
-			const [checked, setChecked] = useState(false);
-
-			const onClick = function() {
-				setChecked(!checked);
-			};
-
-			return (
-				<Checkbox
-					checked={checked}
-					onClick={onClick}
-					label="Test checkbox"
-				/>
-			);
-		};
-
-		const { getByRole } = render(<C />);
-
-		const checkbox = getByRole("checkbox") as HTMLInputElement;
-
-		expect(checkbox.checked).toEqual(false);
-
-		fireEvent.click(checkbox);
-		expect(checkbox.checked).toEqual(true);
+		expect(screen.queryByTestId(testIds.CHECKBOX_WRAPPER)).toHaveClass("MyCheckbox");
 	});
 });

@@ -2,10 +2,11 @@ import * as React from "react";
 import { useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 
+import type { DataViewColumnControlProps } from "./DataViewColumnControlTypes";
+
 import Button from "../../Button";
 import DataViewColumnDrawer from "../DataViewColumDrawer";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewColumnControlProps } from "./DataViewColumnControlTypes";
 
 export default function DataViewColumnControl(props: DataViewColumnControlProps) {
 	const [state, setState] = useState({
@@ -31,7 +32,7 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 				onClick={gearClick}
 				size="small"
 				iconPosition="left"
-				tooltip="Update columns and their order."
+				tooltip="Update columns and their order"
 			/>
 			{
 				props.onChange !== undefined && (

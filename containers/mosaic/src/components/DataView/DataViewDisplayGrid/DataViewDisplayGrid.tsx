@@ -10,6 +10,7 @@ import DataViewBulkAllBar from "../DataViewBulkAllBar";
 import type { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
 import Typography from "@root/components/Typography";
+import testIds from "@root/utils/testIds";
 
 function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	if (!props.gridColumnsMap) {
@@ -26,7 +27,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 	};
 
 	return (
-		<StyledDiv>
+		<StyledDiv data-testid={testIds.DATA_VIEW_DISPLAY_GRID}>
 			{
 				props.showBulkAll && (
 					<div className="topRowBulkAll">
@@ -53,13 +54,17 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 									${props.checked?.[i] ? "checked" : ""}
 								`}
 								key={i}
+								data-testid={testIds.DATA_VIEW_GRID_ITEM}
 							>
 								{
 									image && (
 										<div className="image">
 											{
 												props.onCheckboxClick && (
-													<div className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}>
+													<div
+														className={`checkboxContainer ${props.anyChecked && !props.checked?.[i] ? "anyChecked" : ""}`}
+														data-testid={testIds.DATA_VIEW_GRID_ITEM_CHECK}
+													>
 														<Checkbox
 															className="checkbox"
 															checked={props.checked[i]}

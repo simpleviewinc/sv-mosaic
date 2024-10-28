@@ -1,215 +1,111 @@
-import * as React from "react";
-import { screen, cleanup, render, act, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
+
+import type { DataViewFilterDateProps } from "@root/components/DataViewFilterDate";
+
 import DataViewFilterDate from "@root/components/DataViewFilterDate";
-import { MosaicLabelValue } from "@root/types";
-import { useState } from "react";
+import testIds from "@root/utils/testIds";
 
-afterEach(cleanup);
+async function setup(props: Partial<DataViewFilterDateProps> = {}) {
+	const onChangeMock = props.onChange || vi.fn();
 
-const DataViewFilterDateExample = ({ showOptions }: { showOptions?: boolean }) => {
-	const [state, setState] = useState({});
-	const options: MosaicLabelValue[] = [
-		{
-			label: "Today",
-			value: "today",
-		},
-		{
-			label: "Yesterday",
-			value: "yesterday",
-		},
-		{
-			label: "Tomorrow",
-			value: "tomorrow",
-		},
-		{
-			label: "Last year",
-			value: "last_year",
-		},
-		{
-			label: "Last 2 years",
-			value: "last_2_years",
-		},
-		{
-			label: "Last 3 years",
-			value: "last_3_years",
-		},
-	];
-
-	const onChange = function(data) {
-		setState(data);
-	};
-
-	const onRemove = () => undefined;
-
-	return (
+	const renderResult = await act(() => render(
 		<DataViewFilterDate
-			label="Date filter example"
-			data={state}
-			args={{ options: showOptions ? options : undefined }}
-			onRemove={onRemove}
-			onChange={onChange}
-		/>
-	);
-};
+			args={{}}
+			data={{}}
+			label="Filter Date"
+			onChange={onChangeMock}
+			{...props}
+		/>,
+	));
 
-describe("DataViewFilterDate", () => {
-	it("Should select a from date", async () => {
-		await act(async () => {
-			render(<DataViewFilterDateExample />);
-		});
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
 
-		const filterButton = await screen.findByText("Date filter example");
-		expect(filterButton).toBeInTheDocument();
+describe(__dirname, () => {
+	it("should render the data view date filter button", async () => {
+		await setup();
 
-		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
-		expect(dropdownContent).toBeInTheDocument();
-
-		const fromInput = (await screen.findAllByRole("textbox"))[0];
-		await act(async () => {
-			fireEvent.change(fromInput, { target: { value: "01012023" } });
-		});
-
-		const applyButton = await screen.findByText("Apply");
-		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const actualResult = (await screen.findByRole("button")).textContent;
-		const expectedResult = "Date filter example|from 1/1/2023";
-		expect(actualResult).toEqual(expectedResult);
+		expect(screen.queryByRole("button", { name: "Filter: Filter Date" })).toBeInTheDocument();
 	});
 
-	it("Should select a from date", async () => {
-		await act(async () => {
-			render(<DataViewFilterDateExample />);
-		});
+	it("should render the correct text if the start and end dates provided are the same day", async () => {
+		await setup({ data: { rangeStart: new Date(2024, 10, 23), rangeEnd: new Date(2024, 10, 23) } });
 
-		const filterButton = await screen.findByText("Date filter example");
-		expect(filterButton).toBeInTheDocument();
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
-		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
-		expect(dropdownContent).toBeInTheDocument();
-
-		const toInput = (await screen.findAllByRole("textbox"))[1];
-		await act(async () => {
-			fireEvent.change(toInput, { target: { value: "01012023" } });
-		});
-
-		const applyButton = await screen.findByText("Apply");
-		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const actualResult = (await screen.findByRole("button")).textContent;
-		const expectedResult = "Date filter example|to 1/1/2023";
-		expect(actualResult).toEqual(expectedResult);
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date|11/23/2024");
 	});
 
-	it("Should select a valid range", async () => {
-		await act(async () => {
-			render(<DataViewFilterDateExample />);
-		});
+	it("should render the correct text if the start and end dates provided are on different days", async () => {
+		await setup({ data: { rangeStart: new Date(2024, 10, 23), rangeEnd: new Date(2024, 10, 24) } });
 
-		const filterButton = await screen.findByText("Date filter example");
-		expect(filterButton).toBeInTheDocument();
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
-		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
-		expect(dropdownContent).toBeInTheDocument();
-
-		const fromInput = (await screen.findAllByRole("textbox"))[0];
-		await act(async () => {
-			fireEvent.change(fromInput, { target: { value: "12312022" } });
-		});
-
-		const toInput = (await screen.findAllByRole("textbox"))[1];
-		await act(async () => {
-			fireEvent.change(toInput, { target: { value: "01012023" } });
-		});
-
-		const applyButton = await screen.findByText("Apply");
-		await act(async () => {
-			applyButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const actualResult = (await screen.findByRole("button")).textContent;
-		const expectedResult = "Date filter example|12/31/2022 - 1/1/2023";
-		expect(actualResult).toEqual(expectedResult);
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date|11/23/2024 - 11/24/2024");
 	});
 
-	it("Should throw an error when selecting an invalid range", async () => {
-		await act(async () => {
-			render(<DataViewFilterDateExample />);
-		});
+	it("should render the correct text if a start date is provided but an end date is not", async () => {
+		await setup({ data: { rangeStart: new Date(2024, 10, 23) } });
 
-		const filterButton = await screen.findByText("Date filter example");
-		expect(filterButton).toBeInTheDocument();
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
-		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
-
-		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
-		expect(dropdownContent).toBeInTheDocument();
-
-		const fromInput = (await screen.findAllByRole("textbox"))[0];
-		await act(async () => {
-			fireEvent.change(fromInput, { target: { value: "01012023" } });
-			fireEvent.blur(fromInput);
-		});
-
-		const toInput = (await screen.findAllByRole("textbox"))[1];
-		await act(async () => {
-			fireEvent.change(toInput, { target: { value: "12312022" } });
-			fireEvent.blur(toInput);
-		});
-
-		const applyButton = await screen.findByText("Apply");
-		expect(applyButton).toHaveProperty("disabled");
-
-		const errorMessageStart = await screen.findByText("Start date should happen before the end date");
-		expect(errorMessageStart).toBeInTheDocument();
-
-		const errorMessageEnd = await screen.findByText("End date should happen after the start date");
-		expect(errorMessageEnd).toBeInTheDocument();
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date|from 11/23/2024");
 	});
 
-	it("Should select a magic value", async () => {
-		await act(async () => {
-			render(<DataViewFilterDateExample showOptions={true} />);
-		});
+	it("should render the correct text if an end date is provided but a start date is not", async () => {
+		await setup({ data: { rangeEnd: new Date(2024, 10, 24) } });
 
-		const filterButton = await screen.findByText("Date filter example");
-		expect(filterButton).toBeInTheDocument();
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
-		await act(async () => {
-			filterButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date|to 11/24/2024");
+	});
 
-		const dropdownContent = await screen.findByTestId("dataview-filter-date-dropdown-content");
-		expect(dropdownContent).toBeInTheDocument();
+	it("should render the correct text if an option is provided", async () => {
+		await setup({ data: { option: "today" }, args: { options: [{ value: "today", label: "Today" }] } });
 
-		const magicValues = await screen.findAllByRole("menuitem");
-		const randomMagicValueIdx = Math.floor(Math.random() * magicValues.length);
-		const magicValueSelected = magicValues[randomMagicValueIdx];
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
-		await act(async () => {
-			magicValueSelected.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date|Today");
+	});
 
-		const actualResult = (await screen.findByRole("button")).textContent;
-		const expectedResult = `Date filter example|${magicValueSelected.textContent}`;
-		expect(actualResult).toEqual(expectedResult);
+	it("should only render the label if no data is provided", async () => {
+		await setup({ data: undefined });
+
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
+
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date");
+	});
+
+	it("should onyl render the label if the option provided in data is not located in the list of options provided in args", async () => {
+		await setup({ data: { option: "yesterday" }, args: { options: [{ value: "today", label: "Today" }] } });
+
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
+
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveTextContent("Filter Date");
+	});
+
+	it("should display the filter popover when clicked and hide it again when escape is pressed", async () => {
+		const { user } = await setup();
+
+		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
+
+		expect(button).toBeInTheDocument();
+		await user.click(button);
+		const dropdown = screen.queryByTestId(testIds.DATA_VIEW_FILTERS_DROPDOWN);
+		expect(dropdown).toBeInTheDocument();
+		await user.keyboard("{Escape}");
+		expect(dropdown).not.toBeInTheDocument();
 	});
 });

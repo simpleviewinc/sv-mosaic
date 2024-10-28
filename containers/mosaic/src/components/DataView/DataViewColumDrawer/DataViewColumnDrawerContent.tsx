@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import CheckboxList from "@root/components/CheckboxList";
 import { useMosaicTranslation } from "@root/i18n";
 import PageHeader from "../../PageHeader";
-import { ButtonProps } from "../../Button";
-import { DataViewColumnDrawerContentProps } from "./DataViewColumnDrawerTypes";
+import type { ButtonProps } from "../../Button";
+import type { DataViewColumnDrawerContentProps } from "./DataViewColumnDrawerTypes";
 import {
 	StyledWrapper,
 	ColumnTitle,

@@ -1,5 +1,6 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
+import testIds from "@root/utils/testIds";
 
 export class ChipPage extends BasePage {
 
@@ -21,8 +22,8 @@ export class ChipPage extends BasePage {
 		this.basicChipWithOnClickSelected = this.chipTestIDLocator.nth(1);
 		this.basicChipWithoutOnClickNotSelected = this.chipTestIDLocator.nth(2);
 		this.basicChipWithoutOnClickSelected = this.chipTestIDLocator.nth(3);
-		this.deletableChip = page.locator("[data-testid='delete-chip-testid']");
-		this.disabledChipNotSelected = this.chipTestIDLocator.nth(4);
-		this.disabledChipSelected = this.chipTestIDLocator.nth(5);
+		this.deletableChip = page.getByTestId(testIds.CHIP).filter({ has:page.getByTestId(testIds.CHIP_DELETE_ICON) });
+		this.disabledChipNotSelected = this.chipTestIDLocator.nth(5);
+		this.disabledChipSelected = this.chipTestIDLocator.nth(6);
 	}
 }

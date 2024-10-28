@@ -22,7 +22,6 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 	const value = props.data?.value;
 
 	useEffect(() => {
-		let isMounted = true;
 		async function fetchData() {
 			const selected = await props.args.getSelected(value);
 			const options = await props.args.getOptions();
@@ -34,13 +33,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 			});
 		}
 
-		if (isMounted) {
-			fetchData();
-		}
-
-		return () => {
-			isMounted = false;
-		};
+		fetchData();
 	}, [props.data]);
 
 	const onClick = function (evt) {

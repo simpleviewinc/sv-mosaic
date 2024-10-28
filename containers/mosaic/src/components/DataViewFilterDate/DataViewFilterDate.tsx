@@ -1,24 +1,18 @@
-import * as React from "react";
-import { useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+
+import React, { useState } from "react";
 import styled from "styled-components";
 import format from "date-fns/format";
 import isSameDay from "date-fns/isSameDay";
-import isSameMonth from "date-fns/isSameMonth";
-import isSameYear from "date-fns/isSameYear";
+
+import type { DataViewFilterDateProps } from "./DataViewFilterDateTypes";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDateDropdownContent from "./DataViewFilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import { DataViewFilterDateProps } from "./DataViewFilterDateTypes";
 import { DATE_FORMAT_SHORT } from "@root/constants";
 
 const StyledWrapper = styled.span``;
-
-function isSame(dateLeft, dateRight) {
-	return [isSameDay, isSameMonth, isSameYear].every(fn => {
-		return fn(dateLeft, dateRight);
-	});
-}
 
 export default function DataViewFilterDate(props: DataViewFilterDateProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -40,13 +34,13 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 			const startFormat = hasStart ? format(props.data.rangeStart, DATE_FORMAT_SHORT) : undefined;
 			const endFormat = hasEnd ? format(props.data.rangeEnd, DATE_FORMAT_SHORT) : undefined;
 
-			if (isSame(props.data.rangeStart, props.data.rangeEnd)) {
+			if (isSameDay(props.data.rangeStart, props.data.rangeEnd)) {
 				valueString = startFormat;
 			} else if (hasStart && hasEnd) {
 				valueString = `${startFormat} - ${endFormat}`;
 			} else if (hasStart) {
 				valueString = `from ${startFormat}`;
-			} else if (hasEnd) {
+			} else {
 				valueString = `to ${endFormat}`;
 			}
 		} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {

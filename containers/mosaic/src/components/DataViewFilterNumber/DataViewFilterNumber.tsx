@@ -1,5 +1,9 @@
-import React, { useState, ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+
+import React, { useState, useMemo } from "react";
+
 import type { DataViewFilterNumberProps } from "./DataViewFilterNumberTypes";
+
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import DataViewFilterNumberDropdownContent from "./DataViewFilterNumberDropdownContent";

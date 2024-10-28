@@ -13,6 +13,7 @@ import DataViewTBody from "../DataViewTBody";
 import { transformRows } from "../dataViewTools";
 import { restrictToBoundingRect } from "@root/utils/dom/restrictToBoundingRect";
 import { sum } from "@root/utils/math/sum";
+import testIds from "@root/utils/testIds";
 
 const StyledTable = styled.table`
 	width: 100%;
@@ -27,7 +28,7 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 		return transformRows(props.data, props.activeColumnObjs);
 	}, [props.data, props.activeColumnObjs]);
 
-	const hasActions = sum(Object.entries(rowActions).map(([, { primary = [], additional = [] }]) => primary.length + additional.length)) > 0;
+	const hasActions = sum(Object.entries(rowActions).map(([, { primary, additional }]) => primary.length + additional.length)) > 0;
 
 	const sensors = useSensors(
 		useSensor(PointerSensor),
@@ -83,7 +84,9 @@ function DataViewDisplayList(props: DataViewDisplayListProps) {
 				items={transformedData.map(item => item.id)}
 				strategy={verticalListSortingStrategy}
 			>
-				<StyledTable>
+				<StyledTable
+					data-testid={testIds.DATA_VIEW_DISPLAY_LIST}
+				>
 					<DataViewTHead
 						checked={props.checked}
 						checkedAllPages={props.checkedAllPages}
