@@ -3,15 +3,15 @@ import type { Editor } from "@tiptap/core";
 
 import React from "react";
 
-import type { ControlWithProps, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
+import type { ControlWithProps, TextEditorInputSettings } from "../../FormFieldTextEditorTypes";
 
-import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
+import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import testIds from "@root/utils/testIds";
 import { Shortcut } from "../Shortcut";
 
 type ControlMenuItemProps = ControlWithProps & {
 	editor: Editor;
-	inputSettings: TextEditorNextInputSettings;
+	inputSettings: TextEditorInputSettings;
 	onClose: () => void;
 };
 

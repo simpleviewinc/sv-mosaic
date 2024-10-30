@@ -4,9 +4,9 @@ import type { Editor } from "@tiptap/core";
 import React, { useState } from "react";
 import MoreIcon from "@mui/icons-material/MoreVert";
 
-import type { Control, MenuButtonProps, TextEditorNextInputSettings } from "../../FormFieldTextEditorTypes";
+import type { Control, MenuButtonProps, TextEditorInputSettings } from "../../FormFieldTextEditorTypes";
 
-import { StyledControlMenu } from "../../FormFieldTextEditorTipTap.styled";
+import { StyledControlMenu } from "../../FormFieldTextEditor.styled";
 import { ControlMenuItem } from "./ControlMenuItem";
 import { ControlButton } from "./ControlButton";
 import testIds from "@root/utils/testIds";
@@ -15,7 +15,7 @@ interface ControlMenuDropdownProps {
 	editor: Editor;
 	controls: Control[];
 	MenuButton?: (props: MenuButtonProps) => ReactElement;
-	inputSettings: TextEditorNextInputSettings;
+	inputSettings: TextEditorInputSettings;
 	testId?: string;
 	disabled?: boolean;
 }
