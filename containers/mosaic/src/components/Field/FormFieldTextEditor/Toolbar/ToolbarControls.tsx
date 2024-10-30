@@ -3,17 +3,17 @@ import type { Editor } from "@tiptap/core";
 
 import React, { useMemo } from "react";
 
-import type { ControlsConfig, SelectionType, TextEditorNextInputSettings } from "../FormFieldTextEditorTypes";
+import type { ControlsConfig, SelectionType, TextEditorInputSettings } from "../FormFieldTextEditorTypes";
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
-import { ControlGroup, ControlGroups } from "../FormFieldTextEditorTipTap.styled";
+import { ControlGroup, ControlGroups } from "../FormFieldTextEditor.styled";
 import testIds from "@root/utils/testIds";
 
 export interface ToolbarControlsProps {
 	controls: ControlsConfig;
 	editor: Editor;
 	selectionTypes?: SelectionType[];
-	inputSettings: TextEditorNextInputSettings;
+	inputSettings: TextEditorInputSettings;
 	disabled?: boolean;
 }
 
