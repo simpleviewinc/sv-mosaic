@@ -80,7 +80,6 @@
 		"@tiptap/pm": "2.8.0",
 		"@tiptap/react": "2.8.0",
 		"date-fns": "^2.29.1",
-		"jodit": "3.19.3",
 		"lodash": "^4.17.15",
 		"nanoid": "^3.3.7",
 		"postcode-validator": "^3.8.21"
