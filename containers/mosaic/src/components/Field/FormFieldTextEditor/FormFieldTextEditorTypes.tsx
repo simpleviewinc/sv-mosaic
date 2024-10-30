@@ -54,7 +54,7 @@ export type ControlBase = {
 export type ControlWithProps = ControlBase & {
 	cmd: (params: {
 		editor: Editor;
-		inputSettings: TextEditorNextInputSettings;
+		inputSettings: TextEditorInputSettings;
 	}) => void;
 	Icon?: SvgIconComponent;
 };
@@ -62,7 +62,7 @@ export type ControlWithProps = ControlBase & {
 export type ControlComponentProps = {
 	editor: Editor;
 	onClose?: () => void;
-	inputSettings: TextEditorNextInputSettings;
+	inputSettings: TextEditorInputSettings;
 	disabled?: boolean;
 } & Omit<ControlWithComponent, "component">;
 
@@ -100,13 +100,6 @@ export type ShortcutDef = {
 	mac: string;
 };
 
-export type TextEditorInputSettings = {
-	spellcheck?: boolean;
-	direction?: "rtl" | "ltr" | "";
-	language?: string;
-	maxCharacters?: number;
-};
-
 export interface TextEditorUpdateLinkValues {
 	url: string;
 	newTab?: boolean;
@@ -128,13 +121,14 @@ export type TextEditorOnImageParams = Partial<TextEditorUpdateImageValues> & {
 	updateImage: TextEditorUpdateImage;
 };
 
-export type TextEditorNextInputSettings = {
+export type TextEditorInputSettings = {
 	controls?: ControlsConfig;
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
 	allowedLinkProtocols?: string[];
 	autolink?: boolean;
+	maxCharacters?: number;
 };
 
 export type TextEditorData = string;
