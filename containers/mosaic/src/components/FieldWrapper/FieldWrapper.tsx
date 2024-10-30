@@ -6,7 +6,7 @@ import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledL
 import { default as Label } from "./Label";
 import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
-import { isTipTapField, type FieldDef, type MosaicFieldProps } from "../Field";
+import { type FieldDef, type MosaicFieldProps } from "../Field";
 import Skeleton from "@mui/material/Skeleton";
 import { getTextLength } from "@root/utils/string";
 import useRegisterField from "@root/utils/hooks/useRegisterField";
@@ -17,7 +17,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 		return;
 	}
 
-	if (def.type === "text" || def.type === "textEditor" || isTipTapField(def.type)) {
+	if (def.type === "text" || def.type === "textEditor") {
 		return def.inputSettings.maxCharacters;
 	}
 
@@ -32,7 +32,7 @@ function getValueLimit(def: FieldDef): number | undefined {
 
 function getValueLength(value: any, fieldDef: FieldDef): number {
 	if (typeof value === "string") {
-		if (fieldDef.type === "textEditor" || isTipTapField(fieldDef.type)) {
+		if (fieldDef.type === "textEditor") {
 			return getHtmlCharacterCount(value);
 		}
 
@@ -67,11 +67,7 @@ const typesWithRealLabel: FieldDef["type"][] = [
 	"number",
 	"phone",
 	"text",
-	/**
-	 * I can't work out a way to add an ID to Jodit's
-	 * embedded contenteditable element..
-	 */
-	// "textEditor",
+	"textEditor",
 	"time",
 ];
 

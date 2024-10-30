@@ -27,7 +27,6 @@ import type {
 import type { FieldDefSanitized } from "../../Field";
 
 import { getToggle, wrapToggle } from "@root/utils/toggle";
-import { isTipTapField } from "../../Field";
 import { getFieldConfig } from "..";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
@@ -69,7 +68,7 @@ export function useForm(): UseFormReturn {
 				fn: "validateCharacterCount",
 				options: {
 					max: field.inputSettings.maxCharacters,
-					ignoreHTML: field.type === "textEditor" || isTipTapField(field.type),
+					ignoreHTML: field.type === "textEditor",
 				},
 			});
 		}
