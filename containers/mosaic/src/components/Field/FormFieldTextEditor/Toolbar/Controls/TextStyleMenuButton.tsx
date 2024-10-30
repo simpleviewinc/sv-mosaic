@@ -4,7 +4,7 @@ import React from "react";
 
 import type { MenuButtonProps } from "../../FormFieldTextEditorTypes";
 
-import { StyledTextStyleMenuButton } from "../../FormFieldTextEditorTipTap.styled";
+import { StyledTextStyleMenuButton } from "../../FormFieldTextEditor.styled";
 import testIds from "@root/utils/testIds";
 
 export function TextStyleMenuButton({ disabled, editor, onClick }: MenuButtonProps): ReactElement {

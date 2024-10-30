@@ -2669,7 +2669,6 @@ __metadata:
     eslint-plugin-react-hooks: 4.6.0
     i18next: 19.5.0
     identity-obj-proxy: 3.0.0
-    jodit: 3.19.3
     jsdom: 25.0.0
     lodash: ^4.17.15
     nanoid: ^3.3.7
@@ -3796,13 +3795,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autobind-decorator@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "autobind-decorator@npm:2.4.0"
-  checksum: 6fcc922580d3585a3aeef1a480f935c0827b1a4505b9e39ff9bcad9039958bd47b27a4e35152f566e01befb2924701dbc9f744ec29eeb880c99eef8e39fce4a3
-  languageName: node
-  linkType: hard
-
 "available-typed-arrays@npm:^1.0.7":
   version: 1.0.7
   resolution: "available-typed-arrays@npm:1.0.7"
@@ -4192,13 +4184,6 @@ __metadata:
   dependencies:
     browserslist: ^4.23.3
   checksum: a0a5673bcd59f588f0cd0b59cdacd4712b82909738a87406d334dd412eb3d273ae72b275bdd8e8fef63fca9ef12b42ed651be139c7c44c8a1acb423c8906992e
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.24.0":
-  version: 3.38.1
-  resolution: "core-js@npm:3.38.1"
-  checksum: 55703c2f6fcd537e47a5cc83e9dc9884efef61861bbefb4a96a8c95e87956db980ce314628465dd49f14e626c5e633b9e3433f3e4a1f628404a14da420eb2556
   languageName: node
   linkType: hard
 
@@ -5923,16 +5908,6 @@ __metadata:
     cssfontparser: ^1.2.1
     moo-color: ^1.0.2
   checksum: a3004d2e96473049045e49dcf98e5ea6011494048ab42b5422b3089d9ff406aaca8353e79587055d840fa145541668eb8f78613765f252ad5901a8217e91ea5d
-  languageName: node
-  linkType: hard
-
-"jodit@npm:3.19.3":
-  version: 3.19.3
-  resolution: "jodit@npm:3.19.3"
-  dependencies:
-    autobind-decorator: ^2.4.0
-    core-js: ^3.24.0
-  checksum: b295bd1615593f10f0b9df5656142fd48ce894a81ecc5517f3a04927f326b7563e9631e82669ba0f7cdf7ff447a40e842ea59da66fa88bc5ad11155422e05f20
   languageName: node
   linkType: hard
 

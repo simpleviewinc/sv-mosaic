@@ -7,7 +7,7 @@ import React from "react";
 import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
 
 import testIds from "@root/utils/testIds";
-import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditorTipTap.styled";
+import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "..";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {

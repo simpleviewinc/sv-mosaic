@@ -3,7 +3,7 @@ import * as React from "react";
 import { useMemo, useState, ReactElement } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { ControlWithProps, getDefaultExtensions, FieldDef, FormFieldTextEditorTipTapFieldType, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { ControlWithProps, getDefaultExtensions, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
@@ -17,188 +17,6 @@ export default {
 	title: "FormFields/FormFieldTextEditor",
 };
 
-export const Playground = ({
-	label,
-	disabled,
-	required,
-	skeleton,
-	instructionText,
-	helperText,
-	spellcheck,
-	direction,
-	language,
-	maxCharacters,
-}: typeof Playground.args): ReactElement => {
-	const controller = useForm();
-	const { state, handleSubmit } = controller;
-
-	const fields = useMemo(
-		(): FieldDef[] =>
-			[
-				{
-					name: "textEditor",
-					label,
-					type: "textEditor",
-					required,
-					inputSettings: {
-						spellcheck,
-						direction,
-						language,
-						maxCharacters,
-					},
-					disabled,
-					helperText,
-					instructionText,
-				},
-			],
-		[
-			direction,
-			required,
-			disabled,
-			label,
-			helperText,
-			instructionText,
-			maxCharacters,
-			spellcheck,
-			language,
-		],
-	);
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				{...controller}
-				title="Text Editor Field"
-				fields={fields}
-				buttons={renderButtons(handleSubmit)}
-				skeleton={skeleton}
-			/>
-		</>
-	);
-};
-
-Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
-	spellcheck: false,
-	direction: "ltr",
-	language: "en",
-	maxCharacters: 100,
-};
-
-Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
-	spellcheck: {
-		name: "Direction",
-		control: { type: "select" },
-		options: ["ltr", "rtl"],
-	},
-	direction: {
-		name: "Direction",
-	},
-	language: {
-		name: "Language",
-	},
-	maxCharacters: {
-		name: "Maximum Characters",
-	},
-};
-
-const fields: FieldDef[] = [
-	{
-		name: "spellCheck",
-		label: "Text editor with spellcheck active",
-		type: "textEditor",
-		required: false,
-		inputSettings: {
-			spellcheck: true,
-		},
-	},
-	{
-		name: "ltr",
-		label: "Text editor with left to right direction",
-		type: "textEditor",
-		required: false,
-		inputSettings: {
-			direction: "ltr",
-		},
-	},
-	{
-		name: "rtl",
-		label: "Text editor with right to left direction",
-		type: "textEditor",
-		required: false,
-		inputSettings: {
-			direction: "rtl",
-		},
-	},
-	{
-		name: "german",
-		label: "Text editor in german (de) language",
-		type: "textEditor",
-		required: false,
-		inputSettings: {
-			language: "de",
-		},
-	},
-	{
-		name: "maxChars",
-		label: "Text editor with max character limit",
-		type: "textEditor",
-		required: false,
-		inputSettings: {
-			maxCharacters: 20,
-		},
-	},
-	{
-		name: "disabled",
-		label: "Disabled text editor",
-		type: "textEditor",
-		required: false,
-		disabled: true,
-	},
-];
-
-export const KitchenSink = (): ReactElement => {
-	const controller = useForm();
-	const { state, handleSubmit } = controller;
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				{...controller}
-				title="Text Editor Kitchen Sink"
-				description="This is a description example"
-				fields={fields}
-				buttons={renderButtons(handleSubmit)}
-			/>
-		</>
-	);
-};
-
 const customExtensionControl: ControlWithProps = {
 	name: "simpleviewAlert",
 	label: "Simpleview Alert",
@@ -206,7 +24,7 @@ const customExtensionControl: ControlWithProps = {
 	Icon: ChatBubbleIcon
 };
 
-export const Tiptap = ({
+export const Playground = ({
 	label,
 	disabled,
 	required,
@@ -219,12 +37,12 @@ export const Tiptap = ({
 	customImageHandler,
 	customLinkHandler,
 	customExtensionExample,
-}: typeof Tiptap.args): ReactElement => {
+}: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
 	const [linkDrawer, setLinkDrawer] = useState<null | TextEditorOnLinkParams>(null);
 
-	const { state, handleSubmit } = controller;
+	const { handleSubmit } = controller;
 
 	const onClose = () => {
 		setMediaDrawer(null);
@@ -237,7 +55,7 @@ export const Tiptap = ({
 				{
 					name: "textEditor",
 					label,
-					type: FormFieldTextEditorTipTapFieldType,
+					type: "textEditor",
 					required,
 					inputSettings: {
 						autolink,
@@ -322,7 +140,7 @@ export const Tiptap = ({
 	);
 };
 
-Tiptap.args = {
+Playground.args = {
 	label: "Label",
 	disabled: false,
 	required: false,
@@ -337,7 +155,7 @@ Tiptap.args = {
 	customExtensionExample: false,
 };
 
-Tiptap.argTypes = {
+Playground.argTypes = {
 	label: {
 		name: "Label",
 	},
@@ -377,4 +195,41 @@ Tiptap.argTypes = {
 	customExtensionExample: {
 		name: "Custom Extension Example",
 	}
+};
+
+const fields: FieldDef[] = [
+	{
+		name: "maxChars",
+		label: "Text editor with max character limit",
+		type: "textEditor",
+		required: false,
+		inputSettings: {
+			maxCharacters: 20,
+		},
+	},
+	{
+		name: "disabled",
+		label: "Disabled text editor",
+		type: "textEditor",
+		required: false,
+		disabled: true,
+	},
+];
+
+export const KitchenSink = (): ReactElement => {
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
+
+	return (
+		<>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+			<Form
+				{...controller}
+				title="Text Editor Kitchen Sink"
+				description="This is a description example"
+				fields={fields}
+				buttons={renderButtons(handleSubmit)}
+			/>
+		</>
+	);
 };

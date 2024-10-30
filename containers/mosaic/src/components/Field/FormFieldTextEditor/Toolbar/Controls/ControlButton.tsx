@@ -5,7 +5,7 @@ import React, { forwardRef } from "react";
 import type { ShortcutDef } from "../../FormFieldTextEditorTypes";
 
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
-import { StyledControlButton } from "../../FormFieldTextEditorTipTap.styled";
+import { StyledControlButton } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "..";
 
 interface ControlButtonProps extends ComponentProps<typeof StyledControlButton> {

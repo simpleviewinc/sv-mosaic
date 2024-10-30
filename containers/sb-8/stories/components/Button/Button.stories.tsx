@@ -12,7 +12,6 @@ import HelpIcon from "@mui/icons-material/Help";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
-import MenuItem from "@mui/material/MenuItem";
 
 import ButtonRow from "@root/components/ButtonRow";
 import { useToggle } from "@root/utils/toggle";
@@ -39,14 +38,6 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 	},
 ];
 
-const menuContent = (
-	<div>
-		<MenuItem >Profile</MenuItem>
-		<MenuItem >My account</MenuItem>
-		<MenuItem >Logout</MenuItem>
-	</div>
-);
-
 export const Playground = ({
 	backgroundColor,
 	buttonColor,
@@ -63,7 +54,6 @@ export const Playground = ({
 	popoverEvent,
 	show,
 	showIcon,
-	showMenuContent,
 	size,
 	smallText,
 	tooltip,
@@ -100,7 +90,6 @@ export const Playground = ({
 					popover={popover && !tooltipType && <p>Popover Content</p>}
 					popoverEvent={popoverEvent}
 					menuItems={menuItems && dropdownWithIcons}
-					menuContent={showMenuContent && menuContent}
 				/>
 			)}
 		</div>
@@ -123,7 +112,6 @@ Playground.args = {
 	popoverEvent: "onClick",
 	show: "Undefined",
 	showIcon: false,
-	showMenuContent: false,
 	size: "medium",
 	smallText: false,
 	tooltip: null,
@@ -192,9 +180,6 @@ Playground.argTypes = {
 	},
 	showIcon: {
 		name: "Show Icon",
-	},
-	showMenuContent: {
-		name: "Show Menu Content",
 	},
 	size: {
 		options: ["small", "medium"],
