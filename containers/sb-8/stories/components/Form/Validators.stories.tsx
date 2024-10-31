@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useMemo } from "react";
 
 // Utils
 import { useForm } from "@root/components/Form";
-import { validateEmail, validateSlow, validateNumber, validateURL } from "@root/components/Form/validators";
+import { validateEmail, validateSlow, validateNumber, validateURL } from "@root/utils/form/validators";
 import { renderButtons } from "../../../utils";
 
 // Components

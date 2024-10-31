@@ -1,11 +1,11 @@
 import * as React from "react";
 import { memo, useMemo } from "react";
 
-import { RowPropTypes } from "./RowTypes";
+import type { RowPropTypes } from "./RowTypes";
 import { StyledRow } from "./RowStyled";
 
 // Components
-import Col from "../Col";
+import Col from "../Col/Col";
 import { useWrappedToggle } from "@root/utils";
 
 const Row = (props: RowPropTypes) => {

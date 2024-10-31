@@ -32,7 +32,7 @@ import {
 	ControlHeading6,
 	ControlNormalText,
 } from "./ControlHeadings";
-import { TextStyleMenuButton } from ".";
+import { TextStyleMenuButton } from "./TextStyleMenuButton";
 import { defaultAllowedProtocols, sanitizeUrl } from "@root/utils/string";
 
 const controlNormalText: Control = {

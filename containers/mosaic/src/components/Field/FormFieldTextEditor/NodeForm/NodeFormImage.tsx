@@ -4,7 +4,8 @@ import React, { useMemo, useCallback } from "react";
 import type { FieldDef } from "@root/components/Field";
 import type { NodeFormTypeProps, TextEditorUpdateImage } from "../FormFieldTextEditorTypes";
 
-import Form, { useForm } from "@root/components/Form";
+import Form from "@root/components/Form/Form";
+import { useForm } from "@root/components/Form/useForm/useForm";
 import { NodeFormFooter } from "./NodeFormFooter";
 
 type NodeFormImageProps = NodeFormTypeProps & {

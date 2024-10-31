@@ -8,7 +8,7 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import type { AddressFieldInputSettings, AddressData, AddressType, AddressItem } from ".";
 
 // Components
-import AddressDrawer from "./AddressDrawer";
+import AddressDrawer from "./AddressDrawer/AddressDrawer";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 
