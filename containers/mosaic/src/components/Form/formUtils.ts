@@ -1,4 +1,4 @@
-import type { FieldConfig, FieldDef, FieldDefCustom, FieldDefToggleData } from "@root/components/Field";
+import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
 
 import FormFieldText from "@root/components/Field/FormFieldText";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
@@ -70,24 +70,7 @@ const fieldConfigMap: Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["t
 	toggle: {
 		Component: FormFieldToggle,
 		validate: "onChange",
-		getResolvedValue: (
-			value: FieldDefToggleData,
-		): {
-			internalValue: FieldDefToggleData;
-			value: FieldDefToggleData;
-		} => {
-			if (!value) {
-				return {
-					internalValue: undefined,
-					value: undefined,
-				};
-			}
-
-			return {
-				internalValue: true,
-				value: true,
-			};
-		},
+		getResolvedValue: defaultResolver,
 	},
 	color: {
 		Component: FormFieldColor,
