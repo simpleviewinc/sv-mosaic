@@ -1,4 +1,4 @@
-import type { FieldConfig, FieldDef, FieldDefCustom, FieldDefToggleData } from "@root/components/Field";
+import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
 
 import type { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
 import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
@@ -64,24 +64,7 @@ export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
 		toggle: {
 			Component: FormFieldToggle,
 			validate: "onChange",
-			getResolvedValue: (
-				value: FieldDefToggleData,
-			): {
-				internalValue: FieldDefToggleData;
-				value: FieldDefToggleData;
-			} => {
-				if (!value) {
-					return {
-						internalValue: undefined,
-						value: undefined,
-					};
-				}
-
-				return {
-					internalValue: true,
-					value: true,
-				};
-			},
+			getResolvedValue: defaultResolver,
 		},
 		color: {
 			Component: FormFieldColor,
