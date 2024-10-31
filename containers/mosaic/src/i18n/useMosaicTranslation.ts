@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { i18n } from "i18next";
+import type { i18n } from "i18next";
 import { useTranslation } from "react-i18next";
 
-import MosaicContext from "../components/MosaicContext";
+import MosaicContext from "../components/MosaicContext/MosaicContext";
 
 interface MosaicTranslation {
 	i18n: i18n;

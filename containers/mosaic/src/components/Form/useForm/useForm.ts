@@ -27,7 +27,7 @@ import type {
 import type { FieldDefSanitized } from "../../Field";
 
 import { getToggle, wrapToggle } from "@root/utils/toggle";
-import { getFieldConfig } from "..";
+import getFieldConfig from "@root/utils/form/getFieldConfig";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
 import { mapsValidators, runValidators, stateFromStable } from "./utils";

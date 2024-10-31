@@ -1,9 +1,9 @@
 import * as React from "react";
 import { memo } from "react";
 
-import { ColPropsTypes } from "./ColTypes";
+import type { ColPropsTypes } from "./ColTypes";
 import { StyledCol } from "./ColStyled";
-import Field from "../Field";
+import Field from "../Field/Field";
 
 const Col = (props: ColPropsTypes) => {
 	const {
