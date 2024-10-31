@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { MouseEvent, ReactElement } from "react";
 import type { Editor } from "@tiptap/core";
 
 import React from "react";
@@ -25,8 +25,8 @@ export function ControlMenuItem({
 	onClose,
 	inputSettings,
 }: ControlMenuItemProps): ReactElement {
-	const onClick = () => {
-		cmd({ editor, inputSettings });
+	const onClick = (event: MouseEvent<HTMLButtonElement>) => {
+		cmd({ editor, inputSettings, event });
 		onClose();
 	};
 

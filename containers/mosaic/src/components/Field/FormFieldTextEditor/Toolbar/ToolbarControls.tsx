@@ -60,7 +60,7 @@ export function ToolbarControls({
 					) : (
 						<ControlButton
 							key={control.name}
-							onClick={() => control.cmd({ editor, inputSettings })}
+							onClick={(event) => control.cmd({ editor, inputSettings, event })}
 							label={control.label}
 							shortcut={control.shortcut}
 							active={editor.isActive(control.name)}
