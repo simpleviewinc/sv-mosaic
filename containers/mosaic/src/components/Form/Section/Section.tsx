@@ -2,11 +2,11 @@ import * as React from "react";
 import { memo, useRef, useCallback, useState, useEffect, useMemo } from "react";
 
 // Components
-import Row from "../Row";
+import Row from "../Row/Row";
 
 // Types
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { SectionPropTypes } from "./SectionTypes";
+import type { SectionPropTypes } from "./SectionTypes";
 import {
 	StyledAccordion,
 	StyledDescription,

@@ -9,7 +9,8 @@ import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
 import type { SectionDef } from "@root/components/Form";
 
-import Form, { useForm } from "@root/components/Form";
+import Form from "@root/components/Form/Form";
+import { useForm } from "@root/components/Form/useForm/useForm";
 import AddressAutocomplete from "../AddressAutocomplete";
 import { FormDrawerWrapper } from "@root/components/common";
 import { componentType } from "../utils/addressUtils";
@@ -17,7 +18,7 @@ import Snackbar from "@root/components/Snackbar";
 import Sizes from "@root/theme/sizes";
 import FieldWrapper from "@root/components/FieldWrapper";
 import addressesAreEqual from "../utils/addressesAreEqual";
-import { validatePostcode } from "@root/components/Form/validators";
+import { validatePostcode } from "@root/utils/form/validators";
 
 const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const {
