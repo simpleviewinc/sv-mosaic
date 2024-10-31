@@ -85,10 +85,12 @@ export function validateLongitude(lng: number): string | undefined {
 /**
  * Validates a required field.
  */
-export function required(str: string | string[]): string | undefined {
-	if (str === undefined
-		|| (typeof str === "string" && str?.trim().length === 0)
-		|| str?.length === 0
+export function required(value: any): string | undefined {
+	if (
+		value === undefined ||
+		(typeof value === "string" && !value.trim().length) ||
+		(Array.isArray(value) && !value.length) ||
+		value === false
 	) {
 		return "This field is required, please fill it";
 	}
