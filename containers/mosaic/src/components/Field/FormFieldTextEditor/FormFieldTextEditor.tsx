@@ -9,7 +9,7 @@ import type { SelectionType, FloatingToolbarState, EditorMode, NodeFormState, Te
 import type { MosaicFieldProps } from "../FieldTypes";
 
 import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditor.styled";
-import { NodeForm } from "./NodeForm";
+import { NodeForm } from "./NodeForm/NodeForm";
 import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
 import { isEmptyDOM } from "@root/utils/dom/isEmptyDOM";

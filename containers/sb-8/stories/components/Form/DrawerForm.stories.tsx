@@ -18,7 +18,7 @@ import { Sizes } from "@root/theme";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import styled from "styled-components";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import { validateEmail } from "@root/components/Form/validators";
+import { validateEmail } from "@root/utils/form/validators";
 
 export default {
 	title: "Components/Form",

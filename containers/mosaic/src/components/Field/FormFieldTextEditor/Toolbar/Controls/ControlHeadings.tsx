@@ -8,7 +8,7 @@ import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
 
 import testIds from "@root/utils/testIds";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
-import { Shortcut } from "..";
+import { Shortcut } from "../Shortcut";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {
 	editor: Editor;

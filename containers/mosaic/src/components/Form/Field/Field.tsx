@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useMemo, useRef } from "react";
 import type { FieldConfig, FieldDef } from "@root/components/Field";
-import { getFieldConfig } from "@root/components/Form";
+import getFieldConfig from "@root/utils/form/getFieldConfig";
 import type { FieldProps } from "./FieldTypes";
-import { sanitizeFieldSize } from "@root/components/Field";
+import { sanitizeFieldSize } from "@root/components/Field/fieldUtils";
 import FieldWrapper, { CustomFieldWrapper } from "@root/components/FieldWrapper";
 import { useWrappedToggle } from "@root/utils/toggle";
 

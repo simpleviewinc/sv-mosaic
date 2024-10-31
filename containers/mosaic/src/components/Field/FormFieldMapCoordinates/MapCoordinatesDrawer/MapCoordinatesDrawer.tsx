@@ -9,8 +9,9 @@ import type { ButtonProps } from "@root/components/Button";
 
 import { FormDrawerWrapper } from "@root/components/common";
 import { defaultMapPosition, isSameCoords, isValidCoords, isValidLatLng } from "../MapCoordinatesUtils";
-import Form, { useForm } from "@root/components/Form";
-import { validateLatitude, validateLongitude } from "@root/components/Form/validators";
+import Form from "@root/components/Form/Form";
+import { useForm } from "@root/components/Form/useForm/useForm";
+import { validateLatitude, validateLongitude } from "@root/utils/form/validators";
 import MapWithMarker from "../Map/MapWithMarker";
 import ResetButton from "../Map/ResetButton";
 

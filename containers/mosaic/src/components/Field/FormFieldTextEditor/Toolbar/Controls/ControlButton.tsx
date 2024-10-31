@@ -6,7 +6,7 @@ import type { ShortcutDef } from "../../FormFieldTextEditorTypes";
 
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
 import { StyledControlButton } from "../../FormFieldTextEditor.styled";
-import { Shortcut } from "..";
+import { Shortcut } from "../Shortcut";
 
 interface ControlButtonProps extends ComponentProps<typeof StyledControlButton> {
 	label?: string;

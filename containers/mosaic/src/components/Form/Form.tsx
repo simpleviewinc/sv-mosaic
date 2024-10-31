@@ -13,7 +13,7 @@ import {
 	StyledFormPrimary,
 	StyledSideNav,
 } from "./Form.styled";
-import Layout from "./Layout";
+import Layout from "./Layout/Layout";
 import Top from "./Top";
 import Dialog from "@root/components/Dialog";
 import useScrollSpy from "@root/utils/hooks/useScrollSpy";

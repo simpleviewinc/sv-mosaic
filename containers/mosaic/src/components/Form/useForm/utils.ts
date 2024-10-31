@@ -1,3 +1,5 @@
+import type { FormStable, FormState, Validator } from "./types";
+
 import {
 	validateLatitude,
 	validateLongitude,
@@ -12,12 +14,7 @@ import {
 	validateURL,
 	validatePostcode,
 	validateNumberRange,
-} from "../validators";
-import {
-	FormStable,
-	FormState,
-	Validator,
-} from "./types";
+} from "@root/utils/form/validators";
 
 export function stateFromStable({
 	internalData,

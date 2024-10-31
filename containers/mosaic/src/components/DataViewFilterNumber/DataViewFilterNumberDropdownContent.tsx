@@ -10,7 +10,7 @@ import { BREAKPOINTS } from "@root/theme/theme";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import Form, { useForm } from "@root/components/Form";
 import { StyledMainContent } from "./DataViewFilterNumber.styled";
-import { VALIDATE_NUMBER_RANGE } from "../Form/validators";
+import { VALIDATE_NUMBER_RANGE } from "@root/utils/form/validators";
 import testIds from "@root/utils/testIds";
 
 const sections: SectionDef[] = [
