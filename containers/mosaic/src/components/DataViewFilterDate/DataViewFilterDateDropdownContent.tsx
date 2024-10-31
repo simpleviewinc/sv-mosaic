@@ -11,7 +11,7 @@ import testIds from "@root/utils/testIds";
 import DataViewFilterDropdownButtons from "../DataViewFilterDropdownButtons";
 import MenuItem from "../MenuItem";
 import Form, { useForm } from "../Form";
-import { VALIDATE_DATE_RANGE } from "../Form/validators";
+import { VALIDATE_DATE_RANGE } from "@root/utils/form/validators";
 
 const StyledMainContent = styled.div`
 	display: flex;

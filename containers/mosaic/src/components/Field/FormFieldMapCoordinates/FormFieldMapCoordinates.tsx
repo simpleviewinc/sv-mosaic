@@ -1,40 +1,19 @@
-import * as React from "react";
-import {
-	memo,
-	ReactElement,
-	useState,
-	useMemo,
-} from "react";
-import {
-	MapCoordinatesData,
-	MapCoordinatesInputSettings,
-} from "./MapCoordinatesTypes";
-import { MosaicFieldProps } from "@root/components/Field";
+import type { ReactElement } from "react";
 
-// Components
-import Button, { ButtonProps } from "@root/components/Button";
-import MapCoordinatesDrawer from "./MapCoordinatesDrawer";
+import React, { memo, useState, useMemo } from "react";
 
-// Styles
-import {
-	ButtonsWrapper,
-	Column,
-	Details,
-	CoordinatesCard,
-	CoordinatesValues,
-	LatitudeValue,
-	LatLngLabel,
-	MapImageColumn,
-} from "./MapCoordinates.styled";
+import type { MapCoordinatesData, MapCoordinatesInputSettings } from "./MapCoordinatesTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { ButtonProps } from "@root/components/Button";
 
-// Utils
-import {
-	isValidLatLng,
-} from "./MapCoordinatesUtils";
+import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
 import Blank from "@root/components/Blank/Blank";
 import Dialog from "@root/components/Dialog/Dialog";
 import Skeleton from "@mui/material/Skeleton";
+import MapCoordinatesDrawer from "./MapCoordinatesDrawer/MapCoordinatesDrawer";
+import { ButtonsWrapper, Column, Details, CoordinatesCard, CoordinatesValues, LatitudeValue, LatLngLabel, MapImageColumn } from "./MapCoordinates.styled";
+import { isValidLatLng } from "./MapCoordinatesUtils";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
