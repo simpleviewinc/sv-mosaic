@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 // Utils
 import { useForm } from "@root/components/Form";
-import { validateEmail, validateSlow } from "@root/components/Form/validators";
+import { validateEmail, validateSlow } from "@root/utils/form/validators";
 import { renderButtons, toggleMap, toggleOptions } from "../../../utils";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 

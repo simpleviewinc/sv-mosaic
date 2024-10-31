@@ -2,10 +2,10 @@ import * as React from "react";
 import { memo } from "react";
 
 // Components
-import Section from "../Section";
+import Section from "../Section/Section";
 
 // Types
-import { LayoutProps } from "./LayoutTypes";
+import type { LayoutProps } from "./LayoutTypes";
 import { StyledLayout } from "./LayoutStyles";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
