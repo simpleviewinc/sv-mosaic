@@ -31,6 +31,10 @@ import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable/Fo
 
 type FieldConfigMap = Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>>;
 
+// We are wrapping the field config map in a function and calling it lazily, because
+// otherwise it breaks hot reloading in development due to circular dependencies being
+// referenced before they're available. We memo it to avoid recreating the map every
+// time we need it, which isn't that often, but still.
 function getFieldConfigMapMemo(): () => FieldConfigMap {
 	let cache: null | FieldConfigMap = null;
 
