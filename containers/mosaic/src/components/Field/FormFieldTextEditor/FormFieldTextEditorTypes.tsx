@@ -55,6 +55,7 @@ export type ControlWithProps = ControlBase & {
 	cmd: (params: {
 		editor: Editor;
 		inputSettings: TextEditorInputSettings;
+		event: MouseEvent<HTMLButtonElement>;
 	}) => void;
 	Icon?: SvgIconComponent;
 };
