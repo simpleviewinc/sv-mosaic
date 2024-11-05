@@ -31,11 +31,11 @@ export default function DataViewFilterNumber({
 		}
 
 		if (min === undefined) {
-			return `Less than ${max}`;
+			return `${max} or less`;
 		}
 
 		if (max === undefined) {
-			return `Greater than ${min}`;
+			return `${min} or greater`;
 		}
 
 		return `Between ${min} and ${max}`;
