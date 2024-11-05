@@ -38,7 +38,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Number" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Number|Less than 5");
+		expect(button).toHaveTextContent("Filter Number|5 or less");
 	});
 
 	it("should render the correct text if a minimum is provided but a maximum is not", async () => {
@@ -46,7 +46,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Number" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Number|Greater than 3");
+		expect(button).toHaveTextContent("Filter Number|3 or greater");
 	});
 
 	it("should render the correct text if both a minimum and a maximum are provided", async () => {
