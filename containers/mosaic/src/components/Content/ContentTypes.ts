@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import type { MosaicObject, MosaicToggle } from "@root/types";
 import type { DataViewColumnTransform } from "../DataView";
-import type { SectionDef } from "../Form/FormTypes";
 import type { ButtonProps } from "@root/components/Button";
 
 export interface ContentFieldDef {
@@ -50,8 +49,11 @@ export interface ContentProps {
 	/**
 	 * Includes the configuration of where each field is going to be
 	 * render. Fields will be render in a max of two columns.
+	 *
+	 * Using string[][][] is deprecated and will be removed in a
+	 * future release. Always use string[][].
 	 */
-	sections?: SectionDef["fields"];
+	sections?: string[][][] | string[][];
 	/**
 	 * Name of the section or subsection.
 	 */

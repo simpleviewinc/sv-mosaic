@@ -18,27 +18,54 @@ import { SubtitleText } from "../Typography";
 import { getToggle } from "@root/utils";
 import testIds from "@root/utils/testIds";
 
+/**
+ * We are going to continue supporting string[][][] for now, but
+ * string[][] is now the way to define content sections. This util
+ * will be removed once we stop supporting string[][][].
+ *
+ * @deprecated
+ */
+function sanitizeSections(sections: ContentProps["sections"]): MosaicGridConfig[number] {
+	let shouldWarn = false;
+	const result = sections.map((section: string[][] | string[]) => section.map((row: string[] | string) => {
+		if (Array.isArray(row)) {
+			shouldWarn = true;
+			return row[0];
+		}
+
+		return row;
+	}));
+
+	if (shouldWarn) {
+		console.warn("Providing content sections as string[][][] is deprecated and support will be removed in future releases. You should now define your sections as string[][]");
+	}
+
+	return result;
+}
+
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections: providedSections, title, buttons = [], variant } = props;
 
 	const cardVariant = variant === "card" ? true : false;
 
-	const rows = useMemo<MosaicGridConfig<ContentFieldDef>>(() => {
-		const sections: MosaicGridConfig = providedSections || fields.map(({ name, column }) => [[column || name]]);
+	const rows = useMemo<MosaicGridConfig<ContentFieldDef>[number]>(() => {
+		const sections: MosaicGridConfig[number] = providedSections ?
+			sanitizeSections(providedSections) :
+			fields.map(({ name, column }) => [column || name]);
 
-		return sections.map((rows, sectionIdx) => rows.map((columns, rowIdx) => columns.map(fieldName => {
+		return sections.map((rows, sectionIdx) => rows.map((fieldName, rowIdx) => {
 			const field = fields.find(({ name, column }) => (column || name) === fieldName);
 
-			if (!field) {
+			if (fieldName && !field) {
 				throw new Error(`No field declared for field name '${fieldName}'. (section ${sectionIdx}, row ${rowIdx})`);
 			}
 
-			if (!getToggle(field.show, true)) {
+			if (field && !getToggle(field.show, true)) {
 				return;
 			}
 
 			return field;
-		}).filter(Boolean))).filter(rows => rows.flat().length);
+		})).filter(rows => rows.flat().length);
 	}, [fields, providedSections]);
 
 	if (!data) {
@@ -67,7 +94,7 @@ const Content = (props: ContentProps): ReactElement => {
 						$columns={columns.length}
 						data-testid={testIds.CONTENT_ROW}
 					>
-						{columns.map(([field], colIdx) => field ? (
+						{columns.map((field, colIdx) => field ? (
 							<ContentField
 								{...field}
 								key={field.name}
