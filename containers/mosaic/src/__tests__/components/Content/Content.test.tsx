@@ -46,7 +46,7 @@ describe(__dirname, () => {
 	it("should throw an error if a field in the sections provided does not exist in the field definitions provided", async () => {
 		vi.spyOn(console, "error").mockImplementation(() => {});
 
-		await expect(() => setup({ sections: [[["noExist"]]] }))
+		await expect(() => setup({ sections: [["noExist"]] }))
 			.rejects
 			.toThrow("No field declared for field name 'noExist'. (section 0, row 0)");
 	});
@@ -80,8 +80,22 @@ describe(__dirname, () => {
 	});
 
 	it("should render an empty column if there are no fields within", async () => {
-		await setup({ sections: [[["content1"], ["content2"], []]] });
+		await setup({ sections: [["content1", "content2", undefined]] });
 
 		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(3);
+	});
+
+	it("should render sections using the deprecated section definition but log a warning", async () => {
+		const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+		await setup({ sections: [[["content1"], ["content2"]]] });
+
+		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(2);
+		expect(warning).toBeCalled();
+	});
+
+	it("should render sections using the newly introduced section definition", async () => {
+		await setup({ sections: [["content1", "content2"]] });
+
+		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(2);
 	});
 });
