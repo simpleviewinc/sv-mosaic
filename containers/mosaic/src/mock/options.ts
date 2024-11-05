@@ -65,6 +65,10 @@ export const optionsLibrary: MosaicLabelValue[] = [
 		label: "Category 5",
 		value: "abc123",
 	},
+	{
+		label: "Category (With Escaped Characters)",
+		value: "category_with_escape",
+	},
 ];
 
 export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {

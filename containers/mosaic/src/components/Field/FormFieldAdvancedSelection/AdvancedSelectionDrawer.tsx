@@ -10,6 +10,7 @@ import type { MosaicLabelValue } from "@root/types";
 import { FormDrawerWrapper } from "@root/components/common";
 import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
 import PageHeader from "@root/components/PageHeader";
+import { escapeRegexp } from "@root/utils/string/escapeRegexp";
 
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const {
@@ -54,7 +55,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 
 	const getSyncOptions: GetOptions = ({ keyword }) => {
 		let newOptions: MosaicLabelValue[] = localOptions?.options || [];
-		const regSearchKeyword = new RegExp(keyword, "i");
+		const regSearchKeyword = new RegExp(escapeRegexp(keyword), "i");
 		if (keyword !== undefined && localOptions.options !== undefined) {
 			newOptions = localOptions?.options.filter(option => {
 				return regSearchKeyword.exec(option.label);
