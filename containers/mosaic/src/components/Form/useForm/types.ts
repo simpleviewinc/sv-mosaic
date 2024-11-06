@@ -1,4 +1,4 @@
-import { MosaicObject } from "@root/types";
+import type { MosaicObject } from "@root/types";
 import type { FieldDefSanitized, FieldDef } from "@root/components/Field";
 import type { SectionDef } from "@root/components/Form";
 
@@ -23,7 +23,7 @@ export type LegacyFormAction = {
 
 export type ActionSetFieldErrors = {
 	type: "SET_FIELD_ERRORS";
-	errors: MosaicObject<string>;
+	errors: FormState["errors"];
 	merge?: boolean;
 	moveToError?: boolean;
 };
@@ -33,7 +33,7 @@ export type ActionSetFieldValues = {
 	values: MosaicObject<string>;
 	internalValues: MosaicObject<string>;
 	merge?: boolean;
-	touched?: boolean;
+	touched?: FormState["touched"];
 	loadingInitial?: boolean;
 	disabled?: boolean;
 };
@@ -68,18 +68,26 @@ export type FormAction =
 	| ActionDisable
     | LegacyFormAction;
 
+export type FieldPath = string[];
+
 export type GetFieldErrorParams = {
 	name: string;
 	/**
 	 * Get error for only the validators specified
 	 */
 	include?: Validator["fn"][];
+	path?: FieldPath;
+	deep?: boolean;
+	stable: FormStable;
 };
 
-export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | undefined>;
+export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | FormError | undefined>;
 
 export type GetFieldErrorsParams = {
 	names: (string | { name: string; include: Validator["fn"][] })[];
+	path?: FieldPath;
+	deep?: boolean;
+	stable: FormStable;
 };
 
 export type GetFieldErrorsResult = {
@@ -89,15 +97,18 @@ export type GetFieldErrorsResult = {
 
 export type GetFieldErrors = (params: GetFieldErrorsParams) => Promise<GetFieldErrorsResult>;
 
-export type FieldCanBeValidatedParams = {
+export type FieldIsActiveParams = {
 	name: string;
+	path?: FieldPath;
+	stable: FormStable;
 };
 
-export type FieldCanBeValidated = (params: FieldCanBeValidatedParams) => boolean;
+export type FieldIsActive = (params: FieldIsActiveParams) => boolean;
 
 export type ValidateFieldParams = {
 	name: string;
 	validateLinkedFields?: boolean;
+	path?: FieldPath;
 };
 
 export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
@@ -124,12 +135,14 @@ export type SetFieldValueParams = {
 	value: unknown | ((current: unknown) => unknown);
 	validate?: boolean;
 	touched?: boolean;
+	path?: FieldPath;
 };
 
 export type SetFieldValue = (params: SetFieldValueParams) => void;
 
 export type SetFieldBlurParams = {
 	name: string;
+	path?: FieldPath;
 };
 
 export type SetFieldBlur = (params: SetFieldBlurParams) => void;
@@ -190,6 +203,14 @@ export type AddValidatorResult = {
 
 export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
+export type SanitizeFieldDefsParams = {
+	fields: FieldDef[];
+	sections?: SectionDef[];
+	stable: FormStable;
+};
+
+export type SanitizeFieldDefs = (params: SanitizeFieldDefsParams) => Record<string, FieldDefSanitized>;
+
 export type FormInitParams = {
 	fields: FieldDef[];
 	sections?: SectionDef[];
@@ -216,12 +237,15 @@ export type FormMethods = {
 	setSubmitWarning: SetSubmitWarning;
 };
 
+export type FormError = MosaicObject<string>;
+export type FormTouched = MosaicObject<boolean>;
+
 export type FormState = {
 	internalData: MosaicObject<any>;
 	data: MosaicObject<any>;
-	errors: MosaicObject<string>;
+	errors: MosaicObject<string | FormError>;
 	disabled: boolean;
-	touched: MosaicObject<boolean>;
+	touched: MosaicObject<boolean | FormTouched>;
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
 	loadingInitial: boolean;
@@ -240,8 +264,17 @@ export type FormStable = FormState & {
 	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
+	hasSubmitted: boolean;
 	moveToError: boolean;
 };
+
+export interface GetFieldParams {
+	name: string;
+	stable: FormStable;
+	path?: FieldPath;
+}
+
+export type GetField = (params: GetFieldParams) => FieldDefSanitized;
 
 export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
 
