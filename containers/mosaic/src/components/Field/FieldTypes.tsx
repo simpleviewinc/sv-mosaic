@@ -20,7 +20,8 @@ import type { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import type { MosaicToggle } from "@root/types";
 import type { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
 import type { FieldValueResolver, FormSpacing } from "../Form";
-import type { FormMethods, FormState, Validator } from "../Form/useForm/types";
+import type { FieldPath, FormMethods, FormState, Validator } from "../Form/useForm/types";
+import type { FieldDefGroup } from "./FormFieldGroup/FormFieldGroupTypes";
 
 // MOSAIC GENERIC CONTRACT
 export interface MosaicFieldProps<T = any, U = any, V = any> {
@@ -90,6 +91,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * one control. Instead, render a legend element.
 	 */
 	useRealLabel?: boolean;
+	/**
+	 * The path to the field. A path with zero members is a
+	 * root field.
+	 */
+	path?: FieldPath;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -203,16 +209,19 @@ export type FieldDef =
 	| FieldDefCustom
 	| FieldDefNumber
 	| FieldDefNumberTable
-	| FieldDefRaw;
+	| FieldDefRaw
+	| FieldDefGroup;
 
 export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
 
 export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
 
-export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue"> & {
+export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue" | "fields"> & {
 	getResolvedValue: DropParam<FieldValueResolver>;
 
 	order: number;
+
+	fields?: Record<string, FieldDefSanitized>;
 };
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange" | "onSubmit";

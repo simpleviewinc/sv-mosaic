@@ -1,39 +1,8 @@
-import {
+import type {
 	FormAction,
 	FormState,
 } from "./types";
 import { getInitialState } from "./initial";
-import { MosaicObject } from "@root/types";
-
-function touchedFromValues(values: MosaicObject<any>) {
-	const keys = Object.keys(values);
-
-	return keys.reduce((acc, curr) => ({
-		...acc,
-		[curr]: true,
-	}), {});
-}
-
-function shallowEqual<T extends MosaicObject<any>>(objA: T, objB: T): boolean {
-	if (objA === null || objB === null || objA === undefined || objB === undefined) {
-		return false;
-	}
-
-	const keysA = Object.keys(objA);
-	const keysB = Object.keys(objB);
-
-	if (keysA.length !== keysB.length) {
-		return false;
-	}
-
-	for (const key of keysA) {
-		if (objA[key] !== objB[key]) {
-			return false;
-		}
-	}
-
-	return true;
-}
 
 export function reducer(state: FormState, action: FormAction): FormState {
 	switch (action.type) {
@@ -48,37 +17,14 @@ export function reducer(state: FormState, action: FormAction): FormState {
 		};
 	}
 	case "SET_FIELD_VALUES": {
-		const touched = touchedFromValues(action.values);
-
-		const updates = {
-			data: (action.merge ? {
-				...state.data,
-				...action.values,
-			} : action.values),
-			internalData: (action.merge ? {
-				...state.internalData,
-				...action.internalValues,
-			} : action.internalValues),
-			touched: action.touched ? (action.merge ? {
-				...state.touched,
-				...touched,
-			} : touched) : state.touched,
-		};
-
-		const updatedState: FormState = {
+		return {
 			...state,
-			data: shallowEqual(updates.data, state.data) ? state.data : updates.data,
-			internalData: shallowEqual(updates.internalData, state.internalData) ? state.internalData : updates.internalData,
-			touched: shallowEqual(updates.touched, state.touched) ? state.touched : updates.touched,
+			data: action.values,
+			internalData: action.internalValues,
+			touched: action.touched || state.touched,
 			loadingInitial: action.loadingInitial !== undefined ? action.loadingInitial : state.loadingInitial,
 			disabled: action.disabled !== undefined ? action.disabled : state.disabled,
 		};
-
-		if (shallowEqual(updatedState, state)) {
-			return state;
-		}
-
-		return updatedState;
 	}
 	case "SET_FORM_WAITS": {
 		return {
