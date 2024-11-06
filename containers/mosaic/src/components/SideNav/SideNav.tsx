@@ -1,16 +1,10 @@
-import * as React from "react";
-import { ReactElement, useCallback, memo, MouseEvent } from "react";
-import { SideNavProps } from ".";
-import {
-	LinkWrapper,
-	StyledSideNav,
-	SidebarWrap,
-	StyledLink,
-	LinksWrapper,
-	Badge,
-	BadgeWrapper,
-} from "./SideNav.styled";
-import { Item, SideNavGroupProps } from "./SideNavTypes";
+import type { ReactElement, MouseEvent } from "react";
+
+import React, { useCallback, memo } from "react";
+
+import type { SideNavProps, Item, SideNavGroupProps } from "./SideNavTypes";
+
+import { LinkWrapper, StyledSideNav, SidebarWrap, StyledLink, LinksWrapper, Badge, BadgeWrapper } from "./SideNav.styled";
 import { useToggle } from "@root/utils/toggle";
 
 const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupProps): ReactElement => {
@@ -35,15 +29,18 @@ const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupPr
 						key={`${item.label}-${idx}`}
 						className={item.name === active && "highlight"}
 					>
-						{item.icon && <LinkIcon />}
-						<StyledLink>{item.label}</StyledLink>
+						{item.icon && <LinkIcon key="link-icon" />}
+						<StyledLink key="link-text">{item.label}</StyledLink>
 						{item?.badge && (
-							<BadgeWrapper>
+							<BadgeWrapper key="badge">
 								<Badge>{item.badge}</Badge>
 							</BadgeWrapper>
 						)}
 						{item?.action?.icon && (
-							<ActionIcon onClick={item.action.onClick} />
+							<ActionIcon
+								key="action-item"
+								onClick={item.action.onClick}
+							/>
 						)}
 					</LinkWrapper>
 				);
