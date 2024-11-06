@@ -1,17 +1,10 @@
-import * as React from "react";
 import type { ReactElement, MouseEvent } from "react";
-import { useCallback, memo } from "react";
-import type { SideNavProps } from ".";
-import {
-	LinkWrapper,
-	StyledSideNav,
-	SidebarWrap,
-	StyledLink,
-	LinksWrapper,
-	Badge,
-	BadgeWrapper,
-} from "./SideNav.styled";
-import type { Item, SideNavGroupProps } from "./SideNavTypes";
+
+import React, { useCallback, memo } from "react";
+
+import type { SideNavProps, Item, SideNavGroupProps } from "./SideNavTypes";
+
+import { LinkWrapper, StyledSideNav, SidebarWrap, StyledLink, LinksWrapper, Badge, BadgeWrapper } from "./SideNav.styled";
 import { useToggle } from "@root/utils/toggle";
 
 const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupProps): ReactElement => {
