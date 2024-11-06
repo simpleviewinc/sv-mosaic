@@ -1,10 +1,14 @@
-import React, { memo, useCallback, useMemo, useRef } from "react";
+import React, { memo, useCallback, useContext, useMemo, useRef } from "react";
+import get from "lodash/get";
+
 import type { FieldConfig, FieldDef } from "@root/components/Field";
-import getFieldConfig from "@root/utils/form/getFieldConfig";
 import type { FieldProps } from "./FieldTypes";
+
+import getFieldConfig from "@root/utils/form/getFieldConfig";
 import { sanitizeFieldSize } from "@root/components/Field/fieldUtils";
 import FieldWrapper, { CustomFieldWrapper } from "@root/components/FieldWrapper";
 import { useWrappedToggle } from "@root/utils/toggle";
+import { FormContext } from "../FormContext";
 
 const Field = ({
 	fieldsDef,
@@ -13,11 +17,12 @@ const Field = ({
 	colIdx,
 	rowIdx,
 	sectionIdx,
-	state,
 	spacing,
 	methods,
 	skeleton,
+	path,
 }: FieldProps) => {
+	const { state } = useContext(FormContext);
 	const field: FieldDef = useMemo(() => fieldsDef.find(({ name }) => name === fieldName), [fieldsDef, fieldName]);
 
 	if (!field) {
@@ -43,17 +48,21 @@ const Field = ({
 			value,
 			touched: true,
 			validate: options.validate,
+			path,
 		});
-	}, [field, setFieldValue]);
+	}, [field, setFieldValue, path]);
 
 	const onBlur = useCallback(() => {
 		field.onBlurCb && field.onBlurCb();
 
-		setFieldBlur({ name: field.name });
-	}, [field, setFieldBlur]);
+		setFieldBlur({
+			name: field.name,
+			path,
+		});
+	}, [field, setFieldBlur, path]);
 
-	const value = state?.internalData[field.name];
-	const error = !disabled ? state.errors[field.name] : "";
+	const value = get(state.internalData, [...(path || []), field.name]);
+	const error = !disabled ? get(state.errors, [...(path || []), field.name]) : "";
 
 	const size = sanitizeFieldSize(
 		field.size,
@@ -78,6 +87,7 @@ const Field = ({
 			inputRef={inputRef}
 			id={`${field.name}-input`}
 			skeleton={skeleton}
+			path={path}
 		/>
 	), [
 		Component,
@@ -90,6 +100,7 @@ const Field = ({
 		methods,
 		field.name,
 		skeleton,
+		path,
 	]);
 
 	if (!shouldShow) {

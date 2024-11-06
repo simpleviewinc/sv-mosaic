@@ -1,12 +1,12 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
+import set from "lodash/fp/set";
+import unset from "lodash/fp/unset";
+import merge from "lodash/fp/mergeWith";
+import get from "lodash/get";
 
-import type { MosaicObject } from "@root/types";
 import type {
-	FieldCanBeValidated,
 	FormStable,
 	FormMethods,
-	GetFieldError,
-	GetFieldErrors,
 	FormHandleSubmit,
 	SetFieldBlur,
 	SetFieldValue,
@@ -24,170 +24,68 @@ import type {
 	FormReset,
 	SetSubmitWarning,
 } from "./types";
-import type { FieldDefSanitized } from "../../Field";
 
-import { getToggle, wrapToggle } from "@root/utils/toggle";
-import getFieldConfig from "@root/utils/form/getFieldConfig";
 import { getInitialState, getInitialStable } from "./initial";
 import { reducer } from "./reducers";
-import { mapsValidators, runValidators, stateFromStable } from "./utils";
+import getField from "./utils/getField";
+import fieldIsActive from "./utils/fieldIsActive";
+import getFieldError from "./utils/getFieldError";
+import getFieldErrors from "./utils/getFieldErrors";
+import getFieldInternalValues from "./utils/getFieldInternalValues";
+import sanitizeFieldDefs from "./utils/sanitizeFieldDef";
+import mergeWithUndefined from "@root/utils/customizers/mergeWithUndefined";
 
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>(getInitialStable());
 
 	const [state, dispatch] = useReducer(reducer, getInitialState());
 
-	const getFieldFromExtra = useCallback((name: string) => {
-		if (!stable.current.fields[name]) {
-			throw new Error(`Field \`${name}\` is not registered with this form. Registered fields: ${Object.keys(stable.current.fields).map(name => `\`${name}\``).join(", ")}`);
-		}
-
-		return stable.current.fields[name];
-	}, []);
-
-	const getFieldError = useCallback<GetFieldError>(async ({
-		name,
-		include,
-	}) => {
-		const { data, internalValidators } = stable.current;
-		const field = getFieldFromExtra(name);
-
-		const requiredFlag = field.required;
-		const validators = field.validators || [];
-
-		if (requiredFlag) {
-			validators.unshift({ fn: "required", options: {} });
-		}
-
-		if (field.type === "phone") {
-			validators.push({ fn: "validatePhoneNumber", options: {} });
-		}
-
-		if (field.inputSettings?.maxCharacters > 0) {
-			validators.push({
-				fn: "validateCharacterCount",
-				options: {
-					max: field.inputSettings.maxCharacters,
-					ignoreHTML: field.type === "textEditor",
-				},
-			});
-		}
-
-		if (field.inputSettings?.minDate || field.inputSettings?.maxDate) {
-			validators.push({
-				fn: "validateMinDate",
-				options: {
-					min: field.inputSettings?.minDate,
-					max: field.inputSettings?.maxDate,
-				},
-			});
-		}
-
-		const validatorsMap = mapsValidators([
-			...(internalValidators[name] || []),
-			...validators,
-		]).filter(validator => !include || include.includes(validator.fn));
-
-		const result = await runValidators(validatorsMap, data[name], data);
-
-		if (!result) {
-			return undefined;
-		}
-
-		return result.errorMessage;
-	}, [getFieldFromExtra]);
-
-	const getFieldErrors = useCallback<GetFieldErrors>(async ({
-		names,
-	}) => {
-		const list = await Promise.all(names.map(async item => {
-			const { name, include } = typeof item === "object" ? item : {
-				name: item,
-				include: undefined,
-			};
-
-			const error = await getFieldError({ name, include });
-
-			return {
-				name,
-				error,
-			};
-		}));
-
-		const errors = list
-			.reduce((acc, { name, error }) => ({
-				...acc,
-				[name]: error,
-			}), {});
-
-		const count = Object.values(errors).filter(Boolean).length;
-
-		return { errors, count };
-	}, [getFieldError]);
-
-	const fieldCanBeValidated = useCallback<FieldCanBeValidated>(({
-		name,
-	}) => {
-		const { mounted } = stable.current;
-
-		if (!mounted[name]) {
-			return false;
-		}
-
-		const field = getFieldFromExtra(name);
-
-		const disabledWrapped = wrapToggle(field.disabled, stateFromStable(stable.current), false);
-		const disabled = getToggle(disabledWrapped);
-
-		if (disabled) {
-			return false;
-		}
-
-		return true;
-	}, [getFieldFromExtra]);
-
 	const validateField = useCallback<ValidateField>(async ({
 		name,
 		validateLinkedFields,
+		path = [],
 	}) => {
-		const field = getFieldFromExtra(name);
+		const field = getField({ name, path, stable: stable.current });
 
-		const errors: MosaicObject<string | undefined> = {
-			[name]: !fieldCanBeValidated({ name }) ? undefined : (await getFieldError({ name })),
-		};
+		if (fieldIsActive({ name, path, stable: stable.current })) {
+			const error = await getFieldError({
+				name,
+				path,
+				deep: true,
+				stable: stable.current,
+			});
+
+			stable.current.errors = set([...path, name], error, stable.current.errors);
+		}
 
 		if (validateLinkedFields && field.validates) {
 			const linkedFields = field.validates.map(item => (typeof item === "object" ? item : {
 				name: item,
 				include: undefined,
-			})).filter(({ name }) => fieldCanBeValidated({ name }));
+			})).filter(({ name }) => fieldIsActive({ name, path, stable: stable.current }));
 
-			const { errors: linkedFieldErrors } = await getFieldErrors({ names: linkedFields });
+			const { errors: linkedFieldErrors } = await getFieldErrors({
+				names: linkedFields,
+				path,
+				stable: stable.current,
+			});
 
-			Object.assign(errors, linkedFieldErrors);
+			const newErrors = path.length ? set(path, linkedFieldErrors, {}) : linkedFieldErrors;
+			stable.current.errors = merge(mergeWithUndefined, stable.current.errors, newErrors);
 		}
-
-		stable.current.errors = {
-			...stable.current.errors,
-			...errors,
-		};
 
 		dispatch({
 			type: "SET_FIELD_ERRORS",
-			errors,
-			merge: true,
+			errors: stable.current.errors,
 		});
-	}, [fieldCanBeValidated, getFieldError, getFieldErrors, getFieldFromExtra]);
+	}, []);
 
 	const setFormValues = useCallback<SetFormValues>(async ({
 		values = {},
 		initial,
 		validate,
 	}) => {
-		const internalValues = Object.keys(values).reduce((acc, curr) => ({
-			...acc,
-			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
-		}), {});
+		const internalValues = getFieldInternalValues(values, stable.current.fields);
 
 		stable.current.data = { ...values };
 		stable.current.internalData = { ...internalValues };
@@ -199,7 +97,7 @@ export function useForm(): UseFormReturn {
 
 		if (validate) {
 			const names = Object.keys(stable.current.fields);
-			const { errors } = await getFieldErrors({ names });
+			const { errors } = await getFieldErrors({ names, stable: stable.current });
 
 			stable.current.errors = {
 				...stable.current.errors,
@@ -221,38 +119,19 @@ export function useForm(): UseFormReturn {
 				loadingInitial: false,
 			} : {}),
 		});
-	}, [getFieldFromExtra]);
+	}, []);
 
 	const init = useCallback<FormInit>(({
 		fields,
 		sections,
 	}) => {
-		const fieldsBySection = sections && sections.map(({ fields }) => fields).flat(3);
-
-		stable.current.fields = fields.reduce<Record<string, FieldDefSanitized>>((prev, field, index) => {
-			const fieldConfig = getFieldConfig(field.type);
-			const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
-
-			const result: FieldDefSanitized = {
-				...field,
-				validateOn: field.validateOn || fieldConfig.validate,
-				getResolvedValue: (value) => valueResolver(value, field),
-				order: (fieldsBySection ? fieldsBySection.indexOf(field.name) : index) + 1,
-			};
-
-			return {
-				...prev,
-				[field.name]: result,
-			};
-		}, {});
+		stable.current.fields = sanitizeFieldDefs({ fields, sections, stable: stable.current });
 	}, []);
 
 	const reset = useCallback<FormReset>(() => {
-		const values = { ...stable.current.initialData };
-		const internalValues = Object.keys(values).reduce((acc, curr) => ({
-			...acc,
-			[curr]: getFieldFromExtra(curr).getResolvedValue(values[curr]).internalValue,
-		}), {});
+		const { initialData, fields } = stable.current;
+		const values = { ...initialData };
+		const internalValues = getFieldInternalValues(initialData, fields);
 
 		stable.current = {
 			...getInitialState(),
@@ -269,66 +148,79 @@ export function useForm(): UseFormReturn {
 			data: values,
 			internalData: internalValues,
 		});
-	}, [getFieldFromExtra]);
+	}, []);
 
 	const setFieldValue = useCallback<SetFieldValue>(({
 		name,
 		value: providedValue,
 		touched,
 		validate,
+		path = [],
 	}) => {
-		const { errors, internalData, hasBlurred } = stable.current;
-		const field = getFieldFromExtra(name);
-		const providedValueResolved = typeof providedValue === "function" ? providedValue(internalData[name]) : providedValue;
-		const { value, internalValue } = field.getResolvedValue(providedValueResolved);
+		const { errors, internalData, hasBlurred, hasSubmitted } = stable.current;
+		const fullPath = [...path, name];
+		const field = getField({ name, path, stable: stable.current });
 
-		stable.current.data[name] = value;
-		stable.current.internalData[name] = internalValue;
+		if (typeof providedValue === "function") {
+			providedValue = providedValue(get(internalData, fullPath));
+		}
+
+		const { value, internalValue } = field.getResolvedValue(providedValue);
+
+		stable.current.data = set(fullPath, value, stable.current.data);
+		stable.current.internalData = set(fullPath, internalValue, stable.current.internalData);
+
+		if (touched) {
+			stable.current.touched = set(fullPath, true, stable.current.touched);
+		}
 
 		dispatch({
 			type: "SET_FIELD_VALUES",
-			values: { [name]: value },
-			internalValues: { [name]: internalValue },
-			merge: true,
-			touched,
+			values: stable.current.data,
+			internalValues: stable.current.internalData,
+			touched: stable.current.touched,
 		});
 
 		if (validate || field.validateOn === "onChange") {
 			validateField({
 				name,
 				validateLinkedFields: true,
+				path,
 			});
 		}
 
 		if (
 			field.validateOn === "onBlurChange" &&
-			hasBlurred[name]
+			(hasSubmitted || get(hasBlurred, fullPath))
 		) {
 			validateField({
 				name,
 				validateLinkedFields: true,
+				path,
 			});
 		}
 
 		if (
 			field.validateOn === "onBlurAmend" &&
-			hasBlurred[name] &&
-			errors[name]
+			(hasSubmitted || get(hasBlurred, fullPath)) &&
+			get(errors, fullPath)
 		) {
-			delete stable.current.hasBlurred[name];
+			stable.current.hasBlurred = unset(fullPath, stable.current.hasBlurred);
+			stable.current.errors = unset(fullPath, stable.current.errors);
+
 			dispatch({
-				type: "FIELD_UNVALIDATE",
-				name,
-				value: "",
+				type: "SET_FIELD_ERRORS",
+				errors: stable.current.errors,
 			});
 		}
-	}, [getFieldFromExtra, validateField]);
+	}, [validateField]);
 
 	const setFieldBlur = useCallback<SetFieldBlur>(({
 		name,
+		path = [],
 	}) => {
-		const field = getFieldFromExtra(name);
-		stable.current.hasBlurred[name] = true;
+		const field = getField({ name, path, stable: stable.current });
+		stable.current.hasBlurred = set([...path, name], true, stable.current.hasBlurred);
 
 		if (
 			field.validateOn === "onBlur" ||
@@ -337,10 +229,11 @@ export function useForm(): UseFormReturn {
 		) {
 			validateField({
 				name,
+				path,
 				validateLinkedFields: true,
 			});
 		}
-	}, [getFieldFromExtra, validateField]);
+	}, [validateField]);
 
 	const disableForm = useCallback<DisableForm>(({
 		disabled = false,
@@ -365,14 +258,15 @@ export function useForm(): UseFormReturn {
 
 		const names = Object.entries(fields)
 			.map(([, field]) => field.name)
-			.filter(name => fieldCanBeValidated({ name }));
+			.filter(name => fieldIsActive({ name, stable: stable.current }));
 
-		stable.current.hasBlurred = Object.keys(fields).reduce((prev, curr) => ({
-			...prev,
-			[curr]: true,
-		}), {});
+		stable.current.hasSubmitted = true;
 
-		const { count, errors } = await getFieldErrors({ names });
+		const { count, errors } = await getFieldErrors({
+			names,
+			deep: true,
+			stable: stable.current,
+		});
 
 		if (count) {
 			stable.current.errors = errors;
@@ -402,14 +296,14 @@ export function useForm(): UseFormReturn {
 			};
 		}
 
-		const activeFields = Object.keys(fields).filter(name => fieldCanBeValidated({ name }));
+		const activeFields = Object.keys(fields).filter(name => fieldIsActive({ name, stable: stable.current }));
 
 		return {
 			valid: true,
 			data,
 			activeFields,
 		};
-	}, [fieldCanBeValidated, getFieldErrors, setSubmitWarning]);
+	}, [setSubmitWarning]);
 
 	const removeWait = useCallback<RemoveWait>(({
 		names,

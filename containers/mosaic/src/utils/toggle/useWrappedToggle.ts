@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 
 import wrapToggle from "./wrapToggle";
 import useToggle from "./useToggle";
@@ -55,9 +55,11 @@ function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicTogg
 	 * Maybe this can be solved with some "typeof useToggle" magic.
 	 */
 	if (Array.isArray(result)) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
 		return useToggle(result, key);
 	}
 
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	return useToggle(result, key);
 }
 
