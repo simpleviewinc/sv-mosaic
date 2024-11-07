@@ -1,14 +1,20 @@
-import type { FieldIsActive } from "../types";
+import type { FieldPath, FormStable } from "../types";
 
 import { getToggle, wrapToggle } from "@root/utils/toggle";
 import { stateFromStable } from "../utils";
 import getField from "./getField";
 
-const fieldIsActive: FieldIsActive = ({
+interface FieldIsActiveParams {
+	name: string;
+	path?: FieldPath;
+	stable: FormStable;
+}
+
+function fieldIsActive({
 	name,
 	path,
 	stable,
-}) => {
+}: FieldIsActiveParams): boolean {
 	const { mounted } = stable;
 
 	if (!mounted[name]) {
@@ -25,6 +31,6 @@ const fieldIsActive: FieldIsActive = ({
 	}
 
 	return true;
-};
+}
 
 export default fieldIsActive;

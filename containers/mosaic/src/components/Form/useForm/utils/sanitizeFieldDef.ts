@@ -1,13 +1,20 @@
-import type { SanitizeFieldDefs } from "../types";
-import type { FieldDefSanitized } from "../../../Field";
+import type { FormStable } from "../types";
+import type { FieldDef, FieldDefSanitized } from "../../../Field";
 
 import getFieldConfig from "@root/utils/form/getFieldConfig";
+import type { SectionDef } from "../../FormTypes";
 
-const sanitizeFieldDefs: SanitizeFieldDefs = ({
+interface SanitizeFieldDefsParams {
+	fields: FieldDef[];
+	sections?: SectionDef[];
+	stable: FormStable;
+}
+
+function sanitizeFieldDefs({
 	fields,
 	sections,
 	stable,
-}) => {
+}: SanitizeFieldDefsParams): Record<string, FieldDefSanitized> {
 	const fieldsBySection = sections && sections.map(({ fields }) => fields).flat(3);
 
 	return fields.reduce((prev, field, index) => {
@@ -27,6 +34,6 @@ const sanitizeFieldDefs: SanitizeFieldDefs = ({
 			[field.name]: result,
 		};
 	}, {});
-};
+}
 
 export default sanitizeFieldDefs;

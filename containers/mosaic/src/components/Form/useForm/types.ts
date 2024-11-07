@@ -70,41 +70,6 @@ export type FormAction =
 
 export type FieldPath = string[];
 
-export type GetFieldErrorParams = {
-	name: string;
-	/**
-	 * Get error for only the validators specified
-	 */
-	include?: Validator["fn"][];
-	path?: FieldPath;
-	deep?: boolean;
-	stable: FormStable;
-};
-
-export type GetFieldError = (params: GetFieldErrorParams) => Promise<string | FormError | undefined>;
-
-export type GetFieldErrorsParams = {
-	names: (string | { name: string; include: Validator["fn"][] })[];
-	path?: FieldPath;
-	deep?: boolean;
-	stable: FormStable;
-};
-
-export type GetFieldErrorsResult = {
-	errors: MosaicObject<string | undefined>;
-	count: number;
-};
-
-export type GetFieldErrors = (params: GetFieldErrorsParams) => Promise<GetFieldErrorsResult>;
-
-export type FieldIsActiveParams = {
-	name: string;
-	path?: FieldPath;
-	stable: FormStable;
-};
-
-export type FieldIsActive = (params: FieldIsActiveParams) => boolean;
-
 export type ValidateFieldParams = {
 	name: string;
 	validateLinkedFields?: boolean;
@@ -203,14 +168,6 @@ export type AddValidatorResult = {
 
 export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
-export type SanitizeFieldDefsParams = {
-	fields: FieldDef[];
-	sections?: SectionDef[];
-	stable: FormStable;
-};
-
-export type SanitizeFieldDefs = (params: SanitizeFieldDefsParams) => Record<string, FieldDefSanitized>;
-
 export type FormInitParams = {
 	fields: FieldDef[];
 	sections?: SectionDef[];
@@ -267,14 +224,6 @@ export type FormStable = FormState & {
 	hasSubmitted: boolean;
 	moveToError: boolean;
 };
-
-export interface GetFieldParams {
-	name: string;
-	stable: FormStable;
-	path?: FieldPath;
-}
-
-export type GetField = (params: GetFieldParams) => FieldDefSanitized;
 
 export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
 
