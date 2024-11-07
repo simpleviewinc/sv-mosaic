@@ -1,18 +1,29 @@
 import get from "lodash/get";
 
-import type { GetFieldError } from "../types";
+import type { FieldPath, FormError, FormStable, Validator } from "../types";
 
 import { mapsValidators, runValidators } from "../utils";
 import getField from "./getField";
 import getFieldErrors from "./getFieldErrors";
 
-const getFieldError: GetFieldError = async ({
+interface GetFieldErrorParams {
+	name: string;
+	/**
+	 * Get error for only the validators specified
+	 */
+	include?: Validator["fn"][];
+	path?: FieldPath;
+	deep?: boolean;
+	stable: FormStable;
+}
+
+async function getFieldError({
 	name,
 	include,
 	path = [],
 	deep,
 	stable,
-}) => {
+}: GetFieldErrorParams): Promise<string | FormError | undefined> {
 	const { data, internalValidators } = stable;
 	const field = getField({ name, path, stable });
 
@@ -74,6 +85,6 @@ const getFieldError: GetFieldError = async ({
 	}
 
 	return result.errorMessage;
-};
+}
 
 export default getFieldError;

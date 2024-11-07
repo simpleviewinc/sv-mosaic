@@ -1,7 +1,13 @@
-import type { GetField, FormStable } from "../types";
+import type { FormStable, FieldPath } from "../types";
 import type { FieldDefSanitized } from "../../../Field";
 
-const getField: GetField = ({ stable, name, path }) => {
+interface GetFieldParams {
+	name: string;
+	stable: FormStable;
+	path?: FieldPath;
+}
+
+function getField({ stable, name, path }: GetFieldParams): FieldDefSanitized {
 	let parent: FormStable | FieldDefSanitized = stable;
 
 	if (path) {
@@ -19,6 +25,6 @@ const getField: GetField = ({ stable, name, path }) => {
 	}
 
 	return parent.fields[name];
-};
+}
 
 export default getField;
