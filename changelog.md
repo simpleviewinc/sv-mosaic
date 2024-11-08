@@ -1,5 +1,38 @@
 # sv-mosaic changelog
 
+### 39.0.0 - 11/12/2024
+
+* `Content`
+  * [MOS-1470](https://simpleviewtools.atlassian.net/browse/MOS-1470 "https://simpleviewtools.atlassian.net/browse/MOS-1470") **Address the overly complex section definition for the Content component**
+    * (Content) **Deprecates** the old way (`string[][][]`) of defining sections and adds support for the new way (`string[][]`). Content section definitions **should be updated** at your earliest convenience to avoid breaking changes in a future release.
+* `DataView`
+  * [MOS-1440](https://simpleviewtools.atlassian.net/browse/MOS-1440 "https://simpleviewtools.atlassian.net/browse/MOS-1440") **Number field filter text accuracy**
+    * (NumberFilter) Updates the text representing the applied filter for better accuracy.
+* `Form`
+  * [MOS-1498](https://simpleviewtools.atlassian.net/browse/MOS-1498 "https://simpleviewtools.atlassian.net/browse/MOS-1498") **Circular reference problems in load ordering**
+    * (chore) Reduces circular references. Moves field config map into get field config to avoid hot reload issues related to circulars. Moves form utils into utils directory.
+    * **(BREAKING CHANGE)** Validators have moved: instead of `@simpleview/sv-mosaic/components/Form/validators` they are now available at `@simpleview/sv-mosaic/utils/form/validators`
+* `FormFieldAdvancedSelection`
+  * [MOS-1412](https://simpleviewtools.atlassian.net/browse/MOS-1412 "https://simpleviewtools.atlassian.net/browse/MOS-1412") **Special characters )( causes issue with label display**
+    * (util) Introduces a regex escape utility.
+    * (AdvancedSelection) Ensures the keyword used for filtering options is escaped of any regex characters.
+* `FormFieldDate`
+  * [MOS-1414](https://simpleviewtools.atlassian.net/browse/MOS-1414 "https://simpleviewtools.atlassian.net/browse/MOS-1414") **Validation error giving bad example**
+    * (TimeField) Updates time field placeholder and validation error to give a clearer message to the user.
+* `FormFieldTextEditor`
+  * [MOS-1499](https://simpleviewtools.atlassian.net/browse/MOS-1499 "https://simpleviewtools.atlassian.net/browse/MOS-1499") **Remove Jodit**
+    * **(BREAKING CHANGE)** (TextEditor) Remove all things Jodit related. The legacy Jodit editor has now been dropped from the library and the new Tiptap editor is fully integrated into the form system. You should now use the `type: "textEditor"` field definition to load the new text editor field instead of referring to the `FormFieldTextEditorTipTapFieldType` component, which has been removed.
+  * [MOS-1501](https://simpleviewtools.atlassian.net/browse/MOS-1501 "https://simpleviewtools.atlassian.net/browse/MOS-1501") **Provide custom text editor controls with the event**
+    * (TextEditor) Adds the click event to the list of properties available on the parameter passed to control cmd callbacks.
+* `FormFieldToggleSwitch`
+  * [MOS-1500](https://simpleviewtools.atlassian.net/browse/MOS-1500 "https://simpleviewtools.atlassian.net/browse/MOS-1500") **Revert behaviour of FormFieldToggle implmented on MOS-1475**
+    * (ToggleField) Revert toggle behaviour to ensure form data for toggle fields in an off position is false. Modifications to required validator to reject false value.
+* `SideNav`
+  * [MOS-1504](https://simpleviewtools.atlassian.net/browse/MOS-1504 "https://simpleviewtools.atlassian.net/browse/MOS-1504") **Section nav item keys**
+    * (SideNav) Adds keys to the components rendered within each side nav item to prevent React errors being thrown in the console.
+
+## Improvements and Fixes
+
 ### 38.0.0 - 10/29/2024
 
 ## Improvements and Fixes
