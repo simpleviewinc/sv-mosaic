@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 import type { Property } from "csstype";
 
 import type { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicToggle } from "@root/types";
@@ -27,7 +27,7 @@ export interface DataViewColumn {
 	column?: string;
 	/** Whether this column can be sorted. */
 	sortable?: boolean;
-	style?: {
+	style?: CSSProperties & {
 		/** Bold the cell. */
 		bold?: boolean;
 		/** Italicize the cell. */

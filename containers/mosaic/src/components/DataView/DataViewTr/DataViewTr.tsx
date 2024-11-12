@@ -80,13 +80,7 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 						key={column.name}
 						ariaLabel={column.label}
 						expandCell={true}
-						bold={column.style?.bold}
-						italic={column.style?.italic}
-						strikeThrough={column.style?.strikeThrough}
-						noWrap={column.style?.noWrap}
-						ellipsis={column.style?.ellipsis}
-						maxWidth={column.style?.maxWidth}
-						textTransform={column.style?.textTransform}
+						style={column.style}
 					>
 						{row[column.name]}
 					</DataViewTd>
