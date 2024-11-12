@@ -45,7 +45,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell with the bold class when bold is provided", async () => {
-		await setup({ bold: true });
+		await setup({ style: { bold: true } });
 
 		expect(screen.queryByRole("cell")).toHaveClass("bold");
 
@@ -53,7 +53,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell with the italic class when italic is provided", async () => {
-		await setup({ italic: true });
+		await setup({ style: { italic: true } });
 
 		expect(screen.queryByRole("cell")).toHaveClass("italic");
 
@@ -61,7 +61,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell with the strikeThrough class when strikeThrough is provided", async () => {
-		await setup({ strikeThrough: true });
+		await setup({ style: { strikeThrough: true } });
 
 		expect(screen.queryByRole("cell")).toHaveClass("strikeThrough");
 
@@ -69,7 +69,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell inner div with the noWrap class when noWrap is provided", async () => {
-		await setup({ noWrap: true });
+		await setup({ style: { noWrap: true } });
 
 		expect(screen.queryByTestId(testIds.DATA_VIEW_TD_INNER)).toHaveClass("noWrap");
 
@@ -77,7 +77,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell inner div with the ellipsis class when ellipsis is provided", async () => {
-		await setup({ ellipsis: true });
+		await setup({ style: { ellipsis: true } });
 
 		expect(screen.queryByTestId(testIds.DATA_VIEW_TD_INNER)).toHaveClass("ellipsis");
 
@@ -85,7 +85,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the table cell inner div with a title if ellipsis is provided and the content is a string", async () => {
-		await setup({ ellipsis: true, children: "My Text" });
+		await setup({ style: { ellipsis: true }, children: "My Text" });
 
 		expect(screen.queryByTestId(testIds.DATA_VIEW_TD_INNER)).toHaveAttribute("title", "My Text");
 	});
