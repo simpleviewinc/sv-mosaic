@@ -104,6 +104,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 				rangeStart : undefined,
 				rangeEnd : undefined,
 			},
+			validate: true,
 		});
 
 		setSelectedOption(undefined);
