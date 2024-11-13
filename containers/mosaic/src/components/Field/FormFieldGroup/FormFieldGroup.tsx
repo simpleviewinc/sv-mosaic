@@ -6,6 +6,7 @@ import type { MosaicGridConfig } from "@root/types";
 
 import { StyledRows } from "@root/components/Form/Section/SectionStyled";
 import Row from "@root/components/Form/Row/Row";
+import { StyledFieldset } from "./FormFieldGroup.styled";
 
 const FormFieldGroup = ({
 	fieldDef,
@@ -27,20 +28,22 @@ const FormFieldGroup = ({
 	const path = useMemo(() => [...(leadingPath || []), name], [leadingPath, name]);
 
 	return (
-		<StyledRows>
-			{layout.map((row, i) => (
-				<Row
-					key={`row-${i}`}
-					row={row}
-					rowIdx={i}
-					fieldsDef={fields}
-					spacing="compact"
-					methods={methods}
-					skeleton={skeleton}
-					path={path}
-				/>
-			))}
-		</StyledRows>
+		<StyledFieldset>
+			<StyledRows>
+				{layout.map((row, i) => (
+					<Row
+						key={`row-${i}`}
+						row={row}
+						rowIdx={i}
+						fieldsDef={fields}
+						spacing="compact"
+						methods={methods}
+						skeleton={skeleton}
+						path={path}
+					/>
+				))}
+			</StyledRows>
+		</StyledFieldset>
 	);
 };
 
