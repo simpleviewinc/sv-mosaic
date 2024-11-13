@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 // Utils
 import { useForm } from "@root/components/Form";
-import { validateEmail, validateSlow } from "@root/utils/form/validators";
+import { validateDateRange, validateEmail, validatePostcode, validateSlow } from "@root/utils/form/validators";
 import { renderButtons, toggleMap, toggleOptions } from "../../../utils";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 
@@ -39,6 +39,12 @@ const factors = (number: number) => Array
 	.from(Array(number + 1), (_, i) => i)
 	.filter(i => number % i === 0);
 
+const getFormValues = async () => ({
+	workDates: {
+		current: true
+	}
+});
+
 export const Profile = ({
 	showState,
 	height,
@@ -47,6 +53,10 @@ export const Profile = ({
 	showLastName,
 	showInitials,
 	skeleton,
+	showAboutYou,
+	showContactDetails,
+	showYourWork,
+	showPreferences,
 }: typeof Profile.args): ReactElement => {
 	const controller = useForm();
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
@@ -175,6 +185,124 @@ export const Profile = ({
 						onFileAdd,
 						onFileDelete,
 					},
+				},
+				{
+					name: "ukWorker",
+					label: "I have a job",
+					type: "toggle"
+				},
+				{
+					name: "jobRole",
+					label: "Job Role",
+					type: "text",
+					required: true,
+					show: ({ data }) => Boolean(data.ukWorker)
+				},
+				{
+					name: "workAddress",
+					label: "Work Address",
+					type: "group",
+					show: ({ data }) => Boolean(data.ukWorker),
+					instructionText: "This is where your company is registered. If you're a remote worker, it's not your house.",
+					inputSettings: {
+						layout: [
+							[["address1"], ["address2"]],
+							[["city"]],
+							[["country"], ["postalCode"]]
+						],
+						fields: [
+							{
+								name: "address1",
+								label: "Address 1",
+								type: "text",
+								size: "full",
+								required: true,
+							},
+							{
+								name: "address2",
+								label: "Address 2",
+								type: "text",
+								size: "full",
+							},
+							{
+								name: "city",
+								label: "City",
+								type: "text",
+								required: true,
+								size: "full",
+							},
+							{
+								name: "country",
+								type: "dropdown",
+								label: "Country",
+								size: "full",
+								required: true,
+								inputSettings: {
+									getOptions: getOptionsCountries,
+								},
+								validates: [{
+									name: "postalCode",
+									include: [validatePostcode],
+								}],
+							},
+							{
+								name: "postalCode",
+								type: "text",
+								label: "Postal Code",
+								size: "full",
+								required: true,
+								validators: [
+									{ fn: "validatePostcode", options: { countryField: "country" } },
+								],
+							},
+						]
+					}
+				},
+				{
+					name: "workDates",
+					label: "When did you hold this position?",
+					type: "group",
+					show: ({ data }) => Boolean(data.ukWorker),
+					inputSettings: {
+						layout: [
+							[["current"]],
+							[["startDate"], ["endDate"], []]
+						],
+						fields: [
+							{
+								name: "current",
+								type: "toggle",
+								label: "This is my current position",
+								validates: [
+									{
+										name: "startDate",
+										include: [validateDateRange]
+									},
+									{
+										name: "endDate",
+										include: [validateDateRange]
+									},
+								],
+							},
+							{
+								name: "startDate",
+								type: "date",
+								label: "Start date",
+								required: true,
+								validators: [{ fn: "validateDateRange", options: { endDateName: "endDate" } }],
+								validates: ["endDate"],
+							},
+							{
+								name: "endDate",
+								type: "date",
+								label: "End date",
+								required: true,
+								validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
+								validates: ["startDate"],
+								disabled: ({ data }) => Boolean(data.workDates?.current)
+							},
+						]
+					}
 				},
 				{
 					name: "email",
@@ -311,6 +439,7 @@ export const Profile = ({
 			title: "About You",
 			description: "The official stuff",
 			fields: section1Fields,
+			show: showAboutYou,
 		},
 		{
 			title: "Contact Details",
@@ -320,6 +449,18 @@ export const Profile = ({
 				[["phone"], ["secondaryPhone"], []],
 				[["addresses"]],
 			],
+			show: showContactDetails,
+		},
+		{
+			title: "Your work",
+			description: "How do you make a living?",
+			fields: [
+				[["ukWorker"]],
+				[["jobRole"]],
+				[["workAddress"]],
+				[["workDates"]]
+			],
+			show: showYourWork,
 		},
 		{
 			title: "Preferences",
@@ -331,6 +472,7 @@ export const Profile = ({
 				[["hobbies"]],
 				[["animalsOrVehicles"]],
 			],
+			show: showPreferences
 		},
 		{
 			title: "Vehicles",
@@ -352,7 +494,13 @@ export const Profile = ({
 			],
 			show: ({ data }) => data.animalsOrVehicles && data.animalsOrVehicles.value === "animals",
 		},
-	], [section1Fields]);
+	], [
+		section1Fields,
+		showAboutYou,
+		showContactDetails,
+		showYourWork,
+		showPreferences,
+	]);
 
 	useEffect(() => {
 		if (state.touched.initials) {
@@ -389,6 +537,7 @@ export const Profile = ({
 					sections={sections}
 					fields={fields}
 					skeleton={skeleton}
+					getFormValues={getFormValues}
 				/>
 			</div>
 		</>
@@ -409,6 +558,10 @@ Profile.args = {
 	showLastName: true,
 	showInitials: true,
 	skeleton: false,
+	showAboutYou: true,
+	showContactDetails: true,
+	showYourWork: true,
+	showPreferences: true,
 };
 
 Profile.argTypes = {
@@ -438,5 +591,17 @@ Profile.argTypes = {
 	},
 	skeleton: {
 		name: "Skeleton",
+	},
+	showAboutYou: {
+		name: "Show About You Section",
+	},
+	showContactDetails: {
+		name: "Show Contact Details Section",
+	},
+	showYourWork: {
+		name: "Show You Work Section",
+	},
+	showPreferences: {
+		name: "Show Preferences Section",
 	},
 };

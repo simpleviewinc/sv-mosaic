@@ -1,5 +1,4 @@
-import * as React from "react";
-import { memo, useRef, useCallback, useState, useEffect, useMemo } from "react";
+import React, { memo, useRef, useCallback, useState, useEffect, useMemo, useContext } from "react";
 
 // Components
 import Row from "../Row/Row";
@@ -15,6 +14,7 @@ import {
 	StyledSectionHeader,
 	StyledTitle,
 } from "./SectionStyled";
+import { FormContext } from "../FormContext";
 
 const Section = (props: SectionPropTypes) => {
 	const {
@@ -23,7 +23,6 @@ const Section = (props: SectionPropTypes) => {
 		fieldsDef,
 		rows,
 		sectionIdx,
-		state,
 		collapsed = false,
 		registerRef,
 		gridMinWidth,
@@ -31,6 +30,8 @@ const Section = (props: SectionPropTypes) => {
 		methods,
 		skeleton,
 	} = props;
+
+	const { state } = useContext(FormContext);
 
 	const fieldsHaveErrors = useCallback(() => {
 		const fieldNames = rows.flat(2);
@@ -102,7 +103,6 @@ const Section = (props: SectionPropTypes) => {
 								row={row}
 								rowIdx={i}
 								sectionIdx={sectionIdx}
-								state={state}
 								fieldsDef={fieldsDef}
 								gridMinWidth={gridMinWidth}
 								spacing={spacing}
