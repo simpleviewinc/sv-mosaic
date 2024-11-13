@@ -5,6 +5,7 @@ import type { FieldPath, FormError, FormStable, Validator } from "../types";
 import { mapsValidators, runValidators } from "../utils";
 import getField from "./getField";
 import getFieldErrors from "./getFieldErrors";
+import fieldIsActive from "./fieldIsActive";
 
 interface GetFieldErrorParams {
 	name: string;
@@ -28,12 +29,25 @@ async function getFieldError({
 	const field = getField({ name, path, stable });
 
 	if (deep && "fields" in field && field.fields) {
-		const { errors } = await getFieldErrors({
-			names: Object.keys(field.fields),
-			path: [...path, name],
+		const fullPath = [...path, name];
+
+		const names = Object.keys(field.fields)
+			.filter(subFieldName => fieldIsActive({
+				name: subFieldName,
+				stable,
+				path: fullPath,
+			}));
+
+		const { errors, count } = await getFieldErrors({
+			names,
+			path: fullPath,
 			deep,
 			stable,
 		});
+
+		if (!count) {
+			return undefined;
+		}
 
 		return errors;
 	}
