@@ -1,9 +1,9 @@
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 import type { FieldDef } from "@root/components/Field";
-import { TitleWrapperProps } from "@root/components/Title";
-import { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
-import { FormMethods, FormStable, FormState } from "./useForm/types";
-import { ReactNode } from "react";
+import type { TitleWrapperProps } from "@root/components/Title";
+import type { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
+import type { FormMethods, FormStable, FormState } from "./useForm/types";
+import type { ReactNode } from "react";
 
 export type FormSpacing = "normal" | "compact";
 
@@ -50,3 +50,7 @@ export interface FieldError {
 }
 
 export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any; value: any };
+
+export interface FormContextState {
+	state: FormState;
+}

@@ -21,6 +21,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	number: Sizes.sm,
 	numberTable: Sizes.full,
 	raw: Sizes.full,
+	group: Sizes.full,
 };
 
 export function sanitizeFieldSize(size: undefined | Sizes | string | number, type: FieldDef["type"]): string {
