@@ -256,8 +256,7 @@ export function useForm(): UseFormReturn {
 	const submitForm = useCallback<SubmitForm>(async () => {
 		const { data, fields, waits } = stable.current;
 
-		const names = Object.entries(fields)
-			.map(([, field]) => field.name)
+		const names = Object.keys(fields)
 			.filter(name => fieldIsActive({ name, stable: stable.current }));
 
 		stable.current.hasSubmitted = true;
