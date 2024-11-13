@@ -144,7 +144,7 @@ export function validateURL(str: string): string | undefined {
  * @param options
  * @returns the error message in case of any
  */
-export function validateDateRange(value: string, data: any, options: { [key: string]: any }): string | undefined {
+export async function validateDateRange(value: string, data: any, options: { [key: string]: any }): Promise<string | undefined> {
 	const startDateStr = data[options.startDateName] ? data[options.startDateName] : value;
 	const endDateStr = data[options.endDateName] ? data[options.endDateName] : value;
 

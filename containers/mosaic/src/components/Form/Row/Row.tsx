@@ -1,5 +1,4 @@
-import * as React from "react";
-import { memo, useMemo } from "react";
+import React, { memo, useContext, useMemo } from "react";
 
 import type { RowPropTypes } from "./RowTypes";
 import { StyledRow } from "./RowStyled";
@@ -7,19 +6,22 @@ import { StyledRow } from "./RowStyled";
 // Components
 import Col from "../Col/Col";
 import { useWrappedToggle } from "@root/utils";
+import { FormContext } from "../FormContext";
 
 const Row = (props: RowPropTypes) => {
 	const {
 		row,
 		rowIdx,
-		state,
 		fieldsDef,
 		sectionIdx,
 		gridMinWidth,
 		spacing,
 		methods,
 		skeleton,
+		path,
 	} = props;
+
+	const { state } = useContext(FormContext);
 
 	/**
 	 * TODO We're already performing this field search within ColField, so it's
@@ -46,12 +48,12 @@ const Row = (props: RowPropTypes) => {
 						rowIdx={rowIdx}
 						sectionIdx={sectionIdx}
 						col={col}
-						state={state}
 						fieldsDef={fieldsDef}
 						colsInRow={row.length}
 						spacing={spacing}
 						methods={methods}
 						skeleton={skeleton}
+						path={path}
 					/>
 				);
 			})}

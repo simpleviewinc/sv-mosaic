@@ -1,4 +1,4 @@
-import { FormStable, FormState } from "./types";
+import type { FormStable, FormState } from "./types";
 
 export function getInitialState(): FormState {
 	return {
@@ -21,6 +21,7 @@ export function getInitialStable(): FormStable {
 		mounted: {},
 		internalValidators: {},
 		hasBlurred: {},
+		hasSubmitted: false,
 		moveToError: false,
 		loadingInitial: true,
 	};

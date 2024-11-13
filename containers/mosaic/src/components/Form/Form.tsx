@@ -21,6 +21,7 @@ import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
 import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
+import { FormContext } from "./FormContext";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -56,6 +57,8 @@ const Form = (props: FormProps) => {
 		skeleton: providedSkeleton,
 		bottomSlot = null,
 	} = props;
+
+	const formContextValue = useMemo(() => ({ state }), [state]);
 
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
 	const { errors, loadingInitial, disabled } = state;
@@ -287,7 +290,7 @@ const Form = (props: FormProps) => {
 	})), [state.disabled, fields]);
 
 	return (
-		<>
+		<FormContext.Provider value={formContextValue}>
 			<StyledContainerForm
 				data-testid="form-test-id"
 				ref={formContainerRef}
@@ -325,7 +328,6 @@ const Form = (props: FormProps) => {
 						<StyledFormContent ref={formContentRef} $spacing={spacing}>
 							<Layout
 								registerRef={registerRef}
-								state={state}
 								fields={fieldsWithDisable}
 								sections={shownSections}
 								spacing={spacing}
@@ -350,7 +352,7 @@ const Form = (props: FormProps) => {
 				onClose={() => setSubmitWarning({ ...state.submitWarning, open: false })}
 				autoHideDuration={4000}
 			/>
-		</>
+		</FormContext.Provider>
 	);
 };
 

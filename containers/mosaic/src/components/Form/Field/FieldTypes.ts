@@ -1,11 +1,10 @@
-import type { FormSpacing } from "@root/components/Form";
+import type { FieldPath, FormSpacing } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
-import { FormMethods } from "../useForm/types";
+import type { FormMethods } from "../useForm/types";
 
 export interface FieldProps {
 	fieldName: string;
 	fieldsDef: FieldDef[];
-	state: any;
 	colsInRow?: number;
 	colIdx?: number;
 	rowIdx?: number;
@@ -13,4 +12,5 @@ export interface FieldProps {
 	spacing?: FormSpacing;
 	methods: FormMethods;
 	skeleton?: boolean;
+	path?: FieldPath;
 }

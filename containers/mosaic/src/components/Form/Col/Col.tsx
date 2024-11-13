@@ -8,7 +8,6 @@ import Field from "../Field/Field";
 const Col = (props: ColPropsTypes) => {
 	const {
 		col,
-		state,
 		fieldsDef,
 		colsInRow,
 		colIdx,
@@ -17,6 +16,7 @@ const Col = (props: ColPropsTypes) => {
 		spacing,
 		methods,
 		skeleton,
+		path,
 	} = props;
 
 	return (
@@ -26,7 +26,6 @@ const Col = (props: ColPropsTypes) => {
 					key={field}
 					fieldName={field}
 					fieldsDef={fieldsDef}
-					state={state}
 					colIdx={colIdx}
 					colsInRow={colsInRow}
 					rowIdx={rowIdx}
@@ -34,6 +33,7 @@ const Col = (props: ColPropsTypes) => {
 					spacing={spacing}
 					methods={methods}
 					skeleton={skeleton}
+					path={path}
 				/>
 			))}
 		</StyledCol>

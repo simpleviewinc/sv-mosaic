@@ -10,7 +10,6 @@ import { StyledLayout } from "./LayoutStyles";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
 	const {
-		state,
 		fields,
 		sections,
 		registerRef,
@@ -30,7 +29,6 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 					description={section.description}
 					fieldsDef={fields}
 					rows={section.fields}
-					state={state}
 					collapsed={section.collapsed}
 					gridMinWidth={section.gridMinWidth}
 					spacing={spacing}
