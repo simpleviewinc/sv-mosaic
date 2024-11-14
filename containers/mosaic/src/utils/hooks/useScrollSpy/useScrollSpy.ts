@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
+
+import type { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
+
 import debounce from "lodash/debounce";
 import useScrollTo from "../useScrollTo/useScrollTo";
 
@@ -33,6 +35,10 @@ export default function useScrollSpy<E extends HTMLElement>({
 
 		const containerBox = container.getBoundingClientRect();
 
+		if (Math.ceil(container.scrollTop + containerBox.height) >= container.scrollHeight) {
+			return refs.length - 1;
+		}
+
 		for (let i = 0; i < refs.length; i++) {
 			const section = refs[i];
 			const box = section.getBoundingClientRect();
@@ -44,6 +50,8 @@ export default function useScrollSpy<E extends HTMLElement>({
 			newActiveSection = i;
 
 		}
+
+		console.log(newActiveSection);
 
 		return newActiveSection;
 	}, [container, refs, threshold]);
