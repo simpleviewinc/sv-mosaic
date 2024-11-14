@@ -35,8 +35,8 @@ export const Playground = ({
 
 	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
 		Number(minDateStr.split("/")[2]),
-		Number(minDateStr.split("/")[1]) - 1,
-		Number(minDateStr.split("/")[0]),
+		Number(minDateStr.split("/")[0]) - 1,
+		Number(minDateStr.split("/")[1]),
 	) : undefined;
 
 	const fields = useMemo(
