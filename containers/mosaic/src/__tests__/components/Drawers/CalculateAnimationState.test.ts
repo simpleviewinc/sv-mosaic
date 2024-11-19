@@ -1,5 +1,6 @@
-import * as assert from "assert";
-import { testArray, TestDef } from "@simpleview/mochalib";
+import type { TestDef } from "@simpleview/mochalib";
+
+import { testArray } from "@simpleview/mochalib";
 
 import calculateAnimationState from "@root/components/Drawers/calculateAnimationState";
 
@@ -72,6 +73,6 @@ describe("Calculate animation state", () => {
 	testArray(tests, test => {
 		const result = calculateAnimationState(test.bools, test.animating);
 
-		assert.deepEqual(result, test.result);
+		expect(result).toEqual(test.result);
 	});
 });

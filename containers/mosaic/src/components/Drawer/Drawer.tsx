@@ -4,6 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 
 import type { DrawerProps } from "./DrawerTypes";
 import { MUIDrawerStyled, StyledDrawerContent } from "./Drawer.styled";
+import testIds from "@root/utils/testIds";
+
+const slotProps = {
+	backdrop: {
+		"data-testid": testIds.DRAWER_BACKDROP,
+	},
+};
 
 const Drawer = (props: DrawerProps): ReactElement => {
 	const {
@@ -41,7 +48,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 			...state,
 			open: false,
 		});
-		if (exitCB) exitCB();
+		exitCB && exitCB();
 	};
 
 	const onDrawClose = (_, r: string) => {
@@ -64,6 +71,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 				SlideProps={{
 					onExited,
 				}}
+				slotProps={slotProps}
 			>
 				{
 					state.open && (

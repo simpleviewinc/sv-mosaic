@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import { useMosaicTranslation } from "@root/i18n";
-import { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
+import type { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
 import { StyledContents, StyledFilterButton, StyledFilterTextField } from "./DataViewFilterText.styled";
+import testIds from "@root/utils/testIds";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -99,7 +100,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 	}
 
 	return (
-		<StyledContents>
+		<StyledContents data-testid={testIds.DATA_VIEW_FILTER_TEXT_CONTENT}>
 			<div className="inputRow">
 				{comparisonButton}
 				{!disabled && (
