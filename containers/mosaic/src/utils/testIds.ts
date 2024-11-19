@@ -47,6 +47,7 @@ const testIds = {
 	DATA_VIEW_VIEW_APPLY: "mos:DataView:view:apply",
 	DATA_VIEW_VIEW_CONTROL: "mos:DataView:viewControl",
 	DATA_VIEW_VIEW_DELETE: "mos:DataView:view:delete",
+	DRAWER: "mos:Drawer:root",
 	DRAWER_BACKDROP: "mos:Drawer:backdrop",
 	FORM_FIELD_LABEL: "mos:Field:label",
 	FORM_STATE: "mos:Form:state",
