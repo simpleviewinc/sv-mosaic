@@ -25,7 +25,6 @@ import DataViewFilterText, { type DataViewFilterTextProps } from "@simpleview/sv
 import DataViewPrimaryFilter, { type DataViewPrimaryFilterProps } from "@simpleview/sv-mosaic/components/DataViewPrimaryFilter";
 import Dialog, { type DialogProps } from "@simpleview/sv-mosaic/components/Dialog";
 import Drawer, { type DrawerProps } from "@simpleview/sv-mosaic/components/Drawer";
-import DrawerContent, { type DrawerContentProps } from "@simpleview/sv-mosaic/components/DrawerContent";
 import Drawers, { type DrawersProps } from "@simpleview/sv-mosaic/components/Drawers";
 import Form, { type FormProps } from "@simpleview/sv-mosaic/components/Form";
 import type { FieldDef } from "@simpleview/sv-mosaic/components/Field";
