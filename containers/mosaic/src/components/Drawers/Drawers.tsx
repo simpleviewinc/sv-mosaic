@@ -1,15 +1,18 @@
-import * as React from "react";
-import {
-	useState,
-	useEffect,
-	useCallback,
-	useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+
+import type { DrawersProps } from "./DrawersTypes";
+
 import Drawer from "@mui/material/Drawer";
 import Backdrop from "@mui/material/Backdrop";
 import calculateAnimationState from "./calculateAnimationState";
-import { DrawersProps } from "./DrawersTypes";
 import { ANIMATION_DURATION, PaperDiv } from "./Drawers.styled";
+import testIds from "@root/utils/testIds";
+
+const slotProps = {
+	backdrop: {
+		"data-testid": testIds.DRAWER_BACKDROP,
+	},
+};
 
 function Drawers<T>(props: DrawersProps<T>) {
 	// For each drawer we store a boolean indicating whether that drawer is open (true) or closed (false)
@@ -88,6 +91,8 @@ function Drawers<T>(props: DrawersProps<T>) {
 							className,
 							component: PaperDiv,
 						}}
+						slotProps={slotProps}
+						data-testid={testIds.DRAWER}
 					>
 						{showContent ? props.children(props.drawers[i]) : null}
 					</Drawer>
