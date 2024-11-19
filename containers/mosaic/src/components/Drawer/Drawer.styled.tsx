@@ -14,31 +14,21 @@ export const StyledDrawerContent = styled.div`
 
 export const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle; previousStyle: AnchorStyle }; $display?: boolean }>`
 	z-index: 1100;
-	${({ $anchorStyle, $display }) => $anchorStyle &&
-		`.MuiDrawer-paper {
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "right") &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-25vw) !important;
-`
-}
 
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && $display) &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-25vw) !important;
-`
-}
+	${({ $anchorStyle, $display }) => $anchorStyle && `
+		.MuiDrawer-paper {
+			background: white;
+			transition: transform 255ms ease-in-out !important;
 
-${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && !$display) &&
-`
-	background: white;
-	transition: transform 255ms ease-in-out !important;
-	transform: translateX(-100vw) !important;
-`
-}
-		}`
-}
+			${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "right") && `
+				transform: translateX(-25vw) !important;
+			`}
+			${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && $display) && `
+				transform: translateX(-25vw) !important;
+			`}
+			${($anchorStyle.currentStyle === "left" && $anchorStyle.previousStyle === "left" && !$display) && `
+				transform: translateX(-100vw) !important;
+			`}
+		}
+	`}
 `;
