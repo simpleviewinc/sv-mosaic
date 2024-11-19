@@ -44,8 +44,6 @@ export { default as DataViewPrimaryFilter } from "./DataViewPrimaryFilter";
 
 export { default as Drawer } from "./Drawer";
 
-export { default as DrawerContent } from "./DrawerContent";
-
 export { default as Dialog } from "./Dialog";
 export * from "./Dialog";
 
