@@ -1,30 +1,24 @@
-import path from "path";
 import fs from "fs";
 import { version } from "../package.json";
+import { getContainers } from "./utils";
 
-const containersDir = path.resolve(__dirname, "../containers");
-const containers = fs.readdirSync(containersDir);
-
-containers.forEach(container => {
+getContainers().forEach(({ pkg, pkgPath, name }) => {
 	try {
-		const packagePath = path.resolve(containersDir, container, "package.json");
-		const packageContents = JSON.parse(fs.readFileSync(packagePath).toString());
-
-		if (!packageContents.version) {
-			throw new Error(`${container} package.json has no version.`);
+		if (!pkg.version) {
+			throw new Error(`${name} package.json has no version.`);
 		}
 
-		if (packageContents.version === version) {
-			throw new Error(`${container} package.json is already ${version}`);
+		if (pkg.version === version) {
+			throw new Error(`${name} package.json is already ${version}`);
 		}
 
-		packageContents.version = version;
+		pkg.version = version;
 
-		const newPackageContents = JSON.stringify(packageContents, undefined, "\t") + "\n";
+		const newPkgContents = JSON.stringify(pkg, undefined, "\t") + "\n";
 
-		fs.writeFileSync(packagePath, newPackageContents);
+		fs.writeFileSync(pkgPath, newPkgContents);
 
-		console.log(`Wrote ${container} package.json with new version (${version})`);
+		console.log(`Wrote ${name} package.json with new version (${version})`);
 	} catch (err) {
 		console.error(err instanceof Error ? err.message : err);
 	}
