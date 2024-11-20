@@ -1,4 +1,14 @@
+import type { Attributes } from "@tiptap/core";
 import { Node } from "@tiptap/core";
+import attributes from "./attributes.json";
+
+const wildcardAttributes: Attributes = {};
+
+for (const attribute of attributes) {
+	wildcardAttributes[attribute] = {
+		default: undefined,
+	};
+}
 
 export const WildCardContent = Node.create({
 	name: "wildCardContent",
@@ -46,18 +56,7 @@ export const WildCardContent = Node.create({
 			tagName: {
 				default: "div",
 			},
-			style: {
-				default: undefined,
-			},
-			class: {
-				default: undefined,
-			},
-			id: {
-				default: undefined,
-			},
-			src: {
-				default: undefined,
-			},
+			...wildcardAttributes,
 			...this.options.HTMLAttributes,
 		};
 	},
