@@ -10,10 +10,6 @@ export function fileExistsSync(path: string): boolean {
 	}
 }
 
-export function toPosixPath(path: string): string {
-	return path.replace(/^(\w):/, "/$1").replace(/\\/g, "/");
-}
-
 export function getContainers() {
 	const containersDir = path.resolve(__dirname, "../containers");
 	const containers = fs.readdirSync(containersDir);

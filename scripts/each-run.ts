@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { getContainers, toPosixPath } from "./utils";
+import { getContainers } from "./utils";
 
 const [cmd, ...args] = process.argv.slice(2);
 
@@ -7,8 +7,9 @@ if (!cmd) {
 	throw new Error("You need to provide a command to run in each container");
 }
 
-const commonCmds: Record<string, string> = {
-	"install": "install"
+const commonCmds: Record<string, string | ((manager: "npm" | "yarn") => string)> = {
+	"install": "install",
+	"reinstall": (manager) => `rm -rf node_modules && ${manager} install`
 };
 
 getContainers().forEach(({ pkg, isYarn, path }) => {
@@ -21,11 +22,13 @@ getContainers().forEach(({ pkg, isYarn, path }) => {
 		return;
 	}
 
-	const fullCmd = commonCmds[cmd] ?
-		`${isYarn ? "yarn" : "npm"} ${commonCmds[cmd]}` :
-		`${isYarn ? "yarn" : "npm"} run ${cmd} ${args.join(" ")}`.trim();
+	const manager = isYarn ? "yarn" : "npm";
+	const commonCmd = commonCmds[cmd];
+	const fullCmd = commonCmd ?
+		typeof commonCmd === "function" ? commonCmd(manager) : `${manager} ${commonCmd}` :
+		`${manager} run ${cmd} ${args.join(" ")}`.trim();
 
-	console.log(`Running "cd ${toPosixPath(path)} && ${fullCmd}"`);
+	console.log(`Running "${fullCmd}" in ${path}`);
 	execSync(fullCmd, {
 		stdio: "inherit",
 		cwd: path,
