@@ -176,34 +176,33 @@ __metadata:
     "@dnd-kit/utilities": 3.2.2
     "@react-google-maps/api": ^2.7.0
     "@simpleview/react-phone-input-2": 2.16.5
-    "@tiptap/core": ^2.5.6
-    "@tiptap/extension-blockquote": ^2.5.6
-    "@tiptap/extension-bold": ^2.5.6
-    "@tiptap/extension-bullet-list": ^2.5.6
-    "@tiptap/extension-code": ^2.5.6
-    "@tiptap/extension-code-block": 2.5.6
-    "@tiptap/extension-document": ^2.5.6
-    "@tiptap/extension-dropcursor": ^2.5.6
-    "@tiptap/extension-hard-break": ^2.5.6
-    "@tiptap/extension-heading": ^2.5.6
-    "@tiptap/extension-history": ^2.5.6
-    "@tiptap/extension-image": ^2.5.6
-    "@tiptap/extension-italic": ^2.5.6
-    "@tiptap/extension-link": ^2.5.6
-    "@tiptap/extension-list-item": ^2.5.6
-    "@tiptap/extension-ordered-list": ^2.5.6
-    "@tiptap/extension-paragraph": ^2.5.6
-    "@tiptap/extension-strike": ^2.5.6
-    "@tiptap/extension-subscript": ^2.5.6
-    "@tiptap/extension-superscript": ^2.5.6
-    "@tiptap/extension-text": ^2.5.6
-    "@tiptap/extension-text-align": ^2.5.6
-    "@tiptap/extension-text-style": ^2.5.6
-    "@tiptap/extension-underline": ^2.5.6
-    "@tiptap/pm": ^2.5.6
-    "@tiptap/react": ^2.5.6
+    "@tiptap/core": 2.8.0
+    "@tiptap/extension-blockquote": 2.8.0
+    "@tiptap/extension-bold": 2.8.0
+    "@tiptap/extension-bullet-list": 2.8.0
+    "@tiptap/extension-code": 2.8.0
+    "@tiptap/extension-code-block": 2.8.0
+    "@tiptap/extension-document": 2.8.0
+    "@tiptap/extension-dropcursor": 2.8.0
+    "@tiptap/extension-hard-break": 2.8.0
+    "@tiptap/extension-heading": 2.8.0
+    "@tiptap/extension-history": 2.8.0
+    "@tiptap/extension-image": 2.8.0
+    "@tiptap/extension-italic": 2.8.0
+    "@tiptap/extension-link": 2.8.0
+    "@tiptap/extension-list-item": 2.8.0
+    "@tiptap/extension-ordered-list": 2.8.0
+    "@tiptap/extension-paragraph": 2.8.0
+    "@tiptap/extension-strike": 2.8.0
+    "@tiptap/extension-subscript": 2.8.0
+    "@tiptap/extension-superscript": 2.8.0
+    "@tiptap/extension-text": 2.8.0
+    "@tiptap/extension-text-align": 2.8.0
+    "@tiptap/extension-text-style": 2.8.0
+    "@tiptap/extension-underline": 2.8.0
+    "@tiptap/pm": 2.8.0
+    "@tiptap/react": 2.8.0
     date-fns: ^2.29.1
-    jodit: 3.19.3
     lodash: ^4.17.15
     nanoid: ^3.3.7
     postcode-validator: ^3.8.21
@@ -222,7 +221,7 @@ __metadata:
   languageName: node
   linkType: soft
 
-"@tiptap/core@npm:^2.5.6":
+"@tiptap/core@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/core@npm:2.8.0"
   peerDependencies:
@@ -231,7 +230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-blockquote@npm:^2.5.6":
+"@tiptap/extension-blockquote@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-blockquote@npm:2.8.0"
   peerDependencies:
@@ -240,7 +239,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-bold@npm:^2.5.6":
+"@tiptap/extension-bold@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-bold@npm:2.8.0"
   peerDependencies:
@@ -261,7 +260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-bullet-list@npm:^2.5.6":
+"@tiptap/extension-bullet-list@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-bullet-list@npm:2.8.0"
   peerDependencies:
@@ -272,17 +271,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-code-block@npm:2.5.6":
-  version: 2.5.6
-  resolution: "@tiptap/extension-code-block@npm:2.5.6"
+"@tiptap/extension-code-block@npm:2.8.0":
+  version: 2.8.0
+  resolution: "@tiptap/extension-code-block@npm:2.8.0"
   peerDependencies:
-    "@tiptap/core": ^2.5.6
-    "@tiptap/pm": ^2.5.6
-  checksum: 7e366556440ac763f213fb09eff83056a5fa8578609ef7b301b4cc3a2dc5659e6ae77e1b696aa6ac8ae3231503718ead03c33ba9466b2f59e7fcb5c7b979c921
+    "@tiptap/core": ^2.7.0
+    "@tiptap/pm": ^2.7.0
+  checksum: 55c96726ef7a2d3eb645803ffca3064220ee59faeb10d06510839f8b1ea5ded87627395b617e68ae87e28b1b57e07469392137ffd77345a9cfc29fc6f501bfa7
   languageName: node
   linkType: hard
 
-"@tiptap/extension-code@npm:^2.5.6":
+"@tiptap/extension-code@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-code@npm:2.8.0"
   peerDependencies:
@@ -291,7 +290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-document@npm:^2.5.6":
+"@tiptap/extension-document@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-document@npm:2.8.0"
   peerDependencies:
@@ -300,7 +299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-dropcursor@npm:^2.5.6":
+"@tiptap/extension-dropcursor@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-dropcursor@npm:2.8.0"
   peerDependencies:
@@ -322,7 +321,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-hard-break@npm:^2.5.6":
+"@tiptap/extension-hard-break@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-hard-break@npm:2.8.0"
   peerDependencies:
@@ -331,7 +330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-heading@npm:^2.5.6":
+"@tiptap/extension-heading@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-heading@npm:2.8.0"
   peerDependencies:
@@ -340,7 +339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-history@npm:^2.5.6":
+"@tiptap/extension-history@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-history@npm:2.8.0"
   peerDependencies:
@@ -350,7 +349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-image@npm:^2.5.6":
+"@tiptap/extension-image@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-image@npm:2.8.0"
   peerDependencies:
@@ -359,7 +358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-italic@npm:^2.5.6":
+"@tiptap/extension-italic@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-italic@npm:2.8.0"
   peerDependencies:
@@ -368,7 +367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-link@npm:^2.5.6":
+"@tiptap/extension-link@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-link@npm:2.8.0"
   dependencies:
@@ -380,7 +379,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-list-item@npm:^2.5.6":
+"@tiptap/extension-list-item@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-list-item@npm:2.8.0"
   peerDependencies:
@@ -389,7 +388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-ordered-list@npm:^2.5.6":
+"@tiptap/extension-ordered-list@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-ordered-list@npm:2.8.0"
   peerDependencies:
@@ -400,7 +399,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-paragraph@npm:^2.5.6":
+"@tiptap/extension-paragraph@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-paragraph@npm:2.8.0"
   peerDependencies:
@@ -409,7 +408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-strike@npm:^2.5.6":
+"@tiptap/extension-strike@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-strike@npm:2.8.0"
   peerDependencies:
@@ -418,7 +417,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-subscript@npm:^2.5.6":
+"@tiptap/extension-subscript@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-subscript@npm:2.8.0"
   peerDependencies:
@@ -427,7 +426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-superscript@npm:^2.5.6":
+"@tiptap/extension-superscript@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-superscript@npm:2.8.0"
   peerDependencies:
@@ -436,7 +435,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-text-align@npm:^2.5.6":
+"@tiptap/extension-text-align@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-text-align@npm:2.8.0"
   peerDependencies:
@@ -445,7 +444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-text-style@npm:^2.5.6":
+"@tiptap/extension-text-style@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-text-style@npm:2.8.0"
   peerDependencies:
@@ -454,7 +453,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-text@npm:^2.5.6":
+"@tiptap/extension-text@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-text@npm:2.8.0"
   peerDependencies:
@@ -463,7 +462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-underline@npm:^2.5.6":
+"@tiptap/extension-underline@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/extension-underline@npm:2.8.0"
   peerDependencies:
@@ -472,7 +471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/pm@npm:^2.5.6":
+"@tiptap/pm@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/pm@npm:2.8.0"
   dependencies:
@@ -498,7 +497,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/react@npm:^2.5.6":
+"@tiptap/react@npm:2.8.0":
   version: 2.8.0
   resolution: "@tiptap/react@npm:2.8.0"
   dependencies:
@@ -561,24 +560,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autobind-decorator@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "autobind-decorator@npm:2.4.0"
-  checksum: 6fcc922580d3585a3aeef1a480f935c0827b1a4505b9e39ff9bcad9039958bd47b27a4e35152f566e01befb2924701dbc9f744ec29eeb880c99eef8e39fce4a3
-  languageName: node
-  linkType: hard
-
 "classnames@npm:^2.2.6":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
-  languageName: node
-  linkType: hard
-
-"core-js@npm:^3.24.0":
-  version: 3.38.0
-  resolution: "core-js@npm:3.38.0"
-  checksum: 71ef0598da69daee2b46fa1f82f074019981656f7cae26fed2b7f076c611e330a99ba5c70156ae37682f59a8d6ec6486119c70cb283c9fff25bd4f20db7fdc27
   languageName: node
   linkType: hard
 
@@ -625,16 +610,6 @@ __metadata:
   dependencies:
     loose-envify: ^1.0.0
   checksum: cc3182d793aad82a8d1f0af697b462939cb46066ec48bbf1707c150ad5fad6406137e91a262022c269702e01621f35ef60269f6c0d7fd178487959809acdfb14
-  languageName: node
-  linkType: hard
-
-"jodit@npm:3.19.3":
-  version: 3.19.3
-  resolution: "jodit@npm:3.19.3"
-  dependencies:
-    autobind-decorator: ^2.4.0
-    core-js: ^3.24.0
-  checksum: b295bd1615593f10f0b9df5656142fd48ce894a81ecc5517f3a04927f326b7563e9631e82669ba0f7cdf7ff447a40e842ea59da66fa88bc5ad11155422e05f20
   languageName: node
   linkType: hard
 
