@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 
 export class FormFieldTextPage extends BasePage {
@@ -45,8 +45,8 @@ export class FormFieldTextPage extends BasePage {
 
 	async setTextInMultilineField(multilineText:string): Promise<void> {
 		const words = multilineText.split(" ");
-		for (let i = 0; i < words.length; i++) {
-			await this.multilineTextField.type(words[i]);
+		for (const word of words) {
+			await this.multilineTextField.type(word);
 			await this.pressSpecificKeyInKeyboard("Enter");
 		}
 	}

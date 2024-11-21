@@ -1,6 +1,6 @@
 import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 export class DataViewFilterDateComponent extends BasePage {
 
@@ -14,7 +14,7 @@ export class DataViewFilterDateComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.dateFilterButton = page.getByRole('button', { name: 'Date filter example' });
+		this.dateFilterButton = page.getByRole("button", { name: "Date filter example" });
 		this.dataviewFilterDateDropdownContent = page.locator(`[data-testid='${testIds.DATA_VIEW_FILTER_DATE_CONTENT}']`);
 		this.dataviewFilterDateOptionsList = page.locator(`[data-testid='${testIds.DATA_VIEW_FILTER_DATE_OPTIONS}']`);
 	}

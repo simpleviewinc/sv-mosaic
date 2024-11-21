@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonKitchenSinkPage";
 
 test.describe("Components - Button - Kitchen Sink", () => {
