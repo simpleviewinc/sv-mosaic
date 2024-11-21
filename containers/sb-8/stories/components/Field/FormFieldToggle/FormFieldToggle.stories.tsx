@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 
 export default {

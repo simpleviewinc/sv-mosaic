@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo, useCallback } from "react";
+import type { ReactElement } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { nanoid } from "nanoid";
 
 // Utils
@@ -11,13 +12,13 @@ import { renderButtons } from "../../../utils";
 import Form from "@root/components/Form";
 
 // Types
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 import { optionsLibrary } from "@root/mock";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 import testIds from "@root/utils/testIds";
 
 export default {
@@ -38,8 +39,8 @@ const createNewOption = async (newOptionLabel) => {
 };
 
 const prepopulateValues = {
-	"textField": "Text field from getFormValues",
-	"check": [
+	textField: "Text field from getFormValues",
+	check: [
 		{
 			label: "Label 1",
 			value: "label_1",
@@ -49,37 +50,37 @@ const prepopulateValues = {
 			value: "label_2",
 		},
 	],
-	"chipSelect": {
-		"label": "Label 1",
-		"value": "label_1",
+	chipSelect: {
+		label: "Label 1",
+		value: "label_1",
 	},
-	"dropdownSingle": {
-		"label": "The Dark Knight",
-		"value": "2008",
+	dropdownSingle: {
+		label: "The Dark Knight",
+		value: "2008",
 	},
-	"phoneSelect": "15205751152",
-	"radio": {
+	phoneSelect: "15205751152",
+	radio: {
 		label: "Label 2",
 		value: "label_2",
 	},
-	"toggle": true,
-	"color": "#a8001791",
-	"date": new Date(),
-	"time": "16:30",
-	"address": [
+	toggle: true,
+	color: "#a8001791",
+	date: new Date(),
+	time: "16:30",
+	address: [
 		{
-			"id": 1,
-			"address1": "8950 N. Oracle Road",
-			"city": "Tuczon",
-			"postalCode": "85704",
-			"country": { label: "United States", value: "US" },
-			"state": { label: "Arizona", value: "AZ" },
-			"types": [
+			id: 1,
+			address1: "8950 N. Oracle Road",
+			city: "Tuczon",
+			postalCode: "85704",
+			country: { label: "United States", value: "US" },
+			state: { label: "Arizona", value: "AZ" },
+			types: [
 				{ label: "Physical", value: "physical" },
 			],
 		},
 	],
-	"advancedSelection": [
+	advancedSelection: [
 		{
 			label: "getFormValues 1",
 			value: "getFormValues option 1",
@@ -97,11 +98,11 @@ const prepopulateValues = {
 			value: "getFormValues option 4",
 		},
 	],
-	"mapCoordinates": {
+	mapCoordinates: {
 		lat: 48.858384,
 		lng: 2.294567,
 	},
-	"upload": [
+	upload: [
 		{
 			id: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
 			name: "_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
@@ -110,8 +111,8 @@ const prepopulateValues = {
 			fileUrl: "",
 		},
 	],
-	"textEditor": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
-	"numberTable": numberTableDefaultValue,
+	textEditor: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
+	numberTable: numberTableDefaultValue,
 };
 
 export const Playground = ({

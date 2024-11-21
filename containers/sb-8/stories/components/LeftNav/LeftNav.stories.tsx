@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useEffect, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useEffect } from "react";
 
 import HomeIcon from "@mui/icons-material/Home";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
@@ -13,7 +14,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import MosaicContext from "@root/components/MosaicContext";
 import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
 
-import { LeftNavItemRootDef } from "@root/components/LeftNav";
+import type { LeftNavItemRootDef } from "@root/components/LeftNav";
 import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
 
 import "@root/utils/storyBookCssReset.css";
@@ -360,7 +361,7 @@ const navSections = {
 	},
 };
 
-const dataSets: { [key: string]: LeftNavItemRootDef[] } = {
+const dataSets: Record<string, LeftNavItemRootDef[]> = {
 	qa : [
 		{
 			name : "short_icon",

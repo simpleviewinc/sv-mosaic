@@ -1,9 +1,11 @@
 // BUG TO BE FIXED
 import * as React from "react";
-import { useMemo, useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useMemo, useState } from "react";
 
 import Form, { useForm } from "@root/components/Form";
-import { ControlWithProps, getDefaultExtensions, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import type { ControlWithProps, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
+import { getDefaultExtensions } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
@@ -21,7 +23,7 @@ const customExtensionControl: ControlWithProps = {
 	name: "simpleviewAlert",
 	label: "Simpleview Alert",
 	cmd: ({ editor }) => editor.chain().toggleSimpleviewAlert().run(),
-	Icon: ChatBubbleIcon
+	Icon: ChatBubbleIcon,
 };
 
 export const Playground = ({
@@ -70,7 +72,7 @@ export const Playground = ({
 								updateImage: (params) => {
 									updateImage(params);
 									onClose();
-								}
+								},
 							});
 						} : undefined,
 						onLink: customLinkHandler ? ({ updateLink, ...params }) => {
@@ -79,7 +81,7 @@ export const Playground = ({
 								updateLink: (params) => {
 									updateLink(params);
 									onClose();
-								}
+								},
 							});
 						} : undefined,
 						maxCharacters,
@@ -184,7 +186,7 @@ Playground.argTypes = {
 		name: "Custom Control Config",
 		type: {
 			control: "object",
-		}
+		},
 	},
 	customImageHandler: {
 		name: "Custom Image Handler",
@@ -194,7 +196,7 @@ Playground.argTypes = {
 	},
 	customExtensionExample: {
 		name: "Custom Extension Example",
-	}
+	},
 };
 
 const fields: FieldDef[] = [

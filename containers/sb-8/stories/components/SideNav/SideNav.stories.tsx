@@ -1,8 +1,10 @@
 import * as React from "react";
-import { ReactElement, useState, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useState, useMemo } from "react";
 
 // Components
-import SideNav, { Item, SideNavArgs } from "@root/components/SideNav";
+import type { Item, SideNavArgs } from "@root/components/SideNav";
+import SideNav from "@root/components/SideNav";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import CollectionsIcon from "@mui/icons-material/Collections";

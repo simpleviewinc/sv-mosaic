@@ -1,9 +1,11 @@
-import React, { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import React, { useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
-import { default as Button, ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
+import { default as Button } from "@root/components/Button";
 import Typography from "@root/components/Typography";
 
 export default {
@@ -79,7 +81,7 @@ Playground.argTypes = {
 		name: "Icon Color",
 		control: { type: "select" },
 		options: ["black", "blue", "red", "yellow", "teal", "gray", "purple"],
-	}
+	},
 };
 
 export const WithIcons = (): ReactElement => {
@@ -141,7 +143,10 @@ export const Selectable = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 8 }}>
-			<Typography variant="title">Current value: {value || "Not set"}</Typography>
+			<Typography variant="title">
+				Current value:
+				{value || "Not set"}
+			</Typography>
 			<div style={{ display: "flex", gap: 8 }}>
 				<Button
 					label="Set Value"

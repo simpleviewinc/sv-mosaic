@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, MouseEvent, useState } from "react";
+import type { ReactElement, MouseEvent } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
 

@@ -1,16 +1,19 @@
 import * as React from "react";
-import { ReactElement, useState, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useState, useMemo } from "react";
 
 // Utils
-import { useForm, SectionDef } from "@root/components/Form";
+import type { SectionDef } from "@root/components/Form";
+import { useForm } from "@root/components/Form";
 
 // Components
 import Form from "@root/components/Form";
-import Button, { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer/Drawer";
 
 // Types
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import uniqueId from "lodash/uniqueId";

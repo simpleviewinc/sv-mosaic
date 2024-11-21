@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useMemo, ReactElement, useCallback, useEffect, useState } from "react";
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+import { useMemo, useCallback, useEffect, useState } from "react";
+import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
 import { nanoid } from "nanoid";
-import { UploadFieldInputSettings } from "@root/components/Field/FormFieldUpload";
+import type { UploadFieldInputSettings } from "@root/components/Field/FormFieldUpload";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -69,7 +70,12 @@ export const Playground = ({
 			reset();
 			setLoadReady(true);
 		};
-		prepopulate ? resetForm() : setLoadReady(false);
+
+		if (prepopulate) {
+			resetForm();
+		} else {
+			setLoadReady(false);
+		}
 	}, [reset, prepopulate]);
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 import styled from "styled-components";
 import { toggleMap, toggleOptions } from "../../../utils";
 
 import ButtonRow from "@root/components/ButtonRow";
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 
 export default {
 	title: "Components/ButtonRow",
