@@ -175,10 +175,10 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		});
 
 		const popoverP = {
-			"In": "The row must match one of selected option.",
+			In: "The row must match one of selected option.",
 			"Not In": "The row must match none of the selected options.",
-			"All": "The row must match all of the selected options.",
-			"Exists": "The row must have a value for this filter.",
+			All: "The row must match all of the selected options.",
+			Exists: "The row must have a value for this filter.",
 			"Not Exists": "The row must not have a value for this filter.",
 		};
 

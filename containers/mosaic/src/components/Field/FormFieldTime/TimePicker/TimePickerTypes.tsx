@@ -1,5 +1,5 @@
-export type TimePickerDef = {
+export interface TimePickerDef {
 	placeholder: string;
-};
+}
 
 export type TimePickerData = Date;

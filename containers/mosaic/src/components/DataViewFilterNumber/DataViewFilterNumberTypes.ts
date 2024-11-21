@@ -1,14 +1,12 @@
 import { DataViewFilterProps } from "../DataView/DataViewTypes";
 import { NumberFieldInputSettings } from "../Field/FormFieldNumber";
 
-type DataViewFilterNumberRange = {
+interface DataViewFilterNumberRange {
 	min?: number;
 	max?: number;
-};
-
-export interface DataViewFilterNumberOnChange {
-	(value: DataViewFilterNumberRange): void;
 }
+
+export type DataViewFilterNumberOnChange = (value: DataViewFilterNumberRange) => void;
 
 export interface DataViewFilterNumberProps extends DataViewFilterProps {
 	data: DataViewFilterNumberRange;

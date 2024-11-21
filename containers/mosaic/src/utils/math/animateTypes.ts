@@ -49,8 +49,8 @@ export type AnimateStart = (params?: Partial<AnimateParams>) => void;
 
 export type AnimateStop = () => void;
 
-export type Animation = {
+export interface Animation {
 	start: AnimateStart;
 	stop: AnimateStop;
 	inProgress: () => boolean;
-};
+}

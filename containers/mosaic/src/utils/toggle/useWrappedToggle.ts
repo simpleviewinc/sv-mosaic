@@ -14,24 +14,24 @@ import useToggle from "./useToggle";
  * @param key The property that holds a valid toggle boolean/callback/array
  * @param defaultToggle What the result should fall back to when the toggle property is undefined. Default `true`.
  */
-function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
+function useWrappedToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle<P>>>, P>(
 	items: T[],
 	params: P,
 	key: K,
 	defaultToggle?: boolean
-): (Omit<T, K> & { [key in K]?: MosaicToggle })[];
-function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
+): (Omit<T, K> & Partial<Record<K, MosaicToggle>>)[];
+function useWrappedToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle<P>>>, P>(
 	items: T,
 	params: P,
 	key: K,
 	defaultToggle?: boolean
 ): boolean;
-function useWrappedToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle<P> }, P>(
+function useWrappedToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle<P>>>, P>(
 	items: T | T[],
 	params: P,
 	key: K,
 	defaultToggle = true,
-): (Omit<T, K> & { [key in K]?: MosaicToggle })[] | boolean {
+): (Omit<T, K> & Partial<Record<K, MosaicToggle>>)[] | boolean {
 	const result = useMemo(() => {
 		const isArray = Array.isArray(items);
 		const itemsAsArray = isArray ? items : [items];

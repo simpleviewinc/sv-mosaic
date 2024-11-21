@@ -6,9 +6,7 @@ import common from "./common.json";
 interface AddResourceBundleProps {
 	namespace: string;
 	prefix: string;
-	bundle: {
-		[lang: string]: MosaicObject;
-	};
+	bundle: Record<string, MosaicObject>;
 }
 
 type AddCoreResourceBundle = Omit<AddResourceBundleProps, "namespace">;

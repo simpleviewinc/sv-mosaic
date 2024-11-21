@@ -12,23 +12,23 @@ export type ActionTypes =
     | "FORM_START_BUSY"
     | "FORM_END_BUSY";
 
-export type LegacyFormAction = {
+export interface LegacyFormAction {
 	type: ActionTypes;
 	value: any;
 	internalValue?: any;
 	name?: string;
 	clearErrors?: boolean;
 	touched?: boolean;
-};
+}
 
-export type ActionSetFieldErrors = {
+export interface ActionSetFieldErrors {
 	type: "SET_FIELD_ERRORS";
 	errors: FormState["errors"];
 	merge?: boolean;
 	moveToError?: boolean;
-};
+}
 
-export type ActionSetFieldValues = {
+export interface ActionSetFieldValues {
 	type: "SET_FIELD_VALUES";
 	values: MosaicObject<string>;
 	internalValues: MosaicObject<string>;
@@ -36,28 +36,28 @@ export type ActionSetFieldValues = {
 	touched?: FormState["touched"];
 	loadingInitial?: boolean;
 	disabled?: boolean;
-};
+}
 
-export type ActionSetFormWaits = {
+export interface ActionSetFormWaits {
 	type: "SET_FORM_WAITS";
 	waits: FormWait[];
-};
+}
 
-export type ActionReset = {
+export interface ActionReset {
 	type: "RESET";
 	data: MosaicObject<any>;
 	internalData: MosaicObject<any>;
-};
+}
 
 export type ActionSetSubmitWarning = FormState["submitWarning"] & {
 	type: "SET_SUBMIT_WARNING";
 };
 
-export type ActionDisable = {
+export interface ActionDisable {
 	type: "FORM_DISABLE";
 	disabled: boolean;
 	loadingInitial?: boolean;
-};
+}
 
 export type FormAction =
 	| ActionSetFieldErrors
@@ -70,11 +70,11 @@ export type FormAction =
 
 export type FieldPath = string[];
 
-export type ValidateFieldParams = {
+export interface ValidateFieldParams {
 	name: string;
 	validateLinkedFields?: boolean;
 	path?: FieldPath;
-};
+}
 
 export type ValidateField = (params: ValidateFieldParams) => Promise<void>;
 
@@ -87,40 +87,40 @@ export type OnSubmitError = (params: { data: any }) => void;
 
 export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitError) => () => Promise<void>;
 
-export type SetFormValuesParams = {
+export interface SetFormValuesParams {
 	values: MosaicObject<any>;
 	initial?: boolean;
 	validate?: boolean;
-};
+}
 
 export type SetFormValues = (params: SetFormValuesParams) => void;
 
-export type SetFieldValueParams = {
+export interface SetFieldValueParams {
 	name: string;
 	value: unknown | ((current: unknown) => unknown);
 	validate?: boolean;
 	touched?: boolean;
 	path?: FieldPath;
-};
+}
 
 export type SetFieldValue = (params: SetFieldValueParams) => void;
 
-export type SetFieldBlurParams = {
+export interface SetFieldBlurParams {
 	name: string;
 	path?: FieldPath;
-};
+}
 
 export type SetFieldBlur = (params: SetFieldBlurParams) => void;
 
-export type RemoveWaitParams = {
+export interface RemoveWaitParams {
 	names: string[];
-};
+}
 
-export type FormWait = {
+export interface FormWait {
 	name: string;
 	message: string;
 	disableForm: boolean;
-};
+}
 
 export type RemoveWait = (params?: RemoveWaitParams) => void;
 
@@ -128,50 +128,50 @@ export type AddWaitParams = Pick<FormWait, "name" | "message"> & {
 	disableForm?: FormWait["disableForm"];
 };
 
-export type AddWaitResult = {
+export interface AddWaitResult {
 	remove: () => void;
-};
+}
 
 export type AddWait = (params?: AddWaitParams) => AddWaitResult;
 
-export type DisableFormParams = {
+export interface DisableFormParams {
 	disabled?: boolean;
 	initial?: boolean;
-};
+}
 
 export type DisableForm = (params: DisableFormParams) => void;
 
-export type MountFieldParams = {
+export interface MountFieldParams {
 	name: string;
 	fieldRef?: HTMLDivElement;
 	inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-};
+}
 
 export type UnmountField = () => void;
 
-export type MountFieldResult = {
+export interface MountFieldResult {
 	unmount: UnmountField;
-};
+}
 
 export type MountField = (params: MountFieldParams) => MountFieldResult;
 
 export type RemoveValidator = () => void;
 
-export type AddValidatorParams = {
+export interface AddValidatorParams {
 	name: string;
 	validator: () => undefined | string;
-};
+}
 
-export type AddValidatorResult = {
+export interface AddValidatorResult {
 	remove: RemoveValidator;
-};
+}
 
 export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
 
-export type FormInitParams = {
+export interface FormInitParams {
 	fields: FieldDef[];
 	sections?: SectionDef[];
-};
+}
 
 export type FormInit = (params: FormInitParams) => void;
 
@@ -179,7 +179,7 @@ export type SetSubmitWarning = (params: FormState["submitWarning"]) => void;
 
 export type FormReset = () => void;
 
-export type FormMethods = {
+export interface FormMethods {
 	setFormValues: SetFormValues;
 	setFieldValue: SetFieldValue;
 	setFieldBlur: SetFieldBlur;
@@ -192,12 +192,12 @@ export type FormMethods = {
 	init: FormInit;
 	reset: FormReset;
 	setSubmitWarning: SetSubmitWarning;
-};
+}
 
 export type FormError = MosaicObject<string>;
 export type FormTouched = MosaicObject<boolean>;
 
-export type FormState = {
+export interface FormState {
 	internalData: MosaicObject<any>;
 	data: MosaicObject<any>;
 	errors: MosaicObject<string | FormError>;
@@ -206,14 +206,14 @@ export type FormState = {
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
 	loadingInitial: boolean;
-};
+}
 
-export type UseFormReturn = {
+export interface UseFormReturn {
 	state: FormState;
 	stable: FormStable;
 	methods: FormMethods;
 	handleSubmit: FormHandleSubmit;
-};
+}
 
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
@@ -227,4 +227,4 @@ export type FormStable = FormState & {
 
 export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
 
-export type Validator = { fn: ValidatorFn; options: any };
+export interface Validator { fn: ValidatorFn; options: any }

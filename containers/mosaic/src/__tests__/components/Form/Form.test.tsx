@@ -67,7 +67,7 @@ describe("Layout logic", () => {
 				data: fields,
 				result: [
 					{
-						"fields": [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
+						fields: [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
 					},
 				],
 			},

@@ -58,7 +58,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw an error if a provided active filter is not recognised as a valid filter", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		await expect(() => setup({
 			filters,
@@ -250,7 +250,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if an unknown view option is provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ displayOptions: ["unknown"] }))
 			.rejects
@@ -258,7 +258,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if the display provided is not in the list of available displays", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ displayOptions: ["list", "grid"], display: "unknown" }))
 			.rejects
@@ -266,7 +266,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if any of the active columns provided is not in the columns list provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ activeColumns: ["unknown"] }))
 			.rejects

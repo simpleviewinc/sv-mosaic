@@ -46,12 +46,12 @@ const AdvancedSelectExample = ({ optionsOrigin }: { optionsOrigin: "db" | "local
 	const createNewOption = async (newOptionLabel) => {
 		const value = `id_${(new Date()).getTime()}`;
 		const newOption = {
-			"_id": value,
-			"tag": newOptionLabel,
-			"sort_tag": newOptionLabel,
-			"updated": new Date(),
-			"created": new Date(),
-			"id": value,
+			_id: value,
+			tag: newOptionLabel,
+			sort_tag: newOptionLabel,
+			updated: new Date(),
+			created: new Date(),
+			id: value,
 		};
 
 		//Insert to db

@@ -1,6 +1,6 @@
 import { FieldDefBase } from "@root/components/Field";
 
-export type PhoneSelectionInputSettings = {
+export interface PhoneSelectionInputSettings {
 	/**
 	 * Phone formatting according to the country selected.
 	 */
@@ -13,7 +13,7 @@ export type PhoneSelectionInputSettings = {
 	 * Input state value
 	 */
 	value?: string;
-};
+}
 
 export type PhoneDropdownData = string;
 

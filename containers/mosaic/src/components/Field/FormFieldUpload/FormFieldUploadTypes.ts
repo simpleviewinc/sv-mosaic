@@ -1,6 +1,6 @@
 import { FieldDefBase } from "@root/components/Field";
 
-export type UploadDataBase = {
+export interface UploadDataBase {
 	/**
 	 * A unique identifier, used as React "key"
 	 */
@@ -13,7 +13,7 @@ export type UploadDataBase = {
 	 * The name of the file, which will be rendered as the file title
 	 */
 	name: string;
-};
+}
 
 export type UploadData = UploadDataBase & {
 	/**
@@ -56,21 +56,21 @@ export function isPendingUploadData(item: UploadData | UploadDataPending): item 
 	return "isPending" in item && item.isPending;
 }
 
-type OnFileDeleteData = {
+interface OnFileDeleteData {
 	id: UploadData["id"];
-};
+}
 
 export type OnFileDelete = (deletedData: OnFileDeleteData) => Promise<void>;
 
-type OnFileAddData = {
+interface OnFileAddData {
 	file: File;
 	onChunkComplete: (data: { percent: number }) => Promise<void>;
 	onUploadComplete: (data: UploadData) => Promise<void>;
-};
+}
 
 export type OnFileAdd = (addedData: OnFileAddData) => Promise<void>;
 
-export type UploadFieldInputSettings = {
+export interface UploadFieldInputSettings {
 	onFileDelete: OnFileDelete;
 	onFileAdd: OnFileAdd;
 	limit?: number;
@@ -84,6 +84,6 @@ export type UploadFieldInputSettings = {
 	 * of files uploaded
 	 */
 	maxTotalSize?: number;
-};
+}
 
 export type FieldDefUpload = FieldDefBase<"upload", UploadFieldInputSettings>;

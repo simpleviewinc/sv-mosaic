@@ -12,9 +12,7 @@ interface DataViewFilterDateOption {
 
 type DataViewFilterDateData = DataViewFilterDateRange | DataViewFilterDateOption;
 
-export interface DataViewFilterDateOnChange {
-	(value: DataViewFilterDateData): void;
-}
+export type DataViewFilterDateOnChange = (value: DataViewFilterDateData) => void;
 
 export interface DataViewFilterDateProps extends DataViewFilterProps {
 	data: DataViewFilterDateData;

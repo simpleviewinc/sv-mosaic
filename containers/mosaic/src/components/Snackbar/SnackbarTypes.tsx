@@ -1,9 +1,9 @@
 import { SvgIconComponent } from "@root/types";
 
-export type SnackbarAction = {
+export interface SnackbarAction {
 	label: string;
 	function: () => void;
-};
+}
 
 export interface SnackbarProps {
 	/**

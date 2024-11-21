@@ -1,19 +1,19 @@
 import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 
-type FormFieldCheckboxLocalOptions = {
+interface FormFieldCheckboxLocalOptions {
 	/**
 	* List of options
 	*/
 	options: MosaicLabelValue[];
-};
+}
 
-type FormFieldCheckboxExternalOptions = {
+interface FormFieldCheckboxExternalOptions {
 	/**
 	 * Used to get options from db.
 	 */
 	getOptions: () => Promise<MosaicLabelValue[]>;
-};
+}
 
 type UnionKeys<T> = T extends T ? keyof T : never;
 

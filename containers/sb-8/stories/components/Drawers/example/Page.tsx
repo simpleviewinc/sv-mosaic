@@ -3,9 +3,7 @@ import Form from "./FormExample";
 import Grid from "./Grid";
 import { PageConfig, PageCallbacks } from "./ExampleTypes";
 
-interface ConfigableMethod {
-	(config: any): JSX.Element;
-}
+type ConfigableMethod = (config: any) => JSX.Element;
 
 const componentMap: Record<PageConfig["type"], ConfigableMethod> = {
 	form: Form,

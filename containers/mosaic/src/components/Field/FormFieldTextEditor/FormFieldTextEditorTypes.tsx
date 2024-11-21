@@ -44,12 +44,12 @@ export type NodeFormSet = Dispatch<SetStateAction<NodeFormState>>;
 
 export type ControlName = string;
 
-export type ControlBase = {
+export interface ControlBase {
 	name: ControlName;
 	label: string;
 	shortcut?: ShortcutDef;
 	show?: MosaicToggle<{ selectionTypes?: SelectionType[] }>;
-};
+}
 
 export type ControlWithProps = ControlBase & {
 	cmd: (params: {
@@ -96,10 +96,10 @@ export type ControlsConfig = (ControlConfig | ControlConfig[])[][];
 
 export type EditorMode = "code" | "visual";
 
-export type ShortcutDef = {
+export interface ShortcutDef {
 	pc: string;
 	mac: string;
-};
+}
 
 export interface TextEditorUpdateLinkValues {
 	url: string;
@@ -122,7 +122,7 @@ export type TextEditorOnImageParams = Partial<TextEditorUpdateImageValues> & {
 	updateImage: TextEditorUpdateImage;
 };
 
-export type TextEditorInputSettings = {
+export interface TextEditorInputSettings {
 	controls?: ControlsConfig;
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
@@ -130,7 +130,7 @@ export type TextEditorInputSettings = {
 	allowedLinkProtocols?: string[];
 	autolink?: boolean;
 	maxCharacters?: number;
-};
+}
 
 export type TextEditorData = string;
 

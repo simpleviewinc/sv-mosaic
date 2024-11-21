@@ -1,5 +1,5 @@
-const path = require("path");
-const { execSync } = require("child_process");
+import path from "path";
+import { execSync } from "child_process";
 
 describe(__filename, function() {
 	test("Check types", () => {

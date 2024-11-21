@@ -12,7 +12,7 @@ export interface DataViewTrProps {
 	disabled?: DataViewProps["disabled"];
 	originalRowData: DataViewProps["data"][number];
 	columns: DataViewProps["columns"];
-	row?: { [x: string]: any };
+	row?: Record<string, any>;
 	style?: CSSProperties;
 	isDragOverlay?: boolean;
 }

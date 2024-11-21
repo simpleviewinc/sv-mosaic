@@ -154,7 +154,7 @@ export interface FieldDefBase<Type, T = any> {
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<void | string>) | string | { fn: string; options: any })[];
+	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<undefined | string>) | string | { fn: string; options: any })[];
 	/**
 	 * When to validate the field
 	 */
@@ -226,9 +226,9 @@ export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue" | "fields"> & 
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange" | "onSubmit";
 
-export type FieldConfig = {
+export interface FieldConfig {
 	Component: ElementType;
 	validate: FieldValidateOn;
 	getResolvedValue: FieldValueResolver;
-};
+}
 

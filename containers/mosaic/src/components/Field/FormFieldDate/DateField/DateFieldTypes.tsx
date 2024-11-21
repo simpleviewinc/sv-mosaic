@@ -1,6 +1,6 @@
 import type { FieldDefBase } from "@root/components/Field";
 
-export type DateFieldInputSettings = {
+export interface DateFieldInputSettings {
 	/**
 	 * Value to trigger time field
 	 */
@@ -32,14 +32,14 @@ export type DateFieldInputSettings = {
 	 * Only applicable if `showTime` is true.
 	 */
 	defaultTime?: TimeString | TimeTuple;
-};
+}
 
-export type DateData = {
+export interface DateData {
 	date?: Date;
 	validDate: boolean;
 	time?: Date;
 	validTime: boolean;
-};
+}
 
 export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings>;
 

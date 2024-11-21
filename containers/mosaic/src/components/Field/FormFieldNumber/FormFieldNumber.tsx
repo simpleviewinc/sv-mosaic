@@ -66,7 +66,6 @@ const NumberField = (
 
 		regexParts.push("$");
 
-		// eslint-disable-next-line no-useless-escape
 		const regex = new RegExp(regexParts.filter(Boolean).join(""));
 
 		if (value && !value.match(regex)) {
