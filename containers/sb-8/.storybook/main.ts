@@ -12,6 +12,7 @@ const config: StorybookConfig = {
 		"@storybook/addon-essentials",
 		"@storybook/addon-interactions",
 		{
+			// eslint-disable-next-line storybook/no-uninstalled-addons
 			name: "@storybook/addon-docs",
 			options: {
 				mdxPluginOptions: {
