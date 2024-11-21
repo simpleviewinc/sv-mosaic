@@ -14,9 +14,7 @@ export interface DataViewColumnTransformArgs<T = unknown> {
 	row?: DataViewProps["data"][number];
 }
 
-export interface DataViewColumnTransform<T = unknown> {
-	(args: DataViewColumnTransformArgs<T>): React.ReactNode;
-}
+export type DataViewColumnTransform<T = unknown> = (args: DataViewColumnTransformArgs<T>) => React.ReactNode;
 
 export interface DataViewColumn {
 	/** The name of the column. */
@@ -50,9 +48,7 @@ export interface DataViewColumn {
 //THIS TYPE DOESN'T SEEM TO BE USED ANYWHERE.
 export type DataViewFilterTypes = "optional" | "primary";
 
-export interface DataViewFilterOnChange {
-	(value: unknown): void;
-}
+export type DataViewFilterOnChange = (value: unknown) => void;
 
 export interface DataViewFilterDef {
 	name: string;
@@ -70,9 +66,7 @@ export interface DataViewFilterProps {
 	onChange: unknown;
 }
 
-interface DataViewActionOnClick {
-	({ data }: { data: DataViewProps["data"][number] }): void;
-}
+type DataViewActionOnClick = ({ data }: { data: DataViewProps["data"][number] }) => void;
 
 export interface ActionAdditional {
 	/** A unique name for this action. */
@@ -84,9 +78,7 @@ export interface ActionAdditional {
 	show?: MosaicToggle<{ row: DataViewActionsButtonRowProps["originalRowData"] }>;
 }
 
-interface DataViewBulkActionOnClick {
-	({ data }: { data: DataViewProps["data"] }): void;
-}
+type DataViewBulkActionOnClick = ({ data }: { data: DataViewProps["data"] }) => void;
 
 export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show"> & ActionAdditional;
 
@@ -104,36 +96,20 @@ export interface DataViewSort {
 	dir: "asc" | "desc";
 }
 
-export interface DataViewOnSortChange {
-	(sort: DataViewSort): void;
-}
+export type DataViewOnSortChange = (sort: DataViewSort) => void;
 
-export interface DataViewOnSkipChange {
-	({ skip }: { skip : number }): void;
-}
+export type DataViewOnSkipChange = ({ skip }: { skip : number }) => void;
 
-export interface DataViewOnLimitChange {
-	({ limit }: { limit : number }): void;
-}
+export type DataViewOnLimitChange = ({ limit }: { limit : number }) => void;
 
-type DataViewOnDisplayChange = {
-	(display: string): void;
-};
-type DataViewOnActiveFiltersChange = {
-	(val: { activeFilters: string[]; filter: MosaicObject }): void;
-};
+type DataViewOnDisplayChange = (display: string) => void;
+type DataViewOnActiveFiltersChange = (val: { activeFilters: string[]; filter: MosaicObject }) => void;
 
-type DataViewOnColumnsChange = {
-	(activeColumns: string[]): void;
-};
+type DataViewOnColumnsChange = (activeColumns: string[]) => void;
 
-type DataViewOnCheckChange = {
-	(checked: boolean[]): void;
-};
+type DataViewOnCheckChange = (checked: boolean[]) => void;
 
-type DataViewOnCheckAllPagesChange = {
-	(val: boolean): void;
-};
+type DataViewOnCheckAllPagesChange = (val: boolean) => void;
 
 export interface DataViewFilterGetOptionsReturn {
 	docs: MosaicLabelValue[];

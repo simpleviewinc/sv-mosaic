@@ -6,9 +6,7 @@ export interface SideNavArgs {
 	event: MouseEvent;
 }
 
-export interface SideNavOnNav {
-	(args: SideNavArgs): void;
-}
+export type SideNavOnNav = (args: SideNavArgs) => void;
 
 export interface SideNavProps {
 	/**
@@ -35,7 +33,7 @@ export type SideNavGroupProps = Pick<SideNavProps, "collapse" | "active"> & {
 	onLinkClicked: (args: { item: Item; event?: MouseEvent }) => void;
 };
 
-export type Item = {
+export interface Item {
 	/**
 	 * Each link could have an optional action which consists of an
 	 * icon that will be displayed when hovering over the link and
@@ -70,4 +68,4 @@ export type Item = {
 	 * MosaicToggle to evaluate whether or not to show this item
 	 */
 	show?: MosaicToggle;
-};
+}

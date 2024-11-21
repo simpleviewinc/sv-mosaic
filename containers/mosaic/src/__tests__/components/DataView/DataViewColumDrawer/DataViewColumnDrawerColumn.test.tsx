@@ -31,7 +31,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw an error if the name of the column is not found amongst the list of all columns", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ name: "column3" }))
 			.rejects

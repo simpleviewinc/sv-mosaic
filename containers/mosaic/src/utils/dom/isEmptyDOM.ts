@@ -26,9 +26,7 @@ export function isEmptyDOM(parent: HTMLElement): boolean {
 		blockElements: 0,
 	};
 
-	for (let i = 0; i < children.length; i++) {
-		const node = children[i];
-
+	for (const node of children) {
 		if (isElement(node)) {
 			if (voidElements.includes(node.tagName.toLowerCase())) {
 				counters.content++;

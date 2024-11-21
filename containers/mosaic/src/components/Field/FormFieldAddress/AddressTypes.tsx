@@ -1,7 +1,7 @@
 import type { MosaicLabelValue } from "@root/types";
 import type { FieldDefBase } from "@root/components/Field";
 
-export type IAddress = {
+export interface IAddress {
 	address1: string;
 	address2?: string;
 	address3?: string;
@@ -11,14 +11,14 @@ export type IAddress = {
 	postalCode: string;
 	state: MosaicLabelValue;
 	types: MosaicLabelValue[];
-};
+}
 
 export interface AddressCardProps {
 	/**
 	 * Address object that contains all the information
 	 * to fill the address card.
 	 */
-	address: IAddress;
+	address: AddressItem;
 	/**
 	 * Disables edit and remove button
 	 */
@@ -26,11 +26,11 @@ export interface AddressCardProps {
 	/**
 	 * Function executed when removing an address card.
 	 */
-	onRemoveAddress?: (address: IAddress) => void;
+	onRemoveAddress?: (address: AddressItem) => void;
 	/**
 	 * Function executed when editing an address card.
 	 */
-	onEdit?: (address: IAddress) => void;
+	onEdit?: (address: AddressItem) => void;
 }
 export interface AddressDrawerProps {
 	addressToEdit?: AddressItem;
@@ -45,7 +45,7 @@ export interface AddressDrawerProps {
 	getOptionsStates: AddressFieldInputSettings["getOptionsStates"];
 }
 
-export type AddressFieldInputSettings = {
+export interface AddressFieldInputSettings {
 	amountPerType?: number;
 	amountShipping?: number;
 	amountBilling?: number;
@@ -53,7 +53,7 @@ export type AddressFieldInputSettings = {
 	getOptionsCountries(): Promise<MosaicLabelValue[]>;
 	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
 	googleMapsApiKey: string;
-};
+}
 
 export type AddressItem = IAddress & Record<PropertyKey, unknown>;
 

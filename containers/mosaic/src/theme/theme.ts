@@ -46,11 +46,9 @@ const colorMap = {
 };
 
 type MY_OBJECT_KEYS = keyof typeof colorMap;
-type Color = {
-	[key: string]: string;
-};
+type Color = Record<string, string>;
 
-const newColors: { [key in MY_OBJECT_KEYS]: Color } = {
+const newColors: Record<MY_OBJECT_KEYS, Color> = {
 	almostBlack: {},
 	darkerRealTeal: {},
 	darkerRed: {},

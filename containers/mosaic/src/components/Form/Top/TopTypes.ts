@@ -2,7 +2,7 @@ import { ButtonProps } from "@root/components/Button";
 import { FormProps } from "@root/components/Form";
 import { MosaicCSSContainer } from "@root/types";
 
-export type TopProps = {
+export interface TopProps {
 	/**
 	* Array of buttons provided to the Form.
 	*/
@@ -31,4 +31,4 @@ export type TopProps = {
 	collapse?: MosaicCSSContainer;
 
 	skeleton?: boolean;
-};
+}
