@@ -1,9 +1,11 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
 // Components
 import Dialog from "@root/components/Dialog";
-import Button, { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 
 export default {
 	title: "Components/Dialog",

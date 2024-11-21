@@ -1,6 +1,7 @@
 import * as React from "react";
 import uniqueId from "lodash/uniqueId";
-import { useState, useEffect, useCallback, useMemo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import styled from "styled-components";
 
 import AddIcon from "@mui/icons-material/Add";
@@ -18,7 +19,8 @@ import type { MosaicLabelValue } from "@root/types";
 
 import JSONDB from "@root/utils/JSONDB";
 import rawData from "@root/components/DataView/example/rawData.json";
-import DataView, { DataViewProps, DataViewFilterDef, DataViewColumn, DataViewRowData } from "@root/components/DataView";
+import type { DataViewProps, DataViewFilterDef, DataViewColumn, DataViewRowData } from "@root/components/DataView";
+import DataView from "@root/components/DataView";
 import categories from "@root/components/DataView/example/categories.json";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import SingleSelectHelper from "@root/components/DataView/example/SingleSelectHelper";
@@ -73,25 +75,25 @@ const api = new JSONDB(mappedData, {
 });
 
 const colors = [
-    { pct: 0.0, color: { r: 227, g: 77, b: 77 } },
-    { pct: 0.5, color: { r: 255, g: 143, b: 0 } },
-    { pct: 1.0, color: { r: 53, g: 181, b: 26 } } ];
+	{ pct: 0.0, color: { r: 227, g: 77, b: 77 } },
+	{ pct: 0.5, color: { r: 255, g: 143, b: 0 } },
+	{ pct: 1.0, color: { r: 53, g: 181, b: 26 } }];
 
 const getColorForPercentage = function(colors, percent) {
 	const i = colors.findIndex(({ pct }) => percent < pct);
-    const lower = colors[i - 1];
-    const upper = colors[i];
-    const range = upper.pct - lower.pct;
-    const rangePct = (percent - lower.pct) / range;
-    const pctLower = 1 - rangePct;
-    const pctUpper = rangePct;
-    const color = {
-        r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
-        g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
-        b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
-    };
-    return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
-    // or output as hex if preferred
+	const lower = colors[i - 1];
+	const upper = colors[i];
+	const range = upper.pct - lower.pct;
+	const rangePct = (percent - lower.pct) / range;
+	const pctLower = 1 - rangePct;
+	const pctUpper = rangePct;
+	const color = {
+		r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
+		g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
+		b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper),
+	};
+	return "rgb(" + [color.r, color.g, color.b].join(",") + ")";
+	// or output as hex if preferred
 };
 
 const processStringFilter = function ({ name, data, output }) {
@@ -150,7 +152,7 @@ const processNumberFilter = function({ name, data, output }) {
 	if (Object.keys(outputFilter).length > 0) {
 		output[name] = outputFilter;
 	}
-}
+};
 
 const processArrayFilter = function ({ name, data, output }) {
 	if (data.comparison === "exists") {
@@ -331,12 +333,13 @@ const listColumns: DataViewColumn[] = [
 					borderRadius: 4,
 					padding: "2px 6px 2px 4px",
 					fontWeight: "bold",
-				}}>
+				}}
+				>
 					<Star />
 					{data}
 				</div>
-			)
-		]
+			),
+		],
 	},
 	{
 		name: "image_title",

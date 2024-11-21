@@ -2,61 +2,61 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import { SimpleviewAlertNodeView } from "./SimpleviewAlertNodeView";
 
-declare module '@tiptap/core' {
+declare module "@tiptap/core" {
     interface Commands<ReturnType> {
       simpleviewAlert: {
         /**
          * Set a Simpleview alert node
          */
-        setSimpleviewAlert: () => ReturnType,
+        setSimpleviewAlert: () => ReturnType;
         /**
          * Toggle a Simpleview alert node
          */
-        toggleSimpleviewAlert: () => ReturnType,
+        toggleSimpleviewAlert: () => ReturnType;
         /**
          * Unset a Simpleview alert node
          */
-        unsetSimpleviewAlert: () => ReturnType,
-      }
+        unsetSimpleviewAlert: () => ReturnType;
+      };
     }
   }
 
 export const SimpleViewAlert = Node.create({
-  name: "simpleviewAlert",
+	name: "simpleviewAlert",
 
-  content: "block+",
+	content: "block+",
 
-  group: "block",
+	group: "block",
 
-  defining: true,
+	defining: true,
 
-  parseHTML() {
-    return [
-        {
-            tag: `div[data-type=${this.name}]`,
-        }
-    ]
-  },
+	parseHTML() {
+		return [
+			{
+				tag: `div[data-type=${this.name}]`,
+			},
+		];
+	},
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { "data-type": this.name }), 0];
-  },
+	renderHTML({ HTMLAttributes }) {
+		return ["div", mergeAttributes(HTMLAttributes, { "data-type": this.name }), 0];
+	},
 
-  addCommands() {
-    return {
-      setSimpleviewAlert: () => ({ commands }) => {
-        return commands.wrapIn(this.name)
-      },
-      toggleSimpleviewAlert: () => ({ commands }) => {
-        return commands.toggleWrap(this.name)
-      },
-      unsetSimpleviewAlert: () => ({ commands }) => {
-        return commands.lift(this.name)
-      },
-    }
-  },
+	addCommands() {
+		return {
+			setSimpleviewAlert: () => ({ commands }) => {
+				return commands.wrapIn(this.name);
+			},
+			toggleSimpleviewAlert: () => ({ commands }) => {
+				return commands.toggleWrap(this.name);
+			},
+			unsetSimpleviewAlert: () => ({ commands }) => {
+				return commands.lift(this.name);
+			},
+		};
+	},
 
-  addNodeView() {
-    return ReactNodeViewRenderer(SimpleviewAlertNodeView)
-  },
-})
+	addNodeView() {
+		return ReactNodeViewRenderer(SimpleviewAlertNodeView);
+	},
+});

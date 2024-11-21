@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import DataViewFilterText from "@root/components/DataViewFilterText";
 
 export default {

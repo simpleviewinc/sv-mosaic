@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import styled from "styled-components";
 import theme from "@root/theme";
 import format from "date-fns/format";
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 
 // Components
 import Card from "@root/components/Card";

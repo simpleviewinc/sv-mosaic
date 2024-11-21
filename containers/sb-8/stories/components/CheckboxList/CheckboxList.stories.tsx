@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
 import CheckboxList from "@root/components/CheckboxList";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 
 export default {
