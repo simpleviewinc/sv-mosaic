@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo, useCallback } from "react";
+import type { ReactElement } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -13,10 +14,10 @@ import { getOptionsCountries, getOptionsStates } from "@root/components/Field/Fo
 import Form from "@root/components/Form";
 
 // Types
-import { FieldDef, UploadFieldInputSettings } from "@root/components/Field";
+import type { FieldDef, UploadFieldInputSettings } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
-import { DataViewProps } from "@root/components/DataView";
+import type { DataViewProps } from "@root/components/DataView";
 import { joinAnd } from "@root/utils/string";
 import { nanoid } from "nanoid";
 
@@ -41,8 +42,8 @@ const factors = (number: number) => Array
 
 const getFormValues = async () => ({
 	workDates: {
-		current: true
-	}
+		current: true,
+	},
 });
 
 export const Profile = ({
@@ -189,14 +190,14 @@ export const Profile = ({
 				{
 					name: "ukWorker",
 					label: "I have a job",
-					type: "toggle"
+					type: "toggle",
 				},
 				{
 					name: "jobRole",
 					label: "Job Role",
 					type: "text",
 					required: true,
-					show: ({ data }) => Boolean(data.ukWorker)
+					show: ({ data }) => Boolean(data.ukWorker),
 				},
 				{
 					name: "workAddress",
@@ -208,7 +209,7 @@ export const Profile = ({
 						layout: [
 							[["address1"], ["address2"]],
 							[["city"]],
-							[["country"], ["postalCode"]]
+							[["country"], ["postalCode"]],
 						],
 						fields: [
 							{
@@ -255,8 +256,8 @@ export const Profile = ({
 									{ fn: "validatePostcode", options: { countryField: "country" } },
 								],
 							},
-						]
-					}
+						],
+					},
 				},
 				{
 					name: "workDates",
@@ -266,7 +267,7 @@ export const Profile = ({
 					inputSettings: {
 						layout: [
 							[["current"]],
-							[["startDate"], ["endDate"], []]
+							[["startDate"], ["endDate"], []],
 						],
 						fields: [
 							{
@@ -276,11 +277,11 @@ export const Profile = ({
 								validates: [
 									{
 										name: "startDate",
-										include: [validateDateRange]
+										include: [validateDateRange],
 									},
 									{
 										name: "endDate",
-										include: [validateDateRange]
+										include: [validateDateRange],
 									},
 								],
 							},
@@ -299,10 +300,10 @@ export const Profile = ({
 								required: true,
 								validators: [{ fn: "validateDateRange", options: { startDateName: "startDate" } }],
 								validates: ["startDate"],
-								disabled: ({ data }) => Boolean(data.workDates?.current)
+								disabled: ({ data }) => Boolean(data.workDates?.current),
 							},
-						]
-					}
+						],
+					},
 				},
 				{
 					name: "email",
@@ -458,7 +459,7 @@ export const Profile = ({
 				[["ukWorker"]],
 				[["jobRole"]],
 				[["workAddress"]],
-				[["workDates"]]
+				[["workDates"]],
 			],
 			show: showYourWork,
 		},
@@ -472,7 +473,7 @@ export const Profile = ({
 				[["hobbies"]],
 				[["animalsOrVehicles"]],
 			],
-			show: showPreferences
+			show: showPreferences,
 		},
 		{
 			title: "Vehicles",

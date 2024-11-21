@@ -1,7 +1,9 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
-import Button, { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";

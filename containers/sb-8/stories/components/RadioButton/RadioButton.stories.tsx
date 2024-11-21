@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, ChangeEvent, useState } from "react";
+import type { ReactElement, ChangeEvent } from "react";
+import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 
 // Components

@@ -8,4 +8,4 @@ export const LinkLibraryAvatar = styled(Avatar)<{ $selected?: boolean }>`
             background-color: ${theme.colors.teal};
         `}
     }
-`
+`;

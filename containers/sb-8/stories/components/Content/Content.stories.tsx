@@ -1,8 +1,10 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 
 // Components
-import Content, { ContentFieldDef } from "@root/components/Content";
+import type { ContentFieldDef } from "@root/components/Content";
+import Content from "@root/components/Content";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper } from "@root/components/Content/Content.styled";
 import {
@@ -14,7 +16,7 @@ import {
 	transform_dataview,
 } from "@root/transforms/column_transforms";
 import EditIcon from "@mui/icons-material/Edit";
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 import Link from "@mui/material/Link";
 
 export default {
@@ -156,7 +158,13 @@ export const Playground = ({
 		{
 			name: "toggle",
 			label: "Toggle using transform_boolean()",
-			tooltip: <>This came in as a boolean, but<br />will displayed as yes or no</>,
+			tooltip: (
+				<>
+					This came in as a boolean, but
+					<br />
+					will displayed as yes or no
+				</>
+			),
 			transforms: [transform_boolean()],
 		},
 		{

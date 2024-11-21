@@ -1,5 +1,6 @@
-import React, { ReactElement, useMemo } from "react";
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+import React, { useMemo } from "react";
+import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
 import { textIsValidDate } from "@root/utils/date";
@@ -117,7 +118,7 @@ Playground.argTypes = {
 	},
 	defaultTime: {
 		name: "Default Time",
-	}
+	},
 };
 
 const getFormValues = async () => {
