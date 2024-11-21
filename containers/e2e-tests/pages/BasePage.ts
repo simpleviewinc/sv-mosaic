@@ -1,4 +1,5 @@
-import { expect, Page, Locator } from "@playwright/test";
+import type { Page, Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 import { getDateFormatted } from "../utils/helpers/dateHelper";

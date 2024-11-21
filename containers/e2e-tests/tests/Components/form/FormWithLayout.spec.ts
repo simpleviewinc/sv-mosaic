@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormWithLayout } from "../../../pages/Components/Form/FormWithLayoutPage";
 import { playgroundKnobs } from "../../../utils/data/knobs";
 
@@ -27,8 +28,8 @@ test.describe("Components - Form - Form With Layout", () => {
 
 	test("Validate that each row in each section does not have more than 3 columns", async () => {
 		const numberOfColumnsPerRow = await formWithLayoutPage.getNumberOfColumsInEachRowFromSections();
-		for (let i = 0; i < numberOfColumnsPerRow.length; i++) {
-			expect(numberOfColumnsPerRow[i]).toBeLessThanOrEqual(3);
+		for (const num of numberOfColumnsPerRow) {
+			expect(num).toBeLessThanOrEqual(3);
 		}
 	});
 

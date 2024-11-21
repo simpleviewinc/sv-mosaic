@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataviewData";
 import theme from "@root/theme";
@@ -171,9 +172,9 @@ test.describe("Components - Data View - Playground", () => {
 		await dataviewPage.waitForDataviewIsVisible();
 		const columnIndex = await dataviewPage.getPositionOfColumn("Title", true);
 		const titles = await dataviewPage.getRowLocators(columnIndex);
-		for (let i = 0; i < titles.length; i++) {
-			expect.soft(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.normal).toString());
-			expect(await dataviewPage.getColorFromElement(titles[i])).toBe(theme.newColors.almostBlack["100"]);
+		for (const title of titles) {
+			expect.soft(await dataviewPage.getFontWeightFromElement(title)).toBe((theme.fontWeight.normal).toString());
+			expect(await dataviewPage.getColorFromElement(title)).toBe(theme.newColors.almostBlack["100"]);
 		}
 	});
 

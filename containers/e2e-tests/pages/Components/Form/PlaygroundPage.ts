@@ -1,4 +1,5 @@
-import { Locator, Page, expect } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData";

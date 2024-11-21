@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { DataViewFilterTextComponent } from "../../../pages/Components/DataView/DataViewFilterText";
 import { filter_data } from "../../../utils/data/dataviewData";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";

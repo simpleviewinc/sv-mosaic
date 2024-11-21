@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionPlaygroundPage";
 import theme from "@root/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
@@ -14,10 +15,6 @@ test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
 
 	test.beforeEach(async() => {
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
-	});
-
-	test.afterAll(async () => {
-		// browser.close;
 	});
 
 	test("Validate placeholder text has grey3 as Color.", async () => {

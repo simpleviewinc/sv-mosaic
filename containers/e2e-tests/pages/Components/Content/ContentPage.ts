@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import testIds from "@root/utils/testIds";
 
