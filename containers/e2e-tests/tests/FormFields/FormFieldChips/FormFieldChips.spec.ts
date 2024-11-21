@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldChipsPage } from "../../../pages/FormFields/FormFieldChips/FormFieldChipsPage";
 import theme from "@root/theme";
 
@@ -10,10 +11,6 @@ test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 		page = await browser.newPage();
 		ffChipSingleSelectPage = new FormFieldChipsPage(page);
 		await ffChipSingleSelectPage.visit(ffChipSingleSelectPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate error when trying to save without selecting Required Single Chip", async () => {

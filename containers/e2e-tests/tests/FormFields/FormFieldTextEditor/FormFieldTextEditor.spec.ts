@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldTextEditorPage } from "../../../pages/FormFields/FormFieldTextEditor/FormFieldTextEditorPage";
 
 test.skip("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
@@ -9,10 +10,6 @@ test.skip("FormFields - FormFieldTextEditor - Kitchen Sink", () => {
 		page = await browser.newPage();
 		ffTextEditorPage = new FormFieldTextEditorPage(page);
 		await ffTextEditorPage.visit(ffTextEditorPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate the Text editor with spellcheck active.", async () => {

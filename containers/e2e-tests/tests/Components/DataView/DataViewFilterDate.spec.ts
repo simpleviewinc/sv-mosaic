@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { DataViewFilterDateComponent } from "../../../pages/Components/DataView/DataViewFilterDateComponent";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { commonKnobs } from "../../../utils/data/knobs";

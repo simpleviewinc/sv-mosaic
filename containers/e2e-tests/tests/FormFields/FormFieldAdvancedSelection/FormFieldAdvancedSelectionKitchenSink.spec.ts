@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionKitchenSinkPage";
 import theme from "@root/theme";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
@@ -17,10 +18,6 @@ test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate all the Advanced Selection buttons have the valid text.", async () => {

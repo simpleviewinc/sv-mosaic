@@ -1,7 +1,8 @@
 import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
 import { DataviewPage } from "../../Components/DataView/DataViewPage";
-import { Page, Locator, expect } from "@playwright/test";
+import type { Page, Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 export class FilterComponent extends BasePage {
 
@@ -57,7 +58,7 @@ export class FilterComponent extends BasePage {
 		this.loadMoreBtn = page.locator(".loadContainer button");
 		this.moreCategoriesTooltip = page.getByTestId(testIds.DATA_VIEW_FILTER_MULTI_COUNTER);
 		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
-		this.filtersRowLocator = page.getByTestId('mos:DataView:filterBar');
+		this.filtersRowLocator = page.getByTestId("mos:DataView:filterBar");
 	}
 
 	async validateKeywordFilterIsVisible(isVisible: boolean): Promise<void> {
@@ -104,7 +105,6 @@ export class FilterComponent extends BasePage {
 
 	async selectCategory(category: string): Promise<void> {
 		await super.wait();
-		const item1 = await this.getItemByName(category);
 		await this.page.getByLabel(category).check();
 	}
 

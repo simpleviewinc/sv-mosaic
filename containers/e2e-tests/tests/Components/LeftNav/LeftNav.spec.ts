@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/leftNavData";
 import theme from "@root/theme";

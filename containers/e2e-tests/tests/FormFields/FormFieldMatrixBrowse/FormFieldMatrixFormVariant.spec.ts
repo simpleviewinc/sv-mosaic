@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldMatrixFormVariantPage } from "../../../pages/FormFields/FormFieldMatrixPage/FormFieldMatrixFormVariantPage";
 
 test.describe("FormFields - FormFieldMatrix - Form Variant", () => {
@@ -13,10 +14,6 @@ test.describe("FormFields - FormFieldMatrix - Form Variant", () => {
 
 	test.afterEach(async() => {
 		await ffMatrixFormVariantPage.deleteAllRows();
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate that a new record can be saved.", async () => {

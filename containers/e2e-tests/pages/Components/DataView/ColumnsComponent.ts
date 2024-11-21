@@ -1,6 +1,6 @@
 import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 export class ColumnsComponent extends BasePage {
 	readonly page: Page;

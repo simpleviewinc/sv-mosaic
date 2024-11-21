@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldColorPage } from "../../../pages/FormFields/FormFieldColor/FormFieldColorPage";
 import { getRandomHexCode } from "../../../utils/helpers/helper";
 import theme from "@root/theme";
@@ -11,10 +12,6 @@ test.describe("FormFields - FormFieldColor - Kitchen Sink", () => {
 		page = await browser.newPage();
 		ffColorPage = new FormFieldColorPage(page);
 		await ffColorPage.visit(ffColorPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate the selection of a color in Regular Color Picker by clicking", async () => {

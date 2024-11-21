@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import theme from "@root/theme";
 import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
@@ -14,10 +15,6 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 
 	test.beforeEach(async() => {
 		await ffNumberTablePage.visitPageWithNumberFormat("No-format");
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	async function setNumberOnRow(numbers: string[], row: number) {
@@ -80,10 +77,10 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 
 	test.skip("Validate that the different format are displayed correctly.", async () => {
 		const formatsToValidate = ["USD", "EUR", "JPY", "GBP"];
-		for (let i = 0; i < formatsToValidate.length; i++) {
-			await ffNumberTablePage.visitPageWithNumberFormat(formatsToValidate[i]);
-			await ffNumberTablePage.validateTotalColumnHasValidNumberFormat(formatsToValidate[i]);
-			await ffNumberTablePage.validateTotalRowHasValidNumberFormat(formatsToValidate[i]);
+		for (const formatToValidate of formatsToValidate) {
+			await ffNumberTablePage.visitPageWithNumberFormat(formatToValidate);
+			await ffNumberTablePage.validateTotalColumnHasValidNumberFormat(formatToValidate);
+			await ffNumberTablePage.validateTotalRowHasValidNumberFormat(formatToValidate);
 		}
 	});
 

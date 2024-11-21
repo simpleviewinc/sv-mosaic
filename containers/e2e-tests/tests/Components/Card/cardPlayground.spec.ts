@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
 import theme from "@root/theme";

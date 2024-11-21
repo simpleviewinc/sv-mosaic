@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { ButtonPage } from "../../../pages/Components/Button/ButtonPlaygroundPage";
 import theme from "@root/theme";
 import { buttonKnobs as knob, commonKnobs } from "../../../utils/data/knobs";

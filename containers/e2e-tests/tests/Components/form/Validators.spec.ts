@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { ValidatorPage } from "../../../pages/Components/Form/ValidatorPage";
 import { DatePickerComponent } from "../../../pages/Components/DataView/DatePickerComponent";
 import { validatorsData as validatorData } from "../../../utils/data/formData";
