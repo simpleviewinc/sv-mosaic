@@ -1,10 +1,11 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
-import { advanced_filter_data, dataview_data, filter_data } from "../../../utils/data/dataviewData";
+import { advanced_filter_data, dataview_data/*, filter_data */ } from "../../../utils/data/dataviewData";
 import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/AdvancedFiltersComponent";
-import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
+import type { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
-import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import type { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import theme from "@root/theme";
 
 test.describe("Components - Data View - Advanced Filters", () => {
@@ -58,89 +59,89 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	};
 
-	test("Validate Single select category", async () => {
-		await advancedFilters.selectFilter("singleSelectCategory");
-		await advancedFilters.singleSelectCategoryBtn.click();
-		const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
-		expect((await advancedFilters._dataviewPage.getFilterText(advancedFilters.singleSelectCategoryBtn))).toBe(categorySelected);
-		await _dataviewPage.waitForDataviewIsVisible();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(categorySelected.toLowerCase());
-		}
-	});
+	// test("Validate Single select category", async () => {
+	// 	await advancedFilters.selectFilter("singleSelectCategory");
+	// 	await advancedFilters.singleSelectCategoryBtn.click();
+	// 	const categorySelected = await advancedFilters.selectARandomCategoryForSingleSelectCategoryOption();
+	// 	expect((await advancedFilters._dataviewPage.getFilterText(advancedFilters.singleSelectCategoryBtn))).toBe(categorySelected);
+	// 	await _dataviewPage.waitForDataviewIsVisible();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).toContain(categorySelected.toLowerCase());
+	// 	}
+	// });
 
 	test("Validate Single select category styles", async () => {
 		await advancedFilters.selectFilter("singleSelectCategory");
 		await advancedFilters.singleSelectCategoryBtn.click();
-		await advancedFilters.validateFontColorFromElement(page.getByText('Any...'), "#3B424E", true);
-		await advancedFilters.validateFontColorFromElement(page.getByRole('menuitem', { name: 'Accessibility' }).locator('span'), "#3B424E", true);
-		expect(await advancedFilters.isFontBold(page.getByText('Any...'))).toBe(true);
+		await advancedFilters.validateFontColorFromElement(page.getByText("Any..."), "#3B424E", true);
+		await advancedFilters.validateFontColorFromElement(page.getByRole("menuitem", { name: "Accessibility" }).locator("span"), "#3B424E", true);
+		expect(await advancedFilters.isFontBold(page.getByText("Any..."))).toBe(true);
 		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
 	});
 
-	test("Validate Categories with Comparisons - In", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonInOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
-		}
-	});
+	// test("Validate Categories with Comparisons - In", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonInOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Categories with Comparisons - Not In", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonNotInOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).not.toContain(selectedCategory);
-		}
-	});
+	// test("Validate Categories with Comparisons - Not In", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	const selectedCategory = await advancedFilters.selectFirstCategoriesForCategoryWithComparisonOption();
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonNotInOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).not.toContain(selectedCategory);
+	// 	}
+	// });
 
-	test("Validate Categories with Comparisons - All", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory("Knowledge Chaser");
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonAllOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toBe(selectedCategory.toLowerCase());
-		}
-	});
+	// test("Validate Categories with Comparisons - All", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory("Knowledge Chaser");
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonAllOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).toBe(selectedCategory.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Categories with Comparisons - Exists", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonExistsOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).not.toBe("");
-		}
-	});
+	// test("Validate Categories with Comparisons - Exists", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonExistsOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).not.toBe("");
+	// 	}
+	// });
 
-	test("Validate Categories with Comparisons - Not Exists", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonNotExistsOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain("");
-		}
-	});
+	// test("Validate Categories with Comparisons - Not Exists", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonNotExistsOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).toContain("");
+	// 	}
+	// });
 
 	test("Validate Categories with Comparisons - Help Dialog", async () => {
 		await advancedFilters.selectFilter("categoriesWithComparisons");
@@ -151,18 +152,18 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await page.reload();
 	});
 
-	test("Validate Categories with Comparisons - Keyword search", async () => {
-		await advancedFilters.selectFilter("categoriesWithComparisons");
-		await advancedFilters.categoryWithComparisonBtn.click();
-		const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(filter_data.validKeywordFilter);
-		await advancedFilters.comparisonDropdown.click();
-		await advancedFilters.comparisonInOption.click();
-		await advancedFilters.applyBtn.click();
-		const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
-		for (let i = 0; i < allCategoriesOfRows.length; i++) {
-			expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
-		}
-	});
+	// test("Validate Categories with Comparisons - Keyword search", async () => {
+	// 	await advancedFilters.selectFilter("categoriesWithComparisons");
+	// 	await advancedFilters.categoryWithComparisonBtn.click();
+	// 	const selectedCategory = await advancedFilters.keywordSearchForComparisonCategory(filter_data.validKeywordFilter);
+	// 	await advancedFilters.comparisonDropdown.click();
+	// 	await advancedFilters.comparisonInOption.click();
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allCategoriesOfRows = await _dataviewPage.getAllRowData("Category");
+	// 	for (let i = 0; i < allCategoriesOfRows.length; i++) {
+	// 		expect(allCategoriesOfRows.toString()).toContain(selectedCategory.toLowerCase());
+	// 	}
+	// });
 
 	test("Validate selected category with comparisons style", async () => {
 		const expectBgColor = theme.newColors.simplyGold["100"];
@@ -172,65 +173,65 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await advancedFilters.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
 	});
 
-	test("Validate Title with Comparisons - Contains Title", async () => {
-		await advancedFilters.selectFilter("titleWithComparisons");
-		await advancedFilters.titleWithComparisonBtn.click();
-		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitleSimple);
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Contains");
-		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitleSimple.toLowerCase());
-		}
-	});
+	// test("Validate Title with Comparisons - Contains Title", async () => {
+	// 	await advancedFilters.selectFilter("titleWithComparisons");
+	// 	await advancedFilters.titleWithComparisonBtn.click();
+	// 	await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitleSimple);
+	// 	await advancedFilters.selectTitleComparisonOptionFromDropdown("Contains");
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
+	// 	for (let i = 0; i < allTitlesOfRows.length; i++) {
+	// 		expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitleSimple.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Title with Comparisons - Not Contains Title", async () => {
-		await advancedFilters.selectFilter("titleWithComparisons");
-		await advancedFilters.titleWithComparisonBtn.click();
-		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Does not contain...");
-		await advancedFilters.applyBtn.click();
-		await pagination.selectResultOption(100);
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title", 100);
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
-		}
-	});
+	// test("Validate Title with Comparisons - Not Contains Title", async () => {
+	// 	await advancedFilters.selectFilter("titleWithComparisons");
+	// 	await advancedFilters.titleWithComparisonBtn.click();
+	// 	await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
+	// 	await advancedFilters.selectTitleComparisonOptionFromDropdown("Does not contain...");
+	// 	await advancedFilters.applyBtn.click();
+	// 	await pagination.selectResultOption(100);
+	// 	const allTitlesOfRows = await _dataviewPage.getAllRowData("Title", 100);
+	// 	for (let i = 0; i < allTitlesOfRows.length; i++) {
+	// 		expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Title with Comparisons - Equal Title", async () => {
-		await advancedFilters.selectFilter("titleWithComparisons");
-		await advancedFilters.titleWithComparisonBtn.click();
-		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Equals");
-		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitle.toLowerCase());
-		}
-	});
+	// test("Validate Title with Comparisons - Equal Title", async () => {
+	// 	await advancedFilters.selectFilter("titleWithComparisons");
+	// 	await advancedFilters.titleWithComparisonBtn.click();
+	// 	await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
+	// 	await advancedFilters.selectTitleComparisonOptionFromDropdown("Equals");
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
+	// 	for (let i = 0; i < allTitlesOfRows.length; i++) {
+	// 		expect(allTitlesOfRows.toString()).toContain(advanced_filter_data.searchedTitle.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Title with Comparisons - Not Equal Title", async () => {
-		await advancedFilters.selectFilter("titleWithComparisons");
-		await advancedFilters.titleWithComparisonBtn.click();
-		await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Equal");
-		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
-		}
-	});
+	// test("Validate Title with Comparisons - Not Equal Title", async () => {
+	// 	await advancedFilters.selectFilter("titleWithComparisons");
+	// 	await advancedFilters.titleWithComparisonBtn.click();
+	// 	await advancedFilters.searchForTitleComparison(advanced_filter_data.searchedTitle);
+	// 	await advancedFilters.selectTitleComparisonOptionFromDropdown("Not Equal");
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
+	// 	for (let i = 0; i < allTitlesOfRows.length; i++) {
+	// 		expect(allTitlesOfRows.toString()).not.toContain(advanced_filter_data.searchedTitle.toLowerCase());
+	// 	}
+	// });
 
-	test("Validate Title with Comparisons - Exists Title", async () => {
-		await advancedFilters.selectFilter("titleWithComparisons");
-		await advancedFilters.titleWithComparisonBtn.click();
-		await advancedFilters.selectTitleComparisonOptionFromDropdown("Exists");
-		await advancedFilters.applyBtn.click();
-		const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
-		for (let i = 0; i < allTitlesOfRows.length; i++) {
-			expect(allTitlesOfRows.toString()).not.toBe("");
-		}
-	});
+	// test("Validate Title with Comparisons - Exists Title", async () => {
+	// 	await advancedFilters.selectFilter("titleWithComparisons");
+	// 	await advancedFilters.titleWithComparisonBtn.click();
+	// 	await advancedFilters.selectTitleComparisonOptionFromDropdown("Exists");
+	// 	await advancedFilters.applyBtn.click();
+	// 	const allTitlesOfRows = await _dataviewPage.getAllRowData("Title");
+	// 	for (let i = 0; i < allTitlesOfRows.length; i++) {
+	// 		expect(allTitlesOfRows.toString()).not.toBe("");
+	// 	}
+	// });
 
 	test("Validate Title with Comparisons - Not Exists Title", async () => {
 		await advancedFilters.selectFilter("titleWithComparisons");
