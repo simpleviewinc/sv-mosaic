@@ -5,7 +5,7 @@ import { FieldDefBase } from "@root/components/Field";
 
 export type DropdownInputSettings = StrictUnion<DropdownLocalOptions | DropdownExternalOptions>;
 
-type DropdownLocalOptions = {
+interface DropdownLocalOptions {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -16,9 +16,9 @@ type DropdownLocalOptions = {
 	 * dropdown.
 	 */
 	options: MosaicLabelValue[];
-};
+}
 
-type DropdownExternalOptions = {
+interface DropdownExternalOptions {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -28,7 +28,7 @@ type DropdownExternalOptions = {
 	 * Used to get options from db.
 	 */
 	getOptions?: () => Promise<MosaicLabelValue[]>;
-};
+}
 
 export type CustomPopperProps = {
 	value: string;

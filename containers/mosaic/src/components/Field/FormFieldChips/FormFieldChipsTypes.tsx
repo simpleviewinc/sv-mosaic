@@ -2,7 +2,7 @@ import { FieldDefBase } from "@root/components/Field";
 import { MosaicLabelValue } from "@root/types";
 import { StrictUnion } from "../FormFieldCheckbox";
 
-type FormFieldChipsLocalOptions = {
+interface FormFieldChipsLocalOptions {
 	/**
 	* List of options
 	*/
@@ -11,9 +11,9 @@ type FormFieldChipsLocalOptions = {
 	* Function to be executed as callback when an option is selected
 	*/
 	onSelect?: (...args) => void;
-};
+}
 
-type FormFieldChipsExternalOptions = {
+interface FormFieldChipsExternalOptions {
 	/**
 	 * Used to get options from db.
 	 */
@@ -22,7 +22,7 @@ type FormFieldChipsExternalOptions = {
 	* Function to be executed as callback when an option is selected
 	*/
 	onSelect?: (...args) => void;
-};
+}
 
 export type FormFieldChipsInputSettings = StrictUnion<FormFieldChipsLocalOptions | FormFieldChipsExternalOptions>;
 

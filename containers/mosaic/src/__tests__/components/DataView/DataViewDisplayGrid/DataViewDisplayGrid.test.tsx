@@ -41,7 +41,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if no grid column map is provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ gridColumnsMap: undefined }))
 			.rejects

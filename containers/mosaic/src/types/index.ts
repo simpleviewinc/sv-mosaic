@@ -7,13 +7,9 @@ export interface MosaicLabelValue {
 }
 
 /** Javascript object than can have any keys and any data */
-export interface MosaicObject<T = unknown> {
-	[key: string]: T;
-}
+export type MosaicObject<T = unknown> = Record<string, T>;
 
-export interface MosaicCallback {
-	(): void;
-}
+export type MosaicCallback = () => void;
 
 // Using a proper type for SvgIconComponent gets VSCode TS
 // server into a mess. I've tried
@@ -34,10 +30,10 @@ export type MosaicToggle<T = unknown> = WithArrayOf<MosaicToggleResult | MosaicT
 
 export type MosaicGridConfig<T = string> = T[][][];
 
-export type MosaicCSSContainer = {
+export interface MosaicCSSContainer {
 	name?: keyof typeof CONTAINERS;
 	minWidth: keyof typeof BREAKPOINTS;
-};
+}
 
 // Util
 export type PrependDollar<K extends string | number | symbol > =

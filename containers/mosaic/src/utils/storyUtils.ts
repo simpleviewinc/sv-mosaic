@@ -23,9 +23,9 @@ export const renderButtons = (handleSubmit: FormHandleSubmit, show = { showCance
 ];
 
 const commonToggleMap = {
-	"Undefined": undefined,
-	"True": true,
-	"False": false,
+	Undefined: undefined,
+	True: true,
+	False: false,
 	"Function that returns true": () => true,
 	"Function that returns false": () => false,
 };
