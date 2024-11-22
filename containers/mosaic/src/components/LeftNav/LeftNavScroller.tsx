@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import styled from "styled-components";
 
-import { MosaicObject } from "../../types";
+import type { MosaicObject } from "../../types";
 
 const StyledDiv = styled.div`
 	overflow-y: auto;

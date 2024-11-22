@@ -1,4 +1,5 @@
-import { test, expect, Page, Locator } from "@playwright/test";
+import type { Page, Locator } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
@@ -18,7 +19,7 @@ test.describe("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 		await multiSelectComponent.applyBtn.click();
 
 		const comparisonText = await comparisonLocator.textContent();
-		const optionText = await optionLocator.textContent()
+		const optionText = await optionLocator.textContent();
 
 		expect(comparisonText).toContain(optionText);
 	}

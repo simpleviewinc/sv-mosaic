@@ -1,4 +1,4 @@
-import { ControlsConfig } from "@root/components/Field";
+import type { ControlsConfig } from "@root/components/Field";
 
 export const controls: ControlsConfig = [
 	["headings"],

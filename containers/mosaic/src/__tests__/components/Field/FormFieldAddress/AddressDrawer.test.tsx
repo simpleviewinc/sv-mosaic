@@ -5,11 +5,12 @@ import {
 	screen,
 } from "@testing-library/react";
 import * as React from "react";
-import { testArray, TestDef } from "@simpleview/mochalib";
+import type { TestDef } from "@simpleview/mochalib";
+import { testArray } from "@simpleview/mochalib";
 
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
-import { AddressAutocompleteProps } from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
+import type { AddressAutocompleteProps } from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import { mockAddressData } from "./mockAddressData";
 
 interface Test {

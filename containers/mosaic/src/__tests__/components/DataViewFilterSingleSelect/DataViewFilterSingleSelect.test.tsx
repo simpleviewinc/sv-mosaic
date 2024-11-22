@@ -45,7 +45,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw an error if the filter is required but no value is provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		await expect(() => setup({
 			args: {

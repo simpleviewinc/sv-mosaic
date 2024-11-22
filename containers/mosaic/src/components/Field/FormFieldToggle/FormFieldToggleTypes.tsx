@@ -1,8 +1,8 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
-export type ToggleInputSettings = {
+export interface ToggleInputSettings {
 	toggleLabel?: string;
-};
+}
 
 export type FieldDefToggleData = boolean;
 

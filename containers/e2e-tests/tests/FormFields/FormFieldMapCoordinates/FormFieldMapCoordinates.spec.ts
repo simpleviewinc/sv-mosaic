@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldMapCoordinatesPage } from "../../../pages/FormFields/FormFieldMapCoordinates/FormFieldMapCoordinatesPage";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
@@ -14,10 +15,6 @@ test.describe("FormFields - FormFieldMapCoordinates - Kitchen Sink", () => {
 	test.beforeEach(async() => {
 		await ffMapCoordinatesPage.visit(ffMapCoordinatesPage.page_path);
 		await page.reload();
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate that the map without address fields are empty.", async () => {

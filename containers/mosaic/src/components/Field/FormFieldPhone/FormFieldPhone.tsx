@@ -1,16 +1,17 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Components
 import PhoneInput from "@simpleview/react-phone-input-2";
 
 // Types and styles
 import "@simpleview/react-phone-input-2/lib/bootstrap.css";
-import { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
+import type { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
 import {
 	PhoneInputWrapper,
 } from "./FormFieldPhone.styled";
-import { MosaicFieldProps } from "@root/components/Field";
+import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
 import { DropdownList } from "./DropdownList";
 

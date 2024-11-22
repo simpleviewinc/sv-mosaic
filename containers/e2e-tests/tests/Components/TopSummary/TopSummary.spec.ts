@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { TopSummaryPage } from "../../../pages/Components/TopSummary/TopSummaryPage";
 import theme from "@root/theme";
 import { commonKnobs } from "../../../utils/data/knobs";

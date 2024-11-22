@@ -1,10 +1,12 @@
 import * as React from "react";
-import { ReactElement, useMemo, useState } from "react";
-import Button, { ButtonProps } from "@root/components/Button";
+import type { ReactElement } from "react";
+import { useMemo, useState } from "react";
+import type { ButtonProps } from "@root/components/Button";
+import Button from "@root/components/Button";
 import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
-import { MenuItemProps } from "@root/components/MenuItem";
+import type { MenuItemProps } from "@root/components/MenuItem";
 import styled from "styled-components";
 import theme from "@root/theme";
 

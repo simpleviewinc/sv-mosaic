@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { getMonthNumber } from "../../../utils/helpers/dateHelper";
 
 export class DatePickerComponent {
@@ -16,7 +16,7 @@ export class DatePickerComponent {
 	constructor(page: Page) {
 		this.page = page;
 		this.datepickerDiv = page.locator("div[role='dialog']");
-		this.year = page.getByLabel('calendar view is open, switch');
+		this.year = page.getByLabel("calendar view is open, switch");
 		this.selectorYear = page.locator(".MuiPickersYear-root");
 		this.leftArrow = page.locator("button[title='Previous month']");
 		this.rightArrow = page.locator("button[title='Next month']");

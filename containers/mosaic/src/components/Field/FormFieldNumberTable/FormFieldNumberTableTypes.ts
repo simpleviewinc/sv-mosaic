@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { FieldDefBase } from "@root/components/Field";
+import type { ReactNode } from "react";
+import type { FieldDefBase } from "@root/components/Field";
 
-export type NumberTableInputSettings = {
+export interface NumberTableInputSettings {
 	/**
    * Columns definition.
    */
@@ -35,7 +35,7 @@ export type NumberTableInputSettings = {
    * 	Label placed on the top left corner i.e the first column.
    */
 	topLeftLabel?: ReactNode;
-};
+}
 
 export interface Col {
 	/**
@@ -59,11 +59,7 @@ export interface Row extends Col {
  * Contains the rowName, columnName and the value for the cell
  * placed at that coordinates.
  */
-export type NumberTableData = {
-	[rowName: string]: {
-		[columnName: string]: string;
-	};
-};
+export type NumberTableData = Record<string, Record<string, string>>;
 
 export type FieldDefNumberTable = FieldDefBase<
 	"numberTable",

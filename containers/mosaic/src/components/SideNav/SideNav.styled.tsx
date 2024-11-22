@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "../../theme";
-import { MosaicCSSContainer } from "@root/types";
+import type { MosaicCSSContainer } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 
 export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`

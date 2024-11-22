@@ -1,5 +1,5 @@
-import { Animation } from "@root/utils/math/animateTypes";
-import { MutableRefObject } from "react";
+import type { Animation } from "@root/utils/math/animateTypes";
+import type { MutableRefObject } from "react";
 
 export interface ScrollSpyProps<E extends HTMLElement> {
 	/**

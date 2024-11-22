@@ -1,6 +1,6 @@
-import { FormControlLabelProps as MUIFormControlLabelProps } from "@mui/material/FormControlLabel";
-import { MosaicFieldProps } from "@root/components/Field";
-import { ToggleInputSettings } from "@root/components/Field/FormFieldToggle";
+import type { FormControlLabelProps as MUIFormControlLabelProps } from "@mui/material/FormControlLabel";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { ToggleInputSettings } from "@root/components/Field/FormFieldToggle";
 
 export interface ToggleProps {
 	/**

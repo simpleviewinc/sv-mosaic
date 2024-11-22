@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldRadioPage } from "../../../pages/FormFields/FormFieldRadio/FormFieldRadioPage";
 
 test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
@@ -9,10 +10,6 @@ test.describe("FormFields - FormFieldRadio - Kitchen Sink", () => {
 		page = await browser.newPage();
 		formFieldRadioPage = new FormFieldRadioPage(page);
 		await formFieldRadioPage.visit(formFieldRadioPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test.skip("Validate Regular Radio Button", async () => {

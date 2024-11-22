@@ -3,8 +3,8 @@ import styled from "styled-components";
 // Utils
 import theme from "@root/theme/theme";
 import Button from "@root/components/Button/Button";
-import { TransientProps } from "@root/types";
-import { TitleWrapperProps } from "./TitleWrapperTypes";
+import type { TransientProps } from "@root/types";
+import type { TitleWrapperProps } from "./TitleWrapperTypes";
 import { containerQuery } from "@root/utils/css";
 
 export const Title = styled.div`

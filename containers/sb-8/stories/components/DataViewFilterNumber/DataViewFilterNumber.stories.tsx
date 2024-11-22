@@ -1,17 +1,18 @@
 import * as React from "react";
-import { useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
-import { Playground as NumberFieldPlayground } from "../Field/FormFieldNumber/FormFieldNumber.stories"
+import { Playground as NumberFieldPlayground } from "../Field/FormFieldNumber/FormFieldNumber.stories";
 
 export default {
 	title : "Components/DataViewFilterNumber",
 };
 
 export const Playground = ({
-    decimalPlaces,
-    prefix,
-    suffix,
-    sign
+	decimalPlaces,
+	prefix,
+	suffix,
+	sign,
 }: typeof Playground.args): ReactElement => {
 	const [state, setState] = useState({});
 
@@ -20,11 +21,11 @@ export const Playground = ({
 			label="Number filter example"
 			data={state}
 			args={{
-                decimalPlaces,
-                prefix,
-                suffix,
-                sign,
-            }}
+				decimalPlaces,
+				prefix,
+				suffix,
+				sign,
+			}}
 			onChange={setState}
 		/>
 	);

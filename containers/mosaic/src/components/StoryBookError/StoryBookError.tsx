@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactNode, Component } from "react";
+import type { ReactNode } from "react";
+import { Component } from "react";
 
 interface Props {
 	children: ReactNode;

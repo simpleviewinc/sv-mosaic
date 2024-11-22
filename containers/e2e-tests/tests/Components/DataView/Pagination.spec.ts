@@ -1,8 +1,9 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { dataview_data, saveAs_data } from "../../../utils/data/dataviewData";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
-import { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
-import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import type { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
+import type { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 
 test.describe("Components - Data View - Pagination", () => {
 	let page: Page;
@@ -145,7 +146,7 @@ test.describe("Components - Data View - Pagination", () => {
 	test("View Type - Validate list view type", async () => {
 		await pagination.selectViewType("List");
 		expect(await columns.columnsBtn.isVisible()).toBe(true);
-		await expect(dataviewPage.columnHeaders).toHaveCount(saveAs_data.defaultColumnHeadersList + 1)
+		await expect(dataviewPage.columnHeaders).toHaveCount(saveAs_data.defaultColumnHeadersList + 1);
 	});
 
 	test("Validate that when selecting an image in Grid view, the rest of the checkboxes of the images are visible.", async () => {

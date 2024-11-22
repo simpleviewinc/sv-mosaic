@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useEffect, useMemo } from "react";
 
 // Utils
 import { useForm } from "@root/components/Form";
@@ -10,7 +11,7 @@ import { renderButtons } from "../../../utils";
 import Form from "@root/components/Form";
 
 // Types
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
 

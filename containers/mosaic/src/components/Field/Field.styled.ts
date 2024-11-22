@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import { containerQuery } from "@root/utils/css";
-import { FormSpacing } from "../Form";
+import type { FormSpacing } from "../Form";
 
 export const StyledFieldContainer = styled.div`
 	display: flex;

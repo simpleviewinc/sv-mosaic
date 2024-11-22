@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldCheckboxPage } from "../../../pages/FormFields/FormFieldCheckbox/FormFieldCheckboxPage";
 import theme from "@root/theme";
 
@@ -10,10 +11,6 @@ test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		page = await browser.newPage();
 		formFieldCheckboxPage = new FormFieldCheckboxPage(page);
 		await formFieldCheckboxPage.visit(formFieldCheckboxPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate Regular Checkbox.", async () => {

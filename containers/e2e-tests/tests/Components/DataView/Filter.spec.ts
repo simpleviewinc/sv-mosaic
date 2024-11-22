@@ -1,4 +1,5 @@
-import { expect, test, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { filter_data } from "../../../utils/data/dataviewData";
@@ -99,10 +100,10 @@ test.describe("Components - Data View - Filter", () => {
 		const expectedCategories = [filter_data.categoryFilterChooseItem, filter_data.categoryFilterMoreThanOne, filter_data.categoryFilterLoadMore].sort();
 		await filter.selectFilter("categories");
 		await filter.categoryBtn.click();
-		for (let i = 0; i < expectedCategories.length; i++) {
+		for (const expectedCategory of expectedCategories) {
 			await filter.clearAllValuesFromField(filter.categoryKeywordInput);
-			await filter.categoryKeywordInput.type(expectedCategories[i]);
-			await filter.selectCategory(expectedCategories[i]);
+			await filter.categoryKeywordInput.type(expectedCategory);
+			await filter.selectCategory(expectedCategory);
 		}
 		await filter.applyBtn.click();
 		expect(await filter._dataviewPage.getFilterText(filter.categoryBtn)).toContain(expectedCategories[0]);
@@ -122,10 +123,10 @@ test.describe("Components - Data View - Filter", () => {
 		const expectedCategories = [filter_data.categoryFilterChooseItem, filter_data.categoryFilterMoreThanOne].sort();
 		await filter.selectFilter("categories");
 		await filter.categoryBtn.click();
-		for (let i = 0; i < expectedCategories.length; i++) {
+		for (const expectedCategory of expectedCategories) {
 			await filter.clearAllValuesFromField(filter.categoryKeywordInput);
-			await filter.categoryKeywordInput.type(expectedCategories[i]);
-			await filter.selectCategory(expectedCategories[i]);
+			await filter.categoryKeywordInput.type(expectedCategory);
+			await filter.selectCategory(expectedCategory);
 		}
 		await filter.applyBtn.click();
 		await filter.categoryBtn.click();

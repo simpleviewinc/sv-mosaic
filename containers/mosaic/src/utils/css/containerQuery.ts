@@ -8,8 +8,7 @@ import { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
  * @param minWidth Either a valid breakpoint for minimum width, or an entire media query
  * @param containerName If applicable, the container name to target
  */
-function containerQuery(minWidth: keyof typeof BREAKPOINTS, containerName?: keyof typeof CONTAINERS): string;
-function containerQuery(query: string, containerName?: keyof typeof CONTAINERS): string;
+function containerQuery(query: (keyof typeof BREAKPOINTS | string), containerName?: keyof typeof CONTAINERS): string;
 function containerQuery(query: string, containerName = "") {
 	const resolvedQuery = Object.keys(BREAKPOINTS).includes(query) ? `(min-width: ${BREAKPOINTS[query]})` : query;
 

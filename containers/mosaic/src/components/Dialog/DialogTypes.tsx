@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { ButtonProps } from "../Button";
+import type { ReactNode } from "react";
+import type { ButtonProps } from "../Button";
 
 export interface DialogProps {
 	/**

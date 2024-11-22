@@ -1,14 +1,15 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect, memo } from "react";
+import type { ReactElement } from "react";
+import { useState, useEffect, memo } from "react";
 
 // Components
 import RadioButton from "@root/components/RadioButton";
 
 // Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import { FormFieldRadioSkeleton } from "./FormFieldRadioSkeleton";
 
 const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, RadioData>): ReactElement => {
