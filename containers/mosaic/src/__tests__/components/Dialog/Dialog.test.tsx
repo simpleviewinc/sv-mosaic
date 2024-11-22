@@ -10,7 +10,6 @@ async function setup(props: Partial<DialogProps> = {}) {
 	const renderResult = await act(async () => render(
 		<Dialog
 			dialogTitle="My Dialog"
-
 			children="My Content"
 			open
 			{...props}
