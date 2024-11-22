@@ -1,4 +1,4 @@
-import { EasingName } from "../easing/easingTypes";
+import type { EasingName } from "../easing/easingTypes";
 
 export type AnimateCallback = (n: number, state: AnimateState) => void;
 

@@ -1,6 +1,6 @@
-import { ButtonProps } from "@root/components/Button";
-import { FormProps } from "@root/components/Form";
-import { MosaicCSSContainer } from "@root/types";
+import type { ButtonProps } from "@root/components/Button";
+import type { FormProps } from "@root/components/Form";
+import type { MosaicCSSContainer } from "@root/types";
 
 export interface TopProps {
 	/**

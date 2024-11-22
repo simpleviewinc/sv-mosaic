@@ -1,21 +1,23 @@
 import * as React from "react";
+import type {
+	ReactElement } from "react";
 import {
 	memo,
-	ReactElement,
 	useState,
 } from "react";
 import theme from "@root/theme";
 
 // External libraries
-import { ColorResult, SketchPicker, RGBColor } from "react-color";
+import type { ColorResult, RGBColor } from "react-color";
+import { SketchPicker } from "react-color";
 
 // Types
-import { MosaicFieldProps } from "@root/components/Field";
+import type { MosaicFieldProps } from "@root/components/Field";
 
 // Styles
 import { PopOver } from "./FormFieldColor.styled";
 import ColorSelected from "./ColorSelected";
-import { ColorData } from "./FormFieldColorTypes";
+import type { ColorData } from "./FormFieldColorTypes";
 import Skeleton from "@mui/material/Skeleton";
 
 /**

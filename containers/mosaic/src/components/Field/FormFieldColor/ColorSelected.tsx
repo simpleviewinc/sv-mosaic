@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import { ColorContainer, ColorDiv } from "./FormFieldColor.styled";
-import { ColorSelectedProps } from "./FormFieldColorTypes";
+import type { ColorSelectedProps } from "./FormFieldColorTypes";
 
 const ColorSelected = (props: ColorSelectedProps): ReactElement => {
 	const { disabled, color, onClick, displayColorPicker, id } = props;

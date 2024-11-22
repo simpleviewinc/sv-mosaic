@@ -1,5 +1,5 @@
-import { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
-import { MosaicLabelValue } from "../../types";
+import type { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
+import type { MosaicLabelValue } from "../../types";
 
 export interface DataViewFilterSingleSelectData {
 	value: string;

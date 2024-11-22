@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { FieldDefBase } from "@root/components/Field";
+import type { ReactNode } from "react";
+import type { FieldDefBase } from "@root/components/Field";
 
 export interface NumberTableInputSettings {
 	/**

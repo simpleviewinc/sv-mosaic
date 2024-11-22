@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import { DataViewFilterTextProps, FilterTextComparison } from "./DataViewFilterTextTypes";
+import type { DataViewFilterTextProps, FilterTextComparison } from "./DataViewFilterTextTypes";
 
 const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Contains...", value : "contains" },

@@ -1,5 +1,6 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Components
 import Button from "@root/components/Button";
@@ -12,7 +13,7 @@ import {
 } from "./AddressCard.styled";
 
 // Types
-import { AddressCardProps } from "../AddressTypes";
+import type { AddressCardProps } from "../AddressTypes";
 import { joinAnd } from "@root/utils/string";
 
 const AddressCard = (props: AddressCardProps): ReactElement => {

@@ -1,6 +1,6 @@
-import { GetOptions } from "@root/components/DataViewFilterMultiselect";
-import { FieldDefBase } from "@root/components/Field";
-import { MosaicLabelValue } from "@root/types";
+import type { GetOptions } from "@root/components/DataViewFilterMultiselect";
+import type { FieldDefBase } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
 
 export type optionsWithCategory = {
 	category?: string;
