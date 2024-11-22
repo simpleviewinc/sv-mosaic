@@ -40,7 +40,7 @@ const SumaryPageTopComponent = (props: TopSummaryProps): ReactElement => {
 	const additionActionsButton: ButtonProps | null = useMemo(() => shownAdditionalActions.length > 0 ? {
 		color: "black",
 		variant: "icon",
-		label: "Edit",
+		tooltip: "More Actions",
 		mIcon: MoreVert,
 		menuItems: shownAdditionalActions,
 		muiAttrs: {
