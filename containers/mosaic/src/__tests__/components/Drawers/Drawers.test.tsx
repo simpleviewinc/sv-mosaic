@@ -1,175 +1,83 @@
-import * as React from "react";
-import { useCallback, useMemo, useState } from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
+
+import type { DrawersProps } from "@root/components/Drawers";
+
 import Drawers from "@root/components/Drawers";
-import AppContext from "@root/components/Drawers/example/AppContext";
-import Page from "@root/components/Drawers/example/Page";
-import { AppState, DrawerDef } from "@root/components/Drawers/example/ExampleTypes";
-import { fireEvent, render, screen } from "@testing-library/react";
+import testIds from "@root/utils/testIds";
 
-const DrawersExample = () => {
-	const [state, setState] = useState<AppState>({
-		content: {},
-		drawers: [],
+const drawers = [{ title: "Drawer 1" }, { title: "Drawer 2" }];
+
+async function setup(props: Partial<DrawersProps<(typeof drawers)[number]>> = {}) {
+	const renderResult = await act(async () => render(
+		<Drawers
+			drawers={drawers}
+			// eslint-disable-next-line react/no-children-prop
+			children={(drawer) => <>{drawer.title}</>}
+			{...props}
+		/>,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render the drawers", async () => {
+		await setup();
+
+		expect(await screen.findByText("Drawer 1")).toBeInTheDocument();
+		expect(await screen.findByText("Drawer 2")).toBeInTheDocument();
 	});
 
-	const addDrawer = useCallback((drawerDef: DrawerDef) => {
-		setState((state) => ({
-			...state,
-			drawers: [...state.drawers, drawerDef],
-		}));
-	}, []);
+	it("should not render any draws if there are none defined", async () => {
+		await setup({ drawers: [] });
 
-	const removeDrawer = useCallback(() => {
-		setState((state) => ({
-			...state,
-			drawers: [...state.drawers.slice(0, -1)],
-		}));
-	}, []);
-
-	const appContext = useMemo(
-		() => ({
-			addDrawer,
-			removeDrawer,
-		}),
-		[addDrawer, removeDrawer],
-	);
-
-	return (
-		<AppContext.Provider value={appContext}>
-			<div className="App">
-				<p>{JSON.stringify(state.content)}</p>
-				<button
-					onClick={() => addDrawer({
-						config: {
-							type: "form",
-							title: "New Form",
-							fields: [
-								{
-									name: "foo",
-									label: "Foo",
-									type: "text",
-								},
-								{
-									name: "bar",
-									label: "Bar",
-									type: "text",
-								},
-								{
-									name: "baz",
-									label: "Baz",
-									type: "text",
-								},
-								{
-									name: "from_parent",
-									label: "From Parent",
-									type: "text",
-								},
-							],
-						},
-						callbacks: {
-							save: (data) => {
-								setState((state) => ({
-									...state,
-									content: data,
-								}));
-
-								removeDrawer();
-							},
-						},
-					})}
-				>
-					Add Form
-				</button>
-
-				<Drawers drawers={state.drawers}>
-					{(drawerDef) => {
-						return (
-							<Page
-								config={drawerDef.config}
-								callbacks={drawerDef.callbacks ?? {}}
-							/>
-						);
-					}}
-				</Drawers>
-			</div>
-		</AppContext.Provider>
-	);
-};
-
-const mockResizeObserver = vi.fn();
-mockResizeObserver.mockReturnValue({
-	observe: () => null,
-	unobserve: () => null,
-	disconnect: () => null,
-});
-window.ResizeObserver = mockResizeObserver;
-
-describe.skip("Drawers component", () => {
-	it("should open 1 drawer, write on the fields, and send data back to parent", async () => {
-		render(
-			<DrawersExample />,
-		);
-
-		const addFormButton = await screen.findByText("Add Form");
-		fireEvent.click(addFormButton);
-
-		const drawer = await screen.findByTestId("form-test-id");
-		expect(drawer).toBeInTheDocument();
-
-		const fooInput = await screen.findByLabelText("Foo");
-		fireEvent.change(fooInput, { target: { value: "abc" } });
-
-		const saveButton = await screen.findByText("Save");
-		fireEvent.click(saveButton);
-
-		const result = await screen.findByText('{"foo":"abc"}');
-		expect(result.textContent).toEqual('{"foo":"abc"}');
+		expect(screen.queryByTestId(testIds.DRAWER_BACKDROP)).toBeNull();
 	});
 
-	it("should close an open drawer", async () => {
-		render(
-			<DrawersExample />,
-		);
+	it("should begin closing a draw once the definition is removed", async () => {
+		const { rerender } = await setup();
 
-		const addFormButton = await screen.findByText("Add Form");
-		fireEvent.click(addFormButton);
+		const drawer1 = await screen.findByText("Drawer 1");
+		const drawer2 = await screen.findByText("Drawer 2");
 
-		const drawer = await screen.findByTestId("form-test-id");
-		expect(drawer).toBeInTheDocument();
-
-		const closeButton = await screen.findByText("Cancel");
-		fireEvent.click(closeButton);
-
-		expect(drawer).not.toBeInTheDocument();
-	});
-
-	it("should stack 2 drawers and pass data from the second to the first", async () => {
-		render(
-			<DrawersExample />,
-		);
-
-		const addFormButton = await screen.findByText("Add Form");
-		fireEvent.click(addFormButton);
-
-		const drawer1 = await screen.findByTestId("form-test-id");
 		expect(drawer1).toBeInTheDocument();
-
-		const openNewButton = await screen.findByText("Open new form");
-		expect(openNewButton).toBeInTheDocument();
-		fireEvent.click(openNewButton);
-
-		const drawer2 = await screen.findByText("Sub-Form");
 		expect(drawer2).toBeInTheDocument();
 
-		const wutInput = await screen.findByLabelText("Wut");
-		fireEvent.change(wutInput, { target: { value: "abc" } });
+		rerender(
+			<Drawers
+				drawers={[drawers[0]]}
+				// eslint-disable-next-line react/no-children-prop
+				children={(drawer) => <h3>{drawer.title}</h3>}
+			/>,
+		);
 
-		const saveButton = await screen.findAllByText("Save");
-		fireEvent.click(saveButton[1]);
-
-		const result = await screen.findByLabelText("From Parent");
-		expect(result).toHaveAttribute("value", '{"wut":"abc"}');
+		expect(drawer1).toBeInTheDocument();
+		expect(drawer2).toHaveClass("closing");
 	});
-});
 
-it.todo("Update act in Drawers test");
+	it("should remove the draw from the render entirely once the exiting animation has finished", async () => {
+		const { rerender } = await setup();
+
+		const drawer1 = await screen.findByText("Drawer 1");
+		const drawer2 = await screen.findByText("Drawer 2");
+
+		expect(drawer1).toBeInTheDocument();
+		expect(drawer2).toBeInTheDocument();
+
+		rerender(
+			<Drawers
+				drawers={[drawers[0]]}
+				// eslint-disable-next-line react/no-children-prop
+				children={(drawer) => <h3>{drawer.title}</h3>}
+			/>,
+		);
+
+		await waitFor(() => expect(screen.queryAllByTestId(testIds.DRAWER_BACKDROP)).toHaveLength(1));
+	});
+
+});
