@@ -1,6 +1,6 @@
 import Skeleton from "@mui/material/Skeleton";
 import React from "react";
-import { FormFieldDateSkeletonProps } from "./DateFieldTypes";
+import type { FormFieldDateSkeletonProps } from "./DateFieldTypes";
 import { DateTimeInputRow } from "./DateField.styled";
 
 export function FormFieldDateSkeleton({ showTime }: FormFieldDateSkeletonProps) {

@@ -1,5 +1,5 @@
 import { arrayDifference } from "@root/utils/array";
-import { IAddress } from "../AddressTypes";
+import type { IAddress } from "../AddressTypes";
 
 /**
  * Implements an algorithm to calculate whether or not two things

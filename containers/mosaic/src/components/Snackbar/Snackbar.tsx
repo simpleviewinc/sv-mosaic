@@ -1,8 +1,9 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Types and styles
-import { SnackbarProps } from ".";
+import type { SnackbarProps } from ".";
 import {
 	ActionWrapper,
 	ContentWrapper,

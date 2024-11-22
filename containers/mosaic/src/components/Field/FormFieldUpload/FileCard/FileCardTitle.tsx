@@ -1,7 +1,7 @@
 import React from "react";
 
 import Typography from "@root/components/Typography";
-import { FileCardTitleProps } from "./FileCardTypes";
+import type { FileCardTitleProps } from "./FileCardTypes";
 import Blank from "@root/components/Blank";
 
 function FileCardTitle ({ name }: FileCardTitleProps) {

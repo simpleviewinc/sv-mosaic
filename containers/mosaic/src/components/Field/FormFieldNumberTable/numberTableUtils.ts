@@ -1,4 +1,4 @@
-import { Row, Col } from "./FormFieldNumberTableTypes";
+import type { Row, Col } from "./FormFieldNumberTableTypes";
 
 export const rows: Row[] = [
 	{ name: "2023_02_10", title: "Shoulder Before" },

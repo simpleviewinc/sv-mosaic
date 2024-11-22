@@ -1,5 +1,5 @@
-import { DataViewFilterProps } from "../DataView/DataViewTypes";
-import { NumberFieldInputSettings } from "../Field/FormFieldNumber";
+import type { DataViewFilterProps } from "../DataView/DataViewTypes";
+import type { NumberFieldInputSettings } from "../Field/FormFieldNumber";
 
 interface DataViewFilterNumberRange {
 	min?: number;

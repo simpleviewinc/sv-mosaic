@@ -1,4 +1,4 @@
-import { MosaicCSSContainer } from "@root/types";
+import type { MosaicCSSContainer } from "@root/types";
 
 export interface TitleWrapperProps {
 	title: string;

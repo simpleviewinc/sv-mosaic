@@ -1,4 +1,4 @@
-import { OnFileDelete, UploadData, UploadDataPending, UploadFieldInputSettings } from "../FormFieldUploadTypes";
+import type { OnFileDelete, UploadData, UploadDataPending, UploadFieldInputSettings } from "../FormFieldUploadTypes";
 
 export type FileCardProps = {
 	onFileDelete?: UploadFieldInputSettings["onFileDelete"];

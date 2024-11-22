@@ -1,13 +1,14 @@
 // React
 import * as React from "react";
-import { ReactElement, useEffect, useState, memo } from "react";
+import type { ReactElement } from "react";
+import { useEffect, useState, memo } from "react";
 
 // Components
 import Chip from "../../Chip";
 
 //Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import {
+import type { MosaicFieldProps } from "@root/components/Field";
+import type {
 	ChipData,
 	FormFieldChipsInputSettings,
 } from "./FormFieldChipsTypes";

@@ -1,4 +1,4 @@
-import { DataViewProps } from "../DataViewTypes";
+import type { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewColumnControlProps {
 	onChange?: DataViewProps["onColumnsChange"];

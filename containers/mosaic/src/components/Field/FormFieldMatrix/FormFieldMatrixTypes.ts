@@ -1,6 +1,6 @@
-import { ButtonProps } from "@root/components/Button";
-import { DataViewProps } from "@root/components/DataView";
-import { FieldDefBase } from "@root/components/Field";
+import type { ButtonProps } from "@root/components/Button";
+import type { DataViewProps } from "@root/components/DataView";
+import type { FieldDefBase } from "@root/components/Field";
 
 export interface MatrixInputSettings {
 	/**

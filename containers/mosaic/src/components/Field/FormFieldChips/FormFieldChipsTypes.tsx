@@ -1,6 +1,6 @@
-import { FieldDefBase } from "@root/components/Field";
-import { MosaicLabelValue } from "@root/types";
-import { StrictUnion } from "../FormFieldCheckbox";
+import type { FieldDefBase } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
+import type { StrictUnion } from "../FormFieldCheckbox";
 
 interface FormFieldChipsLocalOptions {
 	/**

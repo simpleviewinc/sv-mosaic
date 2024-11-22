@@ -2,8 +2,8 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import { TransientProps } from "@root/types";
-import { ButtonProps } from "./ButtonTypes";
+import type { TransientProps } from "@root/types";
+import type { ButtonProps } from "./ButtonTypes";
 
 /**
  * For contained, outlined and text, buttons should be

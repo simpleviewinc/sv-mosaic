@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState, MouseEvent } from "react";
+import type { MouseEvent } from "react";
+import { useState } from "react";
 import { render, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 
 // Components

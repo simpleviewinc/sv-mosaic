@@ -1,4 +1,4 @@
-import { DataViewBulkAction, DataViewProps } from "../DataViewTypes";
+import type { DataViewBulkAction, DataViewProps } from "../DataViewTypes";
 
 export interface DataViewBulkActionsButtonsRowProps {
 	bulkActions: DataViewBulkAction[];

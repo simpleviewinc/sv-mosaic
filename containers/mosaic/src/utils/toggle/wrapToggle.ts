@@ -1,4 +1,4 @@
-import { MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 
 function wrapToggle<T>(toggle: MosaicToggle<T>, params: T, defaultToggle = true): MosaicToggle {
 	const toggleDefined = toggle !== undefined ? toggle : defaultToggle;
