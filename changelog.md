@@ -1,5 +1,39 @@
 # sv-mosaic changelog
 
+### 39.1.0 - 11/26/2024
+
+#### Improvements and Fixes
+
+* `DataView`
+
+  * [MOS-1410](https://simpleviewtools.atlassian.net/browse/MOS-1410 "https://simpleviewtools.atlassian.net/browse/MOS-1410") **DataViewFieldDate clear not clearing validation messages**
+    * (DateFilter) Have the date filter's form revalidate once the field values are cleared.
+  * [MOS-1505](https://simpleviewtools.atlassian.net/browse/MOS-1505 "https://simpleviewtools.atlassian.net/browse/MOS-1505") **Allow passing arbitrary CSS style object to DataViewColumn**
+    * (DataView) Allows the passing of arbitrary styles to DataView columns alongside the existing styling flags.
+* `Form`
+
+  * [MOS-1503](https://simpleviewtools.atlassian.net/browse/MOS-1503 "https://simpleviewtools.atlassian.net/browse/MOS-1503") **Implement field grouping**
+    * (Form) Implements field grouping support. Moves state into context.
+  * [MOS-1508](https://simpleviewtools.atlassian.net/browse/MOS-1508 "https://simpleviewtools.atlassian.net/browse/MOS-1508") **Improve accuracy of the SideNav active section indicator**
+    * (ScrollSpy) Force last section to be considered active if the viewport is scrolled all the way to the bottom, regardless of section height.
+* `FormFieldDate`
+
+  * [MOS-1474](https://simpleviewtools.atlassian.net/browse/MOS-1474 "https://simpleviewtools.atlassian.net/browse/MOS-1474") **Minimum date control issue in the FormFieldDateField > Playground **
+    * (chore) Fixes the minimum date control for the date field story.
+* `FormFieldTextEditor`
+
+  * [MOS-1510](https://simpleviewtools.atlassian.net/browse/MOS-1510 "https://simpleviewtools.atlassian.net/browse/MOS-1510") **Allow artbitary HTML attributes to be used in the text editor**
+    * (TextEditor) Allow any arbitary HTML attributes to be used in text editor source without being stripped out by Tiptap.
+* Housekeeping
+
+  * [MOS-1509](https://simpleviewtools.atlassian.net/browse/MOS-1509 "https://simpleviewtools.atlassian.net/browse/MOS-1509") **Continued improvements to unit tests**
+    * Write improved unit tests for `DataViewFilterText` through `Drawers`
+  * [MOS-1511](https://simpleviewtools.atlassian.net/browse/MOS-1511 "https://simpleviewtools.atlassian.net/browse/MOS-1511") **Upgrade ESLint**
+    * Upgrades ESLint to v9 and migrate the configuration
+    * Factors out ESLint config to `@simpleview/sv-mosaic-eslint` package
+    * Consumes the newly created package in e2e-tests, mosaic and storybook containers.
+    * Utilises `eslint-plugin-storybook` ESLint plugin in Storybook container.
+
 ### 39.0.0 - 11/12/2024
 
 * `Content`
