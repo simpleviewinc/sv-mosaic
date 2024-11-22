@@ -1,107 +1,65 @@
-import * as React from "react";
-import { useState } from "react";
-import { render, cleanup, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-// Components
+import type { DialogProps } from "@root/components/Dialog";
+
 import Dialog from "@root/components/Dialog";
-import Button, { ButtonProps } from "@root/components/Button";
 
-afterEach(cleanup);
+async function setup(props: Partial<DialogProps> = {}) {
+	const renderResult = await act(async () => render(
+		<Dialog
+			dialogTitle="My Dialog"
+			// eslint-disable-next-line react/no-children-prop
+			children="My Content"
+			open
+			{...props}
+		/>,
+	));
 
-const handlePrimaryAction = vi.fn();
-const handleSecondaryAction = vi.fn();
-const handleThirdButtonClick = vi.fn();
-const handleFourthButtonClick = vi.fn();
-
-const buttons: ButtonProps[] = [
-	{
-		label: "Close",
-		onClick: handleSecondaryAction,
-		color: "gray",
-		variant: "outlined",
-	},
-	{
-		label: "Apply",
-		onClick: handlePrimaryAction,
-		color: "yellow",
-		variant: "contained",
-	},
-	{
-		label: "Third Button",
-		onClick: handleThirdButtonClick,
-		color: "red",
-		variant: "outlined",
-	},
-	{
-		label: "Fourth Button",
-		onClick: handleFourthButtonClick,
-		color: "yellow",
-		variant: "contained",
-	},
-];
-
-const DialogExample = () => {
-	const [open, setOpen] = useState(false);
-
-	const handleClickOpen = () => {
-		setOpen(true);
+	return {
+		...renderResult,
+		user: userEvent.setup(),
 	};
-	return (
-		<>
-			<Button
-				color="yellow"
-				variant="contained"
-				onClick={handleClickOpen}
-				label="Open dialog"
-			/>
-			<Dialog
-				dialogTitle="Dialog title"
-				open={open}
-				buttons={buttons}
-			>
-				Test content
-			</Dialog>
-		</>
-	);
-};
+}
 
-describe("Dialog component", () => {
-	beforeEach(() => {
-		render(<DialogExample />);
-		const openButton = screen.getByText("Open dialog");
+describe(__dirname, () => {
+	it("should render the dialog title and content", async () => {
+		await setup();
 
-		fireEvent.click(openButton);
+		expect(screen.queryByRole("dialog")).toBeInTheDocument();
+		expect(screen.queryByText("My Dialog")).toBeInTheDocument();
+		expect(screen.queryByText("My Content")).toBeInTheDocument();
 	});
 
-	it("should show its content", () => {
-		const dialogContent = screen.getByText("Test content");
-		const dialogTitle = screen.getByText("Dialog title");
+	it("should render a list of buttons", async () => {
+		const onClickMock1 = vi.fn();
+		const onClickMock2 = vi.fn();
 
-		expect(dialogContent).toBeTruthy();
-		expect(dialogTitle).toBeTruthy();
-	});
+		const { user } = await setup({
+			buttons: [
+				{
+					color: "yellow",
+					variant: "contained",
+					label: "Action 1",
+					onClick: onClickMock1,
+				},
+				{
+					color: "yellow",
+					variant: "contained",
+					label: "Action 2",
+					onClick: onClickMock2,
+				},
+			],
+		});
 
-	it("should display the list of buttons", () => {
-		expect(screen.getByText("Apply")).toBeDefined();
-		expect(screen.getByText("Close")).toBeDefined();
-		expect(screen.getByText("Third Button")).toBeDefined();
-		expect(screen.getByText("Fourth Button")).toBeDefined();
-	});
-
-	it("should trigger all buttons actions", () => {
-		const secondaryButton = screen.getByText("Close");
-		const primaryButton = screen.getByText("Apply");
-		const thirdButton = screen.getByText("Third Button");
-		const fourthButton = screen.getByText("Fourth Button");
-
-		fireEvent.click(secondaryButton);
-		fireEvent.click(primaryButton);
-		fireEvent.click(thirdButton);
-		fireEvent.click(fourthButton);
-
-		expect(handleSecondaryAction).toHaveBeenCalledTimes(1);
-		expect(handlePrimaryAction).toHaveBeenCalledTimes(1);
-		expect(handleThirdButtonClick).toHaveBeenCalledTimes(1);
-		expect(handleFourthButtonClick).toHaveBeenCalledTimes(1);
+		const button1 = screen.queryByRole("button", { name: "Action 1" });
+		const button2 = screen.queryByRole("button", { name: "Action 2" });
+		expect(button1).toBeInTheDocument();
+		expect(button2).toBeInTheDocument();
+		await user.click(button1);
+		await user.click(button2);
+		expect(onClickMock1).toBeCalled();
+		expect(onClickMock2).toBeCalled();
 	});
 });
