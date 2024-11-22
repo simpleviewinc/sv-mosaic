@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ResetButtonProps } from "../MapCoordinatesTypes";
+import type { ResetButtonProps } from "../MapCoordinatesTypes";
 
 // Components
 import { ResetButtonContainer } from "../MapCoordinates.styled";

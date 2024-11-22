@@ -1,6 +1,6 @@
-import { AdvancedSelectionInputSettings } from "@root/components/Field/FormFieldAdvancedSelection";
-import { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
-import { MosaicLabelValue } from "@root/types";
+import type { AdvancedSelectionInputSettings } from "@root/components/Field/FormFieldAdvancedSelection";
+import type { DataViewFilterGetOptionsReturn, DataViewFilterProps } from "../DataView";
+import type { MosaicLabelValue } from "@root/types";
 
 export type MultiSelectComparison = "in" | "not_in" | "all" | "exists" | "not_exists";
 

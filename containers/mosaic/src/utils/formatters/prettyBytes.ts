@@ -2,7 +2,7 @@
  * Ripped from https://www.npmjs.com/package/pretty-bytes because of Jest
  */
 
-import { PrettyBytesOptions } from "./prettyBytesTypes";
+import type { PrettyBytesOptions } from "./prettyBytesTypes";
 
 const BYTE_UNITS = [
 	"B",

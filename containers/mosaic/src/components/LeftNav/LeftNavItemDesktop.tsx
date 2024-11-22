@@ -1,8 +1,10 @@
 import * as React from "react";
-import { useContext, useEffect, useRef, useCallback, Fragment, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useContext, useEffect, useRef, useCallback, Fragment } from "react";
 import throttle from "lodash/throttle";
 
-import { LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
+import type { LeftNavBlockProps } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 import LeftNavItem from "./LeftNavItem";
 import LeftNavFlyout from "./LeftNavFlyout";
 

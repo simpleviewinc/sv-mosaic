@@ -11,7 +11,7 @@ async function setup(props: Partial<DrawerProps> = {}) {
 	const renderResult = await act(async () => render(
 		<Drawer
 			open
-			// eslint-disable-next-line react/no-children-prop
+
 			children={<>My Drawer</>}
 			{...props}
 		/>,
@@ -47,7 +47,7 @@ describe(__dirname, () => {
 			<Drawer
 				open={false}
 				exitCB={exitCBMock}
-				// eslint-disable-next-line react/no-children-prop
+
 				children={<>My Drawer</>}
 			/>,
 		);

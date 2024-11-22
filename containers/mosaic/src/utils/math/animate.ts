@@ -1,4 +1,4 @@
-import { AnimateParams, AnimateStart, AnimateState, AnimateStop, Animation } from "./animateTypes";
+import type { AnimateParams, AnimateStart, AnimateState, AnimateStop, Animation } from "./animateTypes";
 import easingFns from "../easing";
 
 export default function animate(params: AnimateParams = {}): Animation {

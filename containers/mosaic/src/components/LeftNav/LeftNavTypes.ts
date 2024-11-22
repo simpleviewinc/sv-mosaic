@@ -1,6 +1,6 @@
-import * as React from "react";
+import type * as React from "react";
 import { createContext } from "react";
-import { MosaicObject, SvgIconComponent } from "@root/types";
+import type { MosaicObject, SvgIconComponent } from "@root/types";
 
 type Variant = "full" | "icons_only" | "hidden" | "mobile";
 

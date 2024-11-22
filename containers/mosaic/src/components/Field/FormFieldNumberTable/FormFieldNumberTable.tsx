@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ChangeEvent, ReactElement, useEffect, useRef, useState, memo } from "react";
+import type { ChangeEvent, ReactElement } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 
 // Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import {
+import type { MosaicFieldProps } from "@root/components/Field";
+import type {
 	NumberTableData,
 	NumberTableInputSettings,
 } from "./FormFieldNumberTableTypes";

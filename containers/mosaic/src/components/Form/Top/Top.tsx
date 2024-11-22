@@ -1,11 +1,12 @@
 import * as React from "react";
+import type {
+	ReactElement } from "react";
 import {
 	memo,
-	ReactElement,
 } from "react";
 
 // Types and Utils
-import { TopProps } from "./TopTypes";
+import type { TopProps } from "./TopTypes";
 
 // Styles
 import {

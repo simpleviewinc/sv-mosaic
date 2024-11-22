@@ -1,5 +1,5 @@
-import { MosaicLabelValue } from "@root/types";
-import { DataViewFilterProps } from "../DataView";
+import type { MosaicLabelValue } from "@root/types";
+import type { DataViewFilterProps } from "../DataView";
 
 interface DataViewFilterDateRange {
 	rangeStart?: Date;

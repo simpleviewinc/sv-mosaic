@@ -1,4 +1,4 @@
-import { FieldDefBase } from "@root/components/Field/FieldTypes";
+import type { FieldDefBase } from "@root/components/Field/FieldTypes";
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps

@@ -1,6 +1,6 @@
-import { MosaicLabelValue } from "@root/types";
-import { StrictUnion } from "../FormFieldCheckbox";
-import { FieldDefBase } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
+import type { StrictUnion } from "../FormFieldCheckbox";
+import type { FieldDefBase } from "@root/components/Field";
 
 interface FormFieldRadioLocalOptions {
 	/**

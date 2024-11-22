@@ -3,7 +3,7 @@ import { useState, useContext, memo } from "react";
 import styled from "styled-components";
 import { default as Button, ButtonPopoverContext } from "../../Button";
 import theme from "../../../theme";
-import { DataViewPagerPopoverProps } from "./DataViewPagerPopoverTypes";
+import type { DataViewPagerPopoverProps } from "./DataViewPagerPopoverTypes";
 
 const PopoverDiv = styled.div`
 	font-size: 14px;

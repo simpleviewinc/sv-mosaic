@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useCallback, useState } from "react";
+import type { ReactElement } from "react";
+import { useCallback, useState } from "react";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -9,8 +10,8 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 // Styles
 import { customTheme } from "./TimePicker.styled";
 import { DatePickerWrapper } from "../../FormFieldDate/DatePicker/DatePicker.styled";
-import { MosaicFieldProps } from "@root/components/Field";
-import { TimePickerDef, TimePickerData } from "./TimePickerTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { TimePickerDef, TimePickerData } from "./TimePickerTypes";
 import { ThemeProvider } from "@mui/material/styles";
 
 const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {

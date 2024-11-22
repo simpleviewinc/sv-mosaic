@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import styled from "styled-components";
 
-import { SvgIconComponent } from "@root/types";
+import type { SvgIconComponent } from "@root/types";
 import theme from "../../theme";
 
 interface Props {

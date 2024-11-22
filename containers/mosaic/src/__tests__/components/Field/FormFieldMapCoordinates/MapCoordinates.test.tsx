@@ -10,11 +10,11 @@ import {
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import { FieldDef } from "@root/components/Field/FieldTypes";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
 // Utils
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 
 const {
 	getByLabelText,
@@ -135,9 +135,9 @@ vi.mock("@react-google-maps/api", () => ({
 		isLoaded: true,
 		loadError: null,
 	}),
-	// eslint-disable-next-line react/display-name
+
 	GoogleMap: React.forwardRef(() => <div>Mocked Google Map Component</div>),
-	// eslint-disable-next-line react/display-name
+
 	Marker: () => <div />,
 }));
 

@@ -1,4 +1,4 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 /**
  * Base number field props.

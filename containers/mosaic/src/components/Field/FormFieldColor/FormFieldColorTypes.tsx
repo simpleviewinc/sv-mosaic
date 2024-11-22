@@ -1,4 +1,4 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 export interface ColorSelectedProps {
 	color: any;

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import styled from "styled-components";
 
 import LeftNavTitle from "./LeftNavTitle";
-import { LeftNavBlockProps } from "./LeftNavTypes";
+import type { LeftNavBlockProps } from "./LeftNavTypes";
 import LeftNavItems from "./LeftNavItems";
 import theme from "../../theme";
 

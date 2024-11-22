@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { ColorSelectedProps } from "./FormFieldColorTypes";
-import { TransientProps } from "@root/types";
+import type { ColorSelectedProps } from "./FormFieldColorTypes";
+import type { TransientProps } from "@root/types";
 import Popover from "@mui/material/Popover";
 
 export const ColorContainer = styled.button<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`

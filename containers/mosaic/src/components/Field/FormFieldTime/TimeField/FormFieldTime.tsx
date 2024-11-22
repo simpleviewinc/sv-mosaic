@@ -1,12 +1,13 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Components
 import TimePicker from "../TimePicker";
 
 // Styles
-import { MosaicFieldProps } from "@root/components/Field";
-import { TimeFieldInputSettings, TimeData } from "./TimeFieldTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { TimeFieldInputSettings, TimeData } from "./TimeFieldTypes";
 import { textIsValidDate } from "@root/utils/date";
 import { TIME_FORMAT_FULL, TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import { INVALID_TIME } from "@root/components/Form/fieldErrors";

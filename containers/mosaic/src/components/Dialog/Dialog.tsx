@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 // Components
 import Button from "@root/components/Button";
@@ -9,7 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 
 // Types and styles
-import { DialogProps } from ".";
+import type { DialogProps } from ".";
 import { StyledDialog, StyledDialogTitle } from "./Dialog.styled";
 
 const Dialog = (props: DialogProps): ReactElement => {

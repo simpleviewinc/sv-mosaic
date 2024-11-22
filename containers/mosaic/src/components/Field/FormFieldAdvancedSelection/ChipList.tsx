@@ -1,12 +1,13 @@
 import Chip from "@root/components/Chip";
 import * as React from "react";
+import type {
+	ReactElement } from "react";
 import {
 	memo,
-	ReactElement,
 	useState,
 	forwardRef,
 } from "react";
-import { ChipListPropsTypes } from ".";
+import type { ChipListPropsTypes } from ".";
 import {
 	ChipsWrapper,
 	ShowHideSpan,

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { GoogleMap } from "@react-google-maps/api";
-import { memo, ReactElement, useEffect, useState } from "react";
-import { MapProps } from "../MapCoordinatesTypes";
+import type { ReactElement } from "react";
+import { memo, useEffect, useState } from "react";
+import type { MapProps } from "../MapCoordinatesTypes";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 

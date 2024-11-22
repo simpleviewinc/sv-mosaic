@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 import getToggle from "./getToggle";
 
 /**

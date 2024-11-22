@@ -1,5 +1,5 @@
-import { Dispatch, ReactNode } from "react";
-import { TooltipProps as MUITooltipProps } from "@mui/material/Tooltip";
+import type { Dispatch, ReactNode } from "react";
+import type { TooltipProps as MUITooltipProps } from "@mui/material/Tooltip";
 
 export type AnchorElement = HTMLElement | SVGElement;
 

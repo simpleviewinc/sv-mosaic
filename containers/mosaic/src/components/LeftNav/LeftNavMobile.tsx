@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useState, useMemo, useContext, Fragment, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState, useMemo, useContext, Fragment } from "react";
 import styled from "styled-components";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -11,7 +12,8 @@ import LeftNavItems from "./LeftNavItems";
 import LeftNavItemMobile from "./LeftNavItemMobile";
 import LeftNavScroller from "./LeftNavScroller";
 import LeftNavTitle from "./LeftNavTitle";
-import { LeftNavProps, LeftNavContext, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
+import type { LeftNavProps, LeftNavItemDef, LeftNavOnNav } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 import theme from "../../theme";
 import TridentIcon from "../../theme/TridentIcon";
 

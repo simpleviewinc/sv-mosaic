@@ -2,7 +2,7 @@ import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import FormFieldUpload from "@root/components/Field/FormFieldUpload";
 import { defaultValues } from "@root/components/Field/FormFieldUpload/uploadUtils";
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 
 const fieldDef: FieldDef = {
 	name: "uploadTest",

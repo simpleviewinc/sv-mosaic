@@ -1,7 +1,8 @@
-import React, { ReactElement } from "react";
+import type { ReactElement } from "react";
+import React from "react";
 
 import Typography from "./Typography";
-import { TypographyProps } from "./TypographyTypes";
+import type { TypographyProps } from "./TypographyTypes";
 
 const TitleText = (props: Omit<TypographyProps, "variant">): ReactElement => {
 	return <Typography {...props} variant="title" />;

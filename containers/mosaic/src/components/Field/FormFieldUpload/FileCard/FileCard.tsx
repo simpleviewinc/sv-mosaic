@@ -1,7 +1,7 @@
 import Button from "@root/components/Button";
 import * as React from "react";
 import { memo, useMemo } from "react";
-import { FileCardProps } from "./FileCardTypes";
+import type { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownload from "@mui/icons-material/CloudDownload";
 import { StyledFileCard, StyledSpinner } from "./FileCard.styled";

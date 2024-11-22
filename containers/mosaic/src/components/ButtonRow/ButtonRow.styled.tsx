@@ -1,8 +1,8 @@
 import theme from "../../theme";
 import styled from "styled-components";
 
-import { ButtonRowProps } from "./ButtonRowTypes";
-import { TransientProps } from "@root/types";
+import type { ButtonRowProps } from "./ButtonRowTypes";
+import type { TransientProps } from "@root/types";
 
 export const Row = styled.div<TransientProps<ButtonRowProps, "wrap">>`
 	display: flex;

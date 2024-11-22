@@ -1,4 +1,4 @@
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 
 export const checkboxOptions: MosaicLabelValue[] = [
 	{

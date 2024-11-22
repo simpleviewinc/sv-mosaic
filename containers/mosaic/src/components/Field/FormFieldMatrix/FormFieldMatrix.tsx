@@ -1,11 +1,12 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
-import { MosaicFieldProps } from "@root/components/Field";
+import type { MosaicFieldProps } from "@root/components/Field";
 import { MatrixActions, MatrixWrapper } from "./FormFieldMatrix.styled";
 import Button from "@root/components/Button";
 import DataView from "@root/components/DataView";
-import { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
+import type { MatrixData, MatrixInputSettings } from "./FormFieldMatrixTypes";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { FormFieldMatrixSkeleton } from "./FormFieldMatrixSkeleton";
 

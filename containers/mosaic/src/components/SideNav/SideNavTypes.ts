@@ -1,5 +1,5 @@
-import { MosaicCSSContainer, MosaicToggle, SvgIconComponent } from "@root/types";
-import { AnchorHTMLAttributes, MouseEvent } from "react";
+import type { MosaicCSSContainer, MosaicToggle, SvgIconComponent } from "@root/types";
+import type { AnchorHTMLAttributes, MouseEvent } from "react";
 
 export interface SideNavArgs {
 	item: Item;

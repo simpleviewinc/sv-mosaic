@@ -1,5 +1,5 @@
 import { useId, useMemo, useState } from "react";
-import { AnchorElement, AnchorProps, TooltipProps } from "./TooltipTypes";
+import type { AnchorElement, AnchorProps, TooltipProps } from "./TooltipTypes";
 
 type HookTooltipProps = Required<Pick<TooltipProps, "anchorEl" | "open" | "id">>;
 

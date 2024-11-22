@@ -1,5 +1,5 @@
-import { CSSProperties } from "react";
-import { DataViewProps } from "../DataViewTypes";
+import type { CSSProperties } from "react";
+import type { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewTrProps {
 	checked: boolean;
