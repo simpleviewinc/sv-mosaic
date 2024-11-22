@@ -13,7 +13,6 @@ async function setup(props: Partial<DrawersProps<(typeof drawers)[number]>> = {}
 	const renderResult = await act(async () => render(
 		<Drawers
 			drawers={drawers}
-
 			children={(drawer) => <>{drawer.title}</>}
 			{...props}
 		/>,
@@ -51,7 +50,6 @@ describe(__dirname, () => {
 		rerender(
 			<Drawers
 				drawers={[drawers[0]]}
-
 				children={(drawer) => <h3>{drawer.title}</h3>}
 			/>,
 		);
@@ -72,7 +70,6 @@ describe(__dirname, () => {
 		rerender(
 			<Drawers
 				drawers={[drawers[0]]}
-
 				children={(drawer) => <h3>{drawer.title}</h3>}
 			/>,
 		);
