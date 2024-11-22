@@ -4,9 +4,9 @@ import { useCallback, useMemo, useState } from "react";
 
 // Components
 import Drawers from "@root/components/Drawers";
-import AppContext from "@root/components/Drawers/example/AppContext";
-import type { AppState, DrawerDef } from "@root/components/Drawers/example/ExampleTypes";
-import Page from "@root/components/Drawers/example/Page";
+import AppContext from "./example/AppContext";
+import type { AppState, DrawerDef } from "./example/ExampleTypes";
+import Page from "./example/Page";
 
 export default {
 	title: "Components/Drawers",
