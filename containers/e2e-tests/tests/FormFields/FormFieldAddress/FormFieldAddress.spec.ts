@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddress/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { us_address, us_address_2 } from "../../../utils/data/addressInformationData";
@@ -17,10 +18,6 @@ test.describe("FormFields - FormFieldAddress - Playground", () => {
 
 	test.beforeEach(async() => {
 		await page.reload();
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate that Postal Code type is equal to String.", async () => {

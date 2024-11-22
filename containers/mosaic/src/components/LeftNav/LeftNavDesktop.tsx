@@ -1,12 +1,14 @@
 import * as React from "react";
-import { useState, useEffect, useContext, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
 import throttle from "lodash/throttle";
 
 import SettingsIcon from "@mui/icons-material/Settings";
 
-import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavItemDef } from "./LeftNavTypes";
+import type { LeftNavProps, LeftNavContextProps, LeftNavItemDef } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 import LeftNavItems from "./LeftNavItems";
 import LeftNavItemDesktop from "./LeftNavItemDesktop";
 import LeftNavScroller from "./LeftNavScroller";

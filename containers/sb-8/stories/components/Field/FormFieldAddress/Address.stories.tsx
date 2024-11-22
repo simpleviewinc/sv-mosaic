@@ -1,8 +1,9 @@
-import React, { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import React, { useMemo } from "react";
 import { renderButtons } from "../../../../utils";
-import { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
+import type { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
 
 export default {
@@ -32,20 +33,20 @@ const addresses: AddressData = [
 		address2: "",
 		city: "Falmouth",
 		state: {
-		label: "Massachusetts",
-			value: "MA"
+			label: "Massachusetts",
+			value: "MA",
 		},
 		postalCode: "02536",
 		country: {
 			label: "United States",
-			value: "US"
+			value: "US",
 		},
 		types: [
 			{
 				label: "Physical",
 				value: "physical",
-			}
-		]
+			},
+		],
 	},
 	{
 		id: 2,
@@ -54,20 +55,20 @@ const addresses: AddressData = [
 		city: "Norfolk",
 		state: {
 			label: "Virginia",
-			value: "VA"
+			value: "VA",
 		},
 		postalCode: "23510",
 		country: {
 			label: "United States",
-			value: "US"
+			value: "US",
 		},
 		types: [
 			{
 				label: "Physical",
 				value: "physical",
-			}
-		]
-	}
+			},
+		],
+	},
 ];
 
 export const Playground = ({
@@ -85,7 +86,7 @@ export const Playground = ({
 	const { state, handleSubmit } = controller;
 
 	const getFormValues = useMemo(() => (prepopulate ? async () => {
-		return { address: addresses }
+		return { address: addresses };
 	} : undefined), [prepopulate]);
 
 	const fields = useMemo(

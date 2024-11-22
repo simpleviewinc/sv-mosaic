@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 import {
 	act,
 	cleanup,
@@ -13,12 +14,12 @@ import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import { FieldDef } from "@root/components/Field/FieldTypes";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
 
 // Utils
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 import { listColumns } from "@root/components/Field/FormFieldMatrix/matrixUtils";
-import { DataViewProps } from "@root/components/DataView";
+import type { DataViewProps } from "@root/components/DataView";
 import rawData from "@root/components/DataView/example/rawData.json";
 
 export const MatrixExample = (): ReactElement => {

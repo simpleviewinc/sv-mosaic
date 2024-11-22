@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import { TypographyProps, TypographyTag, TypographyVariant } from "./TypographyTypes";
+import type { TypographyProps, TypographyTag, TypographyVariant } from "./TypographyTypes";
 import { Component } from "./Typography.styled";
 
 const defaultTagMap: Record<TypographyVariant, TypographyTag> = {

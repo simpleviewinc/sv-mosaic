@@ -1,8 +1,10 @@
 import * as React from "react";
-import { useContext, Fragment, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useContext, Fragment } from "react";
 
 import LeftNavGroup from "./LeftNavGroup";
-import { LeftNavItemDef, LeftNavBlockProps, LeftNavContext } from "./LeftNavTypes";
+import type { LeftNavItemDef, LeftNavBlockProps } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 
 interface Props {
 	items: LeftNavItemDef[];

@@ -1,5 +1,6 @@
 import { BasePage } from "../../BasePage";
-import { expect, Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
 import testIds from "@root/utils/testIds";
@@ -251,7 +252,7 @@ export class DataviewPage extends BasePage {
 	}
 
 	async selectViewByDescription(description: string) {
-		await this.page.getByRole('button', { name: 'No view selected' }).click();
-		await this.page.locator('tr').filter({ hasText: description }).getByTestId(testIds.DATA_VIEW_VIEW_APPLY).click();
+		await this.page.getByRole("button", { name: "No view selected" }).click();
+		await this.page.locator("tr").filter({ hasText: description }).getByTestId(testIds.DATA_VIEW_VIEW_APPLY).click();
 	}
 }

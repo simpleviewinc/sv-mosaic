@@ -1,10 +1,10 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 /**
  * Base text field props.
  */
 // TEXT FIELD SPECIFIC DEVELOPER CONTRACT
-export type TextFieldInputSettings = {
+export interface TextFieldInputSettings {
 	/**
 	 * Example text within the input to be replaced by the user.
 	 */
@@ -37,7 +37,7 @@ export type TextFieldInputSettings = {
 	 * option is set to true.
 	 */
 	maxRows?: number;
-};
+}
 
 export type TextFieldData = string | number;
 

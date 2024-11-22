@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldTextPage } from "../../../pages/FormFields/FormFieldText/FormFieldTextPage";
 import theme from "@root/theme";
 
@@ -13,10 +14,6 @@ test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 
 	test.beforeEach(async() => {
 		await ffTextPage.visit(ffTextPage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate Regular Text field", async () => {

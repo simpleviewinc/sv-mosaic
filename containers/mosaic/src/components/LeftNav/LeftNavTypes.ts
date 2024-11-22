@@ -1,12 +1,10 @@
-import * as React from "react";
+import type * as React from "react";
 import { createContext } from "react";
-import { MosaicObject, SvgIconComponent } from "@root/types";
+import type { MosaicObject, SvgIconComponent } from "@root/types";
 
 type Variant = "full" | "icons_only" | "hidden" | "mobile";
 
-export interface LeftNavOnNav {
-	(args: { item : LeftNavItemDef; event : React.MouseEvent }): void;
-}
+export type LeftNavOnNav = (args: { item : LeftNavItemDef; event : React.MouseEvent }) => void;
 
 export interface LeftNavProps {
 	/** Whether the LeftNav hidden drawer is open. */

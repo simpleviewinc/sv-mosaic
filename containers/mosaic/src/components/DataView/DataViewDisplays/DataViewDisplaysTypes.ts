@@ -1,4 +1,4 @@
-import { SvgIconComponent } from "@root/types";
+import type { SvgIconComponent } from "@root/types";
 
 export interface DataViewDisplay {
 	name: string;

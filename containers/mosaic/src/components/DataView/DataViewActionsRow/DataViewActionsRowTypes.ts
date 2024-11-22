@@ -1,9 +1,9 @@
-import {
+import type {
 	DataViewColumn,
 	DataViewOnSortChange,
 	DataViewProps,
 } from "../DataViewTypes";
-import { DataViewDisplay } from "../DataViewDisplays";
+import type { DataViewDisplay } from "../DataViewDisplays";
 export interface DataViewActionsRowProps {
 	bulkActions?: DataViewProps["bulkActions"];
 	checked?: DataViewProps["checked"];

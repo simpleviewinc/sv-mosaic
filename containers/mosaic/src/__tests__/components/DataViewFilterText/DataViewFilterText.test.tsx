@@ -34,7 +34,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if the comparison default provided is not in the list of valid comparisons", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		expect(() => setup({ args: { comparisonDefault: "Foo" } }))
 			.rejects

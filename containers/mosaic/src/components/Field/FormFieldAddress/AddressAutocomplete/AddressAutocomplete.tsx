@@ -1,7 +1,8 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
-import { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
+import type { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
 import Popover from "@mui/material/Popover";
 import { useLoadScript } from "@react-google-maps/api";
 import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";

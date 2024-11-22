@@ -1,11 +1,11 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 export type TimeFieldInputSettings = never;
 
-export type TimeData = {
+export interface TimeData {
 	time?: Date;
 	validTime: boolean;
-};
+}
 
 export type FieldDefTime = FieldDefBase<"time", TimeFieldInputSettings>;
 

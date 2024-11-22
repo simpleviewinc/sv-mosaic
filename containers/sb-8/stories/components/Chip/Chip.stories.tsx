@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import styled from "styled-components";
 
 // Components

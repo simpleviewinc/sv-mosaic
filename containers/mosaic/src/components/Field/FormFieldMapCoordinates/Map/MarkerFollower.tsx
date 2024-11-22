@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect } from "react";
 import { Marker, useGoogleMap } from "@react-google-maps/api";
-import { ReactElement } from "react";
-import { MapFocusProps } from "../MapCoordinatesTypes";
+import type { ReactElement } from "react";
+import type { MapFocusProps } from "../MapCoordinatesTypes";
 
 // Styles
 import { defaultMapPosition, getMapBounds, isValidLatLng } from "../MapCoordinatesUtils";

@@ -1,5 +1,5 @@
-import React from "react";
-import { ButtonProps } from "../Button";
+import type React from "react";
+import type { ButtonProps } from "../Button";
 
 export type ButtonsRowWrapperProps = Pick<ButtonRowProps, "className" | "wrap" | "separator" | "skeleton"> & {
 	children: {

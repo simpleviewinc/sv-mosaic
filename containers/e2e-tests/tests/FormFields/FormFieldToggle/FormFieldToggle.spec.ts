@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldTogglePage } from "../../../pages/FormFields/FormFieldToggle/FormFieldTogglePage";
 
 test.describe("FormFields - FormFieldsToggle - Kitchen Sink", () => {
@@ -9,10 +10,6 @@ test.describe("FormFields - FormFieldsToggle - Kitchen Sink", () => {
 		page = await browser.newPage();
 		formFieldTogglePage = new FormFieldTogglePage(page);
 		await formFieldTogglePage.visit(formFieldTogglePage.page_path);
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate the Toggle with label.", async () => {

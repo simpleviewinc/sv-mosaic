@@ -44,7 +44,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw an error if a field in the sections provided does not exist in the field definitions provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		await expect(() => setup({ sections: [["noExist"]] }))
 			.rejects
@@ -86,7 +86,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render sections using the deprecated section definition but log a warning", async () => {
-		const warning = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const warning = vi.spyOn(console, "warn").mockImplementation(() => null);
 		await setup({ sections: [[["content1"], ["content2"]]] });
 
 		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(2);

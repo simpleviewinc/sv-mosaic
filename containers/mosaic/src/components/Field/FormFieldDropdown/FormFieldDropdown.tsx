@@ -5,14 +5,14 @@ import {
 	StyledPopper,
 	SingleDropdownWrapper,
 } from "./FormFieldDropdown.styled";
-import { MosaicFieldProps } from "@root/components/Field";
-import { CustomPopperProps, DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { CustomPopperProps, DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
 // Components
 import InputWrapper from "../../InputWrapper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import TextField from "@mui/material/TextField";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import Skeleton from "@mui/material/Skeleton";
 
 const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {

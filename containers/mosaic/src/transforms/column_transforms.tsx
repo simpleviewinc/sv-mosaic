@@ -1,9 +1,11 @@
 import get from "lodash/get";
 import map from "lodash/map";
 import format from "date-fns/format";
-import { createElement, ReactNode } from "react";
-import { MosaicLabelValue, MosaicObject } from "../types";
-import DataView, { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
+import type { ReactNode } from "react";
+import { createElement } from "react";
+import type { MosaicLabelValue, MosaicObject } from "../types";
+import type { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
+import DataView from "../components/DataView";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper, ColorValue } from "@root/components/Content/Content.styled";
 import ColorSelected from "@root/components/Field/FormFieldColor/ColorSelected";

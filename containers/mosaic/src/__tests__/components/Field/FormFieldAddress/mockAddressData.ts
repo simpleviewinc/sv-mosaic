@@ -89,7 +89,7 @@ export const mockAddressData = {
 			],
 		},
 	],
-	"Simpleview": [
+	Simpleview: [
 		{
 			address_components: [
 				{

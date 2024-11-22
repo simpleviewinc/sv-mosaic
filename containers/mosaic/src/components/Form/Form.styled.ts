@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme, { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
-import { FormSpacing } from "./FormTypes";
+import type { FormSpacing } from "./FormTypes";
 
 export const StyledContainerForm = styled.div<{ $fullHeight?: boolean }>`
 	position: relative;

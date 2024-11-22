@@ -1,15 +1,16 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
 import { nanoid } from "nanoid";
 
-import { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
 import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import categories from "@root/components/DataView/example/categories.json";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 
 export default {
 	title: "FormFields/FormFieldAdvancedSelection",
@@ -43,12 +44,12 @@ export const Playground = ({
 	const createNewOption = async (newOptionLabel) => {
 		const value = nanoid();
 		const newOption = {
-			"_id": value,
-			"tag": newOptionLabel,
-			"sort_tag": newOptionLabel,
-			"updated": new Date(),
-			"created": new Date(),
-			"id": value,
+			_id: value,
+			tag: newOptionLabel,
+			sort_tag: newOptionLabel,
+			updated: new Date(),
+			created: new Date(),
+			id: value,
 		};
 
 		//Insert to db
@@ -177,12 +178,12 @@ export const KitchenSink = (): ReactElement => {
 	const createNewOption = async (newOptionLabel) => {
 		const value = nanoid();
 		const newOption = {
-			"_id": value,
-			"tag": newOptionLabel,
-			"sort_tag": newOptionLabel,
-			"updated": new Date(),
-			"created": new Date(),
-			"id": value,
+			_id: value,
+			tag: newOptionLabel,
+			sort_tag: newOptionLabel,
+			updated: new Date(),
+			created: new Date(),
+			id: value,
 		};
 
 		//Insert to db

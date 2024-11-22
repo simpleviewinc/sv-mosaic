@@ -1,6 +1,7 @@
 import testIds from "@root/utils/testIds";
 import { BasePage } from "../../BasePage";
-import { Locator, Page, expect } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 export class DataViewFilterMultiselectComponent extends BasePage {
 
@@ -24,8 +25,8 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 		this.topBlockLocator = page.locator(".topBlock");
 		this.optionsLocator = this.topBlockLocator.locator(".options");
 		this.selectedOptionsLocator = this.topBlockLocator.locator(".selected");
-		this.hideComparisonSelectorButton = page.getByRole('button', { name: 'Multi Select Category Without Comparisons' });
-		this.showComparisonSelectorButton = page.getByRole('button', { name: 'Multi Select Category With Comparisons' });
+		this.hideComparisonSelectorButton = page.getByRole("button", { name: "Multi Select Category Without Comparisons" });
+		this.showComparisonSelectorButton = page.getByRole("button", { name: "Multi Select Category With Comparisons" });
 		this.comparisonDropdown = page.locator(".comparisonDropdown");
 		this.comparisonDropdownButton = this.comparisonDropdown.locator("button").first();
 		this.helpDialogButton = this.comparisonDropdown.locator("button").last();

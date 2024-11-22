@@ -1,4 +1,4 @@
-import { DataViewFilterProps } from "../DataView";
+import type { DataViewFilterProps } from "../DataView";
 
 export type FilterTextComparison = "contains" | "not_contains" | "equals" | "not_equals" | "exists" | "not_exists";
 

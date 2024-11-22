@@ -1,6 +1,6 @@
-import { DataViewFilterProps } from "../DataView/DataViewTypes";
-import { MosaicLabelValue } from "@root/types";
-import { ButtonProps } from "../Button";
+import type { DataViewFilterProps } from "../DataView/DataViewTypes";
+import type { MosaicLabelValue } from "@root/types";
+import type { ButtonProps } from "../Button";
 
 export interface DataViewPrimaryFilterProps {
 	label: DataViewFilterProps["label"];

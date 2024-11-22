@@ -1,4 +1,4 @@
-export type PrettyBytesOptions = {
+export interface PrettyBytesOptions {
 	/**
 	Include plus sign for positive numbers. If the difference is exactly zero a space character will be prepended instead for better alignment.
 
@@ -108,4 +108,4 @@ export type PrettyBytesOptions = {
 	```
 	*/
 	readonly space?: boolean;
-};
+}

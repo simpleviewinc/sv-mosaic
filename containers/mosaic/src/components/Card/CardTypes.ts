@@ -1,5 +1,5 @@
-import { ButtonProps } from "../Button";
-import { SvgIconComponent } from "@root/types";
+import type { ButtonProps } from "../Button";
+import type { SvgIconComponent } from "@root/types";
 
 export interface CardProps {
 	/**

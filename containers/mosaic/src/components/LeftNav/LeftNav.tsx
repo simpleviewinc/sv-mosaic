@@ -1,7 +1,9 @@
 import * as React from "react";
-import { useMemo, useCallback, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useMemo, useCallback } from "react";
 
-import { LeftNavProps, LeftNavContext, LeftNavContextProps, LeftNavOnNav } from "./LeftNavTypes";
+import type { LeftNavProps, LeftNavContextProps, LeftNavOnNav } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 import LeftNavMobile from "./LeftNavMobile";
 import LeftNavDesktop from "./LeftNavDesktop";
 
