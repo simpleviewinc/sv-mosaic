@@ -10,7 +10,6 @@ async function setup(props: Partial<DialogProps> = {}) {
 	const renderResult = await act(async () => render(
 		<Dialog
 			dialogTitle="My Dialog"
-			// eslint-disable-next-line react/no-children-prop
 			children="My Content"
 			open
 			{...props}

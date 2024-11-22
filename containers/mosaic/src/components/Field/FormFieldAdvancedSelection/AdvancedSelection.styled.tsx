@@ -4,8 +4,8 @@ import theme from "@root/theme";
 // MUI
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { TransientProps } from "@root/types";
-import { ChipListPropsTypes } from "./AdvancedSelectionTypes";
+import type { TransientProps } from "@root/types";
+import type { ChipListPropsTypes } from "./AdvancedSelectionTypes";
 
 export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView">>`
   display: flex;

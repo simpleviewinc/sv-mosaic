@@ -1,4 +1,4 @@
-import { TypographyTag } from "./TypographyTypes";
+import type { TypographyTag } from "./TypographyTypes";
 
 export const tags: TypographyTag[] = [
 	"a",

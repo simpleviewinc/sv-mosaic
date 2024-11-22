@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { PageHeaderPage } from "../../../pages/Components/PageHeader/PageHeaderPage";
 import { pageHeaderKnobs as knob } from "../../../utils/data/knobs";
 

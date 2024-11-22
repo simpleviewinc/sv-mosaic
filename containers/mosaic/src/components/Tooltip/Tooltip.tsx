@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
-import { TooltipProps } from ".";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
+import type { TooltipProps } from ".";
 import { TooltipArrow, TooltipPopper } from "./Tooltip.styled";
 
 const tooltipOffset = [

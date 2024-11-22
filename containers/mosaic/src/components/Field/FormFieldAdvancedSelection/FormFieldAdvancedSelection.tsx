@@ -1,15 +1,16 @@
 import * as React from "react";
+import type {
+	ReactElement } from "react";
 import {
 	memo,
-	ReactElement,
 	useCallback,
 	useEffect,
 	useState,
 } from "react";
 
 // Types
-import { AdvancedSelectionData, AdvancedSelectionInputSettings } from "./AdvancedSelectionTypes";
-import { MosaicFieldProps } from "@root/components/Field";
+import type { AdvancedSelectionData, AdvancedSelectionInputSettings } from "./AdvancedSelectionTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
 
 // Components
 import AddIcon from "@mui/icons-material/Add";
@@ -23,7 +24,7 @@ import {
 	AdvancedSelectionWrapper,
 } from "./AdvancedSelection.styled";
 import { BREAKPOINTS } from "@root/theme/theme";
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import { FormFieldAdvancedSelectionSkeleton } from "./FormFieldAdvancedSelectionSkeleton";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {

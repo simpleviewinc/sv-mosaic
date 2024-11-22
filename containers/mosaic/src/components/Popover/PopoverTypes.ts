@@ -1,4 +1,4 @@
-import { PopperProps } from "@mui/material/Popper";
+import type { PopperProps } from "@mui/material/Popper";
 
 export interface PopoverProps {
 	/**

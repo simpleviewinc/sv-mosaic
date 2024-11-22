@@ -1,6 +1,7 @@
-import React, { useCallback, useState, ReactElement } from "react";
+import type { ReactElement } from "react";
+import React, { useCallback, useState } from "react";
 import CloudDownload from "@mui/icons-material/CloudDownload";
-import { DownloaderProps } from "./DownloaderTypes";
+import type { DownloaderProps } from "./DownloaderTypes";
 import Button from "../Button";
 import Spinner from "../Spinner";
 

@@ -13,7 +13,6 @@ async function setup(props: Partial<DataViewTdProps> = {}) {
 			<tbody>
 				<tr>
 					<DataViewTd
-						// eslint-disable-next-line react/no-children-prop
 						children={<p>Test Content</p>}
 						{...props}
 					/>

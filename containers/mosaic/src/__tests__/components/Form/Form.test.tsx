@@ -1,8 +1,9 @@
 import * as assert from "assert";
-import { testArray, TestDef } from "@simpleview/mochalib";
-import { FieldDef } from "@root/components/Field";
+import type { TestDef } from "@simpleview/mochalib";
+import { testArray } from "@simpleview/mochalib";
+import type { FieldDef } from "@root/components/Field";
 import { generateLayout } from "@root/components/Form/Layout/layoutUtils";
-import { SectionDef } from "@root/components/Form";
+import type { SectionDef } from "@root/components/Form";
 
 type Test = ({
 	type: "fields";
@@ -67,7 +68,7 @@ describe("Layout logic", () => {
 				data: fields,
 				result: [
 					{
-						"fields": [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
+						fields: [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
 					},
 				],
 			},

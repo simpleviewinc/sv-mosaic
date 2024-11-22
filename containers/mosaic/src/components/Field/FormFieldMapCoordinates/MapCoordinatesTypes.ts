@@ -1,4 +1,4 @@
-import { FieldDefBase } from "@root/components/Field/FieldTypes";
+import type { FieldDefBase } from "@root/components/Field/FieldTypes";
 
 /**
  * Libraries availables to load when bootstraping the JavaScript code for the Maps
@@ -18,7 +18,7 @@ export type Libraries = (
  * Used to display the Map's markers and center to center the map at a given latitude and
  * longitude.
  */
-export type MapPosition = { lat: number; lng: number };
+export interface MapPosition { lat: number; lng: number }
 
 export type MapCoordinatesInputSettings = Pick<MapProps, "initialCenter"> & {
 	/**
@@ -76,10 +76,10 @@ export interface MapProps {
 
 export type MapWithMarkerProps = Pick<MapProps, "zoom" | "focusZoom" | "onCoordinatesChange" | "value" | "initialCenter" | "googleMapsApiKey" | "onBlur">;
 
-export type ResetButtonProps = {
+export interface ResetButtonProps {
 	show?: boolean;
 	onClick?: () => void;
-};
+}
 
 export type MapFocusProps = Pick<MapProps, "value" | "initialCenter" | "zoom"> & {
 	onDragMarkerEnd?: (e: google.maps.MapMouseEvent) => void;

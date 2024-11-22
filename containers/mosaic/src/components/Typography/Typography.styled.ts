@@ -1,9 +1,10 @@
-import styled, { RuleSet, css } from "styled-components";
+import type { RuleSet } from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "@root/theme";
 
-import { TypographyVariant } from "./TypographyTypes";
-import { ColorTypes } from "../Button";
-import { Properties } from "csstype";
+import type { TypographyVariant } from "./TypographyTypes";
+import type { ColorTypes } from "../Button";
+import type { Properties } from "csstype";
 
 interface BaseProps {
 	$maxLines?: number;

@@ -1,4 +1,4 @@
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 import countriesWithStates from "@root/components/Field/FormFieldAddress/utils/trimmedCountriesStates.json";
 
 export const getOptionsCountries = async (): Promise<MosaicLabelValue[]> => {

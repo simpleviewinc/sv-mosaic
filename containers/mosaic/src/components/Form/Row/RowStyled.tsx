@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // Components
 import { containerQuery } from "@root/utils/css";
-import { FormSpacing } from "../FormTypes";
+import type { FormSpacing } from "../FormTypes";
 
 export const StyledRow = styled.div<{ $columns?: number; $gridMinWidth?: string; $spacing?: FormSpacing }>`
 	${({ $columns, $gridMinWidth, $spacing }) => $columns && `

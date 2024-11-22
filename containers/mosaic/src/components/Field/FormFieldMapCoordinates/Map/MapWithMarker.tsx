@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MapWithMarkerProps } from "../MapCoordinatesTypes";
+import type { MapWithMarkerProps } from "../MapCoordinatesTypes";
 
 // Components
 import Map from "@root/components/Field/FormFieldMapCoordinates/Map";

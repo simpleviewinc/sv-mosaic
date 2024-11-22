@@ -1,5 +1,5 @@
 import { BasePage } from "../../BasePage";
-import { Locator, Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 export class DataViewFilterTextComponent extends BasePage {
@@ -18,7 +18,7 @@ export class DataViewFilterTextComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this.inputRowLocator = page.locator(".inputRow");
-		this.filterTextButton = page.getByRole('button', { name: 'Filter text example' });
+		this.filterTextButton = page.getByRole("button", { name: "Filter text example" });
 		this.inputLocator = this.inputRowLocator.locator("input");
 		this.wordFilterLocator = this.filterTextButton.locator("p");
 		this.comparisonButton = page.locator(".inputRow .comparisonButton button");

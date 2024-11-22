@@ -1,4 +1,4 @@
-import { MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 
 function getToggle(toggle?: MosaicToggle, defaultToggle = true): boolean {
 	const toggleDefined = toggle !== undefined ? toggle : defaultToggle;

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
+import type { ReactElement } from "react";
+import { useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 //import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DesktopDatePicker as DatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { DatePickerProps } from ".";
+import type { DatePickerProps } from ".";
 
 // Styles
 import {

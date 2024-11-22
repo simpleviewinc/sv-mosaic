@@ -1,8 +1,8 @@
 import * as React from "react";
-import { ReactElement, HTMLAttributes } from "react";
+import type { ReactElement, HTMLAttributes } from "react";
 
 // Types and styles
-import { RadioButtonProps } from "./RadioButtonTypes";
+import type { RadioButtonProps } from "./RadioButtonTypes";
 import { StyledRadioButton } from "./RadioButton.styled";
 import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 import Spinner from "@root/components/Spinner";
 import { SubtitleText } from "@root/components/Typography";
 

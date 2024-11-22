@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 
 import clamp from "@root/utils/math/clamp";
-import { UseScrollToParams } from "./useScrollToTypes";
+import type { UseScrollToParams } from "./useScrollToTypes";
 import { useAnimate } from "../useAnimate";
 
 const MIN_SCROLL_DURATION = 400;

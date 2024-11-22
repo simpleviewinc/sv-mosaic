@@ -1,4 +1,4 @@
-import { DataViewOnLimitChange } from "../DataViewTypes";
+import type { DataViewOnLimitChange } from "../DataViewTypes";
 
 export interface DataViewControlLimitProps {
 	limit: number;

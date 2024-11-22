@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ReactElement, useMemo } from "react";
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+import { useMemo } from "react";
+import type { FieldDef } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 
 // Components
@@ -12,8 +13,8 @@ export default {
 
 const getFormValues = async () => ({
 	map: {
-		"lat": 32.369247319672866,
-		"lng": -110.96678114089914,
+		lat: 32.369247319672866,
+		lng: -110.96678114089914,
 	},
 });
 

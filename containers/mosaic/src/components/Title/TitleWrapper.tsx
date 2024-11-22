@@ -1,9 +1,10 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Utils
 import { Description, Title } from "./TitleWrapper.styled";
-import { TitleWrapperProps } from "./TitleWrapperTypes";
+import type { TitleWrapperProps } from "./TitleWrapperTypes";
 import TitleBackButton from "./TitleBackButton";
 import { TitleText } from "../Typography";
 

@@ -1,4 +1,5 @@
-import { traverseHtml, TraverseHtmlCallback } from "./traverseHtml";
+import type { TraverseHtmlCallback } from "./traverseHtml";
+import { traverseHtml } from "./traverseHtml";
 
 type ReduceHtmlCallback<T> = (accumulator: T, params: Parameters<TraverseHtmlCallback>[0]) => T | undefined;
 

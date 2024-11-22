@@ -1,4 +1,4 @@
-import { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue } from "@root/types";
 
 export interface CheckboxListProps {
 	/**
@@ -13,7 +13,7 @@ export interface CheckboxListProps {
 	 * Function that listens to changes on the checked options.
 	 * @param checked List of checked options
 	 */
-	onChange(checked: ({ [key: string]: unknown } | MosaicLabelValue)[]): void;
+	onChange(checked: (Record<string, unknown> | MosaicLabelValue)[]): void;
 	/**
 	 * Additional custom css class for styling the component
 	 */
@@ -26,5 +26,5 @@ export interface CheckboxListProps {
 	/**
 	 * Callback executed when the list of options is updated.
 	 */
-	onChangeCb?: (checked: ({ [key: string]: unknown } | MosaicLabelValue)[]) => void;
+	onChangeCb?: (checked: (Record<string, unknown> | MosaicLabelValue)[]) => void;
 }

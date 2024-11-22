@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ReactElement, useState, useEffect } from "react";
-import { PopoverProps } from "./PopoverTypes";
+import type { ReactElement } from "react";
+import { useState, useEffect } from "react";
+import type { PopoverProps } from "./PopoverTypes";
 import {
 	ContentWrapper,
 	StyledPaper,

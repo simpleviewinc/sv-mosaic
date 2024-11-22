@@ -1,5 +1,5 @@
-import { DataViewProps, DataViewRowActions } from "../DataViewTypes";
-import { DataViewDisplayListProps } from "../DataViewDisplayList";
+import type { DataViewProps, DataViewRowActions } from "../DataViewTypes";
+import type { DataViewDisplayListProps } from "../DataViewDisplayList";
 
 export interface DataViewTBodyProps {
 	onReorder?: DataViewProps["onReorder"];

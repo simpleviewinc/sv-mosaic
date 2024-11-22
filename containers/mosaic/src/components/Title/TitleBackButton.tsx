@@ -1,10 +1,11 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Utils
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { BackButton } from "./TitleWrapper.styled";
-import { TitleBackButtonProps } from "./TitleWrapperTypes";
+import type { TitleBackButtonProps } from "./TitleWrapperTypes";
 import Tooltip, { useTooltip } from "../Tooltip";
 
 const TitleBackButton = ({

@@ -1,4 +1,4 @@
-import { EasingName } from "../easing/easingTypes";
+import type { EasingName } from "../easing/easingTypes";
 
 export type AnimateCallback = (n: number, state: AnimateState) => void;
 
@@ -49,8 +49,8 @@ export type AnimateStart = (params?: Partial<AnimateParams>) => void;
 
 export type AnimateStop = () => void;
 
-export type Animation = {
+export interface Animation {
 	start: AnimateStart;
 	stop: AnimateStop;
 	inProgress: () => boolean;
-};
+}

@@ -78,7 +78,7 @@ describe(__dirname, () => {
 	});
 
 	it("should throw if both children and button props are provided", async () => {
-		vi.spyOn(console, "error").mockImplementation(() => {});
+		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		await expect(() => setup({ buttons: buttonDefs, children: buttonChildren }))
 			.rejects

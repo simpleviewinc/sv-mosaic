@@ -1,11 +1,11 @@
-import { MosaicLabelValue } from "@root/types";
-import { PopperProps } from "@mui/material/Popper";
-import { StrictUnion } from "../FormFieldCheckbox";
-import { FieldDefBase } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
+import type { PopperProps } from "@mui/material/Popper";
+import type { StrictUnion } from "../FormFieldCheckbox";
+import type { FieldDefBase } from "@root/components/Field";
 
 export type DropdownInputSettings = StrictUnion<DropdownLocalOptions | DropdownExternalOptions>;
 
-type DropdownLocalOptions = {
+interface DropdownLocalOptions {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -16,9 +16,9 @@ type DropdownLocalOptions = {
 	 * dropdown.
 	 */
 	options: MosaicLabelValue[];
-};
+}
 
-type DropdownExternalOptions = {
+interface DropdownExternalOptions {
 	/**
 	 * Example text shown inside of the text field
 	 * portion of the dropdown.
@@ -28,7 +28,7 @@ type DropdownExternalOptions = {
 	 * Used to get options from db.
 	 */
 	getOptions?: () => Promise<MosaicLabelValue[]>;
-};
+}
 
 export type CustomPopperProps = {
 	value: string;

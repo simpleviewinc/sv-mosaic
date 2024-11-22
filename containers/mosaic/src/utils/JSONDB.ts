@@ -10,7 +10,7 @@ interface Relationship {
 }
 
 class JSONDB {
-	data: { [key: string]: any }[];
+	data: Record<string, any>[];
 	relationships: Relationship[];
 	constructor(data, { relationships }: { relationships?: Relationship[] } = {}) {
 		this.data = data;
@@ -94,9 +94,7 @@ interface FilterKey {
 	$exists: boolean;
 }
 
-interface FilterObj {
-	[key: string]: FilterKey;
-}
+type FilterObj = Record<string, FilterKey>;
 
 function filterData(data, filter: FilterObj) {
 	let newData = data;

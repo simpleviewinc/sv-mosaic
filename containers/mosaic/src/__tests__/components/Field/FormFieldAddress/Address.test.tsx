@@ -76,9 +76,9 @@ vi.mock("@react-google-maps/api", () => ({
 		isLoaded: true,
 		loadError: null,
 	}),
-	// eslint-disable-next-line react/display-name
+
 	GoogleMap: () => <div>Mocked Google Map Component</div>,
-	// eslint-disable-next-line react/display-name
+
 	Marker: () => <div />,
 }));
 

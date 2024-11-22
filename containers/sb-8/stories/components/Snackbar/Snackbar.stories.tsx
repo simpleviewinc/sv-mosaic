@@ -1,8 +1,10 @@
 import * as React from "react";
-import { ReactElement, SyntheticEvent, useState } from "react";
+import type { ReactElement, SyntheticEvent } from "react";
+import { useState } from "react";
 
 // Components
-import Snackbar, { SnackbarAction } from "@root/components/Snackbar";
+import type { SnackbarAction } from "@root/components/Snackbar";
+import Snackbar from "@root/components/Snackbar";
 import Button from "@root/components/Button";
 
 // Material UI

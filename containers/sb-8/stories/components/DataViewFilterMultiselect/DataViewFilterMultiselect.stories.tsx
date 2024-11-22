@@ -1,6 +1,8 @@
 import * as React from "react";
-import { ReactElement, useState } from "react";
-import DataViewFilterMultiselect, { DataViewFilterMultiselectProps } from "@root/components/DataViewFilterMultiselect";
+import type { ReactElement } from "react";
+import { useState } from "react";
+import type { DataViewFilterMultiselectProps } from "@root/components/DataViewFilterMultiselect";
+import DataViewFilterMultiselect from "@root/components/DataViewFilterMultiselect";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import categories from "@root/components/DataView/example/categories.json";
 import JSONDB from "@root/utils/JSONDB";

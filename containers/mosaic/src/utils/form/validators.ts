@@ -36,17 +36,17 @@ export function validateEmail(str: string): string | undefined {
 	return "The value is not a valid email";
 }
 
-export function validateSlow(str: string): Promise<void | string> {
+export function validateSlow(str: string): Promise<undefined | string> {
 	if (!str) {
 		return;
 	}
 
-	return new Promise<void | string>(function (resolve) {
+	return new Promise<undefined | string>(function (resolve) {
 		setTimeout(function () {
 			if (str.includes("test")) {
 				return resolve("String cannot include test");
 			} else {
-				return resolve();
+				return resolve(undefined);
 			}
 		}, 1000);
 	});
@@ -144,7 +144,7 @@ export function validateURL(str: string): string | undefined {
  * @param options
  * @returns the error message in case of any
  */
-export async function validateDateRange(value: string, data: any, options: { [key: string]: any }): Promise<string | undefined> {
+export async function validateDateRange(value: string, data: any, options: Record<string, any>): Promise<string | undefined> {
 	const startDateStr = data[options.startDateName] ? data[options.startDateName] : value;
 	const endDateStr = data[options.endDateName] ? data[options.endDateName] : value;
 

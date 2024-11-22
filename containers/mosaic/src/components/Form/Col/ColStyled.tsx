@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { TransientProps } from "@root/types";
+import type { TransientProps } from "@root/types";
 import { CONTAINERS } from "@root/theme/theme";
-import { ColPropsTypes } from "./ColTypes";
+import type { ColPropsTypes } from "./ColTypes";
 
 export const StyledCol = styled.div<TransientProps<ColPropsTypes, "colsInRow">>`
 	display: flex;

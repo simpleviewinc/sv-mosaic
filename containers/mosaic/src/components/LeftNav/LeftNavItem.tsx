@@ -1,11 +1,13 @@
 import * as React from "react";
-import { useContext, forwardRef, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { useContext, forwardRef } from "react";
 import styled from "styled-components";
 
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { MosaicObject } from "../../types";
-import { LeftNavContext, LeftNavItemDef } from "./LeftNavTypes";
+import type { MosaicObject } from "../../types";
+import type { LeftNavItemDef } from "./LeftNavTypes";
+import { LeftNavContext } from "./LeftNavTypes";
 import theme from "../../theme";
 
 const StyledA = styled.a`

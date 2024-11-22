@@ -1,4 +1,4 @@
-import { DataViewOnSkipChange } from "../DataViewTypes";
+import type { DataViewOnSkipChange } from "../DataViewTypes";
 
 export interface DataViewPagerProps {
 	limit: number;

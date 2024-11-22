@@ -4,7 +4,7 @@
 // 	SavedViewCallbacks,
 // } from "../DataViewTypes";
 
-import { DataViewProps } from "../DataViewTypes";
+import type { DataViewProps } from "../DataViewTypes";
 
 export type DataViewViewControlsProps = Pick<DataViewProps,
 	| "currentView"

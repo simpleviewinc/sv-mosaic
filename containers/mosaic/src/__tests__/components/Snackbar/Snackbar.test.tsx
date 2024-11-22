@@ -3,7 +3,8 @@ import { useState } from "react";
 import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 
 // Components
-import Snackbar, { SnackbarAction } from "@root/components/Snackbar";
+import type { SnackbarAction } from "@root/components/Snackbar";
+import Snackbar from "@root/components/Snackbar";
 import Button from "@root/components/Button";
 
 // Material UI

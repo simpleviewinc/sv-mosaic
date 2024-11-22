@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 import getToggle from "./getToggle";
 
 /**
@@ -20,9 +20,9 @@ import getToggle from "./getToggle";
  * @param key The property that holds a valid toggle boolean/callback/array
  * @param defaultToggle What the result should fall back to when the toggle property is undefined. Default `true`.
  */
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T[], key: K, defaultToggle?: boolean): T[];
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T, key: K, defaultToggle?: boolean): boolean;
-function useToggle<K extends keyof T, T extends { [key in K]?: MosaicToggle }>(items: T | T[], key: K, defaultToggle = true): boolean | T[] {
+function useToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle>>>(items: T[], key: K, defaultToggle?: boolean): T[];
+function useToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle>>>(items: T, key: K, defaultToggle?: boolean): boolean;
+function useToggle<K extends keyof T, T extends Partial<Record<K, MosaicToggle>>>(items: T | T[], key: K, defaultToggle = true): boolean | T[] {
 	const isArray = Array.isArray(items);
 
 	const itemsAsArray = useMemo(() => isArray ? items : [items], [isArray, items]);

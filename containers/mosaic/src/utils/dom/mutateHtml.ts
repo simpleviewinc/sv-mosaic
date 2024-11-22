@@ -1,4 +1,5 @@
-import { traverseHtml, TraverseHtmlCallback } from "./traverseHtml";
+import type { TraverseHtmlCallback } from "./traverseHtml";
+import { traverseHtml } from "./traverseHtml";
 
 export function mutateHtml(html: string, callback: TraverseHtmlCallback): string {
 	const parser = new DOMParser();

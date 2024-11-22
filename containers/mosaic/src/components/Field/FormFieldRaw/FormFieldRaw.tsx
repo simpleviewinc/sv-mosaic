@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ReactElement, memo } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 // Types and styles
-import { MosaicFieldProps } from "@root/components/Field";
-import { RawInputSettings, FieldDefRawData } from "./FormFieldRawTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { RawInputSettings, FieldDefRawData } from "./FormFieldRawTypes";
 
 const FormFieldRaw = (
 	props: MosaicFieldProps<"raw", RawInputSettings, FieldDefRawData>,

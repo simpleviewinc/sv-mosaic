@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { FormFieldUploadPage } from "../../../pages/FormFields/FormFieldUpload/FormFieldUploadPage";
 import { commonKnobs, uploadKnobs } from "../../../utils/data/knobs";
 
@@ -14,10 +15,6 @@ test.describe("FormFields - FormFieldUpload - Playground", () => {
 
 	test.beforeEach(async() => {
 		await ffUpload.removeAllUploadedFiles();
-	});
-
-	test.afterAll(async ({ browser }) => {
-		browser.close;
 	});
 
 	test("Validate that the file details are displayed when uploading a file.", async () => {

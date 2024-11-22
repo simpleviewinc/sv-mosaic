@@ -2,7 +2,7 @@ import * as React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import FileCard from "@root/components/Field/FormFieldUpload/FileCard";
 import FileCardPending from "@root/components/Field/FormFieldUpload/FileCard/FileCardPending";
-import { FileCardPendingProps } from "@root/components/Field/FormFieldUpload/FileCard/FileCardTypes";
+import type { FileCardPendingProps } from "@root/components/Field/FormFieldUpload/FileCard/FileCardTypes";
 
 const onFileDelete = vi.fn();
 

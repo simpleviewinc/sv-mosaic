@@ -1,7 +1,7 @@
 import Button from "@root/components/Button";
 import * as React from "react";
 import { memo } from "react";
-import { FileCardPendingProps } from "./FileCardTypes";
+import type { FileCardPendingProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoNotDisturb from "@mui/icons-material/DoNotDisturb";
 import Spinner from "@root/components/Spinner";

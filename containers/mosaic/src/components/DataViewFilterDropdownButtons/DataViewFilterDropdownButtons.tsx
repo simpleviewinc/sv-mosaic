@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../Button";
 import { useMosaicTranslation } from "@root/i18n";
 import { StyledWrapper } from "./DataViewFilterDropdownButtons.styled";
-import { DataViewFilterDropdownButtonsProps } from "./DataViewFilterDropdownButtonsTypes";
+import type { DataViewFilterDropdownButtonsProps } from "./DataViewFilterDropdownButtonsTypes";
 
 function DataViewFilterDropdownButtons(props: DataViewFilterDropdownButtonsProps) {
 	const { t } = useMosaicTranslation();

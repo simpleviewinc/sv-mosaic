@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import Popper from "@mui/material/Popper";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	z-index: 1500;

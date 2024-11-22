@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, cleanup, fireEvent, screen } from "@testing-library/react";
 import PageHeader from "@root/components/PageHeader";
-import { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "@root/components/Button";
 
 afterEach(cleanup);
 

@@ -1,5 +1,6 @@
 import * as React from "react";
-import { memo, ReactElement } from "react";
+import type { ReactElement } from "react";
+import { memo } from "react";
 
 interface ImageProps {
 	className: string;

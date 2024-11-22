@@ -1,11 +1,11 @@
-/* eslint-disable react/no-children-prop */
 import * as React from "react";
-import { ReactElement } from "react";
-import { Properties } from "csstype";
+import type { ReactElement } from "react";
+import type { Properties } from "csstype";
 import theme from "@root/theme";
-import Typography, { BodyText, SubtitleText, TitleText, TypographyVariant } from "@root/components/Typography";
+import type { TypographyVariant } from "@root/components/Typography";
+import Typography, { BodyText, SubtitleText, TitleText } from "@root/components/Typography";
 import styled from "styled-components";
-import { ColorTypes } from "@root/components/Button";
+import type { ColorTypes } from "@root/components/Button";
 import { tags } from "@root/components/Typography/storyUtils";
 
 export default {

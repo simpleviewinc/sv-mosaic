@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ReactElement, useEffect, useMemo } from "react";
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+import { useEffect, useMemo } from "react";
+import type { FieldDef } from "@root/components/Field";
 import { renderButtons } from "../../../../utils";
 
 // Components

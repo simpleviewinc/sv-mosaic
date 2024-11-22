@@ -1,9 +1,11 @@
 import * as React from "react";
-import { ReactElement, useMemo, useState, useCallback } from "react";
-import { FieldDef } from "@root/components/Field";
+import type { ReactElement } from "react";
+import { useMemo, useState, useCallback } from "react";
+import type { FieldDef } from "@root/components/Field";
 
 // Components
-import Form, { FormProps, useForm } from "@root/components/Form";
+import type { FormProps } from "@root/components/Form";
+import Form, { useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,7 +13,7 @@ import Drawers from "@root/components/Drawers";
 
 // Utils
 import { renderButtons } from "../../../../utils";
-import { DataViewProps } from "@root/components/DataView";
+import type { DataViewProps } from "@root/components/DataView";
 import { listColumns } from "@root/components/Field/FormFieldMatrix/matrixUtils";
 import MosaicContext from "@root/components/MosaicContext";
 import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";

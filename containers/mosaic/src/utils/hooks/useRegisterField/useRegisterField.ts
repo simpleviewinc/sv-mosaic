@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MosaicFieldProps } from "@root/components/Field";
+import type { MosaicFieldProps } from "@root/components/Field";
 
 function useRegisterField(props: MosaicFieldProps & { fieldRef?: React.MutableRefObject<HTMLDivElement> }) {
 	const {

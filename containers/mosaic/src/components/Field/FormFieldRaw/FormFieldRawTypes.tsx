@@ -1,5 +1,5 @@
-import { FieldDefBase } from "@root/components/Field";
-import { ReactNode } from "react";
+import type { FieldDefBase } from "@root/components/Field";
+import type { ReactNode } from "react";
 
 export type RawInputSettings = never;
 

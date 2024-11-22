@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import "vitest-canvas-mock"
+import "vitest-canvas-mock";
 import failOnConsole from "vitest-fail-on-console";
 
 failOnConsole();
@@ -10,10 +10,10 @@ Range.prototype.getBoundingClientRect = () => ({
 	left: 0,
 	right: 0,
 	top: 0,
-    x: 0,
-    y: 0,
+	x: 0,
+	y: 0,
 	width: 0,
-    toJSON: () => "",
+	toJSON: () => "",
 });
 
 Range.prototype.getClientRects = () => ({

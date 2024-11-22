@@ -1,5 +1,6 @@
-import { test, expect, Page } from "@playwright/test";
-import { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import type { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataviewData";
@@ -118,8 +119,8 @@ test.describe("Components - Data View - Columns", () => {
 		await columns.selectColumn("Style - bold");
 		const columnIndex = await dataviewPage.getPositionOfColumn("Style - bold", true);
 		const titles = await dataviewPage.getRowLocators(columnIndex);
-		for (let i = 0; i < titles.length; i++) {
-			expect(await dataviewPage.getFontWeightFromElement(titles[i])).toBe((theme.fontWeight.semiBold).toString());
+		for (const title of titles) {
+			expect(await dataviewPage.getFontWeightFromElement(title)).toBe((theme.fontWeight.semiBold).toString());
 		}
 	});
 });

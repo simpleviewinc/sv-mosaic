@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { SnackBarPage } from "../../../pages/Components/SnackBar/SnackBarPagePage";
 import theme from "@root/theme";
 

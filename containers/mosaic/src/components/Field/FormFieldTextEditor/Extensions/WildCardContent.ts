@@ -33,8 +33,7 @@ export const WildCardContent = Node.create({
 				tag: "*",
 				getAttrs: (dom) => {
 					const attrs = {};
-					for (let i = 0; i < dom.attributes.length; i++) {
-						const attr = dom.attributes[i];
+					for (const attr of Array.from(dom.attributes)) {
 						attrs[attr.name] = attr.value;
 					}
 					return {

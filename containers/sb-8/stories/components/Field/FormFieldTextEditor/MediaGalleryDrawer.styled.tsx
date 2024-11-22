@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 export const DrawerWrapper = styled.div`
     width: 600px;
-`
+`;
 
 export const MediaGalleryItem = styled.div`
     position: relative;
-`
+`;
 
 export const MediaGalleryImage = styled.img<{ $selected?: boolean }>`
     border-radius: 4px;
@@ -20,7 +20,7 @@ export const MediaGalleryImage = styled.img<{ $selected?: boolean }>`
     ${({ $selected }) => $selected && `
         opacity: 1;
     `}
-`
+`;
 
 export const MediaGalleryChecked = styled.div`
     box-shadow: 0 1px 1px rgba(0,0,0,.2);
@@ -36,4 +36,4 @@ export const MediaGalleryChecked = styled.div`
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-`
+`;

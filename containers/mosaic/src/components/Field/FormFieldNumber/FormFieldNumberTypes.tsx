@@ -1,9 +1,9 @@
-import { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase } from "@root/components/Field";
 
 /**
  * Base number field props.
  */
-export type NumberFieldInputSettings = {
+export interface NumberFieldInputSettings {
 	/**
 	 * Example text within the input to be replaced by the user.
 	 */
@@ -26,7 +26,7 @@ export type NumberFieldInputSettings = {
 	 * or either sign. Defaults to "any"
 	 */
 	sign?: "any" | "positive" | "negative";
-};
+}
 
 export type NumberFieldData = string | number;
 

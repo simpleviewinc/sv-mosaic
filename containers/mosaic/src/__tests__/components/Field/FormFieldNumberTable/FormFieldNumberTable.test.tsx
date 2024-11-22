@@ -1,5 +1,6 @@
 import * as React from "react";
-import { ReactElement, useCallback, useMemo } from "react";
+import type { ReactElement } from "react";
+import { useCallback, useMemo } from "react";
 import {
 	act,
 	cleanup,
@@ -8,8 +9,8 @@ import {
 	screen,
 } from "@testing-library/react";
 import Form, { useForm } from "@root/components/Form";
-import { FieldDef } from "@root/components/Field/FieldTypes";
-import { ButtonProps } from "@root/components/Button";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
+import type { ButtonProps } from "@root/components/Button";
 import {
 	columns,
 	isValidRowCol,
