@@ -1,0 +1,1 @@
+import{e as s,i as t,_ as f}from"./CheckboxList-CqEcEdT6.js";import{i as n}from"./isSymbol-CEVJpixJ.js";var l=s,_=t,m=f,p=n;function u(i,e,r){if(!p(r))return!1;var a=typeof e;return(a=="number"?_(r)&&m(e,r.length):a=="string"&&e in r)?l(r[e],i):!1}var o=u;export{o as _};
