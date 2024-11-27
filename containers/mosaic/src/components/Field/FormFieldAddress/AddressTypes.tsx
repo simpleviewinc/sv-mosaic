@@ -1,5 +1,5 @@
 import type { MosaicLabelValue } from "@root/types";
-import type { FieldDefBase } from "@root/components/Field";
+import type { FieldDef, FieldDefBase } from "@root/components/Field";
 
 export interface IAddress {
 	address1: string;
@@ -12,6 +12,8 @@ export interface IAddress {
 	state: MosaicLabelValue;
 	types: MosaicLabelValue[];
 }
+
+export type AddressPart = "address1" | "address2" | "address3" | "country" | "city" | "state" | "postalCode";
 
 export interface AddressCardProps {
 	/**
@@ -52,14 +54,23 @@ export interface AddressFieldInputSettings {
 	amountPhysical?: number;
 	getOptionsCountries(): Promise<MosaicLabelValue[]>;
 	getOptionsStates(country: string): Promise<MosaicLabelValue[]>;
-	googleMapsApiKey: string;
+	googleMapsApiKey?: string;
+	subFields?: (AddressPart | Partial<Omit<FieldDef, "name"> & { name: AddressPart }>)[];
 }
+
+export type AddressSingleFieldInputSettings = Pick<AddressFieldInputSettings,
+	| "getOptionsCountries"
+	| "getOptionsStates"
+	| "googleMapsApiKey"
+	| "subFields"
+>
 
 export type AddressItem = IAddress & Record<PropertyKey, unknown>;
 
 export type AddressData = AddressItem[];
 
 export type FieldDefAddress = FieldDefBase<"address", AddressFieldInputSettings>;
+export type FieldDefAddressSingle = FieldDefBase<"addressSingle", AddressSingleFieldInputSettings>;
 
 export type AddressType = MosaicLabelValue & {
 	inputSettingsKey: string;

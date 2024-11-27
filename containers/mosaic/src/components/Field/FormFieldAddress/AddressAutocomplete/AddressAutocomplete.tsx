@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import type { ReactElement } from "react";
 import { memo } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -76,6 +76,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							{...getInputProps({
 								placeholder: placeholder,
 							})}
+							fieldSize=""
 							onFocus={handleFocus}
 							onBlur={handleBlur}
 							disabled={disabled}

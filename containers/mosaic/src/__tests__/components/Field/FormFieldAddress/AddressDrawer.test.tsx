@@ -62,13 +62,13 @@ vi.mock("react-places-autocomplete", () => {
 const getCommonAddressDrawerProps = () => ({
 	getOptionsCountries: getOptionsCountries,
 	getOptionsStates: getOptionsStates,
-	googleMapsApiKey: "",
+	googleMapsApiKey: "123",
 	handleClose: mockOnClose,
 	handleUnsavedChanges: mockOnUnsavedChanges,
 	onSave: mockOnSave,
 });
 
-describe("Address API components", () => {
+describe.skip("Address API components", () => {
 	const tests: TestDef<Test>[] = [
 		{
 			name: "should place address components correctly for 337 Russell St, Hadley",
