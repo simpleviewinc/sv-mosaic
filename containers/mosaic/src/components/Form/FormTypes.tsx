@@ -53,4 +53,5 @@ export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalV
 
 export interface FormContextState {
 	state: FormState;
+	methods: FormMethods;
 }
