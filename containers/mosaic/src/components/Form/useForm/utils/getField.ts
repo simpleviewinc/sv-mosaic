@@ -1,5 +1,5 @@
 import type { FormStable, FieldPath } from "../types";
-import type { FieldDefSanitized } from "../../../Field";
+import type { FieldObj } from "../../../Field";
 
 interface GetFieldParams {
 	name: string;
@@ -7,8 +7,8 @@ interface GetFieldParams {
 	path?: FieldPath;
 }
 
-function getField({ stable, name, path }: GetFieldParams): FieldDefSanitized {
-	let parent: FormStable | FieldDefSanitized = stable;
+function getField({ stable, name, path }: GetFieldParams): FieldObj {
+	let parent: FormStable | FieldObj = stable;
 
 	if (path) {
 		for (const item of path) {
