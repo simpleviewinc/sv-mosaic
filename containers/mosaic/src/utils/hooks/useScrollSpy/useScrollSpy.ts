@@ -51,8 +51,6 @@ export default function useScrollSpy<E extends HTMLElement>({
 
 		}
 
-		console.log(newActiveSection);
-
 		return newActiveSection;
 	}, [container, refs, threshold]);
 
