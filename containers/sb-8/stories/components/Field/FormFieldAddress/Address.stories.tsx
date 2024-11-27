@@ -241,7 +241,6 @@ Single.args = {
 	skeleton: false,
 	prepopulate: false,
 	subFields: ["address1", "address2", "address3", "country", "city", "state", "postalCode"],
-	foo: { foo: "bar" },
 	googleKey: defaultGoogleKey,
 };
 
