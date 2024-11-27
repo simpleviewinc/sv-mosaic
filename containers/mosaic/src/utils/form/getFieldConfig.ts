@@ -29,7 +29,6 @@ import FormFieldUpload from "@root/components/Field/FormFieldUpload/FormFieldUpl
 import FormFieldNumber from "@root/components/Field/FormFieldNumber/FormFieldNumber";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable/FormFieldNumberTable";
 import FormFieldGroup from "@root/components/Field/FormFieldGroup/FormFieldGroup";
-import FormFieldAddressSingle from "@root/components/Field/FormFieldAddress/FormFieldAddressSingle";
 
 type FieldConfigMap = Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>>;
 
@@ -171,11 +170,6 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			},
 			address: {
 				Component: FormFieldAddress,
-				validate: "onBlur",
-				getResolvedValue: defaultResolver,
-			},
-			addressSingle: {
-				Component: FormFieldAddressSingle,
 				validate: "onBlur",
 				getResolvedValue: defaultResolver,
 			},
