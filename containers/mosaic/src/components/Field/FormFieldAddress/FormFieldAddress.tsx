@@ -39,7 +39,7 @@ const types: AddressType[] = [
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
 		disabled,
-		value,
+		value: providedValue,
 		onBlur,
 		onChange,
 		fieldDef,
@@ -48,6 +48,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	// State variables
 	const [open, setOpen] = useState<AddressItem | true | false>(false);
+	const value = useMemo(() => !providedValue || Array.isArray(providedValue) ? providedValue : [providedValue], [providedValue]);
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
 	const [dialogOpen, setIsDialogOpen] = useState(false);
@@ -78,7 +79,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	const availableTypes = useMemo(() => {
 		const availableTypes = types.filter(type => {
 			const valuesOfType = (value || []).filter(address => {
-				return address.types.map(({ value }) => value).includes(type.value);
+				return address?.types?.map(({ value }) => value).includes(type.value);
 			});
 
 			if (limits[type.value] > -1 && valuesOfType.length >= limits[type.value]) {
