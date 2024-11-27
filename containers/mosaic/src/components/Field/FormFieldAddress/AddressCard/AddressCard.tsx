@@ -19,7 +19,7 @@ import { joinAnd } from "@root/utils/string";
 const AddressCard = (props: AddressCardProps): ReactElement => {
 	const { address, onEdit, onRemoveAddress, disabled } = props;
 
-	const typesLabels = address.types.map(type => type.label);
+	const typesLabels = (address.types || []).map(type => type.label);
 
 	return (
 		<StyledAddressCard data-testid="address-card-test">

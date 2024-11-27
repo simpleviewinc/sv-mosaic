@@ -1,5 +1,5 @@
 import type { MosaicObject } from "@root/types";
-import type { FieldDefSanitized, FieldDef } from "@root/components/Field";
+import type { FieldObj, FieldDef } from "@root/components/Field";
 import type { SectionDef } from "@root/components/Form";
 
 export type ActionTypes =
@@ -89,6 +89,7 @@ export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitEr
 
 export interface SetFormValuesParams {
 	values: MosaicObject<any>;
+	path?: FieldPath;
 	initial?: boolean;
 	validate?: boolean;
 }
@@ -217,7 +218,7 @@ export interface UseFormReturn {
 
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
-	fields: Record<string, FieldDefSanitized>;
+	fields: Record<string, FieldObj>;
 	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
 	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;

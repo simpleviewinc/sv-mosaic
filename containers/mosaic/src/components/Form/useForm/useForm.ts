@@ -1,7 +1,6 @@
 import { useRef, useCallback, useMemo, useReducer } from "react";
 import set from "lodash/fp/set";
 import unset from "lodash/fp/unset";
-import merge from "lodash/fp/mergeWith";
 import get from "lodash/get";
 
 import type {
@@ -32,8 +31,10 @@ import fieldIsActive from "./utils/fieldIsActive";
 import getFieldError from "./utils/getFieldError";
 import getFieldErrors from "./utils/getFieldErrors";
 import getFieldInternalValues from "./utils/getFieldInternalValues";
-import sanitizeFieldDefs from "./utils/sanitizeFieldDef";
-import mergeWithUndefined from "@root/utils/customizers/mergeWithUndefined";
+import createFieldStore from "./utils/createFieldStore";
+import getFields from "./utils/getFields";
+import getFieldValue from "./utils/getFieldValue";
+import merge from "@root/utils/object/merge";
 
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>(getInitialStable());
@@ -71,7 +72,7 @@ export function useForm(): UseFormReturn {
 			});
 
 			const newErrors = path.length ? set(path, linkedFieldErrors, {}) : linkedFieldErrors;
-			stable.current.errors = merge(mergeWithUndefined, stable.current.errors, newErrors);
+			stable.current.errors = merge(stable.current.errors, newErrors);
 		}
 
 		dispatch({
@@ -82,38 +83,41 @@ export function useForm(): UseFormReturn {
 
 	const setFormValues = useCallback<SetFormValues>(async ({
 		values = {},
+		path = [],
 		initial,
 		validate,
 	}) => {
-		const internalValues = getFieldInternalValues(values, stable.current.fields);
+		const internalValues = getFieldInternalValues(values, getFields({ stable: stable.current, path }));
 
-		stable.current.data = { ...values };
-		stable.current.internalData = { ...internalValues };
+		/**
+		 * It's kinda wierd, but lodash doesn't do anything if path is empty,
+		 * so if path is empty, we'll just assign the values instead of "setting"
+		 * them.
+		 */
+		stable.current.data = path.length ? set(path, values, stable.current.data) : values;
+		stable.current.internalData = path.length ? set(path, internalValues, stable.current.internalData) : internalValues;
 
 		if (initial) {
-			stable.current.initialData = { ...values };
+			stable.current.initialData = path.length ? set(path, values, stable.current.initialData) : values;
 			stable.current.disabled = false;
 		}
 
 		if (validate) {
-			const names = Object.keys(stable.current.fields);
-			const { errors } = await getFieldErrors({ names, stable: stable.current });
+			const names = Object.keys(getFields({ stable: stable.current, path }));
+			const { errors } = await getFieldErrors({ names, path, stable: stable.current });
 
-			stable.current.errors = {
-				...stable.current.errors,
-				...errors,
-			};
+			stable.current.errors = path.length ? set(path, errors, stable.current.errors) : errors;
 
 			dispatch({
 				type: "SET_FIELD_ERRORS",
-				errors,
+				errors: stable.current.errors,
 			});
 		}
 
 		return dispatch({
 			type: "SET_FIELD_VALUES",
-			values,
-			internalValues: internalValues,
+			values: stable.current.data,
+			internalValues: stable.current.internalData,
 			...(initial ? {
 				disabled: false,
 				loadingInitial: false,
@@ -125,7 +129,7 @@ export function useForm(): UseFormReturn {
 		fields,
 		sections,
 	}) => {
-		stable.current.fields = sanitizeFieldDefs({ fields, sections, stable: stable.current });
+		stable.current.fields = createFieldStore({ fields, sections, stable: stable.current });
 	}, []);
 
 	const reset = useCallback<FormReset>(() => {
@@ -157,18 +161,22 @@ export function useForm(): UseFormReturn {
 		validate,
 		path = [],
 	}) => {
-		const { errors, internalData, hasBlurred, hasSubmitted } = stable.current;
 		const fullPath = [...path, name];
 		const field = getField({ name, path, stable: stable.current });
+		const { errors, hasBlurred, hasSubmitted } = stable.current;
 
-		if (typeof providedValue === "function") {
-			providedValue = providedValue(get(internalData, fullPath));
-		}
+		const { value, internalValue } = getFieldValue({
+			fields: fullPath,
+			value: providedValue,
+			stable: stable.current,
+			current: {
+				values: stable.current.data,
+				internalValues: stable.current.internalData,
+			},
+		});
 
-		const { value, internalValue } = field.getResolvedValue(providedValue);
-
-		stable.current.data = set(fullPath, value, stable.current.data);
-		stable.current.internalData = set(fullPath, internalValue, stable.current.internalData);
+		stable.current.data = set(fullPath[0], value, stable.current.data);
+		stable.current.internalData = set(fullPath[0], internalValue, stable.current.internalData);
 
 		if (touched) {
 			stable.current.touched = set(fullPath, true, stable.current.touched);
