@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  ms-teams-orb: opub/ms-teams-orb@1.0.3
+
 commands:
   init:
     steps:
@@ -134,6 +137,9 @@ jobs:
       - run:
           name: Publish to Github pages
           command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
+      - ms-teams-orb/report:
+          webhook_url: https://granicus.webhook.office.com/webhookb2/1be66a4a-ca19-4c6f-b78f-81a9de86e5a6@cc1eb3c2-fc0c-4a83-8e6a-8d886b4faeab/IncomingWebhook/31960a87c61f4c25bf5d3555d8c44e99/33a1083b-aa7a-4af3-9109-f7ad85f22c39/V2DD1FxVnBTqufKADHbnmsCrwtEfHj33SjgJ8PI6lOe741
+          only_on_fail: false
   Publish to NPM:
     description: Publishes distribution files to both @simpleview/sv-mosaic and @simpleview/sv-mosaic-types on NPM
     docker:
