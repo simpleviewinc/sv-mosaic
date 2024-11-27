@@ -2721,6 +2721,7 @@ __metadata:
     "@types/node": ^22.5.5
     "@types/react": 18.3.5
     "@types/react-dom": 18.3.0
+    "@types/react-places-autocomplete": ^7.2.14
     "@vitest/coverage-istanbul": 2.0.5
     "@vitest/ui": 2.0.5
     copyfiles: 2.4.1
@@ -3179,6 +3180,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/google.maps@npm:*":
+  version: 3.58.1
+  resolution: "@types/google.maps@npm:3.58.1"
+  checksum: 7ad5bd9566ffa0396485c432368e45c43e3fe1ecc2b89324f257a49d9abbe03dfe046a771d82ae1808fa0fb6e04e6ffca870c7f2295fef73a6015a678b067364
+  languageName: node
+  linkType: hard
+
 "@types/google.maps@npm:3.55.2":
   version: 3.55.2
   resolution: "@types/google.maps@npm:3.55.2"
@@ -3229,6 +3237,16 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: a0cd9b1b815a6abd2a367a9eabdd8df8dd8f13f95897b2f9e1359ea3ac6619f957c1432ece004af7d95e2a7caddbba19faa045f831f32d6263483fc5404a7596
+  languageName: node
+  linkType: hard
+
+"@types/react-places-autocomplete@npm:^7.2.14":
+  version: 7.2.14
+  resolution: "@types/react-places-autocomplete@npm:7.2.14"
+  dependencies:
+    "@types/google.maps": "*"
+    "@types/react": "*"
+  checksum: 01594f3c009a2ea0f457224a708c3411bd6f5ce5dd7c6439849189dce4929979a17f60619180aa05a3df7412ac2b8ac69614080a69c1958646c12c80373cda09
   languageName: node
   linkType: hard
 
