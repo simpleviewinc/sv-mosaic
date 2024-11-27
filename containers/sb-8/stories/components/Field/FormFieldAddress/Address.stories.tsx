@@ -23,8 +23,9 @@ const amountOptions = [
 const commonInputSettings = {
 	getOptionsCountries,
 	getOptionsStates,
-	googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 };
+
+const defaultGoogleKey = "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac";
 
 const addresses: AddressData = [
 	{
@@ -81,6 +82,7 @@ export const Playground = ({
 	amountShipping,
 	amountPhysical,
 	amountBilling,
+	googleKey,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -103,12 +105,13 @@ export const Playground = ({
 						amountShipping: amountShipping === "undefined" ? undefined : Number(amountShipping),
 						amountPhysical: amountPhysical === "undefined" ? undefined : Number(amountPhysical),
 						amountBilling: amountBilling === "undefined" ? undefined : Number(amountBilling),
+						googleMapsApiKey: googleKey,
 						...commonInputSettings,
 					},
 				},
 			]
 		),
-		[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling],
+		[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling, googleKey],
 	);
 
 	return (
@@ -136,6 +139,7 @@ Playground.args = {
 	amountShipping: "undefined",
 	amountPhysical: "undefined",
 	amountBilling: "undefined",
+	googleKey: defaultGoogleKey,
 };
 
 Playground.argTypes = {
@@ -173,6 +177,96 @@ Playground.argTypes = {
 		name: "Billing Maximum",
 		control: { type: "select" },
 		options: amountOptions,
+	},
+	googleKey: {
+		name: "Google API Key",
+	},
+};
+
+export const Single = ({
+	label,
+	disabled,
+	required,
+	skeleton,
+	prepopulate,
+	subFields,
+	googleKey,
+}: typeof Single.args): ReactElement => {
+	const controller = useForm();
+	const { state, handleSubmit } = controller;
+
+	const getFormValues = useMemo(() => (prepopulate ? async () => {
+		return { address: addresses[0] };
+	} : undefined), [prepopulate]);
+
+	const fields = useMemo(
+		() : FieldDef[] => (
+			[
+				{
+					disabled,
+					label,
+					required,
+					name: "address",
+					type: "addressSingle",
+					inputSettings: {
+						subFields,
+						googleMapsApiKey: googleKey,
+						...commonInputSettings,
+					},
+				},
+			]
+		),
+		[disabled, label, required, subFields, googleKey],
+	);
+
+	return (
+		<>
+			<Form
+				{...controller}
+				buttons={renderButtons(handleSubmit)}
+				title="Address Single field"
+				fields={fields}
+				skeleton={skeleton}
+				getFormValues={getFormValues}
+			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
+		</>
+	);
+};
+
+Single.args = {
+	label: "Label",
+	disabled: false,
+	required: false,
+	skeleton: false,
+	prepopulate: false,
+	subFields: ["address1", "address2", "address3", "country", "city", "state", "postalCode"],
+	foo: { foo: "bar" },
+	googleKey: defaultGoogleKey,
+};
+
+Single.argTypes = {
+	label: {
+		name: "Label",
+	},
+	disabled: {
+		name: "Disabled",
+	},
+	required: {
+		name: "Required",
+	},
+	skeleton: {
+		name: "Skeleton",
+	},
+	prepopulate: {
+		name: "Prepopulate",
+	},
+	subFields: {
+		name: "Sub-Fields",
+		control: { type: "object" },
+	},
+	googleKey: {
+		name: "Google API Key",
 	},
 };
 

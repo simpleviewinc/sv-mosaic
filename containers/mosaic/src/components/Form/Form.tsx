@@ -22,6 +22,7 @@ import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
 import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 import { FormContext } from "./FormContext";
+import sanitizeFieldDefs from "./useForm/utils/sanitizeFieldDefs";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -40,7 +41,7 @@ const Form = (props: FormProps) => {
 		title,
 		onBack,
 		backLabel,
-		fields,
+		fields: providedFields,
 		sections,
 		dialogOpen = false,
 		description,
@@ -58,8 +59,8 @@ const Form = (props: FormProps) => {
 		bottomSlot = null,
 	} = props;
 
-	const formContextValue = useMemo(() => ({ state }), [state]);
-
+	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
+	const fields = useMemo(() => sanitizeFieldDefs(providedFields), [providedFields]);
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
 	const { errors, loadingInitial, disabled } = state;
 	const { moveToError } = stable;

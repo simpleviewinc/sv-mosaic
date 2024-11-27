@@ -1,4 +1,4 @@
-import type { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
+import type { FieldDefAddress, FieldDefAddressSingle } from "@root/components/Field/FormFieldAddress";
 import type { FieldDefAdvancedSelection } from "@root/components/Field/FormFieldAdvancedSelection";
 import type { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import type { FieldDefChip } from "@root/components/Field/FormFieldChips";
@@ -18,7 +18,7 @@ import type { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEdi
 import type { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import type { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import type { MosaicToggle } from "@root/types";
-import type { ElementType, HTMLAttributes, MutableRefObject, ReactNode } from "react";
+import type { ElementType, HTMLAttributes, MemoExoticComponent, MutableRefObject, ReactNode } from "react";
 import type { FieldValueResolver, FormSpacing } from "../Form";
 import type { FieldPath, FormMethods, FormState, Validator } from "../Form/useForm/types";
 import type { FieldDefGroup } from "./FormFieldGroup/FormFieldGroupTypes";
@@ -187,7 +187,7 @@ export interface FieldDefBase<Type, T = any> {
 	getResolvedValue?: FieldValueResolver;
 }
 
-export type FieldDefCustom = FieldDefBase<(props?: any) => JSX.Element>;
+export type FieldDefCustom = FieldDefBase<((props?: any) => JSX.Element) | MemoExoticComponent<(props?: any) => JSX.Element>>;
 
 export type FieldDef =
 	| FieldDefText
@@ -205,6 +205,7 @@ export type FieldDef =
 	| FieldDefCheckbox
 	| FieldDefAdvancedSelection
 	| FieldDefAddress
+	| FieldDefAddressSingle
 	| FieldDefUpload
 	| FieldDefCustom
 	| FieldDefNumber
@@ -216,13 +217,15 @@ export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : an
 
 export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
 
-export type FieldDefSanitized = Omit<FieldDef, "getResolvedValue" | "fields"> & {
+export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields"> & {
 	getResolvedValue: DropParam<FieldValueResolver>;
 
 	order: number;
 
-	fields?: Record<string, FieldDefSanitized>;
+	fields?: Record<string, FieldObj>;
 };
+
+export type FieldDefSanitized = FieldDef;
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange" | "onSubmit";
 
