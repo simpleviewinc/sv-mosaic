@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 
 import React, { memo, useCallback, useContext, useState } from "react";
 import { createPortal } from "react-dom";
+import Skeleton from "@mui/material/Skeleton";
 
 import type { MosaicLabelValue } from "@root/types";
 
@@ -14,7 +15,7 @@ import { FormContext } from "@root/components/Form/FormContext";
 import Snackbar from "@root/components/Snackbar";
 
 function AddressAutocompleteField(props): ReactElement {
-	const { fieldDef, path } = props;
+	const { fieldDef, path, skeleton } = props;
 	const { inputSettings } = fieldDef;
 	const {
 		getOptionsCountries,
@@ -169,16 +170,25 @@ function AddressAutocompleteField(props): ReactElement {
 				methods={props.methods}
 				disabled={props.disabled}
 				useRealLabel
+				skeleton={skeleton}
 			>
-				<AddressAutocomplete
-					onChange={(address) => props.onChange(address)}
-					onBlur={props.onBlur}
-					value={props.value ?? ""}
-					onSelect={onSelect}
-					googleMapsApiKey={googleMapsApiKey}
-					disabled={props.disabled}
-					id={`${fieldDef.name}-input`}
-				/>
+				{skeleton ? (
+					<Skeleton
+						variant="rectangular"
+						width="100%"
+						height={43}
+					/>
+				) : (
+					<AddressAutocomplete
+						onChange={(address) => props.onChange(address)}
+						onBlur={props.onBlur}
+						value={props.value ?? ""}
+						onSelect={onSelect}
+						googleMapsApiKey={googleMapsApiKey}
+						disabled={props.disabled}
+						id={`${fieldDef.name}-input`}
+					/>
+				)}
 			</FieldWrapper>
 			{createPortal(
 				<Snackbar
