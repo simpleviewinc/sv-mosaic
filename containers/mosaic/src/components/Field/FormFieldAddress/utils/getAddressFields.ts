@@ -12,6 +12,7 @@ type GetAddressFieldsParams = Pick<AddressFieldInputSettings,
 	| "googleMapsApiKey"
 > & {
 	required?: boolean;
+	disabled?: FieldDef["disabled"];
 	include?: AddressFieldInputSettings["subFields"];
 }
 
@@ -47,6 +48,7 @@ function getAddressFields({
 	getOptionsStates,
 	googleMapsApiKey,
 	required,
+	disabled,
 	include,
 }: GetAddressFieldsParams): FieldDef[] {
 	const invalidParts = include && getInvalidParts(include);
@@ -59,6 +61,7 @@ function getAddressFields({
 		address1: {
 			name: "address1",
 			required,
+			disabled,
 			label: "Address",
 			size: "lg",
 			// If a google maps API key has been provided,
@@ -80,12 +83,14 @@ function getAddressFields({
 			type: "text",
 			label: undefined,
 			size: "lg",
+			disabled,
 		},
 		address3: {
 			name: "address3",
 			type: "text",
 			label: undefined,
 			size: "lg",
+			disabled,
 		},
 		country: {
 			name: "country",
@@ -93,6 +98,7 @@ function getAddressFields({
 			label: "Country",
 			size: "sm",
 			required,
+			disabled,
 			inputSettings: {
 				getOptions: getOptionsCountries,
 			},
@@ -107,12 +113,14 @@ function getAddressFields({
 			label: "City",
 			size: "sm",
 			required,
+			disabled,
 		},
 		state: {
 			name: "state",
 			type: AddressStateField,
 			label: "State",
 			size: "sm",
+			disabled,
 			inputSettings: {
 				getOptionsStates,
 			},
@@ -123,6 +131,7 @@ function getAddressFields({
 			label: "Postal Code",
 			size: "sm",
 			required,
+			disabled,
 			inputSettings: {
 				type: "string",
 			},
