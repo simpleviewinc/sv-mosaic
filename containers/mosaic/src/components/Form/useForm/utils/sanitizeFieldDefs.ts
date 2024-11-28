@@ -12,6 +12,7 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 					subFields,
 				},
 				required,
+				disabled,
 			} = field;
 
 			return {
@@ -23,6 +24,7 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 						getOptionsStates,
 						googleMapsApiKey,
 						required,
+						disabled,
 						include: subFields,
 					}),
 				},

@@ -79,6 +79,7 @@ function AddressStateField(props): ReactElement {
 			methods={props.methods}
 			disabled={props.disabled}
 			useRealLabel
+			skeleton={props.skeleton}
 		>
 			<FormFieldDropdown
 				{...props}
