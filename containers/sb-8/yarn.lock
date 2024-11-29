@@ -3118,9 +3118,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@simpleview/sv-mosaic-eslint@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@simpleview/sv-mosaic-eslint@npm:0.0.1"
+"@simpleview/sv-mosaic-eslint@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@simpleview/sv-mosaic-eslint@npm:0.0.2"
   dependencies:
     "@eslint/js": ^9.15.0
     "@stylistic/eslint-plugin": ^2.11.0
@@ -3130,7 +3130,7 @@ __metadata:
     typescript-eslint: ^8.15.0
   peerDependencies:
     eslint: ">9"
-  checksum: 59d17cdd817dc80b708ea44bdee6313e7d4832182893d201b7b346a9dd21775e16ea90e908c478674a6e884fd6289fd2d715a6a87fa4fa459240782b5c1c42a9
+  checksum: 722c50ab1114668cd731a908c9c0c0ca2a834becee0a8e8d611907768cfccfac88351857d477838a62104e1ce6e1a075270f65a80cc231651af088950df53ff1
   languageName: node
   linkType: hard
 
@@ -11172,7 +11172,7 @@ __metadata:
     "@mui/material": 5.16.7
     "@mui/styles": 5.16.7
     "@mui/x-date-pickers": 5.0.0-beta.0
-    "@simpleview/sv-mosaic-eslint": ^0.0.1
+    "@simpleview/sv-mosaic-eslint": 0.0.2
     "@storybook/addon-essentials": ^8.1.11
     "@storybook/addon-interactions": ^8.1.11
     "@storybook/addon-links": ^8.1.11
