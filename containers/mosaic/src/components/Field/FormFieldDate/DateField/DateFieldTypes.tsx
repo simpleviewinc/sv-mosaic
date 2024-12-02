@@ -46,5 +46,3 @@ export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings>;
 export type TimeTuple = [number, number, number?, number?];
 
 export type TimeString = `${number}${number}:${number}${number}`;
-
-export type FormFieldDateSkeletonProps = Pick<DateFieldInputSettings, "showTime">;

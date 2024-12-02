@@ -1,12 +1,18 @@
-import type { TimeTuple } from "@root/components/Field";
+import type { TimeString, TimeTuple } from "@root/components/Field";
+import { parseTime } from "./parseTime";
 
-function matchTime(date: Date, time: Date | TimeTuple) {
+function matchTime(date: Date, time: Date | TimeTuple | TimeString) {
 	const clone = new Date(date.getTime());
-	const [hr, min, sec] = Array.isArray(time) ? time : [
-		time.getHours(),
-		time.getMinutes(),
-		time.getSeconds(),
-	];
+	const [hr, min, sec] =
+		typeof time === "string"
+			? parseTime(time)
+			: Array.isArray(time) ? time
+			: [
+				time.getHours(),
+				time.getMinutes(),
+				time.getSeconds(),
+			]
+	;
 
 	clone.setHours(hr, min, sec, 0);
 
