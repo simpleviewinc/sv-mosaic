@@ -46,6 +46,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 							name: "date",
 							type: "date",
 							size: Sizes.full,
+							required: field.required,
+							disabled: field.disabled,
 							inputSettings: {
 								...inputSettings,
 								showTime: false,
@@ -55,6 +57,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 							name: "time",
 							type: "time",
 							size: Sizes.full,
+							required: field.required,
+							disabled: field.disabled,
 							inputSettings: {
 								defaultTime: inputSettings.defaultTime,
 							},
@@ -63,6 +67,16 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 					layout: [[["date"], ["time"]]],
 				},
 				getResolvedValue: (value) => {
+					if (value instanceof Date) {
+						return {
+							internalValue: {
+								date: { date: value, validDate: true },
+								time: { time: value, validTime: true },
+							},
+							value,
+						};
+					}
+
 					if (!value || !value.date || !value.time) {
 						return { internalValue: value, value: undefined };
 					}

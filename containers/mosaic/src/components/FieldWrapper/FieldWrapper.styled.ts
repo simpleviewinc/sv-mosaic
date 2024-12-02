@@ -26,8 +26,8 @@ export const StyledFieldWrapper = styled.div<{ $error?: boolean; $spacing?: Form
 
 	${({ $error, $spacing }) => $error && `
 		background-color: ${theme.newColors.darkRed["5"]};
-		margin: ${$spacing === "compact" ? "0 -8px -8px" : "-4px -12px -8px"};
-		padding: ${$spacing === "compact" ? "0 8px 8px" : "4px 12px 8px"};
+		margin: ${$spacing === "compact" ? "-4px -4px -6px" : "-4px -12px -8px"};
+		padding: ${$spacing === "compact" ? "4px 4px 6px" : "4px 12px 8px"};
 	`}
 `;
 
