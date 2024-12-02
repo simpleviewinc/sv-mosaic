@@ -213,12 +213,8 @@ export type FieldDef =
 	| FieldDefRaw
 	| FieldDefGroup;
 
-export type Head<T extends any[]> = T extends [ ...infer Head, any ] ? Head : any[];
-
-export type DropParam<T extends (...args: any) => any, R = any> = (...args: Head<Parameters<T>>) => R;
-
 export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields"> & {
-	getResolvedValue: DropParam<FieldValueResolver>;
+	getResolvedValue: (value: any) => { internalValue: any; value: any };
 
 	order: number;
 
