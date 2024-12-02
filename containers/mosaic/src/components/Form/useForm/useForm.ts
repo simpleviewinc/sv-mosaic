@@ -166,10 +166,12 @@ export function useForm(): UseFormReturn {
 		const { errors, hasBlurred, hasSubmitted } = stable.current;
 
 		const { value, internalValue } = getFieldValue({
-			fields: fullPath,
-			value: providedValue,
+			target: fullPath,
+			// fields: fullPath,
+			// value: providedValue,
 			stable: stable.current,
-			current: {
+			value: providedValue,
+			currentValues: {
 				values: stable.current.data,
 				internalValues: stable.current.internalData,
 			},
