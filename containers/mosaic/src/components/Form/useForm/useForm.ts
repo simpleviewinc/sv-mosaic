@@ -88,7 +88,6 @@ export function useForm(): UseFormReturn {
 		validate,
 	}) => {
 		const internalValues = getFieldInternalValues(values, getFields({ stable: stable.current, path }));
-
 		/**
 		 * It's kinda wierd, but lodash doesn't do anything if path is empty,
 		 * so if path is empty, we'll just assign the values instead of "setting"
