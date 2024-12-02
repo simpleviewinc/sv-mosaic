@@ -1,18 +1,13 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-//import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DesktopDatePicker as DatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+
 import type { DatePickerProps } from ".";
 
-// Styles
-import {
-	DatePickerTextField,
-	DatePickerWrapper,
-	popperSx,
-} from "./DatePicker.styled";
+import { DatePickerTextField, DatePickerWrapper, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
