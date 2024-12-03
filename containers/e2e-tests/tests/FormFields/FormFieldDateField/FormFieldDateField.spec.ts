@@ -47,7 +47,7 @@ test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
 
 	test("Validate error when trying to save with Requiered Calendar Date and Time empty.", async () => {
 		await formFieldDateFieldPage.saveBtn.click();
-		await expect(formFieldDateFieldPage.page.locator("p", { hasText: "This field is required, please fill it" })).toBeVisible();
+		await expect(formFieldDateFieldPage.page.locator("p", { hasText: "This field is required, please fill it" }).first()).toBeVisible();
 	});
 
 	test("Validate the Requiered Calendar Date and Time Input by writing the date and time.", async () => {
