@@ -36,8 +36,7 @@ const TextField = (
 
 	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
-
-		onChange && onChange(value === "" ? undefined : value);
+		onChange && onChange(value);
 	};
 
 	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {

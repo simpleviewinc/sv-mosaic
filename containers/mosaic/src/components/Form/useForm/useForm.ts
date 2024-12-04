@@ -18,7 +18,6 @@ import type {
 	RemoveWait,
 	FormWait,
 	MountField,
-	AddValidator,
 	FormInit,
 	FormReset,
 	SetSubmitWarning,
@@ -88,7 +87,6 @@ export function useForm(): UseFormReturn {
 		validate,
 	}) => {
 		const internalValues = getFieldInternalValues(values, getFields({ stable: stable.current, path }));
-
 		/**
 		 * It's kinda wierd, but lodash doesn't do anything if path is empty,
 		 * so if path is empty, we'll just assign the values instead of "setting"
@@ -166,10 +164,10 @@ export function useForm(): UseFormReturn {
 		const { errors, hasBlurred, hasSubmitted } = stable.current;
 
 		const { value, internalValue } = getFieldValue({
-			fields: fullPath,
-			value: providedValue,
+			target: fullPath,
 			stable: stable.current,
-			current: {
+			value: providedValue,
+			currentValues: {
 				values: stable.current.data,
 				internalValues: stable.current.internalData,
 			},
@@ -375,40 +373,6 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
-	const addValidator = useCallback<AddValidator>(({
-		name,
-		validator,
-	}) => {
-		const current = stable.current.internalValidators[name] || [];
-
-		/**
-		 * Just bail if this validator is already registered
-		 */
-		if (current.includes(validator)) {
-			return;
-		}
-
-		stable.current.internalValidators[name] = [
-			...current,
-			validator,
-		];
-
-		return {
-			remove: () => {
-				const current = stable.current.internalValidators[name] || [];
-
-				/**
-				 * Just bail if this validator isn't registered
-				 */
-				if (!current.includes(validator)) {
-					return;
-				}
-
-				stable.current.internalValidators[name] = current.filter(item => item !== validator);
-			},
-		};
-	}, []);
-
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -418,7 +382,6 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
-		addValidator,
 		init,
 		reset,
 		setSubmitWarning,
@@ -431,7 +394,6 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
-		addValidator,
 		init,
 		reset,
 		setSubmitWarning,
