@@ -165,8 +165,6 @@ export function useForm(): UseFormReturn {
 
 		const { value, internalValue } = getFieldValue({
 			target: fullPath,
-			// fields: fullPath,
-			// value: providedValue,
 			stable: stable.current,
 			value: providedValue,
 			currentValues: {
