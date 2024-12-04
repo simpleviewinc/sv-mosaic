@@ -5,10 +5,10 @@ import React, { memo, useMemo } from "react";
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 
-import { matchTime, parseTime, textIsValidDate } from "@root/utils/date";
-import { DATE_FORMAT_FULL, DATE_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
-import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
-import { useFieldErrors } from "@root/utils/hooks";
+// import { matchTime, parseTime, textIsValidDate } from "@root/utils/date";
+import { /* DATE_FORMAT_FULL ,*/ DATE_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
+// import { INVALID_DATE, INVALID_TIME, TIME_REQUIRED } from "@root/components/Form/fieldErrors";
+// import { useFieldErrors } from "@root/utils/hooks";
 import DatePicker from "../DatePicker";
 import { DateTimePickerWrapper } from "./DateField.styled";
 import { FormFieldDateSkeleton } from "./FormFieldDateSkeleton";
@@ -21,7 +21,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		onBlur,
 		disabled,
 		error,
-		methods,
+		// methods,
 		inputRef,
 		skeleton,
 		id,
@@ -30,70 +30,66 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		inputSettings: {
 			minDate,
 			maxDate,
-			defaultTime,
 		} = {},
 	} = fieldDef;
 
 	const value = useMemo(() => providedValue || {
-		validDate: false,
-		validTime: false,
+		date: null,
+		keyboardInputValue: undefined,
 	}, [providedValue]);
 
-	const { addError, removeError } = useFieldErrors({
-		methods,
-		name: fieldDef.name,
-	});
+	const handleDateChange = (date: Date | null, keyboardInputValue?: string) => onChange({ date, keyboardInputValue });
 
-	const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
-		const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
-		const changeByDatepicker = date && !keyboardInputValue;
+	// const handleDateChange = async (date: Date, keyboardInputValue?: string) => {
+	// 	const validKeyboardInput = textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL);
+	// 	const changeByDatepicker = date && !keyboardInputValue;
 
-		// if (showTime && date && !value.validTime) {
-		// 	addError(TIME_REQUIRED);
-		// } else {
-		// 	removeError(TIME_REQUIRED);
-		// }
+	// 	if (showTime && date && !value.validTime) {
+	// 		addError(TIME_REQUIRED);
+	// 	} else {
+	// 		removeError(TIME_REQUIRED);
+	// 	}
 
-		if (
-			// The datepicker was used
-			changeByDatepicker ||
-			// A valid date was entered using the keyboard
-			(keyboardInputValue && validKeyboardInput)
-		) {
-			removeError(INVALID_DATE);
+	// 	if (
+	// 		// The datepicker was used
+	// 		changeByDatepicker ||
+	// 		// A valid date was entered using the keyboard
+	// 		(keyboardInputValue && validKeyboardInput)
+	// 	) {
+	// 		removeError(INVALID_DATE);
 
-			const result = {
-				...value,
-				date,
-				validDate: true,
-			};
+	// 		const result = {
+	// 			...value,
+	// 			date,
+	// 			validDate: true,
+	// 		};
 
-			if (!value.validTime && defaultTime) {
-				removeError([INVALID_TIME, TIME_REQUIRED]);
+	// 		if (!value.validTime && defaultTime) {
+	// 			removeError([INVALID_TIME, TIME_REQUIRED]);
 
-				const time = matchTime(new Date(), parseTime(defaultTime));
+	// 			const time = matchTime(new Date(), parseTime(defaultTime));
 
-				result.time = time;
-				result.validTime = true;
-			}
+	// 			result.time = time;
+	// 			result.validTime = true;
+	// 		}
 
-			onChange(result, { validate: true });
-		} else {
-			if (keyboardInputValue && !validKeyboardInput) {
-				addError(INVALID_DATE);
-			} else {
-				removeError(INVALID_DATE);
-			}
+	// 		onChange(result, { validate: true });
+	// 	} else {
+	// 		if (keyboardInputValue && !validKeyboardInput) {
+	// 			addError(INVALID_DATE);
+	// 		} else {
+	// 			removeError(INVALID_DATE);
+	// 		}
 
-			const result = {
-				...value,
-				date,
-				validDate: false,
-			};
+	// 		const result = {
+	// 			...value,
+	// 			date,
+	// 			validDate: false,
+	// 		};
 
-			onChange(result, { validate: true });
-		}
-	};
+	// 		onChange(result, { validate: true });
+	// 	}
+	// };
 
 	// const handleTimeChange = async (time: Date, keyboardInputValue?: string) => {
 	// 	const isKeyboardEvent = keyboardInputValue !== undefined;

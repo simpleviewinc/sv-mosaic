@@ -38,38 +38,11 @@ describe("DateField component", () => {
 			},
 			value: {
 				date: new Date("2022-01-01T00:00:00.000Z"),
-				validDate: true,
-				time: new Date("2022-01-01T00:00:00.000Z"),
-				validTime: true,
 			},
 		});
 
 		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
 
-	});
-
-	it("Should display the date time values", () => {
-		setup({
-			fieldDef: {
-				name: "dateTime",
-				type: "date",
-				label: "Date Time Input",
-				required: false,
-				disabled: false,
-				inputSettings: {
-					showTime: true,
-				},
-			},
-			value: {
-				date: new Date("2022-01-01T13:30:00.000Z"),
-				validDate: true,
-				time: new Date("2022-01-01T13:30:00.000Z"),
-				validTime: true,
-			},
-		});
-
-		expect(screen.getByDisplayValue("01/01/2022")).toBeInTheDocument();
-		expect(screen.getByDisplayValue("01:30 pm")).toBeInTheDocument();
 	});
 
 	it("should trigger a time change if a default time is provided but there is no value", async () => {
@@ -111,9 +84,6 @@ describe("DateField component", () => {
 			},
 			value: {
 				date: new Date(25, 12, 24, 11, 30),
-				validDate: true,
-				time: new Date(25, 12, 24, 11, 30),
-				validTime: true,
 			},
 		});
 

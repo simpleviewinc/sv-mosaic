@@ -1,12 +1,14 @@
 import format from "date-fns/format";
 import { postcodeValidator, postcodeValidatorExistsForCountry } from "postcode-validator";
 
-import type { MosaicLabelValue } from "@root/types";
+import type { MosaicLabelValue, MosaicObject } from "@root/types";
 
-import { DATE_FORMAT_FULL } from "@root/constants";
+import { DATE_FORMAT_FULL, TIME_FORMAT_FULL } from "@root/constants";
 import { isLabelValue } from "@root/types";
 import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
 import { getTextLength } from "@root/utils/string";
+import type { FieldObj } from "@root/components";
+import { textIsValidDate } from "../date";
 
 export const VALIDATE_EMAIL_TYPE = "validateEmail";
 export const VALIDATE_SLOW_TYPE = "validateSlow";
@@ -85,13 +87,8 @@ export function validateLongitude(lng: number): string | undefined {
 /**
  * Validates a required field.
  */
-export function required(value: any): string | undefined {
-	if (
-		value === undefined ||
-		(typeof value === "string" && !value.trim().length) ||
-		(Array.isArray(value) && !value.length) ||
-		value === false
-	) {
+export function required(value: any, values: MosaicObject<any>, options: any, internalValue: any, internalData: MosaicObject<any>, field: FieldObj): string | undefined {
+	if (!field.hasValue({ value, internalValue })) {
 		return "This field is required, please fill it";
 	}
 
@@ -270,4 +267,34 @@ export async function validatePostcode(value: string, data: any, { countryField 
 	}
 
 	return;
+}
+
+export async function validateDate(value: any, data: MosaicObject<any>, options: any, internalValue: any) {
+	if (!internalValue?.date) {
+		return;
+	}
+
+	const { date, keyboardInputValue } = internalValue;
+
+	if (
+		isNaN(date.getTime()) ||
+		(keyboardInputValue && !textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL))
+	) {
+		return "The date provided is invalid";
+	}
+}
+
+export async function validateTime(value: any, data: MosaicObject<any>, options: any, internalValue: any) {
+	if (!internalValue?.time) {
+		return;
+	}
+
+	const { time, keyboardInputValue } = internalValue;
+
+	if (
+		isNaN(time.getTime()) ||
+		(keyboardInputValue && !textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL))
+	) {
+		return "The time provided is invalid";
+	}
 }

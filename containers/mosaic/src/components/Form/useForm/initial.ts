@@ -19,7 +19,6 @@ export function getInitialStable(): FormStable {
 		initialData: {},
 		fields: {},
 		mounted: {},
-		internalValidators: {},
 		hasBlurred: {},
 		hasSubmitted: false,
 		moveToError: false,

@@ -185,6 +185,10 @@ export interface FieldDefBase<Type, T = any> {
 	 * to an function that returns a like-for-like value
 	 */
 	getResolvedValue?: FieldValueResolver;
+	/**
+	 * How to decide whether or not the field has a value
+	 */
+	hasValue?: FieldHasValue;
 }
 
 export type FieldDefCustom = FieldDefBase<((props?: any) => JSX.Element) | MemoExoticComponent<(props?: any) => JSX.Element>>;
@@ -215,19 +219,21 @@ export type FieldDef =
 
 export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields"> & {
 	getResolvedValue: (value: any) => { internalValue: any; value: any };
-
 	order: number;
-
 	fields?: Record<string, FieldObj>;
+	hasValue: FieldHasValue;
 };
 
 export type FieldDefSanitized = FieldDef;
 
 export type FieldValidateOn = "onBlur" | "onChange" | "onBlurAmend" | "onBlurChange" | "onSubmit";
 
+export type FieldHasValue = ({ value, internalValue }: { value: any; internalValue: any }) => boolean;
+
 export interface FieldConfig {
 	Component: ElementType;
 	validate: FieldValidateOn;
 	getResolvedValue: FieldValueResolver;
+	hasValue: FieldHasValue;
 }
 

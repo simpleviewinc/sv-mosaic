@@ -1,10 +1,9 @@
 import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
 
-import type { DateData, FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import type { DateData } from "@root/components/Field/FormFieldDate/DateField";
 import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import type { UploadData, UploadDataPending } from "@root/components/Field/FormFieldUpload";
 
-import { matchTime } from "@root/utils/date";
 import { isPendingUploadData } from "@root/components/Field/FormFieldUpload/FormFieldUploadTypes";
 import defaultResolver from "./defaultResolver";
 import cleanValue from "./cleanValue";
@@ -29,6 +28,8 @@ import FormFieldUpload from "@root/components/Field/FormFieldUpload/FormFieldUpl
 import FormFieldNumber from "@root/components/Field/FormFieldNumber/FormFieldNumber";
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable/FormFieldNumberTable";
 import FormFieldGroup from "@root/components/Field/FormFieldGroup/FormFieldGroup";
+import defaultHasValue from "./defaultHasValue";
+import { matchTime } from "../date";
 
 type FieldConfigMap = Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>>;
 
@@ -49,81 +50,79 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 				Component: FormFieldText,
 				validate: "onBlurAmend",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			checkbox: {
 				Component: FormFieldCheckbox,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			chip: {
 				Component: FormFieldChips,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			dropdown: {
 				Component: FormFieldDropdown,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			phone: {
 				Component: FormFieldPhone,
 				validate: "onBlurAmend",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			radio: {
 				Component: FormFieldRadio,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			toggle: {
 				Component: FormFieldToggle,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			color: {
 				Component: FormFieldColor,
 				validate: "onBlur",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			date: {
 				Component: FormFieldDate,
-				validate: "onBlurChange",
-				getResolvedValue: (
-					value: DateData | Date | undefined,
-					fieldDef: FieldDefDate,
-				): {
+				validate: "onBlur",
+				getResolvedValue: (value: DateData | Date | undefined, fieldDef): {
 					internalValue: DateData | undefined;
 					value: Date | undefined;
 				} => {
+
 					if (value instanceof Date ) {
 						return {
-							internalValue: { date: value, validDate: true, time: value, validTime: true },
+							internalValue: { date: value },
 							value,
 						};
 					} else {
-						const fixedTime = fieldDef?.inputSettings?.fixedTime || [0, 0, 0, 0];
-
-						if (!value) {
+						if (!value || !value.date) {
 							return {
 								internalValue: undefined,
 								value: undefined,
 							};
 						}
 
-						if (!value.validDate) {
-							return { internalValue: value, value: undefined };
-						}
-
-						if (!fieldDef?.inputSettings?.showTime) {
-							return { internalValue: value, value: matchTime(value.date, fixedTime) };
-						}
-
-						if (!value.validTime) {
-							return { internalValue: value, value: undefined };
-						}
-
-						return { internalValue: value, value: matchTime(value.date, value.time) };
+						return {
+							internalValue: value,
+							value: matchTime(value.date, fieldDef?.inputSettings?.fixedTime || [0, 0, 0, 0]),
+						};
 					}
+				},
+				hasValue: ({ internalValue }) => {
+					return Boolean(internalValue && internalValue.date);
 				},
 			},
 			time: {
@@ -143,55 +142,61 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 						date.setMinutes(Number(mins));
 
 						return {
-							internalValue: { time: date, validTime: true },
+							internalValue: {
+								time: date,
+								keyboardInputValue: undefined,
+							},
 							value,
 						};
 					} else {
-						if (!value) {
+						if (!value || !value.time || isNaN(value.time.getTime())) {
 							return {
 								internalValue: undefined,
 								value: undefined,
 							};
 						}
 
-						if (!value.validTime) {
-							return { internalValue: value, value: undefined };
-						}
-
-						const time = `${
-							String(value.time.getHours()).padStart(2, "0")
-						}:${
-							String(value.time.getMinutes()).padStart(2, "0")
-						}`;
+						const time = [
+							String(value.time.getHours()).padStart(2, "0"),
+							String(value.time.getMinutes()).padStart(2, "0"),
+						].join(":");
 
 						return { internalValue: value, value: time };
 					}
+				},
+				hasValue: ({ internalValue }) => {
+					return Boolean(internalValue && internalValue.time);
 				},
 			},
 			address: {
 				Component: FormFieldAddress,
 				validate: "onBlur",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			textEditor: {
 				Component: FormFieldTextEditor,
 				validate: "onBlurAmend",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			advancedSelection: {
 				Component: FormFieldAdvancedSelection,
 				validate: "onBlur",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			mapCoordinates: {
 				Component: FormFieldMapCoordinates,
 				validate: "onBlur",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			matrix: {
 				Component: FormFieldMatrix,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			upload: {
 				Component: FormFieldUpload,
@@ -204,26 +209,31 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 						internalValue: value || [],
 					};
 				},
+				hasValue: defaultHasValue,
 			},
 			number: {
 				Component: FormFieldNumber,
 				validate: "onBlurAmend",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			numberTable: {
 				Component: FormFieldNumberTable,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			raw: {
 				Component: FormFieldRaw,
 				validate: "onChange",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 			group: {
 				Component: FormFieldGroup,
 				validate: "onSubmit",
 				getResolvedValue: defaultResolver,
+				hasValue: defaultHasValue,
 			},
 		};
 
@@ -241,6 +251,7 @@ export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
 			Component: type,
 			validate: "onBlur",
 			getResolvedValue: defaultResolver,
+			hasValue: defaultHasValue,
 		};
 	}
 
@@ -249,6 +260,7 @@ export function getFieldConfig(type: FieldDef["type"]): FieldConfig {
 			Component: null,
 			validate: "onBlur",
 			getResolvedValue: defaultResolver,
+			hasValue: defaultHasValue,
 		};
 	}
 

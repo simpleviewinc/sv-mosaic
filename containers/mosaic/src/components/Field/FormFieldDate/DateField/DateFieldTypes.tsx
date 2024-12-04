@@ -35,10 +35,8 @@ export interface DateFieldInputSettings {
 }
 
 export interface DateData {
-	date?: Date;
-	validDate: boolean;
-	time?: Date;
-	validTime: boolean;
+	date: null | Date;
+	keyboardInputValue?: string;
 }
 
 export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings>;

@@ -81,7 +81,10 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 						return { internalValue: value, value: undefined };
 					}
 
-					return { internalValue: value, value: matchTime(value.date, value.time) };
+					return {
+						internalValue: value,
+						value: matchTime(value.date, value.time),
+					};
 				},
 			};
 		}
