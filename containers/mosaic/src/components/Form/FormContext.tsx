@@ -8,7 +8,6 @@ import throws from "@root/utils/misc/throws";
 export const FormContext = createContext<FormContextState>({
 	state: getInitialState(),
 	methods: {
-		addValidator: throws("addValidator requires a FormContext provider"),
 		addWait: throws("addWait requires a FormContext provider"),
 		disableForm: throws("disableForm requires a FormContext provider"),
 		init: throws("init requires a FormContext provider"),

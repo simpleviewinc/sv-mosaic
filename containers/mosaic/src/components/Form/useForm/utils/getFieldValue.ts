@@ -1,51 +1,78 @@
+import get from "lodash/get";
+
 import type { FieldPath, FormStable } from "../types";
 
 import getField from "./getField";
 
 interface GetFieldValue {
-	fields: FieldPath;
+	target: FieldPath;
+	fieldName?: string;
 	path?: FieldPath;
+	depth?: number;
 	value: any;
-	stable: FormStable;
-	current: {
+	currentValues: {
 		values: FormStable["data"];
 		internalValues: FormStable["internalData"];
 	};
+	stable: FormStable;
 }
 
-function getFieldValue({ fields, path = [], value, current, stable }: GetFieldValue) {
-	const [name, ...descendents] = fields;
-	const field = getField({ name, path, stable });
+function getFieldValue({
+	target,
+	fieldName = target[0],
+	path = [],
+	value,
+	currentValues,
+	stable,
+	depth = 0,
+}: GetFieldValue) {
+	const field = getField({
+		name: fieldName,
+		path,
+		stable,
+	});
 
-	if (typeof value === "function") {
-		value = value(current.internalValues[name]);
-	}
+	if (field.type === "group") {
+		const result = Object.keys(field.fields).reduce<{ value: any; internalValue: any }>((acc, subField) => {
+			const child = getFieldValue({
+				target,
+				fieldName: subField,
+				path: [...path, fieldName],
+				value,
+				currentValues: {
+					values: currentValues?.values?.[fieldName] || {},
+					internalValues: currentValues?.internalValues?.[fieldName] || {},
+				},
+				stable,
+				depth: depth + 1,
+			});
 
-	if (descendents.length) {
-		const child = getFieldValue({
-			fields: descendents,
-			path: [...path, name],
-			value,
-			stable,
-			current: {
-				values: current.values[name],
-				internalValues: current.internalValues[name],
-			},
+			return {
+				internalValue: {
+					...acc.internalValue,
+					[subField]: child.internalValue,
+				},
+				value: {
+					...acc.value,
+					[subField]: child.value,
+				},
+			};
+		}, {
+			internalValue: currentValues.internalValues[fieldName],
+			value: currentValues.values[fieldName],
 		});
 
 		return {
-			internalValue: {
-				...current.internalValues[name],
-				[descendents[0]]: child.internalValue,
-			},
-			value: field.getResolvedValue({
-				...current.values[name],
-				[descendents[0]]: child.value,
-			}).value,
+			internalValue: result.internalValue,
+			value: field.getResolvedValue(result.value).value,
 		};
 	}
 
-	return field.getResolvedValue(value);
+	const isTarget = target.join(".") === [...path, fieldName].join(".");
+	return field.getResolvedValue(
+		isTarget ?
+			(typeof value === "function" ? value(get(stable.internalData, [...path, fieldName])) : value) :
+			currentValues.internalValues[fieldName]);
 }
 
 export default getFieldValue;

@@ -5,7 +5,7 @@ import React, { memo, useCallback, useContext, useEffect, useMemo } from "react"
 import FormFieldDropdown from "../../FormFieldDropdown";
 import FieldWrapper from "@root/components/FieldWrapper";
 import { FormContext } from "@root/components/Form/FormContext";
-import { get } from "lodash";
+import get from "lodash/get";
 
 function AddressStateField(props): ReactElement {
 	const { fieldDef, path, value } = props;
