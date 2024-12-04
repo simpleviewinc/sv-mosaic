@@ -25,6 +25,7 @@ function createFieldStore({
 			...field,
 			validateOn: field.validateOn || fieldConfig.validate,
 			getResolvedValue: (value) => valueResolver(value, field),
+			hasValue: field.hasValue || fieldConfig.hasValue,
 			order: (fieldsBySection ? fieldsBySection.indexOf(field.name) : index) + 1,
 			fields: field.type === "group" ? createFieldStore({ fields: field.inputSettings.fields, stable }) : undefined,
 		};

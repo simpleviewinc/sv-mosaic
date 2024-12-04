@@ -1,3 +1,4 @@
+import type { FieldObj } from "@root/components/Field";
 import type { FormStable, FormState, Validator } from "./types";
 
 import {
@@ -14,6 +15,8 @@ import {
 	validateURL,
 	validatePostcode,
 	validateNumberRange,
+	validateDate,
+	validateTime,
 } from "@root/utils/form/validators";
 
 export function stateFromStable({
@@ -42,9 +45,19 @@ export async function runValidators(
 	validators: Validator[],
 	value: unknown,
 	data: unknown,
+	internalValue: unknown,
+	internalData: unknown,
+	fieldDef: FieldObj,
 ): Promise<{ errorMessage?: string | undefined; validator: Validator }> {
 	for (const validator of validators) {
-		const result = await validator.fn(value, data, validator.options);
+		const result = await validator.fn(
+			value,
+			data,
+			validator.options,
+			internalValue,
+			internalData,
+			fieldDef,
+		);
 		if (result) {
 			return {
 				errorMessage: result,
@@ -70,6 +83,8 @@ export function mapsValidators(validators): Validator[] {
 		validateLongitude: validateLongitude,
 		validateDateRange: validateDateRange,
 		validateMinDate: validateMinDate,
+		validateDate: validateDate,
+		validateTime: validateTime,
 		validateNumberRange: validateNumberRange,
 		validateCharacterCount: validateCharacterCount,
 		validateEmail: validateEmail,

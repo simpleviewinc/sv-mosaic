@@ -18,7 +18,6 @@ import type {
 	RemoveWait,
 	FormWait,
 	MountField,
-	AddValidator,
 	FormInit,
 	FormReset,
 	SetSubmitWarning,
@@ -376,40 +375,6 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
-	const addValidator = useCallback<AddValidator>(({
-		name,
-		validator,
-	}) => {
-		const current = stable.current.internalValidators[name] || [];
-
-		/**
-		 * Just bail if this validator is already registered
-		 */
-		if (current.includes(validator)) {
-			return;
-		}
-
-		stable.current.internalValidators[name] = [
-			...current,
-			validator,
-		];
-
-		return {
-			remove: () => {
-				const current = stable.current.internalValidators[name] || [];
-
-				/**
-				 * Just bail if this validator isn't registered
-				 */
-				if (!current.includes(validator)) {
-					return;
-				}
-
-				stable.current.internalValidators[name] = current.filter(item => item !== validator);
-			},
-		};
-	}, []);
-
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -419,7 +384,6 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
-		addValidator,
 		init,
 		reset,
 		setSubmitWarning,
@@ -432,7 +396,6 @@ export function useForm(): UseFormReturn {
 		addWait,
 		removeWait,
 		mountField,
-		addValidator,
 		init,
 		reset,
 		setSubmitWarning,

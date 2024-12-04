@@ -25,7 +25,7 @@ async function getFieldError({
 	deep,
 	stable,
 }: GetFieldErrorParams): Promise<string | FormError | undefined> {
-	const { data, internalValidators } = stable;
+	const { data, internalData } = stable;
 	const field = getField({ name, path, stable });
 
 	if (deep && "fields" in field && field.fields) {
@@ -63,6 +63,14 @@ async function getFieldError({
 		validators.push({ fn: "validatePhoneNumber", options: {} });
 	}
 
+	if (field.type === "date") {
+		validators.push({ fn: "validateDate", options: {} });
+	}
+
+	if (field.type === "time") {
+		validators.push({ fn: "validateTime", options: {} });
+	}
+
 	if (field.inputSettings?.maxCharacters > 0) {
 		validators.push({
 			fn: "validateCharacterCount",
@@ -83,15 +91,16 @@ async function getFieldError({
 		});
 	}
 
-	const validatorsMap = mapsValidators([
-		...(internalValidators[name] || []),
-		...validators,
-	]).filter(validator => !include || include.includes(validator.fn));
+	const validatorsMap = mapsValidators(validators)
+		.filter(validator => !include || include.includes(validator.fn));
 
 	const result = await runValidators(
 		validatorsMap,
 		get(data, [...path, name]),
 		path.length ? get(data, path) : data,
+		get(internalData, [...path, name]),
+		path.length ? get(internalData, path) : internalData,
+		field,
 	);
 
 	if (!result) {
