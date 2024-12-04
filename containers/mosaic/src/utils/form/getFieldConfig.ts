@@ -96,7 +96,7 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			},
 			date: {
 				Component: FormFieldDate,
-				validate: "onBlur",
+				validate: "onBlurAmend",
 				getResolvedValue: (value: DateData | Date | undefined, fieldDef): {
 					internalValue: DateData | undefined;
 					value: Date | undefined;
@@ -127,7 +127,7 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			},
 			time: {
 				Component: FormFieldTime,
-				validate: "onBlur",
+				validate: "onBlurAmend",
 				getResolvedValue: (
 					value: TimeData | string | undefined,
 				): {
@@ -149,17 +149,17 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 							value,
 						};
 					} else {
-						if (!value || !value.time || isNaN(value.time.getTime())) {
+						if (!value || !value.time) {
 							return {
 								internalValue: undefined,
 								value: undefined,
 							};
 						}
 
-						const time = [
+						const time = !isNaN(value.time.getTime()) ? [
 							String(value.time.getHours()).padStart(2, "0"),
 							String(value.time.getMinutes()).padStart(2, "0"),
-						].join(":");
+						].join(":") : undefined;
 
 						return { internalValue: value, value: time };
 					}
