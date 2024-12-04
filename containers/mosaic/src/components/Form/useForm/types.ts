@@ -156,19 +156,6 @@ export interface MountFieldResult {
 
 export type MountField = (params: MountFieldParams) => MountFieldResult;
 
-export type RemoveValidator = () => void;
-
-export interface AddValidatorParams {
-	name: string;
-	validator: () => undefined | string;
-}
-
-export interface AddValidatorResult {
-	remove: RemoveValidator;
-}
-
-export type AddValidator = (params: AddValidatorParams) => AddValidatorResult;
-
 export interface FormInitParams {
 	fields: FieldDef[];
 	sections?: SectionDef[];
@@ -189,7 +176,6 @@ export interface FormMethods {
 	addWait: AddWait;
 	removeWait: RemoveWait;
 	mountField: MountField;
-	addValidator: AddValidator;
 	init: FormInit;
 	reset: FormReset;
 	setSubmitWarning: SetSubmitWarning;
@@ -220,12 +206,18 @@ export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldObj>;
 	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
-	internalValidators: Record<string, ((value: any) => string | undefined)[]>;
 	hasBlurred: Record<string, boolean>;
 	hasSubmitted: boolean;
 	moveToError: boolean;
 };
 
-export type ValidatorFn = (value: any, data: MosaicObject<any>, options: any) => Promise<string | undefined>;
+export type ValidatorFn = (
+	value: any,
+	data: MosaicObject<any>,
+	options: any,
+	internalValue: any,
+	internalData: MosaicObject<any>,
+	fieldDef: FieldObj
+) => Promise<string | undefined>;
 
 export interface Validator { fn: ValidatorFn; options: any }
