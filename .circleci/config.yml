@@ -138,7 +138,7 @@ jobs:
           name: Publish to Github pages
           command: docker exec -t sv-mosaic-publisher yarn publish:github-pages
       - ms-teams-orb/report:
-          webhook_url: https://granicus.webhook.office.com/webhookb2/42dd24e6-f6ae-4520-9092-cc21b3b3b730@cc1eb3c2-fc0c-4a83-8e6a-8d886b4faeab/IncomingWebhook/6c9650a931bf4717a1a1644accaf102a/33a1083b-aa7a-4af3-9109-f7ad85f22c39/V26c8x1eRmz6zuTmvtjaRLStXycGL-BcBWj3e1JYk0YD01
+          webhook_url: ${TEAMS_WEBHOOK_URL}
           only_on_fail: false
   Publish to NPM:
     description: Publishes distribution files to both @simpleview/sv-mosaic and @simpleview/sv-mosaic-types on NPM
