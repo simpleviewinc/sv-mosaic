@@ -1,5 +1,37 @@
 # sv-mosaic changelog
 
+### 39.2.0 - 12/10/2024
+
+#### Improvements and Fixes
+
+* `FormFieldAddress`
+
+  * [MOS-1472](https://simpleviewtools.atlassian.net/browse/MOS-1472 "https://simpleviewtools.atlassian.net/browse/MOS-1472") **Add singleAddress or addressFlat form field type**
+    * Introduces the `singleAddress` field type which, under the hood, gets transformed into a field group containing the desired address sub-fields.
+    * By default, all sub-fields will be included, but they can also be cherry-picked using the `subFields` input setting.
+    * Some sub-fields depend on other sub-fields being included. An error will be thrown if an attempt is made to include a sub-field without including its dependency fields. Available sub-fields and their dependencies are as follows:
+
+      * `address1` (`country`, `city`, `state`, `postalCode`)
+      * `address2` (`address1`)
+      * `address3` (`address2`)
+      * `state` (`country`, `postalCode`)
+      * `city` (`country`, `state`, `postalCode`)
+      * `postalCode` (no dependencies)
+    * An address autocomplete field can be utilised for the `address1` field, though it is optional. By omitting the `googleMapsApiKey` input setting, a normal text field will be included instead.
+* `FormFieldDate`
+
+  * [MOS-1519](https://simpleviewtools.atlassian.net/browse/MOS-1519 "https://simpleviewtools.atlassian.net/browse/MOS-1519") **Utilise the new form grouping mechanic for the date field**
+    * (DateField) Utilises field groups to show time and date sub fields when the date field is used with `showTime` input setting.
+    * Allows for the date and time sub-fields to utilise their own validation rules and messages.
+* `SummaryPageTopComponent`
+
+  * [MOS-1515](https://simpleviewtools.atlassian.net/browse/MOS-1515 "https://simpleviewtools.atlassian.net/browse/MOS-1515") **SummaryTop additional actions wrong aria-label**
+    * (TopSummary) Amends additional actions dropdown button to use the same tooltip as the DataView row additional actions.
+* Housekeeping
+
+  * [MOS-1518](https://simpleviewtools.atlassian.net/browse/MOS-1518 "https://simpleviewtools.atlassian.net/browse/MOS-1518") **Console log eslint rule**
+    (chore) Upgrades to @simpleview/sv-mosaic-eslint@0.0.2 to utilises the `no-console` rule. This prevents console logging from making it into production.
+
 ### 39.1.0 - 11/26/2024
 
 #### Improvements and Fixes
