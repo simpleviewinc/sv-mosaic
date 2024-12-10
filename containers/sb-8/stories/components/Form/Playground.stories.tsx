@@ -13,7 +13,7 @@ import Form from "@root/components/Form";
 // Types
 import type { FieldDef } from "@root/components/Field";
 import { optionsLibrary } from "@root/mock";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
