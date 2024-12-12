@@ -24,7 +24,7 @@ export const Playground = ({
 	helperText,
 	showTime,
 	minDateStr,
-	defaultTime,
+	defaultTime: defaultTimeStr,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -39,6 +39,15 @@ export const Playground = ({
 		Number(minDateStr.split("/")[0]) - 1,
 		Number(minDateStr.split("/")[1]),
 	) : undefined;
+
+	const defaultTime = useMemo<`${number}${number}:${number}${number}`>(() => {
+		if (!/\d{4}/.test(defaultTimeStr)) {
+			return undefined;
+		}
+
+		const [, hr, min] = defaultTimeStr.match(/(\d{2})(\d{2})/) as [string, `${number}${number}`, `${number}${number}`];
+		return `${hr}:${min}`;
+	}, [defaultTimeStr]);
 
 	const fields = useMemo(
 		(): FieldDef[] => [

@@ -13,7 +13,6 @@ import { matchTime } from "@root/utils/date";
 import { TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import Skeleton from "@mui/material/Skeleton";
 import { FormContext } from "@root/components/Form/FormContext";
-import isSameTime from "@root/utils/date/isSameTime";
 
 const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, TimeData>): ReactElement => {
 	const {
@@ -51,13 +50,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		} : undefined;
 
 		onChange((value) => {
-			// Prevent a new value being dispatched if it is the same
-			// as the current value (either both undefined or both the
-			// same time)
-			if (
-				(value?.time === newValue?.time) ||
-				(value?.time && newValue?.time && isSameTime(value.time, newValue.time))
-			) {
+			if (value && newValue) {
 				return value;
 			}
 
@@ -65,7 +58,10 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		});
 	}, [date, defaultTime, onChange]);
 
-	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => onChange({ time, keyboardInputValue });
+	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
+		isManualEntry.current = Boolean(time);
+		onChange({ time, keyboardInputValue });
+	};
 
 	if (skeleton) {
 		return (
