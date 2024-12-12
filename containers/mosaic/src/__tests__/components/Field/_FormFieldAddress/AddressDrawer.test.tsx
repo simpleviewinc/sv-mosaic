@@ -9,7 +9,7 @@ import type { TestDef } from "@simpleview/mochalib";
 import { testArray } from "@simpleview/mochalib";
 
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import type { AddressAutocompleteProps } from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import { mockAddressData } from "./mockAddressData";
 

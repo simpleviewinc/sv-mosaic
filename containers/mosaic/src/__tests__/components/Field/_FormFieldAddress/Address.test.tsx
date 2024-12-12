@@ -9,7 +9,7 @@ import {
 import userEvent from "@testing-library/user-event";
 import * as React from "react";
 
-import type { IAddress, AddressFieldInputSettings } from "@root/components/Field/FormFieldAddress";
+import type { AddressFieldInputSettings, AddressItem } from "@root/components/Field/FormFieldAddress";
 import type { FieldDef } from "@root/components/Field";
 
 // Components
@@ -21,7 +21,7 @@ import AddressAutocomplete from "@root/components/Field/FormFieldAddress/Address
 import InputAdornment from "@mui/material/InputAdornment";
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 
 const commonInputSettings = {
 	getOptionsCountries,
@@ -82,7 +82,7 @@ vi.mock("@react-google-maps/api", () => ({
 	Marker: () => <div />,
 }));
 
-const address: IAddress = {
+const address: AddressItem = {
 	id: 1,
 	address1: "8950 N Oracle Rd",
 	city: "Oro Valley",
