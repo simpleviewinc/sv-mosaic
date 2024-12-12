@@ -70,8 +70,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 					if (value instanceof Date) {
 						return {
 							internalValue: {
-								date: { date: value, validDate: true },
-								time: { time: value, validTime: true },
+								date: { date: value, keyboardInputValue: undefined },
+								time: { time: value, keyboardInputValue: undefined, usingDefaultTime: false },
 							},
 							value,
 						};

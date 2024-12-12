@@ -14,6 +14,7 @@ export interface TimeFieldInputSettings {
 export interface TimeData {
 	time: null | Date;
 	keyboardInputValue?: string;
+	usingDefaultTime?: boolean;
 }
 
 export type FieldDefTime = FieldDefBase<"time", TimeFieldInputSettings>;
