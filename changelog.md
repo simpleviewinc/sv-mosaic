@@ -1,5 +1,13 @@
 # sv-mosaic changelog
 
+### 39.2.1 - 12/12/2024
+
+#### Fixes
+
+* `FormFieldDate`
+  * [MOS-1526](https://simpleviewtools.atlassian.net/browse/MOS-1526 "https://simpleviewtools.atlassian.net/browse/MOS-1526") **Date field default time bug**
+    * (DateField) Fixes issue where date fields default time would overwrite any form value population.
+
 ### 39.2.0 - 12/10/2024
 
 #### Improvements and Fixes
