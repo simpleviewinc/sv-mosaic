@@ -60,7 +60,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 
 	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
 		isManualEntry.current = Boolean(time);
-		onChange({ time, keyboardInputValue });
+		return onChange({ time, keyboardInputValue });
 	};
 
 	if (skeleton) {
