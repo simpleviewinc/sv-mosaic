@@ -3,12 +3,16 @@ import set from "lodash/fp/set";
 
 import React, { memo, useCallback, useContext, useEffect, useMemo } from "react";
 
+import type { AddressFieldInputSettings } from "../AddressTypes";
+import type { MosaicFieldProps } from "../../FieldTypes";
+import type { MosaicLabelValue } from "@root/types";
+
 import FormFieldDropdown from "../../FormFieldDropdown";
 import FieldWrapper from "@root/components/FieldWrapper";
 import { FormContext } from "@root/components/Form/FormContext";
 import get from "lodash/get";
 
-function AddressStateField(props): ReactElement {
+function AddressStateField(props: MosaicFieldProps<"dropdown", AddressFieldInputSettings, MosaicLabelValue>): ReactElement {
 	const { fieldDef, path } = props;
 	const { inputSettings } = fieldDef;
 	const { getOptionsStates } = inputSettings;
