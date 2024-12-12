@@ -1,4 +1,4 @@
-function validateDate(date: Date | null) {
+function isValidDate(date: Date | null) {
 	if (!date) {
 		return;
 	}
@@ -13,4 +13,4 @@ function validateDate(date: Date | null) {
 	return date;
 }
 
-export default validateDate;
+export default isValidDate;
