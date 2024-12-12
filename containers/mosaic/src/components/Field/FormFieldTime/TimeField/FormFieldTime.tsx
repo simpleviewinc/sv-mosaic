@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import get from "lodash/get";
 
-import React, { memo, useContext, useEffect, useMemo, useRef } from "react";
+import React, { memo, useContext, useEffect, useMemo } from "react";
 
 // Components
 import TimePicker from "../TimePicker";
@@ -9,7 +9,7 @@ import TimePicker from "../TimePicker";
 // Styles
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { TimeFieldInputSettings, TimeData } from "./TimeFieldTypes";
-import { matchTime } from "@root/utils/date";
+import { isValidDate, matchTime } from "@root/utils/date";
 import { TIME_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
 import Skeleton from "@mui/material/Skeleton";
 import { FormContext } from "@root/components/Form/FormContext";
@@ -37,30 +37,37 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 
 	const { state } = useContext(FormContext);
 	const date = useMemo(() => get(state.internalData, [...(path || []), "date"]), [state, path]);
-	const isManualEntry = useRef(false);
 
 	useEffect(() => {
-		if (isManualEntry.current || !defaultTime) {
-			return;
-		}
-
-		const newValue = date?.date ? {
-			time: matchTime(new Date(), defaultTime),
-			validTime: true,
-		} : undefined;
-
 		onChange((value) => {
-			if (value && newValue) {
+			const usingDefaultTime = !value || value.usingDefaultTime;
+
+			if (!usingDefaultTime) {
 				return value;
 			}
 
-			return newValue;
+			if (!defaultTime) {
+				return value;
+			}
+
+			if (!date?.date) {
+				return undefined;
+			}
+
+			return {
+				time: matchTime(new Date(), defaultTime),
+				validTime: true,
+				usingDefaultTime: true,
+			};
 		});
 	}, [date, defaultTime, onChange]);
 
 	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
-		isManualEntry.current = Boolean(time);
-		return onChange({ time, keyboardInputValue });
+		return onChange({
+			time,
+			keyboardInputValue,
+			usingDefaultTime: !time || !isValidDate(time),
+		});
 	};
 
 	if (skeleton) {
