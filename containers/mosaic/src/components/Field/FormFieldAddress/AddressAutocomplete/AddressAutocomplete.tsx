@@ -1,10 +1,12 @@
-import React from "react";
 import type { ReactElement } from "react";
-import { memo } from "react";
+
+import React, { memo } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
-import type { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
-import Popover from "@mui/material/Popover";
 import { useLoadScript } from "@react-google-maps/api";
+import Popover from "@mui/material/Popover";
+
+import type { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
+
 import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoordinatesUtils";
 
 // Styles
@@ -15,6 +17,7 @@ import {
 	SuggestionsContainer,
 	SuggestionsDescriptionContainer,
 } from "./AddressAutocomplete.styled";
+import testIds from "@root/utils/testIds";
 
 const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 	const {
@@ -85,6 +88,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							onBlur={handleBlur}
 							disabled={disabled}
 							id={id}
+							data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_TEXTBOX}
 						/>
 						<Popover
 							open={Boolean(anchorEl) && suggestions?.length > 0}
@@ -96,8 +100,9 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							}}
 							disableAutoFocus={true}
 							disableEnforceFocus={true}
+							data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_BACKDROP}
 						>
-							<SuggestionsContainer>
+							<SuggestionsContainer data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_SUGGESTIONS}>
 								{suggestions?.map((suggestion) => {
 									return (
 										<SuggestionsDescriptionContainer
