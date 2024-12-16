@@ -7,7 +7,7 @@ import type { AddressData, AddressFieldInputSettings, FieldDefBase, MosaicFieldP
 
 import FormFieldAddress from "@root/components/Field/FormFieldAddress/FormFieldAddress";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { mockAddresses } from "mock/address";
+import { mockAddresses } from "@root/mock";
 import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"address", AddressFieldInputSettings> = {

@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import type { CheckboxData, FormFieldCheckboxInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox/FormFieldCheckbox";
-import { mockOptions } from "mock/options";
+import { mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"checkbox", FormFieldCheckboxInputSettings> = {
