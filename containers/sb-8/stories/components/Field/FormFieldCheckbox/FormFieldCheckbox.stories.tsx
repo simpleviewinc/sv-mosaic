@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
-import type { FieldDef } from "@root/components/Field";
 
 import React, { useMemo } from "react";
+import type { FieldDef } from "@root/components/Field";
 
 import Form, { useForm } from "@root/components/Form";
 import { getOptions, optionsLibrary } from "@root/mock";

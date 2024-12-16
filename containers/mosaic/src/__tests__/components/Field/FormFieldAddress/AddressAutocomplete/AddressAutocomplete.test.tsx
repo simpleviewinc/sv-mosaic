@@ -6,7 +6,7 @@ import type { AddressAutocompleteProps } from "@root/components/Field/FormFieldA
 
 import AddressAutocomplete from "@root/components/Field/FormFieldAddress/AddressAutocomplete";
 import testIds from "@root/utils/testIds";
-import { mockAutocompleteService } from "./mock";
+import { mockAutocompleteService } from "../../../../mock/address";
 
 const mocks = vi.hoisted(() => ({
 	useLoadScript: vi.fn(() => ({

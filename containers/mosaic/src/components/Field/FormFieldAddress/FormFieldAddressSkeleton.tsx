@@ -1,10 +1,11 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { StyledSkeletonWrapper } from "./Address.styled";
+import testIds from "@root/utils/testIds";
 
 export function FormFieldAddressSkeleton() {
 	return (
-		<div>
+		<div data-testid={testIds.FORM_FIELD_SKELETON}>
 			<Skeleton
 				variant="rectangular"
 				width={143}

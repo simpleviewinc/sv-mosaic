@@ -6,7 +6,7 @@ import type { AddressAutocompleteInputSettings } from "@root/components/Field/Fo
 import type { FormMethods, MosaicFieldProps } from "@root/components";
 
 import AddressAutocompleteField from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocompleteField";
-import { mockAutocompleteService, mockGeocodedItems } from "./mock";
+import { mockAddresses, mockAutocompleteService, mockGeocodedItems } from "../../../../mock/address";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { defaultFormContextMethods, FormContext } from "@root/components/Form/FormContext";
 import { getInitialState } from "@root/components/Form/useForm/initial";
@@ -130,18 +130,8 @@ describe(__dirname, () => {
 			path: undefined,
 			validate: true,
 			values: {
-				address1: "81 Sussex Gardens",
-				address2: "Hucclecote",
-				city: "Gloucester",
-				country: {
-					label: "United Kingdom",
-					value: "GB",
-				},
-				postalCode: "GL3 3SP",
-				state: {
-					label: "Gloucestershire",
-					value: "GLS",
-				},
+				...mockAddresses[0],
+				types: undefined,
 			},
 		});
 	});
