@@ -1,86 +1,119 @@
-import * as React from "react";
-import { act, useState } from "react";
-import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act, useState } from "react";
+import userEvent from "@testing-library/user-event";
 
-import { getOptions, optionsLibrary } from "@root/mock";
-import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
+import type { CheckboxData, FormFieldCheckboxInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
-afterEach(cleanup);
+import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox/FormFieldCheckbox";
+import { mockOptions } from "mock/options";
+import testIds from "@root/utils/testIds";
 
-const { getAllByRole, getByText } = screen;
-
-const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
-	const [checked, setChecked] = useState([]);
-
-	const onChange = async (checked) => {
-		setChecked(checked);
-	};
-
-	return (
-		<>
-			{!props.fromDB ? (
-				<FormFieldCheckbox
-					fieldDef={{
-						name: "formFieldCheckbox",
-						type: "checkbox",
-						label: "test",
-						inputSettings: {
-							options: optionsLibrary,
-						},
-					}}
-					value={checked}
-					onChange={onChange}
-				/>
-			) : (
-				<FormFieldCheckbox
-					fieldDef={{
-						name: "formFieldCheckbox",
-						type: "checkbox",
-						label: "test",
-						inputSettings: {
-							options: getOptions,
-						},
-					}}
-					value={checked}
-					onChange={onChange}
-				/>
-			)}
-		</>
-	);
+const defaultFieldDef: FieldDefBase<"checkbox", FormFieldCheckboxInputSettings> = {
+	name: "checkbox",
+	type: "checkbox",
+	inputSettings: {
+		options: mockOptions,
+	},
 };
 
-describe("FormFieldCheckbox component", () => {
-	beforeEach(() => {
-		render(<FormFieldCheckboxExample fromDB={false} />);
+async function setup(
+	props: Partial<MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>> = {},
+	{ stateful = false }: { stateful?: boolean} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
+
+	const Stateless = () => (
+		<FormFieldCheckbox
+			fieldDef={defaultFieldDef}
+			onChange={async (value) => onChangeMock(value)}
+			{...props}
+		/>
+	);
+
+	const Stateful = () => {
+		const [value, setValue] = useState<CheckboxData>([]);
+
+		return (
+			<FormFieldCheckbox
+				fieldDef={defaultFieldDef}
+				value={value}
+				onChange={async (value) => setValue(value)}
+				{...props}
+			/>
+		);
+	};
+
+	const renderResult = await act(async () => render(
+		stateful ? <Stateful /> : <Stateless />,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render the checkbox form field", async () => {
+		await setup();
+
+		expect(screen.queryByRole("checkbox", { name: "Cat" })).toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Horse" })).toBeInTheDocument();
 	});
 
-	it("should display the list of options", () => {
-		expect(getByText("Option 1")).toBeTruthy();
-		expect(getByText("Option 2")).toBeTruthy();
-		expect(getByText("Option 3")).toBeTruthy();
-	});
-
-	it("should check the clicked option", () => {
-		const checkboxElements = getAllByRole("checkbox") as HTMLInputElement[];
-		fireEvent.click(checkboxElements[0]);
-
-		expect(checkboxElements[0].checked).toEqual(true);
-		expect(checkboxElements[1].checked).toEqual(false);
-		expect(checkboxElements[2].checked).toEqual(false);
-	});
-});
-
-describe("FormFieldCheckbox component with options from DB", () => {
-	it("should display the list of options from DB", async () => {
-		await act( async() => {
-			render(<FormFieldCheckboxExample fromDB={true} />);
+	it("should fetch options based on the asynchronous get options callback", async () => {
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions: async () => mockOptions,
+				},
+			},
 		});
 
-		await waitFor(() => {
-			expect(getByText("Option 1")).toBeTruthy();
-			expect(getByText("Option 2")).toBeTruthy();
-			expect(getByText("Option 3")).toBeTruthy();
-			expect(getByText("Option 4")).toBeTruthy();
-		}, { timeout: 3000 });
+		expect(screen.queryByRole("checkbox", { name: "Cat" })).toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Horse" })).toBeInTheDocument();
+	});
+
+	it("should append the current value items as checkboxes if they don't already exist in the options fetched", async () => {
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions: async () => mockOptions,
+				},
+			},
+			value: [{ label: "Ferret", value: "ferret" }],
+		});
+
+		expect(screen.queryByRole("checkbox", { name: "Ferret" })).toBeInTheDocument();
+	});
+
+	it("should fire the on change handler when checkbox items are checked or unchecked", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions: async () => mockOptions,
+				},
+			},
+			onChange: onChangeMock,
+		});
+
+		const option = screen.queryByRole("checkbox", { name: "Dog" });
+		expect(option).toBeInTheDocument();
+		await user.click(option);
+		expect(onChangeMock).toBeCalledWith([{ label: "Dog", value: "dog" }]);
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("button", { name: "Add" })).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 });

@@ -14,13 +14,14 @@ import {
 	StyledExpandLessIcon,
 	StyledExpandMoreIcon,
 } from "./AdvancedSelection.styled";
+import { EMPTY_ARRAY } from "@root/constants/stable";
 
 const MAX_CHIPS_TO_SHOW = 8;
 
 const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): ReactElement => {
 	const {
 		fieldDef,
-		value,
+		value = EMPTY_ARRAY,
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
@@ -44,39 +45,30 @@ const ChipList = forwardRef<HTMLDivElement, ChipListPropsTypes>((props, ref): Re
 		setShowMore(!showMore);
 	};
 
-	return value?.length > 0 && (
+	const itemsToShow = showMore ? value : value.slice(0, MAX_CHIPS_TO_SHOW);
+
+	return value.length > 0 && (
 		<div ref={ref}>
 			<ChipsWrapper data-testid="as-chiplist">
-				{showMore ? (
-					value?.map((option, idx) => (
-						<Chip
-							disabled={fieldDef?.disabled}
-							key={`${option?.label}-${idx}`}
-							label={option?.label}
-							onDelete={() => onChipDelete(option?.value)}
-						/>
-					))
-				) : (
-					value?.slice(0, MAX_CHIPS_TO_SHOW).map((option, idx) => (
-						<Chip
-							disabled={fieldDef?.disabled}
-							key={`${option?.label}-${idx}`}
-							label={option?.label}
-							onDelete={() => onChipDelete(option?.value)}
-						/>
-					))
-				)}
+				{itemsToShow.map((option, idx) => (
+					<Chip
+						disabled={fieldDef?.disabled}
+						key={`${option?.label}-${idx}`}
+						label={option?.label}
+						onDelete={() => onChipDelete(option?.value)}
+					/>
+				))}
 			</ChipsWrapper>
 			{value.length > MAX_CHIPS_TO_SHOW && (
 				<div onClick={handleShowMore}>
 					{showMore ? (
-						<ShowHideSpan>
+						<ShowHideSpan role="button">
 							Hide
 							{" "}
 							<StyledExpandLessIcon />
 						</ShowHideSpan>
 					) : (
-						<ShowHideSpan>
+						<ShowHideSpan role="button">
 							{`${value.length - MAX_CHIPS_TO_SHOW} more`}
 							<StyledExpandMoreIcon />
 						</ShowHideSpan>
