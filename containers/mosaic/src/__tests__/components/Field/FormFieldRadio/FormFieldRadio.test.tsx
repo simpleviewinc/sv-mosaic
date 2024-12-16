@@ -6,7 +6,7 @@ import { getOptions } from "@root/mock";
 import type { MosaicLabelValue } from "@root/types";
 
 import FormFieldRadio from "@root/components/Field/FormFieldRadio";
-import { optionsLibrary } from "@root/mock";
+import { mockOptions } from "@root/mock";
 
 afterEach(cleanup);
 
@@ -104,7 +104,7 @@ describe.skip("FormFieldRadio component from DB", () => {
 	});
 
 	it("should display the value of the clicked option", async () => {
-		expect(getByText(optionsLibrary[6].value)).toBeDefined();
+		expect(getByText(mockOptions[6].value)).toBeDefined();
 	});
 
 	it("should check the clicked option", () => {

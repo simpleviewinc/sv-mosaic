@@ -1,1 +1,2 @@
-export { optionsLibrary, getOptions } from "./options";
+export { mockOptions, getOptions } from "./options";
+export { mockAddresses } from "./addresses";

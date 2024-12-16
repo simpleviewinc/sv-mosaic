@@ -6,7 +6,7 @@ import type { AddressDrawerProps } from "@root/components/Field/FormFieldAddress
 
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { mockAddresses } from "mock/address";
+import { mockAddresses } from "@root/mock";
 
 async function setup(props: Partial<AddressDrawerProps> = {}) {
 	const onSaveMock = props.onSave || vi.fn();

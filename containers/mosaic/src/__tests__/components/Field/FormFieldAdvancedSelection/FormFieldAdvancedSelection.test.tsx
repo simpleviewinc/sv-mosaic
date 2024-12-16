@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import type { AdvancedSelectionData, AdvancedSelectionInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection/FormFieldAdvancedSelection";
-import { mockOptions } from "mock/options";
+import { mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings> = {
