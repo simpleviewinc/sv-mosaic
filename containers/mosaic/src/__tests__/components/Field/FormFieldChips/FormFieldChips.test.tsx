@@ -123,10 +123,10 @@ describe.skip("FormFieldChips component with options from DB", () => {
 		});
 
 		await waitFor(() => {
-			expect(getByText("Option 1")).toBeTruthy();
-			expect(getByText("Option 2")).toBeTruthy();
-			expect(getByText("Option 3")).toBeTruthy();
-			expect(getByText("Option 4")).toBeTruthy();
+			expect(getByText("Dog")).toBeTruthy();
+			expect(getByText("Cat")).toBeTruthy();
+			expect(getByText("Horse")).toBeTruthy();
+			expect(getByText("Lion")).toBeTruthy();
 		}, { timeout: 1000 });
 	});
 });
