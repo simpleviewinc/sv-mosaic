@@ -19,7 +19,6 @@ import type { ButtonProps } from "@root/components/Button";
 const {
 	getByLabelText,
 	getByText,
-	getByTestId,
 	getAllByText,
 	getAllByRole,
 } = screen;

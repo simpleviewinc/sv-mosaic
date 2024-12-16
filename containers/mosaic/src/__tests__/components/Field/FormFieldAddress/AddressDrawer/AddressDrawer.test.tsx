@@ -6,6 +6,7 @@ import type { AddressDrawerProps } from "@root/components/Field/FormFieldAddress
 
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
+import { mockAddresses } from "mock/address";
 
 async function setup(props: Partial<AddressDrawerProps> = {}) {
 	const onSaveMock = props.onSave || vi.fn();
@@ -61,10 +62,12 @@ describe(__dirname, () => {
 
 	it("should fire the on save handler when the form is submitted", async () => {
 		const onSaveMock = vi.fn();
-		const { user } = await setup({ onSave: onSaveMock });
+		const { user, container } = await setup({ onSave: onSaveMock });
 
 		const save = screen.queryByRole("button", { name: "Save" });
 		const address = screen.queryByLabelText("Address*");
+		// TODO: Use a better locator
+		const address2 = container.querySelector("#address2-input");
 		const country = screen.queryByLabelText("Country*");
 		const city = screen.queryByLabelText("City*");
 		const state = screen.queryByLabelText("State");
@@ -72,39 +75,29 @@ describe(__dirname, () => {
 
 		expect(save).toBeInTheDocument();
 		expect(address).toBeInTheDocument();
+		expect(address2).toBeInTheDocument();
 		expect(country).toBeInTheDocument();
 		expect(city).toBeInTheDocument();
 		expect(state).toBeInTheDocument();
 		expect(postalCode).toBeInTheDocument();
 
-		await user.type(address, "81 Sussex Gardens");
+		await user.type(address, mockAddresses[0].address1);
+		await user.type(address2, mockAddresses[0].address2);
 		await user.click(country);
-		await user.keyboard("United Kingdom");
-		const uk = screen.queryByRole("option", { name: "United Kingdom" });
+		await user.keyboard(mockAddresses[0].country.label);
+		const uk = screen.queryByRole("option", { name: mockAddresses[0].country.label });
 		expect(uk).toBeInTheDocument();
 		await user.click(uk);
-		await user.type(city, "Stackville");
+		await user.type(city, mockAddresses[0].city);
 		await user.click(state);
-		await user.keyboard("Bolton");
-		const bolton = screen.queryByRole("option", { name: "Bolton" });
+		await user.keyboard(mockAddresses[0].state.label);
+		const bolton = screen.queryByRole("option", { name: mockAddresses[0].state.label });
 		expect(bolton).toBeInTheDocument();
 		await user.click(bolton);
-		await user.type(postalCode, "GL1 1AB");
+		await user.type(postalCode, mockAddresses[0].postalCode);
 		await user.click(save);
 		expect(onSaveMock).toBeCalledWith({
-			address1: "81 Sussex Gardens",
-			address2: undefined,
-			address3: undefined,
-			city: "Stackville",
-			country: {
-				label: "United Kingdom",
-				value: "GB",
-			},
-			postalCode: "GL1 1AB",
-			state: {
-				label: "Bolton",
-				value: "BOL",
-			},
+			...mockAddresses[0],
 			types: undefined,
 		});
 	});
@@ -124,25 +117,7 @@ describe(__dirname, () => {
 					label: "Shipping",
 				},
 			],
-			addressToEdit: {
-				address1: "81 Sussex Gardens",
-				city: "Stackville",
-				state: {
-					label: "Bolton",
-					value: "BOL",
-				},
-				postalCode: "GL1 1AB",
-				country: {
-					label: "United Kingdom",
-					value: "GB",
-				},
-				types: [
-					{
-						label: "Physical",
-						value: "physical",
-					},
-				],
-			},
+			addressToEdit: mockAddresses[1],
 		});
 
 		expect(screen.queryByLabelText("Shipping")).toBeInTheDocument();
@@ -156,17 +131,7 @@ describe(__dirname, () => {
 		const { user } = await setup({
 			onSave: onSaveMock,
 			addressToEdit: {
-				address1: "81 Sussex Gardens",
-				city: "Stackville",
-				state: {
-					label: "Bolton",
-					value: "BOL",
-				},
-				postalCode: "GL1 1AB",
-				country: {
-					label: "United Kingdom",
-					value: "GB",
-				},
+				...mockAddresses[0],
 				types: [],
 			},
 		});
@@ -175,17 +140,7 @@ describe(__dirname, () => {
 		expect(save).toBeInTheDocument();
 		await user.click(save);
 		expect(onSaveMock).toBeCalledWith({
-			address1: "81 Sussex Gardens",
-			city: "Stackville",
-			state: {
-				label: "Bolton",
-				value: "BOL",
-			},
-			postalCode: "GL1 1AB",
-			country: {
-				label: "United Kingdom",
-				value: "GB",
-			},
+			...mockAddresses[0],
 			types: undefined,
 		});
 	});
