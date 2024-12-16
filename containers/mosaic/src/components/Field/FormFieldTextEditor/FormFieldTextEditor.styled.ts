@@ -44,13 +44,21 @@ export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
     `}
 `;
 
-export const Editor = styled(EditorContent)`
+export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $maxHeight?: string | number }>`
     .tiptap {
         background-color: ${theme.newColors.grey1["100"]};
         border: 1px solid var(--border-color);
         border-top: 0;
         padding: 16px;
         overflow: auto;
+
+        ${({ $minHeight = "4.75em" }) => $minHeight && `
+            min-height: ${typeof $minHeight === "number" ? `${$minHeight}px` : $minHeight};
+        `}
+
+        ${({ $maxHeight }) => $maxHeight && `
+            max-height: ${typeof $maxHeight === "number" ? `${$maxHeight}px` : $maxHeight};
+        `}
 
         &:focus {
 			border-color: ${theme.newColors.almostBlack["100"]};

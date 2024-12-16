@@ -39,6 +39,8 @@ export const Playground = ({
 	customImageHandler,
 	customLinkHandler,
 	customExtensionExample,
+	minHeight,
+	maxHeight,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
@@ -85,6 +87,8 @@ export const Playground = ({
 							});
 						} : undefined,
 						maxCharacters,
+						minHeight: !minHeight ? undefined : minHeight,
+						maxHeight: !maxHeight ? undefined : maxHeight,
 					},
 					disabled,
 					helperText,
@@ -103,6 +107,8 @@ export const Playground = ({
 			customImageHandler,
 			customLinkHandler,
 			customExtensionExample,
+			minHeight,
+			maxHeight,
 		],
 	);
 
@@ -155,6 +161,8 @@ Playground.args = {
 	customImageHandler: false,
 	customLinkHandler: false,
 	customExtensionExample: false,
+	minHeight: "",
+	maxHeight: "",
 };
 
 Playground.argTypes = {
@@ -196,6 +204,12 @@ Playground.argTypes = {
 	},
 	customExtensionExample: {
 		name: "Custom Extension Example",
+	},
+	minHeight: {
+		name: "Minimum Height",
+	},
+	maxHeight: {
+		name: "Maximum Height",
 	},
 };
 
