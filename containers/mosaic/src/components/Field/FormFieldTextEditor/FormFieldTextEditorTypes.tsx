@@ -2,7 +2,7 @@ import type { Dispatch, MouseEvent, ReactElement, SetStateAction } from "react";
 import type { Editor, Extensions } from "@tiptap/core";
 
 import type { FieldDefBase } from "@root/components/Field";
-import type { MosaicToggle, SvgIconComponent } from "@root/types";
+import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { PopperProps } from "@mui/material/Popper";
 import type { FormProps } from "@root/components/Form";
 
@@ -130,6 +130,9 @@ export interface TextEditorInputSettings {
 	allowedLinkProtocols?: string[];
 	autolink?: boolean;
 	maxCharacters?: number;
+	minHeight?: number | string;
+	maxHeight?: number | string;
+	custom?: MosaicObject<any>;
 }
 
 export type TextEditorData = string;
