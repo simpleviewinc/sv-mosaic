@@ -34,6 +34,8 @@ function FormFieldTextEditorUnmemo({
 		extensions: providedExtensions,
 		controls = defaultControls,
 		autolink = true,
+		minHeight,
+		maxHeight,
 	} = providedInputSettings;
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
@@ -214,6 +216,8 @@ function FormFieldTextEditorUnmemo({
 					onFocus={onFocus}
 					onBlur={onBlur}
 					disabled={disabled}
+					$minHeight={minHeight}
+					$maxHeight={maxHeight}
 				/>
 			)}
 			{nodeForm && (
