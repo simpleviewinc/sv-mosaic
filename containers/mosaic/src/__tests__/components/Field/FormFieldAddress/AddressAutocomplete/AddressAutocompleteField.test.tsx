@@ -6,7 +6,8 @@ import type { AddressAutocompleteInputSettings } from "@root/components/Field/Fo
 import type { FormMethods, MosaicFieldProps } from "@root/components";
 
 import AddressAutocompleteField from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocompleteField";
-import { mockAddresses, mockAutocompleteService, mockGeocodedItems } from "../../../../mock/address";
+import { mockAutocompleteService, mockGeocodedItems } from "mock/address";
+import { mockAddresses } from "@root/mock";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { defaultFormContextMethods, FormContext } from "@root/components/Form/FormContext";
 import { getInitialState } from "@root/components/Form/useForm/initial";

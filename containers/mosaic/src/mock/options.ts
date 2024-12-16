@@ -1,82 +1,70 @@
 import type { MosaicLabelValue } from "@root/types";
 import countriesWithStates from "./trimmedCountriesStates.json";
 
-export const optionsLibrary: MosaicLabelValue[] = [
+export const mockOptions: MosaicLabelValue[] = [
 	{
-		label: "Option 1",
-		value: "option_1-cat_1",
+		label: "Dog",
+		value: "dog",
 	},
 	{
-		label: "Option 2",
-		value: "option_2-cat_1",
+		label: "Cat",
+		value: "cat",
 	},
 	{
-		label: "Option 3",
-		value: "option_3-cat_1",
+		label: "Horse",
+		value: "horse",
 	},
 	{
-		label: "Option 4",
-		value: "option_4-cat_1",
+		label: "Lion",
+		value: "lion",
 	},
 	{
-		label: "Option 1 category 2",
-		value: "option_1-cat_2",
+		label: "Tiger",
+		value: "tiger",
 	},
 	{
-		label: "Test option category 2",
-		value: "option_2-cat_2",
+		label: "Human",
+		value: "human",
 	},
 	{
-		label: "Another option of category 2",
-		value: "option_3-cat_2",
+		label: "Cow",
+		value: "cow",
 	},
 	{
-		label: "Option 4 category 2",
-		value: "option_4-cat_2",
+		label: "Snake",
+		value: "snake",
 	},
 	{
-		label: "You can filter by category",
-		value: "option_1-test_category",
+		label: "Bear",
+		value: "bear",
 	},
 	{
-		label: "Very long label that does not fit",
-		value: "option_2-test_category",
+		label: "Wolf",
+		value: "wolf",
 	},
 	{
-		label: "Option 1 category 4",
-		value: "option_1-cat_4",
+		label: "Koala",
+		value: "koala",
 	},
 	{
-		label: "Option without category",
-		value: "option_without_category",
+		label: "Deer",
+		value: "deer",
 	},
 	{
-		label: "ABC",
-		value: "ABC_UPPER",
+		label: "Giraffe",
+		value: "giraffe",
 	},
 	{
-		label: "abc",
-		value: "abc_lower",
-	},
-	{
-		label: "abcdef",
-		value: "option_abcdef",
-	},
-	{
-		label: "Category 5",
-		value: "abc123",
-	},
-	{
-		label: "Category (With Escaped Characters)",
-		value: "category_with_escape",
+		label: "Panda",
+		value: "panda",
 	},
 ];
 
 export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
 	return new Promise(resolve => {
 		setTimeout(() => {
-			resolve(optionsLibrary);
-		}, 3000);
+			resolve(mockOptions);
+		}, 500);
 	});
 };
 

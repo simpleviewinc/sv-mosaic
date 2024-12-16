@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 
 import Form, { useForm } from "@root/components/Form";
-import { getOptions, optionsLibrary } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 import { renderButtons } from "../../../../utils";
 
 export default {
@@ -35,7 +35,7 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
+						options: optionsType === "Synchronous" ? mockOptions : getOptions,
 					},
 					helperText,
 					instructionText,
@@ -122,7 +122,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",
@@ -134,7 +134,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",

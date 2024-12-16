@@ -6,7 +6,7 @@ import type { ChipListPropsTypes } from "@root/components";
 
 import ChipList from "@root/components/Field/FormFieldAdvancedSelection/ChipList";
 import testIds from "@root/utils/testIds";
-import { mockOptions } from "mock/options";
+import { mockOptions } from "@root/mock";
 
 const defaultFieldDef: ChipListPropsTypes["fieldDef"] = {
 	disabled: false,
