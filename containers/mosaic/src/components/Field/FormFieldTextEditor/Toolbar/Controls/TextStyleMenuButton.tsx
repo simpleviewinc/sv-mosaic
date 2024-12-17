@@ -4,7 +4,7 @@ import React from "react";
 
 import type { MenuButtonProps } from "../../FormFieldTextEditorTypes";
 
-import { StyledTextStyleMenuButton } from "../../FormFieldTextEditor.styled";
+import { MultipleStyles, StyledTextStyleMenuButton } from "../../FormFieldTextEditor.styled";
 import testIds from "@root/utils/testIds";
 
 export function TextStyleMenuButton({ disabled, editor, onClick }: MenuButtonProps): ReactElement {
@@ -23,10 +23,10 @@ export function TextStyleMenuButton({ disabled, editor, onClick }: MenuButtonPro
 	return (
 		<StyledTextStyleMenuButton
 			onClick={onClick}
-			disabled={disabled || !currentStyle}
+			disabled={disabled}
 			data-testid={testIds.TEXT_EDITOR_HEADING_MENU}
 		>
-			{currentStyle || "Normal Text"}
+			{currentStyle || <MultipleStyles>Multiple Styles</MultipleStyles>}
 		</StyledTextStyleMenuButton>
 	);
 }
