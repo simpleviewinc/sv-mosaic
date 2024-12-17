@@ -292,7 +292,13 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
 `;
 
 export const StyledTextStyleMenuButton = styled(StyledControlButton)`
-    width: 90px;
+    width: 100px;
+    text-align: center;
+`;
+
+export const MultipleStyles = styled.div`
+    font-style: italic;
+    color: ${theme.newColors.grey3["100"]};
 `;
 
 export const CodeView = styled(TextareaAutosize)`
