@@ -1,9 +1,10 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
-import React, { act, useState } from "react";
+import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
 import type { AdvancedSelectionData, AdvancedSelectionInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
+import FormFieldTestType from "../FormFieldTestType";
 import FormFieldAdvancedSelection from "@root/components/Field/FormFieldAdvancedSelection/FormFieldAdvancedSelection";
 import { mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
@@ -22,29 +23,14 @@ async function setup(
 ) {
 	const onChangeMock = props.onChange || vi.fn();
 
-	const Stateless = () => (
-		<FormFieldAdvancedSelection
-			fieldDef={defaultFieldDef}
-			onChange={async (value) => onChangeMock(value)}
-			{...props}
-		/>
-	);
-
-	const Stateful = () => {
-		const [value, setValue] = useState<AdvancedSelectionData>([]);
-
-		return (
-			<FormFieldAdvancedSelection
-				fieldDef={defaultFieldDef}
-				value={value}
-				onChange={async (value) => setValue(value)}
-				{...props}
-			/>
-		);
-	};
-
 	const renderResult = await act(async () => render(
-		stateful ? <Stateful /> : <Stateless />,
+		<FormFieldTestType
+			Component={FormFieldAdvancedSelection}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
 	));
 
 	return {

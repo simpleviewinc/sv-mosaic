@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import React, { act, useState } from "react";
+import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
 import type { ChipData, FormFieldChipsInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
+import FormFieldTestType from "../FormFieldTestType";
 import FormFieldChips from "@root/components/Field/FormFieldChips/FormFieldChips";
 import { mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
@@ -22,29 +23,14 @@ async function setup(
 ) {
 	const onChangeMock = props.onChange || vi.fn();
 
-	const Stateless = () => (
-		<FormFieldChips
-			fieldDef={defaultFieldDef}
-			onChange={async (value) => onChangeMock(value)}
-			{...props}
-		/>
-	);
-
-	const Stateful = () => {
-		const [value, setValue] = useState<ChipData | undefined>(undefined);
-
-		return (
-			<FormFieldChips
-				fieldDef={defaultFieldDef}
-				value={value}
-				onChange={async (value) => setValue(value)}
-				{...props}
-			/>
-		);
-	};
-
 	const renderResult = await act(async () => render(
-		stateful ? <Stateful /> : <Stateless />,
+		<FormFieldTestType
+			Component={FormFieldChips}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
 	));
 
 	return {
