@@ -9,6 +9,7 @@ export default defineConfig({
 		globals: true,
 		globalSetup: path.resolve(__dirname, "./vitest.global-setup.ts"),
 		environment: "jsdom",
+		exclude: [...configDefaults.exclude, "**/skip.**"],
 		setupFiles: [path.resolve(__dirname, "setup.mts")],
 		deps: {
 			optimizer: {
