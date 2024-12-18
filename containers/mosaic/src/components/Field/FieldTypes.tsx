@@ -3,7 +3,7 @@ import type { FieldDefAdvancedSelection } from "@root/components/Field/FormField
 import type { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import type { FieldDefChip } from "@root/components/Field/FormFieldChips";
 import type { FieldDefColor } from "@root/components/Field/FormFieldColor/FormFieldColorTypes";
-import type { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import type { FieldDefDate } from "@root/components/Field/FormFieldDate";
 import type { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
 import type { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
 import type { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";

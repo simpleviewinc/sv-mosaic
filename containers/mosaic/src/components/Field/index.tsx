@@ -16,8 +16,8 @@ export * from "./FormFieldChips";
 export { default as FormFieldColor } from "./FormFieldColor";
 export * from "./FormFieldColor";
 
-export { default as FormFieldDate } from "./FormFieldDate/DateField";
-export * from "./FormFieldDate/DateField";
+export { default as FormFieldDate } from "./FormFieldDate";
+export * from "./FormFieldDate";
 
 export { default as FormFieldDropdown } from "./FormFieldDropdown";
 export * from "./FormFieldDropdown";
