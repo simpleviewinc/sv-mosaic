@@ -1,132 +1,75 @@
-import type { ReactElement } from "react";
+import { render, screen } from "@testing-library/react";
+import React, { act, useState } from "react";
+import userEvent from "@testing-library/user-event";
 
-import * as React from "react";
-import { act, useMemo } from "react";
-import { render, cleanup, screen, waitFor, fireEvent } from "@testing-library/react";
+import type { ChipData, FormFieldChipsInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
-import type { FieldDef } from "@root/components/Field";
-import type { ButtonProps } from "@root/components/Button";
+import FormFieldChips from "@root/components/Field/FormFieldChips/FormFieldChips";
+import { mockOptions } from "@root/mock";
+import testIds from "@root/utils/testIds";
 
-import Form, { useForm } from "@root/components/Form";
-import { getOptions } from "@root/mock";
-
-afterEach(cleanup);
-
-const { getByText, getAllByRole } = screen;
-
-const FormFieldChipsExample = (props:{ fromDB: boolean }): ReactElement => {
-	const controller = useForm();
-	const { state, handleSubmit } = controller;
-
-	const options = useMemo( ()=> [
-		{
-			label: "Option 1",
-			value: "Option_1",
-		},
-		{
-			label: "Option 2",
-			value: "Option_2",
-		},
-		{
-			label: "Option 3",
-			value: "Option_3",
-		},
-	], []);
-
-	const fields = useMemo(
-		() =>
-			[
-				{
-					label: "Chip test",
-					name: "formFieldChipSingleSelect",
-					type: "chip",
-					inputSettings: {
-						options: !props.fromDB ? options : undefined,
-						getOptions: props.fromDB ? getOptions : undefined,
-					},
-				},
-			] as FieldDef[],
-		[],
-	);
-
-	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
-
-	const buttons: ButtonProps[] = [
-		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained",
-		},
-	];
-
-	return (
-		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
-			<Form
-				{...controller}
-				buttons={buttons}
-				title="Form Title"
-				description="This is a description example"
-				fields={fields}
-			/>
-		</>
-	);
+const defaultFieldDef: FieldDefBase<"chip", FormFieldChipsInputSettings> = {
+	name: "chip",
+	type: "chip",
+	inputSettings: {
+		options: mockOptions,
+	},
 };
 
-const mockResizeObserver = vi.fn();
-mockResizeObserver.mockReturnValue({
-	observe: () => null,
-	unobserve: () => null,
-	disconnect: () => null,
-});
-window.ResizeObserver = mockResizeObserver;
+async function setup(
+	props: Partial<MosaicFieldProps<"chip", FormFieldChipsInputSettings, ChipData>> = {},
+	{ stateful = false }: { stateful?: boolean} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
 
-describe.skip("FormFieldChips component", () => {
-	beforeEach(async () => {
-		await act(() => {
-			render(<FormFieldChipsExample fromDB={false} />);
-		});
+	const Stateless = () => (
+		<FormFieldChips
+			fieldDef={defaultFieldDef}
+			onChange={async (value) => onChangeMock(value)}
+			{...props}
+		/>
+	);
+
+	const Stateful = () => {
+		const [value, setValue] = useState<ChipData | undefined>(undefined);
+
+		return (
+			<FormFieldChips
+				fieldDef={defaultFieldDef}
+				value={value}
+				onChange={async (value) => setValue(value)}
+				{...props}
+			/>
+		);
+	};
+
+	const renderResult = await act(async () => render(
+		stateful ? <Stateful /> : <Stateless />,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render the chip form field", async () => {
+		await setup();
+
+		expect(screen.queryByRole("option", { name: "Cat" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Horse" })).toBeInTheDocument();
 	});
 
-	it("should display the list of options", () => {
-		expect(getByText("Option 1")).toBeTruthy();
-		expect(getByText("Option 2")).toBeTruthy();
-		expect(getByText("Option 3")).toBeTruthy();
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("option", { name: "Cat" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Dog" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Horse" })).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 
-	it("should select a Chip when clicked once and deselect it when clicked again", async () => {
-		const [chip1, chip2, chip3] = getAllByRole("option");
-
-		expect(chip1).toHaveAttribute("aria-selected", "false");
-		expect(chip2).toHaveAttribute("aria-selected", "false");
-		expect(chip3).toHaveAttribute("aria-selected", "false");
-
-		await act(async () => {
-			await fireEvent.click(chip1);
-		});
-
-		expect(chip1).toHaveAttribute("aria-selected", "true");
-
-		await act(async () => {
-			await fireEvent.click(chip1);
-		});
-
-		expect(chip1).toHaveAttribute("aria-selected", "false");
-	});
-});
-
-describe.skip("FormFieldChips component with options from DB", () => {
-	it("should display the list of options from DB", async () => {
-		await act( async() => {
-			render(<FormFieldChipsExample fromDB={true} />);
-		});
-
-		await waitFor(() => {
-			expect(getByText("Dog")).toBeTruthy();
-			expect(getByText("Cat")).toBeTruthy();
-			expect(getByText("Horse")).toBeTruthy();
-			expect(getByText("Lion")).toBeTruthy();
-		}, { timeout: 1000 });
-	});
+	// TODO Write more tests when the Chip component is vastly improved.
 });

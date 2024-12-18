@@ -4,15 +4,15 @@ import { ColorContainer, ColorDiv } from "./FormFieldColor.styled";
 import type { ColorSelectedProps } from "./FormFieldColorTypes";
 
 const ColorSelected = (props: ColorSelectedProps): ReactElement => {
-	const { disabled, color, onClick, displayColorPicker, id } = props;
+	const { disabled, color, onClick, id } = props;
 
 	return (
 		<ColorContainer
-			$disabled={disabled}
-			$displayColorPicker={displayColorPicker}
+			disabled={disabled}
 			onClick={onClick}
 			type="button"
 			id={id}
+			aria-label="Select color"
 		>
 			<ColorDiv
 				data-testid="colordiv-test"
