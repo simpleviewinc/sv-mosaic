@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import React, { act, useState } from "react";
+import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
 import type { DateData, FieldDefBase, MosaicFieldProps } from "@root/components";
 
+import FormFieldTestType from "../FormFieldTestType";
 import FormFieldDate from "@root/components/Field/FormFieldDate/FormFieldDate";
 import testIds from "@root/utils/testIds";
 
@@ -18,29 +19,14 @@ async function setup(
 ) {
 	const onChangeMock = props.onChange || vi.fn();
 
-	const Stateless = () => (
-		<FormFieldDate
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldDate}
 			fieldDef={defaultFieldDef}
 			onChange={onChangeMock}
+			stateful={stateful}
 			{...props}
-		/>
-	);
-
-	const Stateful = () => {
-		const [value, setValue] = useState<DateData | undefined>(undefined);
-
-		return (
-			<FormFieldDate
-				fieldDef={defaultFieldDef}
-				value={value}
-				onChange={async (value) => setValue(value)}
-				{...props}
-			/>
-		);
-	};
-
-	const renderResult = await act(async () => render(
-		stateful ? <Stateful /> : <Stateless />,
+		/>,
 	));
 
 	return {

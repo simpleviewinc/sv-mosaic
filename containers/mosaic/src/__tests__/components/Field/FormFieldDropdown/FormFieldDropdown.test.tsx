@@ -1,123 +1,164 @@
-import * as React from "react";
-import { render, screen, cleanup, act, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-import FormFieldDropdown from "@root/components/Field/FormFieldDropdown";
-import { mockOptions, getOptions } from "@root/mock";
+import type { DropdownData, DropdownInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
 
-const topFilms = [
-	{ label: "The Shawshank Redemption", value: "1994" },
-	{ label: "The Godfather", value: "1972" },
-	{ label: "The Godfather: Part II", value: "1974" },
-	{ label: "The Dark Knight", value: "2008" },
-];
+import FormFieldTestType from "../FormFieldTestType";
+import FormFieldDropdown from "@root/components/Field/FormFieldDropdown/FormFieldDropdown";
+import { mockOptions } from "@root/mock";
+import testIds from "@root/utils/testIds";
 
-const { getByRole } = screen;
+const defaultFieldDef: FieldDefBase<"dropdown", DropdownInputSettings> = {
+	name: "dropdown",
+	type: "dropdown",
+	inputSettings: {
+		options: mockOptions,
+	},
+};
 
-afterEach(cleanup);
+async function setup(
+	props: Partial<MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>> = {},
+	{ stateful = false }: { stateful?: boolean} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
 
-describe("Dropdown component", () => {
-	it("should render on the screen", () => {
-		render(
-			<FormFieldDropdown
-				fieldDef={{
-					name: "dropdownSingleSelect",
-					type: "dropdown",
-					label: "Label test",
-					inputSettings: {
-						options: topFilms,
-						placeholder: "Placeholder test",
-					},
-				}}
-				value={topFilms[0]}
-			/>,
-		);
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldDropdown}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
+	));
 
-		/**
-	 * Since the textfield is the inner-most component, looking if this
-	 * is getting rendered will tell us by default if the dropdown is
-	 * getting rendered too.
-	 */
-		const input = getByRole("combobox") as HTMLInputElement;
-		expect(input.value).toEqual("The Shawshank Redemption");
-	});
-});
+	return {
+		...renderResult,
+		user: userEvent.setup(),
+	};
+}
 
-describe("Dropdown component as a form field", () => {
-	beforeEach(() => {
-		render(
-			<FormFieldDropdown
-				fieldDef={{
-					name: "dropdownSingleSelect",
-					type: "dropdown",
-					label: "Label test",
-					inputSettings: {
-						options: topFilms,
-						placeholder: "Placeholder test",
-					},
-				}}
-			/>,
-		);
+describe(__dirname, () => {
+	it("should render the dropdown form field", async () => {
+		await setup();
+
+		expect(screen.queryByRole("combobox")).toBeInTheDocument();
 	});
 
-	it("should render a dropdown with a placeholder", () => {
-		const input = getByRole("combobox") as HTMLInputElement;
+	it("should fetch options based on the synchronous options array", async () => {
+		const { user } = await setup();
 
-		expect(input.placeholder).toEqual("Placeholder test");
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		await user.click(input);
+
+		expect(screen.queryByRole("option", { name: "Cat" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Horse" })).toBeInTheDocument();
 	});
-});
 
-describe("Dropdown component with options from DB", () => {
-
-	it("should render on the screen prepopulated with options from DB", async () => {
-		await act( async () => {
-			render(
-				<FormFieldDropdown
-					fieldDef={{
-						name: "dropdownSingleSelect",
-						type: "dropdown",
-						label: "Label test",
-						inputSettings: {
-							options: getOptions,
-							placeholder: "Placeholder test",
-						},
-					}}
-					value={mockOptions[7]}
-				/>,
-			);
+	it("should fetch options based on the asynchronous get options callback", async () => {
+		const { user } = await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions: async () => mockOptions,
+				},
+			},
 		});
 
-		await waitFor(() => {
-			const inputDropdown = getByRole("combobox") as HTMLInputElement;
-			expect(inputDropdown.value).toEqual(mockOptions[7].label);
-		}, { timeout: 3000 });
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		await user.click(input);
+
+		expect(screen.queryByRole("option", { name: "Cat" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("option", { name: "Horse" })).toBeInTheDocument();
 	});
 
-	it("should render on the screen with options from DB", async () => {
-		await act( async () => {
-			render(
-				<FormFieldDropdown
-					fieldDef={{
-						name: "dropdownSingleSelect",
-						type: "dropdown",
-						label: "Label test",
-						inputSettings: {
-							options: getOptions,
-							placeholder: "Placeholder test",
-						},
-					}}
-				/>,
-			);
+	it("should append the current value item as an option if it doesn't already exist in the options fetched", async () => {
+		// We expect a warning from MUI, because the value isn't in the options
+		// at the time that the combobox is rendered. Probably we should avoid
+		// rendering the combo box until all options have been resolved.
+		vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		const { user } = await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions: async () => mockOptions,
+				},
+			},
+			value: { label: "Ferret", value: "ferret" },
 		});
 
-		await waitFor( async() => {
-			const moreIconButton = screen.getByTestId("ExpandMoreIcon");
-			expect(moreIconButton).toBeInTheDocument();
-			moreIconButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		}, { timeout: 5000 });
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		await user.click(input);
+		expect(screen.queryByRole("option", { name: "Ferret" })).toBeInTheDocument();
+	});
 
-		await waitFor(() => {
-			const singleSelectOptions = screen.getAllByRole("option");
-			expect(singleSelectOptions[0]).toHaveTextContent(mockOptions[0].label);
-		}, { timeout: 1000 });
+	it("should assign the reference of the embedded input field to the input ref", async () => {
+		const inputRef = { current: null };
+
+		await setup({ inputRef });
+
+		expect(inputRef.current).not.toBeNull();
+	});
+
+	it("should fire the on change handler with the label value object that has been selected", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock });
+
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		await user.click(input);
+		const option = screen.queryByRole("option", { name: "Cat" });
+		expect(option).toBeInTheDocument();
+		await user.click(option);
+		expect(onChangeMock).toBeCalledWith({
+			label: "Cat",
+			value: "cat",
+		});
+	});
+
+	it("should fire the on change handler with undefined if the value is cleared", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({
+			onChange: onChangeMock,
+			value: {
+				label: "Ferret",
+				value: "",
+			},
+		});
+
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		expect(input).toHaveValue("Ferret");
+		await user.click(input);
+		await user.keyboard("{Backspace}");
+		expect(onChangeMock).toBeCalledWith(undefined);
+	});
+
+	it("should fire the on blur handler when the dropdown's text field loses focus", async () => {
+		const onBlurMock = vi.fn();
+
+		const { user } = await setup({ onBlur: onBlurMock });
+
+		const input = screen.queryByRole("combobox");
+		expect(input).toBeInTheDocument();
+		await user.click(input);
+		await user.keyboard("{Tab}");
+		expect(onBlurMock).toBeCalled();
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("combobox")).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 });
