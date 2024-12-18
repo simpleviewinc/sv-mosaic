@@ -113,7 +113,9 @@ describe(__dirname, () => {
 	it("should render the skeleton components if skeleton is truthy", async () => {
 		await setup({ skeleton: true });
 
-		expect(screen.queryByRole("button", { name: "Add" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Cat" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Dog" })).not.toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Horse" })).not.toBeInTheDocument();
 		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 });
