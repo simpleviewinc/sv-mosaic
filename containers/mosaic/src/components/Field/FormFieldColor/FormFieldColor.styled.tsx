@@ -4,12 +4,12 @@ import type { ColorSelectedProps } from "./FormFieldColorTypes";
 import type { TransientProps } from "@root/types";
 import Popover from "@mui/material/Popover";
 
-export const ColorContainer = styled.button<TransientProps<ColorSelectedProps, "displayColorPicker" | "disabled">>`
+export const ColorContainer = styled.button`
   background: ${theme.newColors.grey1["100"]};
   border: ${theme.borders.simplyGrey};
   cursor: pointer;
-  margin-bottom: ${({ $displayColorPicker }) => ($displayColorPicker ? "8px" : 0)};
-  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
+  margin-bottom: 0;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   padding: 10px;
   width: fit-content;
 `;

@@ -2,7 +2,6 @@ import type { FieldDefBase } from "@root/components/Field";
 
 export interface ColorSelectedProps {
 	color: any;
-	displayColorPicker?: boolean;
 	disabled?: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	id?: string;
