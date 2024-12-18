@@ -3,14 +3,14 @@ import type { ReactElement } from "react";
 import React, { useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker as DatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 import type { DatePickerProps } from ".";
 
 import { DatePickerTextField, DatePickerWrapper, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
-const DateFieldPicker = (props: DatePickerProps): ReactElement => {
+const DatePicker = (props: DatePickerProps): ReactElement => {
 	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -43,7 +43,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<DatePickerWrapper data-testid="date-picker-test-id" $isPickerOpen={isPickerOpen} $disabled={disabled}>
-				<DatePicker
+				<DesktopDatePicker
 					renderInput={renderInput}
 					inputFormat={DATE_FORMAT_FULL}
 					value={value}
@@ -62,4 +62,4 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 	);
 };
 
-export default DateFieldPicker;
+export default DatePicker;

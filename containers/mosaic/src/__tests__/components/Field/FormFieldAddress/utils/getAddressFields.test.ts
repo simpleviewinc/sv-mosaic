@@ -7,7 +7,7 @@ const getOptionsCountries = async () => [];
 const getOptionsStates = async () => [];
 
 describe(__dirname, () => {
-	test("should throw an error when address1 is included without city", async () => {
+	it("should throw an error when address1 is included without city", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -15,7 +15,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"address1\" sub field requires the city to also be included.");
 	});
 
-	test("should throw an error when address1 is included without state", async () => {
+	it("should throw an error when address1 is included without state", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -23,7 +23,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"address1\" sub field requires the state to also be included.");
 	});
 
-	test("should throw an error when address1 is included without postalCode", async () => {
+	it("should throw an error when address1 is included without postalCode", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -31,7 +31,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"address1\" sub field requires the postalCode to also be included.");
 	});
 
-	test("should throw an error when address2 is included without address1", async () => {
+	it("should throw an error when address2 is included without address1", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -39,7 +39,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"address2\" sub field requires the address1 to also be included.");
 	});
 
-	test("should throw an error when address3 is included without address2", async () => {
+	it("should throw an error when address3 is included without address2", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -47,7 +47,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"address3\" sub field requires the address2 to also be included.");
 	});
 
-	test("should throw an error when state is included without country", async () => {
+	it("should throw an error when state is included without country", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -55,7 +55,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"state\" sub field requires the country to also be included.");
 	});
 
-	test("should throw an error when state is included without postalCode", async () => {
+	it("should throw an error when state is included without postalCode", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -63,7 +63,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"state\" sub field requires the postalCode to also be included.");
 	});
 
-	test("should throw an error when city is included without country", async () => {
+	it("should throw an error when city is included without country", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -71,7 +71,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"city\" sub field requires the country to also be included.");
 	});
 
-	test("should throw an error when city is included without state", async () => {
+	it("should throw an error when city is included without state", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -79,7 +79,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"city\" sub field requires the state to also be included.");
 	});
 
-	test("should throw an error when city is included without postalCode", async () => {
+	it("should throw an error when city is included without postalCode", async () => {
 		expect(() => getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -87,7 +87,7 @@ describe(__dirname, () => {
 		})).toThrowError("The \"city\" sub field requires the postalCode to also be included.");
 	});
 
-	test("should merge fields into the resulting fields object using the name", async () => {
+	it("should merge fields into the resulting fields object using the name", async () => {
 		expect(getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -120,7 +120,7 @@ describe(__dirname, () => {
 		]);
 	});
 
-	test("should render an autocomplete field for address1 if a Google Maps API key is provided", async () => {
+	it("should render an autocomplete field for address1 if a Google Maps API key is provided", async () => {
 		expect(getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,
@@ -199,7 +199,7 @@ describe(__dirname, () => {
 		]);
 	});
 
-	test("should return all available sub fields if no include parameter is provided", async () => {
+	it("should return all available sub fields if no include parameter is provided", async () => {
 		expect(getAddressFields({
 			getOptionsCountries,
 			getOptionsStates,

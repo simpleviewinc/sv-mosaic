@@ -1,14 +1,15 @@
 import type { ReactElement } from "react";
 
 import React, { memo, useMemo } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { DateFieldInputSettings, DateData } from "./DateFieldTypes";
 
 import { DATE_FORMAT_FULL_PLACEHOLDER } from "@root/constants";
-import DatePicker from "../DatePicker";
+import DatePicker from "./DatePicker";
 import { DateTimePickerWrapper } from "./DateField.styled";
-import { FormFieldDateSkeleton } from "./FormFieldDateSkeleton";
+import testIds from "@root/utils/testIds";
 
 const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, DateData>): ReactElement => {
 	const {
@@ -37,7 +38,14 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	const handleDateChange = (date: Date | null, keyboardInputValue?: string) => onChange({ date, keyboardInputValue });
 
 	if (skeleton) {
-		return <FormFieldDateSkeleton />;
+		return (
+			<Skeleton
+				data-testid={testIds.FORM_FIELD_SKELETON}
+				variant="rectangular"
+				width="100%"
+				height={43}
+			/>
+		);
 	}
 
 	return (
