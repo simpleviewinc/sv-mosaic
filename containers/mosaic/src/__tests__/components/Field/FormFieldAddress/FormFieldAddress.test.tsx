@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import React, { act, useState } from "react";
+import React, { act } from "react";
 import type { UserEvent } from "@testing-library/user-event";
 import userEvent from "@testing-library/user-event";
 
@@ -9,6 +9,7 @@ import FormFieldAddress from "@root/components/Field/FormFieldAddress/FormFieldA
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { mockAddresses } from "@root/mock";
 import testIds from "@root/utils/testIds";
+import FormFieldTestType from "../FormFieldTestType";
 
 const defaultFieldDef: FieldDefBase<"address", AddressFieldInputSettings> = {
 	name: "address",
@@ -25,30 +26,14 @@ async function setup(
 ) {
 	const onChangeMock = props.onChange || vi.fn();
 
-	const Stateless = () => (
-		<FormFieldAddress
-			fieldDef={defaultFieldDef}
-			onChange={async (addresses) => onChangeMock(addresses)}
-			{...props}
-		/>
-	);
-
-	const Stateful = () => {
-		const [addresses, setAddresses] = useState<AddressData>([]);
-		const onChangeMock = setAddresses || vi.fn();
-
-		return (
-			<FormFieldAddress
-				fieldDef={defaultFieldDef}
-				value={addresses}
-				onChange={async (addresses) => onChangeMock(addresses)}
-				{...props}
-			/>
-		);
-	};
-
 	const renderResult = await act(async () => render(
-		stateful ? <Stateful /> : <Stateless />,
+		<FormFieldTestType
+			Component={FormFieldAddress}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
 	));
 
 	return {

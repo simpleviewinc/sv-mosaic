@@ -11,6 +11,7 @@ import useOptions from "@root/utils/hooks/useOptions/useOptions";
 import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import InputWrapper from "../../InputWrapper";
 import { StyledAutocomplete, StyledPopper, SingleDropdownWrapper } from "./FormFieldDropdown.styled";
+import testIds from "@root/utils/testIds";
 
 const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {
 	const {
@@ -93,6 +94,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 	if (skeleton || loading) {
 		return (
 			<Skeleton
+				data-testid={testIds.FORM_FIELD_SKELETON}
 				variant="rectangular"
 				width="100%"
 				height={43}
@@ -112,7 +114,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				getOptionKey={(option: MosaicLabelValue) => option.value}
 				isOptionEqualToValue={isOptionEqualToValue}
 				onChange={(_event, option) => onDropDownChange(option as MosaicLabelValue)}
-				$error={(fieldDef?.required && error) ? !!error : undefined}
+				$error={Boolean(error)}
 				renderInput={renderInput}
 				PopperComponent={CustomPopper}
 				popupIcon={<ExpandMoreIcon />}
