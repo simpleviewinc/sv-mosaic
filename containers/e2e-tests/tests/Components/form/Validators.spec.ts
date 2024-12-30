@@ -27,9 +27,10 @@ test.describe("Components - Form - Validators", () => {
 		expect(await required.textContent()).toBe(validatorData.requireAsterisk);
 		await validatorPage.saveBtn.click();
 		const error = validatorPage.error;
-		expect(await error.textContent()).toBe(validatorData.requireError);
+		expect(error).toHaveCount(5);
+		expect(await error.first().textContent()).toBe(validatorData.requireError);
 		const errorIcon = validatorPage.errorIcon;
-		expect(await errorIcon.isVisible()).toBe(true);
+		expect(await errorIcon.first().isVisible()).toBe(true);
 	});
 
 	test("Validate that no error is showing when a Valid email is entered.", async () => {
