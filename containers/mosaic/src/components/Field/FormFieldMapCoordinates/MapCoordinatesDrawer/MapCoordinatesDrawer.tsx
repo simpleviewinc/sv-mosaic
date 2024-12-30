@@ -206,6 +206,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 									lng: undefined,
 									placesList: undefined,
 								},
+								validate: true,
 							})}
 						/>
 					),

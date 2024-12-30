@@ -1,11 +1,9 @@
 import get from "lodash/get";
 
-import type { FieldPath, FormError, FormStable, Validator } from "../types";
+import type { FieldPath, FormStable, Validator } from "../types";
 
 import { mapsValidators, runValidators } from "../utils";
 import getField from "./getField";
-import getFieldErrors from "./getFieldErrors";
-import fieldIsActive from "./fieldIsActive";
 
 interface GetFieldErrorParams {
 	name: string;
@@ -14,7 +12,6 @@ interface GetFieldErrorParams {
 	 */
 	include?: Validator["fn"][];
 	path?: FieldPath;
-	deep?: boolean;
 	stable: FormStable;
 }
 
@@ -22,35 +19,10 @@ async function getFieldError({
 	name,
 	include,
 	path = [],
-	deep,
 	stable,
-}: GetFieldErrorParams): Promise<string | FormError | undefined> {
+}: GetFieldErrorParams): Promise<string | undefined> {
 	const { data, internalData } = stable;
 	const field = getField({ name, path, stable });
-
-	if (deep && "fields" in field && field.fields) {
-		const fullPath = [...path, name];
-
-		const names = Object.keys(field.fields)
-			.filter(subFieldName => fieldIsActive({
-				name: subFieldName,
-				stable,
-				path: fullPath,
-			}));
-
-		const { errors, count } = await getFieldErrors({
-			names,
-			path: fullPath,
-			deep,
-			stable,
-		});
-
-		if (!count) {
-			return undefined;
-		}
-
-		return errors;
-	}
 
 	const requiredFlag = field.required;
 	const validators = field.validators || [];
