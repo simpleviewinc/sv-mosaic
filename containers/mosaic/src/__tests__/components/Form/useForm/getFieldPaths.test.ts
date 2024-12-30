@@ -1,0 +1,117 @@
+import type { TestDef } from "@simpleview/mochalib";
+import { testArray } from "@simpleview/mochalib";
+import type { FieldObj, FieldPath } from "@root/components";
+
+import defaultHasValue from "@root/utils/form/defaultHasValue";
+import defaultResolver from "@root/utils/form/defaultResolver";
+import getFieldPaths from "@root/components/Form/useForm/utils/getFieldPaths";
+
+const fieldObjects: FieldObj[] = [
+	{
+		name: "field1",
+		type: "text",
+		getResolvedValue: defaultResolver,
+		hasValue: defaultHasValue,
+		order: 1,
+	},
+	{
+		name: "field2",
+		type: "text",
+		getResolvedValue: defaultResolver,
+		hasValue: defaultHasValue,
+		order: 1,
+	},
+	{
+		name: "field3",
+		type: "text",
+		getResolvedValue: defaultResolver,
+		hasValue: defaultHasValue,
+		order: 1,
+	},
+	{
+		name: "group1",
+		type: "group",
+		getResolvedValue: defaultResolver,
+		hasValue: defaultHasValue,
+		order: 1,
+	},
+	{
+		name: "group2",
+		type: "group",
+		getResolvedValue: defaultResolver,
+		hasValue: defaultHasValue,
+		order: 1,
+	},
+];
+
+describe(__dirname, () => {
+	interface Test {
+		fields: Record<string, FieldObj>;
+		result: FieldPath[];
+	}
+
+	const tests: TestDef<Test>[] = [
+		{
+			name: "should return a list of field paths for a single dimensional field store",
+			args: {
+				fields: {
+					field1: fieldObjects[0],
+					field2: fieldObjects[1],
+					field3: fieldObjects[2],
+				},
+				result: [
+					["field1"],
+					["field2"],
+					["field3"],
+				],
+			},
+		},
+		{
+			name: "should return a list of field paths for each sub field in a group",
+			args: {
+				fields: {
+					group1: {
+						...fieldObjects[3],
+						fields: {
+							field1: fieldObjects[0],
+							field2: fieldObjects[1],
+						},
+					},
+					field3: fieldObjects[2],
+				},
+				result: [
+					["group1", "field1"],
+					["group1", "field2"],
+					["field3"],
+				],
+			},
+		},
+		{
+			name: "should return a list of field paths for fields in deeply nested groups",
+			args: {
+				fields: {
+					group1: {
+						...fieldObjects[3],
+						fields: {
+							field1: fieldObjects[0],
+							field2: fieldObjects[1],
+							group2: {
+								...fieldObjects[4],
+								fields: {
+									field3: fieldObjects[2],
+								},
+							},
+						},
+					},
+				},
+				result: [
+					["group1", "field1"],
+					["group1", "field2"],
+					["group1", "group2", "field3"],
+				],
+			},
+		},
+	];
+
+	testArray(tests, ({ fields, result }) => expect(getFieldPaths(fields)).toStrictEqual(result));
+});
