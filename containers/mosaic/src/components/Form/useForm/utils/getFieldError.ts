@@ -4,6 +4,7 @@ import type { FieldPath, FormStable, Validator } from "../types";
 
 import { mapsValidators, runValidators } from "../utils";
 import getField from "./getField";
+import fieldIsActive from "./fieldIsActive";
 
 interface GetFieldErrorParams {
 	name: string;
@@ -21,13 +22,15 @@ async function getFieldError({
 	path = [],
 	stable,
 }: GetFieldErrorParams): Promise<string | undefined> {
+	if (!fieldIsActive({ name, path, stable })) {
+		return undefined;
+	}
+
 	const { data, internalData } = stable;
 	const field = getField({ name, path, stable });
+	const { required, validators = [] } = field;
 
-	const requiredFlag = field.required;
-	const validators = field.validators || [];
-
-	if (requiredFlag) {
+	if (required && required.validator) {
 		validators.unshift({ fn: "required", options: {} });
 	}
 
