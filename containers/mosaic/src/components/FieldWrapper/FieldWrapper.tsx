@@ -88,7 +88,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 	const fieldRef = useRef<HTMLDivElement | undefined>();
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
-	const shouldRenderError = (errorWithMessage || (errorWithMessage && fieldDef?.required) || (typeof error === "boolean" && error === true));
+	const shouldRenderError = (errorWithMessage || (errorWithMessage && Boolean(fieldDef?.required)) || (typeof error === "boolean" && error === true));
 
 	const limit = useValueLimit(value, fieldDef);
 
@@ -124,7 +124,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 							/>
 						) : (
 							<Label
-								required={fieldDef?.required}
+								required={(typeof fieldDef.required === "object" && fieldDef.required.asterisk) || Boolean(fieldDef.required)}
 								limit={limit}
 								value={value}
 								instructionText={fieldDef?.instructionText}

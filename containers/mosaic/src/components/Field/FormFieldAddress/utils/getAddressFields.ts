@@ -11,7 +11,7 @@ type GetAddressFieldsParams = Pick<AddressFieldInputSettings,
 	| "getOptionsStates"
 	| "googleMapsApiKey"
 > & {
-	required?: boolean;
+	required?: FieldDef["required"];
 	disabled?: FieldDef["disabled"];
 	include?: AddressFieldInputSettings["subFields"];
 }
