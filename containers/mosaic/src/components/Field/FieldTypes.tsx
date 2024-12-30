@@ -115,7 +115,10 @@ export interface FieldDefBase<Type, T = any> {
 	/**
 	 * Marks field as required
 	 */
-	required?: boolean;
+	required?: boolean | {
+		validator: boolean;
+		asterisk: boolean;
+	};
 	/**
 	 * Text to help the user fill the current field.
 	 */
@@ -217,11 +220,12 @@ export type FieldDef =
 	| FieldDefRaw
 	| FieldDefGroup;
 
-export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields"> & {
+export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields" | "required"> & {
 	getResolvedValue: (value: any) => { internalValue: any; value: any };
 	order: number;
 	fields?: Record<string, FieldObj>;
 	hasValue: FieldHasValue;
+	required?: Exclude<FieldDef["required"], boolean>;
 };
 
 export type FieldDefSanitized = FieldDef;

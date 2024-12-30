@@ -98,7 +98,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 
 	return (
 		<StyledChipGroup
-			$error={errorWithMessage || (errorWithMessage && required)}
+			$error={errorWithMessage}
 			onBlur={onBlur}
 			role="listbox"
 		>

@@ -31,7 +31,7 @@ async function getFieldErrors({
 			stable,
 		});
 
-		return [`${path.join(".")}`, error];
+		return [path.join("."), error];
 	}));
 
 	const errors = Object.fromEntries(list);
