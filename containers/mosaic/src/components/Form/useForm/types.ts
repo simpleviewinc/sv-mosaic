@@ -181,13 +181,12 @@ export interface FormMethods {
 	setSubmitWarning: SetSubmitWarning;
 }
 
-export type FormError = MosaicObject<string>;
 export type FormTouched = MosaicObject<boolean>;
 
 export interface FormState {
 	internalData: MosaicObject<any>;
 	data: MosaicObject<any>;
-	errors: MosaicObject<string | FormError>;
+	errors: MosaicObject<string>;
 	disabled: boolean;
 	touched: MosaicObject<boolean | FormTouched>;
 	submitWarning: { open: boolean; lead: string; reasons: string[] };

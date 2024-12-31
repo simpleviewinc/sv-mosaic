@@ -2,11 +2,10 @@ import type { MosaicObject } from "@root/types";
 import type { FieldPath, FormStable, Validator } from "../types";
 
 import getFieldError from "./getFieldError";
+import getFieldPaths from "./getFieldPaths";
 
 interface GetFieldErrorsParams {
-	names: (string | { name: string; include: Validator["fn"][] })[];
-	path?: FieldPath;
-	deep?: boolean;
+	paths?: (FieldPath | { path: FieldPath; include: Validator["fn"][] })[];
 	stable: FormStable;
 }
 
@@ -16,19 +15,23 @@ interface GetFieldErrorsResult {
 }
 
 async function getFieldErrors({
-	names,
-	path,
-	deep,
 	stable,
+	paths = getFieldPaths(stable.fields),
 }: GetFieldErrorsParams): Promise<GetFieldErrorsResult> {
-	const list = await Promise.all(names.map(async item => {
-		const { name, include } = typeof item === "object" ? item : {
-			name: item,
+	const list = await Promise.all(paths.map(async item => {
+		const { path, include } = !Array.isArray(item) ? item : {
+			path: item,
 			include: undefined,
 		};
 
-		const error = await getFieldError({ name, include, path, deep, stable });
-		return [name, error];
+		const error = await getFieldError({
+			name: path.at(-1),
+			include,
+			path: path.slice(0, -1),
+			stable,
+		});
+
+		return [path.join("."), error];
 	}));
 
 	const errors = Object.fromEntries(list);

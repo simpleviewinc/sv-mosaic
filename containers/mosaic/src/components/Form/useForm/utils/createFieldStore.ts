@@ -28,6 +28,11 @@ function createFieldStore({
 			hasValue: field.hasValue || fieldConfig.hasValue,
 			order: (fieldsBySection ? fieldsBySection.indexOf(field.name) : index) + 1,
 			fields: field.type === "group" ? createFieldStore({ fields: field.inputSettings.fields, stable }) : undefined,
+			required: typeof field.required === "object" ?
+				field.required :
+				field.required ?
+					{ validator: true, asterisk: true } :
+					undefined,
 		};
 
 		return {
