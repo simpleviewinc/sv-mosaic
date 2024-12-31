@@ -280,7 +280,7 @@ export async function validateDate(value: any, data: MosaicObject<any>, options:
 		isNaN(date.getTime()) ||
 		(keyboardInputValue && !textIsValidDate(keyboardInputValue, DATE_FORMAT_FULL))
 	) {
-		return "The date provided is invalid";
+		return "Please enter a valid MM/DD/YYYY date, e.g. 01/31/2024";
 	}
 }
 
@@ -295,6 +295,6 @@ export async function validateTime(value: any, data: MosaicObject<any>, options:
 		isNaN(time.getTime()) ||
 		(keyboardInputValue && !textIsValidDate(keyboardInputValue, TIME_FORMAT_FULL))
 	) {
-		return "The time provided is invalid";
+		return "Please enter a valid 12hr time, e.g. 01:30 pm";
 	}
 }
