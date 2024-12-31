@@ -33,7 +33,7 @@ import getFieldInternalValues from "./utils/getFieldInternalValues";
 import createFieldStore from "./utils/createFieldStore";
 import getFields from "./utils/getFields";
 import getFieldValue from "./utils/getFieldValue";
-import merge from "@root/utils/object/merge";
+import getFieldPaths from "./utils/getFieldPaths";
 
 export function useForm(): UseFormReturn {
 	const stable = useRef<FormStable>(getInitialStable());
@@ -41,37 +41,45 @@ export function useForm(): UseFormReturn {
 	const [state, dispatch] = useReducer(reducer, getInitialState());
 
 	const validateField = useCallback<ValidateField>(async ({
-		name,
+		name: target,
+		path: targetPath = [],
 		validateLinkedFields,
-		path = [],
 	}) => {
-		const field = getField({ name, path, stable: stable.current });
+		const fullPath = [...targetPath, target];
 
-		if (fieldIsActive({ name, path, stable: stable.current })) {
+		for (let i = 0; i < fullPath.length; i++) {
+			const name = fullPath[i];
+			const path = fullPath.slice(0, i);
+
+			const field = getField({ name, path, stable: stable.current });
+
 			const error = await getFieldError({
 				name,
 				path,
-				deep: true,
 				stable: stable.current,
 			});
 
-			stable.current.errors = set([...path, name], error, stable.current.errors);
-		}
+			stable.current.errors = {
+				...stable.current.errors,
+				[`${[...path, field.name].join(".")}`]: error,
+			};
 
-		if (validateLinkedFields && field.validates) {
-			const linkedFields = field.validates.map(item => (typeof item === "object" ? item : {
-				name: item,
-				include: undefined,
-			})).filter(({ name }) => fieldIsActive({ name, path, stable: stable.current }));
+			if (validateLinkedFields && field.validates) {
+				const linkedFields = field.validates.map(item => (typeof item === "object" ? item : {
+					name: item,
+					include: undefined,
+				}));
 
-			const { errors: linkedFieldErrors } = await getFieldErrors({
-				names: linkedFields,
-				path,
-				stable: stable.current,
-			});
+				const { errors: linkedFieldErrors } = await getFieldErrors({
+					paths: linkedFields.map(item => ({ ...item, path: [...path, item.name] })),
+					stable: stable.current,
+				});
 
-			const newErrors = path.length ? set(path, linkedFieldErrors, {}) : linkedFieldErrors;
-			stable.current.errors = merge(stable.current.errors, newErrors);
+				stable.current.errors = {
+					...stable.current.errors,
+					...linkedFieldErrors,
+				};
+			}
 		}
 
 		dispatch({
@@ -101,8 +109,7 @@ export function useForm(): UseFormReturn {
 		}
 
 		if (validate) {
-			const names = Object.keys(getFields({ stable: stable.current, path }));
-			const { errors } = await getFieldErrors({ names, path, stable: stable.current });
+			const { errors } = await getFieldErrors({ stable: stable.current });
 
 			stable.current.errors = path.length ? set(path, errors, stable.current.errors) : errors;
 
@@ -260,16 +267,11 @@ export function useForm(): UseFormReturn {
 	}, []);
 
 	const submitForm = useCallback<SubmitForm>(async () => {
-		const { data, fields, waits } = stable.current;
-
-		const names = Object.keys(fields)
-			.filter(name => fieldIsActive({ name, stable: stable.current }));
+		const { data, waits } = stable.current;
 
 		stable.current.hasSubmitted = true;
 
 		const { count, errors } = await getFieldErrors({
-			names,
-			deep: true,
 			stable: stable.current,
 		});
 
@@ -301,7 +303,13 @@ export function useForm(): UseFormReturn {
 			};
 		}
 
-		const activeFields = Object.keys(fields).filter(name => fieldIsActive({ name, stable: stable.current }));
+		const activeFields = getFieldPaths(stable.current.fields)
+			.filter(path => fieldIsActive({
+				name: path.at(-1),
+				path: path.slice(0, -1),
+				stable: stable.current,
+			}))
+			.map(path => path.join("."));
 
 		return {
 			valid: true,

@@ -62,7 +62,7 @@ const Field = ({
 	}, [field, setFieldBlur, path]);
 
 	const value = get(state.internalData, [...(path || []), field.name]);
-	const error = !disabled ? get(state.errors, [...(path || []), field.name]) : "";
+	const error = !disabled ? state.errors[`${[...(path || []), field.name].join(".")}`] : undefined;
 
 	const size = sanitizeFieldSize(
 		field.size,

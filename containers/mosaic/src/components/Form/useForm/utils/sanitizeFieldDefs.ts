@@ -40,6 +40,10 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 				...field,
 				type: "group",
 				size: field.size || "md",
+				required: Boolean(field.required) && {
+					asterisk: true,
+					validator: false,
+				},
 				inputSettings: {
 					fields: [
 						{
