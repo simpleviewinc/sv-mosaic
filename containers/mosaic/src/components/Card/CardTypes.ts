@@ -22,4 +22,14 @@ export interface CardProps {
 	 * List of buttons that will display at the top of the card.
 	 */
 	topActions?: ButtonProps[];
+	/**
+	 * If defined, a number that will be displayed to indicate the number of items
+	 * (whatever they may be) that are listed in the card's content
+	 */
+	count?: number;
+	/**
+	 * Whether or not to display the count if it is zero. Has no effect if `count`
+	 * is `undefined`.
+	 */
+	displayZeroCount?: boolean;
 }

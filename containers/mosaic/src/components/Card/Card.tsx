@@ -8,26 +8,43 @@ import {
 	ContentWrapper,
 	CardWrapper,
 	StyledHr,
-	TitleWrapper,
-	TitleBar,
+	Title,
+	Heading,
+	Count,
+	CardButtonRow,
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { SubtitleText } from "../Typography";
 
 const Card = (props: CardProps): ReactElement => {
-	const { bottomActions, content, title, titleIcon: TitleIcon, topActions } = props;
+	const {
+		bottomActions,
+		content,
+		count,
+		displayZeroCount,
+		title,
+		titleIcon: TitleIcon,
+		topActions,
+	} = props;
 
 	return (
 		<CardWrapper data-testid={testIds.CARD}>
-			<TitleBar data-testid={testIds.CARD_HEADING}>
-				<TitleWrapper>
+			<Heading data-testid={testIds.CARD_HEADING}>
+				<Title>
 					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
 					<SubtitleText maxLines={1}>{title}</SubtitleText>
-				</TitleWrapper>
-				{topActions?.length > 0 && (
-					<ButtonRow buttons={topActions} />
+				</Title>
+				{count !== undefined && (count !== 0 || displayZeroCount) && (
+					<Count>
+						(
+						{count}
+						)
+					</Count>
 				)}
-			</TitleBar>
+				{topActions?.length > 0 && (
+					<CardButtonRow className="Foo" buttons={topActions} />
+				)}
+			</Heading>
 			<ContentWrapper>
 				{content.map((element, idx) => (
 					<div key={idx} data-testid={testIds.CARD_ITEM}>
