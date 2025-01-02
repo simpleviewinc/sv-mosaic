@@ -133,7 +133,8 @@
 		"copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
 		"copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
 		"publish:npm": "ts-node ./scripts/publish-to-npm.ts",
-		"knip": "knip"
+		"knip": "knip",
+		"create:test": "ts-node ./scripts/create-test-file.ts"
 	},
 	"files": [
 		"dist"
