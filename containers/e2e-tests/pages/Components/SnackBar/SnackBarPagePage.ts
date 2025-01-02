@@ -14,7 +14,7 @@ export class SnackBarPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.openSnackbarButton = page.locator("button", { hasText: "Open snackbar" });
-		this.snackbar = page.locator("[role='presentation']");
+		this.snackbar = page.locator("[role='alert']");
 		this.closeSnackbarButton = page.locator("[data-testid='close-icon'] [data-testid='CloseIcon']");
 	}
 }
