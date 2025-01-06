@@ -1,5 +1,21 @@
 # sv-mosaic changelog
 
+### 39.3.0 - 01/07/2024
+
+#### Improvements and Fixes
+
+* `Form`
+
+  * [MOS-1535](https://simpleviewtools.atlassian.net/browse/MOS-1535 "https://simpleviewtools.atlassian.net/browse/MOS-1535") **Dates with time and related with a endDateName / startDateName do not validate correctly**
+    * (Form) Changes the underlying form error mechanics by storing grouped field errors with flattened keys rather than nested objects.
+* `FormFieldTextEditor`
+
+  * [MOS-1460](https://simpleviewtools.atlassian.net/browse/MOS-1460 "https://simpleviewtools.atlassian.net/browse/MOS-1460") **Tiptap Text editor - Text class option issue**
+    * (TextEditor) Allow text styling of multiple blocks by not disabling the text style dropdown. Indicates that there are multiple styles active in the selection.
+  * [MOS-1525](https://simpleviewtools.atlassian.net/browse/MOS-1525 "https://simpleviewtools.atlassian.net/browse/MOS-1525") **Tiptap editor input settings adjustments**
+    * (TextEditor) Adds minimum and maximum heights. Adds a "custom" input setting for exposing arbitrary callbacks to the editor.
+* Housekeeping
+
 ### 39.2.1 - 12/12/2024
 
 #### Fixes
