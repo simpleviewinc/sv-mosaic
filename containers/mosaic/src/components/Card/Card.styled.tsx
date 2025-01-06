@@ -27,7 +27,7 @@ export const Title = styled.div`
 	}
 `;
 
-export const Count = styled.div`
+export const Count = styled.span`
 	font-size: 14px;
 `;
 

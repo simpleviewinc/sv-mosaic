@@ -35,7 +35,7 @@ const Card = (props: CardProps): ReactElement => {
 					<SubtitleText maxLines={1}>{title}</SubtitleText>
 				</Title>
 				{count !== undefined && (count !== 0 || displayZeroCount) && (
-					<Count>
+					<Count data-testid={testIds.CARD_COUNT}>
 						(
 						{count}
 						)
