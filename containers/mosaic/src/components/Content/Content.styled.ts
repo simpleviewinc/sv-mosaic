@@ -73,7 +73,7 @@ export const FieldsList = styled.div`
 
 export const ContentRowWrapper = styled.dl<{ $columns?: number }>`
 	display: grid;
-	row-gap: 12px;
+	gap: 0 12px;
 	width: 100%;
 	margin: 0;
 	grid-template-columns: repeat(${({ $columns }) => $columns} ,minmax(0,1fr));
