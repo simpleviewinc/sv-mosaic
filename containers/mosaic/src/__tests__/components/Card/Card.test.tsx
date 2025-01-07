@@ -53,4 +53,36 @@ describe(__dirname, () => {
 		expect(screen.queryByTestId(testIds.BUTTON_ROW)).toBeInTheDocument();
 		expect(screen.queryAllByRole("button")).toHaveLength(2);
 	});
+
+	it("should display the count alongside the title if more than 0", async () => {
+		await setup({ count: 1 });
+
+		const heading = screen.queryByTestId(testIds.CARD_HEADING);
+		expect(heading).toBeInTheDocument();
+		expect(heading).toHaveTextContent("My Card(1)");
+	});
+
+	it("should display the count alongside the title if it's zero and zero counts should be displayed", async () => {
+		await setup({ count: 0, displayZeroCount: true });
+
+		const heading = screen.queryByTestId(testIds.CARD_HEADING);
+		expect(heading).toBeInTheDocument();
+		expect(heading).toHaveTextContent("My Card(0)");
+	});
+
+	it("should not display the count alongside the title if it's zero and zero counts should not be displayed", async () => {
+		await setup({ count: 0, displayZeroCount: false });
+
+		const heading = screen.queryByTestId(testIds.CARD_HEADING);
+		expect(heading).toBeInTheDocument();
+		expect(heading).toHaveTextContent("My Card");
+	});
+
+	it("should not display the count if it's not provided", async () => {
+		await setup();
+
+		const heading = screen.queryByTestId(testIds.CARD_HEADING);
+		expect(heading).toBeInTheDocument();
+		expect(heading).toHaveTextContent("My Card");
+	});
 });

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
+import ButtonRow from "../ButtonRow";
 
 export const CardWrapper = styled.div`
 	border: 2px solid ${theme.newColors.grey2["100"]};
@@ -7,15 +8,15 @@ export const CardWrapper = styled.div`
 	width: 100%;
 `;
 
-export const TitleBar = styled.div`
+export const Heading = styled.div`
 	align-items: center;
   	background: ${theme.newColors.grey2["100"]};
 	display: flex;
-	justify-content: space-between;
 	padding: 8px 16px;
+	gap: 8px;
 `;
 
-export const TitleWrapper = styled.div`
+export const Title = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
@@ -24,6 +25,14 @@ export const TitleWrapper = styled.div`
 		color: ${theme.newColors.almostBlack["100"]};
 		width: 16px;
 	}
+`;
+
+export const Count = styled.span`
+	font-size: 14px;
+`;
+
+export const CardButtonRow = styled(ButtonRow)`
+	margin-left: auto;
 `;
 
 export const BottomActionWrapper = styled.div`
