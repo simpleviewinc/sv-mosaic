@@ -31,7 +31,7 @@ export function ControlMenuDropdown({
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
 	const onClick = (e: MouseEvent<HTMLButtonElement>) => {
-		setAnchorEl(e.target as HTMLElement);
+		setAnchorEl(e.currentTarget);
 	};
 
 	const onClose = () => {
