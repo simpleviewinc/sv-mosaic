@@ -1,5 +1,6 @@
 import { EditorContent } from "@tiptap/react";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import styled, { css } from "styled-components";
 
 import theme from "@root/theme";
@@ -214,54 +215,67 @@ export const StyledFloatingToolbar = styled.div<{ $disabled?: boolean }>`
     background: white;
     box-shadow: box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     border: 1px solid var(--border-color);
-    padding: 4px 0;
+    border-bottom: 0;
 `;
 
-export const PrimaryToolbar = styled.div<{ $focus?: boolean }>`
+export const StyledPrimaryToolbar = styled.div<{ $focus?: boolean }>`
     background: ${theme.newColors.grey1["100"]};
     border: 1px solid var(--border-color);
     border-bottom: 0;
     position: sticky;
-    padding: 4px 0;
     top: -25px;
     z-index: 1;
-
-    &::after {
-        border-bottom: 1px solid var(--border-color);
-        bottom: -1px;
-        content: " ";
-        left: 16px;
-        right: 16px;
-        position: absolute;
-    }
 
     ${({ $focus }) => $focus && `
         border-color: ${theme.newColors.almostBlack["100"]};
     `}
 `;
 
-export const ControlGroups = styled.div`
+export const ToolbarOverflow = styled.div`
+    overflow: hidden;
+`;
+
+export const ToolbarOffset = styled.div`
+    margin-left: -1px;
+`;
+
+export const ControlRow = styled.div`
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+    padding: 4px 0;
+
+    &::after {
+        border-bottom: 1px solid var(--border-color);
+        bottom: 0;
+        content: " ";
+        left: 8px;
+        right: 8px;
+        position: absolute;
+    }
+
+    &:last-child::after {
+        left: 0;
+        right: 0;
+    }
 `;
 
 export const ControlGroup = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
     padding-left: 8px;
     padding-right: 8px;
     position: relative;
     margin-left: 1px;
     gap: 2px;
 
-    &::after {
+    &::before {
         content: " ";
         position: absolute;
-        border-right: 1px solid var(--border-color);
+        border-left: 1px solid var(--border-color);
         top: 6px;
         bottom: 6px;
-        right: -1px;
+        left: -1px;
     }
 `;
 
@@ -292,8 +306,18 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
 `;
 
 export const StyledTextStyleMenuButton = styled(StyledControlButton)`
-    width: 100px;
+    width: 110px;
     text-align: center;
+    justify-content: start;
+    padding: 0;
+    padding-left: 4px;
+`;
+
+export const MenuButtonArrow = styled(KeyboardArrowDownIcon)`
+    margin-left: auto;
+    margin-right: -0.2em;
+    height: 20px !important;
+    width: 20px !important;
 `;
 
 export const MultipleStyles = styled.div`

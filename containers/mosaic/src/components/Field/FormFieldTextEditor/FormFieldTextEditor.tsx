@@ -8,7 +8,7 @@ import Skeleton from "@mui/material/Skeleton";
 import type { SelectionType, FloatingToolbarState, EditorMode, NodeFormState, TextEditorInputSettings, TextEditorData } from "./FormFieldTextEditorTypes";
 import type { MosaicFieldProps } from "../FieldTypes";
 
-import { Editor, CodeView, StyledTextEditor, PrimaryToolbar } from "./FormFieldTextEditor.styled";
+import { Editor, CodeView, StyledTextEditor } from "./FormFieldTextEditor.styled";
 import { NodeForm } from "./NodeForm/NodeForm";
 import { ToolbarControls, ModeSwitch } from "./Toolbar";
 import { transformScriptTags } from "./Extensions/Script";
@@ -19,6 +19,7 @@ import { getDefaultExtensions } from "./Extensions/defaultExtensions";
 import { escapeHtml } from "@root/utils/dom/escapeHtml";
 import testIds from "@root/utils/testIds";
 import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
+import PrimaryToolbar from "./Toolbar/PrimaryToolbar";
 
 function FormFieldTextEditorUnmemo({
 	value = "",
@@ -193,7 +194,7 @@ function FormFieldTextEditorUnmemo({
 				focus={focus}
 			/>
 			{mode === "visual" && (
-				<PrimaryToolbar $focus={focus} data-testid={testIds.TEXT_EDITOR_PRIMARY_TOOLBAR}>
+				<PrimaryToolbar focus={focus}>
 					<ToolbarControls
 						editor={editor}
 						controls={controls}
