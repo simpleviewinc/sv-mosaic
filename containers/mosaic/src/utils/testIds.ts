@@ -3,6 +3,7 @@ const testIds = {
 	BUTTON_ROW: "mos:ButtonRow:row",
 	BUTTON_SKELETON: "mos:ButtonRow:skeleton",
 	CARD: "mos:Card:root",
+	CARD_COUNT: "mos:Card:count",
 	CARD_HEADING: "mos:Card:heading",
 	CARD_ITEM: "mos:Card:item",
 	CARD_TITLE_ICON: "mos:Card:titleIcon",
