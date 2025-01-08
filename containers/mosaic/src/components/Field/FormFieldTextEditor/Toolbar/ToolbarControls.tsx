@@ -23,9 +23,10 @@ export function ToolbarControls({
 	return (
 		<ToolbarOverflow>
 			<ToolbarOffset>
-				{controlRows.map(controlRow => (
+				{controlRows.map((controlRow, index) => (
 					<ToolbarControlRow
 						controls={controlRow}
+						key={index}
 						{...props}
 					/>
 				))}
