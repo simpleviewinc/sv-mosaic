@@ -21,7 +21,7 @@ const Card = (props: CardProps): ReactElement => {
 		bottomActions,
 		content,
 		count,
-		displayZeroCount,
+		showZeroCount,
 		title,
 		titleIcon: TitleIcon,
 		topActions,
@@ -34,7 +34,7 @@ const Card = (props: CardProps): ReactElement => {
 					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
 					<SubtitleText maxLines={1}>{title}</SubtitleText>
 				</Title>
-				{count !== undefined && (count !== 0 || displayZeroCount) && (
+				{count !== undefined && (count !== 0 || showZeroCount) && (
 					<Count data-testid={testIds.CARD_COUNT}>
 						(
 						{count}

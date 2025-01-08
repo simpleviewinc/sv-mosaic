@@ -63,7 +63,7 @@ describe(__dirname, () => {
 	});
 
 	it("should display the count alongside the title if it's zero and zero counts should be displayed", async () => {
-		await setup({ count: 0, displayZeroCount: true });
+		await setup({ count: 0, showZeroCount: true });
 
 		const heading = screen.queryByTestId(testIds.CARD_HEADING);
 		expect(heading).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe(__dirname, () => {
 	});
 
 	it("should not display the count alongside the title if it's zero and zero counts should not be displayed", async () => {
-		await setup({ count: 0, displayZeroCount: false });
+		await setup({ count: 0, showZeroCount: false });
 
 		const heading = screen.queryByTestId(testIds.CARD_HEADING);
 		expect(heading).toBeInTheDocument();
