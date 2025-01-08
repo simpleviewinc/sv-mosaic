@@ -108,7 +108,7 @@ export const Playground = ({
 			titleIcon={showTitleIcon && ContactsIcon}
 			topActions={showTopAction && topActions}
 			bottomActions={showBottomAction && bottomActions}
-			count={count}
+			count={count !== undefined && count >= 0 ? count : undefined}
 			displayZeroCount={displayZeroCount}
 		/>
 	);
