@@ -48,7 +48,7 @@ export const Playground = ({
 	quantityOfTopActions,
 	quantityOfBottomActions,
 	count,
-	displayZeroCount,
+	showZeroCount,
 }: typeof Playground.args): ReactElement => {
 	const topActions: ButtonProps[] = [
 		{
@@ -109,7 +109,7 @@ export const Playground = ({
 			topActions={showTopAction && topActions}
 			bottomActions={showBottomAction && bottomActions}
 			count={count !== undefined && count >= 0 ? count : undefined}
-			displayZeroCount={displayZeroCount}
+			showZeroCount={showZeroCount}
 		/>
 	);
 };
@@ -121,7 +121,7 @@ Playground.args = {
 	quantityOfTopActions: 1,
 	quantityOfBottomActions: 1,
 	count: 0,
-	displayZeroCount: false,
+	showZeroCount: false,
 };
 
 Playground.argTypes = {
@@ -147,7 +147,7 @@ Playground.argTypes = {
 	count: {
 		name: "Count",
 	},
-	displayZeroCount: {
+	showZeroCount: {
 		name: "Display Zero Count",
 	},
 };

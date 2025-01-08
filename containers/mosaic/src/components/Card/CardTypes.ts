@@ -31,5 +31,5 @@ export interface CardProps {
 	 * Whether or not to display the count if it is zero. Has no effect if `count`
 	 * is `undefined`.
 	 */
-	displayZeroCount?: boolean;
+	showZeroCount?: boolean;
 }
