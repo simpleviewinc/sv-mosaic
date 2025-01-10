@@ -188,21 +188,27 @@ export function validateNumberRange(value: string, data: any, { minName, maxName
 	}
 }
 
-export function validateMinDate(value: any, _: any, { min, max }: { min?: Date; max?: Date }): string | undefined {
-	if (!(value instanceof Date)) {
+export function validateMinDate(value: any, _: any, { min, max }: { min?: Date; max?: Date }, internalValue: any): string | undefined {
+	if (!internalValue?.date) {
 		return;
 	}
 
-	if (min && !max && value < min) {
-		return `Date must come on or after ${format(min, DATE_FORMAT_FULL)}`;
+	const { date } = internalValue;
+
+	if (!(date instanceof Date)) {
+		return;
 	}
 
-	if (!min && max && value > max) {
-		return `Date must come on or before ${format(max, DATE_FORMAT_FULL)}`;
+	if (min && !max && date < min) {
+		return `Date must fall on or after ${format(min, DATE_FORMAT_FULL)}`;
 	}
 
-	if (min && max && (value < min || value > max)) {
-		return `Date must come between ${format(min, DATE_FORMAT_FULL)} and ${format(max, DATE_FORMAT_FULL)}`;
+	if (!min && max && date > max) {
+		return `Date must fall on or before ${format(max, DATE_FORMAT_FULL)}`;
+	}
+
+	if (min && max && (date < min || date > max)) {
+		return `Date must fall between ${format(min, DATE_FORMAT_FULL)} and ${format(max, DATE_FORMAT_FULL)}`;
 	}
 }
 
