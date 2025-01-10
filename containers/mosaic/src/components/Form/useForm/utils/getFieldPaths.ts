@@ -6,12 +6,17 @@ function getFieldPaths(fields: Record<string, FieldObj>, leading: FieldPath = []
 	const paths: FieldPath[] = [];
 
 	for (const [, field] of entries) {
+		const fullPath = [...leading, field.name];
+
 		if (field.type === "group") {
-			paths.push(...getFieldPaths(field.fields, [...leading, field.name]));
+			paths.push(
+				fullPath,
+				...getFieldPaths(field.fields, fullPath),
+			);
 			continue;
 		}
 
-		paths.push([...leading, field.name]);
+		paths.push(fullPath);
 	}
 
 	return paths;
