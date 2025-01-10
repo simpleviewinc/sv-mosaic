@@ -23,6 +23,7 @@ import { generateLayout } from "./Layout/layoutUtils";
 import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 import { FormContext } from "./FormContext";
 import sanitizeFieldDefs from "./useForm/utils/sanitizeFieldDefs";
+import getFieldPaths from "./useForm/utils/getFieldPaths";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -106,16 +107,15 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		const [firstErroneousField] = Object.entries(stable.fields)
-			.filter(([, field]) => stable.mounted[field.name] && errors[field.name])
-			.map(([, field]) => field)
-			.sort(({ order: a }, { order: b }) => a - b);
+		const firstErrorPath = getFieldPaths(stable.fields)
+			.map(path => path.join("."))
+			.find(path => stable.mounted[path] && errors[path]);
 
-		if (!firstErroneousField) {
+		if (!firstErrorPath) {
 			return;
 		}
 
-		const mount = stable.mounted[firstErroneousField.name];
+		const mount = stable.mounted[firstErrorPath];
 
 		if (!mount) {
 			return;
