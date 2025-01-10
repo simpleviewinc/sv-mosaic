@@ -167,6 +167,7 @@ function AddressAutocompleteField(props): ReactElement {
 					required: fieldDef.required,
 					size: Sizes.lg,
 				}}
+				path={path}
 				methods={props.methods}
 				disabled={props.disabled}
 				useRealLabel

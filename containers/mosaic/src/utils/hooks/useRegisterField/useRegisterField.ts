@@ -6,6 +6,7 @@ function useRegisterField(props: MosaicFieldProps & { fieldRef?: React.MutableRe
 		fieldDef: {
 			name,
 		} = {},
+		path,
 		skeleton,
 		methods: {
 			mountField,
@@ -21,12 +22,13 @@ function useRegisterField(props: MosaicFieldProps & { fieldRef?: React.MutableRe
 
 		const { unmount } = mountField({
 			name: name,
+			path,
 			fieldRef: fieldRef?.current,
 			inputRef: inputRef?.current,
 		});
 
 		return unmount;
-	}, [mountField, name, inputRef, skeleton, fieldRef]);
+	}, [mountField, name, path, inputRef, skeleton, fieldRef]);
 }
 
 export default useRegisterField;
