@@ -23,6 +23,6 @@ export interface ScrollSpyProps<E extends HTMLElement> {
 
 export interface ScrollSpyResult {
 	activeSection: number;
-	setActiveSection: (index: number) => void;
+	scrollToSection: (index: number) => void;
 	animation: Animation;
 }
