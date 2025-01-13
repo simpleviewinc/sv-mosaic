@@ -362,19 +362,21 @@ export function useForm(): UseFormReturn {
 		};
 	}, [removeWait]);
 
-	const mountField = useCallback<MountField>(({ name, fieldRef, inputRef }) => {
-		stable.current.mounted[name] = {
+	const mountField = useCallback<MountField>(({ name, path = [], fieldRef, inputRef }) => {
+		const key = [...path, name].join(".");
+
+		stable.current.mounted[key] = {
 			fieldRef,
 			inputRef,
 		};
 
 		return {
 			unmount: () => {
-				stable.current.mounted[name] = false;
+				stable.current.mounted[key] = false;
 
 				dispatch({
 					type: "SET_FIELD_ERRORS",
-					errors: { [name]: undefined },
+					errors: { [key]: undefined },
 					merge: true,
 				});
 			},
