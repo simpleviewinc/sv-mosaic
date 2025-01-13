@@ -1,5 +1,16 @@
 # sv-mosaic changelog
 
+### 39.3.1 - 01/13/2024
+
+#### Fixes
+
+* `Form`
+
+  * [MOS-1548](https://simpleviewtools.atlassian.net/browse/MOS-1548 "https://simpleviewtools.atlassian.net/browse/MOS-1548") **Issues with grouped fields**
+    * (Form) Add the group itself to the list when collating a list of paths from field store.
+    * (Form) Ensure group sub fields are properly mounted so that their corresponding DOM elements can be referenced for auto scrolling.
+* Housekeeping
+
 ### 39.3.0 - 01/07/2024
 
 #### Improvements and Fixes
