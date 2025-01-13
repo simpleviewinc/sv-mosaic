@@ -80,6 +80,7 @@ describe(__dirname, () => {
 					field3: fieldObjects[2],
 				},
 				result: [
+					["group1"],
 					["group1", "field1"],
 					["group1", "field2"],
 					["field3"],
@@ -105,8 +106,10 @@ describe(__dirname, () => {
 					},
 				},
 				result: [
+					["group1"],
 					["group1", "field1"],
 					["group1", "field2"],
+					["group1", "group2"],
 					["group1", "group2", "field3"],
 				],
 			},
