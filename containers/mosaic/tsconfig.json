@@ -4,8 +4,7 @@
 		"lib": [
 			"ES2019",
 			"DOM",
-			"ES2022.Intl",
-			"ES2023.Array"
+			"ES2022.Intl"
 		],
 		"target": "ES2019",
 		"moduleResolution": "node",
