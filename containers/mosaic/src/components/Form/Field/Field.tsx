@@ -109,6 +109,7 @@ const Field = ({
 
 	const fieldWrapperProps = {
 		fieldDef: sanitizedFieldDef,
+		path: path,
 		value: value,
 		error: error,
 		colsInRow: colsInRow,
