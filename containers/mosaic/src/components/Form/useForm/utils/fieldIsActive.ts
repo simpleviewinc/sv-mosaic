@@ -12,12 +12,12 @@ interface FieldIsActiveParams {
 
 function fieldIsActive({
 	name,
-	path,
+	path = [],
 	stable,
 }: FieldIsActiveParams): boolean {
 	const { mounted } = stable;
 
-	if (!mounted[name]) {
+	if (!mounted[[...path, name].join(".")]) {
 		return false;
 	}
 

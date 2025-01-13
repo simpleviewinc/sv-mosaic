@@ -76,6 +76,7 @@ function AddressStateField(props): ReactElement {
 				required: fieldDef.required,
 				size: fieldDef.size,
 			}}
+			path={path}
 			methods={props.methods}
 			disabled={props.disabled}
 			useRealLabel

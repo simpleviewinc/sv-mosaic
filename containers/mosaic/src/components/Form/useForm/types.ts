@@ -144,6 +144,7 @@ export type DisableForm = (params: DisableFormParams) => void;
 
 export interface MountFieldParams {
 	name: string;
+	path?: FieldPath;
 	fieldRef?: HTMLDivElement;
 	inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 }
