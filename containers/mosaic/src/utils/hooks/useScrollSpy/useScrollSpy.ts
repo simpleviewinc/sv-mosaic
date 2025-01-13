@@ -15,6 +15,7 @@ export default function useScrollSpy<E extends HTMLElement>({
 	const { animation, scrollTo } = useScrollTo({
 		container: containerRef,
 		onStop: () => {
+			console.log("ANIMATION STOP");
 			scrollHandlerActive.current = true;
 		},
 	});
@@ -59,10 +60,14 @@ export default function useScrollSpy<E extends HTMLElement>({
 		}
 
 		function onScroll() {
+			console.log("SCROLL LISTENER");
+
 			if (!scrollHandlerActive.current) {
+				console.log("SCROLL LISTENER BAILED");
 				return;
 			}
 
+			console.log("SCROLL LISTENER SET ACTIVE");
 			setActiveSection(getActiveSection());
 		}
 
