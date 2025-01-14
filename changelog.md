@@ -9,6 +9,14 @@
   * [MOS-1548](https://simpleviewtools.atlassian.net/browse/MOS-1548 "https://simpleviewtools.atlassian.net/browse/MOS-1548") **Issues with grouped fields**
     * (Form) Add the group itself to the list when collating a list of paths from field store.
     * (Form) Ensure group sub fields are properly mounted so that their corresponding DOM elements can be referenced for auto scrolling.
+* `Content`
+
+  * [MOS-1536](https://simpleviewtools.atlassian.net/browse/MOS-1536 "https://simpleviewtools.atlassian.net/browse/MOS-1536") **Correct content items row gap**
+    * (Content) Swaps out the row-gap style for gap due to unknown bug.
+* `Card`
+
+  * [MOS-1534](https://simpleviewtools.atlassian.net/browse/MOS-1534 "https://simpleviewtools.atlassian.net/browse/MOS-1534") **Add ability to add count to Card title bar**
+    * (Card) Introduces a way to display a numeric item count alongside the card title.
 * Housekeeping
 
 ### 39.3.0 - 01/07/2024
