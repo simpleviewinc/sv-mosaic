@@ -10,13 +10,16 @@ export default function useScrollSpy<E extends HTMLElement>({
 	threshold = 0.2,
 }: ScrollSpyProps<E>): ScrollSpyResult {
 	const scrollHandlerActive = useRef<boolean>(true);
+	const scrollHandlerActiveTimeout = useRef<undefined | ReturnType<typeof setTimeout>>(undefined);
+
 	const { current: container } = containerRef;
 
 	const { animation, scrollTo } = useScrollTo({
 		container: containerRef,
 		onStop: () => {
-			console.log("ANIMATION STOP");
-			scrollHandlerActive.current = true;
+			scrollHandlerActiveTimeout.current = setTimeout(() => {
+				scrollHandlerActive.current = true;
+			}, 10);
 		},
 	});
 
@@ -60,14 +63,10 @@ export default function useScrollSpy<E extends HTMLElement>({
 		}
 
 		function onScroll() {
-			console.log("SCROLL LISTENER");
-
 			if (!scrollHandlerActive.current) {
-				console.log("SCROLL LISTENER BAILED");
 				return;
 			}
 
-			console.log("SCROLL LISTENER SET ACTIVE");
 			setActiveSection(getActiveSection());
 		}
 
@@ -83,6 +82,7 @@ export default function useScrollSpy<E extends HTMLElement>({
 			return;
 		}
 
+		clearTimeout(scrollHandlerActiveTimeout.current);
 		scrollHandlerActive.current = false;
 
 		setActiveSection(index);
