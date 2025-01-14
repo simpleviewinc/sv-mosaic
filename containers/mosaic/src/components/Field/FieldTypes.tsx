@@ -128,6 +128,12 @@ export interface FieldDefBase<Type, T = any> {
 	 */
 	instructionText?: string;
 	/**
+	 * If instruction text is provided, force it to be displayed
+	 * in the form of a tooltip rather than alongside the field,
+	 * even when the horizontal space is available.
+	 */
+	forceInstructionTooltip?: boolean;
+	/**
 	 * Indicates whether the field can be written on or readonly.
 	 */
 	disabled?: MosaicToggle<FormState>;
