@@ -128,6 +128,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 								limit={limit}
 								value={value}
 								instructionText={fieldDef?.instructionText}
+								forceInstructionTooltip={fieldDef?.forceInstructionTooltip}
 								colsInRow={colsInRow}
 								name={fieldDef.name}
 								as={hasRealLabel ? "label" : "div"}
@@ -148,7 +149,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 					<HelperText>{fieldDef?.helperText}</HelperText>
 				)}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && (
+			{fieldDef?.instructionText && !fieldDef?.forceInstructionTooltip && (
 				<InstructionText colsInRow={colsInRow}>
 					{fieldDef.instructionText}
 				</InstructionText>
