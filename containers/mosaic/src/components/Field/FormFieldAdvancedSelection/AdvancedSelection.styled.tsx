@@ -4,14 +4,11 @@ import theme from "@root/theme";
 // MUI
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import type { TransientProps } from "@root/types";
-import type { ChipListPropsTypes } from "./AdvancedSelectionTypes";
 
-export const ChipsWrapper = styled.div<TransientProps<ChipListPropsTypes["fieldDef"]["inputSettings"], "isMobileView">>`
+export const ChipsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   row-gap: 12px;
-  width: ${({ $isMobileView }) => $isMobileView ? "" : "620px"};
 
   & > :not(:last-child) {
     margin-right: 12px;
@@ -41,10 +38,6 @@ export const StyledExpandMoreIcon = styled(ExpandMoreIcon)`
 export const StyledExpandLessIcon = styled(ExpandLessIcon)`
   color: ${theme.newColors.grey3["100"]};
   margin-left: 14px;
-`;
-
-export const AdvancedSelectionWrapper = styled.div`
-  max-width: 600px;
 `;
 
 export const StyledSkeletonWrapper = styled.div`
