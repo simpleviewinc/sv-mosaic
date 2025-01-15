@@ -31,7 +31,6 @@ export type AdvancedSelectionInputSettings = AdvancedSelectionLocalOptions | Adv
 export interface ChipListPropsTypes {
 	fieldDef: {
 		inputSettings: {
-			isMobileView: boolean;
 			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
 		};
 		disabled: boolean;
@@ -44,7 +43,6 @@ export interface AdvanceSelectionDrawerPropTypes {
 	fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings>;
 	onChange: (e: MosaicLabelValue[]) => Promise<void>;
 	isModalOpen: boolean;
-	isMobileView: boolean;
 	handleClose: (save?: boolean) => Promise<void>;
 }
 

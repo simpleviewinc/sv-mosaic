@@ -4,7 +4,6 @@ import type {
 import {
 	memo,
 	useCallback,
-	useEffect,
 	useState,
 } from "react";
 
@@ -20,10 +19,6 @@ import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
 import ChipList from "./ChipList";
 
 // Styles
-import {
-	AdvancedSelectionWrapper,
-} from "./AdvancedSelection.styled";
-import { BREAKPOINTS } from "@root/theme/theme";
 import type { MosaicLabelValue } from "@root/types";
 import { FormFieldAdvancedSelectionSkeleton } from "./FormFieldAdvancedSelectionSkeleton";
 
@@ -39,22 +34,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isMobileView, setIsMobileView] = useState(false);
 
 	const selectLimit = (fieldDef?.inputSettings?.selectLimit || 0) > 0 ? fieldDef?.inputSettings?.selectLimit : -1;
-
-	useEffect(() => {
-		const setResponsiveness = () => {
-			setIsMobileView(window.innerWidth < BREAKPOINTS.mobile);
-		};
-
-		setResponsiveness();
-		window.addEventListener("resize", setResponsiveness);
-
-		return () => {
-			window.removeEventListener("resize", setResponsiveness);
-		};
-	}, []);
 
 	/**
    * Sets the open state of the modal to true.
@@ -88,7 +69,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 	return (
 		<>
 			{value?.length > 0 ? (
-				<AdvancedSelectionWrapper>
+				<div>
 					{(selectLimit < 0 || value?.length < selectLimit) && (
 						<Button
 							color="teal"
@@ -104,13 +85,12 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 						value={value}
 						fieldDef={{
 							inputSettings: {
-								isMobileView,
 								deleteSelectedOption,
 							},
 							disabled,
 						}}
 					/>
-				</AdvancedSelectionWrapper>
+				</div>
 			) : (
 				<Button
 					color="gray"
@@ -130,7 +110,6 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 					fieldDef={fieldDef}
 					onChange={onChange}
 					isModalOpen={isModalOpen}
-					isMobileView={isMobileView}
 					handleClose={handleClose}
 				/>
 			</Drawer>
