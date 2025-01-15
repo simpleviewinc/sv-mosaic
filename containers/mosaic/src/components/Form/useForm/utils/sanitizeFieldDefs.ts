@@ -33,8 +33,23 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 			};
 		}
 
-		if (field.type === "date" && field.inputSettings?.showTime) {
+		if (field.type === "date") {
 			const { inputSettings = {} } = field;
+			const {
+				minDate = new Date(1400, 0, 1),
+				maxDate = new Date(3000, 11, 31),
+			} = inputSettings;
+
+			if (!field.inputSettings?.showTime) {
+				return {
+					...field,
+					inputSettings: {
+						...inputSettings,
+						minDate,
+						maxDate,
+					},
+				};
+			}
 
 			return {
 				...field,
@@ -54,6 +69,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 							disabled: field.disabled,
 							inputSettings: {
 								...inputSettings,
+								minDate,
+								maxDate,
 								showTime: false,
 							},
 						},

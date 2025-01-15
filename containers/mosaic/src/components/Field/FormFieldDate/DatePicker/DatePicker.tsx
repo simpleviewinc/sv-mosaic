@@ -11,7 +11,7 @@ import { DatePickerTextField, DatePickerWrapper, popperSx } from "./DatePicker.s
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 const DateFieldPicker = (props: DatePickerProps): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -30,6 +30,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 			onBlur={onBlur}
 			required={fieldDef.required}
 			disabled={disabled}
+			error={error}
 			inputProps={{
 				...params.inputProps,
 				ref: inputRef,

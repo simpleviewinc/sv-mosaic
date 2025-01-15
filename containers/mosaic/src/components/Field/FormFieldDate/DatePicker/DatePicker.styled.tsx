@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import TextField from "@mui/material/TextField";
+import { StyledTextField } from "../../FormFieldText/FormFieldText.styled";
 
 export const popperSx = {
 	"& .MuiPaper-root": {
@@ -96,6 +96,6 @@ export const DatePickerWrapper = styled.div<{ $isPickerOpen?: boolean; $disabled
 	}
 `;
 
-export const DatePickerTextField = styled(TextField)`
+export const DatePickerTextField = styled(StyledTextField)`
 	width: 100%;
 `;

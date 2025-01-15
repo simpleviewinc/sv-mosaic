@@ -24,8 +24,8 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	} = props;
 	const {
 		inputSettings: {
-			minDate,
-			maxDate,
+			minDate = new Date(1100, 1, 1),
+			maxDate = new Date(2999, 11, 31),
 		} = {},
 	} = fieldDef;
 

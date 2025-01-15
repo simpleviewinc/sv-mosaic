@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 // Material UI
 import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 
 //Styles & Types
 import theme from "@root/theme";
@@ -21,10 +22,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		`) : (`
 			background-color: ${theme.colors.disableBackground};
 		`)}
-
-		& svg {
-			color: ${theme.newColors.almostBlack["100"]};
-		}
 	}
 
 	& .MuiInputBase-root{
@@ -95,5 +92,11 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 
 	& .MuiInputBase-adornedEnd .MuiInputBase-input {
 		padding-right: 0;
+	}
+`;
+
+export const StyledAdornment = styled(InputAdornment)`
+	& svg {
+		color: ${theme.newColors.almostBlack["100"]};
 	}
 `;

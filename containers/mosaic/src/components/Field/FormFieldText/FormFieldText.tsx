@@ -2,12 +2,9 @@ import * as React from "react";
 import type { ReactElement, ChangeEvent } from "react";
 import { memo } from "react";
 
-// Material UI
-import InputAdornment from "@mui/material/InputAdornment";
-
 // Types and styles
 import type { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
-import { StyledTextField } from "./FormFieldText.styled";
+import { StyledAdornment, StyledTextField } from "./FormFieldText.styled";
 import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -29,7 +26,7 @@ const TextField = (
 	const leadingElement = fieldDef?.inputSettings?.prefixElement
 		? {
 			startAdornment: (
-				<InputAdornment position="start">{fieldDef?.inputSettings?.prefixElement}</InputAdornment>
+				<StyledAdornment position="start">{fieldDef?.inputSettings?.prefixElement}</StyledAdornment>
 			),
 		}
 		: null;
