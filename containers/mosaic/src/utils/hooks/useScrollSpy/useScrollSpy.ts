@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
 
-import debounce from "lodash/debounce";
 import useScrollTo from "../useScrollTo/useScrollTo";
 
 export default function useScrollSpy<E extends HTMLElement>({
@@ -10,23 +9,23 @@ export default function useScrollSpy<E extends HTMLElement>({
 	container: containerRef,
 	threshold = 0.2,
 }: ScrollSpyProps<E>): ScrollSpyResult {
-	const isProgramScroll = useRef<boolean>(false);
-	const clearIsProgramScrollDebounced = useRef(debounce(() => (isProgramScroll.current = false), 100));
+	const scrollHandlerActive = useRef<boolean>(true);
+	const scrollHandlerActiveTimeout = useRef<undefined | ReturnType<typeof setTimeout>>(undefined);
+
 	const { current: container } = containerRef;
 
 	const { animation, scrollTo } = useScrollTo({
 		container: containerRef,
 		onStop: () => {
-			isProgramScroll.current = false;
+			scrollHandlerActiveTimeout.current = setTimeout(() => {
+				scrollHandlerActive.current = true;
+			}, 10);
 		},
 	});
 
-	const [scrollActiveSection, setScrollActiveSection] = useState<number>(0);
-	const [userActiveSection, setUserActiveSection] = useState<number | null>(null);
+	const [activeSection, setActiveSection] = useState<number>(0);
 
-	const activeSection = userActiveSection !== null ? userActiveSection : scrollActiveSection;
-
-	const getScrollActiveSection = useCallback(() => {
+	const getActiveSection = useCallback(() => {
 		let newActiveSection = 0;
 
 		if (!container || !refs) {
@@ -34,6 +33,10 @@ export default function useScrollSpy<E extends HTMLElement>({
 		}
 
 		const containerBox = container.getBoundingClientRect();
+
+		if (!container.scrollTop) {
+			return 0;
+		}
 
 		if (Math.ceil(container.scrollTop + containerBox.height) >= container.scrollHeight) {
 			return refs.length - 1;
@@ -55,54 +58,42 @@ export default function useScrollSpy<E extends HTMLElement>({
 	}, [container, refs, threshold]);
 
 	useEffect(() => {
-		const section = getScrollActiveSection();
-		setScrollActiveSection(section);
-	}, [getScrollActiveSection, refs]);
-
-	useEffect(() => {
 		if (!container) {
 			return;
 		}
 
-		const onScroll = () => {
-			clearIsProgramScrollDebounced.current();
-
-			if (!isProgramScroll.current) {
-				setUserActiveSection(null);
+		function onScroll() {
+			if (!scrollHandlerActive.current) {
+				return;
 			}
 
-			const section = getScrollActiveSection();
-			setScrollActiveSection(section);
-		};
+			setActiveSection(getActiveSection());
+		}
 
 		container.addEventListener("scroll", onScroll, { passive: true });
-
 		return () => container.removeEventListener("scroll", onScroll);
-	}, [container, getScrollActiveSection]);
+	}, [container, getActiveSection]);
 
-	const setActiveSection = useCallback((refIndex: number) => {
+	const scrollToSection = useCallback((index: number) => {
 		const [first] = refs;
-		const ref = refs[refIndex];
+		const ref = refs[index];
 
 		if (!first || !ref || !container) {
 			return;
 		}
 
-		setUserActiveSection(refIndex);
+		clearTimeout(scrollHandlerActiveTimeout.current);
+		scrollHandlerActive.current = false;
 
-		isProgramScroll.current = true;
+		setActiveSection(index);
 
-		const { scrollTop } = container;
-
-		// Calculate the start and end points of the scroll animation
-		// based on the sections position relative to the container
 		const containerBox = container.getBoundingClientRect();
 
 		// There might be some extra offset if the first section
 		// does not sit flush with the container, so calculate that
 		// and take it away from the scroll target
 		const firstBox = first.getBoundingClientRect();
-		const firstOffset = firstBox.top + scrollTop - containerBox.top;
+		const firstOffset = firstBox.top + container.scrollTop - containerBox.top;
 
 		scrollTo({
 			target: ref,
@@ -113,6 +104,6 @@ export default function useScrollSpy<E extends HTMLElement>({
 	return {
 		animation,
 		activeSection,
-		setActiveSection,
+		scrollToSection,
 	};
 }
