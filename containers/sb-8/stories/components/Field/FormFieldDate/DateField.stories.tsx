@@ -34,11 +34,14 @@ export const Playground = ({
 		undefined,
 	[prepopulate]);
 
-	const minDate = minDateStr && textIsValidDate(minDateStr, DATE_FORMAT_FULL) ? new Date(
-		Number(minDateStr.split("/")[2]),
-		Number(minDateStr.split("/")[0]) - 1,
-		Number(minDateStr.split("/")[1]),
-	) : undefined;
+	const minDate = useMemo(() => {
+		if (!minDateStr || !textIsValidDate(minDateStr, DATE_FORMAT_FULL)) {
+			return;
+		}
+
+		const [month, day, year] = minDateStr.split("/");
+		return new Date(year, month - 1, day);
+	}, [minDateStr]);
 
 	const defaultTime = useMemo<`${number}${number}:${number}${number}`>(() => {
 		if (!/\d{4}/.test(defaultTimeStr)) {
