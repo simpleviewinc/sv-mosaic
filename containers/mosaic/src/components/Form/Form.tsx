@@ -77,7 +77,7 @@ const Form = (props: FormProps) => {
 	const {
 		animation: { inProgress: scrollSpyAnimating },
 		activeSection,
-		setActiveSection,
+		scrollToSection,
 	} = useScrollSpy({
 		refs: sectionRefs,
 		container: formContentRef,
@@ -173,8 +173,8 @@ const Form = (props: FormProps) => {
 		}
 
 		const sectionIndex = Number(match[1]);
-		setActiveSection(sectionIndex);
-	}, [useSectionHash, setActiveSection]);
+		scrollToSection(sectionIndex);
+	}, [useSectionHash, scrollToSection]);
 
 	useEffect(() => {
 		if (!useSectionHash || scrollSpyAnimating()) {
@@ -215,8 +215,8 @@ const Form = (props: FormProps) => {
 		const index = Number(args.item.name);
 
 		setSectionHash(index);
-		setActiveSection(index);
-	}, [setSectionHash, setActiveSection]);
+		scrollToSection(index);
+	}, [setSectionHash, scrollToSection]);
 
 	const submitWarningContent = typeof state.submitWarning === "object" ? (
 		<>
