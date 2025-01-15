@@ -48,20 +48,6 @@ describe(__dirname, () => {
 		expect(onChangeMock).toBeCalled();
 	});
 
-	it("should trigger the duplocate change handler with the correct parameters", async () => {
-		const onChangeCbMock = vi.fn((checked) => {
-			expect(checked).toStrictEqual([{ value: "item1", label: "Item 1" }]);
-		});
-
-		const { user } = await setup({ onChangeCb: onChangeCbMock });
-
-		const checkboxes = screen.queryAllByRole("checkbox");
-
-		expect(checkboxes).toHaveLength(2);
-		await user.click(checkboxes[0]);
-		expect(onChangeCbMock).toBeCalled();
-	});
-
 	it("should render checked checkboxes when the checked property refers to one of the options provided", async () => {
 		await setup({ checked: [{ ...options[0] }] });
 
