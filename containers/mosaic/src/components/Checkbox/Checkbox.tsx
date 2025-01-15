@@ -29,6 +29,7 @@ const Checkbox = (props: CheckboxProps) => {
 						edge={props.edge}
 						checked={props.checked}
 						onClick={props.onClick}
+						onChange={props.onChange}
 						indeterminate={props.indeterminate}
 						id={id}
 					/>
