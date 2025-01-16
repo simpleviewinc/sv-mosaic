@@ -11,6 +11,8 @@ interface FormFieldCheckboxLocalOptions {
 interface FormFieldCheckboxExternalOptions {
 	/**
 	 * Used to get options from db.
+	 *
+	 * @deprecated Use the `options` input setting instead.
 	 */
 	getOptions: () => Promise<MosaicLabelValue[]>;
 }

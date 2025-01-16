@@ -1,13 +1,15 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { memo, useEffect, useState } from "react";
 
-// Types and styles
+import React from "react";
+import { memo } from "react";
+
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCheckboxTypes";
+
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
-import type { MosaicLabelValue } from "@root/types";
 import { FormFieldCheckboxSkeleton } from "./FormFieldCheckboxSkeleton";
+import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
+import useOptions from "@root/utils/hooks/useOptions/useOptions";
 
 const FormFieldCheckbox = (
 	props: MosaicFieldProps<"checkbox", FormFieldCheckboxInputSettings, CheckboxData>,
@@ -22,47 +24,32 @@ const FormFieldCheckbox = (
 		id,
 	} = props;
 
-	const [internalOptions, setInternalOptions] = useState<MosaicLabelValue[]>([]);
-	const [checked, setChecked] = useState<MosaicLabelValue[]>([]);
-	const [origin, setOrigin] = useState(undefined);
+	const {
+		inputSettings: {
+			getOptions: optionsAsync,
+			options: providedOptions = optionsAsync,
+		} = {},
+	} = fieldDef;
 
-	useEffect(() => {
-		const populateOptions = async () => {
-			if (fieldDef?.inputSettings?.options) {
-				setInternalOptions(fieldDef.inputSettings.options);
-				setOrigin(true);
-			} else if (fieldDef?.inputSettings?.getOptions) {
-				const newOptions = await fieldDef.inputSettings.getOptions();
-				setInternalOptions(newOptions);
-				setOrigin(false);
-			}
-		};
-		populateOptions();
-	}, [
-		fieldDef?.inputSettings?.options,
-		fieldDef?.inputSettings?.getOptions,
-	]);
+	useMountWarning(
+		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
+		Boolean(optionsAsync),
+	);
 
-	useEffect(() => {
-		if (value && origin === false) {
-			value.forEach((optionValue) => {
-				if (!internalOptions.find((o) => o?.value === optionValue?.value))
-					setInternalOptions([...internalOptions, optionValue]);
-			});
-		}
-		setChecked(value);
+	const { options, loading } = useOptions({
+		from: providedOptions,
+		add: value,
+	});
 
-	}, [internalOptions, value, origin]);
-
-	if (skeleton) {
+	if (skeleton || loading) {
 		return <FormFieldCheckboxSkeleton />;
 	}
 
 	return (
 		<StyledCheckboxList
 			disabled={disabled}
-			checked={checked}
-			options={internalOptions}
+			checked={value}
+			options={options}
 			onChange={onChange}
 			onBlur={onBlur}
 			style={fieldDef.style}
