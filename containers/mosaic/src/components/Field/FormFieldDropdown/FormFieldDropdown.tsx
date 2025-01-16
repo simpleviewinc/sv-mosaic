@@ -1,19 +1,16 @@
-import * as React from "react";
-import { useState, memo, useEffect } from "react";
-import {
-	StyledAutocomplete,
-	StyledPopper,
-	SingleDropdownWrapper,
-} from "./FormFieldDropdown.styled";
+import React, { useState, memo } from "react";
+import TextField from "@mui/material/TextField";
+import Skeleton from "@mui/material/Skeleton";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import type { MosaicFieldProps } from "@root/components/Field";
+import type { MosaicLabelValue } from "@root/types";
 import type { CustomPopperProps, DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
-// Components
+import useOptions from "@root/utils/hooks/useOptions/useOptions";
+import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import InputWrapper from "../../InputWrapper";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import TextField from "@mui/material/TextField";
-import type { MosaicLabelValue } from "@root/types";
-import Skeleton from "@mui/material/Skeleton";
+import { StyledAutocomplete, StyledPopper, SingleDropdownWrapper } from "./FormFieldDropdown.styled";
 
 const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {
 	const {
@@ -28,32 +25,24 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 		skeleton,
 	} = props;
 
+	const {
+		inputSettings: {
+			getOptions: optionsAsync,
+			options: providedOptions = optionsAsync,
+		} = {},
+	} = fieldDef;
+
+	useMountWarning(
+		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
+		Boolean(optionsAsync),
+	);
+
+	const { options, loading } = useOptions({
+		from: providedOptions,
+		add: value ? [value] : undefined,
+	});
+
 	const [isOpen, setIsOpen] = useState(false);
-	const [internalOptions, setInternalOptions] = useState([]);
-	// true: options
-	// false: getOptions
-	const [origin, setOrigin] = useState(undefined);
-
-	useEffect(() => {
-		const populateOptions = async () => {
-			if (fieldDef?.inputSettings?.options) {
-				setInternalOptions(fieldDef.inputSettings.options);
-				setOrigin(true);
-			} else if (fieldDef?.inputSettings?.getOptions) {
-				const newOptions = await fieldDef.inputSettings.getOptions();
-				setInternalOptions(newOptions);
-				setOrigin(false);
-			}
-		};
-		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions]);
-
-	useEffect(() => {
-		if (value && origin === false) {
-			if (!internalOptions.find((o) => o?.value === value?.value))
-				setInternalOptions([...internalOptions, value]);
-		}
-	}, [internalOptions, value, origin]);
 
 	const renderInput = (params) => {
 		return (
@@ -100,7 +89,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 		return <StyledPopper $value={value?.value === ""} {...props} />;
 	};
 
-	if (skeleton) {
+	if (skeleton || loading) {
 		return (
 			<Skeleton
 				variant="rectangular"
@@ -117,7 +106,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				onOpen={handleOpen}
 				onClose={handleOpen}
 				data-testid="autocomplete-test-id"
-				options={internalOptions}
+				options={options}
 				getOptionLabel={(option: MosaicLabelValue) => option.label}
 				getOptionKey={(option: MosaicLabelValue) => option.value}
 				isOptionEqualToValue={isOptionEqualToValue}

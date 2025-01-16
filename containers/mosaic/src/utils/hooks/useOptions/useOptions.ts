@@ -14,8 +14,8 @@ interface UseOptionsResult {
 
 function applyAdditional(options: MosaicLabelValue[], add: MosaicLabelValue[]) {
 	return [
-		...options,
 		...add.filter(addItem => !options.some(option => option.value === addItem.value)),
+		...options,
 	];
 }
 

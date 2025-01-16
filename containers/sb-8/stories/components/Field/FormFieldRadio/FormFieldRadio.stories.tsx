@@ -6,26 +6,11 @@ import { renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions } from "@root/mock";
+import { getOptions, optionsLibrary } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldRadio",
 };
-
-const options = [
-	{
-		label: "Label 1",
-		value: "label_1",
-	},
-	{
-		label: "Label 2",
-		value: "label_2",
-	},
-	{
-		label: "Label 3",
-		value: "label_3",
-	},
-];
 
 export const Playground = ({
 	label,
@@ -34,6 +19,8 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
+	prepop,
+	prepopData,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
@@ -49,7 +36,7 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsType === "Synchronous" ? options : getOptions,
+						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
 					},
 					helperText,
 					instructionText,
@@ -57,6 +44,11 @@ export const Playground = ({
 			] as FieldDef[],
 		[label, required, disabled, instructionText, helperText, optionsType],
 	);
+
+	const getFormValues = useMemo(() => prepop
+		? async () => prepopData
+		: undefined,
+	[prepop, prepopData]);
 
 	return (
 		<>
@@ -67,6 +59,7 @@ export const Playground = ({
 				title="Radio Field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);
@@ -79,6 +72,10 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
+	prepop: false,
+	prepopData: {
+		radio: { value: "option_1-cat_1", label: "Option 1" },
+	},
 	optionsType: "Synchronous",
 };
 
@@ -101,6 +98,13 @@ Playground.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
+	prepop: {
+		name: "Prepopulate",
+	},
+	prepopData: {
+		name: "Prepopulate Data",
+		if: { arg: "prepop" },
+	},
 	optionsType: {
 		name: "Options Type",
 		options: ["Synchronous", "Asynchronous"],
@@ -116,7 +120,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -128,7 +132,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",

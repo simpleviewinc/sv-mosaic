@@ -1,15 +1,11 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 
-// Components
-import Form, { useForm } from "@root/components/Form";
+import React, { useMemo } from "react";
 
-// Utils
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
+import Form, { useForm } from "@root/components/Form";
+import { getOptions, optionsLibrary } from "@root/mock";
 import { renderButtons } from "../../../../utils";
-import { getOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
@@ -22,7 +18,9 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
-	optionsOrigin,
+	prepop,
+	prepopData,
+	optionsType,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -37,15 +35,19 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsOrigin === "Local" ? checkboxOptions : undefined,
-						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef[],
-		[required, disabled, label, instructionText, helperText, optionsOrigin],
+		[required, disabled, label, instructionText, helperText, optionsType],
 	);
+
+	const getFormValues = useMemo(() => prepop
+		? async () => prepopData
+		: undefined,
+	[prepop, prepopData]);
 
 	return (
 		<>
@@ -56,6 +58,7 @@ export const Playground = ({
 				title="Checkbox Field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);
@@ -68,7 +71,14 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	optionsOrigin: "Local",
+	prepop: false,
+	prepopData: {
+		checkbox: [
+			{ value: "option_1-cat_1", label: "Option 1" },
+			{ value: "foo", label: "Foo" },
+		],
+	},
+	optionsType: "Synchronous",
 };
 
 Playground.argTypes = {
@@ -90,8 +100,17 @@ Playground.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
-	optionsOrigin: {
-		name: "Options Origin",
+	prepop: {
+		name: "Prepopulate",
+	},
+	prepopData: {
+		name: "Prepopulate Data",
+		if: { arg: "prepop" },
+	},
+	optionsType: {
+		name: "Options Type",
+		options: ["Synchronous", "Asynchronous"],
+		control: { type: "select" },
 	},
 };
 
@@ -103,7 +122,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options: checkboxOptions,
+			options: optionsLibrary,
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",
@@ -115,7 +134,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			options: checkboxOptions,
+			options: optionsLibrary,
 		},
 		helperText: "Helper Text",
 		instructionText: "InstructionText",

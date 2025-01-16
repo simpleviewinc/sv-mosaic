@@ -4,26 +4,11 @@ import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
-import { getOptions } from "@root/mock";
+import { getOptions, optionsLibrary } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldChips",
 };
-
-const options = [
-	{
-		label: "Option 1",
-		value: "Option_1",
-	},
-	{
-		label: "Option 2",
-		value: "Option_2",
-	},
-	{
-		label: "Option 3",
-		value: "Option_3",
-	},
-];
 
 export const Playground = ({
 	label,
@@ -32,6 +17,8 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
+	prepop,
+	prepopData,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
@@ -49,12 +36,17 @@ export const Playground = ({
 					name: "chip",
 					type: "chip",
 					inputSettings: {
-						options: optionsType === "Synchronous" ? options : getOptions,
+						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
 					},
 				},
 			] as FieldDef[],
 		[label, helperText, instructionText, required, disabled, optionsType],
 	);
+
+	const getFormValues = useMemo(() => prepop
+		? async () => prepopData
+		: undefined,
+	[prepop, prepopData]);
 
 	return (
 		<>
@@ -65,6 +57,7 @@ export const Playground = ({
 				title="Chips Field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);
@@ -77,6 +70,10 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
+	prepop: false,
+	prepopData: {
+		chip: { value: "option_1-cat_1", label: "Option 1" },
+	},
 	optionsType: "Synchronous",
 };
 
@@ -99,6 +96,13 @@ Playground.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
+	prepop: {
+		name: "Prepopulate",
+	},
+	prepopData: {
+		name: "Prepopulate Data",
+		if: { arg: "prepop" },
+	},
 	optionsType: {
 		name: "Options Type",
 		options: ["Synchronous", "Asynchronous"],
@@ -120,7 +124,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						options,
+						options: optionsLibrary,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
@@ -132,7 +136,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: true,
 					inputSettings: {
-						options,
+						options: optionsLibrary,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
@@ -144,7 +148,7 @@ export const KitchenSink = (): ReactElement => {
 					required: true,
 					disabled: false,
 					inputSettings: {
-						options,
+						options: optionsLibrary,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",

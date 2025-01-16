@@ -6,37 +6,11 @@ import { renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions } from "@root/mock";
+import { getOptions, optionsLibrary } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldDropdown",
 };
-
-const options = [
-	{ label: "The Shawshank Redemption", value: "tt0111161" },
-	{ label: "The Godfather", value: "tt0068646" },
-	{ label: "The Godfather: Part II", value: "tt0071562" },
-	{ label: "The Dark Knight", value: "tt0468569" },
-	{ label: "12 Angry Men", value: "tt0050083" },
-	{ label: "Schindler's List", value: "tt0108052" },
-	{ label: "Pulp Fiction", value: "tt0110912" },
-	{ label: "The Lord of the Rings: The Return of the King", value: "tt0167260" },
-	{ label: "The Good, the Bad and the Ugly", value: "tt0060196" },
-	{ label: "Fight Club", value: "tt0137523" },
-	{ label: "The Lord of the Rings: The Fellowship of the Ring", value: "tt0120737" },
-	{ label: "Star Wars: Episode V - The Empire Strikes Back", value: "tt0080684" },
-	{ label: "Forrest Gump", value: "tt0109830" },
-	{ label: "Inception", value: "tt1375666" },
-	{ label: "The Lord of the Rings: The Two Towers", value: "tt0167261" },
-	{ label: "One Flew Over the Cuckoo's Nest", value: "tt0073486" },
-	{ label: "Goodfellas", value: "tt0099685" },
-	{ label: "The Matrix", value: "tt0133093" },
-	{ label: "Seven Samurai", value: "tt0047478" },
-	{ label: "Star Wars: Episode IV - A New Hope", value: "tt0076759" },
-	{ label: "City of God", value: "tt0317248" },
-	{ label: "Aftermath", value: "tt1564368" },
-	{ label: "Aftermath", value: "tt4581576" },
-];
 
 export const Playground = ({
 	label,
@@ -45,7 +19,9 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
-	optionsOrigin,
+	prepop,
+	prepopData,
+	optionsType,
 	placeholder,
 	size,
 }: typeof Playground.args): ReactElement => {
@@ -63,26 +39,20 @@ export const Playground = ({
 					disabled,
 					size,
 					inputSettings: {
-						options: optionsOrigin === "Local" ? options : undefined,
-						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
 						placeholder,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef[],
-		[
-			required,
-			disabled,
-			size,
-			placeholder,
-			options,
-			helperText,
-			instructionText,
-			label,
-			optionsOrigin,
-		],
+		[label, required, disabled, size, optionsType, placeholder, helperText, instructionText],
 	);
+
+	const getFormValues = useMemo(() => prepop
+		? async () => prepopData
+		: undefined,
+	[prepop, prepopData]);
 
 	return (
 		<>
@@ -93,6 +63,7 @@ export const Playground = ({
 				title="Dropdown Field"
 				fields={fields}
 				skeleton={skeleton}
+				getFormValues={getFormValues}
 			/>
 		</>
 	);
@@ -105,7 +76,11 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	optionsOrigin: "Local",
+	prepop: false,
+	prepopData: {
+		dropdown: { value: "option_1-cat_1", label: "Option 1" },
+	},
+	optionsType: "Synchronous",
 	size: "sm",
 	placeholder: "Choose a movie..",
 };
@@ -129,8 +104,17 @@ Playground.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
-	optionsOrigin: {
-		name: "Options Origin",
+	prepop: {
+		name: "Prepopulate",
+	},
+	prepopData: {
+		name: "Prepopulate Data",
+		if: { arg: "prepop" },
+	},
+	optionsType: {
+		name: "Options Type",
+		options: ["Synchronous", "Asynchronous"],
+		control: { type: "select" },
 	},
 	size: {
 		name: "Size",
@@ -149,7 +133,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "md",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -174,7 +158,7 @@ const kitchenSinkFields: FieldDef[] = [
 		disabled: true,
 		size: "md",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -186,7 +170,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "xs",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -197,7 +181,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "sm",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -208,7 +192,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "md",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -219,7 +203,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "lg",
 		inputSettings: {
-			options,
+			options: optionsLibrary,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
