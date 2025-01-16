@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import type { MosaicLabelValue } from "@root/types";
 
 interface UseOptionsParams {
-	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
+	from: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
+	add?: MosaicLabelValue[];
 }
 
 interface UseOptionsResult {
@@ -11,36 +12,43 @@ interface UseOptionsResult {
 	loading?: boolean;
 }
 
-function useOptions({ options }: UseOptionsParams): UseOptionsResult {
+function applyAdditional(options: MosaicLabelValue[], add: MosaicLabelValue[]) {
+	return [
+		...options,
+		...add.filter(addItem => !options.some(option => option.value === addItem.value)),
+	];
+}
+
+function useOptions({ from, add = [] }: UseOptionsParams): UseOptionsResult {
 	const [loading, setLoading] = useState(false);
 	const [asyncOptions, setAsyncOptions] = useState<undefined | MosaicLabelValue[]>(undefined);
-	const syncOptions = Array.isArray(options) ? options : undefined;
+	const syncOptions = Array.isArray(from) ? from : undefined;
 
 	useEffect(() => {
 		async function fetchOptions() {
-			if (typeof options !== "function") {
+			if (typeof from !== "function") {
 				return;
 			}
 
 			setAsyncOptions([]);
 			setLoading(true);
-			const result = await options();
+			const result = await from();
 			setAsyncOptions(result);
 			setLoading(false);
 		}
 
 		fetchOptions();
-	}, [options]);
+	}, [from]);
 
 	if (syncOptions) {
-		return { options: syncOptions, type: "sync" };
+		return { options: applyAdditional(syncOptions, add), type: "sync" };
 	}
 
 	if (asyncOptions) {
-		return { options: asyncOptions, type: "async", loading };
+		return { options: applyAdditional(asyncOptions, add), type: "async", loading };
 	}
 
-	return { options: [], type: "none" };
+	return { options: applyAdditional([], add), type: "none" };
 }
 
 export default useOptions;
