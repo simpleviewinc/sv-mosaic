@@ -34,7 +34,7 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
-	optionsOrigin,
+	optionsType,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -49,14 +49,13 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsOrigin === "Local" ? options : undefined,
-						getOptions: optionsOrigin === "DB" ? getOptions : undefined,
+						options: optionsType === "Synchronous" ? options : getOptions,
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef[],
-		[label, required, disabled, instructionText, helperText, optionsOrigin],
+		[label, required, disabled, instructionText, helperText, optionsType],
 	);
 
 	return (
@@ -80,7 +79,7 @@ Playground.args = {
 	skeleton: false,
 	instructionText: "Instruction text",
 	helperText: "Helper text",
-	optionsOrigin: "Local",
+	optionsType: "Synchronous",
 };
 
 Playground.argTypes = {
@@ -102,8 +101,10 @@ Playground.argTypes = {
 	helperText: {
 		name: "Helper Text",
 	},
-	optionsOrigin: {
-		name: "Options Origin",
+	optionsType: {
+		name: "Options Type",
+		options: ["Synchronous", "Asynchronous"],
+		control: { type: "select" },
 	},
 };
 

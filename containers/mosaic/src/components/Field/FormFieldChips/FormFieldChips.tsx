@@ -7,10 +7,10 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import type { ChipData, FormFieldChipsInputSettings } from "./FormFieldChipsTypes";
 
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
+import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import Chip from "../../Chip";
 import { StyledChipGroup } from "./FormFieldChips.styled";
 import { FormFieldChipsSkeleton } from "./FormFieldChipsSkeleton";
-import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 
 const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSettings, ChipData>): ReactElement => {
 	const {
@@ -26,7 +26,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 	const {
 		inputSettings: {
 			getOptions: optionsAsync,
-			options: optionsSync = optionsAsync,
+			options: providedOptions = optionsAsync,
 		} = {},
 	} = fieldDef;
 
@@ -36,7 +36,8 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 	);
 
 	const { options, loading } = useOptions({
-		options: optionsAsync || optionsSync,
+		from: providedOptions,
+		add: value ? [value] : undefined,
 	});
 
 	if (skeleton || loading) {
