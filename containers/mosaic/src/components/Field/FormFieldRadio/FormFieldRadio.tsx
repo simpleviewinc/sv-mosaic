@@ -1,15 +1,16 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { useState, useEffect, memo } from "react";
 
-// Components
-import RadioButton from "@root/components/RadioButton";
+import React from "react";
+import { memo } from "react";
 
-// Types and styles
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
-import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import type { MosaicLabelValue } from "@root/types";
+
+import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
+import useOptions from "@root/utils/hooks/useOptions/useOptions";
+import RadioButton from "@root/components/RadioButton";
+import { StyledRadioGroup } from "./FormFieldRadio.styled";
 import { FormFieldRadioSkeleton } from "./FormFieldRadioSkeleton";
 
 const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, RadioData>): ReactElement => {
@@ -22,35 +23,44 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		skeleton,
 	} = props;
 
-	const [internalOptions, setInternalOptions] = useState([]);
-	// true: options
-	// false: getOptions
-	const [origin, setOrigin] = useState(undefined);
+	const {
+		inputSettings: {
+			getOptions: optionsAsync,
+			options: providedOptions = optionsAsync,
+		} = {},
+	} = fieldDef;
 
-	useEffect(() => {
-		const populateOptions = async () => {
-			if (fieldDef?.inputSettings?.options) {
-				setInternalOptions(fieldDef.inputSettings.options);
-				setOrigin(true);
-			} else if (fieldDef?.inputSettings?.getOptions) {
-				const newOptions = await fieldDef.inputSettings.getOptions();
-				setInternalOptions(newOptions);
-				setOrigin(false);
-			}
-		};
-		populateOptions();
-	}, [fieldDef?.inputSettings?.options, fieldDef?.inputSettings?.getOptions]);
+	useMountWarning(
+		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
+		Boolean(optionsAsync),
+	);
 
-	useEffect(() => {
-		if (value && origin === false) {
-			if (!internalOptions.find((o) => o?.value === value?.value))
-				setInternalOptions([...internalOptions, value]);
+	const { options, loading } = useOptions({
+		from: providedOptions,
+		add: value ? [value] : undefined,
+	});
+
+	const _onChange = (value: string) => {
+		const option: MosaicLabelValue = options.find(option => option.value === value);
+
+		if (!option) {
+			return;
 		}
-	}, [internalOptions, value, origin]);
 
-	const listOfRadios = (
-		<>
-			{internalOptions.map((option) => (
+		onChange(option);
+	};
+
+	if (skeleton || loading) {
+		return <FormFieldRadioSkeleton />;
+	}
+
+	return (
+		<StyledRadioGroup
+			onChange={({ target: { value } }) => _onChange(value)}
+			value="label_1"
+			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
+		>
+			{options.map(option => (
 				<RadioButton
 					disabled={disabled}
 					key={option.label}
@@ -58,25 +68,6 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 					value={option.value}
 				/>
 			))}
-		</>
-	);
-
-	const updateSelectedOption = (option: string) => {
-		const selectedOption: MosaicLabelValue = internalOptions.find(o => o.value === option);
-		onChange(selectedOption);
-	};
-
-	if (skeleton) {
-		return <FormFieldRadioSkeleton />;
-	}
-
-	return (
-		<StyledRadioGroup
-			onChange={(e) => onChange && updateSelectedOption(e.target.value)}
-			value={value ? value.value : ""}
-			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
-		>
-			{listOfRadios}
 		</StyledRadioGroup>
 	);
 };
