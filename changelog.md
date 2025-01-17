@@ -1,5 +1,23 @@
 # sv-mosaic changelog
 
+### 39.3.2 - 01/21/2024
+
+#### Improvements and Fixes
+
+* `Form`
+
+  * [MOS-1530](https://simpleviewtools.atlassian.net/browse/MOS-1530 "https://simpleviewtools.atlassian.net/browse/MOS-1530") **Scroll spy innaccuracy**
+    * Slightly refactor the Scroll Spy mechanic to avoid relying on debounced changes.
+* `FormFieldDate`
+
+  * [MOS-1547](https://simpleviewtools.atlassian.net/browse/MOS-1547 "https://simpleviewtools.atlassian.net/browse/MOS-1547") **Date/Time Form field issues**
+    * (DateField) Always default to a minimum and maximum date for date fields.
+    * (DateField) Utilise the Mosaic-styled text field
+* Housekeeping
+
+  * [MOS-1432](https://simpleviewtools.atlassian.net/browse/MOS-1432 "https://simpleviewtools.atlassian.net/browse/MOS-1432") **Rename all broken documentation links**
+    * (chore) Updates broken documentation links
+
 ### 39.3.1 - 01/13/2024
 
 #### Fixes
