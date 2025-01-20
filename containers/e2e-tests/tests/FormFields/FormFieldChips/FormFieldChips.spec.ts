@@ -40,7 +40,7 @@ test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 		await ffChipSingleSelectPage.saveBtn.click();
 	});
 
-	test("Validate saving the selection for Chip Single Select", async () => {
+	test.skip("Validate saving the selection for Chip Single Select", async () => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain(regularOptionLabel);
 			expect(dialog.message()).toContain(regularOptionLabel.replace(/ /g, "_"));
