@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import get from "lodash/get";
+import set from "lodash/fp/set";
 
 import React, { memo, useContext, useEffect, useMemo } from "react";
 
@@ -27,7 +28,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		skeleton,
 		path,
 	} = props;
-	const { inputSettings = {} } = fieldDef;
+	const { name, inputSettings = {} } = fieldDef;
 	const { defaultTime } = inputSettings;
 
 	const value = useMemo(() => providedValue || {
@@ -35,32 +36,49 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		keyboardInputValue: undefined,
 	}, [providedValue]);
 
-	const { state } = useContext(FormContext);
-	const date = useMemo(() => get(state.internalData, [...(path || []), "date"]), [state, path]);
+	const { methods: { addHook } } = useContext(FormContext);
 
 	useEffect(() => {
-		onChange((value) => {
-			const usingDefaultTime = !value || value.usingDefaultTime;
+		if (!defaultTime) {
+			return;
+		}
+
+		if (!path || !path.length) {
+			throw new Error("The `defaultTime` property can only be provided for a time field that works as a part of a group alongside a date field.");
+		}
+
+		const removeHook = addHook("setFieldValueData", ({ data, internalData, ...rest }) => {
+			if (
+				rest.name !== "date" ||
+				rest.path.join(".") !== (path || []).join(".")
+			) {
+				return;
+			}
+
+			const date = get(internalData, [...(path || []), "date"]);
+			if (!date?.date) {
+				return;
+			}
+
+			const time = get(internalData, [...(path || []), name]);
+			const usingDefaultTime = !time || time.usingDefaultTime;
 
 			if (!usingDefaultTime) {
-				return value;
-			}
-
-			if (!defaultTime) {
-				return value;
-			}
-
-			if (!date?.date) {
-				return undefined;
+				return;
 			}
 
 			return {
-				time: matchTime(new Date(), defaultTime),
-				validTime: true,
-				usingDefaultTime: true,
+				data: set(path || [], matchTime(date.date, defaultTime), data),
+				internalData: set([...(path || []), "time"], {
+					time: matchTime(new Date(), defaultTime),
+					keyboardInputValue: undefined,
+					usingDefaultTime: true,
+				}, internalData),
 			};
 		});
-	}, [date, defaultTime, onChange]);
+
+		return removeHook;
+	}, [addHook, defaultTime, path, name]);
 
 	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
 		return onChange({
