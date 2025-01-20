@@ -6,7 +6,7 @@ interface FormFieldChipsLocalOptions {
 	/**
 	* List of options
 	*/
-	options: MosaicLabelValue[];
+	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
 	/**
 	* Function to be executed as callback when an option is selected
 	 *
