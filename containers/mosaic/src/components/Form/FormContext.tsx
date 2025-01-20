@@ -19,5 +19,6 @@ export const FormContext = createContext<FormContextState>({
 		setFormValues: throws("setFormValues requires a FormContext provider"),
 		setSubmitWarning: throws("setSubmitWarning requires a FormContext provider"),
 		submitForm: throws("submitForm requires a FormContext provider"),
+		addHook: throws("addHook requires a FormContext provider"),
 	},
 });
