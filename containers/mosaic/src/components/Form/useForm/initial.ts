@@ -23,5 +23,8 @@ export function getInitialStable(): FormStable {
 		hasSubmitted: false,
 		moveToError: false,
 		loadingInitial: true,
+		hooks: {
+			setFieldValueData: [],
+		},
 	};
 }
