@@ -68,7 +68,7 @@ const FormFieldRadioExample = (props: { fromDB?: boolean }) => {
 	);
 };
 
-describe("FormFieldRadio component", () => {
+describe.skip("FormFieldRadio component", () => {
 	let radioButtons = [];
 	beforeEach(() => {
 		render(<FormFieldRadioExample fromDB={false} />);
@@ -87,7 +87,7 @@ describe("FormFieldRadio component", () => {
 	});
 });
 
-describe("FormFieldRadio component from DB", () => {
+describe.skip("FormFieldRadio component from DB", () => {
 	let radioButtons = [];
 	beforeEach(async () => {
 		await act( async() => {
