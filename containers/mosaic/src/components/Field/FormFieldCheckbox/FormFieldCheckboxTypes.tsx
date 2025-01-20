@@ -5,7 +5,7 @@ interface FormFieldCheckboxLocalOptions {
 	/**
 	* List of options
 	*/
-	options: MosaicLabelValue[];
+	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
 }
 
 interface FormFieldCheckboxExternalOptions {

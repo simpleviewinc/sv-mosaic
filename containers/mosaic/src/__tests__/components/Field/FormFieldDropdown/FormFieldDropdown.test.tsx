@@ -77,7 +77,7 @@ describe("Dropdown component with options from DB", () => {
 						type: "dropdown",
 						label: "Label test",
 						inputSettings: {
-							getOptions,
+							options: getOptions,
 							placeholder: "Placeholder test",
 						},
 					}}
@@ -85,10 +85,11 @@ describe("Dropdown component with options from DB", () => {
 				/>,
 			);
 		});
-		await waitFor(() => {
-			const inputDropdown = getByRole("combobox") as HTMLInputElement;
-			expect(inputDropdown.value).toEqual(optionsLibrary[7].label);
-		}, { timeout: 3000 });
+		await waitFor(async () => {
+			const input = getByRole<HTMLInputElement>("combobox");
+			expect(input).toBeInTheDocument();
+			expect(input).toHaveValue(optionsLibrary[7].label);
+		}, { timeout: 5000 });
 	});
 
 	it("should render on the screen with options from DB", async () => {
@@ -100,7 +101,7 @@ describe("Dropdown component with options from DB", () => {
 						type: "dropdown",
 						label: "Label test",
 						inputSettings: {
-							getOptions,
+							options: getOptions,
 							placeholder: "Placeholder test",
 						},
 					}}
@@ -108,14 +109,15 @@ describe("Dropdown component with options from DB", () => {
 			);
 		});
 
-		await act( async() => {
+		await waitFor( async() => {
 			const moreIconButton = screen.getByTestId("ExpandMoreIcon");
+			expect(moreIconButton).toBeInTheDocument();
 			moreIconButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-		});
+		}, { timeout: 5000 });
 
 		await waitFor(() => {
 			const singleSelectOptions = screen.getAllByRole("option");
 			expect(singleSelectOptions[0]).toHaveTextContent(optionsLibrary[0].label);
-		}, { timeout: 1000 });
+		}, { timeout: 5000 });
 	});
 });

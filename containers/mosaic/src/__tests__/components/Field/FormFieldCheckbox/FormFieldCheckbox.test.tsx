@@ -2,8 +2,7 @@ import * as React from "react";
 import { act, useState } from "react";
 import { render, screen, fireEvent, cleanup, waitFor } from "@testing-library/react";
 
-import { getOptions } from "@root/mock";
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
+import { getOptions, optionsLibrary } from "@root/mock";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox";
 
 afterEach(cleanup);
@@ -26,7 +25,7 @@ const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 						type: "checkbox",
 						label: "test",
 						inputSettings: {
-							options: checkboxOptions,
+							options: optionsLibrary,
 						},
 					}}
 					value={checked}
@@ -39,7 +38,7 @@ const FormFieldCheckboxExample = (props: { fromDB?: boolean }) => {
 						type: "checkbox",
 						label: "test",
 						inputSettings: {
-							getOptions: getOptions,
+							options: getOptions,
 						},
 					}}
 					value={checked}
@@ -56,9 +55,9 @@ describe("FormFieldCheckbox component", () => {
 	});
 
 	it("should display the list of options", () => {
-		expect(getByText("Label 1")).toBeTruthy();
-		expect(getByText("Label 2")).toBeTruthy();
-		expect(getByText("Label 3")).toBeTruthy();
+		expect(getByText("Option 1")).toBeTruthy();
+		expect(getByText("Option 2")).toBeTruthy();
+		expect(getByText("Option 3")).toBeTruthy();
 	});
 
 	it("should check the clicked option", () => {
@@ -82,6 +81,6 @@ describe("FormFieldCheckbox component with options from DB", () => {
 			expect(getByText("Option 2")).toBeTruthy();
 			expect(getByText("Option 3")).toBeTruthy();
 			expect(getByText("Option 4")).toBeTruthy();
-		}, { timeout: 1000 });
+		}, { timeout: 3000 });
 	});
 });

@@ -88,7 +88,7 @@ function AddressStateField(props): ReactElement {
 					...fieldDef,
 					inputSettings: {
 						...inputSettings,
-						getOptions,
+						options: getOptions,
 					},
 				}}
 			/>
