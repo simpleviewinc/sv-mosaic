@@ -14,6 +14,7 @@ import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { SimpleViewAlert } from "./SimpleviewAlertExtension";
 import { controls } from "./controls";
+import { Sizes } from "@root/theme";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
@@ -32,9 +33,11 @@ export const Playground = ({
 	required,
 	skeleton,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	maxCharacters,
 	autolink,
+	size,
 	customControlConfig,
 	customImageHandler,
 	customLinkHandler,
@@ -65,7 +68,7 @@ export const Playground = ({
 						autolink,
 						controls: [
 							...customControlConfig?.length ? customControlConfig : controls,
-							...customExtensionExample ? [[customExtensionControl]] : [],
+							...customExtensionExample ? [[[customExtensionControl]]] : [],
 						],
 						extensions: customExtensionExample ? [...getDefaultExtensions(), SimpleViewAlert] : undefined,
 						onImage: customImageHandler ? ({ updateImage, ...params }) => {
@@ -93,6 +96,8 @@ export const Playground = ({
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
+					size,
 				},
 			],
 		[
@@ -101,6 +106,8 @@ export const Playground = ({
 			label,
 			helperText,
 			instructionText,
+			forceInstructionTooltip,
+			size,
 			maxCharacters,
 			autolink,
 			customControlConfig,
@@ -154,9 +161,11 @@ Playground.args = {
 	required: false,
 	skeleton: false,
 	instructionText: "Instruction text",
+	forceInstructionTooltip: false,
 	helperText: "Helper text",
 	maxCharacters: 100,
 	autolink: true,
+	size: "lg",
 	customControlConfig: [],
 	customImageHandler: false,
 	customLinkHandler: false,
@@ -181,6 +190,9 @@ Playground.argTypes = {
 	instructionText: {
 		name: "Instruction Text",
 	},
+	forceInstructionTooltip: {
+		name: "Force Instruction Tooltip",
+	},
 	helperText: {
 		name: "Helper Text",
 	},
@@ -189,6 +201,11 @@ Playground.argTypes = {
 	},
 	autolink: {
 		name: "Auto Link",
+	},
+	size: {
+		name: "Size",
+		options: Object.keys(Sizes),
+		control: { type: "select" },
 	},
 	customControlConfig: {
 		name: "Custom Control Config",
