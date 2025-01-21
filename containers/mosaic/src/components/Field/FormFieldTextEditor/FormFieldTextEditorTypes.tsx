@@ -123,7 +123,7 @@ export type TextEditorOnImageParams = Partial<TextEditorUpdateImageValues> & {
 };
 
 export interface TextEditorInputSettings {
-	controls?: ControlsConfig;
+	controls?: ControlsConfig[];
 	extensions?: Extensions;
 	onLink?: (params: TextEditorOnLinkParams) => void;
 	onImage?: (params: TextEditorOnImageParams) => void;
