@@ -54,13 +54,6 @@ const FormFieldCheckbox = (
 
 	}, [internalOptions, value, origin]);
 
-	const internalOnChange = (checkedOptions: MosaicLabelValue[], cb:(val:MosaicLabelValue[]) => void) => {
-		const newCheckedOptions = checkedOptions?.map(checkedOption => internalOptions.find(option => option?.value === checkedOption.value));
-		if (cb) {
-			cb(newCheckedOptions);
-		}
-	};
-
 	if (skeleton) {
 		return <FormFieldCheckboxSkeleton />;
 	}
@@ -70,8 +63,7 @@ const FormFieldCheckbox = (
 			disabled={disabled}
 			checked={checked}
 			options={internalOptions}
-			onChange={(val) => internalOnChange(val as MosaicLabelValue[], onChange)}
-			onChangeCb={(val) => internalOnChange(val as MosaicLabelValue[], fieldDef.onChangeCb)}
+			onChange={onChange}
 			onBlur={onBlur}
 			style={fieldDef.style}
 			className={fieldDef.className}

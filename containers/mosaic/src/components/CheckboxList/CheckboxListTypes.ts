@@ -11,9 +11,9 @@ export interface CheckboxListProps {
 	options: MosaicLabelValue[];
 	/**
 	 * Function that listens to changes on the checked options.
-	 * @param checked List of checked options
+	 * @param {MosaicLabelValue[]} checked List of checked options
 	 */
-	onChange(checked: (Record<string, unknown> | MosaicLabelValue)[]): void;
+	onChange: (checked: MosaicLabelValue[]) => void;
 	/**
 	 * Additional custom css class for styling the component
 	 */
@@ -23,8 +23,4 @@ export interface CheckboxListProps {
 	 * current checkbox can be selected or not
 	 */
 	disabled?: boolean;
-	/**
-	 * Callback executed when the list of options is updated.
-	 */
-	onChangeCb?: (checked: (Record<string, unknown> | MosaicLabelValue)[]) => void;
 }
