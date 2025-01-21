@@ -4,7 +4,6 @@ import { useEffect, useMemo, useCallback } from "react";
 import { nanoid } from "nanoid";
 
 // Utils
-import { checkboxOptions } from "@root/components/Field/FormFieldCheckbox/FormFieldCheckboxUtils";
 import { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../utils";
 
@@ -181,7 +180,7 @@ export const Playground = ({
 					disabled,
 					required,
 					inputSettings: {
-						options: checkboxOptions,
+						options: optionsLibrary,
 					},
 				},
 				{
