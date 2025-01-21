@@ -15,7 +15,7 @@ interface DropdownLocalOptions {
 	 * Array of options to be displayed on the
 	 * dropdown.
 	 */
-	options: MosaicLabelValue[];
+	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
 }
 
 interface DropdownExternalOptions {
@@ -26,6 +26,8 @@ interface DropdownExternalOptions {
 	placeholder?: string;
 	/**
 	 * Used to get options from db.
+	 *
+	 * @deprecated Use the `options` input setting instead.
 	 */
 	getOptions?: () => Promise<MosaicLabelValue[]>;
 }

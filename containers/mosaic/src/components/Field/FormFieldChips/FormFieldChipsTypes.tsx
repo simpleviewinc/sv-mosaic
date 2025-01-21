@@ -6,9 +6,11 @@ interface FormFieldChipsLocalOptions {
 	/**
 	* List of options
 	*/
-	options: MosaicLabelValue[];
+	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
 	/**
 	* Function to be executed as callback when an option is selected
+	 *
+	 * @deprecated Use the `onChange` prop on the field instead.
 	*/
 	onSelect?: (...args) => void;
 }
@@ -16,10 +18,14 @@ interface FormFieldChipsLocalOptions {
 interface FormFieldChipsExternalOptions {
 	/**
 	 * Used to get options from db.
+	 *
+	 * @deprecated Use the `options` input setting instead.
 	 */
 	getOptions: () => Promise<MosaicLabelValue[]>;
 	/**
 	* Function to be executed as callback when an option is selected
+	 *
+	 * @deprecated Use the `onChange` prop on the field instead.
 	*/
 	onSelect?: (...args) => void;
 }

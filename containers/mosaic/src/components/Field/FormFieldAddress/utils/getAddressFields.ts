@@ -100,7 +100,7 @@ function getAddressFields({
 			required,
 			disabled,
 			inputSettings: {
-				getOptions: getOptionsCountries,
+				options: getOptionsCountries,
 			},
 			validates: [{
 				name: "postalCode",
