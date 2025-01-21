@@ -11177,9 +11177,11 @@ __metadata:
     "@storybook/addon-interactions": ^8.1.11
     "@storybook/addon-links": ^8.1.11
     "@storybook/blocks": ^8.1.11
+    "@storybook/manager-api": 8.1.11
     "@storybook/react": ^8.1.11
     "@storybook/react-vite": ^8.1.11
     "@storybook/test": ^8.1.11
+    "@storybook/theming": 8.1.11
     "@tiptap/core": 2.8.0
     "@tiptap/pm": 2.8.0
     "@tiptap/react": 2.8.0
