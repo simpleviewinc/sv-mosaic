@@ -73,6 +73,7 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 								maxDate,
 								showTime: false,
 							},
+							validates: ["time"],
 						},
 						{
 							name: "time",
