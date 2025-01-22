@@ -1,0 +1,16 @@
+.sidebar-header img {
+	max-height: none;
+	max-width: none;
+	width: 32px;
+}
+
+.sidebar-header [title="Mosaic"] {
+	display: inline-flex;
+	gap: 0px 12px;
+	font-size: 19px;
+	align-items: center
+}
+
+.sidebar-header [title="Mosaic"]::after {
+	content: "Mosaic";
+}
