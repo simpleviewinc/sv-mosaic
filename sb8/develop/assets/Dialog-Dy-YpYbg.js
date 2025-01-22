@@ -1,0 +1,10 @@
+import{j as o}from"./jsx-runtime-DKBipoO1.js";import{useMDXComponents as e}from"./index-DIpYW6hh.js";import{M as r,C as n}from"./index-b_IcY7Xr.js";import{s as a,P as p}from"./Dialog.stories-CtwhhUsS.js";import"./index-P8U4y8pz.js";import"./iframe-k0_n0HJp.js";import"./index-DEBaATwO.js";import"./index-CFV30bQv.js";import"./index-Cu4lwwaE.js";import"./index-NOh9rqHv.js";import"./index-ogSvIofg.js";import"./Dialog-COZnJfGx.js";import"./Button-BBMCWwxG.js";import"./theme-BWODkkBA.js";import"./generateUtilityClasses-1sHYEbWh.js";import"./ButtonBase-BdV3oO8q.js";import"./useIsFocusVisible-wVqIivVs.js";import"./Popper-Cd5SEDCW.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-C71PTKbl.js";import"./useToggle-L-Qovzra.js";import"./useId-BCEQtGZU.js";function s(t){const i={a:"a",code:"code",h1:"h1",h2:"h2",p:"p",...e(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(r,{of:a}),`
+`,o.jsx(i.h1,{id:"dialog",children:"Dialog"}),`
+`,o.jsxs(i.p,{children:["The ",o.jsx(i.code,{children:"Dialog"})," component is built over a wrapper for ",o.jsx(i.a,{href:"https://mui.com/components/dialogs/",rel:"nofollow",children:"Material-UI Dialog"})," but with SimpleView brand colors."]}),`
+`,o.jsx(i.p,{children:`A dialog is a type of modal window that appears in front of app content to provide critical information or ask for a decision.\r
+Is a warning states: It’s possible to use modal windows when the user is about to take an action that has serious consequences and\r
+is difficult or impossible to reverse.`}),`
+`,o.jsx(i.h2,{id:"props",children:"Props"}),`
+`,o.jsx(i.p,{children:o.jsx(i.a,{href:"https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Dialog/DialogTypes.tsx",rel:"nofollow",children:"https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Dialog/DialogTypes.tsx"})}),`
+`,o.jsx(i.h2,{id:"dialog-example",children:"Dialog Example"}),`
+`,o.jsx(n,{of:p})]})}function _(t={}){const{wrapper:i}={...e(),...t.components};return i?o.jsx(i,{...t,children:o.jsx(s,{...t})}):s(t)}export{_ as default};
