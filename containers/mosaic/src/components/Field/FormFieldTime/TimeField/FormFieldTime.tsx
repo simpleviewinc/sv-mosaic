@@ -47,7 +47,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			throw new Error("The `defaultTime` property can only be provided for a time field that works as a part of a group alongside a date field.");
 		}
 
-		const removeHook = addHook("setFieldValueData", ({ data, internalData, ...rest }) => {
+		return addHook("setFieldValueData", ({ data, internalData, ...rest }) => {
 			if (
 				rest.name !== "date" ||
 				rest.path.join(".") !== (path || []).join(".")
@@ -56,15 +56,22 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			}
 
 			const date = get(internalData, [...(path || []), "date"]);
-			if (!date?.date) {
-				return;
-			}
-
 			const time = get(internalData, [...(path || []), name]);
 			const usingDefaultTime = !time || time.usingDefaultTime;
 
 			if (!usingDefaultTime) {
 				return;
+			}
+
+			if (!date?.date || !isValidDate(date.date)) {
+				return {
+					data,
+					internalData: set([...(path || []), "time"], {
+						time: null,
+						keyboardInputValue: undefined,
+						usingDefaultTime: true,
+					}, internalData),
+				};
 			}
 
 			return {
@@ -76,8 +83,6 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 				}, internalData),
 			};
 		});
-
-		return removeHook;
 	}, [addHook, defaultTime, path, name]);
 
 	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
