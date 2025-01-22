@@ -86,6 +86,7 @@ export const Validators = ({ showState }: typeof Validators.args): ReactElement 
 					validates: ["endDateWithTime"],
 					inputSettings: {
 						showTime: true,
+						defaultTime: "00:00",
 					},
 					required: true,
 				},
@@ -97,6 +98,7 @@ export const Validators = ({ showState }: typeof Validators.args): ReactElement 
 					validates: ["startDateWithTime"],
 					inputSettings: {
 						showTime: true,
+						defaultTime: "23:59",
 					},
 					required: true,
 				},

@@ -168,6 +168,14 @@ export type SetSubmitWarning = (params: FormState["submitWarning"]) => void;
 
 export type FormReset = () => void;
 
+export interface FormHooks {
+	setFieldValueData: (params: { name: string; path: FieldPath; internalData: any; data: any }) => undefined | { internalData: any; data: any };
+}
+
+export type RemoveHook = () => void;
+
+export type AddHook<T extends keyof FormHooks = keyof FormHooks> = (name: T, fn: FormHooks[T]) => RemoveHook
+
 export interface FormMethods {
 	setFormValues: SetFormValues;
 	setFieldValue: SetFieldValue;
@@ -180,6 +188,7 @@ export interface FormMethods {
 	init: FormInit;
 	reset: FormReset;
 	setSubmitWarning: SetSubmitWarning;
+	addHook: AddHook;
 }
 
 export type FormTouched = MosaicObject<boolean>;
@@ -209,6 +218,7 @@ export type FormStable = FormState & {
 	hasBlurred: Record<string, boolean>;
 	hasSubmitted: boolean;
 	moveToError: boolean;
+	hooks: { [T in keyof FormHooks]: FormHooks[T][] };
 };
 
 export type ValidatorFn = (

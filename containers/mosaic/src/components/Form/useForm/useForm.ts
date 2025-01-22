@@ -4,23 +4,25 @@ import unset from "lodash/fp/unset";
 import get from "lodash/get";
 
 import type {
-	FormStable,
-	FormMethods,
-	FormHandleSubmit,
-	SetFieldBlur,
-	SetFieldValue,
-	SubmitForm,
-	UseFormReturn,
-	ValidateField,
-	SetFormValues,
-	DisableForm,
-	AddWait,
-	RemoveWait,
-	FormWait,
-	MountField,
-	FormInit,
-	FormReset,
-	SetSubmitWarning,
+	AddHook } from "./types";
+import {
+	type FormStable,
+	type FormMethods,
+	type FormHandleSubmit,
+	type SetFieldBlur,
+	type SetFieldValue,
+	type SubmitForm,
+	type UseFormReturn,
+	type ValidateField,
+	type SetFormValues,
+	type DisableForm,
+	type AddWait,
+	type RemoveWait,
+	type FormWait,
+	type MountField,
+	type FormInit,
+	type FormReset,
+	type SetSubmitWarning,
 } from "./types";
 
 import { getInitialState, getInitialStable } from "./initial";
@@ -180,8 +182,21 @@ export function useForm(): UseFormReturn {
 			},
 		});
 
-		stable.current.data = set(fullPath[0], value, stable.current.data);
-		stable.current.internalData = set(fullPath[0], internalValue, stable.current.internalData);
+		const newData = stable.current.hooks.setFieldValueData.reduce((acc, curr) => {
+			const result = curr({ ...acc, name, path });
+
+			if (result === undefined) {
+				return acc;
+			}
+
+			return result;
+		}, {
+			data: set(fullPath[0], value, stable.current.data),
+			internalData: set(fullPath[0], internalValue, stable.current.internalData),
+		});
+
+		stable.current.data = newData.data;
+		stable.current.internalData = newData.internalData;
 
 		if (touched) {
 			stable.current.touched = set(fullPath, true, stable.current.touched);
@@ -383,6 +398,14 @@ export function useForm(): UseFormReturn {
 		};
 	}, []);
 
+	const addHook = useCallback<AddHook>((name, fn) => {
+		stable.current.hooks[name].push(fn);
+
+		return () => {
+			stable.current.hooks[name] = stable.current.hooks[name].filter(item => item !== fn);
+		};
+	}, []);
+
 	const methods = useMemo<FormMethods>(() => ({
 		setFormValues,
 		setFieldValue,
@@ -395,6 +418,7 @@ export function useForm(): UseFormReturn {
 		init,
 		reset,
 		setSubmitWarning,
+		addHook,
 	}), [
 		setFieldBlur,
 		setFormValues,
@@ -407,6 +431,7 @@ export function useForm(): UseFormReturn {
 		init,
 		reset,
 		setSubmitWarning,
+		addHook,
 	]);
 
 	const handleSubmit = useCallback<FormHandleSubmit>((onSuccess, onError) => async () => {
