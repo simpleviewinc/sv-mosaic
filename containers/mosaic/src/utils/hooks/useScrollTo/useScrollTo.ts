@@ -27,6 +27,10 @@ export default function useScrollTo<E extends HTMLElement>({
 		}
 
 		const onMouseWheel = () => {
+			if (!animation.inProgress()) {
+				return;
+			}
+
 			animation.stop();
 			onStop && onStop();
 		};
