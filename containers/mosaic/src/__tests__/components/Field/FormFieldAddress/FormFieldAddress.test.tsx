@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import React, { act } from "react";
-import type { UserEvent } from "@testing-library/user-event";
 import userEvent from "@testing-library/user-event";
 
 import type { AddressData, AddressFieldInputSettings, FieldDefBase, MosaicFieldProps } from "@root/components";
@@ -10,6 +9,7 @@ import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { mockAddresses } from "@root/mock";
 import testIds from "@root/utils/testIds";
 import FormFieldTestType from "../FormFieldTestType";
+import createAddressDrawerContext from "./utils/createAddressDrawerContext";
 
 const defaultFieldDef: FieldDefBase<"address", AddressFieldInputSettings> = {
 	name: "address",
@@ -39,41 +39,6 @@ async function setup(
 	return {
 		...renderResult,
 		user: userEvent.setup(),
-	};
-}
-
-function createAddressDrawerContext(user: UserEvent) {
-	return {
-		open: async () => {
-			await user.click(screen.queryByRole("button", { name: "Add Address" }));
-		},
-		populate: async (mockAddress: AddressData[number], type: string) => {
-			// Address 1
-			await user.type(screen.queryByLabelText("Address*"), mockAddress.address1);
-
-			// Country
-			await user.click(screen.queryByLabelText("Country*"));
-			await user.keyboard(mockAddress.country.label);
-			await user.click(screen.queryByRole("option", { name: mockAddress.country.label }));
-
-			// City
-			await user.type(screen.queryByLabelText("City*"), mockAddress.city);
-
-			// State
-			await user.click(screen.queryByLabelText("State"));
-			await user.keyboard(mockAddress.state.label);
-			await user.click(screen.queryByRole("option", { name: mockAddress.state.label }));
-
-			// Postcode
-			await user.type(screen.queryByLabelText("Postal Code*"), mockAddress.postalCode);
-
-			// Type
-			await user.click(screen.queryByRole("checkbox", { name: type }));
-		},
-		save: async () => {
-			const save = screen.queryByRole("button", { name: "Save" });
-			await user.click(save);
-		},
 	};
 }
 

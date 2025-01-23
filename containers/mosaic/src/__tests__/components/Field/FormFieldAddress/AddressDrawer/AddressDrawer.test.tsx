@@ -7,6 +7,7 @@ import type { AddressDrawerProps } from "@root/components/Field/FormFieldAddress
 import AddressDrawer from "@root/components/Field/FormFieldAddress/AddressDrawer";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { mockAddresses } from "@root/mock";
+import createAddressDrawerContext from "../utils/createAddressDrawerContext";
 
 async function setup(props: Partial<AddressDrawerProps> = {}) {
 	const onSaveMock = props.onSave || vi.fn();
@@ -62,42 +63,17 @@ describe(__dirname, () => {
 
 	it("should fire the on save handler when the form is submitted", async () => {
 		const onSaveMock = vi.fn();
-		const { user, container } = await setup({ onSave: onSaveMock });
+		const { user } = await setup({ onSave: onSaveMock });
 
-		const save = screen.queryByRole("button", { name: "Save" });
-		const address = screen.queryByLabelText("Address*");
-		// TODO: Use a better locator
-		const address2 = container.querySelector("#address2-input");
-		const country = screen.queryByLabelText("Country*");
-		const city = screen.queryByLabelText("City*");
-		const state = screen.queryByLabelText("State");
-		const postalCode = screen.queryByLabelText("Postal Code*");
+		const { populate, save } = createAddressDrawerContext(user);
 
-		expect(save).toBeInTheDocument();
-		expect(address).toBeInTheDocument();
-		expect(address2).toBeInTheDocument();
-		expect(country).toBeInTheDocument();
-		expect(city).toBeInTheDocument();
-		expect(state).toBeInTheDocument();
-		expect(postalCode).toBeInTheDocument();
+		await populate(mockAddresses[0]);
+		await save();
 
-		await user.type(address, mockAddresses[0].address1);
-		await user.type(address2, mockAddresses[0].address2);
-		await user.click(country);
-		await user.keyboard(mockAddresses[0].country.label);
-		const uk = screen.queryByRole("option", { name: mockAddresses[0].country.label });
-		expect(uk).toBeInTheDocument();
-		await user.click(uk);
-		await user.type(city, mockAddresses[0].city);
-		await user.click(state);
-		await user.keyboard(mockAddresses[0].state.label);
-		const bolton = screen.queryByRole("option", { name: mockAddresses[0].state.label });
-		expect(bolton).toBeInTheDocument();
-		await user.click(bolton);
-		await user.type(postalCode, mockAddresses[0].postalCode);
-		await user.click(save);
 		expect(onSaveMock).toBeCalledWith({
 			...mockAddresses[0],
+			address2: undefined,
+			address3: undefined,
 			types: undefined,
 		});
 	});

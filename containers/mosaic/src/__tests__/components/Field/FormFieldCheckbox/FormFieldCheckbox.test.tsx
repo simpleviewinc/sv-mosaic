@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -6,7 +6,7 @@ import type { CheckboxData, FormFieldCheckboxInputSettings, FieldDefBase, Mosaic
 
 import FormFieldTestType from "../FormFieldTestType";
 import FormFieldCheckbox from "@root/components/Field/FormFieldCheckbox/FormFieldCheckbox";
-import { mockOptions } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"checkbox", FormFieldCheckboxInputSettings> = {
@@ -53,10 +53,14 @@ describe(__dirname, () => {
 			fieldDef: {
 				...defaultFieldDef,
 				inputSettings: {
-					getOptions: async () => mockOptions,
+					options: getOptions,
 				},
 			},
 		});
+
+		const skeleton = screen.queryByTestId(testIds.FORM_FIELD_SKELETON);
+		expect(skeleton).toBeInTheDocument();
+		await waitFor(() => expect(skeleton).not.toBeInTheDocument(), { timeout: 1000 });
 
 		expect(screen.queryByRole("checkbox", { name: "Cat" })).toBeInTheDocument();
 		expect(screen.queryByRole("checkbox", { name: "Dog" })).toBeInTheDocument();
@@ -68,11 +72,15 @@ describe(__dirname, () => {
 			fieldDef: {
 				...defaultFieldDef,
 				inputSettings: {
-					getOptions: async () => mockOptions,
+					options: getOptions,
 				},
 			},
 			value: [{ label: "Ferret", value: "ferret" }],
 		});
+
+		const skeleton = screen.queryByTestId(testIds.FORM_FIELD_SKELETON);
+		expect(skeleton).toBeInTheDocument();
+		await waitFor(() => expect(skeleton).not.toBeInTheDocument(), { timeout: 1000 });
 
 		expect(screen.queryByRole("checkbox", { name: "Ferret" })).toBeInTheDocument();
 	});
@@ -84,11 +92,15 @@ describe(__dirname, () => {
 			fieldDef: {
 				...defaultFieldDef,
 				inputSettings: {
-					getOptions: async () => mockOptions,
+					options: getOptions,
 				},
 			},
 			onChange: onChangeMock,
 		});
+
+		const skeleton = screen.queryByTestId(testIds.FORM_FIELD_SKELETON);
+		expect(skeleton).toBeInTheDocument();
+		await waitFor(() => expect(skeleton).not.toBeInTheDocument(), { timeout: 1000 });
 
 		const option = screen.queryByRole("checkbox", { name: "Dog" });
 		expect(option).toBeInTheDocument();
