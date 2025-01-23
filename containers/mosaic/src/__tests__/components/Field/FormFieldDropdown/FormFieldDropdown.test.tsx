@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -6,7 +6,7 @@ import type { DropdownData, DropdownInputSettings, FieldDefBase, MosaicFieldProp
 
 import FormFieldTestType from "../FormFieldTestType";
 import FormFieldDropdown from "@root/components/Field/FormFieldDropdown/FormFieldDropdown";
-import { mockOptions } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"dropdown", DropdownInputSettings> = {
@@ -63,11 +63,14 @@ describe(__dirname, () => {
 			fieldDef: {
 				...defaultFieldDef,
 				inputSettings: {
-					getOptions: async () => mockOptions,
+					options: getOptions,
 				},
 			},
 		});
 
+		const skeleton = screen.queryByTestId(testIds.FORM_FIELD_SKELETON);
+		expect(skeleton).toBeInTheDocument();
+		await waitFor(() => expect(skeleton).not.toBeInTheDocument(), { timeout: 1000 });
 		const input = screen.queryByRole("combobox");
 		expect(input).toBeInTheDocument();
 		await user.click(input);

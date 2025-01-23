@@ -143,7 +143,7 @@ describe(__dirname, () => {
 			{
 				disabled: undefined,
 				inputSettings: {
-					getOptions: getOptionsCountries,
+					options: getOptionsCountries,
 				},
 				label: "Country",
 				name: "country",
@@ -229,7 +229,7 @@ describe(__dirname, () => {
 			{
 				disabled: undefined,
 				inputSettings: {
-					getOptions: getOptionsCountries,
+					options: getOptionsCountries,
 				},
 				label: "Country",
 				name: "country",
