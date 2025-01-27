@@ -57,7 +57,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 	return (
 		<StyledRadioGroup
 			onChange={({ target: { value } }) => _onChange(value)}
-			value="label_1"
+			value={value ? value.value : ""}
 			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 		>
 			{options.map(option => (
