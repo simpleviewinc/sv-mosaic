@@ -1,0 +1,1 @@
+import{r as n}from"./index-P8U4y8pz.js";import{d as s}from"./useMosaicTranslation-DYaYF2Hb.js";function m({i18nNamespace:t="app",i18nInitialLocale:r="en"}={}){const o=n.useMemo(()=>[t,"mosaic"],[]),e=n.useMemo(()=>s.cloneInstance({lng:r,ns:o,defaultNS:t}),[]);return n.useMemo(()=>({i18n:e}),[e])}export{m as u};

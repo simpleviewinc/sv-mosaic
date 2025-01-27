@@ -1,0 +1,1 @@
+import{r as n}from"./index-P8U4y8pz.js";import{T as r,c as s}from"./generateUtilityClasses-1sHYEbWh.js";function o(e){return Object.keys(e).length===0}function m(e=null){const t=n.useContext(r);return!t||o(t)?e:t}const u=s();function h(e=u){return m(e)}export{h as a,m as u};
