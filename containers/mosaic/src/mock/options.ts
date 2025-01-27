@@ -26,7 +26,7 @@ export const optionsLibrary: MosaicLabelValue[] = [
 		value: "option_2-cat_2",
 	},
 	{
-		label: "Another option of catergory 2",
+		label: "Another option of category 2",
 		value: "option_3-cat_2",
 	},
 	{
