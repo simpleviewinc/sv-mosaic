@@ -53,12 +53,12 @@ export default function animate(params: AnimateParams = {}): Animation {
 		window.requestAnimationFrame(_tick);
 	};
 
-	const stop: AnimateStop = () => {
-		state.preventNext = true;
-	};
-
 	const inProgress = () => {
 		return !state.preventNext;
+	};
+
+	const stop: AnimateStop = () => {
+		state.preventNext = true;
 	};
 
 	return {
