@@ -1,0 +1,14 @@
+.doc-required {
+	color: #ff3333;
+}
+
+body table td > code,
+.sbdocs.sbdocs :where(p:not(.sb-anchor, .sb-unstyled, .sb-unstyled p)) code,
+.doc-code {
+	border: 1px solid #d4dce1 !important;
+	background: #ebf2f7 !important;
+	display: inline-block !important;
+	padding: 0 0.4em !important;
+	border-radius: 4px !important;
+	line-height: 1.3em !important;
+}
