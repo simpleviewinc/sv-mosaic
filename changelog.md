@@ -1,5 +1,37 @@
 # sv-mosaic changelog
 
+### 40.0.0 - 02/04/2024
+
+* `Checkbox`
+
+  * [MOS-1468](https://simpleviewtools.atlassian.net/browse/MOS-1468 "https://simpleviewtools.atlassian.net/browse/MOS-1468") **Sort out the Checkbox and Checkbox list mechanics**
+    * (Checkbox) Clean up checkbox, checkbox list and form field checkbox code
+    * Introduces array/toggle utility, dropping reliance on lodash/xorBy.
+* `FormFieldAdvancedSelection`
+
+  * [MOS-1531](https://simpleviewtools.atlassian.net/browse/MOS-1531 "https://simpleviewtools.atlassian.net/browse/MOS-1531") **Eliminate unnecessary mechanics from advanced selection field**
+    (AdvSelField) Removes mobile responsiveness redundancies because fields have their own sizing mechanics.
+* `FormFieldTextEditor`
+
+  * [MOS-1546](https://simpleviewtools.atlassian.net/browse/MOS-1546 "https://simpleviewtools.atlassian.net/browse/MOS-1546") **Improve the text editor toolbar a little bit**
+    * **BREAKING CHANGE** (TextEditor) Adds support for rows of controls. The `controls` input setting now takes an extra level of array nesting, the top-most layer represents the rows that the controls will be displayed over.
+    * (TextEditor) Adjust styling to control groups to ensure there can't be a trailing separator even when control groups wrap.
+    * (TextEditor) Adjust styling to text block menu button to look more like a dropdown.
+* `FormFieldTime`
+
+  * [MOS-1551](https://simpleviewtools.atlassian.net/browse/MOS-1551 "https://simpleviewtools.atlassian.net/browse/MOS-1551")
+    * (Form) Introduces form hooks, namely one that can modify the data when a field changes before the data is dispatched. This allows multiple points of data to be updated in sync with a single operation.
+    * As a result, the bug that caused the `touched` object to be changed as soon as a date/time field with a default time was mounted has been solved.
+    * Additionally as a result, the bug that caused the date/time field to not be validated by time a default time was set has been solved ([MOS-1552](https://simpleviewtools.atlassian.net/browse/MOS-1552 "https://simpleviewtools.atlassian.net/browse/MOS-1552")).
+* Housekeeping
+
+  * [MOS-1532](https://simpleviewtools.atlassian.net/browse/MOS-1532 "https://simpleviewtools.atlassian.net/browse/MOS-1532") **Standardise components that use options and getOptions**
+    * (chore) Introduce useOptions utility hook and useMountWarning for deprecation warnings
+    * (Fields) Utilise the new `useOptions` hook for the Checkbox, Dropdown, Radio and Chip fields.
+    * **DEPRECATED** the use of the `getOptions` input setting for all of the fields listed in the previous point. Use `options` instead, which will now take a list of options *or* a function that returns a promise resolving to a list of options.
+
+#### Improvements and Fixes
+
 ### 39.3.2 - 01/21/2024
 
 #### Improvements and Fixes
