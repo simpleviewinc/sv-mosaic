@@ -34,6 +34,7 @@ export type NodeFormState = {
 	type: "link";
 	values: Partial<TextEditorUpdateLinkValues>;
 	update: TextEditorUpdateLink;
+	isTextBased?: boolean;
 } | {
 	type: "image";
 	values: Partial<TextEditorUpdateImageValues>;
@@ -110,6 +111,7 @@ export interface TextEditorUpdateLinkValues {
 export type TextEditorUpdateLink = (params: TextEditorUpdateLinkValues) => void;
 export type TextEditorOnLinkParams = Partial<TextEditorUpdateLinkValues> & {
 	updateLink: TextEditorUpdateLink;
+	isTextBased?: boolean;
 };
 
 export interface TextEditorUpdateImageValues {
