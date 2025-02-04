@@ -11,9 +11,10 @@ import { NodeFormFooter } from "./NodeFormFooter";
 
 type NodeFormLinkProps = NodeFormTypeProps & {
 	update: TextEditorUpdateLink;
+	isTextBased?: boolean;
 };
 
-export function NodeFormLink({ editor, getFormValues, onClose, update }: NodeFormLinkProps): ReactElement {
+export function NodeFormLink({ editor, isTextBased, getFormValues, onClose, update }: NodeFormLinkProps): ReactElement {
 	const controller = useForm();
 	const { state: { data: { url } }, handleSubmit } = controller;
 
@@ -44,6 +45,7 @@ export function NodeFormLink({ editor, getFormValues, onClose, update }: NodeFor
 			type: "text",
 			required: true,
 			validateOn: "onSubmit",
+			show: isTextBased,
 		},
 		{
 			name: "open",
@@ -55,7 +57,7 @@ export function NodeFormLink({ editor, getFormValues, onClose, update }: NodeFor
 			label: "Open in new tab",
 			type: "toggle",
 		},
-	], [url]);
+	], [url, isTextBased]);
 
 	return (
 		<Form
