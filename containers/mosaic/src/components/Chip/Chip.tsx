@@ -4,36 +4,39 @@ import React, { useRef } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 
 import type { ChipsProps } from "./ChipTypes";
-import { StyledChip, StyledDeletableChip } from "./Chip.styled";
+import { StyledChip, StyledChipDelete } from "./Chip.styled";
 import testIds from "@root/utils/testIds";
 
 const Chip = ({
 	children,
 	selected = false,
 	onDelete,
+	label,
 	...props
 }: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const ref = useRef<HTMLDivElement>();
-	const { label } = props;
-	const common = {
-		...props,
-		color: "default",
-		title: label,
-		ref,
-		"data-testid": testIds.CHIP,
-	} as const;
 
-	return onDelete ? (
-		<StyledDeletableChip
-			deleteIcon={<ClearIcon data-testid={testIds.CHIP_DELETE_ICON} />}
-			onDelete={onDelete}
-			{...common}
-		/>
-	) : (
+	return (
 		<StyledChip
-			{...common}
+			{...props}
 			$selected={selected}
 			aria-selected={selected}
+			color="default"
+			data-testid={testIds.CHIP}
+			deleteIcon={(
+				<StyledChipDelete
+					type="button"
+					data-testid={testIds.CHIP_DELETE_ICON}
+					tabIndex={0}
+				>
+					<ClearIcon />
+				</StyledChipDelete>
+			)}
+			label={label}
+			onDelete={onDelete}
+			ref={ref}
+			tabIndex={onDelete ? -1 : undefined}
+			title={label}
 		/>
 	);
 };
