@@ -18,4 +18,9 @@ export interface UseScrollToParams<E extends HTMLElement> {
 	 * complete
 	 */
 	onStop?: () => void;
+	/**
+	 * A callback to invoke when scrolling has
+	 * finished and events have all fired.
+	 */
+	onScrollFinished?: () => void;
 }
