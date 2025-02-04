@@ -24,15 +24,18 @@ const popperModifiers = [
 	},
 ];
 
-export function NodeForm({
-	editor,
-	onClose,
-	type,
-	values,
-	update,
-	anchorEl,
-	open,
-}: NodeFormProps) {
+export function NodeForm(props: NodeFormProps) {
+	const {
+		type,
+		values,
+		update,
+		anchorEl,
+		open,
+		...rest
+	} = props;
+
+	const { onClose } = rest;
+
 	const getFormValues = useCallback(async () => {
 		if (!values) {
 			return {};
@@ -51,17 +54,15 @@ export function NodeForm({
 				<StyledNodeForm>
 					{type === "link" ? (
 						<NodeFormLink
-							editor={editor}
 							getFormValues={getFormValues}
-							onClose={onClose}
 							update={update}
+							{...rest}
 						/>
 					) : type === "image" ? (
 						<NodeFormImage
-							editor={editor}
 							getFormValues={getFormValues}
-							onClose={onClose}
 							update={update}
+							{...rest}
 						/>
 					) : null}
 				</StyledNodeForm>

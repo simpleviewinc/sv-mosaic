@@ -29,8 +29,8 @@ export const controlColors = css<{ $active?: boolean }>`
 `;
 
 const selectedNode = css`
-    outline: 3px solid #008DA8;
-    outline-offset: 1px;
+    outline: 1px solid ${theme.newColors.almostBlack["100"]};
+    outline-offset: 2px;
 `;
 
 export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
@@ -203,6 +203,11 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
             &.ProseMirror-selectednode {
                 ${selectedNode}
             }
+        }
+
+        a > img {
+            border-bottom: 1px solid #fff;
+            box-shadow: 0 1px 0 #008DA8;
         }
     }
 `;
