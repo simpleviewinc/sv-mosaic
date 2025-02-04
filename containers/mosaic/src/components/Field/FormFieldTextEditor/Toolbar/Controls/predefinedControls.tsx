@@ -266,8 +266,8 @@ export const controlLink: Control = {
 		const { view } = editor;
 		const { state, state: { selection: { from, to } } } = view;
 
+		const isTextBased = !editor.isActive("image");
 		const link: ReturnType<typeof editor.getAttributes> | false = editor.isActive("link") && editor.getAttributes("link");
-
 		const text = link ?
 			// If the cursor is over an existing link, get the text content of that link
 			editor.state.doc.nodeAt(from - 1)?.textContent :
@@ -282,39 +282,43 @@ export const controlLink: Control = {
 
 		onLink({
 			...values,
+			isTextBased,
 			updateLink: ({ url, newTab, text }) => {
 				const { state: { selection: { from, to } } } = editor;
+				const href = sanitizeUrl(url, allowedLinkProtocols);
+				const target = newTab ? "_blank" : "";
+				const chain = editor.chain();
 
-				if (!editor.isActive("link")) {
-					editor.chain()
-						.insertContentAt({ from, to }, text)
-						.setTextSelection({ from, to: from + text.length })
-						.focus()
-						.extendMarkRange("link")
-						.setLink({
-							href: sanitizeUrl(url, allowedLinkProtocols),
-							target: newTab ? "_blank" : "",
-						})
-						.run();
+				if (isTextBased) {
+					if (!editor.isActive("link")) {
+						chain
+							.insertContentAt({ from, to }, text)
+							.setTextSelection({ from, to: from + text.length })
+							.focus()
+							.extendMarkRange("link")
+							.setLink({ href, target });
+					} else {
+						editor.state.doc.nodesBetween(from - 1, from, (node, pos) => {
+							if (node.type.name === "text") {
+								chain
+									.focus()
+									.extendMarkRange("link")
+									.setLink({ href, target })
+									.insertContentAt({ from: pos, to: pos + node.nodeSize - 1 }, text)
+									.insertContentAt({ from: pos + text.length, to: pos + text.length + 1 }, "")
+									.extendMarkRange("link");
+
+								return false;
+							}
+						});
+					}
 				} else {
-					editor.state.doc.nodesBetween(from - 1, from, (node, pos) => {
-						if (node.type.name === "text") {
-							editor.chain()
-								.focus()
-								.extendMarkRange("link")
-								.setLink({
-									href: sanitizeUrl(url, allowedLinkProtocols),
-									target: newTab ? "_blank" : "",
-								})
-								.insertContentAt({ from: pos, to: pos + node.nodeSize - 1 }, text)
-								.insertContentAt({ from: pos + text.length, to: pos + text.length + 1 }, "")
-								.extendMarkRange("link")
-								.run();
-							return false;
-						}
-					});
-
+					chain
+						.extendMarkRange("link")
+						.setLink({ href, target });
 				}
+
+				chain.run();
 			},
 		});
 	},
