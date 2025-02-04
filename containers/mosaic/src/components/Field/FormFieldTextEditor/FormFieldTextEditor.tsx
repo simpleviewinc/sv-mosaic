@@ -129,11 +129,12 @@ function FormFieldTextEditorUnmemo({
 
 	const inputSettings = useMemo<TextEditorInputSettings>(() => ({
 		...providedInputSettings,
-		onLink: providedInputSettings.onLink || (({ updateLink, ...values }) => setNodeForm({
+		onLink: providedInputSettings.onLink || (({ updateLink, isTextBased, ...values }) => setNodeForm({
 			open: true,
 			type: "link",
 			values,
 			anchorEl: selectionVirtualElement(editor),
+			isTextBased,
 			update: (...params) => {
 				setNodeForm(null);
 				updateLink(...params);
