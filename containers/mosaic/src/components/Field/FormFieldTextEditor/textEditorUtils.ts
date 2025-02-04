@@ -35,11 +35,10 @@ export const floatingControls: ControlsConfig[] = [
 		[
 			{
 				...controlLink,
-				show: ({ selectionTypes = [] }) => !selectionTypes.includes("image"),
 			},
 			{
 				...controlLinkPreview,
-				show: ({ selectionTypes = [] }) => !selectionTypes.includes("image") && selectionTypes.includes("link"),
+				show: ({ selectionTypes = [] }) => selectionTypes.includes("link"),
 			},
 		],
 		[
