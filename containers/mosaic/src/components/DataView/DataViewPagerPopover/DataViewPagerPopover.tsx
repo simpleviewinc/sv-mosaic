@@ -28,11 +28,13 @@ function DataViewPagerPopover({
 			name: "page",
 			label: "Page",
 			type: "number",
+			required: true,
 			inputSettings: {
 				suffix: `of ${totalPages}`,
 				decimalPlaces: 0,
 				sign: "positive",
 			},
+			validators: [{ fn: "validateNumberRange", options: { maxNum: totalPages } }],
 		},
 	], [totalPages]);
 
@@ -41,7 +43,7 @@ function DataViewPagerPopover({
 	}), [currentPage]);
 
 	const onSubmit = handleSubmit(useCallback(({ data: { page } }) => {
-		onSkipChange({ skip : (page - 1) * limit });
+		onSkipChange({ skip : (Number(page) - 1) * limit });
 		onClose();
 	}, [limit, onClose, onSkipChange]));
 
