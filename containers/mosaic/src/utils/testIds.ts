@@ -10,6 +10,7 @@ const testIds = {
 	CHECKBOX_WRAPPER: "mos:Checkbox:wrapper",
 	CHIP: "mos:Chip:root",
 	CHIP_DELETE_ICON: "mos:Chip:deleteIcon",
+	COMPARISON_HELP: "mos:comparisonHelp",
 	CONTENT: "mos:Content:root",
 	CONTENT_COL: "mos:Content:col",
 	CONTENT_FIELD: "mos:Content:field",

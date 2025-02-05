@@ -73,11 +73,11 @@ export class PaginationComponent extends BasePage {
 	}
 
 	async getPageInput(): Promise<Locator> {
-		return this.pagesOption.locator("input[type='text']");
+		return this.page.getByLabel("Page*", { exact: true });
 	}
 
 	async getPageGoBtn(): Promise<Locator> {
-		return this.pagesOption.locator("button");
+		return this.page.getByRole("button", { name: "Go" });
 	}
 
 	async selectViewType(option: "List" | "Grid"): Promise<void> {
