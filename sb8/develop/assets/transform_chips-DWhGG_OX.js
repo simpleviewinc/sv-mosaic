@@ -1,0 +1,16 @@
+import{j as r}from"./jsx-runtime-DiwAibxM.js";import{useMDXComponents as m}from"./index-B4U1yk18.js";import{M as p}from"./index-1DzNQ1Vd.js";import{t as n}from"./column_transforms-DGr2sP5m.js";import{T as s}from"./TransformExample-DKwiSzdP.js";import"./index-Btj5Fd67.js";import"./iframe-XZ1MmkPK.js";import"../sb-preview/runtime.js";import"./index-T5NeFSal.js";import"./index-tXhrow7Y.js";import"./tslib.es6-CRos2fHm.js";import"./index-Cu4lwwaE.js";import"./extends-CF3RwP-h.js";import"./inheritsLoose-Cqq1nRsk.js";import"./toString-CrHhZNKP.js";import"./index-CQ9F9_Tt.js";import"./index-ogSvIofg.js";import"./index-DC7k7Zpe.js";import"./theme-C7C0QMlu.js";import"./testIds-BTxDoLqd.js";import"./TitleWrapper-BAR2n_rD.js";import"./Button-CRbkpCI2.js";import"./generateUtilityClasses-oWyMxXuq.js";import"./ButtonBase-biKTBdl5.js";import"./useIsFocusVisible-DHjyF8IZ.js";import"./Popper-Cwezlgxk.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-R4ufcCXK.js";import"./useToggle-B3mbTfSB.js";import"./containerQuery-BqcK0eeN.js";import"./createSvgIcon-CzNXaSwG.js";import"./createSvgIcon-Bmixpj46.js";import"./useId-DwELyCdS.js";import"./useControlled-D8KJxpyu.js";import"./Typography-D0-akgTt.js";import"./TitleText-CdOksVB0.js";import"./ButtonRow-B0KLUoh1.js";import"./index-DWVqnVXO.js";import"./debounce-B3RVa3dT.js";import"./DataViewPrimaryFilter.styled-Ckb-VyLy.js";import"./Chip-Dr-kVTvJ.js";import"./useMosaicTranslation-DPUDh126.js";import"./FormFieldText.styled-CYOPNvgp.js";import"./formControlState-Bl9Dd4wz.js";import"./Spinner-C0FunRuE.js";import"./SubtitleText-DUUVrgUU.js";import"./CheckboxList-DhxEMOfW.js";import"./Checkbox-BPpImdKi.js";import"./FormControlLabel-DHn1WcqZ.js";import"./getThemeProps-DdDNKTGU.js";import"./MoreVert-Djp96t97.js";import"./ChevronRight-CA1Fd4W_.js";import"./PageHeader-BGHmuIHO.js";import"./formats-CMvQHWsT.js";import"./sizes-C6oSOElx.js";import"./RadioButton-Ba6ulvNI.js";import"./StyledFormControl.styled-i13hAbZe.js";import"./Toggle-CQTabJa2.js";import"./Dialog-D-UDZ0Lf.js";import"./SideNav-BXGvGLiL.js";import"./Snackbar-DLaSlsnc.js";import"./Close-BLCogFul.js";import"./ClickAwayListener-DoPvkzLf.js";import"./Image-CNIFLnmm.js";function t(o){const i={code:"code",h1:"h1",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...m(),...o.components};return r.jsxs(r.Fragment,{children:[r.jsx(p,{title:"Utils/Transforms/Chips"}),`
+`,r.jsx(i.h1,{id:"transform_chips",children:"transform_chips"}),`
+`,r.jsx(i.p,{children:"Converts an array of MosaicLabelValue elements into Chips."}),`
+`,r.jsx(i.h4,{id:"conversions",children:"Conversions"}),`
+`,r.jsxs(i.ul,{children:[`
+`,r.jsxs(i.li,{children:[r.jsx(i.code,{children:'[{label: "Chip 1", value: "chip_1"}]'})," => ",r.jsx(s,{cb:n(),data:[{label:"Chip 1",value:"chip_1"}]})]}),`
+`]}),`
+`,r.jsx(i.h4,{id:"args",children:"Args"}),`
+`,r.jsx(i.p,{children:"None"}),`
+`,r.jsx(i.h4,{id:"example",children:"Example"}),`
+`,r.jsx(i.pre,{children:r.jsx(i.code,{className:"language-js",children:`import { transform_chips } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_chips()
+]
+`})})]})}function _r(o={}){const{wrapper:i}={...m(),...o.components};return i?r.jsx(i,{...o,children:r.jsx(t,{...o})}):t(o)}export{_r as default};
