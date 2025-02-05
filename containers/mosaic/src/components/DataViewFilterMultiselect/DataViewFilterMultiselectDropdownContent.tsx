@@ -203,7 +203,7 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						color="blue"
 						mIcon={HelpIcon}
 						popover={(
-							<StyledComparisonHelp>
+							<StyledComparisonHelp data-testid={testIds.COMPARISON_HELP}>
 								{menuItems.map((item, id) => (
 									<span key={id}>
 										<b>{item.label}</b>
