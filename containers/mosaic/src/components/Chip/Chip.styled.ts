@@ -1,48 +1,14 @@
-import Chip from "@mui/material/Chip";
+import type { ComponentProps } from "react";
 import styled from "styled-components";
-import theme from "@root/theme";
+import Chip from "@mui/material/Chip";
+
 import type { TransientProps } from "@root/types";
 import type { ChipsProps } from "./ChipTypes";
-import type { ComponentProps } from "react";
 
-const chipFont = `
-	font-size: 14px;
-	font-family: ${theme.fontFamily};
-	font-weight: ${theme.fontWeight.medium};
-`;
+import theme from "@root/theme";
 
-export const StyledDeletableChip = styled(Chip)`
-	&.MuiChip-root {
-		background-color: ${(pr) =>
-		pr.disabled
-			? theme.newColors.simplyGold["60"]
-			: theme.newColors.simplyGold["100"]};
-		color: ${theme.newColors.almostBlack["100"]};
-		max-width: 186px;
-		padding: 8px 16px;
-	}
-
-	.MuiChip-deleteIcon {
-		color: ${theme.newColors.almostBlack["100"]} !important;
-		margin: 0 !important;
-		height: 16px;
-		width: 16px;
-
-		&:hover {
-			color: ${theme.newColors.almostBlack["100"]} !important;
-		}
-	}
-
-	& .MuiChip-label {
-		${chipFont}
-		line-height: 16px;
-		margin-right: 12px;
-		padding: 0;
-	}
-`;
-
-function getChipBackground({ $selected, disabled, onClick }: Pick<ComponentProps<typeof StyledChip>, "$selected" | "disabled" | "onClick">) {
-	if ($selected) {
+function getChipBackground({ $selected, disabled, onClick, onDelete }: Pick<ComponentProps<typeof StyledChip>, "$selected" | "disabled" | "onClick" | "onDelete">) {
+	if ($selected || onDelete) {
 		if (disabled) {
 			return { base: theme.newColors.simplyGold["60"] };
 		}
@@ -62,25 +28,28 @@ function getChipBackground({ $selected, disabled, onClick }: Pick<ComponentProps
 }
 
 export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected">>`
-	&.MuiChip-root {
+	&&.MuiChip-root {
 		max-width: 186px;
 		color: ${theme.newColors.almostBlack["100"]};
 		padding: 8px 16px;
 
-		&:focus{
-			box-shadow: none;
-			outline: 1px solid white;
-			outline-offset: -2px;
-		}
+		${({ onDelete }) => !onDelete && `
+			&:focus{
+				box-shadow: none;
+				outline: 1px solid white;
+				outline-offset: -2px;
+			}
+		`}
 
-		${({ $selected, disabled, onClick }) => {
-			const { base, focus, hover } = getChipBackground({ $selected, disabled, onClick });
+		${({ $selected, disabled, onClick, onDelete }) => {
+			const { base, focus, hover } = getChipBackground({ $selected, disabled, onClick, onDelete });
 
 			return `
 				background-color: ${base};
 
 				${focus && `
-					&:focus{
+					&:focus
+					&:focusVisible{
 						background-color: ${focus}
 					}
 				`}
@@ -95,8 +64,35 @@ export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected">>`
 	}
 
 	& .MuiChip-label {
-		${chipFont}
+		font-size: 14px;
+		font-family: ${theme.fontFamily};
+		font-weight: ${theme.fontWeight.medium};
 		line-height: 16px;
 		padding: 0;
+	}
+`;
+
+export const StyledChipDelete = styled.button`
+	&&& {
+		all: unset;
+		color: ${theme.newColors.almostBlack["100"]} !important;
+		cursor: pointer;
+		margin: 0;
+		margin-left: 12px;
+		display: flex;
+		position: relative;
+
+		&:focus-visible::after {
+			background-color: rgba(0, 0, 0, .2);
+			border-radius: 9999em;
+			content: " ";
+			position: absolute;
+			inset: -2px;
+		}
+	}
+
+	&& svg {
+		height: 16px;
+		width: 16px;
 	}
 `;
