@@ -8,7 +8,6 @@ import type { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
 
 import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
 import Menu from "../Menu";
-import { PopoverWrapper } from "./Button.styled";
 import { useToggle } from "@root/utils/toggle";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
 
@@ -149,11 +148,9 @@ function ButtonWithState(props: ButtonProps) {
 					style={isPopoverOnHover ? { pointerEvents: "none" } : null}
 					{...popoverProps}
 				>
-					<PopoverWrapper>
-						<ButtonPopoverContext.Provider value={{ onClose: closeMenu }}>
-							{props.popover}
-						</ButtonPopoverContext.Provider>
-					</PopoverWrapper>
+					<ButtonPopoverContext.Provider value={{ onClose: closeMenu }}>
+						{props.popover}
+					</ButtonPopoverContext.Provider>
 				</Popover>
 			) : props.menuItems ? (
 				<Menu
