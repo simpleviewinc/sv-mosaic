@@ -162,13 +162,13 @@ export async function validateDateRange(value: string, data: any, options: Recor
 	return undefined;
 }
 
-export function validateNumberRange(value: string, data: any, { minName, maxName }: { minName?: number; maxName?: number }): string | undefined {
+export function validateNumberRange(value: string, data: any, { minNum, minName, maxNum, maxName }: { minNum?: number; minName?: string; maxNum?: number; maxName?: string }): string | undefined {
 	if (value === undefined) {
 		return;
 	}
 
-	const min = minName && data[minName];
-	const max = maxName && data[maxName];
+	const min = minNum ?? (minName && data[minName]);
+	const max = maxNum ?? (maxName && data[maxName]);
 
 	const numberValue = Number(value);
 	if (Number.isNaN(numberValue) || !Number.isFinite(numberValue)) {

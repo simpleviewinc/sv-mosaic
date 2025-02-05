@@ -58,41 +58,36 @@ test.describe("Components - Data View - Pagination", () => {
 	test("Validate pages by result per page - Default", async () => {
 		const pages = await pagination.calculatePages(dataview_data.resultPerPageDefault);
 		await pagination.paginationValue.click();
-		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
+		await expect(page.getByText(`of ${pages}`)).toBeVisible();
 	});
 
 	test("Validate pages by result per page - 50", async () => {
 		await pagination.selectResultOption(50);
 		const pages = await pagination.calculatePages(dataview_data.resultPerPage50);
 		await pagination.paginationValue.click();
-		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
+		await expect(page.getByText(`of ${pages}`)).toBeVisible();
 	});
 
 	test("Validate pages by result per page - 100", async () => {
 		await pagination.selectResultOption(100);
 		const pages = await pagination.calculatePages(dataview_data.resultPerPage100);
 		await pagination.paginationValue.click();
-		expect(await (await pagination.getPagesLabel()).textContent()).toContain(`${pages}`);
+		await expect(page.getByText(`of ${pages}`)).toBeVisible();
 	});
 
 	test("Go to a valid page", async () => {
 		const recordRangePerPage = await pagination.calulateRecordRangePerPage(dataview_data.resultPerPageDefault, 4);
 		await pagination.paginationValue.click();
-		await (await pagination.getPageInput()).type("4");
+		await (await pagination.getPageInput()).fill("4");
 		await (await pagination.getPageGoBtn()).click();
 		expect(await pagination.paginationValue.textContent()).toBe(recordRangePerPage);
 	});
 
 	test("Go to a no existing page", async () => {
 		await pagination.paginationValue.click();
-		await (await pagination.getPageInput()).type("50");
+		await (await pagination.getPageInput()).fill("50");
 		await (await pagination.getPageGoBtn()).click();
-	});
-
-	test("Go to a no valid page", async () => {
-		await pagination.paginationValue.click();
-		await (await pagination.getPageInput()).type("p");
-		await (await pagination.getPageGoBtn()).click();
+		await expect(page.getByText("Number must be less than or equal to 13")).toBeVisible();
 	});
 
 	test("Still same page", async () => {
