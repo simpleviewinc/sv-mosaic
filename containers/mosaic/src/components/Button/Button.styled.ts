@@ -230,8 +230,3 @@ export const StyledIconButton = styled(IconButton)<TransientProps<ButtonProps, "
 		}
 	`;
 });
-
-export const PopoverWrapper = styled.div`
-	font-family: ${theme.fontFamily};
-	padding: 10px;
-`;

@@ -62,7 +62,7 @@ describe(__dirname, () => {
 
 		await setup({ onColumnsChange: onColumnsChangeMock });
 
-		expect(screen.queryByRole("button", { name: "DataView.columns" })).toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "Columns" })).toBeInTheDocument();
 	});
 
 	it("should render the sort control for grid displays if both a sort and on sort change handler has been provided", async () => {
