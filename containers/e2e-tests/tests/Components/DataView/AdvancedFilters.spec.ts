@@ -147,8 +147,10 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await advancedFilters.selectFilter("categoriesWithComparisons");
 		await advancedFilters.categoryWithComparisonBtn.click();
 		await advancedFilters.helpComparisonCategoriesDialogButton.click();
-		const helpDialog = await advancedFilters.getHelpDialogFromCategoryWithComparisonOption();
-		expect(helpDialog.toString()).toBe(advanced_filter_data.categoryComparisonHelpDialog);
+		const size = await advancedFilters.helpComparisonCategoriesDialog.count();
+		expect(size).toBe(1);
+		const text = await advancedFilters.helpComparisonCategoriesDialog.textContent();
+		expect(text).toBe(advanced_filter_data.categoryComparisonHelpDialog);
 		await page.reload();
 	});
 

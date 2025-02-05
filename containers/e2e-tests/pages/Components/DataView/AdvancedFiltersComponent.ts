@@ -64,7 +64,7 @@ export class AdvancedFiltersComponent extends FilterComponent {
 
 		this.comparisonDropdown = page.locator("div.comparisonDropdown button").nth(0);
 		this.helpComparisonCategoriesDialogButton = page.locator("div.comparisonDropdown button").nth(1);
-		this.helpComparisonCategoriesDialog = page.locator("[role='presentation'] p");
+		this.helpComparisonCategoriesDialog = page.getByTestId(testIds.COMPARISON_HELP);
 		this.keywordSearchComparisonCategories = page.locator("div.options input[type='text']");
 
 		this.titleFilterSearch = page.locator("div.inputRow input");
@@ -124,10 +124,6 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		const selectedCategory = await this.labelCheckbox.first().textContent();
 		await this.filterCheckbox.first().click();
 		return selectedCategory;
-	}
-
-	async getHelpDialogFromCategoryWithComparisonOption(): Promise<string> {
-		return await this.helpComparisonCategoriesDialog.nth(1).textContent();
 	}
 
 	async keywordSearchForComparisonCategory(category: string): Promise<string> {
