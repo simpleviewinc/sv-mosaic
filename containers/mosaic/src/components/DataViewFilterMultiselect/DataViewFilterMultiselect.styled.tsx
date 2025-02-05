@@ -91,6 +91,7 @@ export const StyledComparisonHeader = styled.div`
 	margin-bottom: 1rem;
 `;
 
-export const PopoverP = styled.p`
-	margin: 0px;
+export const StyledComparisonHelp = styled.div`
+	font-family: ${theme.fontFamily};
+	padding: 10px;
 `;
