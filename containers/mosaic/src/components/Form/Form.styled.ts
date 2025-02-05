@@ -3,6 +3,7 @@ import theme, { CONTAINERS } from "@root/theme/theme";
 import SideNav from "../SideNav/SideNav";
 import { containerQuery } from "@root/utils/css";
 import type { FormSpacing } from "./FormTypes";
+import Button from "../Button";
 
 export const StyledContainerForm = styled.div<{ $fullHeight?: boolean }>`
 	position: relative;
@@ -60,4 +61,10 @@ export const StyledFormFooter = styled.div<{ $spacing?: FormSpacing }>`
 	border-top: 2px solid ${theme.newColors.grey2[100]};
 	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
 	display: flex;
+`;
+
+export const StyledFormFooterButton = styled(Button)<{ $push?: "left" | "right"}>`
+	${({ $push }) => $push && `
+		margin-${$push}: auto;
+	`}
 `;
