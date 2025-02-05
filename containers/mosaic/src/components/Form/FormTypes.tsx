@@ -21,6 +21,10 @@ export interface SectionDef extends Section {
 	gridMinWidth?: string;
 }
 
+export interface AutofocusOptions {
+	selectAll?: boolean;
+}
+
 export interface FormProps {
 	state: FormState;
 	stable: FormStable;
@@ -40,7 +44,7 @@ export interface FormProps {
 	useSectionHash?: string | false;
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 	methods: FormMethods;
-	autoFocus?: boolean;
+	autoFocus?: boolean | AutofocusOptions;
 	skeleton?: boolean;
 	bottomSlot?: ReactNode;
 }

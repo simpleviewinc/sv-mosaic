@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 
 import type { MosaicCSSContainer } from "@root/types";
-import type { FormProps } from "./FormTypes";
+import type { AutofocusOptions, FormProps } from "./FormTypes";
 import type { ButtonProps } from "../Button";
 import type { Item, SideNavArgs } from "../SideNav";
 
@@ -139,6 +139,10 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
+		const autoFocusOptions: AutofocusOptions = typeof autoFocus === "object" ? autoFocus : {
+			selectAll: false,
+		};
+
 		const [firstField] = Object.entries(stable.fields)
 			.filter(([, field]) => stable.mounted[field.name])
 			.map(([, field]) => field)
@@ -156,7 +160,13 @@ const Form = (props: FormProps) => {
 
 		doneAutoFocus.current = true;
 
-		window.requestAnimationFrame(() => mount.inputRef.focus());
+		window.requestAnimationFrame(() => {
+			mount.inputRef.focus();
+
+			if (autoFocusOptions.selectAll && "select" in mount.inputRef) {
+				mount.inputRef.select();
+			}
+		});
 	}, [disabled, loadingInitial, autoFocus, stable.fields, stable.mounted]);
 
 	useEffect(() => {
