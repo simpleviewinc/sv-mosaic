@@ -17,7 +17,7 @@ import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
 import { SubtitleText } from "../Typography";
-import { PopoverP, StyledWrapper, StyledComparisonHeader } from "./DataViewFilterMultiselect.styled";
+import { StyledWrapper, StyledComparisonHeader, StyledComparisonHelp } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import CheckboxList from "../CheckboxList";
 
@@ -203,20 +203,18 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						color="blue"
 						mIcon={HelpIcon}
 						popover={(
-							<PopoverP>
-								{
-									menuItems.map((item, id) => (
-										<span key={id}>
-											<b>{item.label}</b>
-											{" "}
-											-
-											{" "}
-											{popoverP[item.label]}
-											<br />
-										</span>
-									))
-								}
-							</PopoverP>
+							<StyledComparisonHelp>
+								{menuItems.map((item, id) => (
+									<span key={id}>
+										<b>{item.label}</b>
+										{" "}
+										-
+										{" "}
+										{popoverP[item.label]}
+										<br />
+									</span>
+								))}
+							</StyledComparisonHelp>
 						)}
 					/>
 				</ButtonRow>
