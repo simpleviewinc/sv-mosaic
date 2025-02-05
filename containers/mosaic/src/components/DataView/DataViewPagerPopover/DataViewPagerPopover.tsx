@@ -1,91 +1,78 @@
-import * as React from "react";
-import { useState, useContext, memo } from "react";
-import styled from "styled-components";
-import { default as Button, ButtonPopoverContext } from "../../Button";
-import theme from "../../../theme";
+import React, { useCallback, useMemo } from "react";
+import { useContext, memo } from "react";
+
 import type { DataViewPagerPopoverProps } from "./DataViewPagerPopoverTypes";
+import type { FieldDef } from "@root/components/Field/FieldTypes";
 
-const PopoverDiv = styled.div`
-	font-size: 14px;
-	display: inline-flex;
-	align-items: center;
+import { useForm } from "@root/components/Form/useForm/useForm";
+import Form from "@root/components/Form";
+import { StyledFormFooter, StyledFormFooterButton } from "@root/components/Form/Form.styled";
+import { ButtonPopoverContext } from "@root/components/Button";
 
-	& > input {
-		width: 40px;
-		margin: 0px 8px;
-	}
+const autoFocusOptions = {
+	selectAll: true,
+};
 
-	&.invalid > input {
-		outline: ${theme.newColors.darkRed["100"]} auto 1px;
-	}
+function DataViewPagerPopover({
+	currentPage,
+	limit,
+	onSkipChange,
+	totalPages,
+}: DataViewPagerPopoverProps) {
+	const { onClose } = useContext(ButtonPopoverContext);
+	const controller = useForm();
+	const { handleSubmit } = controller;
 
-	& > .goButton {
-		margin-left: 8px;
-	}
-`;
+	const fields = useMemo<FieldDef[]>(() => [
+		{
+			name: "page",
+			label: "Page",
+			type: "number",
+			inputSettings: {
+				suffix: `of ${totalPages}`,
+				decimalPlaces: 0,
+				sign: "positive",
+			},
+		},
+	], [totalPages]);
 
-function DataViewPagerPopover(props: DataViewPagerPopoverProps) {
-	const buttonPopoverContext = useContext(ButtonPopoverContext);
+	const getFormValues = useCallback(async () => ({
+		page: currentPage,
+	}), [currentPage]);
 
-	const [state, setState] = useState({
-		currentPage : props.currentPage,
-		invalid : false,
-	});
-
-	const onChange = function(e) {
-		const val = Number(e.currentTarget.value);
-
-		const invalid = !Number.isInteger(val) || val <= 0 || val > props.totalPages;
-
-		setState({
-			...state,
-			invalid,
-			currentPage : e.currentTarget.value,
-		});
-	};
-
-	const onSubmit = () => {
-		if (state.invalid === true) {
-			return;
-		}
-
-		buttonPopoverContext.onClose();
-		props.onSkipChange({ skip : (state.currentPage - 1) * props.limit });
-	};
-
-	const onKeyDown = (e) => {
-		if (e.key === "Enter") {
-			return onSubmit();
-		}
-	};
+	const onSubmit = handleSubmit(useCallback(({ data: { page } }) => {
+		onSkipChange({ skip : (page - 1) * limit });
+		onClose();
+	}, [limit, onClose, onSkipChange]));
 
 	return (
-		<PopoverDiv
-			className={`
-				${state.invalid ? "invalid" : ""}
-			`}
-		>
-			<span>Page</span>
-			<input
-				type="text"
-				onKeyDown={onKeyDown}
-				onChange={onChange}
-				autoFocus
+		<div style={{ width: 200 }}>
+			<Form
+				{...controller}
+				autoFocus={autoFocusOptions}
+				fields={fields}
+				spacing="compact"
+				getFormValues={getFormValues}
+				onSubmit={onSubmit}
+				bottomSlot={(
+					<StyledFormFooter $spacing="compact">
+						<StyledFormFooterButton
+							color="gray"
+							variant="outlined"
+							label="Cancel"
+							$push="right"
+							onClick={onClose}
+						/>
+						<StyledFormFooterButton
+							color="yellow"
+							variant="contained"
+							label="Go"
+							type="submit"
+						/>
+					</StyledFormFooter>
+				)}
 			/>
-			<span>
-				of
-				{" "}
-				{props.totalPages}
-			</span>
-			<Button
-				className="goButton"
-				color="blue"
-				variant="contained"
-				size="small"
-				onClick={onSubmit}
-				label="Go"
-			/>
-		</PopoverDiv>
+		</div>
 	);
 }
 
