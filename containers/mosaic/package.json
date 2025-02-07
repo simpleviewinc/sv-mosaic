@@ -39,7 +39,7 @@
 		"typescript": "5.5.4",
 		"typescript-transform-paths": "3.5.1",
 		"vite-tsconfig-paths": "5.0.1",
-		"vitest": "2.0.5",
+		"vitest": "2.1.9",
 		"vitest-canvas-mock": "0.3.3",
 		"vitest-fail-on-console": "0.7.1"
 	},
