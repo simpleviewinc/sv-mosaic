@@ -1,48 +1,84 @@
-import * as React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-// Components
-import FormFieldPhone from "@root/components/Field/FormFieldPhone";
+import type { PhoneDropdownData, PhoneSelectionInputSettings } from "@root/components/Field/FormFieldPhone/FormFieldPhoneTypes";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components";
 
-afterEach(cleanup);
+import FormFieldTestType from "../FormFieldTestType";
+import FormFieldPhone from "@root/components/Field/FormFieldPhone/FormFieldPhone";
+import testIds from "@root/utils/testIds";
 
-describe("FormFieldPhone country code prop", () => {
-	it("should display US phone number prefix when no country code is provided ", () => {
-		const { container } = render(
-			<FormFieldPhone
-				fieldDef={{
-					name: "phoneSelectDropdown",
-					type: "phone",
-					label: "Label",
-				}}
-			/>,
-		);
+const defaultFieldDef: FieldDefBase<"phone", PhoneSelectionInputSettings> = {
+	name: "phone",
+	type: "phone",
+};
 
-		const phoneInput = container.querySelector(
-			".form-control",
-		) as HTMLInputElement;
+async function setup(
+	props: Partial<MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>> = {},
+	{
+		stateful = false,
+		userEventOptions,
+	}: {
+		stateful?: boolean;
+		userEventOptions?: Parameters<typeof userEvent.setup>[0];
+	} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
 
-		expect(phoneInput.value).toBe("+1");
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldPhone}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(userEventOptions),
+	};
+}
+
+describe(__dirname, () => {
+	afterEach(() => {
+		vi.useRealTimers();
 	});
 
-	it("should display the phone number prefix of the country code provided", () => {
-		const { container } = render(
-			<FormFieldPhone
-				fieldDef={{
-					name: "phoneSelectDropdown",
-					type: "phone",
-					label: "Label",
-					inputSettings: {
-						country: "mx",
-					},
-				}}
-			/>,
-		);
+	it("should render the phone form field", async () => {
+		await setup();
 
-		const phoneInput = container.querySelector(
-			".form-control",
-		) as HTMLInputElement;
+		expect(screen.queryByRole("button")).toBeInTheDocument();
+		expect(screen.queryByRole("textbox")).toBeInTheDocument();
+	});
 
-		expect(phoneInput.value).toBe("+52");
+	it("should default to a specific country if provided", async () => {
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					...defaultFieldDef.inputSettings,
+					country: "gb",
+				},
+			},
+		});
+
+		const button = screen.queryByRole("button");
+		const input = screen.queryByRole("textbox");
+
+		expect(button).toBeInTheDocument();
+		expect(input).toBeInTheDocument();
+		expect(button).toHaveAttribute("title", "United Kingdom: + 44");
+		expect(input).toHaveValue("+44");
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("button")).not.toBeInTheDocument();
+		expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 });
