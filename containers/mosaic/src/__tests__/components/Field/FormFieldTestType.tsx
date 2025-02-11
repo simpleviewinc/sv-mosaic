@@ -19,7 +19,10 @@ function FormFieldTestType<T = any, U = any, V = any>({
 			<Component
 				{...props}
 				value={value}
-				onChange={async (value) => setValue(value)}
+				onChange={async (value) => {
+					props.onChange && props.onChange(value);
+					setValue(value);
+				}}
 			/>
 		);
 	}
