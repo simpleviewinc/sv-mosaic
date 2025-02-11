@@ -209,6 +209,10 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
             border-bottom: 1px solid #fff;
             box-shadow: 0 1px 0 #008DA8;
         }
+
+        table th {
+            text-align: start;
+        }
     }
 `;
 
