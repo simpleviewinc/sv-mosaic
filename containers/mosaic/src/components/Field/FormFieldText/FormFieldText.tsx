@@ -8,6 +8,7 @@ import type { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes
 import type { MosaicFieldProps } from "@root/components/Field";
 
 import { StyledAdornment, StyledTextField } from "./FormFieldText.styled";
+import testIds from "@root/utils/testIds";
 
 const TextField = (
 	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>,
@@ -44,6 +45,7 @@ const TextField = (
 				variant="rectangular"
 				width="100%"
 				height={43}
+				data-testid={testIds.FORM_FIELD_SKELETON}
 			/>
 		);
 	}
