@@ -86,4 +86,6 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
 		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
+
+	// TODO: assert styles when we've migrated to emotion
 });
