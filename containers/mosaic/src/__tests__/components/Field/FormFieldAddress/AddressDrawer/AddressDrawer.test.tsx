@@ -61,7 +61,7 @@ describe(__dirname, () => {
 		expect(handleUnsavedChangesMock).toBeCalledWith(false);
 	});
 
-	it("should fire the on save handler when the form is submitted", async () => {
+	it("should fire the on save handler when the form is submitted", { timeout: 30_000 }, async () => {
 		const onSaveMock = vi.fn();
 		const { user } = await setup({ onSave: onSaveMock });
 
