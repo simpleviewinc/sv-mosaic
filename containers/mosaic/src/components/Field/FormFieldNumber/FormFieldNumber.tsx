@@ -1,15 +1,15 @@
-import * as React from "react";
 import type { ReactElement, ChangeEvent } from "react";
-import { memo, useMemo, useState, useRef } from "react";
+import type { TextFieldProps } from "@mui/material/TextField";
 
-// Types and styles
-import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
-import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
-import type { MosaicFieldProps } from "@root/components/Field";
+import React, { memo, useMemo, useState, useRef } from "react";
+import InputAdornment from "@mui/material/InputAdornment";
 import Skeleton from "@mui/material/Skeleton";
+
+import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
-import type { TextFieldProps } from "@mui/material";
-import { InputAdornment } from "@mui/material";
 import testIds from "@root/utils/testIds";
 
 const NumberField = (
