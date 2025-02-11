@@ -4,11 +4,12 @@ import type { TextFieldProps } from "@mui/material/TextField";
 import React, { memo, useMemo, useState, useRef } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 
-// Types and styles
-import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
-import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
-import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
+
+import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
 import testIds from "@root/utils/testIds";
 
