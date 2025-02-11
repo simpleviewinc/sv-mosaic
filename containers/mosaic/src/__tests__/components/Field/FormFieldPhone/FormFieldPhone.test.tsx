@@ -43,10 +43,6 @@ async function setup(
 }
 
 describe(__dirname, () => {
-	afterEach(() => {
-		vi.useRealTimers();
-	});
-
 	it("should render the phone form field", async () => {
 		await setup();
 
