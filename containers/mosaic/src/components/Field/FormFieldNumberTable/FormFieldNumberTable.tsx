@@ -68,6 +68,7 @@ const FormFieldNumberTable = (
 		if (displaySumColumn) {
 			totals["mos_col_totals"] = Object.values(totals).reduce(
 				(acc: number, current: number) => acc + current,
+				0,
 			);
 			setColumnsTotals(totals);
 		}
