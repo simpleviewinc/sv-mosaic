@@ -47,10 +47,6 @@ async function setup(
 }
 
 describe(__dirname, () => {
-	afterEach(() => {
-		vi.useRealTimers();
-	});
-
 	it("should render the radio form field", async () => {
 		await setup();
 

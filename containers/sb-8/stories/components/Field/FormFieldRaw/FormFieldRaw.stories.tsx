@@ -1,16 +1,23 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
+import styled from "styled-components";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
 import { commonFieldControls, renderButtons } from "../../../../utils";
-import { RawValueWrapper } from "@root/components/Field/FormFieldRaw/FormFieldRaw.styled";
 
 export default {
 	title: "FormFields/FormFieldRaw",
 };
+
+export const RawValueWrapper = styled.div`
+    background-color: #aa1919;
+    border: 3px solid #570202;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 99999em;
+`;
 
 function RawValue() {
 	return (
