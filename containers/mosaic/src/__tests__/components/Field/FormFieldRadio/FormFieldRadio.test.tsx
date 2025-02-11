@@ -1,115 +1,132 @@
-import * as React from "react";
-import { useState } from "react";
-import { render, screen, fireEvent, cleanup, waitFor, act } from "@testing-library/react";
-import { getOptions } from "@root/mock";
+import { render, screen, waitFor } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-import type { MosaicLabelValue } from "@root/types";
+import type { RadioData, RadioInputSettings } from "@root/components/Field/FormFieldRadio/FormFieldRadioTypes";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components";
 
-import FormFieldRadio from "@root/components/Field/FormFieldRadio";
-import { mockOptions } from "@root/mock";
+import FormFieldTestType from "../FormFieldTestType";
+import FormFieldRadio from "@root/components/Field/FormFieldRadio/FormFieldRadio";
+import { getOptions, mockOptions } from "@root/mock";
+import testIds from "@root/utils/testIds";
 
-afterEach(cleanup);
-
-const { getByText, getAllByRole } = screen;
-
-const options = [
-	{
-		label: "Label 1",
-		value: "label_1",
+const defaultFieldDef: FieldDefBase<"radio", RadioInputSettings> = {
+	name: "radio",
+	type: "radio",
+	inputSettings: {
+		options: mockOptions,
 	},
-	{
-		label: "Label 2",
-		value: "label_2",
-	},
-	{
-		label: "Label 3",
-		value: "label_3",
-	},
-];
-
-const FormFieldRadioExample = (props: { fromDB?: boolean }) => {
-	const [value, setValue] = useState<MosaicLabelValue>();
-
-	const handleChange = async (value: MosaicLabelValue) => {
-		setValue(value);
-	};
-
-	return (
-		<>
-			<span>{value?.value}</span>
-			{!props.fromDB ? (
-				<FormFieldRadio
-					fieldDef={{
-						name: "radio",
-						type: "radio",
-						label: "Label",
-						inputSettings: {
-							options: options,
-						},
-					}}
-					onChange={handleChange}
-					value={value}
-				/>
-			) : (
-				<FormFieldRadio
-					fieldDef={{
-						name: "radio",
-						type: "radio",
-						label: "Label",
-						inputSettings: {
-							getOptions: getOptions,
-						},
-					}}
-					onChange={handleChange}
-					value={value}
-				/>
-			)}
-		</>
-	);
 };
 
-describe.skip("FormFieldRadio component", () => {
-	let radioButtons = [];
-	beforeEach(() => {
-		render(<FormFieldRadioExample fromDB={false} />);
-		radioButtons = getAllByRole("radio") as HTMLInputElement[];
-		fireEvent.click(radioButtons[1]);
+async function setup(
+	props: Partial<MosaicFieldProps<"radio", RadioInputSettings, RadioData>> = {},
+	{
+		stateful = false,
+		userEventOptions,
+	}: {
+		stateful?: boolean;
+		userEventOptions?: Parameters<typeof userEvent.setup>[0];
+	} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
+
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldRadio}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(userEventOptions),
+	};
+}
+
+describe(__dirname, () => {
+	afterEach(() => {
+		vi.useRealTimers();
 	});
 
-	it("should display the value of the clicked option", () => {
-		expect(getByText("label_2")).toBeDefined();
+	it("should render the radio form field", async () => {
+		await setup();
+
+		expect(screen.queryByRole("radio", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.queryByRole("radio", { name: "Cat" })).toBeInTheDocument();
 	});
 
-	it("should check the clicked option", () => {
-		expect(radioButtons[0].checked).toEqual(false);
-		expect(radioButtons[1].checked).toEqual(true);
-		expect(radioButtons[2].checked).toEqual(false);
+	it("should not throw if input settings are undefined", async () => {
+		expect(() => setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: undefined,
+			},
+		}))
+			.not
+			.toThrow();
 	});
-});
 
-describe.skip("FormFieldRadio component from DB", () => {
-	let radioButtons = [];
-	beforeEach(async () => {
-		await act( async() => {
-			render(<FormFieldRadioExample fromDB={true} />);
+	it("should render the radio items when options provided is an asynchronous function", async () => {
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					options: getOptions,
+				},
+			},
 		});
 
 		await waitFor(() => {
-			radioButtons = getAllByRole("radio") as HTMLInputElement[];
-		}, { timeout: 3000 });
-
-		await act( async() => {
-			radioButtons[6].dispatchEvent(new MouseEvent("click", { bubbles: true }));
+			expect(screen.queryByRole("radio", { name: "Dog" })).toBeInTheDocument();
+			expect(screen.queryByRole("radio", { name: "Cat" })).toBeInTheDocument();
 		});
 	});
 
-	it("should display the value of the clicked option", async () => {
-		expect(getByText(mockOptions[6].value)).toBeDefined();
+	it("should use the legacy getOptions input setting if no options are provided but show a deprecation warning", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					getOptions,
+				},
+			},
+		});
+
+		await waitFor(() => {
+			expect(screen.queryByRole("radio", { name: "Dog" })).toBeInTheDocument();
+			expect(screen.queryByRole("radio", { name: "Cat" })).toBeInTheDocument();
+		});
+		expect(warnMock).toHaveBeenCalled();
 	});
 
-	it("should check the clicked option", () => {
-		radioButtons.forEach( (radioButton, i) => {
-			expect(radioButton.checked).toEqual(i === 6);
+	it("should provide an additional option to the useOptions hook if the value is defined", async () => {
+		await setup({
+			value: { value: "Turnip", label: "Turnip" },
 		});
+
+		expect(screen.queryByRole("radio", { name: "Turnip" })).toBeInTheDocument();
+	});
+
+	it("should fire the on change handler with the label-value pair if a radio is selected", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock });
+
+		const radio = screen.queryByRole("radio", { name: "Dog" });
+		expect(radio).toBeInTheDocument();
+		await user.click(radio);
+		expect(onChangeMock).toBeCalledWith({ label: "Dog", value: "dog" });
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("radio", { name: "Dog" })).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 });
