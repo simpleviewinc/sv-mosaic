@@ -25,8 +25,8 @@ function DataViewPager(props: DataViewPagerProps) {
 		props.onSkipChange({ skip });
 	};
 
-	const previousDisabled = currentPage === 1;
-	const nextDisabled = currentPage === totalPages;
+	const previousDisabled = currentPage <= 1;
+	const nextDisabled = currentPage >= totalPages;
 
 	if (totalPages === 0) {
 		return null;
