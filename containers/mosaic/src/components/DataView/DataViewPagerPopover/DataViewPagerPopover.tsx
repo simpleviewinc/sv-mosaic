@@ -34,7 +34,7 @@ function DataViewPagerPopover({
 				decimalPlaces: 0,
 				sign: "positive",
 			},
-			validators: [{ fn: "validateNumberRange", options: { maxNum: totalPages } }],
+			validators: [{ fn: "validateNumberRange", options: { maxNum: totalPages, minNum: 1 } }],
 		},
 	], [totalPages]);
 
