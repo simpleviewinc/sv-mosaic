@@ -78,7 +78,7 @@ describe(__dirname, () => {
 		expect(onCloseMock).toBeCalled();
 	});
 
-	it("should do nothing on submission if the value entered is more than the total number of pages", async () => {
+	it("should show error on submission if the value entered is more than the total number of pages", async () => {
 		const onSkipChangeMock = vi.fn();
 		const onCloseMock = vi.fn();
 
@@ -90,6 +90,7 @@ describe(__dirname, () => {
 		expect(input).toBeInTheDocument();
 		expect(button).toBeInTheDocument();
 
+		await user.clear(input);
 		await user.type(input, "26");
 		await user.click(button);
 
@@ -98,7 +99,7 @@ describe(__dirname, () => {
 		expect(onCloseMock).not.toBeCalled();
 	});
 
-	it("should do nothing on submission if the value entered is less than 1", async () => {
+	it("should show error on submission if the value entered is less than 1", async () => {
 		const onSkipChangeMock = vi.fn();
 		const onCloseMock = vi.fn();
 
@@ -110,6 +111,7 @@ describe(__dirname, () => {
 		expect(input).toBeInTheDocument();
 		expect(button).toBeInTheDocument();
 
+		await user.clear(input);
 		await user.type(input, "0");
 		await user.click(button);
 
