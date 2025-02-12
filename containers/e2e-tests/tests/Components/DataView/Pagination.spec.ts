@@ -87,7 +87,7 @@ test.describe("Components - Data View - Pagination", () => {
 		await pagination.paginationValue.click();
 		await (await pagination.getPageInput()).fill("50");
 		await (await pagination.getPageGoBtn()).click();
-		await expect(page.getByText("Number must be less than or equal to 13")).toBeVisible();
+		await expect(page.getByText("Number must be between 1 and 13")).toBeVisible();
 	});
 
 	test("Still same page", async () => {
