@@ -93,7 +93,27 @@ describe(__dirname, () => {
 		await user.type(input, "26");
 		await user.click(button);
 
-		expect(screen.queryByText("Number must be less than or equal to 25")).toBeInTheDocument();
+		expect(screen.queryByText("Number must be between 1 and 25")).toBeInTheDocument();
+		expect(onSkipChangeMock).not.toBeCalled();
+		expect(onCloseMock).not.toBeCalled();
+	});
+
+	it("should do nothing on submission if the value entered is less than 1", async () => {
+		const onSkipChangeMock = vi.fn();
+		const onCloseMock = vi.fn();
+
+		const { user } = await setup({ onSkipChange: onSkipChangeMock, onClose: onCloseMock });
+
+		const input = screen.queryByRole("textbox");
+		const button = screen.queryByRole("button", { name: "Go" });
+
+		expect(input).toBeInTheDocument();
+		expect(button).toBeInTheDocument();
+
+		await user.type(input, "0");
+		await user.click(button);
+
+		expect(screen.queryByText("Number must be between 1 and 25")).toBeInTheDocument();
 		expect(onSkipChangeMock).not.toBeCalled();
 		expect(onCloseMock).not.toBeCalled();
 	});
