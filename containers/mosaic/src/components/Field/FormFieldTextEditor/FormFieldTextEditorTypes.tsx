@@ -1,4 +1,4 @@
-import type { Dispatch, MouseEvent, ReactElement, SetStateAction } from "react";
+import type { Dispatch, MouseEvent, MutableRefObject, ReactElement, SetStateAction } from "react";
 import type { Editor, Extensions } from "@tiptap/core";
 
 import type { FieldDefBase } from "@root/components/Field";
@@ -15,11 +15,23 @@ export interface VirtualElement {
 	getBoundingClientRect: () => DOMRect;
 }
 
+export interface ToolbarControlsProps {
+	controls: ControlsConfig[];
+	editor: Editor;
+	selectionTypes?: SelectionType[];
+	inputSettings: TextEditorInputSettings;
+	disabled?: boolean;
+}
+
 export interface FloatingToolbarState {
 	open: boolean;
 	anchor?: VirtualElement;
 	selectionTypes: SelectionType[];
 }
+
+export type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState & {
+	isBusy: MutableRefObject<boolean>;
+};
 
 export interface NodeFormTypeProps {
 	editor: Editor;
