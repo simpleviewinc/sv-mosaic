@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import { optionsLibrary } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
@@ -116,12 +116,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	optionsOrigin: "Local",
 	getOptionsLimit: 5,
 	createNewOptionsKnob: true,
@@ -129,24 +124,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	optionsOrigin: {
 		name: "Options Origin",
 	},

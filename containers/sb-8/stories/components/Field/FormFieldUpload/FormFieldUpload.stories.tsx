@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useMemo, useCallback, useEffect, useState } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import { nanoid } from "nanoid";
 import type { UploadFieldInputSettings } from "@root/components/Field/FormFieldUpload";
 
@@ -45,7 +45,7 @@ export const Playground = ({
 	instructionText,
 	helperText,
 	limit,
-	prepopulate,
+	prepop,
 	timeToLoad,
 	timeToDelete,
 	thumbnailUrl,
@@ -59,8 +59,6 @@ export const Playground = ({
 	const controller = useForm();
 	const { state, handleSubmit, methods: { reset } } = controller;
 
-	// One line change
-
 	const accept = acceptCsv.trim() ? acceptCsv.split(",") : undefined;
 
 	const [loadReady, setLoadReady] = useState(false);
@@ -71,12 +69,12 @@ export const Playground = ({
 			setLoadReady(true);
 		};
 
-		if (prepopulate) {
+		if (prepop) {
 			resetForm();
 		} else {
 			setLoadReady(false);
 		}
-	}, [reset, prepopulate]);
+	}, [reset, prepop]);
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
@@ -171,14 +169,8 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	limit: "No limit",
-	prepopulate: false,
 	timeToLoad: 2,
 	timeToDelete: 2,
 	thumbnailUrl: "",
@@ -191,31 +183,11 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	limit: {
 		name: "Upload Count Limit",
 		control: { type: "select" },
 		options: ["No limit", "1", "2", "3"],
-	},
-	prepopulate: {
-		name: "Prepopulate",
 	},
 	timeToLoad: {
 		name: "Seconds to Upload",
