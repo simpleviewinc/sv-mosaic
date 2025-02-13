@@ -30,6 +30,9 @@ const TextField = (
 	const InputProps = useMemo(() => {
 		const props: TextFieldProps["InputProps"] = {
 			inputRef,
+			inputProps: {
+				"aria-label": fieldDef.label,
+			},
 		};
 
 		if (prefix) {
@@ -37,7 +40,7 @@ const TextField = (
 		}
 
 		return props;
-	}, [inputRef, prefix]);
+	}, [inputRef, prefix, fieldDef.label]);
 
 	if (skeleton) {
 		return (

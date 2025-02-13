@@ -132,6 +132,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 								colsInRow={colsInRow}
 								name={fieldDef.name}
 								as={hasRealLabel ? "label" : "div"}
+								hideLabel={fieldDef.hideLabel}
 							>
 								{fieldDef?.label}
 							</Label>

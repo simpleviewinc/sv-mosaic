@@ -41,6 +41,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 				...params.inputProps,
 				placeholder: fieldDef?.inputSettings?.placeholder,
 				ref: inputRef,
+				"aria-label": fieldDef.label,
 			}}
 		/>
 	);
