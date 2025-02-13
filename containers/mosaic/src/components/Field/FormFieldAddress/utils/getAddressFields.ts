@@ -43,13 +43,23 @@ function getInvalidParts(include: GetAddressFieldsParams["include"]) {
 	return errors.join("\n");
 }
 
+export const defaultAddressFields: GetAddressFieldsParams["include"] = [
+	"address1",
+	"address2",
+	"address3",
+	"country",
+	"city",
+	"state",
+	"postalCode",
+];
+
 function getAddressFields({
 	getOptionsCountries,
 	getOptionsStates,
 	googleMapsApiKey,
 	required,
 	disabled,
-	include,
+	include = defaultAddressFields,
 }: GetAddressFieldsParams): FieldDef[] {
 	const invalidParts = include && getInvalidParts(include);
 
@@ -57,6 +67,7 @@ function getAddressFields({
 		throw new Error(invalidParts);
 	}
 
+	// TODO Use an array here because an objects order is not guaranteed.
 	const fieldMap: Record<AddressPart, FieldDef> = {
 		address1: {
 			name: "address1",
@@ -80,15 +91,17 @@ function getAddressFields({
 		},
 		address2: {
 			name: "address2",
+			label: "Address Line 2",
+			hideLabel: true,
 			type: "text",
-			label: undefined,
 			size: "lg",
 			disabled,
 		},
 		address3: {
 			name: "address3",
+			label: "Address Line 3",
+			hideLabel: true,
 			type: "text",
-			label: undefined,
 			size: "lg",
 			disabled,
 		},
@@ -140,10 +153,6 @@ function getAddressFields({
 			],
 		},
 	};
-
-	if (!include) {
-		return Object.values(fieldMap);
-	}
 
 	return include.map(field => {
 		if (typeof field === "string") {
