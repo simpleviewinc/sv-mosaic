@@ -93,6 +93,10 @@ const Label = (props: LabelProps): ReactElement => {
 
 	const { anchorProps, tooltipProps } = useTooltip();
 
+	if (hideLabel && !instructionText && !limit) {
+		return;
+	}
+
 	return (
 		<LabelWrapper className={className}>
 			{!hideLabel && (

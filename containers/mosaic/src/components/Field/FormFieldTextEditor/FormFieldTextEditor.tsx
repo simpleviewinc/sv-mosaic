@@ -123,7 +123,7 @@ function FormFieldTextEditorUnmemo({
 		editorProps: {
 			attributes: {
 				"data-testid": testIds.TEXT_EDITOR_CANVAS,
-				"data-label": label,
+				"aria-label": label,
 			},
 		},
 		editable: !disabled,
