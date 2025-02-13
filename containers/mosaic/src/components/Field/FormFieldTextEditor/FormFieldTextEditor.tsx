@@ -27,6 +27,7 @@ function FormFieldTextEditorUnmemo({
 	onBlur: onBlurProvided,
 	fieldDef: {
 		inputSettings: providedInputSettings = {},
+		label,
 	},
 	disabled,
 	skeleton,
@@ -122,10 +123,11 @@ function FormFieldTextEditorUnmemo({
 		editorProps: {
 			attributes: {
 				"data-testid": testIds.TEXT_EDITOR_CANVAS,
+				"data-label": label,
 			},
 		},
 		editable: !disabled,
-	}, [disabled, extensions]);
+	}, [disabled, label, extensions]);
 
 	const inputSettings = useMemo<TextEditorInputSettings>(() => ({
 		...providedInputSettings,

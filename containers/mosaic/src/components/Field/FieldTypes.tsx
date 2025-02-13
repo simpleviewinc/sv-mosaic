@@ -113,6 +113,12 @@ export interface FieldDefBase<Type, T = any> {
 	 */
 	label?: string | undefined;
 	/**
+	 * Whether or not to display the label to the user. The label
+	 * will still be used for the aria-label attribute on the
+	 * associated control, if applicable.
+	 */
+	hideLabel?: boolean;
+	/**
 	 * Marks field as required
 	 */
 	required?: boolean | {
