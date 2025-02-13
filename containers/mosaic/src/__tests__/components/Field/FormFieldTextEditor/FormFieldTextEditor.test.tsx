@@ -417,7 +417,7 @@ describe(__dirname, () => {
 		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
 
-	it.only("should accept script in HTML content without executing it", async () => {
+	it("should accept script in HTML content without executing it", async () => {
 		const alertMock = vi.spyOn(window, "alert");
 
 		await setup({ value: "<p>Test!</p><script>alert(\"Test\");</script>" });
