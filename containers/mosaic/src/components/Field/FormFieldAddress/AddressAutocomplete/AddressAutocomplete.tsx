@@ -18,6 +18,7 @@ import {
 
 const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 	const {
+		label,
 		className,
 		value,
 		onChange,
@@ -47,7 +48,10 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 
 	const inputProps = {
 		...textField,
-		inputProps: { "data-testid": "location-search-input" },
+		inputProps: {
+			"data-testid": "location-search-input",
+			"aria-label": label,
+		},
 		variant: "outlined",
 		value,
 		onFocus: handleFocus,
