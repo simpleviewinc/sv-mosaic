@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import Form, { useForm } from "@root/components/Form";
 import type { ControlWithProps, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
 import { getDefaultExtensions } from "@root/components/Field";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import Drawer from "@root/components/Drawer";
 
 import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
@@ -156,13 +156,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	forceInstructionTooltip: false,
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	maxCharacters: 100,
 	autolink: true,
 	size: "lg",
@@ -175,27 +169,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	forceInstructionTooltip: {
-		name: "Force Instruction Tooltip",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.args,
 	maxCharacters: {
 		name: "Maximum Characters",
 	},

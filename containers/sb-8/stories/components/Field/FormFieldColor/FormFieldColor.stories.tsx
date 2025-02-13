@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 export default {
 	title: "FormFields/FormFieldColor",
@@ -49,25 +49,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
+	...commonFieldControls.args,
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
+	...commonFieldControls.argTypes,
 };
 
 export const KitchenSink = (): ReactElement => {
