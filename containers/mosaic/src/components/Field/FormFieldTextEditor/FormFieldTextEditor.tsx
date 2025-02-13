@@ -160,7 +160,7 @@ function FormFieldTextEditorUnmemo({
 			return;
 		}
 
-		if (!editor || updatesBlocked.current) {
+		if (!editor) {
 			return;
 		}
 
@@ -185,8 +185,13 @@ function FormFieldTextEditorUnmemo({
 				variant="rectangular"
 				width="100%"
 				height={130}
+				data-testid={testIds.FORM_FIELD_SKELETON}
 			/>
 		);
+	}
+
+	if (!editor) {
+		return null;
 	}
 
 	return (

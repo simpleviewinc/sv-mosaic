@@ -2,8 +2,7 @@ import type { ReactElement } from "react";
 
 import React, { useMemo } from "react";
 
-import type { ControlsConfig } from "../FormFieldTextEditorTypes";
-import type { ToolbarControlsProps } from "./ToolbarControls";
+import type { ControlsConfig, ToolbarControlsProps } from "../FormFieldTextEditorTypes";
 
 import { ControlButton, ControlMenuDropdown, resolveControls } from "./Controls";
 import { ControlGroup, ControlRow } from "../FormFieldTextEditor.styled";

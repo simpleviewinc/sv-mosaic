@@ -43,7 +43,7 @@ async function setup(
 }
 
 describe(__dirname, () => {
-	it("should render the number form field", async () => {
+	it("should render the text form field", async () => {
 		await setup();
 
 		expect(screen.queryByRole("textbox")).toBeInTheDocument();
