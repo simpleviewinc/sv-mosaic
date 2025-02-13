@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../../utils";
-import { getOptions, optionsLibrary } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldChips",
@@ -36,7 +36,7 @@ export const Playground = ({
 					name: "chip",
 					type: "chip",
 					inputSettings: {
-						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
+						options: optionsType === "Synchronous" ? mockOptions : getOptions,
 					},
 				},
 			] as FieldDef[],
@@ -124,7 +124,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						options: optionsLibrary,
+						options: mockOptions,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
@@ -136,7 +136,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: true,
 					inputSettings: {
-						options: optionsLibrary,
+						options: mockOptions,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",
@@ -148,7 +148,7 @@ export const KitchenSink = (): ReactElement => {
 					required: true,
 					disabled: false,
 					inputSettings: {
-						options: optionsLibrary,
+						options: mockOptions,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",

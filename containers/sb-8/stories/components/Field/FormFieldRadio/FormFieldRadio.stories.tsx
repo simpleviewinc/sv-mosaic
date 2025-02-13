@@ -6,7 +6,7 @@ import { renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions, optionsLibrary } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldRadio",
@@ -36,7 +36,7 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
+						options: optionsType === "Synchronous" ? mockOptions : getOptions,
 					},
 					helperText,
 					instructionText,
@@ -120,7 +120,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -132,7 +132,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: true,
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",

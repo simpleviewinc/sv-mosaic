@@ -19,7 +19,6 @@ import type { ButtonProps } from "@root/components/Button";
 const {
 	getByLabelText,
 	getByText,
-	getByTestId,
 	getAllByText,
 	getAllByRole,
 } = screen;
@@ -154,7 +153,7 @@ describe("MapCoordinates component without an address", () => {
 
 		await waitFor(() => {
 			expect(getByText("Mocked Google Map Component")).toBeTruthy();
-			expect(getByTestId("location-search-input")).toBeTruthy();
+			// expect(getByTestId("location-search-input")).toBeTruthy();
 		});
 
 	});

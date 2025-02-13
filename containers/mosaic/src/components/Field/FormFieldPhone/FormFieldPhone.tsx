@@ -14,6 +14,7 @@ import {
 import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
 import { DropdownList } from "./DropdownList";
+import testIds from "@root/utils/testIds";
 
 const FormFieldPhone = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
@@ -36,14 +37,15 @@ const FormFieldPhone = (
 				variant="rectangular"
 				width="100%"
 				height={43}
+				data-testid={testIds.FORM_FIELD_SKELETON}
 			/>
 		);
 	}
 
 	return (
 		<PhoneInputWrapper
-			$error={!!(fieldDef?.required && error)}
-			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
+			$error={Boolean(error)}
+			onBlur={onBlur}
 			$disabled={disabled}
 		>
 			<PhoneInput

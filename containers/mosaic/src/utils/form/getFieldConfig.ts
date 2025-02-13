@@ -1,6 +1,6 @@
 import type { FieldConfig, FieldDef, FieldDefCustom } from "@root/components/Field";
 
-import type { DateData } from "@root/components/Field/FormFieldDate/DateField";
+import type { DateData } from "@root/components/Field/FormFieldDate";
 import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import type { UploadData, UploadDataPending } from "@root/components/Field/FormFieldUpload";
 
@@ -17,7 +17,7 @@ import FormFieldRadio from "@root/components/Field/FormFieldRadio/FormFieldRadio
 import FormFieldRaw from "@root/components/Field/FormFieldRaw/FormFieldRaw";
 import FormFieldToggle from "@root/components/Field/FormFieldToggle/FormFieldToggle";
 import FormFieldColor from "@root/components/Field/FormFieldColor/FormFieldColor";
-import FormFieldDate from "@root/components/Field/FormFieldDate/DateField";
+import FormFieldDate from "@root/components/Field/FormFieldDate";
 import FormFieldTime from "@root/components/Field/FormFieldTime/TimeField";
 import FormFieldAddress from "@root/components/Field/FormFieldAddress/FormFieldAddress";
 import { FormFieldTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditor";

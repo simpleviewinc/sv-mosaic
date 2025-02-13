@@ -8,7 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useForm } from "@root/components/Form";
 import { validateDateRange, validateEmail, validatePostcode, validateSlow } from "@root/utils/form/validators";
 import { renderButtons, toggleMap, toggleOptions } from "../../../utils";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 
 // Components
 import Form from "@root/components/Form";

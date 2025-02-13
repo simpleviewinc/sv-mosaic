@@ -1,6 +1,7 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { StyledSkeletonCheckbox, StyledSkeletonItem, StyledSkeletonWrapper } from "./FormFieldCheckbox.styled";
+import testIds from "@root/utils/testIds";
 
 function CheckboxSkeletonItem() {
 	return (
@@ -22,7 +23,7 @@ function CheckboxSkeletonItem() {
 
 export function FormFieldCheckboxSkeleton() {
 	return (
-		<StyledSkeletonWrapper>
+		<StyledSkeletonWrapper data-testid={testIds.FORM_FIELD_SKELETON}>
 			<CheckboxSkeletonItem />
 			<CheckboxSkeletonItem />
 			<CheckboxSkeletonItem />

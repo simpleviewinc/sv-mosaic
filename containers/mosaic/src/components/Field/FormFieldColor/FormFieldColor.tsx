@@ -8,7 +8,7 @@ import {
 import theme from "@root/theme";
 
 // External libraries
-import type { ColorResult, RGBColor } from "react-color";
+import type { ColorResult } from "react-color";
 import { SketchPicker } from "react-color";
 
 // Types
@@ -19,24 +19,13 @@ import { PopOver } from "./FormFieldColor.styled";
 import ColorSelected from "./ColorSelected";
 import type { ColorData } from "./FormFieldColorTypes";
 import Skeleton from "@mui/material/Skeleton";
+import { RGBAToHexA } from "./colorUtils";
+import testIds from "@root/utils/testIds";
 
-/**
- * Convert an RGBA value to its HEX representation
- * @param rgbaColor: rgba color value
- * @returns hex color value
- */
-export const RGBAToHexA = (rgbaColor: RGBColor) => {
-	let r = rgbaColor.r.toString(16);
-	let g = rgbaColor.g.toString(16);
-	let b = rgbaColor.b.toString(16);
-	let a = Math.round(rgbaColor.a * 255).toString(16);
-
-	if (r.length === 1) r = "0" + r;
-	if (g.length === 1) g = "0" + g;
-	if (b.length === 1) b = "0" + b;
-	if (a.length === 1) a = "0" + a;
-
-	return "#" + r + g + b + a;
+const popoverSlotProps = {
+	paper: {
+		"data-testid": testIds.FORM_FIELD_COLOR_POPOVER,
+	} as any,
 };
 
 const FormFieldColor = (
@@ -44,7 +33,6 @@ const FormFieldColor = (
 ): ReactElement => {
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 	const {
-		fieldDef,
 		value,
 		onChange,
 		onBlur,
@@ -65,7 +53,7 @@ const FormFieldColor = (
 	const handleClose = () => {
 		setDisplayColorPicker(false);
 		setAnchorEl(null);
-		onBlur();
+		onBlur && onBlur();
 	};
 
 	const onColorChange = (color: ColorResult) => {
@@ -73,11 +61,10 @@ const FormFieldColor = (
 		onChange(RGBAToHexA(color.rgb));
 	};
 
-	const popoverId = open ? `${fieldDef.name}-popover` : undefined;
-
 	if (skeleton) {
 		return (
 			<Skeleton
+				data-testid={testIds.FORM_FIELD_SKELETON}
 				variant="rectangular"
 				width={102}
 				height={52}
@@ -95,7 +82,6 @@ const FormFieldColor = (
 			/>
 			{!disabled && (
 				<PopOver
-					id={popoverId}
 					open={displayColorPicker}
 					anchorEl={anchorEl}
 					onClose={handleClose}
@@ -103,7 +89,7 @@ const FormFieldColor = (
 						vertical: "bottom",
 						horizontal: "left",
 					}}
-
+					slotProps={popoverSlotProps}
 				>
 					<SketchPicker color={value || theme.newColors.realTeal["100"]} onChange={onColorChange} />
 				</PopOver>
