@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
@@ -20,7 +20,7 @@ export const Playground = ({
 	skeleton,
 	disabled,
 	instructionText,
-	prepopulate,
+	prepop,
 	helperText,
 	showTime,
 	minDateStr,
@@ -29,10 +29,10 @@ export const Playground = ({
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
 
-	const getFormValues = useMemo(() => prepopulate ?
+	const getFormValues = useMemo(() => prepop ?
 		async () => prepopulateData :
 		undefined,
-	[prepopulate]);
+	[prepop]);
 
 	const minDate = useMemo(() => {
 		if (!minDateStr || !textIsValidDate(minDateStr, DATE_FORMAT_FULL)) {
@@ -88,40 +88,14 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	prepopulate: false,
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	showTime: false,
 	minDateStr: "",
 	defaultTime: "",
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	prepopulate: {
-		name: "Prepopulate",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	showTime: {
 		name: "Show Time",
 	},
