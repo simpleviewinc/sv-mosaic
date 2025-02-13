@@ -56,6 +56,7 @@ const FormFieldPhone = (
 					required: fieldDef?.required,
 					ref: inputRef,
 					id,
+					"aria-label": fieldDef.label,
 				}}
 				tabbableDropdown={false}
 				DropdownList={DropdownList}
