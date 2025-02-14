@@ -54,7 +54,7 @@ test.describe("FormFields - FormFieldUpload - Playground", () => {
 	});
 
 	test("Validate that the delete icons are not visible when the knob disabled is active.", async () => {
-		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobSimulateInitialFieldValue + "true", commonKnobs.knobDisabled + true]);
+		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobPrepop + "true", commonKnobs.knobDisabled + true]);
 		await ffUpload.fileCardContainerLocator.first().waitFor({ state: "attached" });
 		await ffUpload.fileCardContainerLocator.first().waitFor({ state: "visible" });
 		await ffUpload.wait(1000);
