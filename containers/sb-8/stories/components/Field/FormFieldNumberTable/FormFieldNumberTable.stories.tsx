@@ -2,7 +2,7 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useEffect, useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -24,14 +24,14 @@ export const Playground = ({
 	topLeftLabel,
 	displayColumnsSums,
 	displayRowsSums,
-	prepopulate,
+	prepop,
 	formatOptions,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
-		if (!prepopulate)
+		if (!prepop)
 			setFieldValue({
 				name: "numberTable",
 				value: undefined,
@@ -41,7 +41,7 @@ export const Playground = ({
 				name: "numberTable",
 				value: numberTableDefaultValue,
 			});
-	}, [prepopulate]);
+	}, [prepop]);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -95,40 +95,17 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	rowTotalLabel: "TOTAL",
 	columnTotalLabel: "No. Rooms",
 	topLeftLabel: "Day",
 	displayColumnsSums: true,
 	displayRowsSums: true,
-	prepopulate: true,
 	formatOptions: { style: "currency", currency: "USD" },
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	rowTotalLabel: {
 		name: "Row Total Label",
 	},
@@ -143,9 +120,6 @@ Playground.argTypes = {
 	},
 	displayRowsSums: {
 		name: "Display Rows Sums",
-	},
-	prepopulate: {
-		name: "Prepopulate",
 	},
 	formatOptions: {
 		name: "Number Format Options",

@@ -63,6 +63,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 							params.inputProps.ref.current = el;
 						},
 						id,
+						"aria-label": fieldDef.label,
 					}}
 				/>
 			</InputWrapper>

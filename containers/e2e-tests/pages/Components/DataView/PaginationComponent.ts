@@ -73,7 +73,7 @@ export class PaginationComponent extends BasePage {
 	}
 
 	async getPageInput(): Promise<Locator> {
-		return this.page.getByLabel("Page*", { exact: true });
+		return this.page.getByLabel("Page", { exact: true });
 	}
 
 	async getPageGoBtn(): Promise<Locator> {

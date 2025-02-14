@@ -111,7 +111,13 @@ export interface FieldDefBase<Type, T = any> {
 	/**
 	 * Label that will sit on top of the field.
 	 */
-	label?: string | undefined;
+	label: string;
+	/**
+	 * Whether or not to display the label to the user. The label
+	 * will still be used for the aria-label attribute on the
+	 * associated control, if applicable.
+	 */
+	hideLabel?: boolean;
 	/**
 	 * Marks field as required
 	 */

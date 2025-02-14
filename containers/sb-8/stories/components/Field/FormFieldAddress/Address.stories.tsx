@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import React, { useMemo } from "react";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import type { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
@@ -77,7 +77,7 @@ export const Playground = ({
 	disabled,
 	required,
 	skeleton,
-	prepopulate,
+	prepop,
 	amountPerType,
 	amountShipping,
 	amountPhysical,
@@ -87,9 +87,9 @@ export const Playground = ({
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
 
-	const getFormValues = useMemo(() => (prepopulate ? async () => {
+	const getFormValues = useMemo(() => (prepop ? async () => {
 		return { address: addresses };
-	} : undefined), [prepopulate]);
+	} : undefined), [prepop]);
 
 	const fields = useMemo(
 		() : FieldDef[] => (
@@ -130,11 +130,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	prepopulate: false,
+	...commonFieldControls.args,
 	amountPerType: "undefined",
 	amountShipping: "undefined",
 	amountPhysical: "undefined",
@@ -143,21 +139,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	prepopulate: {
-		name: "Prepopulate",
-	},
+	...commonFieldControls.argTypes,
 	amountPerType: {
 		name: "Maximum of Each Type",
 		control: { type: "select" },

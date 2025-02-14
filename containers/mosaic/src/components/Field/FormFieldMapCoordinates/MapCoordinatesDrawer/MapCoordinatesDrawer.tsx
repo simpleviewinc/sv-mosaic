@@ -168,6 +168,7 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 			[
 				{
 					name: "placesList",
+					label: "Places List",
 					type: ({ value, onBlur }) => (
 						<MapWithMarker
 							zoom={zoom}

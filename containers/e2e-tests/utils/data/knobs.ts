@@ -29,7 +29,7 @@ export const playgroundKnobs = {
 export const uploadKnobs = {
 	knobUploadLimit: "limit:",
 	knobTriggerErrorsWhenLoading: "error:",
-	knobSimulateInitialFieldValue: "prepopulate:",
+	knobPrepop: "prepop:",
 };
 
 export const dataviewKnobs = {

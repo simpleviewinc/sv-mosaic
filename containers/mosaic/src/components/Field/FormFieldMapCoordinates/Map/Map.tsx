@@ -92,6 +92,7 @@ const Map = (props: MapProps): ReactElement => {
 		<MapContainer>
 			<AddressAutocomplete
 				className="mapCoordinates"
+				label="Search for an address"
 				value={addressValue}
 				onChange={setAddressValue}
 				onBlur={onBlur}

@@ -109,6 +109,7 @@ const NumberField = (
 			inputRef,
 			inputProps: {
 				inputMode: "numeric",
+				"aria-label": fieldDef.label,
 				...anchorProps,
 			},
 		};
@@ -122,7 +123,7 @@ const NumberField = (
 		}
 
 		return props;
-	}, [anchorProps, inputRef, prefix, suffix]);
+	}, [anchorProps, inputRef, prefix, suffix, fieldDef.label]);
 
 	if (skeleton) {
 		return (

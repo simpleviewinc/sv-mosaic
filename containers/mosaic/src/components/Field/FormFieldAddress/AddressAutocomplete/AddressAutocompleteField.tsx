@@ -16,7 +16,7 @@ import Snackbar from "@root/components/Snackbar";
 
 function AddressAutocompleteField(props): ReactElement {
 	const { fieldDef, path, skeleton } = props;
-	const { inputSettings } = fieldDef;
+	const { label, inputSettings } = fieldDef;
 	const {
 		getOptionsCountries,
 		getOptionsStates,
@@ -163,7 +163,8 @@ function AddressAutocompleteField(props): ReactElement {
 				fieldDef={{
 					name: fieldDef.name,
 					type: "autocomplete",
-					label: fieldDef.label,
+					label,
+					hideLabel: fieldDef.hideLabel,
 					required: fieldDef.required,
 					size: Sizes.lg,
 				}}
@@ -181,6 +182,7 @@ function AddressAutocompleteField(props): ReactElement {
 					/>
 				) : (
 					<AddressAutocomplete
+						label={label}
 						onChange={(address) => props.onChange(address)}
 						onBlur={props.onBlur}
 						value={props.value ?? ""}

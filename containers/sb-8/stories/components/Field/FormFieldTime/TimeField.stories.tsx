@@ -1,9 +1,9 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 export default {
 	title: "FormFields/FormFieldTimeField",
@@ -16,16 +16,9 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
-	prepopulate,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
-
-	const getFormValues = useCallback(async () => {
-		return {
-			time: prepopulate || undefined,
-		};
-	}, [prepopulate]);
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -50,7 +43,6 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Time Field"
 				fields={fields}
-				getFormValues={getFormValues}
 				skeleton={skeleton}
 			/>
 		</>
@@ -58,35 +50,9 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
-	prepopulate: "",
+	...commonFieldControls.args,
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
-	prepopulate: {
-		name: "Prepopulate",
-	},
+	...commonFieldControls.argTypes,
 };

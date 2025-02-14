@@ -2,7 +2,7 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -31,7 +31,7 @@ export const Playground = ({
 	initialCenterKnob,
 	zoom,
 	focusZoom,
-	prepopulate,
+	prepop,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
@@ -63,7 +63,7 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Map Coordinates Field"
 				fields={fields}
-				getFormValues={prepopulate ? getFormValues : undefined}
+				getFormValues={prepop ? getFormValues : undefined}
 				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -72,29 +72,14 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
+	...commonFieldControls.args,
 	initialCenterKnob: { lat: 48.858321470423576, lng: 2.2945004162050564 },
 	zoom: 7,
 	focusZoom: 11,
-	prepopulate: false,
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
+	...commonFieldControls.argTypes,
 	initialCenterKnob: {
 		name: "Initial Center",
 	},
@@ -105,9 +90,6 @@ Playground.argTypes = {
 	focusZoom: {
 		name: "Focus Zoom",
 		control: { type: "range", min: 0, max: 18 },
-	},
-	prepopulate: {
-		name: "Prepopulate",
 	},
 };
 

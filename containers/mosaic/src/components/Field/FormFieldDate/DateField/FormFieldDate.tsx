@@ -48,7 +48,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				onChange={handleDateChange}
 				fieldDef={{
 					name: fieldDef?.name,
-					label: "",
+					label: fieldDef.label,
 					type: "",
 					inputSettings: {
 						placeholder: DATE_FORMAT_FULL_PLACEHOLDER,

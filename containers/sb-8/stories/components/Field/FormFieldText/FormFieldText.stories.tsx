@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 // Components
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -14,6 +14,7 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	skeleton,
 	disabled,
@@ -37,6 +38,7 @@ export const Playground = ({
 				{
 					name: "textfield",
 					label,
+					hideLabel,
 					type: "text",
 					required,
 					disabled,
@@ -56,6 +58,7 @@ export const Playground = ({
 			],
 		[
 			label,
+			hideLabel,
 			required,
 			disabled,
 			maxCharacters,
@@ -86,12 +89,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	size: "sm",
 	type: "text",
 	placeholder: "placeholder",
@@ -103,24 +101,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	size: {
 		name: "Size",
 		control: { type: "select" },
