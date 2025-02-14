@@ -1,5 +1,27 @@
 # sv-mosaic changelog
 
+### 40.1.0 - 02/18/2024
+
+* `DataView`
+  * [MOS-1478](https://simpleviewtools.atlassian.net/browse/MOS-1478 "https://simpleviewtools.atlassian.net/browse/MOS-1478") **DataView pager popover improvements**
+    * (Button) Removes the outer popover wrapper, allowing individual popover contents to drive their own styles.
+    * (Form) Adds a way to select all text when using the autofocus mechanic, with a default fallback to only focusing when a boolean is passed.
+    * (DataView) Utilises the Form component for the pager popover to bring consistency and improved UX.
+* `Form`
+  * [MOS-1555](https://simpleviewtools.atlassian.net/browse/MOS-1555 "https://simpleviewtools.atlassian.net/browse/MOS-1555") **Scroll spy still not accurate**
+    * (ScrollSpy) Introduce mechanism to invoke an action more accurately when a container has finished scrolling, not just when the animation is complete.
+* `FormFieldAddress`
+  * [MOS-1570](https://simpleviewtools.atlassian.net/browse/MOS-1570 "https://simpleviewtools.atlassian.net/browse/MOS-1570") **Address Field - State persists in options after removal of Country**
+    * (AddressField) Utilise new form hook mechanic to clear the state field when the country field is changed instead of a side effect, preventing race conditions that caused stale address state options in some scenarios.
+* `FormFieldAdvancedSelection`
+  * [MOS-1558](https://simpleviewtools.atlassian.net/browse/MOS-1558 "https://simpleviewtools.atlassian.net/browse/MOS-1558") **Mosaic - Accessibility Issues with Chip selections**
+    * (Chip) Addresses tab index of Chip delete icon to ensure it can be accessed using keyboard interaction. Also fixes some minor Chip styling issues.
+* `FormFieldTextEditor`
+  * [MOS-1458](https://simpleviewtools.atlassian.net/browse/MOS-1458 "https://simpleviewtools.atlassian.net/browse/MOS-1458") **Tiptap Text editor Images cannot be made links**
+    * (TextEditor) Adds support for images to be wrapped in links.
+  * [MOS-1512](https://simpleviewtools.atlassian.net/browse/MOS-1512 "https://simpleviewtools.atlassian.net/browse/MOS-1512") **Tiptap Text editor - Table - Align Left not functioning correctly**
+    * (TextEditor) Resets the text alignment of table header cells.
+
 ### 40.0.0 - 02/04/2024
 
 * `Checkbox`
