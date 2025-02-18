@@ -68,6 +68,7 @@ interface LabelProps {
 	required?: boolean;
 	name?: string;
 	children?: ReactNode;
+	hideLabel?: boolean;
 	value?: string;
 	limit?: [number, number];
 	instructionText?: string;
@@ -79,6 +80,7 @@ interface LabelProps {
 const Label = (props: LabelProps): ReactElement => {
 	const {
 		children,
+		hideLabel,
 		className,
 		required,
 		name,
@@ -91,17 +93,23 @@ const Label = (props: LabelProps): ReactElement => {
 
 	const { anchorProps, tooltipProps } = useTooltip();
 
+	if (hideLabel && !instructionText && !limit) {
+		return;
+	}
+
 	return (
 		<LabelWrapper className={className}>
-			<StyledInputLabel
-				htmlFor={as === "label" && name ? `${name}-input` : undefined}
-				as={as === "label" ? InputLabel : InputLabelDiv}
-				data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
-				title={typeof children === "string" ? children : undefined}
-			>
-				{children}
-				{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
-			</StyledInputLabel>
+			{!hideLabel && (
+				<StyledInputLabel
+					htmlFor={as === "label" && name ? `${name}-input` : undefined}
+					as={as === "label" ? InputLabel : InputLabelDiv}
+					data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
+					title={typeof children === "string" ? children : undefined}
+				>
+					{children}
+					{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
+				</StyledInputLabel>
+			)}
 			{instructionText && (
 				<StyledTooltipWrapper
 					$colsInRow={colsInRow}

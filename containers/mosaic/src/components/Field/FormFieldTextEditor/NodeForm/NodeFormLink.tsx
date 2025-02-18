@@ -49,6 +49,7 @@ export function NodeFormLink({ editor, isTextBased, getFormValues, onClose, upda
 		},
 		{
 			name: "open",
+			label: "Open in new tab",
 			type: () => <LinkOpen url={url} />,
 			show: ({ data }) => Boolean(data.url),
 		},

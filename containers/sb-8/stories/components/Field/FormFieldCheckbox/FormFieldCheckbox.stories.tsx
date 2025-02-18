@@ -5,7 +5,7 @@ import React, { useMemo } from "react";
 
 import Form, { useForm } from "@root/components/Form";
 import { getOptions, optionsLibrary } from "@root/mock";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",
@@ -65,13 +65,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
-	prepop: false,
+	...commonFieldControls.args,
 	prepopData: {
 		checkbox: [
 			{ value: "option_1-cat_1", label: "Option 1" },
@@ -82,31 +76,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
-	prepop: {
-		name: "Prepopulate",
-	},
-	prepopData: {
-		name: "Prepopulate Data",
-		if: { arg: "prepop" },
-	},
+	...commonFieldControls.argTypes,
 	optionsType: {
 		name: "Options Type",
 		options: ["Synchronous", "Asynchronous"],

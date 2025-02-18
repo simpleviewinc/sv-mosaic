@@ -5,7 +5,7 @@ import { useMemo } from "react";
 // Components
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 
 export default {
 	title: "FormFields/FormFieldToggle",
@@ -57,34 +57,12 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	toggleLabel: "Toggle Label",
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	toggleLabel: {
 		name: "Toggle Label",
 	},

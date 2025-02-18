@@ -11,4 +11,5 @@ export interface AddressAutocompleteProps {
 	googleMapsApiKey: string;
 	disabled?: boolean;
 	id?: string;
+	label: string;
 }
