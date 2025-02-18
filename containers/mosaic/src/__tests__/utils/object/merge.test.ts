@@ -118,6 +118,27 @@ describe(__dirname, () => {
 				},
 			},
 		},
+		{
+			name: "should merge items from the second object into first object where their key does not exist",
+			args: {
+				first: {
+					size: {
+						height: 185,
+						weight: 90,
+					},
+				},
+				second: {
+					name: "George",
+				},
+				result: {
+					name: "George",
+					size: {
+						height: 185,
+						weight: 90,
+					},
+				},
+			},
+		},
 	];
 
 	testArray<Test>(tests, (test) => expect(merge(test.first, test.second)).toEqual(test.result));

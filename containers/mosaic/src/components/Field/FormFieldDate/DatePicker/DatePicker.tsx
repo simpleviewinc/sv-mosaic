@@ -35,6 +35,7 @@ const DateFieldPicker = (props: DatePickerProps): ReactElement => {
 				...params.inputProps,
 				ref: inputRef,
 				placeholder: fieldDef?.inputSettings?.placeholder,
+				"aria-label": fieldDef.label,
 			}}
 		/>
 	);

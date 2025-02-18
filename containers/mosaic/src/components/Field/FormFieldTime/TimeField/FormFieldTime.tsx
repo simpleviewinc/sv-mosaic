@@ -110,7 +110,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			onChange={handleTimeChange}
 			fieldDef={{
 				name: fieldDef?.name,
-				label: "",
+				label: fieldDef.label,
 				type: "timePicker",
 				inputSettings: {
 					placeholder: TIME_FORMAT_FULL_PLACEHOLDER,
