@@ -1,5 +1,5 @@
 import type { FieldDef, FieldDefSanitized } from "@root/components/Field";
-import getAddressFields from "@root/components/Field/FormFieldAddress/utils/getAddressFields";
+import getAddressFields, { defaultAddressFields } from "@root/components/Field/FormFieldAddress/utils/getAddressFields";
 import { Sizes } from "@root/theme";
 import { matchTime } from "@root/utils/date";
 
@@ -27,7 +27,18 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 						googleMapsApiKey,
 						required,
 						disabled,
-						include: subFields,
+						include: (subFields || defaultAddressFields).map(subField => {
+							// Labels "Address Line 1" field and hides it by default
+							if (typeof subField === "string" && subField === "address1") {
+								return {
+									name: "address1",
+									label: "Address Line 1",
+									hideLabel: true,
+								};
+							}
+
+							return subField;
+						}),
 					}),
 				},
 			};
@@ -64,6 +75,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 						{
 							name: "date",
 							type: "date",
+							label: `${field.label} Date`,
+							hideLabel: true,
 							size: Sizes.full,
 							required: field.required,
 							disabled: field.disabled,
@@ -78,6 +91,8 @@ function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
 						{
 							name: "time",
 							type: "time",
+							label: `${field.label} Time`,
+							hideLabel: true,
 							size: Sizes.full,
 							required: field.required,
 							disabled: field.disabled,

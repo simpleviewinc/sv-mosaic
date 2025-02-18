@@ -1,12 +1,14 @@
-import * as React from "react";
-import type { ReactElement, ChangeEvent } from "react";
-import { memo } from "react";
+import type { ReactElement } from "react";
+import type { TextFieldProps } from "@mui/material/TextField";
 
-// Types and styles
-import type { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
-import { StyledAdornment, StyledTextField } from "./FormFieldText.styled";
-import type { MosaicFieldProps } from "@root/components/Field";
+import React, { memo, useMemo } from "react";
 import Skeleton from "@mui/material/Skeleton";
+
+import type { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+
+import { StyledAdornment, StyledTextField } from "./FormFieldText.styled";
+import testIds from "@root/utils/testIds";
 
 const TextField = (
 	props: MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>,
@@ -23,27 +25,22 @@ const TextField = (
 		skeleton,
 	} = props;
 
-	const leadingElement = fieldDef?.inputSettings?.prefixElement
-		? {
-			startAdornment: (
-				<StyledAdornment position="start">{fieldDef?.inputSettings?.prefixElement}</StyledAdornment>
-			),
+	const prefix = fieldDef?.inputSettings?.prefixElement;
+
+	const InputProps = useMemo(() => {
+		const props: TextFieldProps["InputProps"] = {
+			inputRef,
+			inputProps: {
+				"aria-label": fieldDef.label,
+			},
+		};
+
+		if (prefix) {
+			props.startAdornment = <StyledAdornment position="start">{prefix}</StyledAdornment>;
 		}
-		: null;
 
-	const onFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target;
-		onChange && onChange(value);
-	};
-
-	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target;
-
-		onBlur && onBlur(value === "" ? undefined : value);
-		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
-	};
-
-	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
+		return props;
+	}, [inputRef, prefix, fieldDef.label]);
 
 	if (skeleton) {
 		return (
@@ -51,6 +48,7 @@ const TextField = (
 				variant="rectangular"
 				width="100%"
 				height={43}
+				data-testid={testIds.FORM_FIELD_SKELETON}
 			/>
 		);
 	}
@@ -60,15 +58,15 @@ const TextField = (
 			id={id}
 			data-testid="form-field-text-test-id"
 			value={value ?? ""}
-			onChange={onFieldChange}
-			onBlur={onFieldBlur}
+			onChange={({ target: { value } }) => onChange(value)}
+			onBlur={onBlur}
 			variant="outlined"
-			error={(errorWithMessage || (errorWithMessage && fieldDef?.required))}
+			error={Boolean(error)}
 			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			multiline={fieldDef?.inputSettings?.multiline}
 			fieldSize={fieldDef?.size}
-			InputProps={{ ...(leadingElement || {}), inputRef }}
+			InputProps={InputProps}
 			required={fieldDef?.required}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 			minRows={fieldDef?.inputSettings?.minRows}

@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Drawers from "@root/components/Drawers";
 
 // Utils
-import { renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons } from "../../../../utils";
 import type { DataViewProps } from "@root/components/DataView";
 import { listColumns } from "@root/components/Field/FormFieldMatrix/matrixUtils";
 import MosaicContext from "@root/components/MosaicContext";
@@ -300,36 +300,14 @@ export const Playground = ({
 };
 
 Playground.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	instructionText: "Instruction text",
-	helperText: "Helper text",
+	...commonFieldControls.args,
 	optionsOrigin: "Local",
 	size: "sm",
 	placeholder: "Choose a movie..",
 };
 
 Playground.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	instructionText: {
-		name: "Instruction Text",
-	},
-	helperText: {
-		name: "Helper Text",
-	},
+	...commonFieldControls.argTypes,
 	optionsOrigin: {
 		name: "Options Origin",
 	},
