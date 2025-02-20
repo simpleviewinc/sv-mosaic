@@ -9,6 +9,7 @@ import getFieldPaths from "@root/components/Form/useForm/utils/getFieldPaths";
 const fieldObjects: FieldObj[] = [
 	{
 		name: "field1",
+		label: "Field 1",
 		type: "text",
 		getResolvedValue: defaultResolver,
 		hasValue: defaultHasValue,
@@ -16,6 +17,7 @@ const fieldObjects: FieldObj[] = [
 	},
 	{
 		name: "field2",
+		label: "Field 2",
 		type: "text",
 		getResolvedValue: defaultResolver,
 		hasValue: defaultHasValue,
@@ -23,6 +25,7 @@ const fieldObjects: FieldObj[] = [
 	},
 	{
 		name: "field3",
+		label: "Field 3",
 		type: "text",
 		getResolvedValue: defaultResolver,
 		hasValue: defaultHasValue,
@@ -30,6 +33,7 @@ const fieldObjects: FieldObj[] = [
 	},
 	{
 		name: "group1",
+		label: "Group 1",
 		type: "group",
 		getResolvedValue: defaultResolver,
 		hasValue: defaultHasValue,
@@ -37,6 +41,7 @@ const fieldObjects: FieldObj[] = [
 	},
 	{
 		name: "group2",
+		label: "Group 2",
 		type: "group",
 		getResolvedValue: defaultResolver,
 		hasValue: defaultHasValue,
