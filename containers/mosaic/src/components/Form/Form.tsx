@@ -61,7 +61,7 @@ const Form = (props: FormProps) => {
 	} = props;
 
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
-	const fields = useMemo(() => sanitizeFieldDefs(providedFields), [providedFields]);
+	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
 	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
 	const { errors, loadingInitial, disabled } = state;
 	const { moveToError } = stable;
