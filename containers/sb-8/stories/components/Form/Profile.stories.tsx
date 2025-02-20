@@ -572,6 +572,9 @@ Profile.argTypes = {
 	showState: {
 		name: "Show state",
 	},
+	hideSectionNav: {
+		name: "Hide Section Navigation",
+	},
 	height: {
 		name: "Height",
 	},
