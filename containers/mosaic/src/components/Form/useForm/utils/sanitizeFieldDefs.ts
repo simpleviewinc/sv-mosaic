@@ -2,8 +2,20 @@ import type { FieldDef, FieldDefSanitized } from "@root/components/Field";
 import getAddressFields, { defaultAddressFields } from "@root/components/Field/FormFieldAddress/utils/getAddressFields";
 import { Sizes } from "@root/theme";
 import { matchTime } from "@root/utils/date";
+import type { SectionDef } from "../../FormTypes";
 
-function sanitizeFieldDefs(fields: FieldDef[]): FieldDefSanitized[] {
+// TODO Factor this out to the same place at which we create the sanitized field object store
+function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDefSanitized[] {
+	if (sections) {
+		const fieldNames = fields.map(({ name }) => name);
+		const sectionFieldNames = sections.map(({ fields }) => fields).flat(3);
+		for (const sectionFieldName of sectionFieldNames ) {
+			if (!fieldNames.includes(sectionFieldName)) {
+				throw new Error(`Section references field \`${sectionFieldName}\`, which does not exist in list of field definitions.`);
+			}
+		}
+	}
+
 	return fields.map((field) => {
 		if (field.type === "addressSingle") {
 			const {
