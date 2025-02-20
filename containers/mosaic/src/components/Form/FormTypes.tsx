@@ -47,6 +47,7 @@ export interface FormProps {
 	autoFocus?: boolean | AutofocusOptions;
 	skeleton?: boolean;
 	bottomSlot?: ReactNode;
+	hideSectionNav?: boolean;
 }
 
 export interface FieldError {

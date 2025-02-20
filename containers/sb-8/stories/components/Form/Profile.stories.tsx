@@ -48,6 +48,7 @@ const getFormValues = async () => ({
 
 export const Profile = ({
 	showState,
+	hideSectionNav,
 	height,
 	section1Fields,
 	showFirstName,
@@ -539,6 +540,7 @@ export const Profile = ({
 					fields={fields}
 					skeleton={skeleton}
 					getFormValues={getFormValues}
+					hideSectionNav={hideSectionNav}
 				/>
 			</div>
 		</>
@@ -553,6 +555,7 @@ export const Profile = ({
 
 Profile.args = {
 	showState: false,
+	hideSectionNav: false,
 	height: "100vh",
 	section1Fields: initialSection1Fields,
 	showFirstName: true,
@@ -568,6 +571,9 @@ Profile.args = {
 Profile.argTypes = {
 	showState: {
 		name: "Show state",
+	},
+	hideSectionNav: {
+		name: "Hide Section Navigation",
 	},
 	height: {
 		name: "Height",

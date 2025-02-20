@@ -58,6 +58,7 @@ const Form = (props: FormProps) => {
 		autoFocus,
 		skeleton: providedSkeleton,
 		bottomSlot = null,
+		hideSectionNav,
 	} = props;
 
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
@@ -323,12 +324,13 @@ const Form = (props: FormProps) => {
 							description={description}
 							buttons={buttonsWithDisable}
 							bottomBorder={sideNavItems.length < 2}
+							hideSectionNav={hideSectionNav}
 							collapse={topCollapseContainer}
 							skeleton={skeleton}
 						/>
 					)}
 					<StyledFormPrimary className="form-primary">
-						{sideNavItems.length > 1 && (
+						{!hideSectionNav && sideNavItems.length > 1 && (
 							<StyledSideNav
 								items={[sideNavItems]}
 								active={String(activeSection)}

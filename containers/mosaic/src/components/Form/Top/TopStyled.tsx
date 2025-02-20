@@ -6,28 +6,36 @@ import theme from "@root/theme/theme";
 import { Description } from "@root/components/Title/TitleWrapper.styled";
 import { containerQuery } from "@root/utils/css";
 
-export const TopRoot = styled.div<{ $bottomBorder?: boolean }>`
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	padding: 0 24px 24px;
+export const TopRoot = styled.div<{ $bottomBorder?: boolean; $hideSectionNav?: boolean }>`
+	padding: 0 24px;
+
+	${({ $hideSectionNav }) => !$hideSectionNav && `
+		padding-bottom: 24px;
+		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+	`}
 
 	${containerQuery("sm", "FORM")} {
 		padding-top: 24px;
 	}
 
-	${({ $bottomBorder }) => !$bottomBorder && `
+	${({ $bottomBorder, $hideSectionNav }) => !$bottomBorder && `
 		${containerQuery("sm", "FORM")} {
 			border-bottom: 0;
 			padding-bottom: 0;
 		}
 
-		${containerQuery("xl", "FORM")} {
-			padding-bottom: 24px;
-		}
+		${!$hideSectionNav && `
+			${containerQuery("xl", "FORM")} {
+				padding-bottom: 24px;
+			}
+		`}
 	`}
 
-	${containerQuery("xl", "FORM")} {
-		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	}
+	${({ $hideSectionNav }) => !$hideSectionNav && `
+		${containerQuery("xl", "FORM")} {
+			border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+		}
+	`}
 `;
 
 export const TopWrapper = styled.div`
