@@ -33,11 +33,15 @@ const Top = (props: TopProps): ReactElement => {
 		backLabel,
 		bottomBorder,
 		collapse,
+		hideSectionNav,
 		skeleton,
 	} = props;
 
 	return (
-		<TopRoot $bottomBorder={bottomBorder}>
+		<TopRoot
+			$bottomBorder={bottomBorder}
+			$hideSectionNav={hideSectionNav}
+		>
 			<TopWrapper>
 				<Heading>
 					<Title>
