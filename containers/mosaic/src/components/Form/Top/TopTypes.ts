@@ -31,4 +31,6 @@ export interface TopProps {
 	collapse?: MosaicCSSContainer;
 
 	skeleton?: boolean;
+
+	hideSectionNav?: boolean;
 }
