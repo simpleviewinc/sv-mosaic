@@ -7,6 +7,7 @@ import type { ShortcutDef } from "../../FormFieldTextEditorTypes";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
 import { StyledControlButton } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "../Shortcut";
+import { useSpreadRefs } from "@root/utils/hooks";
 
 interface ControlButtonProps extends ComponentProps<typeof StyledControlButton> {
 	label?: string;
@@ -26,18 +27,7 @@ export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<Con
 	...props
 }, providedRef): ReactElement {
 	const { anchorProps, tooltipProps } = useTooltip();
-
-	const setRef = (ref: HTMLButtonElement) => {
-		anchorProps.ref(ref);
-
-		if (providedRef) {
-			if (typeof providedRef === "function") {
-				providedRef(ref);
-			} else {
-				providedRef.current = ref;
-			}
-		}
-	};
+	const setRef = useSpreadRefs([anchorProps.ref, providedRef]);
 
 	return (
 		<>
