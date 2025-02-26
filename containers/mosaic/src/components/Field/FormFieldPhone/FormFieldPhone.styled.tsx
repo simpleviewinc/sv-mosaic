@@ -123,11 +123,12 @@ export const StyledFlagSelect = styled.div`
 	flex-grow: 1;
 `;
 
-export const StyledFlagSelectButton = styled.button<{ $hasFocus?: boolean }>`
+export const StyledFlagSelectButton = styled.button<{ $hasFocus?: boolean; $error?: boolean }>`
 	all: unset;
 	background-color: ${theme.newColors.grey1["100"]};
-	border: 1px solid ${({ disabled, $hasFocus }) =>
+	border: 1px solid ${({ disabled, $error, $hasFocus }) =>
 		disabled ? theme.colors.disableBorder :
+		$error ? theme.newColors.darkRed["100"] :
 		$hasFocus ? theme.newColors.almostBlack["100"] : theme.newColors.simplyGrey["100"]};
 	border-right: 0;
 	color: ${({ disabled }) => disabled ? theme.colors.disabledTextColor : theme.newColors.almostBlack["100"]};

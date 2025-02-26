@@ -1,8 +1,9 @@
-import type { AutocompleteProps as MuiAutocompleteProps } from "@mui/material/Autocomplete";
-import { type AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
-import SearchIcon from "@mui/icons-material/Search";
+import type { ReactElement } from "react";
+import type { AutocompleteProps as MuiAutocompleteProps, AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 
-import React, { useCallback, useContext, useEffect, useMemo, useRef, type ReactElement } from "react";
+import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from "react";
+import { getCountryCallingCode, isSupportedCountry } from "react-phone-number-input";
+import SearchIcon from "@mui/icons-material/Search";
 
 import type { PhoneCodeAutocompleteProps } from "./FormFieldPhoneTypes";
 
@@ -11,7 +12,6 @@ import { StyledAutocomplete, StyledAutocompletePaper } from "./FormFieldPhone.st
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import { isLabelValue, isReactNode } from "@root/types";
 import PhoneCountryFlag from "./PhoneCountryFlag";
-import { getCountryCallingCode, isSupportedCountry } from "react-phone-number-input";
 
 type AutocompleteProps = MuiAutocompleteProps<PhoneCodeAutocompleteProps["options"][number], false, true, false>;
 
@@ -88,4 +88,4 @@ function PhoneCodeAutocomplete({
 	);
 }
 
-export default PhoneCodeAutocomplete;
+export default memo(PhoneCodeAutocomplete);

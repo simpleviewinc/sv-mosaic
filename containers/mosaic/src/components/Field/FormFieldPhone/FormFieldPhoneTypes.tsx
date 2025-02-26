@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction, ComponentProps } from "react";
 
-import type { FieldDefBase } from "@root/components/Field";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components/Field";
 import type { MosaicLabelValue } from "@root/types";
 
 export type PhoneCodeSelectProps = Omit<ComponentProps<"button">, "onChange"> & {
@@ -31,6 +31,12 @@ export interface FormFieldPhoneContextState {
 	hasFocus: boolean;
 	setHasFocus: Dispatch<SetStateAction<boolean>>;
 	container?: HTMLDivElement;
+	setContainer: React.Dispatch<React.SetStateAction<HTMLDivElement>>;
+	id?: string;
+	error?: boolean;
+	disabled?: boolean;
+	onBlur?: MosaicFieldProps["onBlur"];
+	inputRef?: MosaicFieldProps["inputRef"];
 }
 
 export interface PhoneSelectionInputSettings {
