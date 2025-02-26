@@ -2757,6 +2757,7 @@ __metadata:
     "@types/react": 18.3.5
     "@types/react-color": ^3.0.13
     "@types/react-dom": 18.3.0
+    "@types/react-phone-number-input": ^3.1.37
     "@types/react-places-autocomplete": ^7.2.14
     "@vitest/coverage-istanbul": 3.0.5
     "@vitest/ui": 3.0.5
@@ -2773,6 +2774,7 @@ __metadata:
     react-color: 2.19.3
     react-dom: 18.3.1
     react-i18next: 11.7.0
+    react-phone-number-input: ^3.4.11
     react-places-autocomplete: 7.3.0
     styled-components: 6.0.7
     ts-node: 10.9.1
@@ -3284,6 +3286,15 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: a0cd9b1b815a6abd2a367a9eabdd8df8dd8f13f95897b2f9e1359ea3ac6619f957c1432ece004af7d95e2a7caddbba19faa045f831f32d6263483fc5404a7596
+  languageName: node
+  linkType: hard
+
+"@types/react-phone-number-input@npm:^3.1.37":
+  version: 3.1.37
+  resolution: "@types/react-phone-number-input@npm:3.1.37"
+  dependencies:
+    react-phone-number-input: "*"
+  checksum: d1770a0d3c9a8ed6f235b97e0d0a85575be49b375aee6e1f40dfbad4b4e666f6b0e2e6006c4d2bc861aefcce4a476e83a8db8087ffbe5543e1c27343d08a38e2
   languageName: node
   linkType: hard
 
@@ -4093,7 +4104,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.2.6":
+"classnames@npm:^2.2.6, classnames@npm:^2.5.1":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
@@ -4245,6 +4256,13 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: c53bf7befc1591b2651a22414a5e786cd5f2eeaa87f3678a3d49d6069835a9d8d1aef223728e98aa8fec9a95bf831120d245096db12abe019fecb51f5696c96f
+  languageName: node
+  linkType: hard
+
+"country-flag-icons@npm:^1.5.11":
+  version: 1.5.16
+  resolution: "country-flag-icons@npm:1.5.16"
+  checksum: f1df30e3ac63ab3e253826adfd33e5afe8e673d2ddb539f6bba24174d22de2830a7b9b126384bdc9d2d501be60b4b1230158f9210aba459428cf23644335d846
   languageName: node
   linkType: hard
 
@@ -5604,6 +5622,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"input-format@npm:^0.3.10":
+  version: 0.3.14
+  resolution: "input-format@npm:0.3.14"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=18.1.0"
+    react-dom: ">=18.1.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 8776bd706ff86f97aa017a84bb1f1e3e48f6f60257cbf45fa6d1283f64fddbea8baac2e02f9eb85044cd25ef1a10b7d9c84c07e82f0fbed90161df183e75a460
+  languageName: node
+  linkType: hard
+
 "internal-slot@npm:^1.0.7":
   version: 1.0.7
   resolution: "internal-slot@npm:1.0.7"
@@ -6258,6 +6293,13 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: 12c5021c859bd0f5248561bf139121f0358285ec545ebf48bb3d346820d5c61a4309535c7f387ed7d84361cf821e124ce346c6b7cef8ee09a67c1473b46d0fc4
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.11.17":
+  version: 1.11.20
+  resolution: "libphonenumber-js@npm:1.11.20"
+  checksum: ab72f7162bf5023099914b7040b72739eefb8d6fa226a4aa133a1abf25e20f3d7a0999be43b73188e70e8493e5e646e6e89f54f6392a0139e7628df0ab9e28bf
   languageName: node
   linkType: hard
 
@@ -7433,6 +7475,22 @@ __metadata:
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
   checksum: e20fe84c86ff172fc8d898251b7cc2c43645d108bf96d0b8edf39b98f9a2cae97b40520ee7ed8ee0085ccc94736c4886294456033304151c3f94978cec03df21
+  languageName: node
+  linkType: hard
+
+"react-phone-number-input@npm:*, react-phone-number-input@npm:^3.4.11":
+  version: 3.4.11
+  resolution: "react-phone-number-input@npm:3.4.11"
+  dependencies:
+    classnames: ^2.5.1
+    country-flag-icons: ^1.5.11
+    input-format: ^0.3.10
+    libphonenumber-js: ^1.11.17
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 4c750615d5b96c273e8911b4cb6c478b408feb199e902f443ab341834c5450763886330d9a4cbef43d4959830557b5ffd689ad47f54c8d07528dbb5cf63c770d
   languageName: node
   linkType: hard
 

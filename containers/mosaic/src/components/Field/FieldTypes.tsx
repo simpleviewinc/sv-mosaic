@@ -18,7 +18,7 @@ import type { FieldDefTextEditor } from "@root/components/Field/FormFieldTextEdi
 import type { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import type { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import type { MosaicToggle } from "@root/types";
-import type { ElementType, HTMLAttributes, MemoExoticComponent, MutableRefObject, ReactNode } from "react";
+import type { ElementType, ForwardedRef, HTMLAttributes, MemoExoticComponent, MutableRefObject, ReactNode } from "react";
 import type { FieldValueResolver, FormSpacing } from "../Form";
 import type { FieldPath, FormMethods, FormState, Validator } from "../Form/useForm/types";
 import type { FieldDefGroup } from "./FormFieldGroup/FormFieldGroupTypes";
