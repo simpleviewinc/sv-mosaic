@@ -1,17 +1,18 @@
 import type { FocusEventHandler } from "react";
-import React, { forwardRef, useCallback, useContext } from "react";
+import React, { memo, forwardRef, useCallback, useContext } from "react";
 
 import type { PhoneTextFieldProps } from "./FormFieldPhoneTypes";
 
 import { StyledPhoneTextField } from "./FormFieldPhone.styled";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
+import { useSpreadRefs } from "@root/utils/hooks";
 
 const PhoneTextField = forwardRef<HTMLInputElement, PhoneTextFieldProps>(function PhoneTextField({
 	onFocus,
-	onBlur,
 	...props
 }, ref) {
-	const { setHasFocus } = useContext(FormFieldPhoneContext);
+	const { id, disabled, error, onBlur, setHasFocus, inputRef } = useContext(FormFieldPhoneContext);
+	const setRef = useSpreadRefs([inputRef, ref]);
 
 	const _onFocus = useCallback<FocusEventHandler<HTMLInputElement>>((e) => {
 		if (onFocus) {
@@ -32,13 +33,16 @@ const PhoneTextField = forwardRef<HTMLInputElement, PhoneTextFieldProps>(functio
 	return (
 		<StyledPhoneTextField
 			{...props}
+			id={id}
+			error={error}
+			disabled={disabled}
 			// TODO get rid of this, it's not used..
 			fieldSize=""
-			InputProps={{ inputRef: ref }}
+			InputProps={{ inputRef: setRef }}
 			onFocus={_onFocus}
 			onBlur={_onBlur}
 		/>
 	);
 });
 
-export default PhoneTextField;
+export default memo(PhoneTextField);
