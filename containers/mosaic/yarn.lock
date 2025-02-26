@@ -2671,23 +2671,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@simpleview/react-phone-input-2@npm:2.16.5":
-  version: 2.16.5
-  resolution: "@simpleview/react-phone-input-2@npm:2.16.5"
-  dependencies:
-    classnames: ^2.2.6
-    lodash.debounce: ^4.0.8
-    lodash.memoize: ^4.1.2
-    lodash.reduce: ^4.6.0
-    lodash.startswith: ^4.2.1
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
-    react-dom: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
-  checksum: e2b01b00a4fc544e65081e307233d6a607a920245fad542cda3ac073a6e6daa24ffb4c83d2f449f5cf9acf5ba8de905a5a1021bd79cf577e085480b9c355fe8c
-  languageName: node
-  linkType: hard
-
 "@simpleview/sv-mosaic-eslint@npm:0.0.2":
   version: 0.0.2
   resolution: "@simpleview/sv-mosaic-eslint@npm:0.0.2"
@@ -2720,7 +2703,6 @@ __metadata:
     "@mui/x-date-pickers": 5.0.0-beta.0
     "@react-google-maps/api": ^2.7.0
     "@simpleview/mochalib": 2.0.2
-    "@simpleview/react-phone-input-2": 2.16.5
     "@simpleview/sv-mosaic-eslint": 0.0.2
     "@testing-library/dom": 10.4.0
     "@testing-library/jest-dom": 6.5.0
@@ -4104,7 +4086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.2.6, classnames@npm:^2.5.1":
+"classnames@npm:^2.5.1":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
@@ -6349,31 +6331,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.memoize@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "lodash.memoize@npm:4.1.2"
-  checksum: 9ff3942feeccffa4f1fafa88d32f0d24fdc62fd15ded5a74a5f950ff5f0c6f61916157246744c620173dddf38d37095a92327d5fd3861e2063e736a5c207d089
-  languageName: node
-  linkType: hard
-
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005
-  languageName: node
-  linkType: hard
-
-"lodash.reduce@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "lodash.reduce@npm:4.6.0"
-  checksum: 81f2a1045440554f8427f895ef479f1de5c141edd7852dde85a894879312801efae0295116e5cf830c531c1a51cdab8f3628c3ad39fa21a9874bb9158d9ea075
-  languageName: node
-  linkType: hard
-
-"lodash.startswith@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "lodash.startswith@npm:4.2.1"
-  checksum: 1847371cbf6f32c4125a555847aff8a1ff1a977f40882b0ad4e2656a32e364793cfa7602915c9165cc0bba61fbd802e561888126d242faadcf3fc77215bab19b
   languageName: node
   linkType: hard
 
