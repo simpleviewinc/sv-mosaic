@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import type { PhoneCountryFlagProps } from "./FormFieldPhoneTypes";
 
@@ -20,4 +20,4 @@ function PhoneCountryFlag({
 	);
 }
 
-export default PhoneCountryFlag;
+export default memo(PhoneCountryFlag);

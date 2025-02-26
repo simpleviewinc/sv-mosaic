@@ -1,8 +1,8 @@
-import type { ComponentProps, ReactElement } from "react";
-import React, { forwardRef, memo, useMemo } from "react";
+import type { ReactElement } from "react";
+import React, { memo, useMemo, useState } from "react";
 import PhoneInput, { isSupportedCountry } from "react-phone-number-input";
 
-import type { PhoneCodeSelectProps, PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
+import type { FormFieldPhoneContextState, PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
 import type { MosaicFieldProps } from "@root/components/Field";
 
 import "@simpleview/react-phone-input-2/lib/bootstrap.css";
@@ -10,7 +10,7 @@ import Skeleton from "@mui/material/Skeleton";
 import PhoneTextField from "./PhoneTextField";
 import PhoneCodeSelect from "./PhoneCodeSelect";
 import PhoneContainer from "./PhoneContainer";
-import { useSpreadRefs } from "@root/utils/hooks";
+import FormFieldPhoneContext from "./FormFieldPhoneContext";
 
 const FormFieldPhone = (
 	props: MosaicFieldProps<"phone", PhoneSelectionInputSettings, PhoneDropdownData>,
@@ -34,29 +34,23 @@ const FormFieldPhone = (
 
 	const defaultCountry = isSupportedCountry(country) ? country : "US";
 
-	const components = useMemo(() => ({
-		PhoneTextField: forwardRef<HTMLInputElement, ComponentProps<"input">>((props, forwardedRef) => {
-			const setRef = useSpreadRefs([inputRef, forwardedRef]);
+	const [container, setContainer] = useState<HTMLDivElement>();
+	const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+	const [hasFocus, setHasFocus] = useState(false);
 
-			return (
-				<PhoneTextField
-					{...props}
-					id={id}
-					disabled={disabled}
-					ref={setRef}
-					onBlur={onBlur}
-					error={Boolean(error)}
-				/>
-			);
-		}),
-		PhoneCodeSelect: (props: PhoneCodeSelectProps) => (
-			<PhoneCodeSelect
-				{...props}
-				disabled={disabled}
-				error={Boolean(error)}
-			/>
-		),
-	}), [inputRef, id, disabled, onBlur]);
+	const state = useMemo<FormFieldPhoneContextState>(() => ({
+		autocompleteOpen,
+		setAutocompleteOpen,
+		hasFocus,
+		setHasFocus,
+		container,
+		setContainer,
+		id,
+		error: Boolean(error),
+		disabled,
+		onBlur,
+		inputRef,
+	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef]);
 
 	if (skeleton) {
 		return (
@@ -70,16 +64,18 @@ const FormFieldPhone = (
 	}
 
 	return (
-		<PhoneInput
-			defaultCountry={defaultCountry}
-			value={value}
-			onChange={onChange}
-			containerComponent={PhoneContainer}
-			inputComponent={components.PhoneTextField}
-			countrySelectComponent={components.PhoneCodeSelect}
-			addInternationalOption={false}
-			focusInputOnCountrySelection={false}
-		/>
+		<FormFieldPhoneContext.Provider value={state}>
+			<PhoneInput
+				defaultCountry={defaultCountry}
+				value={value}
+				onChange={onChange}
+				containerComponent={PhoneContainer}
+				inputComponent={PhoneTextField}
+				countrySelectComponent={PhoneCodeSelect}
+				addInternationalOption={false}
+				countryCodeEditable={false}
+			/>
+		</FormFieldPhoneContext.Provider>
 	);
 };
 

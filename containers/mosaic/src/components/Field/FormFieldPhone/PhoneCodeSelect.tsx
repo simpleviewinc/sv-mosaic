@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef } from "react";
+import React, { memo, useContext, useMemo, useRef } from "react";
 import { StyledFlagSelect, StyledFlagSelectButton, StyledPopper } from "./FormFieldPhone.styled";
 import type { PhoneCodeSelectProps } from "./FormFieldPhoneTypes";
 import PhoneCodeAutocomplete from "./PhoneCodeAutocomplete";
@@ -22,7 +22,7 @@ function PhoneCodeSelect({
 	iconComponent: _,
 	...props
 }: PhoneCodeSelectProps) {
-	const { hasFocus, autocompleteOpen, setAutocompleteOpen, container } = useContext(FormFieldPhoneContext);
+	const { disabled, error, hasFocus, autocompleteOpen, setAutocompleteOpen, container } = useContext(FormFieldPhoneContext);
 	const flagButtonRef = useRef<HTMLButtonElement>();
 
 	const selectedOption = useMemo(() => options.find((option) => option.value === value), [options, value]);
@@ -32,10 +32,12 @@ function PhoneCodeSelect({
 		<StyledFlagSelect>
 			<StyledFlagSelectButton
 				{...props}
+				disabled={disabled}
 				type="button"
 				onClick={() => setAutocompleteOpen(true)}
 				ref={flagButtonRef}
 				$hasFocus={hasFocus}
+				$error={error}
 			>
 				<PhoneCountryFlag
 					aria-hidden
@@ -62,4 +64,4 @@ function PhoneCodeSelect({
 	);
 }
 
-export default PhoneCodeSelect;
+export default memo(PhoneCodeSelect);
