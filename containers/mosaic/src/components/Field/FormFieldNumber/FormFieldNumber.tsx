@@ -1,6 +1,8 @@
-import * as React from "react";
 import type { ReactElement, ChangeEvent } from "react";
-import { memo, useMemo, useState, useRef } from "react";
+import type { TextFieldProps } from "@mui/material/TextField";
+
+import React, { memo, useMemo, useState, useRef } from "react";
+import InputAdornment from "@mui/material/InputAdornment";
 
 // Types and styles
 import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
@@ -8,8 +10,6 @@ import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
-import type { TextFieldProps } from "@mui/material";
-import { InputAdornment } from "@mui/material";
 
 const NumberField = (
 	props: MosaicFieldProps<"number", NumberFieldInputSettings, NumberFieldData>,
