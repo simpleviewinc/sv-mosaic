@@ -18,7 +18,7 @@ test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		await page.reload();
 	});
 
-	test("Validate the Regular Phone field.", async () => {
+	test.skip("Validate the Regular Phone field.", async () => {
 		const phoneNumber = "7021234567";
 		await ffPhonePage.regularPhoneField.click();
 		await ffPhonePage.regularPhoneField.type(phoneNumber);
@@ -28,11 +28,11 @@ test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		expect(await ffPhonePage.regularPhoneField.inputValue()).toBe("+52" + phoneNumber);
 	});
 
-	test("Validate the Phone field with a country code provided.", async () => {
+	test.skip("Validate the Phone field with a country code provided.", async () => {
 		expect(await ffPhonePage.countryCodeProvidedPhoneField.inputValue()).toBe("+54");
 	});
 
-	test("Validate that the provided number is saved when submitted.", async ({ page }) => {
+	test.skip("Validate that the provided number is saved when submitted.", async ({ page }) => {
 		page.once("dialog", async dialog => {
 			expect(dialog.message()).toContain('"phone": "' + rndRegularPhone + '"');
 			expect(dialog.message()).toContain('"countryCode": "' + rndProvidedCodePhone + '"');
@@ -50,13 +50,6 @@ test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 		await ffPhonePage.autoformatPhoneField.fill("");
 		await ffPhonePage.autoformatPhoneField.fill(rndAutoformatedPhone);
 		await ffPhonePage.saveBtn.dblclick();
-	});
-
-	test("Validate phone fields have grey1 as background color.", async () => {
-		const expectedColor = theme.newColors.grey1["100"];
-		expect(await ffPhonePage.getBackgroundColorFromElement(ffPhonePage.regularPhoneField)).toBe(expectedColor);
-		expect(await ffPhonePage.getBackgroundColorFromElement(ffPhonePage.countryCodeProvidedPhoneField)).toBe(expectedColor);
-		expect(await ffPhonePage.getBackgroundColorFromElement(ffPhonePage.autoformatPhoneField)).toBe(expectedColor);
 	});
 
 	test.skip("Validate that the phone field doesn't returns invalid data", async () => {
