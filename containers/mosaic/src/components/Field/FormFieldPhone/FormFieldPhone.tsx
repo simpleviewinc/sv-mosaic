@@ -5,7 +5,6 @@ import PhoneInput, { isSupportedCountry } from "react-phone-number-input";
 import type { FormFieldPhoneContextState, PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
 import type { MosaicFieldProps } from "@root/components/Field";
 
-import "@simpleview/react-phone-input-2/lib/bootstrap.css";
 import Skeleton from "@mui/material/Skeleton";
 import PhoneTextField from "./PhoneTextField";
 import PhoneCodeSelect from "./PhoneCodeSelect";
