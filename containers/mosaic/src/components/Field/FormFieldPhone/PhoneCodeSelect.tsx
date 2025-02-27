@@ -1,9 +1,13 @@
 import React, { memo, useContext, useMemo, useRef } from "react";
-import { StyledFlagSelect, StyledFlagSelectButton, StyledPopper } from "./FormFieldPhone.styled";
+import { getCountryCallingCode, isSupportedCountry } from "react-phone-number-input";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+
 import type { PhoneCodeSelectProps } from "./FormFieldPhoneTypes";
+
+import { StyledFlagSelect, StyledFlagSelectButton, StyledPopper } from "./FormFieldPhone.styled";
 import PhoneCodeAutocomplete from "./PhoneCodeAutocomplete";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
-import { getCountryCallingCode, isSupportedCountry } from "react-phone-number-input";
 import PhoneCountryFlag from "./PhoneCountryFlag";
 
 const popperModifiers = [
@@ -47,6 +51,7 @@ function PhoneCodeSelect({
 				<span>
 					{`+${countryCallingCode}`}
 				</span>
+				{autocompleteOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 			</StyledFlagSelectButton>
 			<StyledPopper
 				open={autocompleteOpen}
