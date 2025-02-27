@@ -1,4 +1,5 @@
 import type { BREAKPOINTS, CONTAINERS } from "@root/theme/theme";
+import type { ReactElement, ReactNode } from "react";
 
 /** Simple object with { label, value } strings */
 export interface MosaicLabelValue {
@@ -56,4 +57,21 @@ export function isLabelValue(input: unknown): input is MosaicLabelValue {
 	}
 
 	return true;
+}
+
+export function isReactElement(elem: unknown): elem is ReactElement {
+	return typeof elem === "object" && elem !== null && "key" in elem;
+}
+
+export function isReactNode(node: unknown): node is ReactNode {
+	const type = typeof node;
+
+	return (
+		type === "string" ||
+		type === "number" ||
+		type === "boolean" ||
+		node === null ||
+		node === undefined ||
+		type === "object" && isReactElement(node)
+	);
 }
