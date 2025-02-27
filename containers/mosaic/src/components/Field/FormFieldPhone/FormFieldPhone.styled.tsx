@@ -132,14 +132,17 @@ export const StyledFlagSelectButton = styled.button<{ $hasFocus?: boolean; $erro
 		$hasFocus ? theme.newColors.almostBlack["100"] : theme.newColors.simplyGrey["100"]};
 	border-right: 0;
 	color: ${({ disabled }) => disabled ? theme.colors.disabledTextColor : theme.newColors.almostBlack["100"]};
-	cursor: pointer;
 	flex-grow: 1;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
-	padding: 0 16px;
+	padding: 0 8px 0 16px;
 	position: relative;
+
+	${({ disabled }) => !disabled && `
+		cursor: pointer;
+	`}
 
 	&::after{
 		background: none;
