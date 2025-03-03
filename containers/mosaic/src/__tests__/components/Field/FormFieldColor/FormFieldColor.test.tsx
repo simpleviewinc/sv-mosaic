@@ -9,6 +9,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"color"> = {
 	name: "color",
+	label: "Color",
 	type: "color",
 };
 

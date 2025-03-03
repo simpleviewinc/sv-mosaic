@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"number", NumberFieldInputSettings> = {
 	name: "number",
+	label: "Number",
 	type: "number",
 };
 

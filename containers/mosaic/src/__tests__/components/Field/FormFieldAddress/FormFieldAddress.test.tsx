@@ -13,6 +13,7 @@ import createAddressDrawerContext from "./utils/createAddressDrawerContext";
 
 const defaultFieldDef: FieldDefBase<"address", AddressFieldInputSettings> = {
 	name: "address",
+	label: "Address",
 	type: "address",
 	inputSettings: {
 		getOptionsCountries,

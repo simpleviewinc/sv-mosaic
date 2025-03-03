@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"dropdown", DropdownInputSettings> = {
 	name: "dropdown",
+	label: "Dropdown",
 	type: "dropdown",
 	inputSettings: {
 		options: mockOptions,

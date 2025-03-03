@@ -214,14 +214,16 @@ describe(__dirname, () => {
 			},
 			{
 				disabled: undefined,
-				label: undefined,
+				label: "Address Line 2",
+				hideLabel: true,
 				name: "address2",
 				size: "lg",
 				type: "text",
 			},
 			{
 				disabled: undefined,
-				label: undefined,
+				label: "Address Line 3",
+				hideLabel: true,
 				name: "address3",
 				size: "lg",
 				type: "text",

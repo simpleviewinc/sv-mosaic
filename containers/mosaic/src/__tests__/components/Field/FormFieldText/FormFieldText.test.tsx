@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"text", TextFieldInputSettings> = {
 	name: "text",
+	label: "Text",
 	type: "text",
 };
 

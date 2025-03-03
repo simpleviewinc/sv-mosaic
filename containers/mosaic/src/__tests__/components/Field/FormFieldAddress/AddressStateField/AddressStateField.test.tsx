@@ -37,6 +37,7 @@ async function setup(
 				Component={AddressStateField}
 				fieldDef={{
 					name: "state",
+					label: "State",
 					type: "dropdown",
 					inputSettings: {
 						getOptionsCountries,

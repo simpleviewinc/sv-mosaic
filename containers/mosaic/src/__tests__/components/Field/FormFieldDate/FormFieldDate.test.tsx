@@ -10,6 +10,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"date"> = {
 	name: "date",
+	label: "Date",
 	type: "date",
 };
 

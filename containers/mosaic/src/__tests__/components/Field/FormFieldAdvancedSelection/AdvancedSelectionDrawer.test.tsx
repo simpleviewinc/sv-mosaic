@@ -24,7 +24,6 @@ async function setup(props: Partial<AdvanceSelectionDrawerPropTypes> = {}) {
 		<AdvancedSelectionDrawer
 			fieldDef={defaultFieldDef}
 			handleClose={handleCloseMock}
-			isMobileView={false}
 			isModalOpen={false}
 			onChange={onChangeMock}
 			value={[]}

@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"chip", FormFieldChipsInputSettings> = {
 	name: "chip",
+	label: "Chip",
 	type: "chip",
 	inputSettings: {
 		options: mockOptions,

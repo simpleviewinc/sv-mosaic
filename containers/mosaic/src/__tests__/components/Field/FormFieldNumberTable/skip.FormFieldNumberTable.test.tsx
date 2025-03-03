@@ -18,6 +18,7 @@ const defaultInputSettings: NumberTableInputSettings = {
 
 const defaultFieldDef: FieldDefBase<"numberTable", NumberTableInputSettings> = {
 	name: "numberTable",
+	label: "Number Table",
 	type: "numberTable",
 	inputSettings: defaultInputSettings,
 };
