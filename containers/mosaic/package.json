@@ -126,6 +126,7 @@
 		"test": "vitest --config='./src/__tests__/vite.config.mts'",
 		"test:ui": "vitest --config='./src/__tests__/vite.config.mts' --ui --coverage.enabled=true",
 		"types": "tsc --noEmit",
+		"types:tests": "tsc --noEmit --project src/__tests__/tsconfig.json",
 		"lint": "eslint .",
 		"build": "yarn run build:esm && yarn run build:cjs",
 		"build:esm": "rm -rf ./dist/esm ./dist/types && tspc --project ./tsconfig.esm.json && yarn copy-assets:esm",
