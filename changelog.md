@@ -1,5 +1,18 @@
 # sv-mosaic changelog
 
+# ### 41.0.0 - 03/04/2024
+
+* `Form`
+  * [MOS-1573](https://simpleviewtools.atlassian.net/browse/MOS-1573 "https://simpleviewtools.atlassian.net/browse/MOS-1573") **Hidden form field labels**
+    * **BREAKING CHANGE** (Form) Makes FieldDef's label property required.
+    * (Form) Introduces a new property `hideLabel` that prevents rendering the field label. Ensures that each applicable field control utilises the `aria-label` attribute so that they are labelled even if it’s not rendered on screen.
+    * (util) Updates merge function to ensure properties that are absent from second merge candidate are added to the first.
+    * (Form) Utilises the label in the address autocomplete field. Hide address 1 field label by default for single addresses. Adds missing labels to various fields.
+  * [MOS-1576](https://simpleviewtools.atlassian.net/browse/MOS-1576 "https://simpleviewtools.atlassian.net/browse/MOS-1576") **Add setting to disable the left nav items when rendering a form**
+    * (Form) Introduce a `hideSectionNav` form prop that gives product a way to always hide the section navigation, regardless of how many sections are defined.
+  * [MOS-1577](https://simpleviewtools.atlassian.net/browse/MOS-1577 "https://simpleviewtools.atlassian.net/browse/MOS-1577") **Better error handling for improper field reference in section**
+    * (Form) Adds to field sanitization check to validation fields referenced in sections exist in the list of field definitions.
+
 ### 40.1.0 - 02/18/2024
 
 * `DataView`
