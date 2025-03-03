@@ -49,6 +49,7 @@ async function setup(
 			<AddressAutocompleteField
 				fieldDef={{
 					name: "autocomplete",
+					label: "Autocomplete",
 					type: "text",
 					inputSettings: {
 						getOptionsCountries,
@@ -147,6 +148,7 @@ describe(__dirname, () => {
 			value: "12",
 			fieldDef: {
 				name: "autocomplete",
+				label: "Autocomplete",
 				type: "text",
 				inputSettings: {
 					getOptionsCountries: async () => [],

@@ -12,7 +12,6 @@ const defaultFieldDef: ChipListPropsTypes["fieldDef"] = {
 	disabled: false,
 	inputSettings: {
 		deleteSelectedOption: () => null,
-		isMobileView: false,
 	},
 };
 
