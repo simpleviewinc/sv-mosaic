@@ -14,6 +14,7 @@ function RawFieldContent() {
 
 const defaultFieldDef: FieldDefBase<"raw", RawInputSettings> = {
 	name: "raw",
+	label: "Raw",
 	type: "raw",
 };
 

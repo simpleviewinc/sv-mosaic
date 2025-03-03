@@ -9,6 +9,7 @@ import DatePicker from "@root/components/Field/FormFieldDate/DatePicker";
 
 const defaultFieldDef: FieldDefBase<"date", DateFieldInputSettings> = {
 	name: "date",
+	label: "Date",
 	type: "date",
 };
 

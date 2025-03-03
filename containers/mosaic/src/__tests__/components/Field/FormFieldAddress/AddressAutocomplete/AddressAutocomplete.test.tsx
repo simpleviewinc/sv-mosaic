@@ -31,6 +31,7 @@ async function setup(props: Partial<AddressAutocompleteProps> = {}) {
 			onChange={onChangeMock}
 			onSelect={onSelect}
 			value=""
+			label="Autocomplete"
 			{...props}
 		/>,
 	));

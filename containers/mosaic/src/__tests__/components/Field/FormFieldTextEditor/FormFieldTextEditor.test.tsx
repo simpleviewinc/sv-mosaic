@@ -13,6 +13,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"textEditor", TextEditorInputSettings> = {
 	name: "textEditor",
+	label: "Text Editor",
 	type: "textEditor",
 };
 

@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"checkbox", FormFieldCheckboxInputSettings> = {
 	name: "checkbox",
+	label: "Checkbox",
 	type: "checkbox",
 	inputSettings: {
 		options: mockOptions,

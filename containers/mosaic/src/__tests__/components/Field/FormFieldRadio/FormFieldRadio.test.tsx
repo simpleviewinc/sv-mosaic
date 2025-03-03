@@ -12,6 +12,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"radio", RadioInputSettings> = {
 	name: "radio",
+	label: "Radio",
 	type: "radio",
 	inputSettings: {
 		options: mockOptions,

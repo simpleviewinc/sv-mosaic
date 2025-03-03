@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings> = {
 	name: "address",
+	label: "Address",
 	type: "advancedSelection",
 	inputSettings: {
 		options: mockOptions,

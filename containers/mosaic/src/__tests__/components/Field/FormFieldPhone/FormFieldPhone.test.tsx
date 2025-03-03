@@ -11,6 +11,7 @@ import testIds from "@root/utils/testIds";
 
 const defaultFieldDef: FieldDefBase<"phone", PhoneSelectionInputSettings> = {
 	name: "phone",
+	label: "Phone",
 	type: "phone",
 };
 
