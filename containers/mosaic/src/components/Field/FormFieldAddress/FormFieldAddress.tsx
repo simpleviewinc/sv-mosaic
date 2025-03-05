@@ -7,12 +7,10 @@ import type { ButtonProps } from "@root/components/Button";
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { AddressFieldInputSettings, AddressData, AddressType, AddressItem } from ".";
 
-// Components
+import { EMPTY_ARRAY } from "@root/constants/stable";
 import AddressDrawer from "./AddressDrawer/AddressDrawer";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
-
-// Utils
 import AddressCard from "./AddressCard";
 import { AddressItems, Footer } from "./Address.styled";
 import Dialog from "@root/components/Dialog/Dialog";
@@ -39,7 +37,7 @@ const types: AddressType[] = [
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
 		disabled,
-		value: providedValue,
+		value: providedValue = EMPTY_ARRAY,
 		onBlur,
 		onChange,
 		fieldDef,
@@ -78,7 +76,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 
 	const availableTypes = useMemo(() => {
 		const availableTypes = types.filter(type => {
-			const valuesOfType = (value || []).filter(address => {
+			const valuesOfType = value.filter(address => {
 				return address?.types?.map(({ value }) => value).includes(type.value);
 			});
 
@@ -108,8 +106,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	 * @param addressToRemove
 	 */
 	const removeAddressHandler = useCallback(async (address) => {
-		onChange((value || []).filter(item => item !== address));
-		await onBlur();
+		onChange(value.filter(item => item !== address));
+		onBlur && onBlur();
 	}, [onBlur, onChange, value]);
 
 	/**
@@ -137,7 +135,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	};
 
 	const onDrawerSave = (address: AddressItem) => {
-		const newValue = [...(value || [])];
+		const newValue = [...value];
 		const newAddress = { ...address, types: singleType ? [{ value: singleType.value, label: singleType.label }] : address.types };
 
 		if (typeof open === "object") {
@@ -182,7 +180,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 						disabled={disabled}
 						color="gray"
 						variant="outlined"
-						label="ADD ADDRESS"
+						label="Add Address"
 						onClick={addAddressHandler}
 					/>
 				</Footer>

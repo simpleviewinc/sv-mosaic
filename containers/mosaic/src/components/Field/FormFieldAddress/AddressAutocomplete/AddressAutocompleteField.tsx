@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import Skeleton from "@mui/material/Skeleton";
 
 import type { MosaicLabelValue } from "@root/types";
+import type { MosaicFieldProps } from "../../FieldTypes";
+import type { AddressAutocompleteInputSettings } from "./AddressAutocompleteTypes";
 
 import { Sizes } from "@root/theme";
 import FieldWrapper from "@root/components/FieldWrapper";
@@ -13,8 +15,9 @@ import { geocodeByAddress } from "react-places-autocomplete";
 import { componentType } from "../utils/addressUtils";
 import { FormContext } from "@root/components/Form/FormContext";
 import Snackbar from "@root/components/Snackbar";
+import testIds from "@root/utils/testIds";
 
-function AddressAutocompleteField(props): ReactElement {
+function AddressAutocompleteField(props: MosaicFieldProps<"text", AddressAutocompleteInputSettings, string>): ReactElement {
 	const { fieldDef, path, skeleton } = props;
 	const { label, inputSettings } = fieldDef;
 	const {
@@ -179,6 +182,7 @@ function AddressAutocompleteField(props): ReactElement {
 						variant="rectangular"
 						width="100%"
 						height={43}
+						data-testid={testIds.FORM_FIELD_SKELETON}
 					/>
 				) : (
 					<AddressAutocomplete
