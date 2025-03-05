@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { commonFieldControls, renderButtons } from "../../../../utils";
-import { optionsLibrary } from "@root/mock";
+import { mockOptions } from "@root/mock";
 import JSONDB from "@root/utils/JSONDB";
 import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
 import categories from "@root/components/DataView/example/categories.json";
@@ -31,7 +31,7 @@ export const Playground = ({
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
 
-	const options: MosaicLabelValue[] = optionsLibrary ? optionsLibrary : [];
+	const options: MosaicLabelValue[] = mockOptions ? mockOptions : [];
 	const categoriesApi = new JSONDB(categories);
 
 	const categoriesHelper = new MultiSelectHelper({
@@ -53,7 +53,7 @@ export const Playground = ({
 		};
 
 		//Insert to db
-		optionsLibrary.push({ label: newOption.tag, value: newOption.id });
+		mockOptions.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 
@@ -142,7 +142,7 @@ Playground.argTypes = {
 export const KitchenSink = (): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
-	const options = optionsLibrary ? optionsLibrary : [];
+	const options = mockOptions ? mockOptions : [];
 
 	const categoriesApi = new JSONDB(categories);
 
@@ -165,7 +165,7 @@ export const KitchenSink = (): ReactElement => {
 		};
 
 		//Insert to db
-		optionsLibrary.push({ label: newOption.tag, value: newOption.id });
+		mockOptions.push({ label: newOption.tag, value: newOption.id });
 
 		const data = await categoriesApi.getData();
 

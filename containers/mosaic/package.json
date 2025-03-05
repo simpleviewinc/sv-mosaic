@@ -19,10 +19,11 @@
 		"@types/lodash": "4.14.179",
 		"@types/node": "^22.5.5",
 		"@types/react": "18.3.5",
+		"@types/react-color": "^3.0.13",
 		"@types/react-dom": "18.3.0",
 		"@types/react-places-autocomplete": "^7.2.14",
-		"@vitest/coverage-istanbul": "2.0.5",
-		"@vitest/ui": "2.0.5",
+		"@vitest/coverage-istanbul": "3.0.5",
+		"@vitest/ui": "3.0.5",
 		"copyfiles": "2.4.1",
 		"eslint": "^9.15.0",
 		"i18next": "19.5.0",
@@ -39,7 +40,7 @@
 		"typescript": "5.5.4",
 		"typescript-transform-paths": "3.5.1",
 		"vite-tsconfig-paths": "5.0.1",
-		"vitest": "2.1.9",
+		"vitest": "3.0.5",
 		"vitest-canvas-mock": "0.3.3",
 		"vitest-fail-on-console": "0.7.1"
 	},
@@ -125,6 +126,7 @@
 		"test": "vitest --config='./src/__tests__/vite.config.mts'",
 		"test:ui": "vitest --config='./src/__tests__/vite.config.mts' --ui --coverage.enabled=true",
 		"types": "tsc --noEmit",
+		"types:tests": "tsc --noEmit --project src/__tests__/tsconfig.json",
 		"lint": "eslint .",
 		"build": "yarn run build:esm && yarn run build:cjs",
 		"build:esm": "rm -rf ./dist/esm ./dist/types && tspc --project ./tsconfig.esm.json && yarn copy-assets:esm",
@@ -132,7 +134,8 @@
 		"copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
 		"copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
 		"publish:npm": "ts-node ./scripts/publish-to-npm.ts",
-		"knip": "knip"
+		"knip": "knip",
+		"create:test": "ts-node ./scripts/create-test-file.ts"
 	},
 	"files": [
 		"dist"

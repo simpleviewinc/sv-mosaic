@@ -4,12 +4,14 @@ import type { TextFieldProps } from "@mui/material/TextField";
 import React, { memo, useMemo, useState, useRef } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 
-// Types and styles
-import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
-import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
-import type { MosaicFieldProps } from "@root/components/Field";
 import Skeleton from "@mui/material/Skeleton";
+
+import type { NumberFieldData, NumberFieldInputSettings } from "./FormFieldNumberTypes";
+import type { MosaicFieldProps } from "@root/components/Field";
+
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
+import testIds from "@root/utils/testIds";
 
 const NumberField = (
 	props: MosaicFieldProps<"number", NumberFieldInputSettings, NumberFieldData>,
@@ -86,23 +88,20 @@ const NumberField = (
 		onChange && onChange(value === "" ? undefined : value);
 	};
 
-	const onFieldBlur = (e: ChangeEvent<HTMLInputElement>) => {
-		const { value } = e.target;
-
-		if (value === "-" || value === "+") {
-			onChange("");
+	const onFieldBlur = () => {
+		// Clear the value if it only contains a numerical sign
+		if (typeof value === "string" && (value === "-" || value === "+")) {
+			onChange(undefined);
 		}
 
-		if (value && value[value.length - 1] === ".") {
+		// Remove the decimal point if it's the last character
+		if (typeof value === "string" && value[value.length - 1] === ".") {
 			onChange(value.substring(0, value.length - 1));
 		}
 
 		setErrorFlash(false);
-		onBlur && onBlur(value === "" ? undefined : value);
-		fieldDef?.onBlurCb && fieldDef?.onBlurCb(value);
+		onBlur && onBlur();
 	};
-
-	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 
 	const InputProps = useMemo(() => {
 		const props: TextFieldProps["InputProps"] = {
@@ -131,6 +130,7 @@ const NumberField = (
 				variant="rectangular"
 				width="100%"
 				height={43}
+				data-testid={testIds.FORM_FIELD_SKELETON}
 			/>
 		);
 	}
@@ -144,7 +144,7 @@ const NumberField = (
 				onChange={onFieldChange}
 				onBlur={onFieldBlur}
 				variant="outlined"
-				error={Boolean(errorFlash) || (errorWithMessage || (errorWithMessage && fieldDef?.required))}
+				error={Boolean(errorFlash) || Boolean(error)}
 				className={fieldDef?.className}
 				placeholder={fieldDef?.inputSettings?.placeholder}
 				fieldSize={fieldDef?.size}

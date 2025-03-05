@@ -6,7 +6,7 @@ import { commonFieldControls, renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { getOptions, optionsLibrary } from "@root/mock";
+import { getOptions, mockOptions } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldDropdown",
@@ -39,7 +39,7 @@ export const Playground = ({
 					disabled,
 					size,
 					inputSettings: {
-						options: optionsType === "Synchronous" ? optionsLibrary : getOptions,
+						options: optionsType === "Synchronous" ? mockOptions : getOptions,
 						placeholder,
 					},
 					helperText,
@@ -107,7 +107,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "md",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -132,7 +132,7 @@ const kitchenSinkFields: FieldDef[] = [
 		disabled: true,
 		size: "md",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",
@@ -144,7 +144,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "xs",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -155,7 +155,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "sm",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -166,7 +166,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "md",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
@@ -177,7 +177,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "lg",
 		inputSettings: {
-			options: optionsLibrary,
+			options: mockOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",

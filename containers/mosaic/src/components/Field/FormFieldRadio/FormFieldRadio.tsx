@@ -42,11 +42,6 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 
 	const _onChange = (value: string) => {
 		const option: MosaicLabelValue = options.find(option => option.value === value);
-
-		if (!option) {
-			return;
-		}
-
 		onChange(option);
 	};
 
@@ -58,7 +53,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		<StyledRadioGroup
 			onChange={({ target: { value } }) => _onChange(value)}
 			value={value ? value.value : ""}
-			onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
+			onBlur={onBlur}
 		>
 			{options.map(option => (
 				<RadioButton

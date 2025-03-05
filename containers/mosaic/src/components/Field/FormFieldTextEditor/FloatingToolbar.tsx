@@ -1,17 +1,13 @@
-import type { MutableRefObject, ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import React from "react";
 import Popper from "@mui/material/Popper";
 
-import type { FloatingToolbarState } from "./FormFieldTextEditorTypes";
-import type { ToolbarControlsProps } from "./Toolbar";
+import type { FloatingToolbarProps } from "./FormFieldTextEditorTypes";
 
 import { StyledFloatingToolbar } from "./FormFieldTextEditor.styled";
 import { ToolbarControls } from "./Toolbar";
-
-type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState & {
-	isBusy: MutableRefObject<boolean>;
-};
+import testIds from "@root/utils/testIds";
 
 const popperModifiers = [
 	{
@@ -33,6 +29,7 @@ export function FloatingToolbar({ anchor, open, isBusy, ...props }: FloatingTool
 				onMouseEnter={() => (isBusy.current = true)}
 				onMouseDown={() => (isBusy.current = true)}
 				onMouseLeave={() => (isBusy.current = false)}
+				data-testid={testIds.TEXT_EDITOR_FLOATING_TOOLBAR}
 			>
 				<ToolbarControls
 					{...props}

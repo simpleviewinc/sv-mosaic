@@ -8,6 +8,7 @@ import type { NodeFormState } from "../FormFieldTextEditorTypes";
 import { StyledNodeForm, StyledPopper } from "./NodeForm.styled";
 import { NodeFormLink } from "./NodeFormLink";
 import { NodeFormImage } from "./NodeFormImage";
+import testIds from "@root/utils/testIds";
 
 export type NodeFormProps = NodeFormState & {
 	editor: Editor;
@@ -49,6 +50,7 @@ export function NodeForm(props: NodeFormProps) {
 			anchorEl={anchorEl}
 			open={open}
 			modifiers={popperModifiers}
+			data-testid={testIds.TEXT_EDITOR_NODE_FORM}
 		>
 			<ClickAwayListener onClickAway={onClose}>
 				<StyledNodeForm>
