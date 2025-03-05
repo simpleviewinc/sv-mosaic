@@ -18,6 +18,7 @@ export const CONTAINERS = {
 	CONTENT: "content",
 	FORM: "form",
 	FORM_COL: "form_column",
+	CHECKBOX_LIST: "checkbox_list",
 };
 
 export enum Views {
