@@ -48,7 +48,7 @@ test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithOptionsPropButton.click();
 		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
 		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());
-		await ffAdvancedSelectionPage.searchOptionInput.type("ABC");
+		await ffAdvancedSelectionPage.searchOptionInput.type("Cat");
 		await ffAdvancedSelectionPage.wait();
 		await ffAdvancedSelectionPage.checkboxTestIdLocator.first().check();
 		expectedSelections.push(await ffAdvancedSelectionPage.checkboxLabel.first().textContent());

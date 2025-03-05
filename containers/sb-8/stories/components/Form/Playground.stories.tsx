@@ -4,6 +4,7 @@ import { useEffect, useMemo, useCallback } from "react";
 import { nanoid } from "nanoid";
 
 // Utils
+import { mockOptions } from "@root/mock";
 import { useForm } from "@root/components/Form";
 import { renderButtons } from "../../../utils";
 
@@ -12,8 +13,7 @@ import Form from "@root/components/Form";
 
 // Types
 import type { FieldDef } from "@root/components/Field";
-import { optionsLibrary } from "@root/mock";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
@@ -25,14 +25,14 @@ export default {
 };
 
 const createNewOption = async (newOptionLabel) => {
-	const value = `${newOptionLabel}_${optionsLibrary.length}`;
+	const value = `${newOptionLabel}_${mockOptions.length}`;
 	const newOption = {
 		label: newOptionLabel,
 		value,
 	};
 
 	//Insert to db
-	optionsLibrary.push(newOption);
+	mockOptions.push(newOption);
 
 	return newOption;
 };
@@ -180,7 +180,7 @@ export const Playground = ({
 					disabled,
 					required,
 					inputSettings: {
-						options: optionsLibrary,
+						options: mockOptions,
 					},
 				},
 				{
@@ -320,7 +320,7 @@ export const Playground = ({
 					disabled,
 					required,
 					inputSettings: {
-						options: optionsLibrary,
+						options: mockOptions,
 						createNewOption,
 					},
 				},

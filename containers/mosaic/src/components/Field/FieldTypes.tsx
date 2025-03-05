@@ -3,7 +3,7 @@ import type { FieldDefAdvancedSelection } from "@root/components/Field/FormField
 import type { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import type { FieldDefChip } from "@root/components/Field/FormFieldChips";
 import type { FieldDefColor } from "@root/components/Field/FormFieldColor/FormFieldColorTypes";
-import type { FieldDefDate } from "@root/components/Field/FormFieldDate/DateField";
+import type { FieldDefDate } from "@root/components/Field/FormFieldDate";
 import type { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
 import type { FieldDefDropdown } from "@root/components/Field/FormFieldDropdown";
 import type { FieldDefMapCoordinates } from "@root/components/Field/FormFieldMapCoordinates";
@@ -169,7 +169,7 @@ export interface FieldDefBase<Type, T = any> {
 	 * Array of validators to be executed by the form when on blur or
 	 * when submitted.
 	 */
-	validators?: (((args?: any) => string | undefined | JSX.Element | Promise<undefined | string>) | string | { fn: string; options: any })[];
+	validators?: (((...args: any[]) => string | undefined | JSX.Element | Promise<undefined | string>) | string | { fn: string; options: any })[];
 	/**
 	 * When to validate the field
 	 */

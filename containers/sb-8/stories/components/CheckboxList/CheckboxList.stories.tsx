@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import CheckboxList from "@root/components/CheckboxList";
 import type { MosaicLabelValue } from "@root/types";
-import { optionsLibrary } from "@root/mock";
+import { mockOptions } from "@root/mock";
 
 export default {
 	title: "Components/CheckboxList",
@@ -25,7 +25,7 @@ export const Playground = (): ReactElement => {
 			</div>
 			<CheckboxList
 				checked={checked}
-				options={optionsLibrary}
+				options={mockOptions}
 				onChange={onChange}
 			/>
 		</div>

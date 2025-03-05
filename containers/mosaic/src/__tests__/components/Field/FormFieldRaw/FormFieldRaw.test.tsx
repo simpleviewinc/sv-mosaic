@@ -1,39 +1,58 @@
-import { render, screen, cleanup } from "@testing-library/react";
-import * as React from "react";
-import FormFieldRaw from "@root/components/Field/FormFieldRaw";
-import { RawValueWrapper } from "@root/components/Field/FormFieldRaw/FormFieldRaw.styled";
+import { render, screen } from "@testing-library/react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-afterEach(cleanup);
+import type { FieldDefRawData, RawInputSettings } from "@root/components/Field/FormFieldRaw/FormFieldRawTypes";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components";
 
-const { getByRole } = screen;
+import FormFieldTestType from "../FormFieldTestType";
+import FormFieldRaw from "@root/components/Field/FormFieldRaw/FormFieldRaw";
 
-function RawValue() {
-	return (
-		<RawValueWrapper role="presentation">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-		</RawValueWrapper>
-	);
+function RawFieldContent() {
+	return <div data-testid="testRawContent">Raw Content</div>;
 }
 
-const FormFieldRawExample = () => {
-	return (
-		<FormFieldRaw
-			fieldDef={{
-				label: "Field label",
-				type: "raw",
-				name: "raw",
-			}}
-			value={<RawValue />}
-		/>
-	);
+const defaultFieldDef: FieldDefBase<"raw", RawInputSettings> = {
+	name: "raw",
+	label: "Raw",
+	type: "raw",
 };
 
-describe("FormFieldRaw component", () => {
-	it("should display the custom component's text", () => {
-		render(<FormFieldRawExample />);
+async function setup(
+	props: Partial<MosaicFieldProps<"raw", RawInputSettings, FieldDefRawData>> = {},
+	{
+		stateful = false,
+		userEventOptions,
+	}: {
+		stateful?: boolean;
+		userEventOptions?: Parameters<typeof userEvent.setup>[0];
+	} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
 
-		const rawValue = getByRole("presentation");
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldRaw}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			value={<RawFieldContent />}
+			{...props}
+		/>,
+	));
 
-		expect(rawValue.textContent).toBe("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+	return {
+		...renderResult,
+		user: userEvent.setup(userEventOptions),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render the raw form field content", async () => {
+		await setup();
+
+		const rawComponent = screen.queryByTestId("testRawContent");
+		expect(rawComponent).toBeInTheDocument();
+		expect(rawComponent).toHaveTextContent("Raw Content");
 	});
 });

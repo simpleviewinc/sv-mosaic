@@ -4,7 +4,7 @@ import { commonFieldControls, renderButtons } from "../../../../utils";
 import type { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 
 export default {
 	title: "FormFields/FormFieldAddress",

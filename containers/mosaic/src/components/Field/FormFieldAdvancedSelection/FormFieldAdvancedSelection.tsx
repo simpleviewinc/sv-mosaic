@@ -59,7 +59,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 
 	const deleteSelectedOption = useCallback(async (options: MosaicLabelValue[]) => {
 		await onChange(options);
-		await onBlur();
+		onBlur && onBlur();
 	}, [onChange]);
 
 	if (skeleton) {
@@ -95,7 +95,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 				<Button
 					color="gray"
 					variant="outlined"
-					label="ADD"
+					label="Add"
 					onClick={handleOpenModal}
 					disabled={disabled}
 				/>

@@ -14,7 +14,7 @@ test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 	});
 
 	test("Validate the regular dropdown", async () => {
-		const option = "Option 1";
+		const option = "Dog";
 		await formFieldDropdownPage.selectOptionFromDropdown(formFieldDropdownPage.regularDropdownInput, option);
 		expect(await formFieldDropdownPage.regularDropdownInput.inputValue()).toBe(option);
 	});
@@ -37,28 +37,28 @@ test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 
 	test("Validate the xs dropdown", async () => {
 		await page.reload();
-		const option = "Option 1";
+		const option = "Dog";
 		await formFieldDropdownPage.selectOptionFromDropdown(formFieldDropdownPage.xsSizeDropdownInput, option);
 		expect(await formFieldDropdownPage.xsSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the sm dropdown", async () => {
 		await page.reload();
-		const option = "Option 1";
+		const option = "Dog";
 		await formFieldDropdownPage.selectOptionFromDropdown(formFieldDropdownPage.smSizeDropdownInput, option);
 		expect(await formFieldDropdownPage.smSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the md dropdown", async () => {
 		await page.reload();
-		const option = "Option 1";
+		const option = "Dog";
 		await formFieldDropdownPage.selectOptionFromDropdown(formFieldDropdownPage.mdSizeDropdownInput, option);
 		expect(await formFieldDropdownPage.mdSizeDropdownInput.inputValue()).toBe(option);
 	});
 
 	test("Validate the lg dropdown", async () => {
 		await page.reload();
-		const option = "Option 1";
+		const option = "Dog";
 		await formFieldDropdownPage.selectOptionFromDropdown(formFieldDropdownPage.lgSizeDropdownInput, option);
 		expect(await formFieldDropdownPage.lgSizeDropdownInput.inputValue()).toBe(option);
 	});

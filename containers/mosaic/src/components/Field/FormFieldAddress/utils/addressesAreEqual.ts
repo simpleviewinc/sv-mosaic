@@ -31,7 +31,11 @@ function addressesAreEqual(first?: IAddress, second?: IAddress): boolean {
 
 	const typesAreEqual = (
 		first.types === second.types ||
-		!arrayDifference(first.types || [], second.types || []).length
+		!arrayDifference(
+			first.types || [],
+			second.types || [],
+			(first, second) => first.value === second.value,
+		).length
 	);
 
 	// For the string parts of the address, empty strings and
@@ -41,9 +45,9 @@ function addressesAreEqual(first?: IAddress, second?: IAddress): boolean {
 		String(first.address2) === String(second.address2) &&
 		String(first.address3) === String(second.address3) &&
 		String(first.city) === String(second.city) &&
-		String(first.state) === String(second.state) &&
+		String(first.state?.value) === String(second.state?.value) &&
 		String(first.postalCode) === String(second.postalCode) &&
-		String(first.country) === String(second.country) &&
+		String(first.country?.value) === String(second.country?.value) &&
 		typesAreEqual
 	);
 }

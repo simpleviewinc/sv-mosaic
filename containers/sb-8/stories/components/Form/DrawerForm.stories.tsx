@@ -18,7 +18,7 @@ import type { FieldDef } from "@root/components/Field";
 import theme, { BREAKPOINTS } from "@root/theme/theme";
 import uniqueId from "lodash/uniqueId";
 import { Sizes } from "@root/theme";
-import { getOptionsCountries, getOptionsStates } from "@root/components/Field/FormFieldAddress/utils/optionGetters";
+import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
 import styled from "styled-components";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import { validateEmail } from "@root/utils/form/validators";

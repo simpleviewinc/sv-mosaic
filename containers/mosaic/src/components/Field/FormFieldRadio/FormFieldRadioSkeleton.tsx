@@ -1,6 +1,7 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import { StyledSkeletonRadio, StyledSkeletonItem, StyledSkeletonWrapper } from "./FormFieldRadio.styled";
+import testIds from "@root/utils/testIds";
 
 function RadioSkeletonItem() {
 	return (
@@ -22,7 +23,7 @@ function RadioSkeletonItem() {
 
 export function FormFieldRadioSkeleton() {
 	return (
-		<StyledSkeletonWrapper>
+		<StyledSkeletonWrapper data-testid={testIds.FORM_FIELD_SKELETON}>
 			<RadioSkeletonItem />
 			<RadioSkeletonItem />
 			<RadioSkeletonItem />

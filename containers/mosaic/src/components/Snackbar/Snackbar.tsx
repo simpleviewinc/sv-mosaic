@@ -46,6 +46,7 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 			onClose={onClose}
 			open={open}
 			anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+			role="alert"
 		>
 			<ContentWrapper>
 				{leadingIcon && <MaterialIcon data-testid="leading-snackbar-icon" />}

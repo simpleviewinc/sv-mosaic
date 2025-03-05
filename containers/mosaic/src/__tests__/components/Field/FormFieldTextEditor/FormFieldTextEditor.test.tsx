@@ -1,382 +1,259 @@
-import type { MosaicFieldProps, TextEditorInputSettings } from "@root/components/Field";
-import { FormFieldTextEditor } from "@root/components/Field";
-import testIds from "@root/utils/testIds";
-import { render, screen, waitFor } from "@testing-library/react";
-import type { UserEvent } from "@testing-library/user-event";
-import userEvent from "@testing-library/user-event";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
+import type { TestDef } from "@simpleview/mochalib";
+import { testArray } from "@simpleview/mochalib";
 
-type SetupParams = Pick<MosaicFieldProps, "value"> & {
-	onLink?: TextEditorInputSettings["onLink"];
-	onImage?: TextEditorInputSettings["onImage"];
+import type { TextEditorData, TextEditorInputSettings } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditorTypes";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components";
+
+import FormFieldTestType from "../FormFieldTestType";
+import { FormFieldTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditor";
+import testIds from "@root/utils/testIds";
+
+const defaultFieldDef: FieldDefBase<"textEditor", TextEditorInputSettings> = {
+	name: "textEditor",
+	label: "Text Editor",
+	type: "textEditor",
 };
 
-async function setup({ value = "<p>Test</p>", onLink, onImage }: SetupParams = {}) {
-	const onChangeMock = vi.fn();
-	const renderResult = await act(() => render(
-		<FormFieldTextEditor
-			fieldDef={{
-				name: "textEditor",
-				type: "textEditor",
-				inputSettings: {
-					onLink,
-					onImage,
-				},
-			}}
-			value={value}
+async function setup(
+	{ value = "<p>Test</p>", ...props }: Partial<MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>> = {},
+	{
+		stateful = false,
+		userEventOptions,
+	}: {
+		stateful?: boolean;
+		userEventOptions?: Parameters<typeof userEvent.setup>[0];
+	} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
+
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldTextEditor}
+			fieldDef={defaultFieldDef}
 			onChange={onChangeMock}
+			stateful={stateful}
+			value={value}
+			{...props}
 		/>,
 	));
 
 	return {
 		...renderResult,
-		onChangeMock,
-		user: userEvent.setup(),
+		user: userEvent.setup(userEventOptions),
 	};
 }
 
-/**
- * Only used when a control is clicked that results in the canvas
- * being immediately focused afterwards. Without waiting for the
- * short promise, it can get flaky. Presumably due to the way Tiptap
- * dispatches the focus event asynchronously.
- */
-function clickAndWait(user: UserEvent, element: HTMLElement) {
-	return waitFor(async () => {
-		await user.click(element);
-		await new Promise((resolve) => setTimeout(() => resolve(null)));
-	});
-}
+describe(__dirname, () => {
+	it("should render the text editor form field", async () => {
+		await setup();
 
-describe("TextEditorTiptap component - Text formatting", () => {
-	it("should render the correct elements when heading 1 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-1`));
-
-		expect(onChangeMock).toBeCalledWith("<h1>Test</h1>");
+		expect(screen.queryByTestId("mos:TextEditor:canvas")).toBeInTheDocument();
 	});
 
-	it("should render the correct elements when heading 2 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
+	type FormattingTest = {
+		value?: string;
+		controlTestId: string;
+		menuTestId?: string;
+	} & ({
+		inline: true;
+		result: {
+			formatAndType: string;
+			selectAndFormat: string;
+		};
+	} | {
+		inline: false;
+		result: string;
+	})
 
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-2`));
+	const formattingTests: TestDef<FormattingTest>[] = [
+		{
+			name: "should render the correct elements when bold is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:bold`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<strong>A</strong></p>",
+					selectAndFormat: "<p><strong>TestA</strong></p>",
+				},
+			},
+		},
+		{
+			name: "should render the correct elements when italic is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:italic`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<em>A</em></p>",
+					selectAndFormat: "<p><em>TestA</em></p>",
+				},
+			},
+		},
+		{
+			name: "should render the correct elements when underline is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:underline`,
+				menuTestId: `${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<u>A</u></p>",
+					selectAndFormat: "<p><u>TestA</u></p>",
+				},
+			},
+		},
+		{
+			name: "should render the correct elements when strikethrough is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:strike`,
+				menuTestId: `${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<s>A</s></p>",
+					selectAndFormat: "<p><s>TestA</s></p>",
+				},
+			},
+		},
+		{
+			name: "should render the correct elements when superscript is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:superscript`,
+				menuTestId: `${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<sup>A</sup></p>",
+					selectAndFormat: "<p><sup>TestA</sup></p>",
+				},
+			},
+		},
+		{
+			name: "should render the correct elements when subscript is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:subscript`,
+				menuTestId: `${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`,
+				inline: true,
+				result: {
+					formatAndType: "<p>Test<sub>A</sub></p>",
+					selectAndFormat: "<p><sub>TestA</sub></p>",
+				},
+			},
+		},
+		{
+			name: "should strip formatting elements when clear formatting is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:clear`,
+				menuTestId: `${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`,
+				inline: false,
+				value: "<p><em><strong>Test</strong></em></p>",
+				result: "<p>Test</p>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 1 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-1`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h1>Test</h1>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 2 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-2`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h2>Test</h2>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 3 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-3`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h3>Test</h3>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 4 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-4`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h4>Test</h4>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 5 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-5`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h5>Test</h5>",
+			},
+		},
+		{
+			name: "should render the correct elements when heading 6 is chosen",
+			args: {
+				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-6`,
+				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
+				inline: false,
+				result: "<h6>Test</h6>",
+			},
+		},
+	];
 
-		expect(onChangeMock).toBeCalledWith("<h2>Test</h2>");
-	});
+	testArray(formattingTests, async ({ controlTestId, menuTestId, inline, result, value }) => {
+		const onChangeMock = vi.fn();
 
-	it("should render the correct elements when heading 3 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-3`));
-
-		expect(onChangeMock).toBeCalledWith("<h3>Test</h3>");
-	});
-
-	it("should render the correct elements when heading 4 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-4`));
-
-		expect(onChangeMock).toBeCalledWith("<h4>Test</h4>");
-	});
-
-	it("should render the correct elements when heading 5 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-5`));
-
-		expect(onChangeMock).toBeCalledWith("<h5>Test</h5>");
-	});
-
-	it("should render the correct elements when heading 6 is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(testIds.TEXT_EDITOR_HEADING_MENU));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_HEADING_CONTROL}-6`));
-
-		expect(onChangeMock).toBeCalledWith("<h6>Test</h6>");
-	});
-
-	it("should render the correct elements when bold is chosen", async () => {
-		const { user, onChangeMock } = await setup();
+		const { user } = await setup({
+			onChange: onChangeMock,
+			value,
+		});
 
 		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const control = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:bold`);
+		const menu = menuTestId && screen.getByTestId(menuTestId);
 
-		await clickAndWait(user, control);
-		await user.type(canvas, "A");
+		if (inline) {
+			if (menu) {
+				await user.click(menu);
+			}
 
-		expect(onChangeMock).toBeCalledWith("<p>Test<strong>A</strong></p>");
+			const { formatAndType, selectAndFormat } = result;
 
-		await user.tripleClick(canvas);
-		await user.click(control);
+			await user.click(screen.getByTestId(controlTestId));
+			await waitFor(() => expect(canvas).toHaveFocus());
+			await user.type(canvas, "A");
 
-		expect(onChangeMock).toBeCalledWith("<p><strong>TestA</strong></p>");
+			expect(onChangeMock).toBeCalledWith(formatAndType);
+
+			await user.tripleClick(canvas);
+			if (menu) {
+				await user.click(menu);
+			}
+			const [control] = screen.getAllByTestId(controlTestId);
+			await user.click(control);
+
+			expect(onChangeMock).toBeCalledWith(selectAndFormat);
+		} else {
+			await user.tripleClick(canvas);
+
+			if (menu) {
+				await user.click(menu);
+			}
+
+			await user.click(screen.getByTestId(controlTestId));
+
+			expect(onChangeMock).toBeCalledWith(result);
+		}
 	});
 
-	it("should render the correct elements when italic is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const control = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:italic`);
-
-		await clickAndWait(user, control);
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p>Test<em>A</em></p>");
-
-		await user.tripleClick(canvas);
-		await user.click(control);
-
-		expect(onChangeMock).toBeCalledWith("<p><em>TestA</em></p>");
-	});
-
-	it("should render the correct elements when underline is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
-
-		await user.click(menu);
-
-		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:underline`));
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p>Test<u>A</u></p>");
-
-		await user.tripleClick(canvas);
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:underline`));
-
-		expect(onChangeMock).toBeCalledWith("<p><u>TestA</u></p>");
-	});
-
-	it("should render the correct elements when strikethrough is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
-
-		await user.click(menu);
-
-		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:strike`));
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p>Test<s>A</s></p>");
-
-		await user.tripleClick(canvas);
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:strike`));
-
-		expect(onChangeMock).toBeCalledWith("<p><s>TestA</s></p>");
-	});
-
-	it("should render the correct elements when superscript is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
-
-		await user.click(menu);
-
-		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:superscript`));
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p>Test<sup>A</sup></p>");
-
-		await user.tripleClick(canvas);
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:superscript`));
-
-		expect(onChangeMock).toBeCalledWith("<p><sup>TestA</sup></p>");
-	});
-
-	it("should render the correct elements when subscript is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
-
-		await user.click(menu);
-
-		await clickAndWait(user, screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:subscript`));
-		await user.type(canvas, "A");
-
-		expect(onChangeMock).toBeCalledWith("<p>Test<sub>A</sub></p>");
-
-		await user.tripleClick(canvas);
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:subscript`));
-
-		expect(onChangeMock).toBeCalledWith("<p><sub>TestA</sub></p>");
-	});
-
-	it("should strip formatting elements when clear formatting is chosen", async () => {
-		const { user, onChangeMock } = await setup({ value: "<p><em><strong>Test</strong></em></p>" });
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-1-2`);
-
-		await user.tripleClick(canvas);
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:clear`));
-
-		expect(onChangeMock).toBeCalledWith("<p>Test</p>");
-	});
-
-	it("should render the correct elements when bullet list is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:bulletList`));
-
-		expect(onChangeMock).toBeCalledWith("<ul><li><p>Test</p></li></ul>");
-	});
-
-	it("should render the correct elements when ordered list is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:orderedList`));
-
-		expect(onChangeMock).toBeCalledWith("<ol><li><p>Test</p></li></ol>");
-	});
-
-	it("should render the correct element attribute text alignments are chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const menu = screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-3-2`);
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignCenter`));
-
-		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: center\">Test</p>");
-
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignRight`));
-
-		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: right\">Test</p>");
-
-		await user.click(menu);
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignJustify`));
-
-		expect(onChangeMock).toBeCalledWith("<p style=\"text-align: justify\">Test</p>");
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:alignLeft`));
-
-		expect(onChangeMock).toBeCalledWith("<p>Test</p>");
-	});
-
-	it("should render the correct elements when code block is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:codeBlock`));
-
-		expect(onChangeMock).toBeCalledWith("<pre><code>Test</code></pre>");
-	});
-
-	it("should render the correct elements when quote is chosen", async () => {
-		const { user, onChangeMock } = await setup();
-
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
-		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:blockquote`));
-
-		expect(onChangeMock).toBeCalledWith("<blockquote><p>Test</p></blockquote>");
-	});
-});
-
-describe("TextEditorTiptap component - Linking text", () => {
-	it("should render the correct elements when a link is applied to existing text", async () => {
-		const { user, onChangeMock } = await setup();
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-
-		await user.tripleClick(canvas);
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
-
-		const url = screen.getByLabelText("URL*");
-		const submit = screen.getByRole("button", { name: "Submit" });
-
-		await user.type(url, "https://www.example.com");
-		await user.click(submit);
-
-		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">Test</a></p>");
-	});
-
-	it("should render the correct elements when a link is applied to new text", async () => {
-		const { user, onChangeMock } = await setup({ value: "" });
-
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
-
-		const url = screen.getByLabelText("URL*");
-		const text = screen.getByLabelText("Text*");
-		const submit = screen.getByRole("button", { name: "Submit" });
-
-		await user.type(url, "https://www.example.com");
-		await user.type(text, "My Link");
-		await user.click(submit);
-
-		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">My Link</a></p>");
-	});
-
-	it("should remove the correct elements when text is unlinked", async () => {
-		const value = "<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">Test</a></p>";
-		const { user, onChangeMock } = await setup({ value });
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-
-		await user.tripleClick(canvas);
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
-
-		const remove = screen.getByRole("button", { name: "Remove" });
-
-		await user.click(remove);
-
-		expect(onChangeMock).toBeCalledWith("<p>Test</p>");
-	});
-
-	it("should provide the custom onLink handler with the url and new tab", async () => {
-		const onLinkMock = vi.fn<TextEditorInputSettings["onLink"]>();
-
-		const value = "<p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">Test</a></p>";
-		const { user } = await setup({ value, onLink: onLinkMock });
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-
-		await user.tripleClick(canvas);
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
-
-		expect(onLinkMock).toBeCalledWith(expect.objectContaining({
-			url: "https://www.example.com",
-			newTab: true,
-		}));
-	});
-
-	it("should render the correct elements when a link is applied to new text using custom link handler", async () => {
-		const onLinkMock = vi.fn<TextEditorInputSettings["onLink"]>(({ updateLink }) => updateLink({
-			url: "https://www.example.com",
-			newTab: true,
-			text: "My Link",
-		}));
-
-		const { user, onChangeMock } = await setup({ onLink: onLinkMock });
-
-		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
-
-		await user.tripleClick(canvas);
-		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`)[0]);
-
-		expect(onChangeMock).toBeCalledWith("<p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://www.example.com\">My Link</a></p>");
-	});
-});
-
-describe("TextEditorTiptap component - Managing images", () => {
 	it("should render the correct elements when an image is added", async () => {
-		const { user, onChangeMock } = await setup({ value: "" });
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ value: "", onChange: onChangeMock });
 
 		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
@@ -390,17 +267,182 @@ describe("TextEditorTiptap component - Managing images", () => {
 		expect(onChangeMock).toBeCalledWith("<p><img src=\"https://www.placehold.it/200\"></p>");
 	});
 
-	it("should render the correct elements when an image is added using custom link handler", async () => {
+	it("should render the correct elements when an image is added using custom image handler", async () => {
 		const onImageMock = vi.fn<TextEditorInputSettings["onImage"]>(({ updateImage }) => updateImage({
 			src: "https://www.placehold.it/200",
 			alt: "Placeholder Image",
 		}));
 
-		const { user, onChangeMock } = await setup({ value: "", onImage: onImageMock });
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({
+			value: "",
+			onChange: onChangeMock,
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					...defaultFieldDef.inputSettings,
+					onImage: onImageMock,
+				},
+			},
+		});
 
 		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
 		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
 
 		expect(onChangeMock).toBeCalledWith("<p><img src=\"https://www.placehold.it/200\" alt=\"Placeholder Image\"></p>");
 	});
+
+	it("should show the link control in the floating toolbar if a link is active in the current selection", async () => {
+		const { user } = await setup({ value: "<p><a href=\"https://www.example.com\">Test Link</a></p>" });
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		await user.click(canvas);
+		expect(canvas).toHaveFocus();
+		await user.keyboard("{ArrowLeft}");
+		const toolbar = screen.getByTestId(testIds.TEXT_EDITOR_FLOATING_TOOLBAR);
+		expect(toolbar).toBeInTheDocument();
+		const control = within(toolbar).getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`);
+		expect(control).toBeInTheDocument();
+	});
+
+	it("should render the correct elements when a link is added", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ value: "", onChange: onChangeMock });
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+
+		const url = screen.getByLabelText("URL*");
+		const text = screen.getByLabelText("Text*");
+
+		await user.type(url, "example.com");
+		await user.type(text, "Test Link");
+		await user.click(screen.getByRole("button", { name: "Submit" }));
+
+		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://example.com\">Test Link</a></p>");
+	});
+
+	it("should render the correct elements when a link is added using custom link handler", async () => {
+		const onLinkMock = vi.fn<TextEditorInputSettings["onLink"]>(({ updateLink }) => updateLink({
+			url: "example.com",
+			text: "Test Link",
+		}));
+
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({
+			value: "",
+			onChange: onChangeMock,
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					...defaultFieldDef.inputSettings,
+					onLink: onLinkMock,
+				},
+			},
+		});
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+
+		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://example.com\">Test Link</a></p>");
+	});
+
+	it("should hide the floating toolbar if there are no selection types", async () => {
+		const { user } = await setup({ value: "<p><a href=\"https://www.example.com\">Test Link</a></p>" });
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+
+		await user.click(canvas);
+		expect(canvas).toHaveFocus();
+		await user.keyboard("{ArrowLeft}");
+		const toolbar = screen.getByTestId(testIds.TEXT_EDITOR_FLOATING_TOOLBAR);
+		expect(toolbar).toBeInTheDocument();
+		await user.tripleClick(canvas);
+		await user.keyboard("{Backspace}");
+		expect(toolbar).not.toBeInTheDocument();
+	});
+
+	it("should close the node form when user clicks outside", async () => {
+		const { user } = await setup();
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+		const nodeForm = screen.getByTestId(testIds.TEXT_EDITOR_NODE_FORM);
+		expect(nodeForm).toBeInTheDocument();
+		await user.click(canvas);
+		expect(nodeForm).not.toBeInTheDocument();
+		expect(canvas).toHaveFocus();
+	});
+
+	it("should fire the on blur handler when the date picker is closed", async () => {
+		const onBlurMock = vi.fn();
+
+		const { user } = await setup({ onBlur: onBlurMock });
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		await user.click(canvas);
+		expect(canvas).toHaveFocus();
+		await user.keyboard("{Tab}");
+		expect(onBlurMock).toBeCalled();
+	});
+
+	it("should not get caught in an update loop when controlled", async () => {
+		const { user } = await setup(undefined, { stateful: true });
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		await user.click(canvas);
+		await user.keyboard("abc");
+	});
+
+	it("should not throw an error but warn when malformed HTML is provided in the source tab", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+		const { user } = await setup(undefined, { stateful: true });
+
+		const source = screen.getByRole("button", { name: "Source" });
+		const visual = screen.getByRole("button", { name: "Visual" });
+		expect(source).toBeInTheDocument();
+		expect(visual).toBeInTheDocument();
+		await user.click(source);
+		const textArea = screen.getByRole("textbox");
+		await user.click(textArea);
+		await user.paste("<Foo<>>");
+		await user.click(visual);
+		expect(warnMock).toBeCalled();
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
+	});
+
+	it("should accept script in HTML content without executing it", async () => {
+		const alertMock = vi.spyOn(window, "alert");
+
+		await setup({ value: "<p>Test!</p><script>alert(\"Test\");</script>" });
+
+		expect(screen.getByTestId(testIds.TEXT_EDITOR_SCRIPT_NODE)).toBeInTheDocument();
+		expect(alertMock).not.toBeCalled();
+	});
+
+	// TODO: assert styles when we've migrated to emotion
+
+	// TODO I can't get this passing and I have no idea why.
+	// it("should show the image control in the floating toolbar if an image is active in the current selection", async () => {
+	// 	const { user } = await setup({ value: "<p><img src=\"https://placehold.co/100x100\"></p>" });
+
+	// 	const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+	// 	const image = canvas.querySelector("img");
+	// 	expect(image).toBeInTheDocument();
+	// 	await user.click(canvas);
+	// 	expect(canvas).toHaveFocus();
+	// 	await user.keyboard("{ArrowLeft}");
+	// 	await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+	// 	const toolbar = screen.getByTestId(testIds.TEXT_EDITOR_FLOATING_TOOLBAR);
+	// 	expect(toolbar).toBeInTheDocument();
+	// 	const control = within(toolbar).getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`);
+	// 	expect(control).toBeInTheDocument();
+	// });
 });

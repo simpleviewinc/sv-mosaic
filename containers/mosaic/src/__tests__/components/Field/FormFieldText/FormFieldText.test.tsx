@@ -1,70 +1,92 @@
 import { render, screen } from "@testing-library/react";
-import * as React from "react";
+import React, { act } from "react";
+import userEvent from "@testing-library/user-event";
 
-// Components
-import TextField from "@root/components/Field/FormFieldText";
+import type { TextFieldData, TextFieldInputSettings } from "@root/components/Field/FormFieldText/FormFieldTextTypes";
+import type { FieldDefBase, MosaicFieldProps } from "@root/components";
 
-describe("TextField component", () => {
-	it("should display the placeholder", () => {
-		render(
-			<TextField
-				fieldDef={{
-					name: "textField",
-					type: "text",
-					label: "Label test",
-					instructionText: "Instruction text",
-					inputSettings: {
-						placeholder: "placeholder",
-					},
-				}}
-			/>,
-		);
-		const placeholderElement = screen.getByPlaceholderText("placeholder");
-		expect(placeholderElement).toBeDefined();
+import FormFieldTestType from "../FormFieldTestType";
+import FormFieldText from "@root/components/Field/FormFieldText/FormFieldText";
+import testIds from "@root/utils/testIds";
+
+const defaultFieldDef: FieldDefBase<"text", TextFieldInputSettings> = {
+	name: "text",
+	label: "Text",
+	type: "text",
+};
+
+async function setup(
+	props: Partial<MosaicFieldProps<"text", TextFieldInputSettings, TextFieldData>> = {},
+	{
+		stateful = false,
+		userEventOptions,
+	}: {
+		stateful?: boolean;
+		userEventOptions?: Parameters<typeof userEvent.setup>[0];
+	} = {},
+) {
+	const onChangeMock = props.onChange || vi.fn();
+
+	const renderResult = await act(async () => render(
+		<FormFieldTestType
+			Component={FormFieldText}
+			fieldDef={defaultFieldDef}
+			onChange={onChangeMock}
+			stateful={stateful}
+			{...props}
+		/>,
+	));
+
+	return {
+		...renderResult,
+		user: userEvent.setup(userEventOptions),
+	};
+}
+
+describe(__dirname, () => {
+	it("should render the text form field", async () => {
+		await setup();
+
+		expect(screen.queryByRole("textbox")).toBeInTheDocument();
 	});
-});
 
-describe("TextField multiline behaviour", () => {
-	it("should render an input element when multiline is off", () => {
-		render(
-			<TextField
-				fieldDef={{
-					name: "textField",
-					type: "text",
-					label: "Label test",
-					helperText: "Helper text",
-					inputSettings: {
-						placeholder: "placeholder",
-						multiline: false,
-					},
-				}}
+	it("should fire the on change handler when text is entered", async () => {
+		const onChangeMock = vi.fn();
 
-			/>,
-		);
-		const textField = screen.getByPlaceholderText("placeholder");
+		const { user } = await setup({ onChange: onChangeMock });
 
-		expect(textField.nodeName).toBe("INPUT");
+		const input = screen.queryByRole("textbox");
+		expect(input).toBeInTheDocument();
+		await user.type(input, "A");
+		expect(onChangeMock).toBeCalledWith("A");
 	});
 
-	it("should render a text area element when the multiline prop is present", () => {
-		render(
-			<TextField
-				fieldDef={{
-					name: "textField",
-					type: "text",
-					label: "Label test",
-					helperText: "Helper text",
-					inputSettings: {
-						placeholder: "placeholder",
-						multiline: true,
-					},
-				}}
+	it("should display a prefix adornment if a prefix is provided", async () => {
+		await setup({ fieldDef: {
+			...defaultFieldDef,
+			inputSettings: { prefixElement: <>TestPrefix</> } },
+		});
 
-			/>,
-		);
-
-		const textField = screen.getByPlaceholderText("placeholder");
-
-		expect(textField.nodeName).toBe("TEXTAREA");
+		expect(screen.queryByText("TestPrefix")).toBeInTheDocument();
 	});
+
+	it("should prevent using the number input type", async () => {
+		await setup({ fieldDef: {
+			...defaultFieldDef,
+			inputSettings: { type: "number" } },
+		});
+
+		const input = screen.queryByRole("textbox");
+		expect(input).toBeInTheDocument();
+		expect(input).toHaveAttribute("type", "text");
+	});
+
+	it("should render the skeleton components if skeleton is truthy", async () => {
+		await setup({ skeleton: true });
+
+		expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
+	});
+
+	// TODO: assert styles when we've migrated to emotion
 });
