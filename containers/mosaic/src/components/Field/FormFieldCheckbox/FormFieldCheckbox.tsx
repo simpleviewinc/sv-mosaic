@@ -28,6 +28,7 @@ const FormFieldCheckbox = (
 		inputSettings: {
 			getOptions: optionsAsync,
 			options: providedOptions = optionsAsync,
+			itemsPerColumn,
 		} = {},
 	} = fieldDef;
 
@@ -55,6 +56,7 @@ const FormFieldCheckbox = (
 			style={fieldDef.style}
 			className={fieldDef.className}
 			id={id}
+			itemsPerColumn={itemsPerColumn}
 		/>
 	);
 };

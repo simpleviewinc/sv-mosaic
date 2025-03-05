@@ -23,4 +23,10 @@ export interface CheckboxListProps {
 	 * current checkbox can be selected or not
 	 */
 	disabled?: boolean;
+	/**
+	 * Checkboxes are split into up to 3 columns with the maximum
+	 * number of items in each column being itemsPerColumn. Pass -1
+	 * to prevent columns. Defaults to 8.
+	 */
+	itemsPerColumn?: number;
 }

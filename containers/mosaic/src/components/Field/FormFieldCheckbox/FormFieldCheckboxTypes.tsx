@@ -1,7 +1,8 @@
+import type { CheckboxListProps } from "@root/components/CheckboxList";
 import type { FieldDefBase } from "@root/components/Field";
 import type { MosaicLabelValue } from "@root/types";
 
-interface FormFieldCheckboxLocalOptions {
+interface FormFieldCheckboxLocalOptions extends Pick<CheckboxListProps, "itemsPerColumn"> {
 	/**
 	* List of options
 	*/

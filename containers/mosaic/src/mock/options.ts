@@ -55,8 +55,72 @@ export const mockOptions: MosaicLabelValue[] = [
 		value: "giraffe",
 	},
 	{
-		label: "Panda",
-		value: "panda",
+		label: "Shark",
+		value: "shark",
+	},
+	{
+		label: "Otter",
+		value: "otter",
+	},
+	{
+		label: "Hippopotamus",
+		value: "hippopotamus",
+	},
+	{
+		label: "Sheep",
+		value: "sheep",
+	},
+	{
+		label: "Squirrel",
+		value: "squirrel",
+	},
+	{
+		label: "Donkey",
+		value: "donkey",
+	},
+	{
+		label: "Meerkat",
+		value: "meerkat",
+	},
+	{
+		label: "Hedgehog",
+		value: "hedgehog",
+	},
+	{
+		label: "Hyena",
+		value: "hyena",
+	},
+	{
+		label: "Lynx",
+		value: "lynx",
+	},
+	{
+		label: "Camel",
+		value: "camel",
+	},
+	{
+		label: "Bat",
+		value: "bat",
+	},
+	{
+		label: "Seal",
+		value: "seal",
+	},
+	{
+		label: "Dolphin",
+		value: "dolphin",
+	},
+	{
+		label: "Walrus",
+		value: "walrus",
+	},
+	{
+		label: "Duck",
+		value: "duck",
+	},
+	{
+		label: "Snail",
+		value: "snail",
 	},
 ];
 
