@@ -9,6 +9,7 @@ import { useSpreadRefs } from "@root/utils/hooks";
 
 const PhoneTextField = forwardRef<HTMLInputElement, PhoneTextFieldProps>(function PhoneTextField({
 	onFocus,
+	countryCodeEditable: _,
 	...props
 }, ref) {
 	const { id, disabled, error, onBlur, setHasFocus, inputRef } = useContext(FormFieldPhoneContext);
