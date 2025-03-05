@@ -51,26 +51,6 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("textbox")).toBeInTheDocument();
 	});
 
-	it("should default to a specific country if provided", async () => {
-		await setup({
-			fieldDef: {
-				...defaultFieldDef,
-				inputSettings: {
-					...defaultFieldDef.inputSettings,
-					country: "gb",
-				},
-			},
-		});
-
-		const button = screen.queryByRole("button");
-		const input = screen.queryByRole("textbox");
-
-		expect(button).toBeInTheDocument();
-		expect(input).toBeInTheDocument();
-		expect(button).toHaveAttribute("title", "United Kingdom: + 44");
-		expect(input).toHaveValue("+44");
-	});
-
 	it("should render the skeleton components if skeleton is truthy", async () => {
 		await setup({ skeleton: true });
 

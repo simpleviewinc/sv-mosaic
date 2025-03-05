@@ -23,6 +23,7 @@ export interface PhoneCodeAutocompleteProps {
 
 export interface PhoneTextFieldProps extends ComponentProps<"input"> {
 	error?: boolean;
+	countryCodeEditable?: boolean;
 }
 
 export interface FormFieldPhoneContextState {
