@@ -42,7 +42,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Human" })).toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "Cow" })).toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "Snake" })).toBeInTheDocument();
-		expect(screen.queryByRole("button", { name: "6 more" })).toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "22 more" })).toBeInTheDocument();
 	});
 
 	it("should not throw any errors if an undefined value is provided", async () => {
@@ -79,11 +79,11 @@ describe(__dirname, () => {
 	it("should show all chips when the show more button is clicked", async () => {
 		const { user } = await setup();
 
-		const showMore = screen.queryByRole("button", { name: "6 more" });
+		const showMore = screen.queryByRole("button", { name: "22 more" });
 		expect(showMore).toBeInTheDocument();
 		expect(screen.queryAllByTestId(testIds.CHIP)).toHaveLength(8);
 		await user.click(showMore);
-		expect(screen.queryAllByTestId(testIds.CHIP)).toHaveLength(14);
+		expect(screen.queryAllByTestId(testIds.CHIP)).toHaveLength(30);
 		expect(screen.queryByRole("button", { name: "Hide" })).toBeInTheDocument();
 	});
 });
