@@ -1,7 +1,8 @@
 import type { ReactElement } from "react";
 
 import React, { useMemo } from "react";
-import type { FieldDef } from "@root/components/Field";
+import type { FormFieldCheckboxInputSettings } from "@root/components/Field";
+import { type FieldDef } from "@root/components/Field";
 
 import Form, { useForm } from "@root/components/Form";
 import { commonFieldControls, renderButtons } from "../../../../utils";
@@ -21,9 +22,22 @@ export const Playground = ({
 	prepop,
 	prepopData,
 	optionsType,
+	optionCount,
+	itemsPerColumn,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
 	const { state, handleSubmit } = controller;
+
+	const options = useMemo<FormFieldCheckboxInputSettings["options"]>(() => {
+		if (optionsType === "Synchronous") {
+			return mockOptions.slice(0, optionCount);
+		}
+
+		return async () => {
+			const result = await getOptions();
+			return result.slice(0, optionCount);
+		};
+	}, [optionCount, optionsType]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -35,13 +49,14 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						options: optionsType === "Synchronous" ? mockOptions : getOptions,
+						options,
+						itemsPerColumn: Number(itemsPerColumn),
 					},
 					helperText,
 					instructionText,
 				},
 			] as FieldDef[],
-		[required, disabled, label, instructionText, helperText, optionsType],
+		[label, required, disabled, options, helperText, instructionText, itemsPerColumn],
 	);
 
 	const getFormValues = useMemo(() => prepop
@@ -73,6 +88,8 @@ Playground.args = {
 		],
 	},
 	optionsType: "Synchronous",
+	optionCount: 25,
+	itemsPerColumn: 8,
 };
 
 Playground.argTypes = {
@@ -81,6 +98,12 @@ Playground.argTypes = {
 		name: "Options Type",
 		options: ["Synchronous", "Asynchronous"],
 		control: { type: "select" },
+	},
+	optionCount: {
+		name: "Number of Options",
+	},
+	itemsPerColumn: {
+		name: "Items per Column",
 	},
 };
 

@@ -3,7 +3,7 @@ import type { FieldDef, FieldDefCustom } from "./FieldTypes";
 
 export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, Sizes> = {
 	text: Sizes.md,
-	checkbox: Sizes.md,
+	checkbox: Sizes.full,
 	chip: Sizes.md,
 	dropdown: Sizes.md,
 	phone: Sizes.sm,
