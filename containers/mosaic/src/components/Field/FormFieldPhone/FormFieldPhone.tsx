@@ -1,19 +1,15 @@
-import * as React from "react";
 import type { ReactElement } from "react";
-import { memo } from "react";
+import React, { memo, useMemo, useState } from "react";
+import PhoneInput, { isSupportedCountry } from "react-phone-number-input";
 
-// Components
-import PhoneInput from "@simpleview/react-phone-input-2";
-
-// Types and styles
-import "@simpleview/react-phone-input-2/lib/bootstrap.css";
-import type { PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
-import {
-	PhoneInputWrapper,
-} from "./FormFieldPhone.styled";
+import type { FormFieldPhoneContextState, PhoneDropdownData, PhoneSelectionInputSettings } from "./FormFieldPhoneTypes";
 import type { MosaicFieldProps } from "@root/components/Field";
+
 import Skeleton from "@mui/material/Skeleton";
-import { DropdownList } from "./DropdownList";
+import PhoneTextField from "./PhoneTextField";
+import PhoneCodeSelect from "./PhoneCodeSelect";
+import PhoneContainer from "./PhoneContainer";
+import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import testIds from "@root/utils/testIds";
 
 const FormFieldPhone = (
@@ -30,6 +26,31 @@ const FormFieldPhone = (
 		id,
 		skeleton,
 	} = props;
+	const {
+		inputSettings: {
+			country,
+		} = {},
+	} = fieldDef;
+
+	const defaultCountry = isSupportedCountry(country) ? country : "US";
+
+	const [container, setContainer] = useState<HTMLDivElement>();
+	const [autocompleteOpen, setAutocompleteOpen] = useState(false);
+	const [hasFocus, setHasFocus] = useState(false);
+
+	const state = useMemo<FormFieldPhoneContextState>(() => ({
+		autocompleteOpen,
+		setAutocompleteOpen,
+		hasFocus,
+		setHasFocus,
+		container,
+		setContainer,
+		id,
+		error: Boolean(error),
+		disabled,
+		onBlur,
+		inputRef,
+	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef]);
 
 	if (skeleton) {
 		return (
@@ -43,27 +64,19 @@ const FormFieldPhone = (
 	}
 
 	return (
-		<PhoneInputWrapper
-			$error={Boolean(error)}
-			onBlur={onBlur}
-			$disabled={disabled}
-		>
+		<FormFieldPhoneContext.Provider value={state}>
 			<PhoneInput
-				autoFormat={!!fieldDef?.inputSettings?.autoFormat}
-				country={fieldDef?.inputSettings?.country ? fieldDef?.inputSettings.country : "us"}
-				disabled={disabled}
-				onChange={onChange}
+				defaultCountry={defaultCountry}
 				value={value}
-				inputProps={{
-					required: fieldDef?.required,
-					ref: inputRef,
-					id,
-					"aria-label": fieldDef.label,
-				}}
-				tabbableDropdown={false}
-				DropdownList={DropdownList}
+				onChange={onChange}
+				containerComponent={PhoneContainer}
+				inputComponent={PhoneTextField}
+				countrySelectComponent={PhoneCodeSelect}
+				addInternationalOption={false}
+				countryCodeEditable={false}
 			/>
-		</PhoneInputWrapper>
+		</FormFieldPhoneContext.Provider>
 	);
 };
+
 export default memo(FormFieldPhone);
