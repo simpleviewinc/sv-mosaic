@@ -4,6 +4,7 @@ import { memo } from "react";
 import type { ColPropsTypes } from "./ColTypes";
 import { StyledCol } from "./ColStyled";
 import Field from "../Field/Field";
+import { FORM_GRID_SEGMENTS } from "@root/constants/form";
 
 const Col = (props: ColPropsTypes) => {
 	const {
@@ -19,8 +20,11 @@ const Col = (props: ColPropsTypes) => {
 		path,
 	} = props;
 
+	const gridStart = ((FORM_GRID_SEGMENTS / colsInRow) * colIdx) + 1;
+	const gridEnd = gridStart + (FORM_GRID_SEGMENTS / colsInRow);
+
 	return (
-		<StyledCol data-layout="column" $colsInRow={colsInRow}>
+		<StyledCol data-layout="column" $gridColumn={`${gridStart} / ${gridEnd}`}>
 			{col.map((field) => (
 				<Field
 					key={field}

@@ -53,6 +53,13 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 							return subField;
 						}),
 					}),
+					layout: [
+						[["address1"]],
+						[["address2"]],
+						[["address3"]],
+						[["country"], ["city"], []],
+						[["state"], ["postalCode"], []],
+					],
 				},
 			};
 		}
