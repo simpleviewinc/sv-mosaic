@@ -7,6 +7,7 @@ import Button from "../Button";
 import { useToggle } from "@root/utils/toggle";
 import Skeleton from "@mui/material/Skeleton";
 import testIds from "@root/utils/testIds";
+import { isReactElement } from "@root/types";
 
 function ButtonRowWrapper({ className, wrap, children, separator, skeleton }: ButtonsRowWrapperProps) {
 	if (!children.length) {
@@ -43,10 +44,6 @@ function ButtonRowWithDef(props: Omit<ButtonRowProps, "children">) {
 			{children}
 		</ButtonRowWrapper>
 	);
-}
-
-function isReactElement(elem: React.ReactNode): elem is React.ReactElement {
-	return typeof elem === "object" && elem !== null && "key" in elem;
 }
 
 function ButtonRowWithChildren(props: Omit<ButtonRowProps, "buttons">) {
