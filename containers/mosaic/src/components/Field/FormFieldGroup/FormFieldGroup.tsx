@@ -19,7 +19,7 @@ const FormFieldGroup = ({
 	} = fieldDef;
 	const { fields } = inputSettings;
 
-	const layout = useMemo<string[][][]>(
+	const layout = useMemo<GroupInputSettings["layout"]>(
 		() => inputSettings.layout || fields.map(field => [[field.name]]),
 		[fields, inputSettings.layout],
 	);

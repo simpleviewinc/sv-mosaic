@@ -29,7 +29,11 @@ const Row = (props: RowPropTypes) => {
 	 * passing the field defs down
 	 */
 	const fieldDefsFlattened = useMemo(
-		() => row.flat().flat().map(fieldName => fieldsDef.find((fieldDef) => fieldName === fieldDef.name)),
+		() => row
+			.flat()
+			.map(column => typeof column === "string" ? column : column.names)
+			.flat()
+			.map(fieldName => fieldsDef.find((fieldDef) => fieldName === fieldDef.name)),
 		[fieldsDef, row],
 	);
 	const shownFields = useWrappedToggle(fieldDefsFlattened, state, "show", true);
