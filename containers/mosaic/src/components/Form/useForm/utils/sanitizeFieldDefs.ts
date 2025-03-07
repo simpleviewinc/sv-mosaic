@@ -9,7 +9,11 @@ import dateToTimeString from "@root/utils/date/dateToTimeString";
 function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDefSanitized[] {
 	if (sections) {
 		const fieldNames = fields.map(({ name }) => name);
-		const sectionFieldNames = sections.map(({ fields }) => fields).flat(3);
+		const sectionFieldNames = sections.map(({ fields }) => fields)
+			.flat(3)
+			.map(column => typeof column === "string" ? column : column.names)
+			.flat();
+
 		for (const sectionFieldName of sectionFieldNames ) {
 			if (!fieldNames.includes(sectionFieldName)) {
 				throw new Error(`Section references field \`${sectionFieldName}\`, which does not exist in list of field definitions.`);
@@ -54,9 +58,9 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 						}),
 					}),
 					layout: [
-						[["address1"]],
-						[["address2"]],
-						[["address3"]],
+						[{ names: ["address1"], span: 4 }],
+						[{ names: ["address2"], span: 4 }],
+						[{ names: ["address3"], span: 4 }],
 						[["country"], ["city"], []],
 						[["state"], ["postalCode"], []],
 					],
