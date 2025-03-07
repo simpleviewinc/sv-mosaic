@@ -2,7 +2,6 @@ import React, { memo, useMemo } from "react";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { GroupData, GroupInputSettings } from "./FormFieldGroupTypes";
-import type { MosaicGridConfig } from "@root/types";
 
 import { StyledRows } from "@root/components/Form/Section/SectionStyled";
 import Row from "@root/components/Form/Row/Row";
@@ -20,7 +19,7 @@ const FormFieldGroup = ({
 	} = fieldDef;
 	const { fields } = inputSettings;
 
-	const layout = useMemo<MosaicGridConfig>(
+	const layout = useMemo<string[][][]>(
 		() => inputSettings.layout || fields.map(field => [[field.name]]),
 		[fields, inputSettings.layout],
 	);
