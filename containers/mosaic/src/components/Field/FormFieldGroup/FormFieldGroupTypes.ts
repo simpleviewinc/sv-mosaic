@@ -1,9 +1,8 @@
-import type { MosaicGridConfig } from "@root/types";
 import type { FieldDef, FieldDefBase } from "../FieldTypes";
 
 export interface GroupInputSettings {
 	fields: FieldDef[];
-	layout?: MosaicGridConfig;
+	layout?: string[][][];
 }
 
 export type GroupData = Record<string, any>;
