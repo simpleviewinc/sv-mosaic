@@ -15,8 +15,8 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
+import ChipList from "@root/components/ChipList";
 import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
-import ChipList from "./ChipList";
 
 // Styles
 import type { MosaicLabelValue } from "@root/types";
@@ -57,8 +57,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		}
 	};
 
-	const deleteSelectedOption = useCallback(async (options: MosaicLabelValue[]) => {
-		await onChange(options);
+	const onDelete = useCallback((options: MosaicLabelValue[]) => {
+		onChange(options);
 		onBlur && onBlur();
 	}, [onChange]);
 
@@ -82,13 +82,9 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 						/>
 					)}
 					<ChipList
-						value={value}
-						fieldDef={{
-							inputSettings: {
-								deleteSelectedOption,
-							},
-							disabled,
-						}}
+						chips={value}
+						onDelete={onDelete}
+						disabled={disabled}
 					/>
 				</div>
 			) : (
