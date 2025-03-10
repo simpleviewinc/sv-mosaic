@@ -47,6 +47,7 @@ function PhoneCodeSelect({
 					aria-hidden
 					country={value}
 					label={selectedOption?.label}
+					disabled={disabled}
 				/>
 				<span>
 					{`+${countryCallingCode}`}
