@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import React, { memo, useState, forwardRef, useCallback } from "react";
+import React, { memo, useState, forwardRef, useMemo } from "react";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import type { ChipListProps } from "./ChipListTypes";
@@ -20,10 +20,13 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 
 	const [showMore, setShowMore] = useState(false);
 
-	const _onDelete = useCallback(
-		(deletedValue: string) => onDelete(options.filter((option) => option.value !== deletedValue)),
-		[onDelete, options],
-	);
+	const _onDelete = useMemo(() => {
+		if (!onDelete) {
+			return;
+		}
+
+		return (deletedValue: string) => onDelete(options.filter((option) => option.value !== deletedValue));
+	}, [onDelete, options]);
 
 	const visibleChips = showMore ? options : options.slice(0, maxInitialChips);
 
@@ -35,7 +38,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 						disabled={disabled}
 						key={`${option?.label}-${idx}`}
 						label={option?.label}
-						onDelete={() => _onDelete(option?.value)}
+						onDelete={_onDelete && (() => _onDelete(option?.value))}
 					/>
 				))}
 			</ChipsWrapper>
