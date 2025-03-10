@@ -6,15 +6,7 @@ import Button from "../Button";
 export const ChipsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	row-gap: 12px;
-
-	& > :not(:last-child) {
-		margin-right: 12px;
-	}
-
-	& > * {
-		margin-top: 8px;
-	}
+	gap: 12px;
 `;
 
 export const ShowHideSpan = styled.span`
