@@ -19,12 +19,12 @@ export const Playground = ({
 		return mockOptions.slice(0, optionCount);
 	}, [optionCount]);
 
-	const onDelete = useMemo((options: ChipListProps["options"]) => {
+	const onDelete = useMemo(() => {
 		if (!hasOnDelete) {
 			return;
 		}
 
-		return () => alert(`Option delete. New options: ${options}`);
+		return (options: ChipListProps["options"]) => alert(`Option delete. New options: ${JSON.stringify(options)}`);
 	}, [hasOnDelete]);
 
 	return (
