@@ -57,7 +57,7 @@ const prepopulateValues = {
 		label: "The Dark Knight",
 		value: "2008",
 	},
-	phoneSelect: "15205751152",
+	phoneSelect: "+15205751152",
 	radio: {
 		label: "Label 2",
 		value: "label_2",
