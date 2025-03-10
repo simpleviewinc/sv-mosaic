@@ -21,6 +21,7 @@ import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
 // Styles
 import type { MosaicLabelValue } from "@root/types";
 import { FormFieldAdvancedSelectionSkeleton } from "./FormFieldAdvancedSelectionSkeleton";
+import { StyledButton } from "./AdvancedSelection.styled";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -71,13 +72,12 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 			{value?.length > 0 ? (
 				<div>
 					{(selectLimit < 0 || value?.length < selectLimit) && (
-						<Button
+						<StyledButton
 							color="teal"
 							variant="text"
 							label="Add"
 							onClick={handleOpenModal}
 							mIcon={AddIcon}
-							attrs={{ style: { marginBottom: "16px" } }}
 							disabled={disabled}
 						/>
 					)}
