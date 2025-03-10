@@ -14,6 +14,7 @@ export type PhoneCodeSelectProps = Omit<ComponentProps<"button">, "onChange"> & 
 export interface PhoneCountryFlagProps {
 	country: string;
 	label: string;
+	disabled?: boolean;
 }
 export interface PhoneCodeAutocompleteProps {
 	options: PhoneCodeSelectProps["options"];
@@ -41,12 +42,6 @@ export interface FormFieldPhoneContextState {
 }
 
 export interface PhoneSelectionInputSettings {
-	/**
-	 * Phone formatting according to the country selected.
-	 *
-	 * @deprecated No longer in use.
-	 */
-	autoFormat?: boolean;
 	/**
 	 * Initial country. It must be a country code (e.g., us, mx, etc.)
 	 */

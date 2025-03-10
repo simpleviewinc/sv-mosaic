@@ -239,7 +239,7 @@ export function validateCharacterCount(value: string, _: any, options: { max?: n
  *
  */
 export function validatePhoneNumber(value: string) {
-	if (!value || value[0] !== "1" || value.length === 11) {
+	if (!value || value.substring(0, 2) !== "+1" || value.length === 12) {
 		return;
 	}
 
