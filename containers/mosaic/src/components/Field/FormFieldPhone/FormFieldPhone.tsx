@@ -74,6 +74,7 @@ const FormFieldPhone = (
 				countrySelectComponent={PhoneCodeSelect}
 				addInternationalOption={false}
 				countryCodeEditable={false}
+				international={false}
 			/>
 		</FormFieldPhoneContext.Provider>
 	);
