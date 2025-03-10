@@ -58,7 +58,7 @@ describe(__dirname, () => {
 		const showMore = screen.getByRole("button", { name: "Show More" });
 		expect(showMore).toBeInTheDocument();
 		await user.click(showMore);
-		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(30);
+		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(31);
 	});
 
 	it("should display max chips when show less button is clicked", async () => {
@@ -68,7 +68,7 @@ describe(__dirname, () => {
 		const showMore = screen.getByRole("button", { name: "Show More" });
 		expect(showMore).toBeInTheDocument();
 		await user.click(showMore);
-		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(30);
+		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(31);
 		const showLess = screen.getByRole("button", { name: "Show Less" });
 		expect(showLess).toBeInTheDocument();
 		await user.click(showLess);
