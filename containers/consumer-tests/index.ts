@@ -12,6 +12,7 @@ import Card, { type CardProps } from "@simpleview/sv-mosaic/components/Card";
 import Checkbox, { type CheckboxProps } from "@simpleview/sv-mosaic/components/Checkbox";
 import CheckboxList, { type CheckboxListProps } from "@simpleview/sv-mosaic/components/CheckboxList";
 import Chip, { type ChipsProps } from "@simpleview/sv-mosaic/components/Chip";
+import ChipList, { type ChipListProps } from "@simpleview/sv-mosaic/components/ChipList";
 import Content, { type ContentProps } from "@simpleview/sv-mosaic/components/Content";
 import DataView, { type DataViewProps } from "@simpleview/sv-mosaic/components/DataView";
 import type { DataViewAction, DataViewAdditionalAction, DataViewBulkAction, DataViewColumn } from "@simpleview/sv-mosaic/components/DataView"
