@@ -24,6 +24,9 @@ export * from "./Checkbox";
 export { default as Chip } from "./Chip";
 export * from "./Chip";
 
+export { default as ChipList } from "./ChipList";
+export * from "./ChipList";
+
 export { default as CheckboxList } from "./CheckboxList";
 export * from "./CheckboxList";
 

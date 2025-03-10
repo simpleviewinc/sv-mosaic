@@ -28,16 +28,6 @@ export type AdvancedSelectionExternalOptions = {
 
 export type AdvancedSelectionInputSettings = AdvancedSelectionLocalOptions | AdvancedSelectionExternalOptions;
 
-export interface ChipListPropsTypes {
-	fieldDef: {
-		inputSettings: {
-			deleteSelectedOption: (options: MosaicLabelValue[]) => Promise<void>;
-		};
-		disabled: boolean;
-	};
-	value: MosaicLabelValue[];
-}
-
 export interface AdvanceSelectionDrawerPropTypes {
 	value: MosaicLabelValue[];
 	fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionInputSettings>;

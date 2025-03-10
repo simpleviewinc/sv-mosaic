@@ -15,12 +15,13 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@root/components/Button";
 import Drawer from "@root/components/Drawer";
+import ChipList from "@root/components/ChipList";
 import AdvancedSelectionDrawer from "./AdvancedSelectionDrawer";
-import ChipList from "./ChipList";
 
 // Styles
 import type { MosaicLabelValue } from "@root/types";
 import { FormFieldAdvancedSelectionSkeleton } from "./FormFieldAdvancedSelectionSkeleton";
+import { StyledButton } from "./AdvancedSelection.styled";
 
 const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection", AdvancedSelectionInputSettings, AdvancedSelectionData>): ReactElement => {
 	const {
@@ -57,8 +58,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		}
 	};
 
-	const deleteSelectedOption = useCallback(async (options: MosaicLabelValue[]) => {
-		await onChange(options);
+	const onDelete = useCallback((options: MosaicLabelValue[]) => {
+		onChange(options);
 		onBlur && onBlur();
 	}, [onChange]);
 
@@ -71,25 +72,22 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 			{value?.length > 0 ? (
 				<div>
 					{(selectLimit < 0 || value?.length < selectLimit) && (
-						<Button
+						<StyledButton
 							color="teal"
 							variant="text"
 							label="Add"
 							onClick={handleOpenModal}
 							mIcon={AddIcon}
-							attrs={{ style: { marginBottom: "16px" } }}
 							disabled={disabled}
 						/>
 					)}
-					<ChipList
-						value={value}
-						fieldDef={{
-							inputSettings: {
-								deleteSelectedOption,
-							},
-							disabled,
-						}}
-					/>
+					{value && (
+						<ChipList
+							options={value}
+							onDelete={onDelete}
+							disabled={disabled}
+						/>
+					)}
 				</div>
 			) : (
 				<Button
