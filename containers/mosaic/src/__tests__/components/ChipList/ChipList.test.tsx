@@ -55,7 +55,7 @@ describe(__dirname, () => {
 		const { user } = await setup();
 
 		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(8);
-		const showMore = screen.getByRole("button", { name: "Show More" });
+		const showMore = screen.getByRole("button", { name: "Show 23 More" });
 		expect(showMore).toBeInTheDocument();
 		await user.click(showMore);
 		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(31);
@@ -65,7 +65,7 @@ describe(__dirname, () => {
 		const { user } = await setup();
 
 		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(8);
-		const showMore = screen.getByRole("button", { name: "Show More" });
+		const showMore = screen.getByRole("button", { name: "Show 23 More" });
 		expect(showMore).toBeInTheDocument();
 		await user.click(showMore);
 		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(31);

@@ -44,7 +44,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 			</ChipsWrapper>
 			{options.length > maxInitialChips && (
 				<ShowButton
-					label={showMore ? "Show Less" : "Show More"}
+					label={showMore ? "Show Less" : `Show ${options.length - maxInitialChips} More`}
 					onClick={() => setShowMore(!showMore)}
 					color="teal"
 					variant="text"
