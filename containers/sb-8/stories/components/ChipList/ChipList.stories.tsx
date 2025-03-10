@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useCallback, useMemo } from "react";
 import type { ReactElement } from "react";
 
 // Components
@@ -13,15 +13,25 @@ export default {
 export const Playground = ({
 	optionCount,
 	maxInitialChips,
+	hasOnDelete,
 }: typeof Playground.args): ReactElement => {
-	const options = React.useMemo<ChipListProps["options"]>(() => {
+	const options = useMemo<ChipListProps["options"]>(() => {
 		return mockOptions.slice(0, optionCount);
 	}, [optionCount]);
+
+	const onDelete = useMemo((options: ChipListProps["options"]) => {
+		if (!hasOnDelete) {
+			return;
+		}
+
+		return () => alert(`Option delete. New options: ${options}`);
+	}, [hasOnDelete]);
 
 	return (
 		<ChipList
 			options={options}
 			maxInitialChips={maxInitialChips}
+			onDelete={onDelete}
 		/>
 	);
 };
@@ -29,6 +39,7 @@ export const Playground = ({
 Playground.args = {
 	optionCount: 25,
 	maxInitialChips: 8,
+	hasOnDelete: false,
 };
 
 Playground.argTypes = {
@@ -37,5 +48,8 @@ Playground.argTypes = {
 	},
 	maxInitialChips: {
 		name: "Maximum Initial Chips",
+	},
+	hasOnDelete: {
+		name: "Has onDelete Handler",
 	},
 };
