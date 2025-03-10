@@ -16,7 +16,6 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	helperText,
-	autoFormat,
 	country,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
@@ -32,14 +31,13 @@ export const Playground = ({
 					required,
 					disabled,
 					inputSettings: {
-						autoFormat,
 						country,
 					},
 					helperText,
 					instructionText,
 				},
 			],
-		[disabled, required, autoFormat, country, label, helperText, instructionText],
+		[disabled, required, country, label, helperText, instructionText],
 	);
 
 	return (
@@ -58,17 +56,13 @@ export const Playground = ({
 
 Playground.args = {
 	...commonFieldControls.args,
-	autoFormat: true,
 	country: "",
 };
 
 Playground.argTypes = {
 	...commonFieldControls.argTypes,
-	autoFormat: {
-		name: "Autoformat",
-	},
 	country: {
-		name: "Country",
+		name: "Initial Country",
 	},
 };
 

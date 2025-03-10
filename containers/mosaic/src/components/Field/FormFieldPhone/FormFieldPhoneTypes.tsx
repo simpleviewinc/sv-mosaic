@@ -43,12 +43,6 @@ export interface FormFieldPhoneContextState {
 
 export interface PhoneSelectionInputSettings {
 	/**
-	 * Phone formatting according to the country selected.
-	 *
-	 * @deprecated No longer in use.
-	 */
-	autoFormat?: boolean;
-	/**
 	 * Initial country. It must be a country code (e.g., us, mx, etc.)
 	 */
 	country?: string;
