@@ -122,6 +122,10 @@ export const mockOptions: MosaicLabelValue[] = [
 		label: "Snail",
 		value: "snail",
 	},
+	{
+		label: "Honey Badger",
+		value: "honeyBadger",
+	},
 ];
 
 export const getOptions: () => Promise<MosaicLabelValue[]> = async () => {
