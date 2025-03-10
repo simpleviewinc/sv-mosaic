@@ -9,6 +9,7 @@ const flagUrl = "https://purecatamphetamine.github.io/country-flag-icons/3x2/{XX
 function PhoneCountryFlag({
 	label,
 	country,
+	disabled,
 }: PhoneCountryFlagProps) {
 	return (
 		<StyledFlagIcon
@@ -16,6 +17,7 @@ function PhoneCountryFlag({
 			alt={label}
 			loading="lazy"
 			aria-hidden
+			$disabled={disabled}
 		/>
 	);
 }
