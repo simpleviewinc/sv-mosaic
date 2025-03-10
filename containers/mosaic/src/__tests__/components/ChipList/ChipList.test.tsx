@@ -11,7 +11,7 @@ import testIds from "@root/utils/testIds";
 async function setup(props: Partial<ChipListProps> = {}) {
 	const renderResult = await act(() => render(
 		<ChipList
-			chips={mockOptions}
+			options={mockOptions}
 			{...props}
 		/>,
 	));
@@ -33,7 +33,7 @@ describe(__dirname, () => {
 
 	it("should not throw an error when chips are undefined", async () => {
 		expect(() => setup({
-			chips: undefined,
+			options: undefined,
 		})).not.toThrow();
 	});
 
@@ -41,7 +41,7 @@ describe(__dirname, () => {
 		const onDeleteMock = vi.fn();
 		const { user } = await setup({
 			onDelete: onDeleteMock,
-			chips: mockOptions.slice(0, 3),
+			options: mockOptions.slice(0, 3),
 		});
 
 		const deleteIcon = screen.getAllByTestId(testIds.CHIP_DELETE_ICON);
@@ -59,5 +59,19 @@ describe(__dirname, () => {
 		expect(showMore).toBeInTheDocument();
 		await user.click(showMore);
 		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(30);
+	});
+
+	it("should display max chips when show less button is clicked", async () => {
+		const { user } = await setup();
+
+		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(8);
+		const showMore = screen.getByRole("button", { name: "Show More" });
+		expect(showMore).toBeInTheDocument();
+		await user.click(showMore);
+		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(30);
+		const showLess = screen.getByRole("button", { name: "Show Less" });
+		expect(showLess).toBeInTheDocument();
+		await user.click(showLess);
+		expect(screen.getAllByTestId(testIds.CHIP)).toHaveLength(8);
 	});
 });

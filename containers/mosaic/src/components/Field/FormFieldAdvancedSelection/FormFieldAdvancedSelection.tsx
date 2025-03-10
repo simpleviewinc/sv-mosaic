@@ -81,11 +81,13 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 							disabled={disabled}
 						/>
 					)}
-					<ChipList
-						chips={value}
-						onDelete={onDelete}
-						disabled={disabled}
-					/>
+					{value && (
+						<ChipList
+							options={value}
+							onDelete={onDelete}
+							disabled={disabled}
+						/>
+					)}
 				</div>
 			) : (
 				<Button
