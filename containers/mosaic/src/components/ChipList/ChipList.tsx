@@ -8,27 +8,28 @@ import type { ChipListProps } from "./ChipListTypes";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper, ShowButton } from "./ChipList.styled";
 import { EMPTY_ARRAY } from "@root/constants/stable";
+import testIds from "@root/utils/testIds";
 
 const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactElement => {
 	const {
 		disabled,
 		onDelete,
-		chips = EMPTY_ARRAY,
+		options = EMPTY_ARRAY,
 		maxInitialChips = 8,
 	} = props;
 
 	const [showMore, setShowMore] = useState(false);
 
 	const _onDelete = useCallback(
-		(deletedValue: string) => onDelete(chips.filter((option) => option.value !== deletedValue)),
-		[onDelete, chips],
+		(deletedValue: string) => onDelete(options.filter((option) => option.value !== deletedValue)),
+		[onDelete, options],
 	);
 
-	const visibleChips = showMore ? chips : chips.slice(0, maxInitialChips);
+	const visibleChips = showMore ? options : options.slice(0, maxInitialChips);
 
-	return chips.length > 0 && (
+	return (
 		<div ref={ref}>
-			<ChipsWrapper data-testid="as-chiplist">
+			<ChipsWrapper data-testid={testIds.CHIP_LIST}>
 				{visibleChips.map((option, idx) => (
 					<Chip
 						disabled={disabled}
@@ -38,7 +39,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 					/>
 				))}
 			</ChipsWrapper>
-			{chips.length > visibleChips.length && (
+			{options.length > maxInitialChips && (
 				<ShowButton
 					label={showMore ? "Show Less" : "Show More"}
 					onClick={() => setShowMore(!showMore)}
