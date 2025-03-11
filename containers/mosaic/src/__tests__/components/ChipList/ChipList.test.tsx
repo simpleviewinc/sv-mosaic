@@ -37,6 +37,14 @@ describe(__dirname, () => {
 		})).not.toThrow();
 	});
 
+	it("should throw an error if a max initial chips number provided is less than 1", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => null);
+
+		await expect(() => setup({
+			maxInitialChips: 0,
+		})).rejects.toThrow("ChipList `maxInitialChips` prop must be more than 0.");
+	});
+
 	it("should fire on delete handler with reduced chips when delete icon is clicked", async () => {
 		const onDeleteMock = vi.fn();
 		const { user } = await setup({
