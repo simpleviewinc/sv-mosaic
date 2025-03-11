@@ -16,7 +16,7 @@ export const Playground = ({
 	hasOnDelete,
 }: typeof Playground.args): ReactElement => {
 	const options = useMemo<ChipListProps["options"]>(() => {
-		return mockOptions.slice(0, optionCount);
+		return optionCount >= 0 ? mockOptions.slice(0, optionCount) : mockOptions;
 	}, [optionCount]);
 
 	const onDelete = useMemo(() => {
@@ -45,6 +45,7 @@ Playground.args = {
 Playground.argTypes = {
 	optionCount: {
 		name: "Number of Options",
+		control: { min: 0 },
 	},
 	maxInitialChips: {
 		name: "Maximum Initial Chips",
