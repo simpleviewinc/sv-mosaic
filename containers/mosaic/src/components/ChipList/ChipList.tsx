@@ -18,6 +18,10 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 		maxInitialChips = 8,
 	} = props;
 
+	if (maxInitialChips < 1) {
+		throw new Error("ChipList `maxInitialChips` prop must be more than 0.");
+	}
+
 	const [showMore, setShowMore] = useState(false);
 
 	const _onDelete = useMemo(() => {
