@@ -37,6 +37,10 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 	}, [checked, onChange, options]);
 
 	const columns = useMemo<CheckboxListProps["options"][]>(() => {
+		if (itemsPerColumn < 1) {
+			return [options];
+		}
+
 		if (options.length > itemsPerColumn * 2) {
 			return arrayChunks(options, 3);
 		}
