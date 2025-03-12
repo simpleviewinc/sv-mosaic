@@ -30,12 +30,12 @@ export const Playground = ({
 
 	const options = useMemo<FormFieldCheckboxInputSettings["options"]>(() => {
 		if (optionsType === "Synchronous") {
-			return mockOptions.slice(0, optionCount);
+			return optionCount >= 0 ? mockOptions.slice(0, optionCount) : mockOptions;
 		}
 
 		return async () => {
 			const result = await getOptions();
-			return result.slice(0, optionCount);
+			return optionCount >= 0 ? result.slice(0, optionCount) : result;
 		};
 	}, [optionCount, optionsType]);
 
