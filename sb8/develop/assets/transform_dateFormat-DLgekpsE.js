@@ -1,0 +1,16 @@
+import{j as r}from"./jsx-runtime-DiwAibxM.js";import{useMDXComponents as i}from"./index-B4U1yk18.js";import{M as p}from"./index-Drn8lfyg.js";import{b as n}from"./column_transforms-B_zNuoZX.js";import{T as e}from"./TransformExample-DKwiSzdP.js";import"./index-Btj5Fd67.js";import"./iframe-3KNTEZDI.js";import"../sb-preview/runtime.js";import"./index-T5NeFSal.js";import"./index-tXhrow7Y.js";import"./tslib.es6-CRos2fHm.js";import"./index-Cu4lwwaE.js";import"./extends-CF3RwP-h.js";import"./inheritsLoose-Cqq1nRsk.js";import"./toString-CrHhZNKP.js";import"./index-CQ9F9_Tt.js";import"./index-ogSvIofg.js";import"./Form-BIgjRCm6.js";import"./theme-D38K4W-Z.js";import"./SideNav-D2hLlXvZ.js";import"./containerQuery-CksQJzsL.js";import"./useToggle-B3mbTfSB.js";import"./Button-BzJSDP1S.js";import"./generateUtilityClasses-B5i8Rs7p.js";import"./ButtonBase-B2xCaBev.js";import"./useIsFocusVisible-DHjyF8IZ.js";import"./Popper-BV6MzckQ.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-DELdgGyu.js";import"./index-Dk1V5coX.js";import"./debounce-IFS8tfQQ.js";import"./DataViewPrimaryFilter.styled-CTVdcnW9.js";import"./createSvgIcon-CAs7t9wT.js";import"./createSvgIcon-CM-As40z.js";import"./useId-DwELyCdS.js";import"./useControlled-D8KJxpyu.js";import"./Chip-ulzUmfU4.js";import"./testIds-C2FMCy5K.js";import"./useMosaicTranslation-DPUDh126.js";import"./DataViewFilterDropdown-CqTisVOW.js";import"./formControlState-BAf21Shc.js";import"./ButtonRow-iQTdUMH8.js";import"./Spinner-C_uMqEwM.js";import"./Typography-iUA5kZEF.js";import"./SubtitleText-BrufIBLI.js";import"./CheckboxList-BKgo-y8p.js";import"./Checkbox-1rJEaydD.js";import"./FormControlLabel-2hVWRnF1.js";import"./getThemeProps-Fw47730D.js";import"./sizes-C6oSOElx.js";import"./RadioButton-LFlv3WCh.js";import"./StyledFormControl.styled-CNCCtQwC.js";import"./Toggle-H5i5NPQc.js";import"./formats-sBod7wm8.js";import"./Dialog-BYWfLX43.js";import"./ChevronRight-CNo34ydh.js";import"./TitleWrapper-OgvLyBY4.js";import"./TitleText-b_QXd7Yf.js";import"./Snackbar-CrdURRDn.js";import"./Close-gDfoKZ0c.js";import"./ClickAwayListener-DoPvkzLf.js";import"./MoreVert-B1D8IEMN.js";import"./PageHeader-C-k19XWk.js";import"./Content.styled-CvEeminH.js";import"./Image-CNIFLnmm.js";function m(o){const t={code:"code",h1:"h1",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...i(),...o.components};return r.jsxs(r.Fragment,{children:[r.jsx(p,{title:"Utils/Transforms/DateFormat"}),`
+`,r.jsx(t.h1,{id:"transform_dateformat",children:"transform_dateFormat"}),`
+`,r.jsx(t.p,{children:"Converts a Date object into a month / day / year string."}),`
+`,r.jsx(t.h4,{id:"conversions",children:"Conversions"}),`
+`,r.jsxs(t.ul,{children:[`
+`,r.jsxs(t.li,{children:[r.jsx(t.code,{children:'new Date("December 25, 2023")'})," => ",r.jsx(e,{cb:n(),data:new Date("December 25, 2023")})]}),`
+`]}),`
+`,r.jsx(t.h4,{id:"args",children:"Args"}),`
+`,r.jsx(t.p,{children:"None"}),`
+`,r.jsx(t.h4,{id:"example",children:"Example"}),`
+`,r.jsx(t.pre,{children:r.jsx(t.code,{className:"language-js",children:`import { transform_dateFormat } from "@simpleview/sv-mosaic"
+...
+transforms : [
+    transform_dateFormat()
+]
+`})})]})}function gr(o={}){const{wrapper:t}={...i(),...o.components};return t?r.jsx(t,{...o,children:r.jsx(m,{...o})}):m(o)}export{gr as default};
