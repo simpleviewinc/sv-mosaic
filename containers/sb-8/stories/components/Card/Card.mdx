@@ -1,20 +1,33 @@
-import { Canvas, Meta } from '@storybook/blocks';
-import * as stories from './Card.stories';
-
-<Meta of={stories} />
+import { Canvas } from '@storybook/blocks';
+import * as examples from "./Card.examples.stories.tsx";
 
 # Card
 
-The `Card` component its a wrapper that will render any content that receives as the following RecentActivity component.
-
 ## Props
-
-https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Card/CardTypes.ts
-
-## Example
-
-<Canvas of={stories.Playground} />
-
-## Recent Activity
-
-<Canvas of={stories.RecentActivity} />
+| Name | Type  | Default | Description
+| - | - | - | -
+| bottomActions | <code class="doc-code">ButtonProps[]</code> | - | List of buttons that will display at the bottom of the card.
+| content<span class="doc-required">&#42;</span> | <code class="doc-code">Element[]</code> | - | List of elements that will be rendered vertically (from top to bottom) inside the Card.
+| title<span class="doc-required">&#42;</span> | <code class="doc-code">string</code> | - | Any HTML/React element can be used as a title.
+| titleIcon | <code class="doc-code">any</code> | - | Optional icon that will be placed to the left of the title.
+| topActions | <code class="doc-code">ButtonProps[]</code> | - | List of buttons that will display at the top of the card.
+| count | <code class="doc-code">number</code> | - | If defined, a number that will be displayed to indicate the number of items (whatever they may be) that are listed in the card's content
+| showZeroCount | <code class="doc-code">boolean</code> | - | Whether or not to display the count if it is zero. Has no effect if `count` is `undefined`.
+## Examples
+### Base
+A simple way to display encapsulated, itemized information to the user. In it's simplest form, it is a bordered box
+with a heading area containing a title.
+<Canvas of={examples.Base} />
+### TopActions
+Provide a list of buttons that should be displayed in the card's header area. The buttons will be horizontally aligned
+to the right, vertically aligned center with the title and rendered within a `ButtonRow` component.
+### BottomActions
+Provide a list of buttons that should be displayed below the card's content. The buttons will be horizontally aligned
+in the center and rendered within a `ButtonRow` component.
+### TitleIcon
+You can provide a MUI icon component (or any component, really) to the `titleIcon` property and it will be comfortably
+rendered before the title with a small gap in between.
+### Count
+By providing a number to the `count` property, you can have the value displayed appropriately alongside the title of the
+card. The number will be displayed in brackets in a slightly smaller font than the title. To avoid displaying the number
+if it is "0", you can provide the `displayZeroCount` property as `false`.

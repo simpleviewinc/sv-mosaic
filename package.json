@@ -13,7 +13,7 @@
         "react-docgen-typescript": "^2.2.2",
         "release-it": "16.1.5",
         "ts-node": "^10.9.2",
-        "typescript": "4.7.4"
+        "typescript": "5.5.4"
     },
     "scripts": {
         "release": "release-it",
