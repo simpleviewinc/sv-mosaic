@@ -1,6 +1,38 @@
 # sv-mosaic changelog
 
-# ### 41.0.0 - 03/04/2024
+### 42.0.0 - 03/17/2024
+
+* `ChipList`
+
+  * [MOS-1585](https://simpleviewtools.atlassian.net/browse/MOS-1585 "https://simpleviewtools.atlassian.net/browse/MOS-1585") **Create chiplist component**
+    * (ChipList) Factor out chip list into a consumable component.
+    * Slightly amend the styling of the show more/show less button.
+* `Form`
+
+  * [MOS-1583](https://simpleviewtools.atlassian.net/browse/MOS-1583 "https://simpleviewtools.atlassian.net/browse/MOS-1583") **Adjust the field error state red surrounds to avoid collisions**
+    * (Form) Employ a thin space between errored fields that are adjacent to make it easier to distinguish them from one another.
+* `FormFieldCheckbox`
+
+  * [MOS-1581](https://simpleviewtools.atlassian.net/browse/MOS-1581 "https://simpleviewtools.atlassian.net/browse/MOS-1581") **Introduce useColumns input setting to the checkbox field**
+    * (util) Adds a utility that can split an array up into a specified number of chunks.
+    * (CheckboxList) Adds support to split checkbox items into up to 3 columns based on a number of items per column. The maximum number of items per column can be dictated by the `itemsPerColumn` property. This property defaults to 8. 0 or less can be provided to prevent columns altogether. The items will always be as evenly distributed as possible across columns.
+    * (CheckboxField) Introduce the `itemsPerColumn` input setting to be passed down to the underlying CheckboxList.
+* `FormFieldPhoneSelectionDropdown`
+
+  * [MOS-1507](https://simpleviewtools.atlassian.net/browse/MOS-1507 "https://simpleviewtools.atlassian.net/browse/MOS-1507") **Migrate from react-phone-input-2 to react-phone-number-input**
+    * (PhoneField) Complete implementation using new react-phone-number-input library.
+    * (PhoneField) Drop `@simpleview/react-phone-input-2` dependency.
+    * **(BREAKING CHANGE)** The phone field now emits a phone according to E.164 specification instead of before whereby the leading sign was omitted.
+    * **(BREAKING CHANGE)** The `autoFormat` input setting no longer exists. The phone number is *always* formatted according to the chosen country.
+    * Also fixes [MOS-1438](https://simpleviewtools.atlassian.net/browse/MOS-1438 "https://simpleviewtools.atlassian.net/browse/MOS-1438"), [MOS-1173](https://simpleviewtools.atlassian.net/browse/MOS-1173 "https://simpleviewtools.atlassian.net/browse/MOS-1173"), [MOS-1299](https://simpleviewtools.atlassian.net/browse/MOS-1299 "https://simpleviewtools.atlassian.net/browse/MOS-1299") and [MOS-1439](https://simpleviewtools.atlassian.net/browse/MOS-1439 "https://simpleviewtools.atlassian.net/browse/MOS-1439")
+* Housekeeping
+
+  * [MOS-1522](https://simpleviewtools.atlassian.net/browse/MOS-1522 "https://simpleviewtools.atlassian.net/browse/MOS-1522") **Improve unit test coverage for fields**
+    * Substantial improvements to unit tests for field type components.
+    * Unifies mock data
+    * Adds types for `react-color`
+
+### 41.0.0 - 03/04/2024
 
 * `Form`
   * [MOS-1573](https://simpleviewtools.atlassian.net/browse/MOS-1573 "https://simpleviewtools.atlassian.net/browse/MOS-1573") **Hidden form field labels**
