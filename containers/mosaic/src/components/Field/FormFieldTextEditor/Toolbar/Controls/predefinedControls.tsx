@@ -320,6 +320,10 @@ export const controlLink: Control = {
 
 				chain.run();
 			},
+			removeLink: () => editor.chain().focus()
+				.extendMarkRange("link")
+				.unsetLink()
+				.run(),
 		});
 	},
 	Icon: LinkIcon,
