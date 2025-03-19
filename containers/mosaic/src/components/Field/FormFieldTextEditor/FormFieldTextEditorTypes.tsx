@@ -121,8 +121,10 @@ export interface TextEditorUpdateLinkValues {
 }
 
 export type TextEditorUpdateLink = (params: TextEditorUpdateLinkValues) => void;
+export type TextEditorRemoveLink = () => void;
 export type TextEditorOnLinkParams = Partial<TextEditorUpdateLinkValues> & {
 	updateLink: TextEditorUpdateLink;
+	removeLink: TextEditorRemoveLink;
 	isTextBased?: boolean;
 };
 
