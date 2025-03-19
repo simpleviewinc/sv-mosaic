@@ -1,4 +1,4 @@
-import type { Control, ControlConfig, ControlMenu, Controls, ControlsConfig, SelectionType } from "../../FormFieldTextEditorTypes";
+import type { Control, ControlConfig, ControlMenu, ControlMenuConfig, Controls, ControlsConfig, SelectionType } from "../../FormFieldTextEditorTypes";
 
 import { getToggle, wrapToggle } from "@root/utils";
 import { predefinedControls } from "./predefinedControls";
@@ -7,7 +7,7 @@ function isStandardControl(control: Control | ControlMenu | Control[]): control 
 	return !("MenuButton" in control) && !Array.isArray(control);
 }
 
-function resolveControlItem(itemDef: ControlConfig | ControlConfig[], selectionTypes?: SelectionType[]): Control | ControlMenu | Control[] {
+function resolveControlItem(itemDef: ControlMenuConfig | ControlConfig | ControlConfig[], selectionTypes?: SelectionType[]): Control | ControlMenu | Control[] {
 	if (typeof itemDef === "string") {
 		const control = predefinedControls.find(({ name }) => name === itemDef);
 
@@ -19,10 +19,11 @@ function resolveControlItem(itemDef: ControlConfig | ControlConfig[], selectionT
 				return control;
 			}
 		}
-	} else if (Array.isArray(itemDef)) {
+	} else if (Array.isArray(itemDef) || "controls" in itemDef) {
 		const menuItems: Control[] = [];
+		const menuControls = Array.isArray(itemDef) ? itemDef : itemDef.controls;
 
-		for (const menuItemDef of itemDef) {
+		for (const menuItemDef of menuControls) {
 			const control = resolveControlItem(menuItemDef, selectionTypes);
 
 			if (control) {
@@ -39,9 +40,18 @@ function resolveControlItem(itemDef: ControlConfig | ControlConfig[], selectionT
 			}
 		}
 
-		if (menuItems.length) {
+		if (!menuItems) {
+			return;
+		}
+
+		if (Array.isArray(itemDef)) {
 			return menuItems;
 		}
+
+		return {
+			...itemDef,
+			controls: menuItems,
+		};
 	} else {
 		const wrappedToggle = wrapToggle(itemDef.show, { selectionTypes });
 		const shouldShow = getToggle(wrappedToggle);

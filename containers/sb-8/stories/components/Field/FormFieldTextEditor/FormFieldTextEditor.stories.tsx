@@ -13,8 +13,8 @@ import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
 import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { SimpleViewAlert } from "./SimpleviewAlertExtension";
-import { controls } from "./controls";
 import { Sizes } from "@root/theme";
+import { defaultControls } from "@root/components/Field/FormFieldTextEditor/textEditorUtils";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",
@@ -67,7 +67,7 @@ export const Playground = ({
 					inputSettings: {
 						autolink,
 						controls: [
-							...customControlConfig?.length ? customControlConfig : controls,
+							...customControlConfig?.length ? customControlConfig : defaultControls,
 							...customExtensionExample ? [[[customExtensionControl]]] : [],
 						],
 						extensions: customExtensionExample ? [...getDefaultExtensions(), SimpleViewAlert] : undefined,
