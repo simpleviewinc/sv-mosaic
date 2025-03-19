@@ -38,6 +38,7 @@ export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<Con
 				$active={active}
 				$square={square}
 				disabled={disabled}
+				aria-label={label}
 			>
 				{children}
 			</StyledControlButton>
