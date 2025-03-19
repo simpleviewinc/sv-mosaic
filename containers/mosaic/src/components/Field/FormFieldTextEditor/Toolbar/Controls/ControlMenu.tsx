@@ -18,6 +18,8 @@ interface ControlMenuDropdownProps {
 	inputSettings: TextEditorInputSettings;
 	testId?: string;
 	disabled?: boolean;
+	name?: string;
+	label?: string;
 }
 
 export function ControlMenuDropdown({
@@ -27,6 +29,7 @@ export function ControlMenuDropdown({
 	inputSettings,
 	testId,
 	disabled,
+	label,
 }: ControlMenuDropdownProps): ReactElement {
 	const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -56,6 +59,7 @@ export function ControlMenuDropdown({
 					active={isActive}
 					data-testid={testId}
 					disabled={disabled}
+					label={label}
 				>
 					<MoreIcon />
 				</ControlButton>
