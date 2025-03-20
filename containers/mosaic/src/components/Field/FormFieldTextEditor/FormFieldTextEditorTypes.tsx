@@ -75,7 +75,7 @@ export type ControlWithProps = ControlBase & {
 
 export type ControlComponentProps = {
 	editor: Editor;
-	onClose?: () => void;
+	onSelected?: () => void;
 	inputSettings: TextEditorInputSettings;
 	disabled?: boolean;
 } & Omit<ControlWithComponent, "component">;

@@ -13,13 +13,13 @@ import type { MenuItemProps } from "@mui/material/MenuItem";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & MenuItemProps & {
 	editor: Editor;
-	onClose?: () => void;
+	onSelected?: () => void;
 };
 
 export function ControlHeading({
 	editor,
 	level,
-	onClose,
+	onSelected,
 	shortcut,
 	value: _value,
 	show: _show,
@@ -27,7 +27,7 @@ export function ControlHeading({
 }: ControlHeadingProps & { level: Level }): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().toggleHeading({ level }).run();
-		onClose && onClose();
+		onSelected && onSelected();
 	};
 
 	return (
@@ -51,7 +51,7 @@ export function ControlHeading({
 
 export function ControlNormalText({
 	editor,
-	onClose,
+	onSelected,
 	shortcut,
 	value: _value,
 	show: _show,
@@ -59,7 +59,7 @@ export function ControlNormalText({
 }: ControlHeadingProps): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().setParagraph().run();
-		onClose && onClose();
+		onSelected && onSelected();
 	};
 
 	return (
