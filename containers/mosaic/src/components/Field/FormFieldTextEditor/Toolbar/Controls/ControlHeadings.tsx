@@ -9,13 +9,22 @@ import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
 import testIds from "@root/utils/testIds";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "../Shortcut";
+import type { MenuItemProps } from "@mui/material/MenuItem";
 
-type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {
+type ControlHeadingProps = Omit<ControlWithComponent, "component"> & MenuItemProps & {
 	editor: Editor;
 	onClose?: () => void;
 };
 
-export function ControlHeading({ editor, level, onClose, shortcut }: ControlHeadingProps & { level: Level }): ReactElement {
+export function ControlHeading({
+	editor,
+	level,
+	onClose,
+	shortcut,
+	value: _value,
+	show: _show,
+	...props
+}: ControlHeadingProps & { level: Level }): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().toggleHeading({ level }).run();
 		onClose && onClose();
@@ -26,6 +35,7 @@ export function ControlHeading({ editor, level, onClose, shortcut }: ControlHead
 			onClick={onClick}
 			$active={editor.isActive("heading", { level })}
 			data-testid={`${testIds.TEXT_EDITOR_HEADING_CONTROL}-${level}`}
+			{...props}
 		>
 			<MenuItemLabel>
 				{React.createElement(`h${level}`, null, `Heading ${level}`)}
@@ -39,7 +49,14 @@ export function ControlHeading({ editor, level, onClose, shortcut }: ControlHead
 	);
 }
 
-export function ControlNormalText({ editor, onClose, shortcut }: ControlHeadingProps): ReactElement {
+export function ControlNormalText({
+	editor,
+	onClose,
+	shortcut,
+	value: _value,
+	show: _show,
+	...props
+}: ControlHeadingProps): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().setParagraph().run();
 		onClose && onClose();
@@ -49,6 +66,7 @@ export function ControlNormalText({ editor, onClose, shortcut }: ControlHeadingP
 		<StyledMenuItem
 			onClick={onClick}
 			$active={editor.isActive("paragraph")}
+			{...props}
 		>
 			<MenuItemLabel>Normal Text</MenuItemLabel>
 			{shortcut && (
