@@ -52,24 +52,4 @@ export function ControlMenuItem({
 			)}
 		</StyledMenuItem>
 	);
-
-	// return (
-	// 	<li>
-	// 		<StyledMenuItem
-	// 			onClick={onClick}
-	// 			$active={editor.isActive(name)}
-	// 			data-testid={`${testIds.TEXT_EDITOR_CONTROL}:${name}`}
-	// 		>
-	// 			<MenuItemLabel>
-	// 				{Icon && <Icon />}
-	// 				{label}
-	// 			</MenuItemLabel>
-	// 			{shortcut && (
-	// 				<MenuItemShortcut>
-	// 					<Shortcut shortcut={shortcut} />
-	// 				</MenuItemShortcut>
-	// 			)}
-	// 		</StyledMenuItem>
-	// 	</li>
-	// );
 }
