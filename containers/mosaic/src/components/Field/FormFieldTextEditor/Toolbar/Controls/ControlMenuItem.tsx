@@ -13,7 +13,7 @@ import type { MenuItemProps } from "@mui/material/MenuItem";
 type ControlMenuItemProps = ControlWithProps & MenuItemProps & {
 	editor: Editor;
 	inputSettings: TextEditorInputSettings;
-	onClose: () => void;
+	onSelected: () => void;
 };
 
 export function ControlMenuItem({
@@ -23,7 +23,7 @@ export function ControlMenuItem({
 	shortcut,
 	cmd,
 	editor,
-	onClose,
+	onSelected,
 	inputSettings,
 	value: _value,
 	show: _show,
@@ -31,7 +31,7 @@ export function ControlMenuItem({
 }: ControlMenuItemProps): ReactElement {
 	const onClick = (event: MouseEvent<HTMLButtonElement>) => {
 		cmd({ editor, inputSettings, event });
-		onClose();
+		onSelected();
 	};
 
 	return (
