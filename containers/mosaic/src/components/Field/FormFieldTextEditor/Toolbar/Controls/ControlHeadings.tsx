@@ -6,7 +6,6 @@ import React from "react";
 
 import type { ControlWithComponent, TextEditorInputSettings } from "../../FormFieldTextEditorTypes";
 
-import testIds from "@root/utils/testIds";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "../Shortcut";
 import type { MenuItemProps } from "@mui/material/MenuItem";
@@ -37,7 +36,6 @@ export function ControlHeading({
 		<StyledMenuItem
 			onClick={onClick}
 			$active={editor.isActive("heading", { level })}
-			data-testid={`${testIds.TEXT_EDITOR_HEADING_CONTROL}-${level}`}
 			{...props}
 		>
 			<MenuItemLabel>
