@@ -93,7 +93,7 @@ function LinkSelectionField(props: any) {
 	);
 }
 
-export function LinkLibraryDrawer({ onClose, updateLink, url, newTab, text }: LinkLibraryDrawerProps): ReactElement {
+export function LinkLibraryDrawer({ onClose, updateLink, removeLink, url, newTab, text }: LinkLibraryDrawerProps): ReactElement {
 	const controller = useForm();
 	const { handleSubmit } = controller;
 
@@ -118,6 +118,15 @@ export function LinkLibraryDrawer({ onClose, updateLink, url, newTab, text }: Li
 
 	const buttons: ButtonProps[] = useMemo(() => [
 		{
+			label: "Remove",
+			onClick: () => {
+				removeLink();
+				onClose();
+			},
+			color: "red",
+			variant: "outlined",
+		},
+		{
 			label: "Cancel",
 			onClick: onClose,
 			color: "gray",
@@ -129,13 +138,14 @@ export function LinkLibraryDrawer({ onClose, updateLink, url, newTab, text }: Li
 			color: "yellow",
 			variant: "contained",
 		},
-	], [onClose]);
+	], [removeLink, onClose]);
 
 	const onSubmit = handleSubmit(({ data }) => {
 		if (!updateLink) {
 			throw new Error("Update image callback was not provided");
 		}
 
+		onClose();
 		updateLink({
 			url: data.url,
 			newTab: data.newTab,
