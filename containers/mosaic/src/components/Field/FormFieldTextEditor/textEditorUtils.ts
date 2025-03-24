@@ -9,10 +9,35 @@ import { controlBold, controlClear, controlImage, controlItalic, controlLink, co
 export const defaultControls: ControlsConfig[] = [
 	[
 		["headings"],
-		["bold", "italic", ["underline", "strike", "superscript", "subscript", "clear"]],
+		[
+			"bold",
+			"italic",
+			{
+				name: "moreFormatting",
+				label: "More formatting",
+				controls: ["underline", "strike", "superscript", "subscript", "clear"],
+			},
+		],
 		["bulletList", "orderedList"],
-		["alignLeft", "alignCenter", ["alignRight", "alignJustify"]],
-		["link", ["image", "codeBlock", "blockquote"]],
+		[
+			"alignLeft",
+			"alignCenter",
+			{
+				name: "moreAlignment",
+				label: "More alignment",
+				controls: ["alignRight", "alignJustify"],
+			},
+		],
+		[
+			"link",
+			{
+				name: "moreBlocks",
+				label: "More blocks",
+				controls: ["image", "codeBlock", "blockquote"],
+			},
+		],
+	],
+	[
 		["undo", "redo"],
 	],
 ];

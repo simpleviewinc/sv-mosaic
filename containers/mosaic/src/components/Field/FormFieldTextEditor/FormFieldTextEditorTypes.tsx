@@ -87,7 +87,7 @@ export type ControlWithComponent = ControlBase & {
 export type Control = ControlWithProps | ControlWithComponent;
 
 export type ControlMenu = ControlBase & {
-	MenuButton: (props: MenuButtonProps) => ReactElement;
+	MenuButton?: (props: MenuButtonProps) => ReactElement;
 	controls: Control[];
 };
 
@@ -103,9 +103,13 @@ export type Controls = (
 	| ControlMenu
 )[][];
 
+export type ControlMenuConfig = Omit<ControlMenu, "controls"> & {
+	controls: (ControlName | Control)[];
+}
+
 export type ControlConfig = ControlName | Control | ControlMenu;
 
-export type ControlsConfig = (ControlConfig | ControlConfig[])[][];
+export type ControlsConfig = (ControlMenuConfig | ControlConfig | ControlConfig[])[][];
 
 export type EditorMode = "code" | "visual";
 
