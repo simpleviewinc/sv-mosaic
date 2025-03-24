@@ -20,8 +20,8 @@
 		"@tiptap/pm": "2.8.0",
 		"@tiptap/react": "2.8.0",
 		"date-fns": "3.6.0",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
+		"react": "19.0.0",
+		"react-dom": "19.0.0",
 		"styled-components": "6.0.7"
 	},
 	"devDependencies": {
@@ -35,8 +35,8 @@
 		"@storybook/react-vite": "8.6.8",
 		"@storybook/test": "8.6.8",
 		"@storybook/theming": "8.6.8",
-		"@types/react": "18.2.66",
-		"@types/react-dom": "18.2.22",
+		"@types/react": "19.0.12",
+		"@types/react-dom": "19.0.4",
 		"@vitejs/plugin-react-swc": "3.8.1",
 		"eslint": "9.15.0",
 		"eslint-plugin-storybook": "0.11.6",
