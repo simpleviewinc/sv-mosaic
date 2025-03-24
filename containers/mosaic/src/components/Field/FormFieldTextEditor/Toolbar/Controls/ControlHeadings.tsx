@@ -4,7 +4,7 @@ import type { Level } from "@tiptap/extension-heading";
 
 import React from "react";
 
-import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
+import type { ControlWithComponent, TextEditorInputSettings } from "../../FormFieldTextEditorTypes";
 
 import testIds from "@root/utils/testIds";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
@@ -14,6 +14,7 @@ import type { MenuItemProps } from "@mui/material/MenuItem";
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & MenuItemProps & {
 	editor: Editor;
 	onSelected?: () => void;
+	inputSettings: TextEditorInputSettings;
 };
 
 export function ControlHeading({
@@ -23,6 +24,8 @@ export function ControlHeading({
 	shortcut,
 	value: _value,
 	show: _show,
+	Component: _Component,
+	inputSettings: _inputSettings,
 	...props
 }: ControlHeadingProps & { level: Level }): ReactElement {
 	const onClick = () => {
@@ -55,6 +58,8 @@ export function ControlNormalText({
 	shortcut,
 	value: _value,
 	show: _show,
+	Component: _Component,
+	inputSettings: _inputSettings,
 	...props
 }: ControlHeadingProps): ReactElement {
 	const onClick = () => {
