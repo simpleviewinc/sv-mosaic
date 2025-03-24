@@ -80,15 +80,7 @@ export const Playground = ({
 								},
 							});
 						} : undefined,
-						onLink: customLinkHandler ? ({ updateLink, ...params }) => {
-							setLinkDrawer({
-								...params,
-								updateLink: (params) => {
-									updateLink(params);
-									onClose();
-								},
-							});
-						} : undefined,
+						onLink: customLinkHandler ? setLinkDrawer : undefined,
 						maxCharacters,
 						minHeight: !minHeight ? undefined : minHeight,
 						maxHeight: !maxHeight ? undefined : maxHeight,
