@@ -34,14 +34,17 @@ export function ToolbarControlRow({
 							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${groupIndex}-${index}`}
 							disabled={disabled}
 						/>
-					) : "MenuButton" in control ? (
+					) : "controls" in control ? (
 						<ControlMenuDropdown
 							key={index}
 							editor={editor}
 							controls={control.controls}
 							MenuButton={control.MenuButton}
 							inputSettings={inputSettings}
+							testId={`${testIds.TEXT_EDITOR_CONTROL}:menu-${groupIndex}-${index}`}
 							disabled={disabled}
+							label={control.label}
+							name={control.name}
 						/>
 					) : "Component" in control ? (
 						<control.Component
