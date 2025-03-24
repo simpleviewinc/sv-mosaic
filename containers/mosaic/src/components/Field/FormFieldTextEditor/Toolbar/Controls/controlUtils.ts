@@ -40,7 +40,7 @@ function resolveControlItem(itemDef: ControlMenuConfig | ControlConfig | Control
 			}
 		}
 
-		if (!menuItems) {
+		if (!menuItems.length) {
 			return;
 		}
 
