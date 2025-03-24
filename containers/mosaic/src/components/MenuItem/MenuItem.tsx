@@ -49,6 +49,7 @@ export default function MenuItem({
 			autoFocus={autoFocus}
 			tabIndex={tabIndex}
 			aria-selected={selected}
+			{...props}
 		>
 			{children ?? (
 				<>

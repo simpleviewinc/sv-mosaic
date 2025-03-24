@@ -58,12 +58,18 @@ describe(__dirname, () => {
 		controlTestId: string;
 		menuTestId?: string;
 	} & ({
+		/**
+		 * This formatting option mutates an inline-level element like `<strong></strong>`
+		 */
 		inline: true;
 		result: {
 			formatAndType: string;
 			selectAndFormat: string;
 		};
 	} | {
+		/**
+		 * This formatting option mutates a block-level element like `<h1></h1>`
+		 */
 		inline: false;
 		result: string;
 	})
@@ -152,7 +158,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 1 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-1`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-1`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h1>Test</h1>",
@@ -161,7 +167,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 2 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-2`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-2`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h2>Test</h2>",
@@ -170,7 +176,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 3 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-3`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-3`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h3>Test</h3>",
@@ -179,7 +185,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 4 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-4`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-4`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h4>Test</h4>",
@@ -188,7 +194,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 5 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-5`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-5`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h5>Test</h5>",
@@ -197,7 +203,7 @@ describe(__dirname, () => {
 		{
 			name: "should render the correct elements when heading 6 is chosen",
 			args: {
-				controlTestId: `${testIds.TEXT_EDITOR_HEADING_CONTROL}-6`,
+				controlTestId: `${testIds.TEXT_EDITOR_CONTROL}:heading-6`,
 				menuTestId: testIds.TEXT_EDITOR_HEADING_MENU,
 				inline: false,
 				result: "<h6>Test</h6>",
