@@ -39,6 +39,10 @@ export function ControlMenuDropdown({
 
 	const onClose = () => {
 		setAnchorEl(null);
+	};
+
+	const onSelected = () => {
+		onClose();
 		editor.chain().focus();
 	};
 
@@ -72,7 +76,7 @@ export function ControlMenuDropdown({
 				{controls.map((control, index) => "Component" in control ? (
 					<control.Component
 						{...control}
-						onClose={onClose}
+						onSelected={onSelected}
 						editor={editor}
 						key={index}
 						inputSettings={inputSettings}
@@ -82,7 +86,7 @@ export function ControlMenuDropdown({
 				) : (
 					<ControlMenuItem
 						{...control}
-						onClose={onClose}
+						onSelected={onSelected}
 						editor={editor}
 						inputSettings={inputSettings}
 						key={index}

@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 
 import theme from "@root/theme";
 import MenuBase from "@root/components/MenuBase";
+import MenuItem from "@root/components/MenuItem";
 
 const h1Size = css`font-size: font-size: 28px;`;
 const h2Size = css`font-size: font-size: 36px;`;
@@ -12,21 +13,6 @@ const h3Size = css`font-size: font-size: 22px;`;
 const h4Size = css`font-size: font-size: 14px;`;
 const h5Size = css`font-size: font-size: 12px;`;
 const h6Size = css`font-size: font-size: 12px;`;
-
-export const controlColors = css<{ $active?: boolean }>`
-    &:disabled {
-        color: ${theme.colors.gray400};
-    }
-
-    &:not(:disabled):hover {
-        color: ${theme.colors.gray800};
-    }
-
-    ${({ $active }) => `
-        color: ${$active ? theme.colors.gray700 : theme.colors.gray600};
-        background-color: ${$active ? theme.newColors.simplyGold["40"] : "transparent"};
-    `}
-`;
 
 const selectedNode = css`
     outline: 1px solid ${theme.newColors.almostBlack["100"]};
@@ -311,7 +297,19 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
         width: 32px;
     `}
 
-    ${controlColors}
+    &:disabled {
+        color: ${theme.colors.gray400};
+    }
+
+
+    ${({ $active }) => `
+        color: ${$active ? theme.colors.gray700 : theme.colors.gray600};
+
+        ${$active && `
+            background-color: ${theme.newColors.simplyGold["40"]};
+        `}
+
+    `}
 `;
 
 export const StyledTextStyleMenuButton = styled(StyledControlButton)`
@@ -381,24 +379,31 @@ export const StyledControlMenu = styled(MenuBase)`
     }
 `;
 
-export const StyledMenuItem = styled.button<{ $active?: boolean }>`
-    background: none;
-    border: 0;
-    border-radius: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    gap: 12px;
-    width: 100%;
-    padding: 8px 12px;
+export const StyledMenuItem = styled(MenuItem)<{ $active?: boolean }>`
+    && {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 12px;
+        width: 100%;
+        padding: 8px 12px;
 
-    ${controlColors}
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
 
+        &:disabled {
+            color: ${theme.colors.gray400};
+        }
 
+        ${({ $active }) => $active && `
+            background-color: ${theme.newColors.simplyGold["40"]};
 
-    h1, h2, h3, h4, h5, h6 {
-        margin: 0;
+            &:focus-visible,
+            &:hover {
+                background-color: ${theme.newColors.simplyGold["60"]};
+            }
+        `}
     }
 `;
 

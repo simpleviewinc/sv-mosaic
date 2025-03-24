@@ -10,14 +10,18 @@ export default function MenuItem({
 	color = "black",
 	attrs: providedAttrs,
 	title,
-	label,
 	onClick,
 	disabled,
 	selected = false,
 	truncateText,
 	autoFocus,
 	tabIndex,
+	className,
+	...props
 }: MenuItemProps): ReactElement {
+	const children = "children" in props ? props.children : null;
+	const label = "label" in props ? props.label : "";
+
 	if (!colors.includes(color)) {
 		throw new Error(
 			"The menu item component only accepts the following colors: " +
@@ -39,24 +43,29 @@ export default function MenuItem({
 			onClick={onClick}
 			disabled={disabled}
 			selected={selected}
-			className="menu-item"
+			className={["menu-item", className].filter(Boolean).join(" ")}
 			disableRipple={true}
 			$truncateText={truncateText}
 			autoFocus={autoFocus}
 			tabIndex={tabIndex}
 			aria-selected={selected}
+			{...props}
 		>
-			{Icon && (
-				<StyledIcon
-					className="icon"
-					$color={color}
-				>
-					<Icon />
-				</StyledIcon>
+			{children ?? (
+				<>
+					{Icon && (
+						<StyledIcon
+							className="icon"
+							$color={color}
+						>
+							<Icon />
+						</StyledIcon>
+					)}
+					<div className="menuLabel">
+						<span>{label}</span>
+					</div>
+				</>
 			)}
-			<div className="menuLabel">
-				<span>{label}</span>
-			</div>
 		</StyledMenuItem>
 	);
 }
