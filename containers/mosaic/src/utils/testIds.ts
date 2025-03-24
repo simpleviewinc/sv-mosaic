@@ -63,7 +63,6 @@ const testIds = {
 	TEXT_EDITOR_CODE: "mos:TextEditor:code",
 	TEXT_EDITOR_CONTROL: "mos:TextEditor:control",
 	TEXT_EDITOR_FLOATING_TOOLBAR: "mos:TextEditor:floatingToolbar",
-	TEXT_EDITOR_HEADING_CONTROL: "mos:TextEditor:headingControl",
 	TEXT_EDITOR_HEADING_MENU: "mos:TextEditor:headingMenu",
 	TEXT_EDITOR_NODE_FORM: "mos:TextEditor:nodeForm",
 	TEXT_EDITOR_PRIMARY_TOOLBAR: "mos:TextEditor:primaryToolbar",

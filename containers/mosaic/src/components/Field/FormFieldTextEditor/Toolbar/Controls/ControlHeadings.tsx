@@ -4,28 +4,39 @@ import type { Level } from "@tiptap/extension-heading";
 
 import React from "react";
 
-import type { ControlWithComponent } from "../../FormFieldTextEditorTypes";
+import type { ControlWithComponent, TextEditorInputSettings } from "../../FormFieldTextEditorTypes";
 
-import testIds from "@root/utils/testIds";
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "../Shortcut";
+import type { MenuItemProps } from "@mui/material/MenuItem";
 
-type ControlHeadingProps = Omit<ControlWithComponent, "component"> & {
+type ControlHeadingProps = Omit<ControlWithComponent, "component"> & MenuItemProps & {
 	editor: Editor;
-	onClose?: () => void;
+	onSelected?: () => void;
+	inputSettings: TextEditorInputSettings;
 };
 
-export function ControlHeading({ editor, level, onClose, shortcut }: ControlHeadingProps & { level: Level }): ReactElement {
+export function ControlHeading({
+	editor,
+	level,
+	onSelected,
+	shortcut,
+	value: _value,
+	show: _show,
+	Component: _Component,
+	inputSettings: _inputSettings,
+	...props
+}: ControlHeadingProps & { level: Level }): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().toggleHeading({ level }).run();
-		onClose && onClose();
+		onSelected && onSelected();
 	};
 
 	return (
 		<StyledMenuItem
 			onClick={onClick}
 			$active={editor.isActive("heading", { level })}
-			data-testid={`${testIds.TEXT_EDITOR_HEADING_CONTROL}-${level}`}
+			{...props}
 		>
 			<MenuItemLabel>
 				{React.createElement(`h${level}`, null, `Heading ${level}`)}
@@ -39,16 +50,26 @@ export function ControlHeading({ editor, level, onClose, shortcut }: ControlHead
 	);
 }
 
-export function ControlNormalText({ editor, onClose, shortcut }: ControlHeadingProps): ReactElement {
+export function ControlNormalText({
+	editor,
+	onSelected,
+	shortcut,
+	value: _value,
+	show: _show,
+	Component: _Component,
+	inputSettings: _inputSettings,
+	...props
+}: ControlHeadingProps): ReactElement {
 	const onClick = () => {
 		editor.chain().focus().setParagraph().run();
-		onClose && onClose();
+		onSelected && onSelected();
 	};
 
 	return (
 		<StyledMenuItem
 			onClick={onClick}
 			$active={editor.isActive("paragraph")}
+			{...props}
 		>
 			<MenuItemLabel>Normal Text</MenuItemLabel>
 			{shortcut && (

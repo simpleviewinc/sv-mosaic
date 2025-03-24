@@ -1,8 +1,7 @@
 import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { colors } from "./MenuItem.styled";
-
-export interface MenuItemProps {
-	label: string | JSX.Element;
+import type { PropsWithChildren } from "react";
+export interface MenuItemBaseProps {
 	value?: string;
 	color?: (typeof colors)[number];
 	mIcon?: SvgIconComponent;
@@ -22,4 +21,9 @@ export interface MenuItemProps {
 	title?: boolean | string;
 	tabIndex?: number;
 	autoFocus?: boolean;
+	className?: string;
 }
+
+export type MenuItemProps = PropsWithChildren<MenuItemBaseProps> | (MenuItemBaseProps & {
+	label: string | JSX.Element;
+})
