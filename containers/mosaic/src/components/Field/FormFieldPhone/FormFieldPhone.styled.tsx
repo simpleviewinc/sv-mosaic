@@ -56,6 +56,8 @@ export const StyledFlagSelectButton = styled.button<{ $hasFocus?: boolean; $erro
 `;
 
 export const StyledPopper = styled(Popper)<{$width?: number}>`
+	z-index: 1300;
+
 	${({ $width }) => $width && `
 		width: ${$width}px;
 	`}
