@@ -194,6 +194,11 @@ export const DrawerForm = ({
 			},
 		},
 		{
+			name: "phone",
+			label: "Phone",
+			type: "phone",
+		},
+		{
 			name: "petsHeading",
 			type: "raw",
 		},
