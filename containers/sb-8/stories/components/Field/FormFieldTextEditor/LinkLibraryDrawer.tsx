@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import BulletinIcon from "@mui/icons-material/PushPin";
 import CalendarIcon from "@mui/icons-material/CalendarMonth";
 import ContactIcon from "@mui/icons-material/PermContactCalendar";
@@ -94,7 +94,11 @@ function LinkSelectionField(props: any) {
 }
 
 export function LinkLibraryDrawer({ onClose, updateLink, removeLink, url, newTab, text }: LinkLibraryDrawerProps): ReactElement {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		newTab,
+		url,
+		text,
+	} });
 	const { handleSubmit } = controller;
 
 	const fields: FieldDef[] = useMemo(() => [
@@ -153,14 +157,6 @@ export function LinkLibraryDrawer({ onClose, updateLink, removeLink, url, newTab
 		});
 	});
 
-	const getFormValues = useCallback(async () => {
-		return {
-			newTab,
-			url,
-			text,
-		};
-	}, [newTab, url]);
-
 	return (
 		<DrawerWrapper>
 			<Form
@@ -169,7 +165,6 @@ export function LinkLibraryDrawer({ onClose, updateLink, removeLink, url, newTab
 				onBack={onClose}
 				buttons={buttons}
 				onSubmit={onSubmit}
-				getFormValues={getFormValues}
 				{...controller}
 			/>
 		</DrawerWrapper>

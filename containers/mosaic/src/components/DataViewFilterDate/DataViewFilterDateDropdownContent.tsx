@@ -49,18 +49,16 @@ const sections: SectionDef[] = [
 ];
 
 export default function DataViewFilterDateDropdownContent(props: DataViewFilterDateDropdownContentProps): ReactElement {
-	const controller = useForm();
+	const controller = useForm({
+		data: {
+			rangeStart: "rangeStart" in props ? props.rangeStart : undefined,
+			rangeEnd: "rangeEnd" in props ? props.rangeEnd : undefined,
+		},
+	});
 	const { state, methods: { setFormValues } } = controller;
 	const { rangeStart, rangeEnd } = state.data;
 
 	const [selectedOption, setSelectedOption] = useState("selectedOption" in props ? props.selectedOption : undefined);
-
-	const getFormValues = useCallback(async () => {
-		return {
-			rangeStart: "rangeStart" in props ? props.rangeStart : undefined,
-			rangeEnd: "rangeEnd" in props ? props.rangeEnd : undefined,
-		};
-	}, [props]);
 
 	const fields = useMemo<FieldDef[]>(() => [
 		{
@@ -152,7 +150,6 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 						sections={sections}
 						fullHeight={false}
 						spacing="compact"
-						getFormValues={getFormValues}
 					/>
 				</div>
 				<DataViewFilterDropdownButtons

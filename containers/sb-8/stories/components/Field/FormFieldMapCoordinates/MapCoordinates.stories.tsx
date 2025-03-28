@@ -11,13 +11,6 @@ export default {
 	title: "FormFields/FormFieldMapCoordinates",
 };
 
-const getFormValues = async () => ({
-	map: {
-		lat: 32.369247319672866,
-		lng: -110.96678114089914,
-	},
-});
-
 // Liverpool Office: 53.37997840196994, -2.9729752639886544
 // Tucson Office: 32.369247319672866, -110.96678114089914
 // Eiffel Tower: 48.858321470423576, 2.2945004162050564
@@ -26,14 +19,18 @@ const getFormValues = async () => ({
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	initialCenterKnob,
 	zoom,
 	focusZoom,
 	prepop,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? {
+		map: {
+			lat: 32.369247319672866,
+			lng: -110.96678114089914,
+		},
+	} : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -63,8 +60,6 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Map Coordinates Field"
 				fields={fields}
-				getFormValues={prepop ? getFormValues : undefined}
-				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

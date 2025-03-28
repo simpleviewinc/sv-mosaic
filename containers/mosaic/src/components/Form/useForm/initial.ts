@@ -5,11 +5,11 @@ export function getInitialState(): FormState {
 		internalData: {},
 		data: {},
 		errors: {},
-		disabled: true,
+		disabled: false,
 		touched: {},
 		submitWarning: { open: false, lead: "", reasons: [] },
 		waits: [],
-		loadingInitial: true,
+		skeleton: false,
 	};
 }
 
@@ -22,9 +22,9 @@ export function getInitialStable(): FormStable {
 		hasBlurred: {},
 		hasSubmitted: false,
 		moveToError: false,
-		loadingInitial: true,
 		hooks: {
 			setFieldValueData: [],
 		},
+		skeleton: false,
 	};
 }

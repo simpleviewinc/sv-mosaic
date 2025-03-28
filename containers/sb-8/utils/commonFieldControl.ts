@@ -3,7 +3,6 @@ const args = {
 	hideLabel: false,
 	disabled: false,
 	required: false,
-	skeleton: false,
 	prepop: false,
 	instructionText: "Instruction text",
 	forceInstructionTooltip: false,
@@ -22,9 +21,6 @@ const argTypes = {
 	},
 	required: {
 		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
 	},
 	prepop: {
 		name: "Prepopulate",

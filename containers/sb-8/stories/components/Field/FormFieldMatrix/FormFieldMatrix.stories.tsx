@@ -4,7 +4,7 @@ import { useMemo, useState, useCallback } from "react";
 import type { FieldDef } from "@root/components/Field";
 
 // Components
-import type { FormProps } from "@root/components/Form";
+import type { FormState } from "@root/components/Form";
 import Form, { useForm } from "@root/components/Form";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
@@ -28,15 +28,15 @@ const DrawerEditForm = ({
 	onSave,
 	title,
 	fields,
-	getFormValues,
+	data,
 }: {
 	onClose: () => void;
 	onSave: (data: any) => void;
 	title: string;
 	fields: FieldDef[];
-	getFormValues: FormProps["getFormValues"];
+	data: FormState["data"];
 }): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: data || {} });
 	const { state } = controller;
 
 	const onSaveClick = () => onSave(state.data);
@@ -61,7 +61,6 @@ const DrawerEditForm = ({
 			title={title}
 			fields={fields}
 			onBack={onClose}
-			getFormValues={getFormValues}
 		/>
 	);
 };
@@ -69,7 +68,6 @@ const DrawerEditForm = ({
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -140,7 +138,7 @@ export const Playground = ({
 		removeDrawer();
 	};
 
-	const onAddClick = () =>
+	const onAddClick = useCallback(() =>
 		addDrawer({
 			config: {
 				type: "form",
@@ -158,9 +156,9 @@ export const Playground = ({
 					},
 				],
 			},
-		});
+		}), [addDrawer]);
 
-	const gridConfig: DataViewProps = {
+	const gridConfig = useMemo<DataViewProps>(() => ({
 		noResults: (
 			<div style={{ padding: "1rem 0.5rem", alignItems: "center", justifyContent: "center", display: "flex", flexDirection: "column", gap: 10 }}>
 				<div>
@@ -201,10 +199,10 @@ export const Playground = ({
 									type: "text",
 								},
 							],
-							getFormValues: async () => ({
+							data: {
 								title: rowToEdit[0].title,
 								description: rowToEdit[0].description,
-							}),
+							},
 						},
 					});
 				},
@@ -239,7 +237,7 @@ export const Playground = ({
 		},
 		display: "list",
 		activeColumns: ["id", "title", "description"],
-	};
+	}), [addDrawer, onAddClick, setFieldValue, state.data.formMatrix]);
 
 	const fields: FieldDef[] = useMemo(
 		() =>
@@ -266,7 +264,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[required, disabled, instructionText, helperText, label, gridConfig, isEditing, indexEdit],
+		[label, required, disabled, helperText, instructionText, gridConfig, onAddClick],
 	);
 
 	const mosaicSettings = useMosaicSettings();
@@ -279,7 +277,6 @@ export const Playground = ({
 					buttons={renderButtons(handleSubmit)}
 					title="Matrix Field"
 					fields={fields}
-					skeleton={skeleton}
 				/>
 			</MosaicContext.Provider>
 			<Drawers drawers={drawerState.drawers}>
@@ -290,7 +287,7 @@ export const Playground = ({
 							onClose={removeDrawer}
 							onSave={addOrEdit}
 							title={drawerDef.config.title}
-							getFormValues={drawerDef.config.getFormValues}
+							data={drawerDef.config.data}
 						/>
 					);
 				}}

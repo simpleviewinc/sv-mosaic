@@ -38,14 +38,16 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		googleMapsApiKey,
 	} = props;
 
-	const getFormValues = useCallback(async () => {
-		const lat = value ? value.lat : undefined;
-		const lng = value ? value.lng : undefined;
-
-		return { lat, lng, placesList: { lat, lng } };
-	}, [value]);
-
-	const controller = useForm();
+	const controller = useForm({
+		data: {
+			lat: value ? value.lat : undefined,
+			lng: value ? value.lng : undefined,
+			placesList: {
+				lat: value ? value.lat : undefined,
+				lng: value ? value.lng : undefined,
+			},
+		},
+	});
 	const { state, methods: { setFieldValue, setFormValues }, handleSubmit } = controller;
 
 	const parentLatLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
@@ -244,7 +246,6 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
-				getFormValues={getFormValues}
 			/>
 		</FormDrawerWrapper>
 	);

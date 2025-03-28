@@ -15,7 +15,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -25,7 +24,7 @@ export const Playground = ({
 	placeholder,
 	size,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -49,11 +48,6 @@ export const Playground = ({
 		[label, required, disabled, size, optionsType, placeholder, helperText, instructionText],
 	);
 
-	const getFormValues = useMemo(() => prepop
-		? async () => prepopData
-		: undefined,
-	[prepop, prepopData]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -62,8 +56,6 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Dropdown Field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);

@@ -19,10 +19,10 @@ export function reducer(state: FormState, action: FormAction): FormState {
 	case "SET_FIELD_VALUES": {
 		return {
 			...state,
-			data: action.values,
+			data: action.values !== undefined ? action.values : state.data,
 			internalData: action.internalValues,
 			touched: action.touched || state.touched,
-			loadingInitial: action.loadingInitial !== undefined ? action.loadingInitial : state.loadingInitial,
+			skeleton: action.skeleton !== undefined ? action.skeleton : state.skeleton,
 			disabled: action.disabled !== undefined ? action.disabled : state.disabled,
 		};
 	}
@@ -38,14 +38,12 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			data: action.data,
 			internalData: action.internalData,
 			disabled: false,
-			loadingInitial: false,
 		};
 	}
 	case "FORM_DISABLE": {
 		return {
 			...state,
 			disabled: action.disabled,
-			loadingInitial: action.loadingInitial !== undefined ? action.loadingInitial : state.loadingInitial,
 		};
 	}
 	// LEGACY
