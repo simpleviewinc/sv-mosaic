@@ -1,5 +1,19 @@
 # sv-mosaic changelog
 
+### 42.1.0 - 04/01/2024
+
+* `FormFieldPhoneSelectionDropdown`
+  * [MOS-1607](https://simpleviewtools.atlassian.net/browse/MOS-1607 "https://simpleviewtools.atlassian.net/browse/MOS-1607") **FormFieldPhone dropdown seems to be present in the background but not visible**
+    * (PhoneField) Increase z-index of phone field drop-down.
+* `FormFieldTextEditor`
+  * [MOS-1461](https://simpleviewtools.atlassian.net/browse/MOS-1461 "https://simpleviewtools.atlassian.net/browse/MOS-1461") **Tip Tap - add 'Remove Link' to the Custom Link Handler form**
+    * (TextEditor) Provides a way for any custom link implementation to easily remove the current link.
+  * [MOS-1574](https://simpleviewtools.atlassian.net/browse/MOS-1574 "https://simpleviewtools.atlassian.net/browse/MOS-1574") **Mosaic Tip Tap editor Accessibility Issues**
+    * (TextEditor) Accessibility improvements to ensure control menus can be navigated using the keyboard.
+    * (TextEditor) Ensure the text editor canvas only receives focus if a control menu item is selected and not if the menu is merely closed.
+  * [MOS-1580](https://simpleviewtools.atlassian.net/browse/MOS-1580 "https://simpleviewtools.atlassian.net/browse/MOS-1580") **Mosiac - Tiptap Texteditor Labelling issue**
+    * (TextEditor) Add support for menu button labels and tooltips.
+
 ### 42.0.0 - 03/17/2024
 
 * `ChipList`
