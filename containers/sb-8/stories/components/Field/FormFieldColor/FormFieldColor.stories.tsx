@@ -12,7 +12,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm();
@@ -41,7 +40,6 @@ export const Playground = ({
 					buttons={renderButtons(handleSubmit)}
 					title="Color Field"
 					fields={fields}
-					skeleton={skeleton}
 				/>
 			</div>
 		</>

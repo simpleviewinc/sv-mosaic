@@ -27,7 +27,7 @@ export function stateFromStable({
 	touched,
 	submitWarning,
 	waits,
-	loadingInitial,
+	skeleton,
 }: FormStable): FormState {
 	return {
 		internalData,
@@ -37,7 +37,7 @@ export function stateFromStable({
 		touched,
 		submitWarning,
 		waits,
-		loadingInitial,
+		skeleton,
 	};
 }
 

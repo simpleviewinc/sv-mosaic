@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import {
 	act,
 	cleanup,
@@ -27,7 +27,9 @@ const NumberTableExample = ({
 	displaySumRow?: boolean;
 	useNumberFormatter?: boolean;
 }): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		numberTable: numberTableDefaultValue,
+	} });
 	const { handleSubmit } = controller;
 
 	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
@@ -62,10 +64,6 @@ const NumberTableExample = ({
 		},
 	];
 
-	const getFormValues = useCallback(async () => ({
-		numberTable: numberTableDefaultValue,
-	}), []);
-
 	return (
 		<Form
 			{...controller}
@@ -73,7 +71,6 @@ const NumberTableExample = ({
 			title="Form Title"
 			description="This is a description example"
 			fields={fields}
-			getFormValues={getFormValues}
 		/>
 	);
 };

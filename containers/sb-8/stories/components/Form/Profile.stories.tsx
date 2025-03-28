@@ -40,12 +40,6 @@ const factors = (number: number) => Array
 	.from(Array(number + 1), (_, i) => i)
 	.filter(i => number % i === 0);
 
-const getFormValues = async () => ({
-	workDates: {
-		current: true,
-	},
-});
-
 export const Profile = ({
 	showState,
 	hideSectionNav,
@@ -54,13 +48,16 @@ export const Profile = ({
 	showFirstName,
 	showLastName,
 	showInitials,
-	skeleton,
 	showAboutYou,
 	showContactDetails,
 	showYourWork,
 	showPreferences,
 }: typeof Profile.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		workDates: {
+			current: true,
+		},
+	} });
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	useEffect(() => {
@@ -538,8 +535,6 @@ export const Profile = ({
 					description="Give us some information to understand a little more about you."
 					sections={sections}
 					fields={fields}
-					skeleton={skeleton}
-					getFormValues={getFormValues}
 					hideSectionNav={hideSectionNav}
 				/>
 			</div>

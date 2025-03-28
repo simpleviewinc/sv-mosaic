@@ -19,7 +19,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -109,7 +108,6 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Advanced Selection Field"
 				fields={fields}
-				skeleton={skeleton}
 			/>
 		</>
 	);

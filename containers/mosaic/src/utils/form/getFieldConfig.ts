@@ -29,7 +29,8 @@ import FormFieldNumber from "@root/components/Field/FormFieldNumber/FormFieldNum
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable/FormFieldNumberTable";
 import FormFieldGroup from "@root/components/Field/FormFieldGroup/FormFieldGroup";
 import defaultHasValue from "./defaultHasValue";
-import { matchTime } from "../date";
+import { matchTime, textIsValidDate } from "../date";
+import { DATE_FORMAT_FULL } from "@root/constants";
 
 type FieldConfigMap = Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>>;
 
@@ -101,7 +102,6 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 					internalValue: DateData | undefined;
 					value: Date | undefined;
 				} => {
-
 					if (value instanceof Date ) {
 						return {
 							internalValue: { date: value },
@@ -111,6 +111,16 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 						if (!value || !value.date) {
 							return {
 								internalValue: undefined,
+								value: undefined,
+							};
+						}
+
+						if (
+							isNaN(value.date.getTime()) ||
+							(value.keyboardInputValue && !textIsValidDate(value.keyboardInputValue, DATE_FORMAT_FULL))
+						) {
+							return {
+								internalValue: value,
 								value: undefined,
 							};
 						}

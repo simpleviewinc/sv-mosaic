@@ -1,7 +1,7 @@
 import type { ButtonProps } from "@root/components/Button";
 import type { FieldDef } from "@root/components/Field";
 import type { TitleWrapperProps } from "@root/components/Title";
-import type { MosaicGridConfig, MosaicObject, MosaicToggle } from "@root/types";
+import type { MosaicGridConfig, MosaicToggle } from "@root/types";
 import type { FormMethods, FormStable, FormState } from "./useForm/types";
 import type { ReactNode } from "react";
 
@@ -35,7 +35,6 @@ export interface FormProps {
 	sections?: SectionDef[];
 	dialogOpen?: boolean;
 	description?: string;
-	getFormValues?(): Promise<MosaicObject>;
 	handleDialogClose?: (val: boolean) => void;
 	buttons?: ButtonProps[];
 	scrollSpyThreshold?: number;
@@ -45,7 +44,6 @@ export interface FormProps {
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 	methods: FormMethods;
 	autoFocus?: boolean | AutofocusOptions;
-	skeleton?: boolean;
 	bottomSlot?: ReactNode;
 	hideSectionNav?: boolean;
 }
