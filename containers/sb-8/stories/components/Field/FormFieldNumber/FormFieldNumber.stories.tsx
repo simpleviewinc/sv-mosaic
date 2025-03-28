@@ -12,7 +12,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -69,7 +68,6 @@ export const Playground = ({
 				title="Number Field"
 				fields={fields}
 				{...controller}
-				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>

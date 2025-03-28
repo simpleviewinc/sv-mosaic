@@ -31,7 +31,6 @@ export const Playground = ({
 	label,
 	disabled,
 	required,
-	skeleton,
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
@@ -118,7 +117,6 @@ export const Playground = ({
 				title="Text Editor Tiptap"
 				fields={tiptapFields}
 				buttons={renderButtons(handleSubmit)}
-				skeleton={skeleton}
 				fullHeight
 			/>
 			<Drawer

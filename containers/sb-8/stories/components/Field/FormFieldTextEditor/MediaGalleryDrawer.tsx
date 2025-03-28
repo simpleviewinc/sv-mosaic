@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { DrawerWrapper, MediaGalleryChecked, MediaGalleryImage, MediaGalleryItem } from "./MediaGalleryDrawer.styled";
 import type { FieldDef, TextEditorOnImageParams } from "@root/components/Field";
 import Grid from "@mui/material/Grid";
@@ -68,7 +68,10 @@ function ImageSelectionField(props: any) {
 }
 
 export function MediaGalleryDrawer({ onClose, updateImage, alt, src }: MediaGalleryDrawerProps): ReactElement {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		alt,
+		src,
+	} });
 	const { handleSubmit } = controller;
 
 	const fields: FieldDef[] = useMemo(() => [
@@ -111,13 +114,6 @@ export function MediaGalleryDrawer({ onClose, updateImage, alt, src }: MediaGall
 		});
 	});
 
-	const getFormValues = useCallback(async () => {
-		return {
-			alt,
-			src,
-		};
-	}, [alt, src]);
-
 	return (
 		<DrawerWrapper>
 			<Form
@@ -126,7 +122,6 @@ export function MediaGalleryDrawer({ onClose, updateImage, alt, src }: MediaGall
 				onBack={onClose}
 				buttons={buttons}
 				onSubmit={onSubmit}
-				getFormValues={getFormValues}
 				{...controller}
 			/>
 		</DrawerWrapper>

@@ -76,7 +76,6 @@ export const Playground = ({
 	label,
 	disabled,
 	required,
-	skeleton,
 	prepop,
 	amountPerType,
 	amountShipping,
@@ -84,12 +83,8 @@ export const Playground = ({
 	amountBilling,
 	googleKey,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? { address: addresses } : {} });
 	const { state, handleSubmit } = controller;
-
-	const getFormValues = useMemo(() => (prepop ? async () => {
-		return { address: addresses };
-	} : undefined), [prepop]);
 
 	const fields = useMemo(
 		() : FieldDef[] => (
@@ -121,8 +116,6 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Address field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
@@ -169,17 +162,12 @@ export const Single = ({
 	label,
 	disabled,
 	required,
-	skeleton,
-	prepopulate,
+	prepop,
 	subFields,
 	googleKey,
 }: typeof Single.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? { address: addresses[0] } : {} });
 	const { state, handleSubmit } = controller;
-
-	const getFormValues = useMemo(() => (prepopulate ? async () => {
-		return { address: addresses[0] };
-	} : undefined), [prepopulate]);
 
 	const fields = useMemo(
 		() : FieldDef[] => (
@@ -208,8 +196,6 @@ export const Single = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Address Single field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
@@ -217,31 +203,13 @@ export const Single = ({
 };
 
 Single.args = {
-	label: "Label",
-	disabled: false,
-	required: false,
-	skeleton: false,
-	prepopulate: false,
+	...commonFieldControls.args,
 	subFields: ["address1", "address2", "address3", "country", "city", "state", "postalCode"],
 	googleKey: defaultGoogleKey,
 };
 
 Single.argTypes = {
-	label: {
-		name: "Label",
-	},
-	disabled: {
-		name: "Disabled",
-	},
-	required: {
-		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
-	},
-	prepopulate: {
-		name: "Prepopulate",
-	},
+	...commonFieldControls.argTypes,
 	subFields: {
 		name: "Sub-Fields",
 		control: { type: "object" },
