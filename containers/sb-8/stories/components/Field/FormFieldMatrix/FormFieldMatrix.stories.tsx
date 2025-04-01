@@ -68,6 +68,8 @@ const DrawerEditForm = ({
 export const Playground = ({
 	label,
 	required,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
@@ -75,7 +77,7 @@ export const Playground = ({
 	const [isEditing, setIsEditing] = useState(false);
 	const [indexEdit, setIndexEdit] = useState(null);
 
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, methods: { setFieldValue }, handleSubmit } = controller;
 
 	const [drawerState, setDrawerState] = useState({
@@ -297,7 +299,15 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			formMatrix: [{
+				id:"ide6c8d48be717c8",
+				title:"Dog",
+				description:"A four legged animal with a tail that comes in a number of different breeds.",
+			}],
+		},
+	}),
 	optionsOrigin: "Local",
 	size: "sm",
 	placeholder: "Choose a movie..",

@@ -15,11 +15,11 @@ export default {
 export const Playground = ({
 	label,
 	required,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
-	prepop,
-	prepopData,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
@@ -58,10 +58,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		radio: { value: "option_1-cat_1", label: "Option 1" },
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			radio: { value: "option_1-cat_1", label: "Option 1" },
+		},
+	}),
 	optionsType: "Synchronous",
 };
 

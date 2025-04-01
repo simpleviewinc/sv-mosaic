@@ -13,8 +13,10 @@ export const Playground = ({
 	label,
 	required,
 	disabled,
+	prepop,
+	prepopData,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -47,7 +49,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			color: "#ff0000",
+		},
+	}),
 };
 
 Playground.argTypes = {

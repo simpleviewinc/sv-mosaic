@@ -66,7 +66,7 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args(),
 };
 
 Playground.argTypes = {

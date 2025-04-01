@@ -72,13 +72,14 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		checkbox: [
-			{ value: "option_1-cat_1", label: "Option 1" },
-			{ value: "foo", label: "Foo" },
-		],
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			checkbox: [
+				{ value: "option_1-cat_1", label: "Option 1" },
+				{ value: "foo", label: "Foo" },
+			],
+		},
+	}),
 	optionsType: "Synchronous",
 	optionCount: 25,
 	itemsPerColumn: 8,

@@ -2,16 +2,12 @@ import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons, parseDateControl } from "../../../../utils";
 import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 export default {
 	title: "FormFields/FormFieldDateField",
-};
-
-const prepopData = {
-	date: new Date(2024, 12, 25, 11, 30),
 };
 
 export const Playground = ({
@@ -20,12 +16,13 @@ export const Playground = ({
 	disabled,
 	instructionText,
 	prepop,
+	prepopData,
 	helperText,
 	showTime,
 	minDateStr,
 	defaultTime: defaultTimeStr,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm({ data: prepop ? prepopData : {} });
+	const controller = useForm({ data: prepop ? { ...prepopData, date: parseDateControl(prepopData?.date) } : {} });
 	const { state, handleSubmit } = controller;
 
 	const minDate = useMemo(() => {
@@ -81,7 +78,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			date: "2024-12-25-11-30",
+		},
+	}),
 	showTime: false,
 	minDateStr: "",
 	defaultTime: "",

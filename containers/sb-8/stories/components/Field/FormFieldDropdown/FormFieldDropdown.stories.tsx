@@ -15,11 +15,11 @@ export default {
 export const Playground = ({
 	label,
 	required,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
-	prepop,
-	prepopData,
 	optionsType,
 	placeholder,
 	size,
@@ -62,10 +62,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		dropdown: { value: "option_1-cat_1", label: "Option 1" },
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			dropdown: { value: "option_1-cat_1", label: "Option 1" },
+		},
+	}),
 	optionsType: "Synchronous",
 	size: "sm",
 	placeholder: "Choose a movie..",

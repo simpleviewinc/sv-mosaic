@@ -14,12 +14,14 @@ export default {
 export const Playground = ({
 	label,
 	required,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
 	toggleLabel,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields: FieldDef[] = useMemo(
@@ -55,7 +57,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			toggle: true,
+		},
+	}),
 	toggleLabel: "Toggle Label",
 };
 
