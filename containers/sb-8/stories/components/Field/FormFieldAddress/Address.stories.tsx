@@ -1,10 +1,11 @@
 import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import { commonFieldControls, renderButtons } from "../../../../utils";
-import type { AddressData, FieldDefAddress } from "@root/components/Field/FormFieldAddress";
+import type { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
+import { mockAddresses } from "@root/mock";
 
 export default {
 	title: "FormFields/FormFieldAddress",
@@ -27,63 +28,19 @@ const commonInputSettings = {
 
 const defaultGoogleKey = "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac";
 
-const addresses: AddressData = [
-	{
-		id: 1,
-		address1: "137 Teaticket Highway",
-		address2: "",
-		city: "Falmouth",
-		state: {
-			label: "Massachusetts",
-			value: "MA",
-		},
-		postalCode: "02536",
-		country: {
-			label: "United States",
-			value: "US",
-		},
-		types: [
-			{
-				label: "Physical",
-				value: "physical",
-			},
-		],
-	},
-	{
-		id: 2,
-		address1: "555 East Main Street",
-		address2: "",
-		city: "Norfolk",
-		state: {
-			label: "Virginia",
-			value: "VA",
-		},
-		postalCode: "23510",
-		country: {
-			label: "United States",
-			value: "US",
-		},
-		types: [
-			{
-				label: "Physical",
-				value: "physical",
-			},
-		],
-	},
-];
-
 export const Playground = ({
 	label,
 	disabled,
 	required,
 	prepop,
+	prepopData,
 	amountPerType,
 	amountShipping,
 	amountPhysical,
 	amountBilling,
 	googleKey,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm({ data: prepop ? { address: addresses } : {} });
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -123,7 +80,9 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: { address: mockAddresses },
+	}),
 	amountPerType: "undefined",
 	amountShipping: "undefined",
 	amountPhysical: "undefined",
@@ -163,10 +122,11 @@ export const Single = ({
 	disabled,
 	required,
 	prepop,
+	prepopData,
 	subFields,
 	googleKey,
 }: typeof Single.args): ReactElement => {
-	const controller = useForm({ data: prepop ? { address: addresses[0] } : {} });
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -203,7 +163,9 @@ export const Single = ({
 };
 
 Single.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: { address: mockAddresses[0] },
+	}),
 	subFields: ["address1", "address2", "address3", "country", "city", "state", "postalCode"],
 	googleKey: defaultGoogleKey,
 };

@@ -56,10 +56,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		chip: { value: "option_1-cat_1", label: "Option 1" },
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			chip: { value: "option_1-cat_1", label: "Option 1" },
+		},
+	}),
 	optionsType: "Synchronous",
 };
 

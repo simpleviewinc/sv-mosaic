@@ -14,7 +14,7 @@ import Form from "@root/components/Form";
 // Types
 import type { FieldDef } from "@root/components/Field";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { columns, rows, mockNumberTableData } from "@root/mock/numberTable";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
 import type { ButtonProps } from "@root/components/Button";
@@ -111,7 +111,7 @@ const prepopData = {
 		},
 	],
 	textEditor: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
-	numberTable: numberTableDefaultValue,
+	numberTable: mockNumberTableData,
 };
 
 export const Playground = ({
