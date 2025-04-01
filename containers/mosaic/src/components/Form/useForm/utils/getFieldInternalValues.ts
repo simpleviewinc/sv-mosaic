@@ -10,9 +10,9 @@ function getFieldInternalValues(values: FormStable["data"], fields: FormStable["
 		}
 
 		if ("fields" in field && field.fields) {
-			result[name] = getFieldInternalValues(field.getResolvedValue(values[name]).internalValue, field.fields);
+			result[name] = getFieldInternalValues(field.externalToInternalValue(values[name]), field.fields);
 		} else {
-			result[name] = field.getResolvedValue(values[name]).internalValue;
+			result[name] = field.externalToInternalValue(values[name]);
 		}
 	}
 

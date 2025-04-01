@@ -3,7 +3,7 @@ import { testArray } from "@simpleview/mochalib";
 import type { FieldObj, FieldPath } from "@root/components";
 
 import defaultHasValue from "@root/utils/form/defaultHasValue";
-import defaultResolver from "@root/utils/form/defaultResolver";
+import { externalToInternalValue, internalToExternalValue } from "@root/utils/form/defaultValueTransform";
 import getFieldPaths from "@root/components/Form/useForm/utils/getFieldPaths";
 
 const fieldObjects: FieldObj[] = [
@@ -11,7 +11,8 @@ const fieldObjects: FieldObj[] = [
 		name: "field1",
 		label: "Field 1",
 		type: "text",
-		getResolvedValue: defaultResolver,
+		externalToInternalValue,
+		internalToExternalValue,
 		hasValue: defaultHasValue,
 		order: 1,
 	},
@@ -19,7 +20,8 @@ const fieldObjects: FieldObj[] = [
 		name: "field2",
 		label: "Field 2",
 		type: "text",
-		getResolvedValue: defaultResolver,
+		externalToInternalValue,
+		internalToExternalValue,
 		hasValue: defaultHasValue,
 		order: 1,
 	},
@@ -27,7 +29,8 @@ const fieldObjects: FieldObj[] = [
 		name: "field3",
 		label: "Field 3",
 		type: "text",
-		getResolvedValue: defaultResolver,
+		externalToInternalValue,
+		internalToExternalValue,
 		hasValue: defaultHasValue,
 		order: 1,
 	},
@@ -35,7 +38,8 @@ const fieldObjects: FieldObj[] = [
 		name: "group1",
 		label: "Group 1",
 		type: "group",
-		getResolvedValue: defaultResolver,
+		externalToInternalValue,
+		internalToExternalValue,
 		hasValue: defaultHasValue,
 		order: 1,
 	},
@@ -43,7 +47,8 @@ const fieldObjects: FieldObj[] = [
 		name: "group2",
 		label: "Group 2",
 		type: "group",
-		getResolvedValue: defaultResolver,
+		externalToInternalValue,
+		internalToExternalValue,
 		hasValue: defaultHasValue,
 		order: 1,
 	},
