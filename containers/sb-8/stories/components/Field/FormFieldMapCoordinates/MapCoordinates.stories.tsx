@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import { commonFieldControls, renderButtons } from "../../../../utils";
 
-// Components
 import Form, { useForm } from "@root/components/Form";
 
 export default {
@@ -19,18 +18,14 @@ export default {
 export const Playground = ({
 	label,
 	required,
+	prepop,
+	prepopData,
 	disabled,
 	initialCenterKnob,
 	zoom,
 	focusZoom,
-	prepop,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm({ data: prepop ? {
-		map: {
-			lat: 32.369247319672866,
-			lng: -110.96678114089914,
-		},
-	} : {} });
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -67,7 +62,14 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			map: {
+				lat: 32.369247319672866,
+				lng: -110.96678114089914,
+			},
+		},
+	}),
 	initialCenterKnob: { lat: 48.858321470423576, lng: 2.2945004162050564 },
 	zoom: 7,
 	focusZoom: 11,

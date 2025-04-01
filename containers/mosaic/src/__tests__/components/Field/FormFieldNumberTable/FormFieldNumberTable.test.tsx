@@ -11,12 +11,8 @@ import {
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
-import {
-	columns,
-	isValidRowCol,
-	numberTableDefaultValue,
-	rows,
-} from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { isValidRowCol } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { columns, mockNumberTableData, rows } from "@root/mock/numberTable";
 
 const NumberTableExample = ({
 	displaySumColumn = true,
@@ -28,7 +24,7 @@ const NumberTableExample = ({
 	useNumberFormatter?: boolean;
 }): ReactElement => {
 	const controller = useForm({ data: {
-		numberTable: numberTableDefaultValue,
+		numberTable: mockNumberTableData,
 	} });
 	const { handleSubmit } = controller;
 
@@ -52,7 +48,7 @@ const NumberTableExample = ({
 				},
 			},
 		],
-		[numberTableDefaultValue, rows, columns],
+		[mockNumberTableData, rows, columns],
 	);
 
 	const buttons: ButtonProps[] = [
