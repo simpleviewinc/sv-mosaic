@@ -52,7 +52,9 @@ export interface FieldError {
 	message: string;
 }
 
-export type FieldValueResolver = (value: any, fieldDef: FieldDef) => { internalValue: any; value: any };
+export type ExternalToInternalValue = (value: any, fieldDef: FieldDef) => any;
+
+export type InternalToExternalValue = (value: any, fieldDef: FieldDef) => any;
 
 export interface FormContextState {
 	state: FormState;
