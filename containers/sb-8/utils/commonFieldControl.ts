@@ -1,14 +1,14 @@
-const args = {
+const args = <T = unknown>({ prepopData }: { prepopData?: T } = {}) => ({
 	label: "Label",
 	hideLabel: false,
 	disabled: false,
 	required: false,
-	skeleton: false,
 	prepop: false,
+	prepopData,
 	instructionText: "Instruction text",
 	forceInstructionTooltip: false,
 	helperText: "Helper text",
-};
+});
 
 const argTypes = {
 	label: {
@@ -22,9 +22,6 @@ const argTypes = {
 	},
 	required: {
 		name: "Required",
-	},
-	skeleton: {
-		name: "Skeleton",
 	},
 	prepop: {
 		name: "Prepopulate",

@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import { commonFieldControls, parseDateControl, renderButtons } from "../../../../utils";
 
 export default {
 	title: "FormFields/FormFieldTimeField",
@@ -12,12 +12,13 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? { ...prepopData, time: parseDateControl(prepopData?.time) } : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -43,14 +44,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Time Field"
 				fields={fields}
-				skeleton={skeleton}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			time: "11-30",
+		},
+	}),
 };
 
 Playground.argTypes = {

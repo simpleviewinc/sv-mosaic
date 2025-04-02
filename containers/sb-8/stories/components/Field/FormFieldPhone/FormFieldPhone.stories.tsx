@@ -12,13 +12,14 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
 	country,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -48,14 +49,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Phone Field"
 				fields={fields}
-				skeleton={skeleton}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			phone: "+15205302271",
+		},
+	}),
 	country: "",
 };
 

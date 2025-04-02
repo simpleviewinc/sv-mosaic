@@ -19,7 +19,7 @@ import type { FieldDefToggle } from "@root/components/Field/FormFieldToggle";
 import type { FieldDefUpload } from "@root/components/Field/FormFieldUpload";
 import type { MosaicToggle } from "@root/types";
 import type { ElementType, HTMLAttributes, MemoExoticComponent, MutableRefObject, ReactNode } from "react";
-import type { FieldValueResolver, FormSpacing } from "../Form";
+import type { ExternalToInternalValue, FormSpacing, InternalToExternalValue } from "../Form";
 import type { FieldPath, FormMethods, FormState, Validator } from "../Form/useForm/types";
 import type { FieldDefGroup } from "./FormFieldGroup/FormFieldGroupTypes";
 
@@ -196,10 +196,19 @@ export interface FieldDefBase<Type, T = any> {
 	 */
 	show?: MosaicToggle<FormState>;
 	/**
-	 * How to resolve the field's value from the internal value. Defaults
-	 * to an function that returns a like-for-like value
+	 * How to transform a field's value into an internal value
+	 * that will be consumed by the field component. By default,
+	 * no transformation will be applied and it'll result in the
+	 * same value.
 	 */
-	getResolvedValue?: FieldValueResolver;
+	externalToInternalValue?: ExternalToInternalValue;
+	/**
+	 * How to transform a field's internal value into its external
+	 * value that will be exposed to the consumer. By default,
+	 * no transformation will be applied and it'll result in the
+	 * same value.
+	 */
+	internalToExternalValue?: InternalToExternalValue;
 	/**
 	 * How to decide whether or not the field has a value
 	 */
@@ -232,8 +241,9 @@ export type FieldDef =
 	| FieldDefRaw
 	| FieldDefGroup;
 
-export type FieldObj = Omit<FieldDef, "getResolvedValue" | "fields" | "required"> & {
-	getResolvedValue: (value: any) => { internalValue: any; value: any };
+export type FieldObj = Omit<FieldDef, "" | "fields" | "required"> & {
+	externalToInternalValue: (value: any) => any;
+	internalToExternalValue: (value: any) => any;
 	order: number;
 	fields?: Record<string, FieldObj>;
 	hasValue: FieldHasValue;
@@ -249,7 +259,8 @@ export type FieldHasValue = ({ value, internalValue }: { value: any; internalVal
 export interface FieldConfig {
 	Component: ElementType;
 	validate: FieldValidateOn;
-	getResolvedValue: FieldValueResolver;
+	externalToInternalValue: ExternalToInternalValue;
+	internalToExternalValue: InternalToExternalValue;
 	hasValue: FieldHasValue;
 }
 

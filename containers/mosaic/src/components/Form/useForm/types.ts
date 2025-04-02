@@ -30,11 +30,11 @@ export interface ActionSetFieldErrors {
 
 export interface ActionSetFieldValues {
 	type: "SET_FIELD_VALUES";
-	values: MosaicObject<string>;
+	values?: MosaicObject<string>;
 	internalValues: MosaicObject<string>;
 	merge?: boolean;
 	touched?: FormState["touched"];
-	loadingInitial?: boolean;
+	skeleton?: boolean;
 	disabled?: boolean;
 }
 
@@ -56,7 +56,6 @@ export type ActionSetSubmitWarning = FormState["submitWarning"] & {
 export interface ActionDisable {
 	type: "FORM_DISABLE";
 	disabled: boolean;
-	loadingInitial?: boolean;
 }
 
 export type FormAction =
@@ -90,7 +89,8 @@ export type FormHandleSubmit = (onSuccess: OnSubmitSuccess, onError?: OnSubmitEr
 export interface SetFormValuesParams {
 	values: MosaicObject<any>;
 	path?: FieldPath;
-	initial?: boolean;
+	skeleton?: boolean;
+	disabled?: boolean;
 	validate?: boolean;
 }
 
@@ -137,7 +137,6 @@ export type AddWait = (params?: AddWaitParams) => AddWaitResult;
 
 export interface DisableFormParams {
 	disabled?: boolean;
-	initial?: boolean;
 }
 
 export type DisableForm = (params: DisableFormParams) => void;
@@ -201,9 +200,10 @@ export interface FormState {
 	touched: MosaicObject<boolean | FormTouched>;
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
-	loadingInitial: boolean;
+	skeleton?: boolean;
 }
 
+export type UseFormParams = Partial<Pick<FormState, "disabled" | "skeleton" | "data">>;
 export interface UseFormReturn {
 	state: FormState;
 	stable: FormStable;

@@ -8,6 +8,7 @@ import * as stories from './Playground.stories';
 
 #### On this page
 * [Hook: useForm](#hook-useform)
+  * [Interface: `UseFormParams`](#interface-useformparams)
   * [Interface: `FormController`](#interface-formcontroller)
   * [The Form State](#the-form-state)
     * [Interface: `FormState`](#interface-formstate)
@@ -18,6 +19,9 @@ import * as stories from './Playground.stories';
 * [Basic Usage](#basic-usage)
   * [Submission](#submission)
     * [External Submission](#external-submission)
+  * [Prepopulated Values](#prepopulated-values)
+    * [Synchronous population](#synchronous-population)
+    * [Asynchronous population](#asynchronous-population)
   * [Layout](#layout)
     * [Interface: `SectionDef`](#interface-sectiondef)
 * [Form Fields](#form-fields)
@@ -29,7 +33,14 @@ import * as stories from './Playground.stories';
 The `Form` component should be used in conjunction with the `useForm` hook which provides a form controller instance for the form and its fields to work with. The form controller contains a number of methods that can be used to manipulate the state of the form as well as the state object itself to provide a way of performing side effects based on changes.
 
 ## Hook: useForm
-Invoking `useForm` returns an object that implements the `FormController` interface. The properties of the form controller should be spread into the `Form` component.
+Invoking `useForm` returns an object that implements the `FormController` interface. The properties of the form controller should be spread into the `Form` component. The `useForm` hook accepts a single parameter that meets the `UseFormParams` contract.
+
+#### Interface: UseFormParams
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `data` | `any` | The form values to be provided as initial `data` state. |
+| `skeleton` | `boolean` | Whether or not the form should be initially rendered in a "skeletonized" state. This value would likely be `true` if you intend to asynchronously load form data after the form has rendered. |
+| `disabled` | `boolean` | Whether or not the form should be initially rendered in a disabled state. This value would likely be `true` if you intend to asynchronously load form data after the form has rendered. |
 
 #### Interface: FormController
 | Name | Type | Description |
@@ -58,7 +69,7 @@ There is a `methods` object available on the form controller that contains a num
 #### Interface: FormMethods
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| `setFormValues` | `(params: { values:  MosaicObject<any>; initial?: boolean }) => void` | Set the form values using an object of key-value pairs. Optionally have the form use these as initial values. |
+| `setFormValues` | `(params: { values: MosaicObject<any>; path?: FieldPath; skeleton?: boolean; disabled?: boolean; validate?: boolean; }) => void` | Set the form values using an object of key-value pairs. Optionally update some state values, for example to turn off skeletonization or re-enable the form after values have been fetched. |
 | `setFieldValue` | `(params: { name: string; value: unknown \| ((current: unknown) => unknown); validate?: boolean; touched?: boolean; }) => void` | Set the value for a given field. `value` can be a callback which returns the new value whose parameter is the current field value. Optionally validate the value after it has been set. Optionally mark the field as touched. |
 | `disableForm` | `(params: { disable?: boolean; }) => void` | Disables the form if `disable` is true and enables it if not. |
 | `addWait` | `(params?: { name: string; message: string; disableForm: boolean; }) => { remove: () => void }` | Adds a wait to the form, preventing submission with a message as a reason for prevention. Optionally disables the form whilst waiting. Returns an object containing a `remove` method which, when invoked, will remove the added wait. |
@@ -84,7 +95,6 @@ This is the top level component that will render the various parts of your form,
 | `sections` |  | `SectionDef[]` | Object containing all the configuration for every section of the form, including the layout in which fields will render. When no sections get passed fields will render 1 per row (see [SectionDef subsection](#sectiondef)). |
 | `dialogOpen` |  | `boolean` | When true, this flag will render a dialog with the message "You have unsaved changes. If you leave all your changes will be lost." This only works when the prop type = "drawer". |
 | `handleDialogClose` |  | `boolean` | Function that will get called when closing the dialog (see explanaition of the dialogOpen prop) |
-| `getFormValues` |  | `() => Promise<MosaicObject<any>>` | Function that should return an object representing the initial field values |
 | `buttons` |  | `ButtonProps[]` | Array of buttons that will be rendered at the top of the form, adjacent to the title (if one is provided). |
 | `scrollSpyThreshold` |  | `number` | The threshold at which the scroll spy should consider a section "active". Defaults to 0.15, meaning whenever the top of a section intersects the top 15% of the form's scrollable area. |
 | `fullHeight` |  | `boolean` | Whether to have the form stretch to the full height of it's parent. (`height: 100%`). Defaults to true. |
@@ -202,6 +212,78 @@ export default function App() {
         Click here to submit
       </button>
     </>
+  );
+}
+```
+
+### Prepopulated Values
+In some cases, you may need to prepopulate the form with values, for example if the form is used for editing an existing entry. There are two ways to populate the form values: synchronously and asynchronously.
+
+#### Synchronous population
+Use this method if the form values are readily-available by the time you are rendering the form component. This data will be used as the initial data in state only, so changes to this object will not result in the state changing to reflect it.
+
+```ts
+import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+];
+
+export default function App() {
+  const controller = useForm({
+    data: {
+      firstName: "Terrence",
+    }
+  });
+
+  return (
+	<Form
+		{...controller}
+		fields={fields}
+	/>
+  );
+}
+```
+
+#### Asynchronous population
+Use this method if you need to run a query inside a side effect before populating the values. It's advised (though not required) to pass the `{ skeleton: true, disabled: true }` properties to your call to `useForm` to ensure the form is not interactable whilst you are performing your query. You can then re-enable the form and make it interactable through the use of `setFormValues`.
+
+```ts
+import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+
+const fields: FieldDef[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+  },
+];
+
+export default function App() {
+  const controller = useForm({ skeleton: true, disabled: true });
+  const { methods: { setFormValues } } = controller;
+
+  useEffect(() => {
+    const prepopulate = async () => {
+      const data = await fetchMyFormValues();
+
+      setFormValues({
+        data,
+        skeleton: false,
+        disabled: false,
+      });
+    }
+  }, [setFormValues]);
+
+  return (
+	<Form
+		{...controller}
+		fields={fields}
+	/>
   );
 }
 ```

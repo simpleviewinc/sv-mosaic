@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 import React, { useCallback, useEffect, useMemo } from "react";
 
-import type { AddressDrawerProps, IAddress } from "../AddressTypes";
+import type { AddressDrawerProps } from "../AddressTypes";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
 import type { SectionDef } from "@root/components/Form";
@@ -27,7 +27,20 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		googleMapsApiKey,
 	} = props;
 
-	const controller = useForm();
+	const controller = useForm({
+		data: addressToEdit ? {
+			address1: addressToEdit.address1,
+			address2: addressToEdit.address2,
+			address3: addressToEdit.address3,
+			city: addressToEdit.city,
+			state: addressToEdit.state,
+			postalCode: addressToEdit.postalCode,
+			country: addressToEdit.country,
+			...(addressTypes ? {
+				types: addressToEdit.types,
+			} : {}),
+		} : {},
+	});
 	const { state, handleSubmit } = controller;
 
 	useEffect(() => {
@@ -114,28 +127,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		[getOptionsCountries, getOptionsStates, googleMapsApiKey, typesField],
 	);
 
-	const getFormValues = useCallback(async () => {
-		if (!addressToEdit) {
-			return {};
-		}
-
-		const values: Omit<IAddress, "types"> & { types?: IAddress["types"] } = {
-			address1: addressToEdit.address1,
-			address2: addressToEdit.address2,
-			address3: addressToEdit.address3,
-			city: addressToEdit.city,
-			state: addressToEdit.state,
-			postalCode: addressToEdit.postalCode,
-			country: addressToEdit.country,
-		};
-
-		if (addressTypes) {
-			values.types = addressToEdit.types;
-		}
-
-		return values;
-	}, [addressToEdit, addressTypes]);
-
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			label: "Cancel",
@@ -165,7 +156,6 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 				fields={fields}
 				dialogOpen={dialogOpen}
 				handleDialogClose={handleDialogClose}
-				getFormValues={getFormValues}
 			/>
 		</FormDrawerWrapper>
 	);

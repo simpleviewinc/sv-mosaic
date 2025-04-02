@@ -19,12 +19,14 @@ function createFieldStore({
 
 	return fields.reduce((prev, field, index) => {
 		const fieldConfig = getFieldConfig(field.type);
-		const valueResolver = field.getResolvedValue || fieldConfig.getResolvedValue;
+		const externalToInternalValue = field.externalToInternalValue || fieldConfig.externalToInternalValue;
+		const internalToExternalValue = field.internalToExternalValue || fieldConfig.internalToExternalValue;
 
 		const result: FieldObj = {
 			...field,
 			validateOn: field.validateOn || fieldConfig.validate,
-			getResolvedValue: (value) => valueResolver(value, field),
+			externalToInternalValue: (value) => externalToInternalValue(value, field),
+			internalToExternalValue: (value) => internalToExternalValue(value, field),
 			hasValue: field.hasValue || fieldConfig.hasValue,
 			order: (fieldsBySection ? fieldsBySection.indexOf(field.name) : index) + 1,
 			fields: field.type === "group" ? createFieldStore({ fields: field.inputSettings.fields, stable }) : undefined,

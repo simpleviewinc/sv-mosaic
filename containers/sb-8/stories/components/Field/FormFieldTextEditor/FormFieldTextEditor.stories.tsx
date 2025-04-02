@@ -31,7 +31,8 @@ export const Playground = ({
 	label,
 	disabled,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
@@ -45,7 +46,7 @@ export const Playground = ({
 	minHeight,
 	maxHeight,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
 	const [linkDrawer, setLinkDrawer] = useState<null | TextEditorOnLinkParams>(null);
 
@@ -118,7 +119,6 @@ export const Playground = ({
 				title="Text Editor Tiptap"
 				fields={tiptapFields}
 				buttons={renderButtons(handleSubmit)}
-				skeleton={skeleton}
 				fullHeight
 			/>
 			<Drawer
@@ -148,7 +148,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			textEditor: "<h1>My Cat</h1><p><strong>Purchase</strong> the story of my cat <a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://google.com\">here</a>!</p><p><img src=\"https://weareallaboutcats.com/wp-content/uploads/2017/09/happy-cat-300x200.jpg\" alt=\"Cat\"></p>",
+		},
+	}),
 	maxCharacters: 100,
 	autolink: true,
 	size: "lg",
@@ -161,7 +165,7 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	...commonFieldControls.args,
+	...commonFieldControls.argTypes,
 	maxCharacters: {
 		name: "Maximum Characters",
 	},

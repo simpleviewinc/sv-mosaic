@@ -4,7 +4,8 @@ import unset from "lodash/fp/unset";
 import get from "lodash/get";
 
 import type {
-	AddHook } from "./types";
+	AddHook,
+	UseFormParams } from "./types";
 import {
 	type FormStable,
 	type FormMethods,
@@ -37,10 +38,9 @@ import getFields from "./utils/getFields";
 import getFieldValue from "./utils/getFieldValue";
 import getFieldPaths from "./utils/getFieldPaths";
 
-export function useForm(): UseFormReturn {
-	const stable = useRef<FormStable>(getInitialStable());
-
-	const [state, dispatch] = useReducer(reducer, getInitialState());
+export function useForm(initial: UseFormParams = {}): UseFormReturn {
+	const stable = useRef<FormStable>({ ...getInitialStable(), ...initial });
+	const [state, dispatch] = useReducer(reducer, { ...getInitialState(), ...initial });
 
 	const validateField = useCallback<ValidateField>(async ({
 		name: target,
@@ -93,7 +93,8 @@ export function useForm(): UseFormReturn {
 	const setFormValues = useCallback<SetFormValues>(async ({
 		values = {},
 		path = [],
-		initial,
+		skeleton,
+		disabled,
 		validate,
 	}) => {
 		const internalValues = getFieldInternalValues(values, getFields({ stable: stable.current, path }));
@@ -105,9 +106,8 @@ export function useForm(): UseFormReturn {
 		stable.current.data = path.length ? set(path, values, stable.current.data) : values;
 		stable.current.internalData = path.length ? set(path, internalValues, stable.current.internalData) : internalValues;
 
-		if (initial) {
-			stable.current.initialData = path.length ? set(path, values, stable.current.initialData) : values;
-			stable.current.disabled = false;
+		if (skeleton !== undefined) {
+			stable.current.skeleton = skeleton;
 		}
 
 		if (validate) {
@@ -125,10 +125,8 @@ export function useForm(): UseFormReturn {
 			type: "SET_FIELD_VALUES",
 			values: stable.current.data,
 			internalValues: stable.current.internalData,
-			...(initial ? {
-				disabled: false,
-				loadingInitial: false,
-			} : {}),
+			skeleton,
+			disabled,
 		});
 	}, []);
 
@@ -137,6 +135,24 @@ export function useForm(): UseFormReturn {
 		sections,
 	}) => {
 		stable.current.fields = createFieldStore({ fields, sections, stable: stable.current });
+
+		// No need to waste time resolving internal values
+		// if there is no values data in state.
+		if (!Object.keys(stable.current.data).length) {
+			return;
+		}
+
+		const internalValues = getFieldInternalValues(
+			stable.current.data,
+			getFields({ stable: stable.current }),
+		);
+
+		stable.current.internalData = internalValues;
+
+		return dispatch({
+			type: "SET_FIELD_VALUES",
+			internalValues,
+		});
 	}, []);
 
 	const reset = useCallback<FormReset>(() => {
@@ -151,7 +167,6 @@ export function useForm(): UseFormReturn {
 			data: values,
 			internalData: internalValues,
 			disabled: false,
-			loadingInitial: false,
 		};
 
 		dispatch({
@@ -265,12 +280,10 @@ export function useForm(): UseFormReturn {
 
 	const disableForm = useCallback<DisableForm>(({
 		disabled = false,
-		initial,
 	}) => {
 		dispatch({
 			type: "FORM_DISABLE",
 			disabled,
-			loadingInitial: initial,
 		});
 	}, []);
 

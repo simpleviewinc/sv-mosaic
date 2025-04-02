@@ -19,7 +19,8 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
@@ -28,7 +29,7 @@ export const Playground = ({
 	createNewOptionsKnob,
 	selectLimit,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const options: MosaicLabelValue[] = mockOptions ? mockOptions : [];
@@ -109,14 +110,15 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Advanced Selection Field"
 				fields={fields}
-				skeleton={skeleton}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: { advancedSelection: mockOptions.slice(0, 3) },
+	}),
 	optionsOrigin: "Local",
 	getOptionsLimit: 5,
 	createNewOptionsKnob: true,

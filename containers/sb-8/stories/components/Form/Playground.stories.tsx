@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useEffect, useMemo, useCallback } from "react";
+import { useEffect, useMemo } from "react";
 import { nanoid } from "nanoid";
 
 // Utils
@@ -14,7 +14,7 @@ import Form from "@root/components/Form";
 // Types
 import type { FieldDef } from "@root/components/Field";
 import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { columns, rows, mockNumberTableData } from "@root/mock/numberTable";
 
 import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
 import type { ButtonProps } from "@root/components/Button";
@@ -37,7 +37,7 @@ const createNewOption = async (newOptionLabel) => {
 	return newOption;
 };
 
-const prepopulateValues = {
+const prepopData = {
 	textField: "Text field from getFormValues",
 	check: [
 		{
@@ -111,14 +111,13 @@ const prepopulateValues = {
 		},
 	],
 	textEditor: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet augue augue.",
-	numberTable: numberTableDefaultValue,
+	numberTable: mockNumberTableData,
 };
 
 export const Playground = ({
 	showState,
 	onBack,
-	prepopulate,
-	prepopulateDuration,
+	prepop,
 	showSave,
 	showCancel,
 	required,
@@ -126,9 +125,8 @@ export const Playground = ({
 	showSections,
 	collapsed,
 	containerHeight,
-	skeleton,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, methods, handleSubmit } = controller;
 
 	const { reset } = methods;
@@ -417,23 +415,6 @@ export const Playground = ({
 
 	const sectionsAmount = useMemo(() => sections.slice(0, showSections), [sections, showSections]);
 
-	/**
-	 * Function that prepopulates the form. Includes
-	 * an artificial delay just to show how the form
-	 * is disabled while fields values are being resolved.
-	 */
-	const getFormValues = useCallback(async () => {
-		if (!prepopulate) {
-			return;
-		}
-
-		await new Promise((res) => setTimeout(res, prepopulateDuration * 1000));
-
-		return {
-			...prepopulateValues,
-		};
-	}, [prepopulate, prepopulateDuration]);
-
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			name: "reset",
@@ -441,10 +422,9 @@ export const Playground = ({
 			onClick: () => reset(),
 			color: "gray",
 			variant: "outlined",
-			show: !state.loadingInitial,
 		},
 		...renderButtons(handleSubmit, { showCancel, showSave }),
-	], [handleSubmit, reset, showCancel, showSave, state.loadingInitial]);
+	], [handleSubmit, reset, showCancel, showSave]);
 
 	return (
 		<div style={{ boxShadow: "0 1px 2px 0 rgb(0 0 0 / 0.05)", height: containerHeight }}>
@@ -457,10 +437,8 @@ export const Playground = ({
 				onBack={onBack ? () => alert("Cancelling, going back to previous site") : undefined}
 				description="Suspendisse condimentum iaculis velit id vestibulum."
 				fields={fields}
-				getFormValues={getFormValues}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={buttons}
-				skeleton={skeleton}
 			/>
 		</div>
 	);
@@ -469,8 +447,7 @@ export const Playground = ({
 Playground.args = {
 	showState: false,
 	onBack: false,
-	prepopulate: false,
-	prepopulateDuration: 2,
+	prepop: false,
 	showSave: true,
 	showCancel: true,
 	required: true,
@@ -488,11 +465,8 @@ Playground.argTypes = {
 	onBack: {
 		name: "Show Back Button",
 	},
-	prepopulate: {
+	prepop: {
 		name: "Prepopulate",
-	},
-	prepopulateDuration: {
-		name: "Prepopulate Duration",
 	},
 	showSave: {
 		name: "Show Save Button",

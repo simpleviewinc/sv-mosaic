@@ -1,6 +1,6 @@
 import type { Editor } from "@tiptap/react";
 
-import React, { useCallback } from "react";
+import React from "react";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 import type { NodeFormState } from "../FormFieldTextEditorTypes";
@@ -37,14 +37,6 @@ export function NodeForm(props: NodeFormProps) {
 
 	const { onClose } = rest;
 
-	const getFormValues = useCallback(async () => {
-		if (!values) {
-			return {};
-		}
-
-		return values;
-	}, [values]);
-
 	return (
 		<StyledPopper
 			anchorEl={anchorEl}
@@ -56,13 +48,13 @@ export function NodeForm(props: NodeFormProps) {
 				<StyledNodeForm>
 					{type === "link" ? (
 						<NodeFormLink
-							getFormValues={getFormValues}
+							data={values || {}}
 							update={update}
 							{...rest}
 						/>
 					) : type === "image" ? (
 						<NodeFormImage
-							getFormValues={getFormValues}
+							data={values || {}}
 							update={update}
 							{...rest}
 						/>

@@ -20,7 +20,7 @@ function DataViewPagerPopover({
 	totalPages,
 }: DataViewPagerPopoverProps) {
 	const { onClose } = useContext(ButtonPopoverContext);
-	const controller = useForm();
+	const controller = useForm({ data: { page: currentPage } });
 	const { handleSubmit } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
@@ -38,10 +38,6 @@ function DataViewPagerPopover({
 		},
 	], [totalPages]);
 
-	const getFormValues = useCallback(async () => ({
-		page: currentPage,
-	}), [currentPage]);
-
 	const onSubmit = handleSubmit(useCallback(({ data: { page } }) => {
 		onSkipChange({ skip : (Number(page) - 1) * limit });
 		onClose();
@@ -54,7 +50,6 @@ function DataViewPagerPopover({
 				autoFocus={autoFocusOptions}
 				fields={fields}
 				spacing="compact"
-				getFormValues={getFormValues}
 				onSubmit={onSubmit}
 				bottomSlot={(
 					<StyledFormFooter $spacing="compact">

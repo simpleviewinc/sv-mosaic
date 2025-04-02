@@ -46,7 +46,6 @@ const Form = (props: FormProps) => {
 		sections,
 		dialogOpen = false,
 		description,
-		getFormValues,
 		handleDialogClose,
 		scrollSpyThreshold = 0.15,
 		fullHeight = true,
@@ -56,15 +55,14 @@ const Form = (props: FormProps) => {
 		methods,
 		stable,
 		autoFocus,
-		skeleton: providedSkeleton,
 		bottomSlot = null,
 		hideSectionNav,
 	} = props;
 
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
 	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
-	const { init, setFormValues, setSubmitWarning, disableForm } = methods;
-	const { errors, loadingInitial, disabled } = state;
+	const { init, setSubmitWarning } = methods;
+	const { errors, disabled } = state;
 	const { moveToError } = stable;
 
 	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
@@ -136,7 +134,7 @@ const Form = (props: FormProps) => {
 	const doneAutoFocus = useRef(false);
 
 	useEffect(() => {
-		if (disabled || loadingInitial || !autoFocus || doneAutoFocus.current) {
+		if (disabled || state.skeleton || !autoFocus || doneAutoFocus.current) {
 			return;
 		}
 
@@ -168,7 +166,7 @@ const Form = (props: FormProps) => {
 				mount.inputRef.select();
 			}
 		});
-	}, [disabled, loadingInitial, autoFocus, stable.fields, stable.mounted]);
+	}, [disabled, state.skeleton, autoFocus, stable.fields, stable.mounted]);
 
 	useEffect(() => {
 		if (!useSectionHash) {
@@ -260,31 +258,9 @@ const Form = (props: FormProps) => {
 		},
 	];
 
-	/**
-	 * Loading state
-	 */
-	const isBusy = state.disabled || state.waits.length > 0;
-	const skeleton = providedSkeleton || loadingInitial;
-
 	useLayoutEffect(() => {
 		init({ fields, sections });
 	}, [init, fields, sections]);
-
-	useEffect(() => {
-		(async () => {
-			disableForm({
-				disabled: true,
-				initial: true,
-			});
-
-			const values = getFormValues ? (await getFormValues()) : {};
-
-			setFormValues({
-				values,
-				initial: true,
-			});
-		})();
-	}, [disableForm, getFormValues, setFormValues]);
 
 	const onSubmitProxy = useCallback<FormProps["onSubmit"]>((e) => {
 		e.preventDefault();
@@ -306,7 +282,7 @@ const Form = (props: FormProps) => {
 			<StyledContainerForm
 				data-testid="form-test-id"
 				ref={formContainerRef}
-				aria-busy={isBusy ? "true" : "false"}
+				aria-busy={state.skeleton}
 				role="form"
 				aria-label={title}
 				$fullHeight={fullHeight}
@@ -326,7 +302,7 @@ const Form = (props: FormProps) => {
 							bottomBorder={sideNavItems.length < 2}
 							hideSectionNav={hideSectionNav}
 							collapse={topCollapseContainer}
-							skeleton={skeleton}
+							skeleton={state.skeleton}
 						/>
 					)}
 					<StyledFormPrimary className="form-primary">
@@ -345,7 +321,7 @@ const Form = (props: FormProps) => {
 								sections={shownSections}
 								spacing={spacing}
 								methods={methods}
-								skeleton={skeleton}
+								skeleton={state.skeleton}
 							/>
 						</StyledFormContent>
 					</StyledFormPrimary>

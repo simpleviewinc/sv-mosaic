@@ -4,7 +4,7 @@ import type { Editor, Extensions } from "@tiptap/core";
 import type { FieldDefBase } from "@root/components/Field";
 import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { PopperProps } from "@mui/material/Popper";
-import type { FormProps } from "@root/components/Form";
+import type { FormState } from "@root/components/Form";
 
 export type SelectionType =
 	| "formatting"
@@ -36,7 +36,7 @@ export type FloatingToolbarProps = ToolbarControlsProps & FloatingToolbarState &
 export interface NodeFormTypeProps {
 	editor: Editor;
 	onClose: () => void;
-	getFormValues: FormProps["getFormValues"];
+	data: FormState["data"];
 }
 
 export type NodeFormState = {

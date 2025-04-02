@@ -16,7 +16,8 @@ export const Playground = ({
 	label,
 	hideLabel,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
@@ -29,14 +30,14 @@ export const Playground = ({
 	maxRows,
 	withIcon,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { handleSubmit, state } = controller;
 
 	const fields: FieldDef[] = useMemo(
 		(): FieldDef[] =>
 			[
 				{
-					name: "textfield",
+					name: "text",
 					label,
 					hideLabel,
 					type: "text",
@@ -81,7 +82,6 @@ export const Playground = ({
 				title="Text Field"
 				fields={fields}
 				{...controller}
-				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
@@ -89,7 +89,11 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			text: "Rover",
+		},
+	}),
 	size: "sm",
 	type: "text",
 	placeholder: "placeholder",
