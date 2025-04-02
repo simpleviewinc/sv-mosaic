@@ -29,7 +29,12 @@ export default function DataViewFilterNumberDropdownContent({
 	onChange,
 	onClose,
 }: DataViewFilterNumberDropdownContentProps): ReactElement {
-	const controller = useForm();
+	const controller = useForm({
+		data: {
+			min: initialMin,
+			max: initialMax,
+		},
+	});
 	const {
 		state: {
 			data: {
@@ -42,13 +47,6 @@ export default function DataViewFilterNumberDropdownContent({
 			setFormValues,
 		},
 	} = controller;
-
-	const getFormValues = useCallback(async () => {
-		return {
-			min: initialMin,
-			max: initialMax,
-		};
-	}, [initialMin, initialMax]);
 
 	const onClear = useCallback(() => {
 		setFormValues({
@@ -104,7 +102,6 @@ export default function DataViewFilterNumberDropdownContent({
 				sections={sections}
 				fullHeight={false}
 				spacing="compact"
-				getFormValues={getFormValues}
 			/>
 			<DataViewFilterDropdownButtons
 				onApply={onApply}

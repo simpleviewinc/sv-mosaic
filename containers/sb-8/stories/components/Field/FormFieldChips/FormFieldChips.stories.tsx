@@ -13,7 +13,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -21,7 +20,7 @@ export const Playground = ({
 	prepopData,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -43,11 +42,6 @@ export const Playground = ({
 		[label, helperText, instructionText, required, disabled, optionsType],
 	);
 
-	const getFormValues = useMemo(() => prepop
-		? async () => prepopData
-		: undefined,
-	[prepop, prepopData]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -56,18 +50,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Chips Field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		chip: { value: "option_1-cat_1", label: "Option 1" },
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			chip: { value: "option_1-cat_1", label: "Option 1" },
+		},
+	}),
 	optionsType: "Synchronous",
 };
 

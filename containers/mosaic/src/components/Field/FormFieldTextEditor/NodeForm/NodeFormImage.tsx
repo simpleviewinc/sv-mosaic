@@ -12,8 +12,8 @@ type NodeFormImageProps = NodeFormTypeProps & {
 	update: TextEditorUpdateImage;
 };
 
-export function NodeFormImage({ getFormValues, update }: NodeFormImageProps): ReactElement {
-	const controller = useForm();
+export function NodeFormImage({ data, update }: NodeFormImageProps): ReactElement {
+	const controller = useForm({ data });
 	const { handleSubmit } = controller;
 
 	const onSubmit = handleSubmit(useCallback(({ data: { alt, src } }) => {
@@ -42,7 +42,6 @@ export function NodeFormImage({ getFormValues, update }: NodeFormImageProps): Re
 			fields={fields}
 			spacing="compact"
 			autoFocus
-			getFormValues={getFormValues}
 			onSubmit={onSubmit}
 			bottomSlot={<NodeFormFooter />}
 		/>

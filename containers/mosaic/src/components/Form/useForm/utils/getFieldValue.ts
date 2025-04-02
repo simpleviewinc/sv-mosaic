@@ -64,15 +64,20 @@ function getFieldValue({
 
 		return {
 			internalValue: result.internalValue,
-			value: field.getResolvedValue(result.value).value,
+			value: field.internalToExternalValue(result.value),
 		};
 	}
 
 	const isTarget = target.join(".") === [...path, fieldName].join(".");
-	return field.getResolvedValue(
-		isTarget ?
-			(typeof value === "function" ? value(get(stable.internalData, [...path, fieldName])) : value) :
-			currentValues.internalValues[fieldName]);
+
+	const internalValue = isTarget ?
+		(typeof value === "function" ? value(get(stable.internalData, [...path, fieldName])) : value) :
+		currentValues.internalValues[fieldName];
+
+	return {
+		internalValue,
+		value: field.internalToExternalValue(internalValue),
+	};
 }
 
 export default getFieldValue;

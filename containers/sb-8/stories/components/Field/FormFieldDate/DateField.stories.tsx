@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import { commonFieldControls, renderButtons, parseDateControl } from "../../../../utils";
 import { textIsValidDate } from "@root/utils/date";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
@@ -10,29 +10,20 @@ export default {
 	title: "FormFields/FormFieldDateField",
 };
 
-const prepopulateData = {
-	date: new Date(2024, 12, 25, 11, 30),
-};
-
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	prepop,
+	prepopData,
 	helperText,
 	showTime,
 	minDateStr,
 	defaultTime: defaultTimeStr,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? { ...prepopData, date: parseDateControl(prepopData?.date) } : {} });
 	const { state, handleSubmit } = controller;
-
-	const getFormValues = useMemo(() => prepop ?
-		async () => prepopulateData :
-		undefined,
-	[prepop]);
 
 	const minDate = useMemo(() => {
 		if (!minDateStr || !textIsValidDate(minDateStr, DATE_FORMAT_FULL)) {
@@ -66,6 +57,7 @@ export const Playground = ({
 					showTime,
 					minDate,
 					defaultTime,
+					fixedTime: [23, 59, 59, 999],
 				},
 			},
 		],
@@ -80,15 +72,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Date Field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			date: "2024-12-25-11-30",
+		},
+	}),
 	showTime: false,
 	minDateStr: "",
 	defaultTime: "",
@@ -105,12 +99,6 @@ Playground.argTypes = {
 	defaultTime: {
 		name: "Default Time",
 	},
-};
-
-const getFormValues = async () => {
-	return {
-		dateTimePrefilled: new Date("2023-07-31T14:00:00.000Z"),
-	};
 };
 
 export const KitchenSink = (): ReactElement => {
@@ -182,7 +170,6 @@ export const KitchenSink = (): ReactElement => {
 				title="Date Field Calendar"
 				description="This is a description example"
 				fields={fields}
-				getFormValues={getFormValues}
 			/>
 			<h3>Date.toString()</h3>
 			<pre>

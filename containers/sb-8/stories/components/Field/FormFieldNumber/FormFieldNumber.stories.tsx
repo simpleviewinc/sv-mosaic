@@ -12,7 +12,8 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
@@ -23,14 +24,14 @@ export const Playground = ({
 	suffix,
 	sign,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { handleSubmit, state } = controller;
 
 	const fields: FieldDef[] = useMemo(
 		(): FieldDef[] =>
 			[
 				{
-					name: "numberfield",
+					name: "number",
 					label,
 					type: "number",
 					required,
@@ -69,7 +70,6 @@ export const Playground = ({
 				title="Number Field"
 				fields={fields}
 				{...controller}
-				skeleton={skeleton}
 			/>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
@@ -77,7 +77,9 @@ export const Playground = ({
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: { number: "-1.337" },
+	}),
 	size: "sm",
 	placeholder: "placeholder",
 	decimalPlaces: -1,
