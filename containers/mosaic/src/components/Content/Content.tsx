@@ -18,31 +18,6 @@ import { SubtitleText } from "../Typography";
 import { getToggle } from "@root/utils";
 import testIds from "@root/utils/testIds";
 
-/**
- * We are going to continue supporting string[][][] for now, but
- * string[][] is now the way to define content sections. This util
- * will be removed once we stop supporting string[][][].
- *
- * @deprecated
- */
-function sanitizeSections(sections: ContentProps["sections"]): MosaicGridConfig[number] {
-	let shouldWarn = false;
-	const result = sections.map((section: string[][] | string[]) => section.map((row: string[] | string) => {
-		if (Array.isArray(row)) {
-			shouldWarn = true;
-			return row[0];
-		}
-
-		return row;
-	}));
-
-	if (shouldWarn) {
-		console.warn("Providing content sections as string[][][] is deprecated and support will be removed in future releases. You should now define your sections as string[][]");
-	}
-
-	return result;
-}
-
 const Content = (props: ContentProps): ReactElement => {
 	const { fields, data, sections: providedSections, title, buttons = [], variant } = props;
 
@@ -50,7 +25,7 @@ const Content = (props: ContentProps): ReactElement => {
 
 	const rows = useMemo<MosaicGridConfig<ContentFieldDef>[number]>(() => {
 		const sections: MosaicGridConfig[number] = providedSections ?
-			sanitizeSections(providedSections) :
+			providedSections :
 			fields.map(({ name, column }) => [column || name]);
 
 		return sections.map((rows, sectionIdx) => rows.map((fieldName, rowIdx) => {
