@@ -49,11 +49,8 @@ export interface ContentProps {
 	/**
 	 * Includes the configuration of where each field is going to be
 	 * render. Fields will be render in a max of two columns.
-	 *
-	 * Using string[][][] is deprecated and will be removed in a
-	 * future release. Always use string[][].
 	 */
-	sections?: string[][][] | string[][];
+	sections?: string[][];
 	/**
 	 * Name of the section or subsection.
 	 */
