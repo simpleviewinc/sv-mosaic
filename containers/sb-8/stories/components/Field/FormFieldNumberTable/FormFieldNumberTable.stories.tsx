@@ -1,12 +1,12 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import type { FieldDef } from "@root/components/Field";
 import { commonFieldControls, renderButtons } from "../../../../utils";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
-import { columns, numberTableDefaultValue, rows } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { rows, columns, mockNumberTableData } from "@root/mock/numberTable";
 
 export default {
 	title: "FormFields/FormFieldNumberTable",
@@ -15,7 +15,8 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
@@ -24,24 +25,10 @@ export const Playground = ({
 	topLeftLabel,
 	displayColumnsSums,
 	displayRowsSums,
-	prepop,
 	formatOptions,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
-	const { state, methods: { setFieldValue }, handleSubmit } = controller;
-
-	useEffect(() => {
-		if (!prepop)
-			setFieldValue({
-				name: "numberTable",
-				value: undefined,
-			});
-		else
-			setFieldValue({
-				name: "numberTable",
-				value: numberTableDefaultValue,
-			});
-	}, [prepop]);
+	const controller = useForm({ data: prepop ? prepopData : {} });
+	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
 		(): FieldDef[] => [
@@ -88,14 +75,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Number Table Field"
 				fields={fields}
-				skeleton={skeleton}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args({
+		prepopData: {
+			numberTable: mockNumberTableData,
+		},
+	}),
 	rowTotalLabel: "TOTAL",
 	columnTotalLabel: "No. Rooms",
 	topLeftLabel: "Day",

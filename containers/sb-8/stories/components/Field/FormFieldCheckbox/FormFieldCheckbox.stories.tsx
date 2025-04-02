@@ -15,7 +15,6 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
 	disabled,
 	instructionText,
 	helperText,
@@ -25,7 +24,7 @@ export const Playground = ({
 	optionCount,
 	itemsPerColumn,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const options = useMemo<FormFieldCheckboxInputSettings["options"]>(() => {
@@ -59,11 +58,6 @@ export const Playground = ({
 		[label, required, disabled, options, helperText, instructionText, itemsPerColumn],
 	);
 
-	const getFormValues = useMemo(() => prepop
-		? async () => prepopData
-		: undefined,
-	[prepop, prepopData]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -72,21 +66,20 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Checkbox Field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		checkbox: [
-			{ value: "option_1-cat_1", label: "Option 1" },
-			{ value: "foo", label: "Foo" },
-		],
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			checkbox: [
+				{ value: "option_1-cat_1", label: "Option 1" },
+				{ value: "foo", label: "Foo" },
+			],
+		},
+	}),
 	optionsType: "Synchronous",
 	optionCount: 25,
 	itemsPerColumn: 8,

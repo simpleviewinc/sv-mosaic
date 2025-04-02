@@ -75,16 +75,6 @@ const Heading = styled.h2`
 	}
 `;
 
-async function getFormValues() {
-	return {
-		petsHeading: <Heading>Pets</Heading>,
-		destinationsHeading: <Heading>Destinations</Heading>,
-		novaScotia: { lat: 44.64933472911243, lng: -63.615047475871876 },
-		eiffelTower: { lat: 48.858348895100555, lng: 2.294492026111051 },
-		lochNessMonster: { lat: 57.27050873488408, lng: -4.493444954407284 },
-	};
-}
-
 const sections: SectionDef[] = [
 	{
 		title: "Text field sizes",
@@ -125,7 +115,13 @@ export const DrawerForm = ({
 	showSections,
 	drawWidth,
 }: typeof DrawerForm.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		petsHeading: <Heading>Pets</Heading>,
+		destinationsHeading: <Heading>Destinations</Heading>,
+		novaScotia: { lat: 44.64933472911243, lng: -63.615047475871876 },
+		eiffelTower: { lat: 48.858348895100555, lng: 2.294492026111051 },
+		lochNessMonster: { lat: 57.27050873488408, lng: -4.493444954407284 },
+	} });
 	const { handleSubmit } = controller;
 
 	const fields = useMemo<FieldDef[]>(() => [
@@ -368,7 +364,6 @@ export const DrawerForm = ({
 						fields={fields}
 						onBack={onCancel}
 						sections={showSections ? sections : undefined}
-						getFormValues={getFormValues}
 					/>
 				</div>
 			</Drawer>

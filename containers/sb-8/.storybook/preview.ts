@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react";
 
+import "./mosaic-preview.css";
+
 const preview: Preview = {
 	parameters: {
 		layout: "fullscreen",

@@ -14,8 +14,8 @@ type NodeFormLinkProps = NodeFormTypeProps & {
 	isTextBased?: boolean;
 };
 
-export function NodeFormLink({ editor, isTextBased, getFormValues, onClose, update }: NodeFormLinkProps): ReactElement {
-	const controller = useForm();
+export function NodeFormLink({ editor, isTextBased, data, onClose, update }: NodeFormLinkProps): ReactElement {
+	const controller = useForm({ data });
 	const { state: { data: { url } }, handleSubmit } = controller;
 
 	const onSubmit = handleSubmit(useCallback(({ data: { url, newTab, text } }) => {
@@ -66,7 +66,6 @@ export function NodeFormLink({ editor, isTextBased, getFormValues, onClose, upda
 			fields={fields}
 			spacing="compact"
 			autoFocus
-			getFormValues={getFormValues}
 			onSubmit={onSubmit}
 			bottomSlot={(
 				<NodeFormFooter onRemove={onRemove} />

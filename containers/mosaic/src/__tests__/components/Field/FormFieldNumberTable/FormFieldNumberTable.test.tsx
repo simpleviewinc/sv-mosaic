@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import {
 	act,
 	cleanup,
@@ -11,12 +11,8 @@ import {
 import Form, { useForm } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field/FieldTypes";
 import type { ButtonProps } from "@root/components/Button";
-import {
-	columns,
-	isValidRowCol,
-	numberTableDefaultValue,
-	rows,
-} from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { isValidRowCol } from "@root/components/Field/FormFieldNumberTable/numberTableUtils";
+import { columns, mockNumberTableData, rows } from "@root/mock/numberTable";
 
 const NumberTableExample = ({
 	displaySumColumn = true,
@@ -27,7 +23,9 @@ const NumberTableExample = ({
 	displaySumRow?: boolean;
 	useNumberFormatter?: boolean;
 }): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: {
+		numberTable: mockNumberTableData,
+	} });
 	const { handleSubmit } = controller;
 
 	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
@@ -50,7 +48,7 @@ const NumberTableExample = ({
 				},
 			},
 		],
-		[numberTableDefaultValue, rows, columns],
+		[mockNumberTableData, rows, columns],
 	);
 
 	const buttons: ButtonProps[] = [
@@ -62,10 +60,6 @@ const NumberTableExample = ({
 		},
 	];
 
-	const getFormValues = useCallback(async () => ({
-		numberTable: numberTableDefaultValue,
-	}), []);
-
 	return (
 		<Form
 			{...controller}
@@ -73,7 +67,6 @@ const NumberTableExample = ({
 			title="Form Title"
 			description="This is a description example"
 			fields={fields}
-			getFormValues={getFormValues}
 		/>
 	);
 };

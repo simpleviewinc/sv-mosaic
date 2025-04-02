@@ -15,6 +15,7 @@ import AddressCard from "./AddressCard";
 import { AddressItems, Footer } from "./Address.styled";
 import Dialog from "@root/components/Dialog/Dialog";
 import { FormFieldAddressSkeleton } from "./FormFieldAddressSkeleton";
+import { nanoid } from "nanoid";
 
 const types: AddressType[] = [
 	{
@@ -34,6 +35,10 @@ const types: AddressType[] = [
 	},
 ];
 
+function isNewAddress(address: AddressItem | { __newAddress: true }): address is { __newAddress: true } {
+	return "__newAddress" in address;
+}
+
 const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSettings, AddressData>): ReactElement => {
 	const {
 		disabled,
@@ -45,7 +50,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	} = props;
 
 	// State variables
-	const [open, setOpen] = useState<AddressItem | true | false>(false);
+	const [open, setOpen] = useState<((AddressItem | { __newAddress: true }) & { key: string }) | false>(false);
 	const value = useMemo(() => !providedValue || Array.isArray(providedValue) ? providedValue : [providedValue], [providedValue]);
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
@@ -98,7 +103,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
-		setOpen(true);
+		setOpen({ __newAddress: true, key: nanoid() });
 	};
 
 	/**
@@ -135,10 +140,14 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	};
 
 	const onDrawerSave = (address: AddressItem) => {
+		if (!open) {
+			return;
+		}
+
 		const newValue = [...value];
 		const newAddress = { ...address, types: singleType ? [{ value: singleType.value, label: singleType.label }] : address.types };
 
-		if (typeof open === "object") {
+		if (!isNewAddress(open)) {
 			const index = value.findIndex(item => item === open);
 			newValue.splice(index, 1, newAddress);
 		} else {
@@ -191,18 +200,18 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 						<AddressCard
 							key={`${idx}`}
 							address={address}
-							onEdit={setOpen}
+							onEdit={(address) => setOpen({ ...address, key: nanoid() })}
 							disabled={disabled}
 							onRemoveAddress={setRemoveDialog}
 						/>
 					))}
 				</AddressItems>
 			)}
-			<Drawer open={Boolean(open)} onClose={handleClose}>
+			<Drawer open={Boolean(open)} onClose={handleClose} key={open && open.key}>
 				<AddressDrawer
 					googleMapsApiKey={fieldDef?.inputSettings?.googleMapsApiKey}
 					handleClose={handleClose}
-					addressToEdit={typeof open == "object" ? open : undefined}
+					addressToEdit={open && !isNewAddress(open) ? open : undefined}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}
@@ -210,6 +219,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 					getOptionsCountries={fieldDef?.inputSettings?.getOptionsCountries}
 					getOptionsStates={fieldDef?.inputSettings?.getOptionsStates}
 					onSave={onDrawerSave}
+					key={open && open.key}
 				/>
 			</Drawer>
 			<Dialog

@@ -11,7 +11,7 @@ export default {
 	title: "FormFields/FormFieldRaw",
 };
 
-export const RawValueWrapper = styled.div`
+const RawValueWrapper = styled.div`
     background-color: #aa1919;
     border: 3px solid #570202;
     color: white;
@@ -27,12 +27,6 @@ function RawValue() {
 	);
 }
 
-async function getFormValues() {
-	return {
-		raw: <RawValue />,
-	};
-}
-
 export const Playground = ({
 	label,
 	required,
@@ -40,7 +34,7 @@ export const Playground = ({
 	instructionText,
 	helperText,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: { raw: <RawValue /> } });
 	const { handleSubmit } = controller;
 
 	const fields: FieldDef[] = useMemo(
@@ -66,14 +60,13 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Raw Field"
 				fields={fields}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
+	...commonFieldControls.args(),
 };
 
 Playground.argTypes = {

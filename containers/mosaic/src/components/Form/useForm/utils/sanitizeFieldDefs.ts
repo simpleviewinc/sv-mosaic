@@ -3,6 +3,7 @@ import getAddressFields, { defaultAddressFields } from "@root/components/Field/F
 import { Sizes } from "@root/theme";
 import { matchTime } from "@root/utils/date";
 import type { SectionDef } from "../../FormTypes";
+import dateToTimeString from "@root/utils/date/dateToTimeString";
 
 // TODO Factor this out to the same place at which we create the sanitized field object store
 function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDefSanitized[] {
@@ -115,25 +116,22 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 					],
 					layout: [[["date"], ["time"]]],
 				},
-				getResolvedValue: (value) => {
-					if (value instanceof Date) {
-						return {
-							internalValue: {
-								date: { date: value, keyboardInputValue: undefined },
-								time: { time: value, keyboardInputValue: undefined, usingDefaultTime: false },
-							},
-							value,
-						};
-					}
-
-					if (!value || !value.date || !value.time) {
-						return { internalValue: value, value: undefined };
+				externalToInternalValue: (value: Date | undefined) => {
+					if (!value || !(value instanceof Date)) {
+						return undefined;
 					}
 
 					return {
-						internalValue: value,
-						value: matchTime(value.date, value.time),
+						date: value,
+						time: dateToTimeString(value),
 					};
+				},
+				internalToExternalValue: (value: {date: Date | undefined; time: Date | undefined} | undefined) => {
+					if (!value?.date || !value?.time) {
+						return undefined;
+					}
+
+					return matchTime(value.date, value.time);
 				},
 			};
 		}

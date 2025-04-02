@@ -15,15 +15,14 @@ export default {
 export const Playground = ({
 	label,
 	required,
-	skeleton,
+	prepop,
+	prepopData,
 	disabled,
 	instructionText,
 	helperText,
-	prepop,
-	prepopData,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const fields = useMemo(
@@ -45,11 +44,6 @@ export const Playground = ({
 		[label, required, disabled, instructionText, helperText, optionsType],
 	);
 
-	const getFormValues = useMemo(() => prepop
-		? async () => prepopData
-		: undefined,
-	[prepop, prepopData]);
-
 	return (
 		<>
 			<pre>{JSON.stringify(state, null, "  ")}</pre>
@@ -58,18 +52,17 @@ export const Playground = ({
 				buttons={renderButtons(handleSubmit)}
 				title="Radio Field"
 				fields={fields}
-				skeleton={skeleton}
-				getFormValues={getFormValues}
 			/>
 		</>
 	);
 };
 
 Playground.args = {
-	...commonFieldControls.args,
-	prepopData: {
-		radio: { value: "option_1-cat_1", label: "Option 1" },
-	},
+	...commonFieldControls.args({
+		prepopData: {
+			radio: { value: "option_1-cat_1", label: "Option 1" },
+		},
+	}),
 	optionsType: "Synchronous",
 };
 
