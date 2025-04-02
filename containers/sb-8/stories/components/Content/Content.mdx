@@ -20,7 +20,7 @@ https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/co
 	* **show** - [`MosaicToggle`](/docs/components-form-readme--page#MosaicToggle-t-type) optional - No params are given to the show callback
 	* **column** - `string` optional - If a column is given then it will be used as the name hence, defaults to name.
 * **data** - `MosaicObject` required - Data that will be used by the transform function of each field to generate the corresponding JSX element.
-* **sections** - `MosaicGridConfig` optional - Defines the position of each field. It is based in columns with a maximun allowed of two, if no sections are passed the content will be render in one column. Look at the following example to see how it is declared.
+* **sections** - `string[][]` optional - Defines the position of each field. It is based in columns with a maximun allowed of two, if no sections are passed the content will be render in one column. Look at the following example to see how it is declared.
 * **title** - `string` required - Name of the section or subsection.
 * **buttons** - `ButtonProps[]` optional - Array of buttons that will be display on the top-right corner of the component.
 * **variant** - `"standard" | "card"` optional - Variant of the component defines what styles should render. If "card" is passed, content component looks like a card component
