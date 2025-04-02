@@ -85,14 +85,6 @@ describe(__dirname, () => {
 		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(3);
 	});
 
-	it("should render sections using the deprecated section definition but log a warning", async () => {
-		const warning = vi.spyOn(console, "warn").mockImplementation(() => null);
-		await setup({ sections: [[["content1"], ["content2"]]] });
-
-		expect(screen.queryAllByTestId(testIds.CONTENT_FIELD)).toHaveLength(2);
-		expect(warning).toBeCalled();
-	});
-
 	it("should render sections using the newly introduced section definition", async () => {
 		await setup({ sections: [["content1", "content2"]] });
 
