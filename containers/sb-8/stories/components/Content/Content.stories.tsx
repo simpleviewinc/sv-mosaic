@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 // Components
-import type { ContentFieldDef } from "@root/components/Content";
+import type { ContentFieldDef, ContentProps } from "@root/components/Content";
 import Content from "@root/components/Content";
 import Chip from "@root/components/Chip";
 import { ChipsWrapper } from "@root/components/Content/Content.styled";
@@ -80,30 +80,30 @@ const data = {
 	fieldWithLongSentence: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mollis diam non imperdiet luctus. Morbi in augue leo. Vestibulum non tellus in elit molestie pretium sollicitudin eget purus. Mauris varius, est sed placerat ornare, nulla libero consequat nisi, id tempor nibh felis non velit.",
 };
 
-const sectionConfigs = {
+const sectionConfigs: Record<string, ContentProps["sections"]> = {
 	"Single Column": [
-		[["tags"]],
-		[["colorPicker"]],
-		[["toggle"]],
-		[["date"]],
-		[["thumbnail"]],
-		[["chipsAsValue"]],
-		[["animals"]],
-		[["cars"]],
-		[["multipleTransforms"]],
+		["tags"],
+		["colorPicker"],
+		["toggle"],
+		["date"],
+		["thumbnail"],
+		["chipsAsValue"],
+		["animals"],
+		["cars"],
+		["multipleTransforms"],
 	],
 	"Two Columns": [
-		[["tags"], ["colorPicker"]],
-		[["toggle"], ["date"]],
-		[["thumbnail"], ["chipsAsValue"]],
-		[["animals"], ["cars"]],
-		[["multipleTransforms"]],
+		["tags", "colorPicker"],
+		["toggle", "date"],
+		["thumbnail", "chipsAsValue"],
+		["animals", "cars"],
+		["multipleTransforms"],
 	],
 	"Three Columns": [
-		[["tags"], ["colorPicker"], []],
-		[["toggle"], ["date"], ["thumbnail"]],
-		[["animals"], ["cars"], ["chipsAsValue"]],
-		[["multipleTransforms"]],
+		["tags", "colorPicker", undefined],
+		["toggle", "date", "thumbnail"],
+		["animals"], ["cars"], ["chipsAsValue"],
+		["multipleTransforms"],
 	],
 };
 
@@ -360,119 +360,6 @@ export const KitchenSink = (): ReactElement => {
 		["thumbnail", "chipsAsValue", undefined],
 		["undefinedValue", "emptyStringValue", "emptyArrayValue"],
 		["fieldWithLongWord", "fieldWithLongURL", "fieldWithLongSentence"],
-	];
-
-	return (
-		<>
-			<Content
-				title="Standard content"
-				data={data}
-				fields={fields}
-				sections={columns}
-				buttons={buttons}
-			/>
-			<br />
-			<Content
-				title="Card content"
-				data={data}
-				fields={fields}
-				sections={columns}
-				buttons={buttons}
-				variant="card"
-			/>
-		</>
-	);
-};
-
-export const KitchenSinkDeprecated = (): ReactElement => {
-
-	const buttons: ButtonProps[] = [
-		{
-			name: "edit",
-			label: "Edit",
-			mIcon: EditIcon,
-			color: "gray",
-			variant: "icon",
-			onClick: function () {
-				alert("Edit button clicked");
-			},
-		},
-		{
-			name: "showDetails",
-			color: "teal",
-			variant: "text",
-			label: "More Details",
-			onClick: () => alert("More details"),
-		},
-	];
-
-	const fields: ContentFieldDef[] = [
-		{
-			name: "chips",
-			label: "Chips using transform_chips()",
-			transforms: [transform_chips()],
-			column: "tags",
-		},
-		{
-			name: "toggle",
-			label: <Link href="#">Toggle using transform_boolean()</Link>,
-			transforms: [transform_boolean()],
-		},
-		{
-			name: "date",
-			label: "Date using transform_dateFormat()",
-			transforms: [transform_dateFormat()],
-		},
-		{
-			name: "color",
-			label: "Color using transform_colorPicker()",
-			transforms: [transform_colorPicker()],
-			column: "colorPicker",
-		},
-		{
-			name: "thumbnail",
-			label: "Thumbnail using transform_thumbnail()",
-			transforms: [transform_thumbnail({ width: 150, height: 150 })],
-		},
-		{
-			name: "chipsAsValue",
-			label: "Chips with no transform only value",
-		},
-		{
-			name: "undefinedValue",
-			label: "Field with undefined value",
-		},
-		{
-			name: "emptyStringValue",
-			label: "Field with empty string value",
-		},
-		{
-			name: "emptyArrayValue",
-			label: "Field with empty array value",
-		},
-		{
-			name: "fieldWithLongWord",
-			label: "Long Word",
-		},
-		{
-			name: "fieldWithLongURL",
-			label: "Long URL",
-			transforms: [
-				({ data }) => <Link href={data as string}>{data as string}</Link>,
-			],
-		},
-		{
-			name: "fieldWithLongSentence",
-			label: "Long Sentence",
-		},
-	];
-
-	const columns = [
-		[["tags"], ["colorPicker"], []],
-		[["toggle"], ["date"], ["colorPicker"]],
-		[["thumbnail"], ["chipsAsValue"], []],
-		[["undefinedValue"], ["emptyStringValue"], ["emptyArrayValue"]],
-		[["fieldWithLongWord"], ["fieldWithLongURL"], ["fieldWithLongSentence"]],
 	];
 
 	return (
