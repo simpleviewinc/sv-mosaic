@@ -28,8 +28,9 @@ export default {
 const initialSection1Fields = [
 	[["firstName"], ["lastName"], ["initials"]],
 	[["dob"], [], []],
-	[["sex"], ["gender"], ["otherGender"]],
+	[["sex"]],
 	[["profilePicture"]],
+	[["referralType"], ["referralTypeOther"]],
 ];
 
 function randomNumber(min: number, max: number) {
@@ -158,22 +159,31 @@ export const Profile = ({
 					},
 				},
 				{
-					name: "gender",
-					label: "Gender",
+					name: "referralType",
+					label: "How did you hear about us?",
 					type: "dropdown",
 					required: true,
-					instructionText: "This is the gender that you identify as now.",
 					inputSettings: {
-						options: [{ value: "male", label: "Male" }, { value: "female", label: "Female" }, { value: "other", label: "Other (Please specify)" }, { value: "undisclosed", label: "Prefer not to say" }],
+						options: [
+							{ value: "socialMedia", label: "Social Media (e.g., Facebook, Twitter, Instagram)" },
+							{ value: "searchEngine", label: "Search Engine (e.g., Google, Bing)" },
+							{ value: "friendFamily", label: "Friend or Family" },
+							{ value: "onlineAd", label: "Online Advertisement" },
+							{ value: "emailNewsletter", label: "Email Newsletter" },
+							{ value: "blogWebsite", label: "Blog or Website" },
+							{ value: "eventConference", label: "Event or Conference" },
+							{ value: "printAd", label: "Print Advertisement (e.g., magazine, newspaper)" },
+							{ value: "radioTv", label: "Radio or TV" },
+							{ value: "other", label: "Other" },
+						],
 					},
 				},
 				{
-					name: "otherGender",
-					label: "Gender Specified",
+					name: "referralTypeOther",
+					label: "Please specify where you heard about us",
 					type: "text",
 					required: true,
-					instructionText: "Please tell us what gender you identify as.",
-					show: ({ data }) => data.gender && data.gender.value === "other",
+					show: ({ data }) => data.referralType && data.referralType.value === "other",
 				},
 				{
 					name: "profilePicture",
