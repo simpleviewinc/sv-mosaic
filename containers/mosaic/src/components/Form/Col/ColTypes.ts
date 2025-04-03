@@ -13,6 +13,7 @@ export interface ColPropsTypes {
 	colIdx?: number;
 	rowIdx?: number;
 	sectionIdx?: number;
+	gridMinWidth?: string;
 	spacing?: FormSpacing;
 	methods: FormMethods;
 	skeleton?: boolean;
