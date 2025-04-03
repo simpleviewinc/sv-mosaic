@@ -14,6 +14,7 @@ const Col = (props: ColPropsTypes) => {
 		colIdx,
 		rowIdx,
 		sectionIdx,
+		gridMinWidth,
 		spacing,
 		methods,
 		skeleton,
@@ -29,7 +30,11 @@ const Col = (props: ColPropsTypes) => {
 	const gridEnd = gridStart + (span === "auto" ? FORM_GRID_SEGMENTS / colsInRow : span);
 
 	return (
-		<StyledCol data-layout="column" $gridColumn={`${gridStart} / ${gridEnd}`}>
+		<StyledCol
+			data-layout="column"
+			$gridColumn={`${gridStart} / ${gridEnd}`}
+			$gridMinWidth={gridMinWidth}
+		>
 			{names.map((field) => (
 				<Field
 					key={field}
