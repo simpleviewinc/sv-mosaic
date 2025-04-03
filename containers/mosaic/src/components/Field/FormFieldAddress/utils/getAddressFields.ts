@@ -74,7 +74,7 @@ function getAddressFields({
 			required,
 			disabled,
 			label: "Address",
-			size: "lg",
+			size: "full",
 			// If a google maps API key has been provided,
 			// use an autocomplete field. Otherwise, just a
 			// standard text field will do.
@@ -94,7 +94,7 @@ function getAddressFields({
 			label: "Address Line 2",
 			hideLabel: true,
 			type: "text",
-			size: "lg",
+			size: "full",
 			disabled,
 		},
 		address3: {
@@ -102,14 +102,14 @@ function getAddressFields({
 			label: "Address Line 3",
 			hideLabel: true,
 			type: "text",
-			size: "lg",
+			size: "full",
 			disabled,
 		},
 		country: {
 			name: "country",
 			type: "dropdown",
 			label: "Country",
-			size: "sm",
+			size: "full",
 			required,
 			disabled,
 			inputSettings: {
@@ -124,7 +124,7 @@ function getAddressFields({
 			name: "city",
 			type: "text",
 			label: "City",
-			size: "sm",
+			size: "full",
 			required,
 			disabled,
 		},
@@ -132,7 +132,7 @@ function getAddressFields({
 			name: "state",
 			type: AddressStateField,
 			label: "State",
-			size: "sm",
+			size: "full",
 			disabled,
 			inputSettings: {
 				getOptionsStates,
@@ -142,7 +142,7 @@ function getAddressFields({
 			name: "postalCode",
 			type: "text",
 			label: "Postal Code",
-			size: "sm",
+			size: "full",
 			required,
 			disabled,
 			inputSettings: {

@@ -106,7 +106,7 @@ describe(__dirname, () => {
 					type: "string",
 				},
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "text",
 				validators:  [
 					{
@@ -132,7 +132,7 @@ describe(__dirname, () => {
 				label: "Address",
 				name: "address1",
 				required: undefined,
-				size: "lg",
+				size: "full",
 				type: AddressAutocompleteField,
 				inputSettings: {
 					getOptionsCountries: getOptionsCountries,
@@ -148,7 +148,7 @@ describe(__dirname, () => {
 				label: "Country",
 				name: "country",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "dropdown",
 				validates: [
 					{
@@ -164,7 +164,7 @@ describe(__dirname, () => {
 				label: "City",
 				name: "city",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "text",
 			},
 			{
@@ -174,7 +174,7 @@ describe(__dirname, () => {
 				},
 				label: "State",
 				name: "state",
-				size: "sm",
+				size: "full",
 				type: AddressStateField,
 			},
 			{
@@ -185,7 +185,7 @@ describe(__dirname, () => {
 				label: "Postal Code",
 				name: "postalCode",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "text",
 				validators: [
 					{
@@ -209,7 +209,7 @@ describe(__dirname, () => {
 				label: "Address",
 				name: "address1",
 				required: undefined,
-				size: "lg",
+				size: "full",
 				type: "text",
 			},
 			{
@@ -217,7 +217,7 @@ describe(__dirname, () => {
 				label: "Address Line 2",
 				hideLabel: true,
 				name: "address2",
-				size: "lg",
+				size: "full",
 				type: "text",
 			},
 			{
@@ -225,7 +225,7 @@ describe(__dirname, () => {
 				label: "Address Line 3",
 				hideLabel: true,
 				name: "address3",
-				size: "lg",
+				size: "full",
 				type: "text",
 			},
 			{
@@ -236,7 +236,7 @@ describe(__dirname, () => {
 				label: "Country",
 				name: "country",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "dropdown",
 				validates: [
 					{
@@ -252,7 +252,7 @@ describe(__dirname, () => {
 				label: "City",
 				name: "city",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "text",
 			},
 			{
@@ -262,7 +262,7 @@ describe(__dirname, () => {
 				},
 				label: "State",
 				name: "state",
-				size: "sm",
+				size: "full",
 				type: AddressStateField,
 			},
 			{
@@ -273,7 +273,7 @@ describe(__dirname, () => {
 				label: "Postal Code",
 				name: "postalCode",
 				required: undefined,
-				size: "sm",
+				size: "full",
 				type: "text",
 				validators: [
 					{

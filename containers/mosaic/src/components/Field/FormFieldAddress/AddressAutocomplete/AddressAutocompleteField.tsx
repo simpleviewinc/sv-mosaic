@@ -8,7 +8,6 @@ import type { MosaicLabelValue } from "@root/types";
 import type { MosaicFieldProps } from "../../FieldTypes";
 import type { AddressAutocompleteInputSettings } from "./AddressAutocompleteTypes";
 
-import { Sizes } from "@root/theme";
 import FieldWrapper from "@root/components/FieldWrapper";
 import AddressAutocomplete from "./AddressAutocomplete";
 import { geocodeByAddress } from "react-places-autocomplete";
@@ -169,7 +168,7 @@ function AddressAutocompleteField(props: MosaicFieldProps<"text", AddressAutocom
 					label,
 					hideLabel: fieldDef.hideLabel,
 					required: fieldDef.required,
-					size: Sizes.lg,
+					size: fieldDef.size,
 				}}
 				path={path}
 				methods={props.methods}
