@@ -54,6 +54,7 @@ const Row = (props: RowPropTypes) => {
 						col={col}
 						fieldsDef={fieldsDef}
 						colsInRow={row.length}
+						gridMinWidth={gridMinWidth}
 						spacing={spacing}
 						methods={methods}
 						skeleton={skeleton}
