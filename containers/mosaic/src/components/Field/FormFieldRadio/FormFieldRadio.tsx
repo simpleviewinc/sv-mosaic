@@ -7,7 +7,6 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import type { RadioInputSettings, RadioData } from "./FormFieldRadioTypes";
 import type { MosaicLabelValue } from "@root/types";
 
-import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
 import RadioButton from "@root/components/RadioButton";
 import { StyledRadioGroup } from "./FormFieldRadio.styled";
@@ -25,15 +24,9 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 
 	const {
 		inputSettings: {
-			getOptions: optionsAsync,
-			options: providedOptions = optionsAsync,
+			options: providedOptions,
 		} = {},
 	} = fieldDef;
-
-	useMountWarning(
-		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
-		Boolean(optionsAsync),
-	);
 
 	const { options, loading } = useOptions({
 		from: providedOptions,
