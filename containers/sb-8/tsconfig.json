@@ -24,10 +24,14 @@
 			"@root/*": [
 				"../mosaic/src/*"
 			],
+      "@components/*": [
+        "components/*"
+      ],
       "react": [ "./node_modules/@types/react" ]
 		},
   },
   "include": [
+    "./components/**/*.tsx",
     "./stories/**/*.tsx",
     "./utils/**/*.ts",
   ],

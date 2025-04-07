@@ -2,12 +2,11 @@ import type { ComponentDoc, ParserOptions, PropItem } from "react-docgen-typescr
 
 import { withCustomConfig } from "react-docgen-typescript";
 import path from "path";
-import * as ts from "typescript";
 import { parse } from "doctrine";
-import { readFileSync } from "fs";
 import { mkdir, writeFile } from "fs/promises";
 import { escapeHtml, fileExists } from "./utils";
-import { inspect } from "util";
+import { readFileSync } from "fs";
+import ts from "typescript";
 
 const basePath = path.resolve(__dirname, "..");
 const libPath = path.join(basePath, "containers", "mosaic");
@@ -31,19 +30,36 @@ const components = [
 	// "DataView/DataView.tsx:DataView",
 ];
 
+type ExampleDoc = ComponentDoc & { content: string };
+
 class Documentation {
 	private imports: {
 		name: string;
 		path: string;
 	}[] = [];
 
+	private examples: ExampleDoc[] = [];
+
 	private doc: ComponentDoc;
 
-	private exampleDocs: ComponentDoc[];
-
-	constructor({ doc, exampleDocs = [] }: { doc: ComponentDoc; exampleDocs?: ComponentDoc[] }) {
+	constructor({ doc }: { doc: ComponentDoc }) {
 		this.doc = doc;
-		this.exampleDocs = exampleDocs;
+	}
+
+	addImports(...imports: {name: string; path: string}[]): Documentation {
+		for (const imp of imports) {
+			if (this.imports.find(({ name }) => name === imp.name)) {
+				continue;
+			}
+
+			this.imports.push(imp);
+		}
+
+		return this;
+	}
+
+	addExamples(...examples: ExampleDoc[]): void {
+		this.examples.push(...examples);
 	}
 
 	markdownFromDoc(): string {
@@ -68,7 +84,7 @@ class Documentation {
 		}
 
 		return [
-			this.imports.map(({ name, path }) => `import ${name} from "${path}"`),
+			...this.imports.map(({ name, path }) => `import ${name} from "${path}";`),
 			"",
 			...parts,
 			...this.markdownFromExamples(),
@@ -90,7 +106,7 @@ class Documentation {
 	}
 
 	markdownFromExamples(): string[] {
-		if (!this.exampleDocs.length) {
+		if (!this.examples) {
 			return [];
 		}
 
@@ -98,30 +114,21 @@ class Documentation {
 			"## Examples",
 		];
 
-		for (const { displayName, description } of this.exampleDocs) {
+		for (const { displayName, description, content } of this.examples) {
 			parts.push(`### ${displayName}`);
 			parts.push(description);
+			parts.push(`<Example component={stories.${displayName}}>{\`${content}\`}</Example>`);
 		}
 
 		return parts;
 	}
 }
 
-async function fetchExampleDocs(path: string): Promise<ComponentDoc[]> {
-	const exists = await fileExists(path);
-
-	if (!exists) {
-		return [];
-	}
-
-	return sbParser.parse(path);
-}
-
 function stripComments(text: string): string {
 	return text.replace(/\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g, "").trim();
 }
 
-async function _main() {
+async function parseComponentContent(path: string) {
 	const { config, error } = ts.readConfigFile(sbTsConfigPath, fileName => readFileSync(fileName, "utf-8"));
 
 	if (error) {
@@ -143,21 +150,20 @@ async function _main() {
 		else throw new Error(JSON.stringify(errors[0]));
 	}
 
-	const fileName = "containers/sb-8/stories/components/Card/Card.examples.stories.tsx";
-	const fileContents = readFileSync(fileName, "utf-8");
+	const fileContents = readFileSync(path, "utf-8");
 
-	const program = ts.createProgram([fileName], options);
+	const program = ts.createProgram([path], options);
 	const checker = program.getTypeChecker();
-	const sourceFile = program.getSourceFile(fileName);
+	const sourceFile = program.getSourceFile(path);
 
 	if (!sourceFile) {
-		throw new Error(`Source file for ${fileName} is undefined`);
+		throw new Error(`Source file for ${path} is undefined`);
 	}
 
 	const moduleSymbol = checker.getSymbolAtLocation(sourceFile);
 
 	if (!moduleSymbol) {
-		throw new Error(`No symbols available from example source file ${fileName}.`);
+		throw new Error(`No symbols available from example source file ${path}.`);
 	}
 
 	const components = checker
@@ -167,15 +173,7 @@ async function _main() {
 			const name = component.getName();
 
 			if (!valueDeclaration) {
-				throw new Error(`No value declaration for ${name} in ${fileName}`);
-			}
-
-			if (name === "Base") {
-				// You're trying to work out how to expand variables
-				// @ts-expect-error
-				component.declarations[0].getChildren().forEach(child => {
-					console.log(checker.getSymbolsInScope(child, ts.SymbolFlags.All));
-				});
+				throw new Error(`No value declaration for ${name} in ${path}`);
 			}
 
 			const { pos, end } = valueDeclaration;
@@ -187,7 +185,24 @@ async function _main() {
 			};
 		}, {});
 
-	// console.log(components);
+	return components;
+}
+
+async function fetchExampleDocs(path: string): Promise<ExampleDoc[]> {
+	const exists = await fileExists(path);
+
+	if (!exists) {
+		return [];
+	}
+
+	const parsedFile = await parseComponentContent(path);
+
+	const documents = sbParser.parse(path).map((doc) => ({
+		...doc,
+		...(parsedFile[doc.displayName]),
+	}));
+
+	return documents;
 }
 
 async function main() {
@@ -211,17 +226,28 @@ async function main() {
 			throw new Error(`${componentName} not found in ${relativePath}.`);
 		}
 
-		const exampleDocs = await fetchExampleDocs(path.join(docDirPath, `${pathParts.name}.examples.stories.tsx`));
+		const documentation = new Documentation({ doc });
 
-		const documentation = new Documentation({
-			doc,
-			exampleDocs,
-		});
+		const exampleDocs = await fetchExampleDocs(path.join(docDirPath, `${pathParts.name}.examples.stories.tsx`));
+		if (exampleDocs.length) {
+			documentation
+				.addImports({
+					name: "{ Canvas, Meta }",
+					path: "@storybook/blocks",
+				}, {
+					name: "* as stories",
+					path: `./${pathParts.name}.examples.stories.tsx`,
+				}, {
+					name: "Example",
+					path: "@components/Example",
+				})
+				.addExamples(...exampleDocs);
+		}
 
 		await mkdir(docDirPath, { recursive: true });
 		await writeFile(docPath, documentation.markdownFromDoc());
 	}
 }
 
-_main();
+main();
 

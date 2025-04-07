@@ -10,6 +10,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			"@root": path.resolve(__dirname, "../mosaic/src"),
+			"@components": path.resolve(__dirname, "components"),
 		},
 	},
 });

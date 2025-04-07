@@ -1,8 +1,10 @@
-import { Canvas } from '@storybook/blocks';
-import * as examples from "./Card.examples.stories.tsx";
+import { Canvas, Meta } from "@storybook/blocks";
+import * as stories from "./Card.examples.stories.tsx";
+import Example from "@components/Example";
+
 
 # Card
-
+The Card component is a structured container for displaying content with a title, optional count, and configurable actions. It supports rendering a title with an optional icon, a list of content elements, and action buttons at the top and bottom. The component is styled for consistent presentation and includes optional dividers between content items. It is designed to handle dynamic content and actions while maintaining a clean layout.
 ## Props
 | Name | Type  | Default | Description
 | - | - | - | -
@@ -17,17 +19,53 @@ import * as examples from "./Card.examples.stories.tsx";
 ### Base
 A simple way to display encapsulated, itemized information to the user. In it's simplest form, it is a bordered box
 with a heading area containing a title.
-<Canvas of={examples.Base} />
+<Example component={stories.Base}>{`export function Base() {
+	return (
+		<Card {...common} />
+	);
+}`}</Example>
 ### TopActions
 Provide a list of buttons that should be displayed in the card's header area. The buttons will be horizontally aligned
 to the right, vertically aligned center with the title and rendered within a `ButtonRow` component.
+<Example component={stories.TopActions}>{`export function TopActions() {
+	return (
+		<Card
+			{...common}
+			topActions={commonButtons}
+		/>
+	);
+}`}</Example>
 ### BottomActions
 Provide a list of buttons that should be displayed below the card's content. The buttons will be horizontally aligned
 in the center and rendered within a `ButtonRow` component.
+<Example component={stories.BottomActions}>{`export function BottomActions() {
+	return (
+		<Card
+			{...common}
+			bottomActions={commonButtons}
+		/>
+	);
+}`}</Example>
 ### TitleIcon
 You can provide a MUI icon component (or any component, really) to the `titleIcon` property and it will be comfortably
 rendered before the title with a small gap in between.
+<Example component={stories.TitleIcon}>{`export function TitleIcon() {
+	return (
+		<Card
+			{...common}
+			titleIcon={InfoIcon}
+		/>
+	);
+}`}</Example>
 ### Count
 By providing a number to the `count` property, you can have the value displayed appropriately alongside the title of the
 card. The number will be displayed in brackets in a slightly smaller font than the title. To avoid displaying the number
 if it is "0", you can provide the `displayZeroCount` property as `false`.
+<Example component={stories.Count}>{`export function Count() {
+	return (
+		<Card
+			{...common}
+			count={5}
+		/>
+	);
+}`}</Example>
