@@ -75,6 +75,7 @@ export const Playground = ({
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
+	size,
 }: typeof Playground.args): ReactElement => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [indexEdit, setIndexEdit] = useState(null);
@@ -256,6 +257,7 @@ export const Playground = ({
 					helperText,
 					instructionText,
 					forceInstructionTooltip,
+					size,
 					inputSettings: {
 						dataView: gridConfig,
 						buttons: [
@@ -270,7 +272,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, gridConfig, onAddClick],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, size, gridConfig, onAddClick],
 	);
 
 	const mosaicSettings = useMosaicSettings();
@@ -314,7 +316,6 @@ Playground.args = {
 	}),
 	optionsOrigin: "Local",
 	size: "sm",
-	placeholder: "Choose a movie..",
 };
 
 Playground.argTypes = {
@@ -326,8 +327,5 @@ Playground.argTypes = {
 		name: "Size",
 		control: { type: "select" },
 		options: ["xs", "sm", "md", "lg"],
-	},
-	placeholder: {
-		name: "Placeholder",
 	},
 };
