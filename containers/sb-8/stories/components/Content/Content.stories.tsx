@@ -102,7 +102,7 @@ const sectionConfigs: Record<string, ContentProps["sections"]> = {
 	"Three Columns": [
 		["tags", "colorPicker", undefined],
 		["toggle", "date", "thumbnail"],
-		["animals"], ["cars"], ["chipsAsValue"],
+		["animals", "cars", "chipsAsValue"],
 		["multipleTransforms"],
 	],
 };
