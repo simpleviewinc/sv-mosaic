@@ -11,11 +11,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	size,
 	placeholder,
@@ -33,6 +35,7 @@ export const Playground = ({
 				{
 					name: "number",
 					label,
+					hideLabel,
 					type: "number",
 					required,
 					disabled,
@@ -46,21 +49,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			],
-		[
-			label,
-			required,
-			disabled,
-			size,
-			placeholder,
-			helperText,
-			instructionText,
-			decimalPlaces,
-			prefix,
-			suffix,
-			sign,
-		],
+		[label, hideLabel, required, disabled, size, placeholder, decimalPlaces, prefix, suffix, sign, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (
