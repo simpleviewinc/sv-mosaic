@@ -13,9 +13,11 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	limit,
 	prepop,
@@ -76,11 +78,13 @@ export const Playground = ({
 				{
 					name: "uploadField",
 					label,
+					hideLabel,
 					type: "upload",
 					required,
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 					inputSettings: {
 						limit: limit === "No limit" ? undefined : Number(limit),
 						onFileAdd,
@@ -91,19 +95,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[
-			label,
-			required,
-			disabled,
-			helperText,
-			instructionText,
-			limit,
-			onFileAdd,
-			accept,
-			maxFileSize,
-			maxTotalSize,
-			onFileDelete,
-		],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, limit, onFileAdd, onFileDelete, accept, maxFileSize, maxTotalSize],
 	);
 
 	return (

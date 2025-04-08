@@ -14,11 +14,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	rowTotalLabel,
 	columnTotalLabel,
@@ -35,6 +37,7 @@ export const Playground = ({
 			{
 				name: "numberTable",
 				label,
+				hideLabel,
 				type: "numberTable",
 				required,
 				disabled,
@@ -50,21 +53,10 @@ export const Playground = ({
 				},
 				helperText,
 				instructionText,
+				forceInstructionTooltip,
 			},
 		],
-		[
-			label,
-			formatOptions,
-			displayColumnsSums,
-			displayRowsSums,
-			required,
-			disabled,
-			instructionText,
-			helperText,
-			topLeftLabel,
-			rowTotalLabel,
-			columnTotalLabel,
-		],
+		[label, hideLabel, required, disabled, displayColumnsSums, displayRowsSums, rowTotalLabel, columnTotalLabel, topLeftLabel, formatOptions, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (
