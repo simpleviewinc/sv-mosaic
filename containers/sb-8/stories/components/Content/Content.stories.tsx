@@ -210,8 +210,6 @@ export const Playground = ({
 
 	const sections = sectionConfigs[sectionConfigKey];
 
-	console.log(sections);
-
 	return (
 		<>
 			<Content
