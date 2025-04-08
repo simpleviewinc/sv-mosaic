@@ -12,9 +12,11 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	prepop,
 	prepopData,
@@ -28,8 +30,10 @@ export const Playground = ({
 			[
 				{
 					label,
+					hideLabel,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 					required,
 					disabled,
 					name: "chip",
@@ -39,7 +43,7 @@ export const Playground = ({
 					},
 				},
 			] as FieldDef[],
-		[label, helperText, instructionText, required, disabled, optionsType],
+		[label, hideLabel, helperText, instructionText, forceInstructionTooltip, required, disabled, optionsType],
 	);
 
 	return (

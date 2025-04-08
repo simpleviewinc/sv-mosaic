@@ -13,9 +13,11 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	limit,
 	prepop,
@@ -26,14 +28,12 @@ export const Playground = ({
 	fileUrl,
 	downloadUrl,
 	error,
-	acceptCsv,
+	accept,
 	maxFileSize,
 	maxTotalSize,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
-
-	const accept = acceptCsv.trim() ? acceptCsv.split(",") : undefined;
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
 		for (let i = 0; i < 10; i++) {
@@ -78,11 +78,13 @@ export const Playground = ({
 				{
 					name: "uploadField",
 					label,
+					hideLabel,
 					type: "upload",
 					required,
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 					inputSettings: {
 						limit: limit === "No limit" ? undefined : Number(limit),
 						onFileAdd,
@@ -93,19 +95,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[
-			label,
-			required,
-			disabled,
-			helperText,
-			instructionText,
-			limit,
-			onFileAdd,
-			accept,
-			maxFileSize,
-			maxTotalSize,
-			onFileDelete,
-		],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, limit, onFileAdd, onFileDelete, accept, maxFileSize, maxTotalSize],
 	);
 
 	return (
@@ -156,7 +146,7 @@ Playground.args = {
 	fileUrl: "",
 	downloadUrl: "",
 	error: "",
-	acceptCsv: "",
+	accept: [],
 	maxFileSize: "",
 	maxTotalSize: "",
 };
@@ -186,8 +176,8 @@ Playground.argTypes = {
 	error: {
 		name: "Throw Upload Error",
 	},
-	acceptCsv: {
-		name: "Comma Separated Accepted Extensions",
+	accept: {
+		name: "Accepted Extensions",
 	},
 	maxFileSize: {
 		name: "Max File Size (KB)",

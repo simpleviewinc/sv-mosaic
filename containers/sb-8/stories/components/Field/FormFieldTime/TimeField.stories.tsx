@@ -11,11 +11,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? { ...prepopData, time: parseDateControl(prepopData?.time) } : {} });
@@ -27,13 +29,15 @@ export const Playground = ({
 				name: "time",
 				type: "time",
 				label,
+				hideLabel,
 				required,
 				disabled,
 				helperText,
 				instructionText,
+				forceInstructionTooltip,
 			},
 		],
-		[label, required, disabled, helperText, instructionText],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (

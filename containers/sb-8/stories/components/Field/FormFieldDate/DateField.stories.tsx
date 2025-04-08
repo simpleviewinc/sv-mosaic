@@ -12,9 +12,11 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	prepop,
 	prepopData,
 	helperText,
@@ -49,10 +51,12 @@ export const Playground = ({
 				name: "date",
 				type: "date",
 				label,
+				hideLabel,
 				required,
 				disabled,
 				helperText,
 				instructionText,
+				forceInstructionTooltip,
 				inputSettings: {
 					showTime,
 					minDate,
@@ -61,7 +65,7 @@ export const Playground = ({
 				},
 			},
 		],
-		[label, required, disabled, helperText, instructionText, showTime, minDate, defaultTime],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, showTime, minDate, defaultTime],
 	);
 
 	return (

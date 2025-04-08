@@ -11,10 +11,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	prepop,
 	prepopData,
+	instructionText,
+	forceInstructionTooltip,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
@@ -25,12 +28,15 @@ export const Playground = ({
 				{
 					name: "color",
 					label,
+					hideLabel,
 					type: "color",
 					required,
 					disabled,
+					instructionText,
+					forceInstructionTooltip,
 				},
 			],
-		[label, required, disabled],
+		[label, hideLabel, required, disabled, instructionText, forceInstructionTooltip],
 	);
 
 	return (

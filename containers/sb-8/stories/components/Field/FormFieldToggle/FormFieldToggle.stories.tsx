@@ -13,11 +13,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	toggleLabel,
 }: typeof Playground.args): ReactElement => {
@@ -30,6 +32,7 @@ export const Playground = ({
 				{
 					name: "toggle",
 					label,
+					hideLabel,
 					type: "toggle",
 					required,
 					disabled,
@@ -38,9 +41,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			],
-		[required, disabled, toggleLabel, label, helperText, instructionText],
+		[label, hideLabel, required, disabled, toggleLabel, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (

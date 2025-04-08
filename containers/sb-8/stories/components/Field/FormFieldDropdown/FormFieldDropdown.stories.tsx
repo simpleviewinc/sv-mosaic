@@ -14,11 +14,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
-	disabled,
 	instructionText,
+	forceInstructionTooltip,
+	disabled,
 	helperText,
 	optionsType,
 	placeholder,
@@ -33,6 +35,7 @@ export const Playground = ({
 				{
 					name: "dropdown",
 					label,
+					hideLabel,
 					type: "dropdown",
 					required,
 					disabled,
@@ -43,9 +46,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			] as FieldDef[],
-		[label, required, disabled, size, optionsType, placeholder, helperText, instructionText],
+		[label, hideLabel, required, disabled, size, optionsType, placeholder, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (

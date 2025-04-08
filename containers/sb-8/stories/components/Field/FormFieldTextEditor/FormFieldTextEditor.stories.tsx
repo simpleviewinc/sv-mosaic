@@ -29,6 +29,7 @@ const customExtensionControl: ControlWithProps = {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	disabled,
 	required,
 	prepop,
@@ -63,6 +64,7 @@ export const Playground = ({
 				{
 					name: "textEditor",
 					label,
+					hideLabel,
 					type: "textEditor",
 					required,
 					inputSettings: {
@@ -93,23 +95,7 @@ export const Playground = ({
 					size,
 				},
 			],
-		[
-			required,
-			disabled,
-			label,
-			helperText,
-			instructionText,
-			forceInstructionTooltip,
-			size,
-			maxCharacters,
-			autolink,
-			customControlConfig,
-			customImageHandler,
-			customLinkHandler,
-			customExtensionExample,
-			minHeight,
-			maxHeight,
-		],
+		[label, hideLabel, required, autolink, customControlConfig, customExtensionExample, customImageHandler, customLinkHandler, maxCharacters, minHeight, maxHeight, disabled, helperText, instructionText, forceInstructionTooltip, size],
 	);
 
 	return (
