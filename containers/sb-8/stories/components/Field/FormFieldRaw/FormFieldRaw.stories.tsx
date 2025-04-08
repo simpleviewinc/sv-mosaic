@@ -29,9 +29,11 @@ function RawValue() {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: { raw: <RawValue /> } });
@@ -43,14 +45,16 @@ export const Playground = ({
 				{
 					name: "raw",
 					label,
+					hideLabel,
 					type: "raw",
 					required,
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			],
-		[required, disabled, label, helperText, instructionText],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (

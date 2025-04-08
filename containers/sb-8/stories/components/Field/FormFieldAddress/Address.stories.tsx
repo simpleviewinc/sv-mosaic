@@ -30,10 +30,13 @@ const defaultGoogleKey = "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac";
 
 export const Playground = ({
 	label,
+	hideLabel,
 	disabled,
 	required,
 	prepop,
 	prepopData,
+	instructionText,
+	forceInstructionTooltip,
 	amountPerType,
 	amountShipping,
 	amountPhysical,
@@ -49,7 +52,10 @@ export const Playground = ({
 				{
 					disabled,
 					label,
+					hideLabel,
 					required,
+					instructionText,
+					forceInstructionTooltip,
 					name: "address",
 					type: "address",
 					inputSettings: {
@@ -63,7 +69,7 @@ export const Playground = ({
 				},
 			]
 		),
-		[disabled, label, required, amountPerType, amountShipping, amountPhysical, amountBilling, googleKey],
+		[disabled, label, hideLabel, required, instructionText, forceInstructionTooltip, amountPerType, amountShipping, amountPhysical, amountBilling, googleKey],
 	);
 
 	return (

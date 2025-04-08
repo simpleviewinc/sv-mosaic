@@ -18,11 +18,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	optionsOrigin,
 	getOptionsLimit,
@@ -71,10 +73,12 @@ export const Playground = ({
 				{
 					name: "advancedSelection",
 					label,
+					hideLabel,
 					required,
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 					type: "advancedSelection",
 					inputSettings: {
 						options: optionsOrigin === "Local" ? options : undefined,
@@ -90,10 +94,12 @@ export const Playground = ({
 			],
 		[
 			label,
+			hideLabel,
 			required,
 			disabled,
 			helperText,
 			instructionText,
+			forceInstructionTooltip,
 			getOptionsLimit,
 			options,
 			optionsOrigin,

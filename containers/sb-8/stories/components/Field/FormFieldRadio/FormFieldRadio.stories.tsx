@@ -14,11 +14,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	optionsType,
 }: typeof Playground.args): ReactElement => {
@@ -31,6 +33,7 @@ export const Playground = ({
 				{
 					name: "radio",
 					label,
+					hideLabel,
 					type: "radio",
 					required,
 					disabled,
@@ -39,9 +42,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			] as FieldDef[],
-		[label, required, disabled, instructionText, helperText, optionsType],
+		[label, hideLabel, required, disabled, optionsType, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (

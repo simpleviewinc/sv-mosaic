@@ -11,11 +11,13 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	country,
 }: typeof Playground.args): ReactElement => {
@@ -28,6 +30,7 @@ export const Playground = ({
 				{
 					name: "phone",
 					label,
+					hideLabel,
 					type: "phone",
 					required,
 					disabled,
@@ -36,9 +39,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			],
-		[disabled, required, country, label, helperText, instructionText],
+		[label, hideLabel, required, disabled, country, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (
