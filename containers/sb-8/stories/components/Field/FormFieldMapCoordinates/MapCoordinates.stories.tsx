@@ -17,9 +17,12 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
+	instructionText,
+	forceInstructionTooltip,
 	disabled,
 	initialCenterKnob,
 	zoom,
@@ -34,9 +37,12 @@ export const Playground = ({
 				{
 					name: "map",
 					label,
+					hideLabel,
 					type: "mapCoordinates",
 					required,
 					disabled,
+					instructionText,
+					forceInstructionTooltip,
 					inputSettings: {
 						googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
 						initialCenter: initialCenterKnob,
@@ -45,7 +51,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[disabled, label, initialCenterKnob, required, zoom, focusZoom],
+		[label, hideLabel, required, disabled, instructionText, forceInstructionTooltip, initialCenterKnob, zoom, focusZoom],
 	);
 
 	return (

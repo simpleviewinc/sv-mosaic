@@ -67,11 +67,13 @@ const DrawerEditForm = ({
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	prepop,
 	prepopData,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 }: typeof Playground.args): ReactElement => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -247,11 +249,13 @@ export const Playground = ({
 				{
 					name: "formMatrix",
 					label,
+					hideLabel,
 					type: "matrix",
 					required,
 					disabled,
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 					inputSettings: {
 						dataView: gridConfig,
 						buttons: [
@@ -266,7 +270,7 @@ export const Playground = ({
 					},
 				},
 			],
-		[label, required, disabled, helperText, instructionText, gridConfig, onAddClick],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, gridConfig, onAddClick],
 	);
 
 	const mosaicSettings = useMosaicSettings();

@@ -14,9 +14,11 @@ export default {
 
 export const Playground = ({
 	label,
+	hideLabel,
 	required,
 	disabled,
 	instructionText,
+	forceInstructionTooltip,
 	helperText,
 	prepop,
 	prepopData,
@@ -44,6 +46,7 @@ export const Playground = ({
 				{
 					name: "checkbox",
 					label,
+					hideLabel,
 					type: "checkbox",
 					required,
 					disabled,
@@ -53,9 +56,10 @@ export const Playground = ({
 					},
 					helperText,
 					instructionText,
+					forceInstructionTooltip,
 				},
 			] as FieldDef[],
-		[label, required, disabled, options, helperText, instructionText, itemsPerColumn],
+		[label, hideLabel, required, disabled, options, itemsPerColumn, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (
