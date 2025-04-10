@@ -1,5 +1,9 @@
 FROM node:18.18.2
 
+ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/netskope.crt
+COPY netskope.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
+
 RUN apt-get update && apt-get -y install gettext-base jq
 
 RUN corepack enable && yarn set version 3.1.1
