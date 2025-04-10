@@ -1,5 +1,9 @@
 FROM mcr.microsoft.com/playwright:v1.44.0
 
+ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/netskope.crt
+COPY netskope.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
+
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
