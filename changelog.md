@@ -1,5 +1,27 @@
 # sv-mosaic changelog
 
+### 43.0.0 - 04/15/2025
+
+* `Chip`
+  * [MOS-1608](https://simpleviewtools.atlassian.net/browse/MOS-1608 "https://simpleviewtools.atlassian.net/browse/MOS-1608") **Text descenders being cut off**
+    * (Chip) Increase the line height of Chip text whilst making it relative to the font size.
+* `Content`
+  * [MOS-1502](https://simpleviewtools.atlassian.net/browse/MOS-1502 "https://simpleviewtools.atlassian.net/browse/MOS-1502") **Remove support for the deprecated content section definition types**
+    * **(BREAKING CHANGE)** (Content) Remove deprecated sections type.
+* `Form`
+  * [MOS-1588](https://simpleviewtools.atlassian.net/browse/MOS-1588 "https://simpleviewtools.atlassian.net/browse/MOS-1588") **getFormValues and error handling**
+    * (Form) useForm hook now accepts `data`, `skeleton` and `disabled` as parameters that will be used for initial form state.
+    * (Form) The parameter for `useForm().methods.setFormValues` now accepts `skeleton` and `disabled` properties that will be used to update the corresponding state properties if provided.
+    * **(BREAKING CHANGE)** (Form) Drops support for the `getFormValues` property.
+    * **(BREAKING CHANGE)** (Form) `disabled` state property is `false` by default instead of `true`, unless otherwise specified.
+    * See [documentation](https://simpleviewinc.github.io/sv-mosaic/sb8/master/?path=/docs/components-form--form#prepopulated-values "https://simpleviewinc.github.io/sv-mosaic/sb8/master/?path=/docs/components-form--form#prepopulated-values") for new usage.
+* Housekeeping
+  * [MOS-1603](https://simpleviewtools.atlassian.net/browse/MOS-1603 "https://simpleviewtools.atlassian.net/browse/MOS-1603")
+    * Perform a number of upgrades to the libraries that the Storybook container utilises.
+    * Ensure all packages are pinned.
+  * [MOS-1610](https://simpleviewtools.atlassian.net/browse/MOS-1610 "https://simpleviewtools.atlassian.net/browse/MOS-1610") **Remove "other" gender option.**
+    * (chore) Removes other gender options, replaces conditional field demonstration with referral question.
+
 ### 42.1.0 - 04/01/2024
 
 * `FormFieldPhoneSelectionDropdown`
