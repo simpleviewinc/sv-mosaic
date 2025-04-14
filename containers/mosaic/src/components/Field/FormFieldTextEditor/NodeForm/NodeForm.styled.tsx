@@ -5,7 +5,7 @@ import Button from "@root/components/Button";
 import Popper from "@mui/material/Popper";
 
 export const StyledPopper = styled(Popper)`
-    z-index: 5;
+	z-index: 1300;
 `;
 
 export const StyledNodeForm = styled.div`

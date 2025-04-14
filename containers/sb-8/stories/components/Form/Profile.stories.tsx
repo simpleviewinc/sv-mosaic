@@ -387,6 +387,17 @@ export const Profile = ({
 					instructionText: "In a few words, describe to us your most distinguishing hobbies.",
 				},
 				{
+					name: "favouriteCatPicture",
+					label: "Favourite Cat Picture",
+					type: "upload",
+					instructionText: "Everyone has a favourite cat picture.",
+					inputSettings: {
+						onFileAdd,
+						onFileDelete,
+						limit: 1,
+					},
+				},
+				{
 					name: "animalsOrVehicles",
 					label: "Would you rather talk about animals or vehicles?",
 					type: "radio",
@@ -479,6 +490,7 @@ export const Profile = ({
 				[["favouriteNumbers"]],
 				[["favouriteColor"]],
 				[["hobbies"]],
+				[["favouriteCatPicture"]],
 				[["animalsOrVehicles"]],
 			],
 			show: showPreferences,
