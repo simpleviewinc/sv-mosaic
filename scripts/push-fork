@@ -6,7 +6,7 @@ jira_issues="https://simpleviewtools.atlassian.net/browse"
 
 branch_name=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
 fork_url=$(git remote get-url fork)
-fork_path=$(sed -e "s#https://github\.com/##g" <<< $fork_url)
+fork_path=$(sed -e "s#git@github.com:##g" <<< $fork_url)
 fork=$(sed -e "s#/#:#g" <<< $fork_path)
 issue_tag=$(sed -n "s/^\(MOS-[0-9]\+\).*$/\1/p" <<< $branch_name)
 
