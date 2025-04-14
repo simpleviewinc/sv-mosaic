@@ -67,7 +67,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 													>
 														<Checkbox
 															className="checkbox"
-															checked={props.checked[i]}
+															checked={Boolean(props.checked[i])}
 															onClick={checkboxClick(i)}
 														/>
 													</div>
