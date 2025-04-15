@@ -4,7 +4,7 @@ import type { ColorResult } from "react-color";
 import React, { memo, useState } from "react";
 import { SketchPicker } from "react-color";
 import Skeleton from "@mui/material/Skeleton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { ColorData } from "./FormFieldColorTypes";
@@ -82,7 +82,7 @@ const FormFieldColor = (
 						variant="text"
 						label="Remove color"
 						onClick={clearColor}
-						mIcon={DeleteIcon}
+						mIcon={ClearIcon}
 					/>
 				) : (
 					<NoColor>No color selected</NoColor>
