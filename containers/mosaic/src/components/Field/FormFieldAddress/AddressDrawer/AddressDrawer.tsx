@@ -87,10 +87,10 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 	const sections = useMemo<SectionDef[]>(() => [
 		{
 			fields: [
-				[["address1"]],
-				[["address2"]],
-				[["address3"]],
-				[["country"]],
+				[{ names: ["address1"], span: 4 }],
+				[{ names: ["address2"], span: 4 }],
+				[{ names: ["address3"], span: 4 }],
+				[{ names: ["country"], span: 2 }],
 				[["city"], ["state"], ["postalCode"]],
 				...(addressTypes ? [[["types"]]] : []),
 			],
