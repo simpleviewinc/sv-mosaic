@@ -46,11 +46,9 @@ export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
 		z-index: 1;
 	`}
 
-	cursor: grab;
 	align-items: center;
 	border-bottom: 1px solid ${theme.newColors.grey2["100"]};
 	display: flex;
-	padding: 12px 0;
 
 
 	.MuiSvgIcon-root {
@@ -58,8 +56,15 @@ export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
 	}
 `;
 
-export const ColumnItemLabel = styled.div`
+export const ColumnDraggable = styled.div`
+	align-items: center;
+	cursor: grab;
+	display: flex;
 	flex-grow: 1;
+	padding: 20px 0;
+`;
+
+export const ColumnItemLabel = styled.div`
 	margin-left: 16px;
 	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.fontWeight.normal};
