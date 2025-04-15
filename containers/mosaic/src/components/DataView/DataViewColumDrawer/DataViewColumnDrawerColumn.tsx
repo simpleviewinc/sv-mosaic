@@ -6,10 +6,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 import type { DataViewColumnDrawerColumnProps } from "./DataViewColumnDrawerTypes";
 
-import { ColumnItem, ColumnItemLabel } from "./DataViewColumnDrawer.styled";
+import { ColumnDraggable, ColumnItem, ColumnItemLabel } from "./DataViewColumnDrawer.styled";
 import Button from "@root/components/Button";
 
-function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerColumnProps) {
+function DataViewColumnDrawerColumn({ name, allColumns, onRemove }: DataViewColumnDrawerColumnProps) {
 	const column = allColumns.find((c) => c.name === name);
 
 	if (!column) {
@@ -32,19 +32,23 @@ function DataViewColumnDrawerColumn({ name, allColumns }: DataViewColumnDrawerCo
 
 	return (
 		<ColumnItem
-			{...attributes}
-			{...listeners}
 			ref={setNodeRef}
 			style={style}
 			$isDragging={isDragging}
 		>
-			<DragIndicatorIcon />
-			<ColumnItemLabel>{column.label}</ColumnItemLabel>
+			<ColumnDraggable
+				{...attributes}
+				{...listeners}
+			>
+				<DragIndicatorIcon />
+				<ColumnItemLabel>{column.label}</ColumnItemLabel>
+			</ColumnDraggable>
 			<Button
 				variant="icon"
 				color="gray"
 				mIcon={ClearIcon}
 				tooltip="Remove Column"
+				onClick={() => onRemove(name)}
 			/>
 		</ColumnItem>
 	);
