@@ -12,8 +12,8 @@ export type PhoneCodeSelectProps = Omit<ComponentProps<"button">, "onChange"> & 
 }
 
 export interface PhoneCountryFlagProps {
-	country: string;
-	label: string;
+	country?: string;
+	label?: string;
 	disabled?: boolean;
 }
 export interface PhoneCodeAutocompleteProps {

@@ -49,9 +49,11 @@ function PhoneCodeSelect({
 					label={selectedOption?.label}
 					disabled={disabled}
 				/>
-				<span>
-					{`+${countryCallingCode}`}
-				</span>
+				{countryCallingCode && (
+					<span>
+						{`+${countryCallingCode}`}
+					</span>
+				)}
 				{autocompleteOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 			</StyledFlagSelectButton>
 			<StyledPopper
