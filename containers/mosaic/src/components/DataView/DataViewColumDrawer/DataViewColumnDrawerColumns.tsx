@@ -22,7 +22,7 @@ import type { DataViewColumnDrawerColumnsProps } from "./DataViewColumnDrawerTyp
 
 import DataViewColumnDrawerColumn from "./DataViewColumnDrawerColumn";
 
-function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: DataViewColumnDrawerColumnsProps) {
+function DataViewColumnDrawerColumns({ activeColumns, allColumns, onChange }: DataViewColumnDrawerColumnsProps) {
 	const sensors = useSensors(
 		useSensor(PointerSensor),
 		useSensor(KeyboardSensor, {
@@ -34,12 +34,16 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 		const { active, over } = event;
 
 		if (active.id !== over.id) {
-			onReorder(arrayMove(
+			onChange(arrayMove(
 				activeColumns,
 				activeColumns.indexOf(active.id),
 				activeColumns.indexOf(over.id),
 			));
 		}
+	}
+
+	function onItemRemove(column: string) {
+		onChange(activeColumns.filter((item) => item !== column));
 	}
 
 	return (
@@ -60,6 +64,7 @@ function DataViewColumnDrawerColumns({ activeColumns, allColumns, onReorder }: D
 							key={column}
 							name={column}
 							allColumns={allColumns}
+							onRemove={onItemRemove}
 						/>
 					))}
 				</SortableContext>

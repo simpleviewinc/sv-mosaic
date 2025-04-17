@@ -14,10 +14,11 @@ export interface DataViewColumnDrawerContentProps {
 export interface DataViewColumnDrawerColumnsProps {
 	activeColumns: string[];
 	allColumns: DataViewProps["columns"];
-	onReorder: (activeColumns: string[]) => void;
+	onChange: DataViewProps["onColumnsChange"];
 }
 
 export interface DataViewColumnDrawerColumnProps {
 	name: string;
 	allColumns: DataViewProps["columns"];
+	onRemove: (column: string) => void;
 }
