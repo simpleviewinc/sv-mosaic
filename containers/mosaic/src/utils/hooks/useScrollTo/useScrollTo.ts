@@ -81,7 +81,7 @@ export default function useScrollTo<E extends HTMLElement>({
 				container.removeEventListener("scroll", handler);
 				scrollHandlers.current = scrollHandlers.current.filter(item => item !== handler);
 
-				if (!scrollHandlers.current.length && !animation.inProgress()) {
+				if (onScrollFinished && !scrollHandlers.current.length && !animation.inProgress()) {
 					onScrollFinished();
 				}
 			};
