@@ -1,10 +1,9 @@
 import styled from "styled-components";
-
-// Theme
-import theme from "@root/theme";
 import Autocomplete from "@mui/material/Autocomplete";
-import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import Popper from "@mui/material/Popper";
+
+import theme from "@root/theme";
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 
 export const StyledPhoneContainer = styled.div`
 	display: flex;
@@ -111,4 +110,20 @@ export const StyledFlagIcon = styled.img<{ $disabled?: boolean }>`
 	${({ $disabled }) => $disabled && `
 		opacity: .25;
 	`}
+`;
+
+export const StyledUnknownFlag = styled.div`
+	background: white;
+	box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
+	height: 1rem;
+	width: 1.5rem;
+	color: ${theme.colors.gray600};
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	svg {
+		height: 0.8rem;
+		width: auto;
+	}
 `;
