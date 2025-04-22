@@ -156,7 +156,10 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 						return undefined;
 					}
 
-					return value.time;
+					return [
+						String(value.time.getHours()).padStart(2, "0"),
+						String(value.time.getMinutes()).padStart(2, "0"),
+					].join(":");
 				},
 				hasValue: ({ internalValue }) => {
 					return Boolean(internalValue && internalValue.time);
