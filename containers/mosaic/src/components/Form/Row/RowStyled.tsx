@@ -3,6 +3,7 @@ import styled from "styled-components";
 // Components
 import { containerQuery } from "@root/utils/css";
 import type { FormSpacing } from "../FormTypes";
+import { FORM_GRID_SEGMENTS } from "@root/constants/form";
 
 export const StyledRow = styled.div<{ $columns?: number; $gridMinWidth?: string; $spacing?: FormSpacing }>`
 	${({ $columns, $gridMinWidth, $spacing }) => $columns && `
@@ -12,14 +13,11 @@ export const StyledRow = styled.div<{ $columns?: number; $gridMinWidth?: string;
 
 		${$gridMinWidth ? `
 			@container form (min-width: ${$gridMinWidth}) {
-				grid-template-columns: repeat(${$columns},minmax(0,1fr));
+				grid-template-columns: repeat(${FORM_GRID_SEGMENTS},minmax(0,1fr));
 			}
 		` : `
 			${containerQuery("md", "FORM")} {
-				grid-template-columns: repeat(${$columns > 1 ? 2 : 1},minmax(0,1fr));
-			}
-			${containerQuery("lg", "FORM")} {
-				grid-template-columns: repeat(${$columns},minmax(0,1fr));
+				grid-template-columns: repeat(${FORM_GRID_SEGMENTS},minmax(0,1fr));
 			}
 		`}
 	`}

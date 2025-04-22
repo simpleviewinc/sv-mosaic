@@ -9,7 +9,11 @@ import dateToTimeString from "@root/utils/date/dateToTimeString";
 function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDefSanitized[] {
 	if (sections) {
 		const fieldNames = fields.map(({ name }) => name);
-		const sectionFieldNames = sections.map(({ fields }) => fields).flat(3);
+		const sectionFieldNames = sections.map(({ fields }) => fields)
+			.flat(3)
+			.map(column => typeof column === "string" ? column : column.names)
+			.flat();
+
 		for (const sectionFieldName of sectionFieldNames ) {
 			if (!fieldNames.includes(sectionFieldName)) {
 				throw new Error(`Section references field \`${sectionFieldName}\`, which does not exist in list of field definitions.`);
@@ -41,18 +45,39 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 						required,
 						disabled,
 						include: (subFields || defaultAddressFields).map(subField => {
-							// Labels "Address Line 1" field and hides it by default
-							if (typeof subField === "string" && subField === "address1") {
-								return {
-									name: "address1",
-									label: "Address Line 1",
-									hideLabel: true,
-								};
+
+							if (typeof subField === "string") {
+								if (subField === "address1") {
+									return {
+										name: "address1",
+										label: "Street Address",
+									};
+								}
+								if (subField === "state") {
+									return {
+										name: "state",
+										label: "State/Province/Region",
+									};
+								}
+								if (subField === "postalCode") {
+									return {
+										name: "postalCode",
+										label: "ZIP/Postal Code",
+									};
+								}
 							}
 
 							return subField;
 						}),
 					}),
+					layout: [
+						[{ names: ["country"], span: 2 }],
+						[{ names: ["address1"], span: 4 }],
+						[{ names: ["address2"], span: 4 }],
+						[{ names: ["city"], span: 2 }],
+						[{ names: ["state"], span: 2 }],
+						[{ names: ["postalCode"], span: 2 }],
+					],
 				},
 			};
 		}

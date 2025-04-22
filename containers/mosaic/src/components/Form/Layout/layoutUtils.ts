@@ -11,7 +11,7 @@ export const generateLayout = ({ sections, fields }: { sections?: SectionDef[]; 
 		 * Filters out rows that have all-empty columns
 		 */
 		const rows = section.fields.filter(row => {
-			const columnsWithFields = row.filter(column => column.length);
+			const columnsWithFields = row.filter(column => Array.isArray(column) ? column.length : column.names.length);
 			return columnsWithFields.length;
 		});
 
