@@ -1,21 +1,17 @@
 import type { ButtonProps } from "@root/components/Button";
 import type { FieldDef } from "@root/components/Field";
 import type { TitleWrapperProps } from "@root/components/Title";
-import type { MosaicGridConfig, MosaicToggle } from "@root/types";
+import type { MosaicToggle } from "@root/types";
 import type { FormMethods, FormStable, FormState } from "./useForm/types";
 import type { ReactNode } from "react";
+import type { SectionPropTypes } from "./Section";
 
 export type FormSpacing = "normal" | "compact";
-
-export interface Section {
+export interface SectionDef {
 	title?: string;
 	id?: string;
-}
-
-export interface SectionDef extends Section {
-	title?: string;
 	description?: string | JSX.Element;
-	fields: MosaicGridConfig;
+	fields: SectionPropTypes["rows"];
 	collapsed?: boolean;
 	show?: MosaicToggle<FormState>;
 	gridMinWidth?: string;

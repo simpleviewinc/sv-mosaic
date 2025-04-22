@@ -34,7 +34,10 @@ const Section = (props: SectionPropTypes) => {
 	const { state } = useContext(FormContext);
 
 	const fieldsHaveErrors = useCallback(() => {
-		const fieldNames = rows.flat(2);
+		const fieldNames = rows
+			.flat(2)
+			.map(column => typeof column === "string" ? column : column.names)
+			.flat();
 
 		if (fieldNames.some(name => state.errors[name])) {
 			return true;
