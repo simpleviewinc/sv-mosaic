@@ -6,11 +6,11 @@ __metadata:
   cacheKey: 8
 
 "@babel/runtime@npm:^7.21.0":
-  version: 7.25.0
-  resolution: "@babel/runtime@npm:7.25.0"
+  version: 7.27.0
+  resolution: "@babel/runtime@npm:7.27.0"
   dependencies:
     regenerator-runtime: ^0.14.0
-  checksum: 4a2a374a58eb01aaa65c5762606e90b3a1f448e0c637d42278b6cc0b42a9f5399b5f381ba9f237ee087da2860d14dd2d1de7bddcbe18be6a3cafba97e44bed64
+  checksum: 3e73d9e65f76fad8f99802b5364c941f4a60c693b3eca66147bb0bfa54cf0fbe017232155e16e3fd83c0a049b51b8d7239efbd73626534abe8b54a6dd57dcb1b
   languageName: node
   linkType: hard
 
@@ -140,23 +140,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@simpleview/react-phone-input-2@npm:2.16.5":
-  version: 2.16.5
-  resolution: "@simpleview/react-phone-input-2@npm:2.16.5"
-  dependencies:
-    classnames: ^2.2.6
-    lodash.debounce: ^4.0.8
-    lodash.memoize: ^4.1.2
-    lodash.reduce: ^4.6.0
-    lodash.startswith: ^4.2.1
-    prop-types: ^15.7.2
-  peerDependencies:
-    react: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
-    react-dom: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0
-  checksum: e2b01b00a4fc544e65081e307233d6a607a920245fad542cda3ac073a6e6daa24ffb4c83d2f449f5cf9acf5ba8de905a5a1021bd79cf577e085480b9c355fe8c
-  languageName: node
-  linkType: hard
-
 "@simpleview/sv-mosaic-consumer-tests@workspace:.":
   version: 0.0.0-use.local
   resolution: "@simpleview/sv-mosaic-consumer-tests@workspace:."
@@ -175,7 +158,6 @@ __metadata:
     "@dnd-kit/sortable": 8.0.0
     "@dnd-kit/utilities": 3.2.2
     "@react-google-maps/api": ^2.7.0
-    "@simpleview/react-phone-input-2": 2.16.5
     "@tiptap/core": 2.8.0
     "@tiptap/extension-blockquote": 2.8.0
     "@tiptap/extension-bold": 2.8.0
@@ -206,6 +188,7 @@ __metadata:
     lodash: ^4.17.15
     nanoid: ^3.3.7
     postcode-validator: ^3.8.21
+    react-phone-number-input: ^3.4.11
   peerDependencies:
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
@@ -560,10 +543,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.2.6":
+"classnames@npm:^2.5.1":
   version: 2.5.1
   resolution: "classnames@npm:2.5.1"
   checksum: da424a8a6f3a96a2e87d01a432ba19315503294ac7e025f9fece656db6b6a0f7b5003bb1fbb51cbb0d9624d964f1b9bb35a51c73af9b2434c7b292c42231c1e5
+  languageName: node
+  linkType: hard
+
+"country-flag-icons@npm:^1.5.17":
+  version: 1.5.18
+  resolution: "country-flag-icons@npm:1.5.18"
+  checksum: 9039abf0ab116249611f057c6dd820b36613920850077c50ea20fede7d3471dba7ce20b4cf6d9274a09b5363ee2d31b042a6964579b2484eb1ad4c43abb7957e
   languageName: node
   linkType: hard
 
@@ -604,6 +594,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"input-format@npm:^0.3.10":
+  version: 0.3.14
+  resolution: "input-format@npm:0.3.14"
+  dependencies:
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=18.1.0"
+    react-dom: ">=18.1.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 8776bd706ff86f97aa017a84bb1f1e3e48f6f60257cbf45fa6d1283f64fddbea8baac2e02f9eb85044cd25ef1a10b7d9c84c07e82f0fbed90161df183e75a460
+  languageName: node
+  linkType: hard
+
 "invariant@npm:2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
@@ -627,6 +634,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.11.20":
+  version: 1.12.6
+  resolution: "libphonenumber-js@npm:1.12.6"
+  checksum: 98ae28d3c8709f6e2c75396178b45b11bea47cd0638f2165170b4a32dd1ba911fdee9a51dd19d1f19feaa5d10faff4554d4ff96caa1341e77d3a7b3796f20e5e
+  languageName: node
+  linkType: hard
+
 "linkify-it@npm:^5.0.0":
   version: 5.0.0
   resolution: "linkify-it@npm:5.0.0"
@@ -640,34 +654,6 @@ __metadata:
   version: 4.1.3
   resolution: "linkifyjs@npm:4.1.3"
   checksum: 023d467499a717a49ebbfa256a80cb2811a3b038ff2593e5be0fb8a4715b0a63bf80c571838e19e120833d5b9874464f3a1448965c8eebbde8c19458b3a6c6e4
-  languageName: node
-  linkType: hard
-
-"lodash.debounce@npm:^4.0.8":
-  version: 4.0.8
-  resolution: "lodash.debounce@npm:4.0.8"
-  checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
-  languageName: node
-  linkType: hard
-
-"lodash.memoize@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "lodash.memoize@npm:4.1.2"
-  checksum: 9ff3942feeccffa4f1fafa88d32f0d24fdc62fd15ded5a74a5f950ff5f0c6f61916157246744c620173dddf38d37095a92327d5fd3861e2063e736a5c207d089
-  languageName: node
-  linkType: hard
-
-"lodash.reduce@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "lodash.reduce@npm:4.6.0"
-  checksum: 81f2a1045440554f8427f895ef479f1de5c141edd7852dde85a894879312801efae0295116e5cf830c531c1a51cdab8f3628c3ad39fa21a9874bb9158d9ea075
-  languageName: node
-  linkType: hard
-
-"lodash.startswith@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "lodash.startswith@npm:4.2.1"
-  checksum: 1847371cbf6f32c4125a555847aff8a1ff1a977f40882b0ad4e2656a32e364793cfa7602915c9165cc0bba61fbd802e561888126d242faadcf3fc77215bab19b
   languageName: node
   linkType: hard
 
@@ -742,7 +728,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -958,6 +944,22 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-phone-number-input@npm:^3.4.11":
+  version: 3.4.12
+  resolution: "react-phone-number-input@npm:3.4.12"
+  dependencies:
+    classnames: ^2.5.1
+    country-flag-icons: ^1.5.17
+    input-format: ^0.3.10
+    libphonenumber-js: ^1.11.20
+    prop-types: ^15.8.1
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 41273da06da8dcfb420cef0de52ec3ae5a7a6558358ad48ef6a7f4eae1a6be9334625c2295367f2ac474a365eb225090e0ee783be92a8367a9fb945e34b811eb
   languageName: node
   linkType: hard
 
