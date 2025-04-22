@@ -1,16 +1,25 @@
 import React, { memo } from "react";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 import type { PhoneCountryFlagProps } from "./FormFieldPhoneTypes";
 
-import { StyledFlagIcon } from "./FormFieldPhone.styled";
+import { StyledFlagIcon, StyledUnknownFlag } from "./FormFieldPhone.styled";
 
 const flagUrl = "https://purecatamphetamine.github.io/country-flag-icons/3x2/{XX}.svg";
 
 function PhoneCountryFlag({
-	label,
+	label = "Unknown",
 	country,
 	disabled,
 }: PhoneCountryFlagProps) {
+	if (!country) {
+		return (
+			<StyledUnknownFlag>
+				<QuestionMarkIcon />
+			</StyledUnknownFlag>
+		);
+	}
+
 	return (
 		<StyledFlagIcon
 			src={flagUrl.replace("{XX}", country).replace("{xx}", country.toLowerCase())}
