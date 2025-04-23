@@ -29,7 +29,7 @@ import FormFieldNumber from "@root/components/Field/FormFieldNumber/FormFieldNum
 import FormFieldNumberTable from "@root/components/Field/FormFieldNumberTable/FormFieldNumberTable";
 import FormFieldGroup from "@root/components/Field/FormFieldGroup/FormFieldGroup";
 import defaultHasValue from "./defaultHasValue";
-import { matchTime, textIsValidDate } from "../date";
+import { isValidDate, matchTime, textIsValidDate } from "../date";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 type FieldConfigMap = Partial<Record<Exclude<FieldDef["type"], FieldDefCustom["type"]>, FieldConfig>>;
@@ -156,7 +156,14 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 						return undefined;
 					}
 
-					return value.time;
+					if (!isValidDate(value.time)) {
+						return undefined;
+					}
+
+					return [
+						String(value.time.getHours()).padStart(2, "0"),
+						String(value.time.getMinutes()).padStart(2, "0"),
+					].join(":");
 				},
 				hasValue: ({ internalValue }) => {
 					return Boolean(internalValue && internalValue.time);
