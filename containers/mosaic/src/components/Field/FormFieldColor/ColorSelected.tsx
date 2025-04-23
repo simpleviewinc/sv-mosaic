@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { ColorContainer, ColorDiv } from "./FormFieldColor.styled";
+import { ColorBackground, ColorContainer, ColorDiv } from "./FormFieldColor.styled";
 import type { ColorSelectedProps } from "./FormFieldColorTypes";
 
 const ColorSelected = (props: ColorSelectedProps): ReactElement => {
@@ -14,11 +14,13 @@ const ColorSelected = (props: ColorSelectedProps): ReactElement => {
 			id={id}
 			aria-label="Select color"
 		>
-			<ColorDiv
-				data-testid="colordiv-test"
-				$disabled={disabled}
-				$color={color}
-			/>
+			<ColorBackground>
+				<ColorDiv
+					data-testid="colordiv-test"
+					$disabled={disabled}
+					$color={color}
+				/>
+			</ColorBackground>
 		</ColorContainer>
 	);
 };
