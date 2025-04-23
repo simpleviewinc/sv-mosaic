@@ -7,7 +7,7 @@ services:
       - mosaic:/app
       - /app/.yarn/
       - /app/node_modules/
-      - ./containers/mosaic/src:/app/src
+      # - ./containers/mosaic/src:/app/src
     command: ["yarn", "start"]
   mosaic-units:
     container_name: mosaic-units
