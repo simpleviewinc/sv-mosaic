@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useCallback, useMemo, useState } from "react";
 
 // Components
-import Drawers from "@root/components/Drawers";
+import Drawers from "#mosaic/components/Drawers";
 import AppContext from "./example/AppContext";
 import type { AppState, DrawerDef } from "./example/ExampleTypes";
 import Page from "./example/Page";

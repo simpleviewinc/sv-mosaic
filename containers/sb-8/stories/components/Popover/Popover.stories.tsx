@@ -2,11 +2,11 @@ import * as React from "react";
 import type { ReactElement, MouseEvent } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import theme from "@root/theme";
+import theme from "#mosaic/theme";
 
 // Components
-import Popover from "@root/components/Popover";
-import Button from "@root/components/Button";
+import Popover from "#mosaic/components/Popover";
+import Button from "#mosaic/components/Button";
 import Grid from "@mui/material/Grid";
 import AddIcon from "@mui/icons-material/Add";
 import PlaceIcon from "@mui/icons-material/Place";

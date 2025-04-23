@@ -3,25 +3,25 @@ import type { ReactElement } from "react";
 import { useState, useMemo } from "react";
 
 // Utils
-import type { SectionDef } from "@root/components/Form";
-import { useForm } from "@root/components/Form";
+import type { SectionDef } from "#mosaic/components/Form";
+import { useForm } from "#mosaic/components/Form";
 
 // Components
-import Form from "@root/components/Form";
-import type { ButtonProps } from "@root/components/Button";
-import Button from "@root/components/Button";
-import Drawer from "@root/components/Drawer/Drawer";
+import Form from "#mosaic/components/Form";
+import type { ButtonProps } from "#mosaic/components/Button";
+import Button from "#mosaic/components/Button";
+import Drawer from "#mosaic/components/Drawer";
 
 // Types
-import type { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "#mosaic/components/Field";
 
-import theme, { BREAKPOINTS } from "@root/theme/theme";
+import theme, { BREAKPOINTS } from "#mosaic/theme";
 import uniqueId from "lodash/uniqueId";
-import { Sizes } from "@root/theme";
-import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
+import { Sizes } from "#mosaic/theme";
+import { getOptionsCountries, getOptionsStates } from "#mosaic/mock";
 import styled from "styled-components";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import { validateEmail } from "@root/utils/form/validators";
+import { validateEmail } from "#mosaic/utils/form";
 
 export default {
 	title: "Components/Form",

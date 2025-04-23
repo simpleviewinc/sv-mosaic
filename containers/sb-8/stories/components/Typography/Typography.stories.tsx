@@ -1,12 +1,12 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import type { Properties } from "csstype";
-import theme from "@root/theme";
-import type { TypographyVariant } from "@root/components/Typography";
-import Typography, { BodyText, SubtitleText, TitleText } from "@root/components/Typography";
+import theme from "#mosaic/theme";
+import type { TypographyVariant } from "#mosaic/components/Typography";
+import Typography, { BodyText, SubtitleText, TitleText } from "#mosaic/components/Typography";
 import styled from "styled-components";
-import type { ColorTypes } from "@root/components/Button";
-import { tags } from "@root/components/Typography/storyUtils";
+import type { ColorTypes } from "#mosaic/components/Button";
+import { tags } from "./storyUtils";
 
 export default {
 	title : "Components/Typography",

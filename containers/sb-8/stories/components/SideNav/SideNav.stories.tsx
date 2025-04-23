@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import { useState, useMemo } from "react";
 
 // Components
-import type { Item, SideNavArgs } from "@root/components/SideNav";
-import SideNav from "@root/components/SideNav";
+import type { Item, SideNavArgs } from "#mosaic/components/SideNav";
+import SideNav from "#mosaic/components/SideNav";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import CollectionsIcon from "@mui/icons-material/Collections";
@@ -14,7 +14,7 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import OpenInNew from "@mui/icons-material/OpenInNew";
 import Link from "@mui/icons-material/Link";
-import { toggleMap, toggleOptions } from "../../../utils";
+import { toggleMap, toggleOptions } from "@utils";
 
 export default {
 	title: "Components/SideNav",
@@ -23,7 +23,7 @@ export default {
 const homeContent = <h1>Welcome home!</h1>;
 
 export const Playground = ({ parentHeight, showAssets, showMapPublisher, showDynamicContent }: typeof Playground.args): ReactElement => {
-	const [content, setContent] = useState<JSX.Element>(homeContent);
+	const [content, setContent] = useState<ReactElement>(homeContent);
 	const [active, setActive] = useState("home");
 
 	const onNav = (args: SideNavArgs) => {
