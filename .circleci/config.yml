@@ -21,7 +21,7 @@ jobs:
       - init
       - run:
           name: Run tests
-          command: docker compose up --build mosaic-units
+          command: docker compose up --build --exit-code-from mosaic-units mosaic-units
   E2E Tests:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
