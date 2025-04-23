@@ -11,9 +11,9 @@ services:
     command: ["yarn", "start"]
   mosaic-units:
     container_name: mosaic-units
-    extends:
-      file: compose.yml
-      service: mosaic
+    extends: mosaic
+    environment:
+      - CI=true
     command: ["yarn", "test"]
   # mosaic-types:
   #   image: mosaic-types:local
