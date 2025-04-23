@@ -38,9 +38,4 @@ test.describe("FormFields - FormFieldColor - Kitchen Sink", () => {
 		await ffColorPage.page.locator(".MuiBackdrop-root").click();
 		await ffColorPage.saveBtn.click();
 	});
-
-	test("Validate Default Regular Color in Color Picker", async () => {
-		const expectBgColor = theme.newColors.realTeal["100"];
-		expect(await ffColorPage.getBackgroundColorFromElement(ffColorPage.regularColor)).toBe(expectBgColor);
-	});
 });

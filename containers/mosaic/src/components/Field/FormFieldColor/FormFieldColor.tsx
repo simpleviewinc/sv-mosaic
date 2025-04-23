@@ -1,26 +1,19 @@
-import * as React from "react";
-import type {
-	ReactElement } from "react";
-import {
-	memo,
-	useState,
-} from "react";
-import theme from "@root/theme";
-
-// External libraries
+import type { ReactElement } from "react";
 import type { ColorResult } from "react-color";
+
+import React, { memo, useState } from "react";
 import { SketchPicker } from "react-color";
-
-// Types
-import type { MosaicFieldProps } from "@root/components/Field";
-
-// Styles
-import { PopOver } from "./FormFieldColor.styled";
-import ColorSelected from "./ColorSelected";
-import type { ColorData } from "./FormFieldColorTypes";
 import Skeleton from "@mui/material/Skeleton";
+import ClearIcon from "@mui/icons-material/Clear";
+
+import type { MosaicFieldProps } from "@root/components/Field";
+import type { ColorData } from "./FormFieldColorTypes";
+
+import ColorSelected from "./ColorSelected";
 import { RGBAToHexA } from "./colorUtils";
 import testIds from "@root/utils/testIds";
+import { NoColor, StyledPopover, StyledWrapper } from "./FormFieldColor.styled";
+import Button from "@root/components/Button";
 
 const popoverSlotProps = {
 	paper: {
@@ -43,7 +36,6 @@ const FormFieldColor = (
 
 	// State variables
 	const [displayColorPicker, setDisplayColorPicker] = useState(false);
-	const [color, setColor] = useState<ColorResult>(null);
 
 	const handleClick = (event) => {
 		setDisplayColorPicker(!displayColorPicker);
@@ -57,8 +49,11 @@ const FormFieldColor = (
 	};
 
 	const onColorChange = (color: ColorResult) => {
-		setColor(color);
 		onChange(RGBAToHexA(color.rgb));
+	};
+
+	const clearColor = () => {
+		onChange(undefined);
 	};
 
 	if (skeleton) {
@@ -74,14 +69,27 @@ const FormFieldColor = (
 
 	return (
 		<>
-			<ColorSelected
-				disabled={disabled}
-				color={color?.rgb || value || { r: 0, g: 141, b: 168, a: 1 }}
-				onClick={handleClick}
-				id={id}
-			/>
+			<StyledWrapper>
+				<ColorSelected
+					disabled={disabled}
+					color={value}
+					onClick={handleClick}
+					id={id}
+				/>
+				{value ? (
+					<Button
+						color="red"
+						variant="text"
+						label="Remove color"
+						onClick={clearColor}
+						mIcon={ClearIcon}
+					/>
+				) : (
+					<NoColor>No color selected</NoColor>
+				)}
+			</StyledWrapper>
 			{!disabled && (
-				<PopOver
+				<StyledPopover
 					open={displayColorPicker}
 					anchorEl={anchorEl}
 					onClose={handleClose}
@@ -91,8 +99,8 @@ const FormFieldColor = (
 					}}
 					slotProps={popoverSlotProps}
 				>
-					<SketchPicker color={value || theme.newColors.realTeal["100"]} onChange={onColorChange} />
-				</PopOver>
+					<SketchPicker color={value} onChange={onColorChange} />
+				</StyledPopover>
 			)}
 		</>
 	);
