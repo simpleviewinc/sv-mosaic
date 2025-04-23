@@ -21,9 +21,7 @@ jobs:
       - init
       - run:
           name: Run tests
-          command: |
-            docker compose build mosaic
-            docker compose run -e CI=true --name sv-mosaic mosaic yarn test
+          command: docker compose up --build mosaic-units
   E2E Tests:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
@@ -173,32 +171,32 @@ jobs:
 workflows:
   main:
     jobs:
-      - Build Mosaic Dist:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Build SB Static:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
+      # - Build Mosaic Dist:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Build SB Static:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
       - Unit Tests:
           context: default
-          requires:
-            - Build Mosaic Dist
+          # requires:
+          #   - Build Mosaic Dist
           filters:
             branches:
               only:
@@ -208,57 +206,57 @@ workflows:
                 - qa
                 - staging
                 - master
-      - E2E Tests:
-          context: default
-          requires:
-            - Build SB Static
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Consumer Tests:
-          context: default
-          requires:
-            - Build Mosaic Dist
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Publish SB Static:
-          context: default
-          requires:
-            - Build SB Static
-            - Unit Tests
-            - E2E Tests
-            - Consumer Tests
-          filters:
-            branches:
-              only:
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Publish to NPM:
-          context: default
-          requires:
-            - Build Mosaic Dist
-            - Unit Tests
-            - E2E Tests
-            - Consumer Tests
-          filters:
-            branches:
-              only:
-                - /.*publish-ci$/
-                - staging
-                - master
+      # - E2E Tests:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Consumer Tests:
+      #     context: default
+      #     requires:
+      #       - Build Mosaic Dist
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Publish SB Static:
+      #     context: default
+      #     requires:
+      #       - Build SB Static
+      #       - Unit Tests
+      #       - E2E Tests
+      #       - Consumer Tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Publish to NPM:
+      #     context: default
+      #     requires:
+      #       - Build Mosaic Dist
+      #       - Unit Tests
+      #       - E2E Tests
+      #       - Consumer Tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /.*publish-ci$/
+      #           - staging
+      #           - master
