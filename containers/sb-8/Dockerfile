@@ -9,6 +9,8 @@ RUN apt-get update && \
 
 RUN corepack enable && yarn set version 3.1.1
 
+COPY --from=mosaic:local /app/package.json /mosaic/package.json
+COPY --from=mosaic:local /app/dist /mosaic/dist
 COPY package.json /app/package.json
 COPY .yarnrc.yml /app/.yarnrc.yml
 COPY .yarn /app/.yarn

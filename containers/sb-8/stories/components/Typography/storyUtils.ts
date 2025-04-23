@@ -1,4 +1,4 @@
-import type { TypographyTag } from "./TypographyTypes";
+import type { TypographyTag } from "#mosaic/components/Typography";
 
 export const tags: TypographyTag[] = [
 	"a",

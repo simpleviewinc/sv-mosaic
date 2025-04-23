@@ -3,6 +3,10 @@
 	"private": true,
 	"version": "43.0.0",
 	"type": "module",
+	"imports": {
+		"#mosaic": "@simpleview/sv-mosaic",
+		"#mosaic/*": "@simpleview/sv-mosaic/*"
+	},
 	"scripts": {
 		"start": "storybook dev -p 10001 --no-open",
 		"build": "storybook build",
@@ -16,10 +20,11 @@
 		"@mui/material": "5.16.7",
 		"@mui/styles": "5.16.7",
 		"@mui/x-date-pickers": "5.0.0-beta.0",
+		"@simpleview/sv-mosaic": "file:../mosaic",
 		"@tiptap/core": "2.8.0",
 		"@tiptap/pm": "2.8.0",
 		"@tiptap/react": "2.8.0",
-		"date-fns": "3.6.0",
+		"date-fns": "^2.29.1",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
 		"styled-components": "6.0.7"
@@ -44,5 +49,8 @@
 		"storybook": "8.1.11",
 		"typescript": "5.5.4",
 		"vite": "6.2.6"
+	},
+	"resolutions": {
+		"@simpleview/sv-mosaic": "portal:../mosaic"
 	}
 }

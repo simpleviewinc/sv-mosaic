@@ -3,9 +3,9 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 
 // Components
-import Form, { useForm } from "@root/components/Form";
-import type { FieldDef } from "@root/components/Field";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import Form, { useForm } from "#mosaic/components/Form";
+import type { FieldDef } from "#mosaic/components/Field";
+import { commonFieldControls, renderButtons } from "@utils";
 
 export default {
 	title: "FormFields/FormFieldToggle",

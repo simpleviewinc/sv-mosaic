@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 import { NodeViewWrapper, NodeViewContent } from "@tiptap/react";
-import TridentIcon from "@root/theme/TridentIcon";
+import { TridentIcon } from "#mosaic/theme";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

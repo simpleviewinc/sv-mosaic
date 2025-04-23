@@ -102,6 +102,16 @@
 			"import": "./dist/esm/index.js",
 			"require": "./dist/cjs/index.js"
 		},
+		"./constants": {
+			"types": "./dist/types/constants/index.d.ts",
+			"import": "./dist/esm/constants/index.js",
+			"require": "./dist/cjs/constants/index.js"
+		},
+		"./mock": {
+			"types": "./dist/types/mock/index.d.ts",
+			"import": "./dist/esm/mock/index.js",
+			"require": "./dist/cjs/mock/index.js"
+		},
 		"./theme": {
 			"types": "./dist/types/theme/index.d.ts",
 			"import": "./dist/esm/theme/index.js",
@@ -111,6 +121,9 @@
 			"types": "./dist/types/transforms/index.d.ts",
 			"import": "./dist/esm/transforms/index.js",
 			"require": "./dist/cjs/transforms/index.js"
+		},
+		"./types": {
+			"types": "./dist/types/types/index.d.ts"
 		},
 		"./components/*": {
 			"types": "./dist/types/components/*/index.d.ts",
@@ -132,6 +145,7 @@
 		"build": "yarn run build:esm && yarn run build:cjs",
 		"build:esm": "rm -rf ./dist/esm ./dist/types && tspc --project ./tsconfig.esm.json && yarn copy-assets:esm",
 		"build:cjs": "rm -rf ./dist/cjs && tspc --project ./tsconfig.cjs.json && yarn copy-assets:cjs",
+		"start": "tspc --project ./tsconfig.esm.json --watch --incremental",
 		"copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
 		"copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
 		"publish:npm": "ts-node ./scripts/publish-to-npm.ts",
@@ -139,7 +153,7 @@
 		"create:test": "ts-node ./scripts/create-test-file.ts"
 	},
 	"files": [
-		"dist"
+		"dist/"
 	],
 	"packageManager": "yarn@3.1.1",
 	"repository": {

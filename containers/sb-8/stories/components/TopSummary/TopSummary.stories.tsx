@@ -1,17 +1,17 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo, useState } from "react";
-import type { ButtonProps } from "@root/components/Button";
-import Button from "@root/components/Button";
+import type { ButtonProps } from "#mosaic/components/Button";
+import Button from "#mosaic/components/Button";
 import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
-import type { MenuItemProps } from "@root/components/MenuItem";
+import type { MenuItemProps } from "#mosaic/components/MenuItem";
 import styled from "styled-components";
-import theme from "@root/theme";
+import theme from "#mosaic/theme";
 
 // Components
-import TopSummary from "@root/components/TopSummary";
+import TopSummary from "#mosaic/components/TopSummary";
 
 const DescriptionItemParagraph = styled.p`
 	font-family: ${theme.museoFont};

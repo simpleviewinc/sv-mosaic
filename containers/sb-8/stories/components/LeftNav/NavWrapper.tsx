@@ -2,13 +2,13 @@ import * as React from "react";
 import type { ReactElement, MouseEventHandler } from "react";
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import theme from "@root/theme";
+import theme from "#mosaic/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-import LeftNav from ".";
-import type { LeftNavProps, LeftNavItemRootDef } from "./LeftNavTypes";
-import type { TransientProps } from "@root/types";
+import LeftNav from "#mosaic/components/LeftNav";
+import type { LeftNavProps, LeftNavItemRootDef } from "#mosaic/components/LeftNav";
+import type { TransientProps } from "#mosaic/types";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 

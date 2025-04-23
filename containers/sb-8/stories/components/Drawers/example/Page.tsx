@@ -1,9 +1,9 @@
 import * as React from "react";
 import Form from "./FormExample";
 import Grid from "./Grid";
-import { PageConfig, PageCallbacks } from "./ExampleTypes";
+import type { PageConfig, PageCallbacks } from "./ExampleTypes";
 
-type ConfigableMethod = (config: any) => JSX.Element;
+type ConfigableMethod = (config: any) => React.ReactElement;
 
 const componentMap: Record<PageConfig["type"], ConfigableMethod> = {
 	form: Form,

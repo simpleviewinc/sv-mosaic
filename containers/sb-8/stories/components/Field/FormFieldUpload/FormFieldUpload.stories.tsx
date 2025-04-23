@@ -1,11 +1,11 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo, useCallback } from "react";
-import type { FieldDef } from "@root/components/Field";
-import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import type { FieldDef } from "#mosaic/components/Field";
+import Form, { useForm } from "#mosaic/components/Form";
+import { commonFieldControls, renderButtons } from "@utils";
 import { nanoid } from "nanoid";
-import type { UploadFieldInputSettings } from "@root/components/Field/FormFieldUpload";
+import type { UploadFieldInputSettings } from "#mosaic/components/Field/FormFieldUpload";
 
 export default {
 	title: "FormFields/FormFieldUpload",

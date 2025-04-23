@@ -4,47 +4,60 @@ services:
     container_name: mosaic
     build: ./containers/mosaic
     volumes:
-      - sv-mosaic-lib:/app
-  mosaic-types:
-    image: mosaic-types:local
-    container_name: mosaic-types
-    build: ./containers/mosaic-types
-    volumes:
-      - sv-mosaic-types:/app
-    depends_on:
-      - mosaic
+      - mosaic:/app
+      - /app/.yarn/
+      - /app/node_modules/
+      - ./containers/mosaic/src:/app/src
+    command: ["yarn", "start"]
+  mosaic-units:
+    container_name: mosaic-units
+    extends:
+      file: compose.yml
+      service: mosaic
+    command: ["yarn", "test"]
+  # mosaic-types:
+  #   image: mosaic-types:local
+  #   container_name: mosaic-types
+  #   build: ./containers/mosaic-types
+  #   volumes:
+  #     - sv-mosaic-types:/app
+  #   depends_on:
+  #     - mosaic
   sb8:
     build: ./containers/sb-8
     volumes:
-      - sv-mosaic-lib:/mosaic
-    depends_on:
-      - mosaic
-  sb-server:
-    container_name: sb-server
-    image: node:18.18.2
-    working_dir: /app
-    command: npx --yes http-server ./storybook-static -p 10001 --silent
+      - mosaic:/mosaic
+      - ./containers/sb-8/stories:/app/stories
     ports:
       - 10001:10001
-  e2e-tests:
-    container_name: e2e-tests
-    build: ./containers/e2e-tests
-    working_dir: /app
-    command: npm start
     depends_on:
       - mosaic
-    volumes:
-      - sv-mosaic-lib:/mosaic
-  consumer-tests:
-    image: consumer-tests:local
-    container_name: consumer-tests
-    build: ./containers/consumer-tests
-    working_dir: /app
-  publisher:
-    build: ./containers/publisher
-    depends_on:
-      - sb8
-    tty: true
+    command: ["yarn", "start"]
+  # sb-server:
+  #   container_name: sb-server
+  #   image: node:18.18.2
+  #   working_dir: /app
+  #   command: npx --yes http-server ./storybook-static -p 10001 --silent
+  #   ports:
+  #     - 10001:10001
+  # e2e-tests:
+  #   container_name: e2e-tests
+  #   build: ./containers/e2e-tests
+  #   working_dir: /app
+  #   command: npm start
+  #   depends_on:
+  #     - mosaic
+  #   volumes:
+  #     - sv-mosaic-lib:/mosaic
+  # consumer-tests:
+  #   image: consumer-tests:local
+  #   container_name: consumer-tests
+  #   build: ./containers/consumer-tests
+  #   working_dir: /app
+  # publisher:
+  #   build: ./containers/publisher
+  #   depends_on:
+  #     - sb8
+  #   tty: true
 volumes:
-  sv-mosaic-lib:
-  sv-mosaic-types:
+  mosaic:
