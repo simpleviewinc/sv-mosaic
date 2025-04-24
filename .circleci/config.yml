@@ -182,19 +182,17 @@ workflows:
       #           - qa
       #           - staging
       #           - master
-      # - Unit Tests:
-      #     context: default
-      #     # requires:
-      #     #   - Build Mosaic Dist
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
+      - Unit Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       - E2E Tests:
           context: default
           filters:
