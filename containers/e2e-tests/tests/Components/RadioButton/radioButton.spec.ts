@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { RadioButtonPage } from "../../../pages/Components/RadioButton/RadioButtonPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - RadioButton - Group", () => {
 	let page: Page;

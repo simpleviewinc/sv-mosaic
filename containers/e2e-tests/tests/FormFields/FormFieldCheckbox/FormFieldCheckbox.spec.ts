@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldCheckboxPage } from "../../../pages/FormFields/FormFieldCheckbox/FormFieldCheckboxPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 	let page: Page;

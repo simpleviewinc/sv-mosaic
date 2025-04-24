@@ -32,19 +32,8 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
-          name: Spin up containers
-          command: |
-            docker compose build mosaic sb-server e2e-tests
-            docker compose up -d mosaic sb-server e2e-tests
-      - run:
-          name: Copy Storybook static files
-          command: docker cp storybook-static sb-server:/app/storybook-static
-      - run:
-          name: Mark server as ready
-          command: docker compose exec sb-server touch /app/storybook-static/ready
-      - run:
-          name: Attach to container
-          command: docker container attach e2e-tests
+          name: Run tests
+          command: docker compose up --build --exit-code-from e2e-tests storybook-serve e2e-tests
   Build Mosaic Dist:
     description: Builds Mosaic library distribution files and persists them to the pipeline workspace at ~/project/dist
     docker:
@@ -193,23 +182,10 @@ workflows:
       #           - qa
       #           - staging
       #           - master
-      - Unit Tests:
-          context: default
-          # requires:
-          #   - Build Mosaic Dist
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      # - E2E Tests:
+      # - Unit Tests:
       #     context: default
-      #     requires:
-      #       - Build SB Static
+      #     # requires:
+      #     #   - Build Mosaic Dist
       #     filters:
       #       branches:
       #         only:
@@ -219,6 +195,17 @@ workflows:
       #           - qa
       #           - staging
       #           - master
+      - E2E Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       # - Consumer Tests:
       #     context: default
       #     requires:

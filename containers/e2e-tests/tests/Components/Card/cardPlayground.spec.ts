@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - Card - Playground", () => {
 	let page: Page;

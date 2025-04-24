@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddress/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { us_address, us_address_2 } from "../../../utils/data/addressInformationData";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("FormFields - FormFieldAddress - Playground", () => {
