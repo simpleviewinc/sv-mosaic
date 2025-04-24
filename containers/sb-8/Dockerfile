@@ -11,6 +11,7 @@ RUN corepack enable && yarn set version 3.1.1
 
 COPY --from=mosaic:local /app/package.json /mosaic/package.json
 COPY --from=mosaic:local /app/dist /mosaic/dist
+COPY --from=mosaic:local /app/node_modules /mosaic/node_modules
 COPY package.json /app/package.json
 COPY .yarnrc.yml /app/.yarnrc.yml
 COPY .yarn /app/.yarn
@@ -26,3 +27,5 @@ COPY tsconfig.node.json /app/tsconfig.node.json
 COPY vite.config.ts /app/vite.config.ts
 
 WORKDIR /app
+
+RUN yarn run build
