@@ -7,14 +7,18 @@ services:
       - mosaic:/app
       - /app/.yarn/
       - /app/node_modules/
-      # - ./containers/mosaic/src:/app/src
-    command: ["yarn", "start"]
   mosaic-units:
     container_name: mosaic-units
     extends: mosaic
     environment:
       - CI=true
     command: ["yarn", "test"]
+  mosaic-dev:
+    container_name: mosaic-dev
+    extends: mosaic
+    volumes:
+      - ./containers/mosaic/src:/app/src
+    command: ["yarn", "start"]
   # mosaic-types:
   #   image: mosaic-types:local
   #   container_name: mosaic-types
@@ -23,16 +27,26 @@ services:
   #     - sv-mosaic-types:/app
   #   depends_on:
   #     - mosaic
-  sb8:
+  storybook:
     build: ./containers/sb-8
     volumes:
       - mosaic:/mosaic
-      - ./containers/sb-8/stories:/app/stories
+      - storybook-static:/app/storybook-static
     ports:
       - 10001:10001
+  storybook-dev:
+    container_name: storybook-dev
+    extends: storybook
+    volumes:
+      - ./containers/sb-8/stories:/app/stories
     depends_on:
-      - mosaic
+      - mosaic-dev
     command: ["yarn", "start"]
+
+  storybook-serve:
+    container_name: storybook-serve
+    extends: storybook
+    command: bash -c "yarn build && npx --yes http-server ./storybook-static -p 10001 --silent"
   # sb-server:
   #   container_name: sb-server
   #   image: node:18.18.2
@@ -40,15 +54,12 @@ services:
   #   command: npx --yes http-server ./storybook-static -p 10001 --silent
   #   ports:
   #     - 10001:10001
-  # e2e-tests:
-  #   container_name: e2e-tests
-  #   build: ./containers/e2e-tests
-  #   working_dir: /app
-  #   command: npm start
-  #   depends_on:
-  #     - mosaic
-  #   volumes:
-  #     - sv-mosaic-lib:/mosaic
+  e2e-tests:
+    container_name: e2e-tests
+    build: ./containers/e2e-tests
+    volumes:
+      - mosaic:/mosaic
+    command: npm start
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
@@ -61,3 +72,4 @@ services:
   #   tty: true
 volumes:
   mosaic:
+  storybook-static:

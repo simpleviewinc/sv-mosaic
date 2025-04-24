@@ -2,7 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { FilterComponent } from "../../Components/DataView/FilterComponent";
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 
 export class AdvancedFiltersComponent extends FilterComponent {
 	readonly page: Page;

@@ -3,7 +3,7 @@ import { expect } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { getFormAndDefaultValuesExpected } from "../../../utils/data/formData";
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 
 export class PlaygroundPage extends BasePage {
 

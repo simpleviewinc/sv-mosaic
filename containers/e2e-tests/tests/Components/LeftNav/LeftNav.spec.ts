@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { LeftNavPage } from "../../../pages/Components/leftNav/LeftNavPage";
 import { leftnav_data } from "../../../utils/data/leftNavData";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - LeftNav - Example", () => {
 	let page: Page;

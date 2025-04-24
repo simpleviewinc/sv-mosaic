@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldDropdownPage } from "../../../pages/FormFields/FormFieldDropdown/FormFieldDropdownPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 	let page: Page;

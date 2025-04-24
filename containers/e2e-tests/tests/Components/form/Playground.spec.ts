@@ -2,8 +2,8 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 import { commonKnobs } from "../../../utils/data/knobs";
-import theme from "@root/theme";
-import testIds from "@root/utils/testIds";
+import theme from "@simpleview/sv-mosaic/theme";;
+import { testIds } from "@simpleview/sv-mosaic";;
 
 test.describe("Components - Form - Playground", () => {
 	let page: Page;
