@@ -32,6 +32,8 @@ services:
     volumes:
       - mosaic:/mosaic
       - storybook-static:/app/storybook-static
+    depends_on:
+      - mosaic
     ports:
       - 10001:10001
   storybook-dev:
@@ -46,7 +48,7 @@ services:
   storybook-serve:
     container_name: storybook-serve
     extends: storybook
-    command: bash -c "yarn build && npx --yes http-server ./storybook-static -p 10001 --silent"
+    command: bash -c "npx --yes http-server ./storybook-static -p 10001 --silent"
   # sb-server:
   #   container_name: sb-server
   #   image: node:18.18.2
