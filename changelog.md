@@ -1,5 +1,42 @@
 # sv-mosaic changelog
 
+### 43.1.0 - 04/28/2025
+
+* `DataView`
+
+  * [MOS-1579](https://simpleviewtools.atlassian.net/browse/MOS-1579 "https://simpleviewtools.atlassian.net/browse/MOS-1579") **Mosaic Dataview Grid Selection checkbox issue**
+    * (DataView) Ensure a boolean is provided to item checkbox to avoid uncontrolled input inconsistencies.
+  * [MOS-1617](https://simpleviewtools.atlassian.net/browse/MOS-1617 "https://simpleviewtools.atlassian.net/browse/MOS-1617") **Allow removal of columns using the right pane in the DataView**
+    * (DataView) Adds a button to column drawer items that can be used to easily remove items.
+* `Form`
+
+  * [MOS-1619](https://simpleviewtools.atlassian.net/browse/MOS-1619 "https://simpleviewtools.atlassian.net/browse/MOS-1619") **Error when scrolling on a form after submission with incomplete fields**
+    * Ensure the `onScrollFinished` handler is defined before invoking it to prevent throwing an error.
+* `FormFieldAddress`
+
+  * [MOS-1582](https://simpleviewtools.atlassian.net/browse/MOS-1582 "https://simpleviewtools.atlassian.net/browse/MOS-1582") **Reconfigure the layout of address sub fields**
+    * (chore) Begin to retire MosaicGridConfig type.
+    * (Form) Adds support for explicitly defining a number of grid segments a column should span, falling back to an automatic span if none is provided.
+    * (AddressSingle) Update sub field layout and labels.
+    * (Form) Adjust responsive breakpoints at which form layout will fall back to normal stacking.
+* `FormFieldColorPicker`
+
+  * [MOS-1533](https://simpleviewtools.atlassian.net/browse/MOS-1533 "https://simpleviewtools.atlassian.net/browse/MOS-1533") **Default colour picker UI**
+    * (ColorField) Transparent pattern. No color selected indication. Clear color button. Better all-round styling.
+* `FormFieldPhoneSelectionDropdown`
+
+  * [MOS-1616](https://simpleviewtools.atlassian.net/browse/MOS-1616 "https://simpleviewtools.atlassian.net/browse/MOS-1616") **Providing the phone field with a phone number that cannot be parsed throws an error**
+    * (PhoneField) Prevent throwing errors for numbers with unknown country codes, gracefully falling back to a question mark and no country code displayed.
+* `FormFieldTextEditor`
+
+  * [MOS-1611](https://simpleviewtools.atlassian.net/browse/MOS-1611 "https://simpleviewtools.atlassian.net/browse/MOS-1611") **Ensure the text editor node popover forms display above other content**
+    * (TextEditor) Increases the z-index of the node form to ensure it sits above other UI in the same context.
+* `FormFieldTime`
+
+  * [MOS-1620](https://simpleviewtools.atlassian.net/browse/MOS-1620 "https://simpleviewtools.atlassian.net/browse/MOS-1620") **Time field is emitting the wrong kind of data**
+    * (TimeField) Ensure time is emitted in correct string format instead of as a date object.
+* Housekeeping
+
 ### 43.0.0 - 04/15/2025
 
 * `Chip`
