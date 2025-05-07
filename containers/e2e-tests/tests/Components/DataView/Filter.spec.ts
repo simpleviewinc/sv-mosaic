@@ -4,7 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { filter_data } from "../../../utils/data/dataviewData";
 import { addComma } from "../../../utils/helpers/helper";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - Data View - Filter", () => {
 	let page: Page;

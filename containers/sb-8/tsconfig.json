@@ -21,9 +21,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
 		"paths": {
-			"@root/*": [
-				"../mosaic/src/*"
-			],
+      "@utils": [ "./utils" ],
+      "@utils/*": [ "./utils/*" ],
       "react": [ "./node_modules/@types/react" ]
 		},
   },

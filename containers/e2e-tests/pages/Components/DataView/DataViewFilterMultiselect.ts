@@ -1,4 +1,4 @@
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 import { BasePage } from "../../BasePage";
 import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";

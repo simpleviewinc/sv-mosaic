@@ -2,9 +2,9 @@ import React, { useMemo } from "react";
 import type { ReactElement } from "react";
 
 // Components
-import type { ChipListProps } from "@root/components";
-import { ChipList } from "@root/components";
-import { mockOptions } from "@root/mock";
+import type { ChipListProps } from "#mosaic/components/ChipList";
+import ChipList from "#mosaic/components/ChipList";
+import { mockOptions } from "#mosaic/mock";
 
 export default {
 	title: "Components/ChipList",

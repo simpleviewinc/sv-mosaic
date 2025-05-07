@@ -11,13 +11,11 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import HelpIcon from "@mui/icons-material/Help";
 import LinkIcon from "@mui/icons-material/Link";
 
-import MosaicContext from "@root/components/MosaicContext";
-import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
+import MosaicContext from "#mosaic/components/MosaicContext";
+import { useMosaicSettings } from "#mosaic/utils/hooks";
 
-import type { LeftNavItemRootDef } from "@root/components/LeftNav";
-import { NavWrapper } from "@root/components/LeftNav/NavWrapper";
-
-import "@root/utils/storyBookCssReset.css";
+import type { LeftNavItemRootDef } from "#mosaic/components/LeftNav";
+import { NavWrapper } from "./NavWrapper";
 
 export default {
 	title : "Components/LeftNav",

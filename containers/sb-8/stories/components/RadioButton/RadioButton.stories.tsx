@@ -4,7 +4,7 @@ import { useState } from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 
 // Components
-import RadioButton from "@root/components/RadioButton";
+import RadioButton from "#mosaic/components/RadioButton";
 
 export default {
 	title: "Components/RadioButton",

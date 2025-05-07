@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldColorPage } from "../../../pages/FormFields/FormFieldColor/FormFieldColorPage";
 import { getRandomHexCode } from "../../../utils/helpers/helper";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("FormFields - FormFieldColor - Kitchen Sink", () => {
 	let page: Page;

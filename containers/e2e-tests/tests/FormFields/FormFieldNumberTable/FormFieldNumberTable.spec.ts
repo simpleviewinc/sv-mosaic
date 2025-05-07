@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
 

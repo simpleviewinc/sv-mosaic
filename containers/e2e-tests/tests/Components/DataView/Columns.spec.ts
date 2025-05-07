@@ -5,7 +5,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { columns_data, dataview_data } from "../../../utils/data/dataviewData";
 import { sortDatesAsc, sortDatesDesc } from "../../../utils/helpers/helper";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - Data View - Columns", () => {
 	let page: Page;

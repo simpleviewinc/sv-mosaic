@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { DialogPage } from "../../../pages/Components/Dialog/DialogPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - Dialog - Example", () => {
 	let page: Page;

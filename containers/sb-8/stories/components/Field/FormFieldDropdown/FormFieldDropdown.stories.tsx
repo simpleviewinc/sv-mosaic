@@ -1,12 +1,12 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo } from "react";
-import type { FieldDef } from "@root/components/Field";
-import { commonFieldControls, renderButtons } from "../../../../utils";
+import type { FieldDef } from "#mosaic/components/Field";
+import { commonFieldControls, renderButtons } from "@utils";
 
 // Components
-import Form, { useForm } from "@root/components/Form";
-import { getOptions, mockOptions } from "@root/mock";
+import Form, { useForm } from "#mosaic/components/Form";
+import { getOptions, mockOptions } from "#mosaic/mock";
 
 export default {
 	title: "FormFields/FormFieldDropdown",

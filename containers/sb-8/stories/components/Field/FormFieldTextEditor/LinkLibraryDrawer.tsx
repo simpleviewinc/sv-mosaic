@@ -8,10 +8,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 
-import type { FieldDef, TextEditorOnLinkParams } from "@root/components/Field";
-import Form, { useForm } from "@root/components/Form";
-import FieldWrapper from "@root/components/FieldWrapper";
-import type { ButtonProps } from "@root/components/Button";
+import type { FieldDef, TextEditorOnLinkParams } from "#mosaic/components/Field";
+import Form, { useForm } from "#mosaic/components/Form";
+import FieldWrapper from "#mosaic/components/FieldWrapper";
+import type { ButtonProps } from "#mosaic/components/Button";
 
 import { DrawerWrapper } from "./MediaGalleryDrawer.styled";
 import { LinkLibraryAvatar } from "./LinkLibraryDrawer.styled";

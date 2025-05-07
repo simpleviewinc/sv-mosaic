@@ -5,14 +5,10 @@
 			"ES2019",
 			"DOM"
 		],
-		"moduleResolution": "node",
+		"module": "Node16",
+		"moduleResolution": "node16",
 		"resolveJsonModule": true,
 		"baseUrl": "./",
-		"paths": {
-			"@root/*": [
-				"../mosaic/src/*"
-			]
-		},
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 	},

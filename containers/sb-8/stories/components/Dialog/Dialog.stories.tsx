@@ -3,9 +3,9 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 // Components
-import Dialog from "@root/components/Dialog";
-import type { ButtonProps } from "@root/components/Button";
-import Button from "@root/components/Button";
+import Dialog from "#mosaic/components/Dialog";
+import type { ButtonProps } from "#mosaic/components/Button";
+import Button from "#mosaic/components/Button";
 
 export default {
 	title: "Components/Dialog",

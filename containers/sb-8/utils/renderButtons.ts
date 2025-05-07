@@ -1,5 +1,5 @@
-import type { ButtonProps } from "@root/components/Button";
-import type { FormHandleSubmit } from "@root/components/Form/useForm/types";
+import type { ButtonProps } from "#mosaic/components/Button";
+import type { FormHandleSubmit } from "#mosaic/components/Form/";
 
 export const onCancel = () => {
 	alert("Cancelling form, going back to previous site");

@@ -1,11 +1,11 @@
 import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import { DrawerWrapper, MediaGalleryChecked, MediaGalleryImage, MediaGalleryItem } from "./MediaGalleryDrawer.styled";
-import type { FieldDef, TextEditorOnImageParams } from "@root/components/Field";
+import type { FieldDef, TextEditorOnImageParams } from "#mosaic/components/Field";
 import Grid from "@mui/material/Grid";
-import Form, { useForm } from "@root/components/Form";
-import FieldWrapper from "@root/components/FieldWrapper";
-import type { ButtonProps } from "@root/components/Button";
+import Form, { useForm } from "#mosaic/components/Form";
+import FieldWrapper from "#mosaic/components/FieldWrapper";
+import type { ButtonProps } from "#mosaic/components/Button";
 import Check from "@mui/icons-material/Check";
 
 type MediaGalleryDrawerProps = Partial<TextEditorOnImageParams> & {

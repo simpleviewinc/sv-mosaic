@@ -1,8 +1,8 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
-import DataViewFilterDate from "@root/components/DataViewFilterDate";
-import type { MosaicLabelValue } from "@root/types";
+import DataViewFilterDate from "#mosaic/components/DataViewFilterDate";
+import type { MosaicLabelValue } from "#mosaic/types";
 
 export default {
 	title : "Components/DataViewFilterDate",

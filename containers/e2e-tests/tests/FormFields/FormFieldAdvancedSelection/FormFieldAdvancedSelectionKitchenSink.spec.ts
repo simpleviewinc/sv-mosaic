@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionKitchenSinkPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
 
 test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {

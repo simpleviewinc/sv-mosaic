@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
-import DataViewFilterText from "@root/components/DataViewFilterText";
+import DataViewFilterText from "#mosaic/components/DataViewFilterText";
 
 export default {
 	title : "Components/DataViewFilterText",

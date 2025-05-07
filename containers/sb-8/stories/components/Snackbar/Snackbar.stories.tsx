@@ -3,9 +3,9 @@ import type { ReactElement, SyntheticEvent } from "react";
 import { useState } from "react";
 
 // Components
-import type { SnackbarAction } from "@root/components/Snackbar";
-import Snackbar from "@root/components/Snackbar";
-import Button from "@root/components/Button";
+import type { SnackbarAction } from "#mosaic/components/Snackbar";
+import Snackbar from "#mosaic/components/Snackbar";
+import Button from "#mosaic/components/Button";
 
 // Material UI
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";

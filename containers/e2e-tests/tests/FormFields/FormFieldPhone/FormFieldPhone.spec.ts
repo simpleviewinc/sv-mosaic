@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldPhonePage } from "../../../pages/FormFields/FormFieldPhone/FormFieldPhonePage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("FormFields - FormFieldPhone - Kitchen Sink", () => {
 	let page: Page;

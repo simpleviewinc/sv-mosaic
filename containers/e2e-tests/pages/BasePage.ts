@@ -3,8 +3,8 @@ import { expect } from "@playwright/test";
 import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 import { getDateFormatted } from "../utils/helpers/dateHelper";
-import theme from "@root/theme";
-import testIds from "@root/utils/testIds";
+import theme from "@simpleview/sv-mosaic/theme";;
+import { testIds } from "@simpleview/sv-mosaic";;
 export class BasePage {
 
 	readonly page: Page;

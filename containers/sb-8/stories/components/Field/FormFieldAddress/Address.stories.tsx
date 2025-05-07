@@ -1,11 +1,11 @@
 import type { ReactElement } from "react";
 import React, { useMemo } from "react";
-import { commonFieldControls, renderButtons } from "../../../../utils";
-import type { FieldDefAddress } from "@root/components/Field/FormFieldAddress";
-import Form, { useForm } from "@root/components/Form";
-import type { FieldDef } from "@root/components/Field";
-import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { mockAddresses } from "@root/mock";
+import { commonFieldControls, renderButtons } from "@utils";
+import type { FieldDefAddress } from "#mosaic/components/Field/FormFieldAddress";
+import Form, { useForm } from "#mosaic/components/Form";
+import type { FieldDef } from "#mosaic/components/Field";
+import { getOptionsCountries, getOptionsStates } from "#mosaic/mock";
+import { mockAddresses } from "#mosaic/mock";
 
 export default {
 	title: "FormFields/FormFieldAddress",

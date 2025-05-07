@@ -13,26 +13,26 @@ import Visibility from "@mui/icons-material/Visibility";
 import Delete from "@mui/icons-material/Delete";
 import Star from "@mui/icons-material/Star";
 
-import type { FieldDef } from "@root/components/Field";
-import type { ButtonProps } from "@root/components/Button";
-import type { MosaicLabelValue } from "@root/types";
+import type { FieldDef } from "#mosaic/components/Field";
+import type { ButtonProps } from "#mosaic/components/Button";
+import type { MosaicLabelValue } from "#mosaic/types";
 
-import JSONDB from "@root/utils/JSONDB";
-import rawData from "@root/components/DataView/example/rawData.json";
-import type { DataViewProps, DataViewFilterDef, DataViewColumn, DataViewRowData } from "@root/components/DataView";
-import DataView from "@root/components/DataView";
-import categories from "@root/components/DataView/example/categories.json";
-import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
-import SingleSelectHelper from "@root/components/DataView/example/SingleSelectHelper";
-import DataViewFilterDate from "@root/components/DataViewFilterDate";
-import DataViewFilterSingleSelect from "@root/components/DataViewFilterSingleSelect";
-import DataViewFilterText from "@root/components/DataViewFilterText";
-import DataViewFilterMultiselect from "@root/components/DataViewFilterMultiselect";
-import useMosaicSettings from "@root/utils/hooks/useMosaicSettings";
-import MosaicContext from "@root/components/MosaicContext";
-import Drawer from "@root/components/Drawer";
-import Form from "@root/components/Form/Form";
-import { useForm } from "@root/components/Form/useForm/useForm";
+import JSONDB from "./JSONDB";
+import rawData from "./example/rawData.json";
+import type { DataViewProps, DataViewFilterDef, DataViewColumn, DataViewRowData } from "#mosaic/components/DataView";
+import DataView from "#mosaic/components/DataView";
+import categories from "./example/categories.json";
+import MultiSelectHelper from "./example/MultiSelectHelper";
+import SingleSelectHelper from "./example/SingleSelectHelper";
+import DataViewFilterDate from "#mosaic/components/DataViewFilterDate";
+import DataViewFilterSingleSelect from "#mosaic/components/DataViewFilterSingleSelect";
+import DataViewFilterText from "#mosaic/components/DataViewFilterText";
+import DataViewFilterMultiselect from "#mosaic/components/DataViewFilterMultiselect";
+import { useMosaicSettings } from "#mosaic/utils/hooks";
+import MosaicContext from "#mosaic/components/MosaicContext";
+import Drawer from "#mosaic/components/Drawer";
+import Form from "#mosaic/components/Form";
+import { useForm } from "#mosaic/components/Form";
 import {
 	transform_boolean,
 	transform_dateFormat,
@@ -40,10 +40,10 @@ import {
 	transform_thumbnail,
 	transform_mapGet,
 	transform_join,
-} from "@root/transforms";
+} from "#mosaic/transforms";
 
-import testIds from "@root/utils/testIds";
-import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
+import { testIds } from "#mosaic";
+import DataViewFilterNumber from "#mosaic/components/DataViewFilterNumber";
 
 export default {
 	title : "Components/DataView",

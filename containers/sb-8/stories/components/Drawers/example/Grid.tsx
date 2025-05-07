@@ -1,4 +1,4 @@
-import PageHeader from "@root/components/PageHeader";
+import PageHeader from "#mosaic/components/PageHeader";
 import * as React from "react";
 import { useContext } from "react";
 import AppContext from "./AppContext";

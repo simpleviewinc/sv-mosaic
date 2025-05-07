@@ -2,9 +2,9 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
 
-import CheckboxList from "@root/components/CheckboxList";
-import type { MosaicLabelValue } from "@root/types";
-import { mockOptions } from "@root/mock";
+import CheckboxList from "#mosaic/components/CheckboxList";
+import type { MosaicLabelValue } from "#mosaic/types";
+import { mockOptions } from "#mosaic/mock";
 
 export default {
 	title: "Components/CheckboxList",

@@ -9,6 +9,8 @@
 	"include": [
 		"./src/index.ts",
 		"./src/components/index.ts",
+		"./src/constants/index.ts",
+		"./src/mock/index.ts",
 		"./src/i18n/index.ts",
 		"./src/theme/index.ts",
 		"./src/transforms/index.ts",

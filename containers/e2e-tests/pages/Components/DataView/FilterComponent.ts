@@ -1,4 +1,4 @@
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 import { BasePage } from "../../BasePage";
 import { DataviewPage } from "../../Components/DataView/DataViewPage";
 import type { Page, Locator } from "@playwright/test";

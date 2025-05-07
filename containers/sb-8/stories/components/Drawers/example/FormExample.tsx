@@ -2,8 +2,8 @@ import * as React from "react";
 import { useContext } from "react";
 import { FormConfig, PageCallbacks } from "./ExampleTypes";
 import AppContext from "./AppContext";
-import Form, { useForm } from "@root/components/Form";
-import { ButtonProps } from "@root/components/Button";
+import Form, { useForm } from "#mosaic/components/Form";
+import { ButtonProps } from "#mosaic/components/Button";
 
 function FormExample({
 	config,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import PageHeader from "@root/components/PageHeader";
-import { onCancel } from "../../../utils";
+import PageHeader from "#mosaic/components/PageHeader";
+import { onCancel } from "@utils";
 
 export default {
 	title: "Components/PageHeader",
