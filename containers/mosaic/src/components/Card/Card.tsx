@@ -16,6 +16,9 @@ import {
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { SubtitleText } from "../Typography";
 
+/**
+ * The Card component is a structured container for displaying content with a title, optional count, and configurable actions. It supports rendering a title with an optional icon, a list of content elements, and action buttons at the top and bottom. The component is styled for consistent presentation and includes optional dividers between content items. It is designed to handle dynamic content and actions while maintaining a clean layout.
+ */
 const Card = (props: CardProps): ReactElement => {
 	const {
 		bottomActions,
