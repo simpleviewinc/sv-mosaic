@@ -65,9 +65,7 @@ jobs:
           command: docker compose build mosaic
       - run:
           name: Build and bring up consumer tests
-          command: |
-            docker compose build consumer-tests
-            docker compose up --exit-code-from consumer-tests consumer-tests
+          command: docker compose up --build --exit-code-from consumer-tests consumer-tests
   Build SB Static:
     description: Builds Storybook 8 static files and persists them to the pipeline workspace at ~/project/storybook-static
     docker:
@@ -204,19 +202,17 @@ workflows:
                 - qa
                 - staging
                 - master
-      # - Consumer Tests:
-      #     context: default
-      #     requires:
-      #       - Build Mosaic Dist
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
+      - Consumer Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       # - Publish SB Static:
       #     context: default
       #     requires:

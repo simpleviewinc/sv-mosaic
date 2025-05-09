@@ -62,6 +62,14 @@ services:
     volumes:
       - mosaic:/mosaic
     command: npm start
+  consumer-tests:
+    container_name: consumer-tests
+    build: ./containers/consumer-tests
+    volumes:
+      - mosaic:/mosaic
+    depends_on:
+      - mosaic
+    command: npm start
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
