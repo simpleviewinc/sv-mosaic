@@ -2,7 +2,6 @@
  * Misc
  */
 import type { MosaicLabelValue, MosaicObject, MosaicToggle, SvgIconComponent } from "@simpleview/sv-mosaic";
-import { Foo } from "@simpleview/sv-mosaic";
 
 /**
  * Components
