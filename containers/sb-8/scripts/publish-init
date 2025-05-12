@@ -4,6 +4,7 @@ echo Setting permissions for SSH
 chown -R root:root /root/.ssh
 chmod 700 /root/.ssh && chmod 600 /root/.ssh/*
 sed -i 's#/home/circleci#/root#g' /root/.ssh/config
+ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 echo Running publish script
 yarn publish:github-pages
