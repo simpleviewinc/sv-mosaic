@@ -27,11 +27,6 @@ COPY tsconfig.json /app/tsconfig.json
 COPY tsconfig.node.json /app/tsconfig.node.json
 COPY vite.config.ts /app/vite.config.ts
 
-COPY .ssh /root/.ssh
-RUN chmod 700 /root/.ssh && chmod 600 /root/.ssh/* && chown -R root:root /root/.ssh
-RUN sed -i 's#/home/circleci#/root#g' /root/.ssh/config
-RUN ls -la /root/.ssh && ssh-keyscan github.com >> /root/.ssh/known_hosts
-
 WORKDIR /app
 
 RUN yarn run build
