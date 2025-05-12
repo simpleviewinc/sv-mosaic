@@ -122,6 +122,7 @@ jobs:
       - run:
           name: Findings
           command: |
+            scp -r ~/.ssh/. remote-docker:~/.ssh/
             whoami && pwd ~ && ls -la ~/.ssh
             ssh remote-docker -t "whoami && pwd ~ && ls -la ~/.ssh"
       - run:
