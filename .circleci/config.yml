@@ -91,7 +91,7 @@ jobs:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
       - image: cimg/base:current
-    resource_class: large
+    resource_class: xlarge
     steps:
       - init
       - attach_workspace:
