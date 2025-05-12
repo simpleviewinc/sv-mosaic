@@ -70,6 +70,11 @@ services:
     depends_on:
       - mosaic
     command: npm start
+  storybook-publish:
+    container_name: storybook-publish
+    extends: storybook
+    command: yarn publish
+    tty: true
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests

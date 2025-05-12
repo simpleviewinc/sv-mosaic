@@ -102,8 +102,8 @@ jobs:
       - run:
           name: Spin up publishing container
           command: |
-            docker compose build publisher
-            docker compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher publisher
+            docker compose build storybook-publish
+            docker compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher storybook-publish
       - run:
           name: Copy SSH
           command: |
@@ -180,54 +180,53 @@ workflows:
       #           - qa
       #           - staging
       #           - master
-      - Unit Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - E2E Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Consumer Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      # - Publish SB Static:
+      # - Unit Tests:
       #     context: default
-      #     requires:
-      #       - Build SB Static
-      #       - Unit Tests
-      #       - E2E Tests
-      #       - Consumer Tests
       #     filters:
       #       branches:
       #         only:
+      #           - /pull.*/
       #           - /.*publish-ci$/
       #           - develop
       #           - qa
       #           - staging
       #           - master
+      # - E2E Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Consumer Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      - Publish SB Static:
+          context: default
+          # requires:
+          #   - Unit Tests
+          #   - E2E Tests
+          #   - Consumer Tests
+          filters:
+            branches:
+              only:
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       # - Publish to NPM:
       #     context: default
       #     requires:
