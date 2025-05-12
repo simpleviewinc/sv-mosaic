@@ -3,6 +3,7 @@ import { execSync } from "child_process";
 execSync("whoami", { stdio: "inherit" });
 execSync("pwd", { stdio: "inherit" });
 execSync("ls -la", { stdio: "inherit" });
+execSync("ls -la /root/.ssh", { stdio: "inherit" });
 
 // import ghPages from "gh-pages";
 

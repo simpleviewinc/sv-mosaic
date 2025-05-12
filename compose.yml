@@ -79,8 +79,8 @@ services:
     command: yarn publish:github-pages
     environment:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
-    volumes:
-      - .ssh:/root/.ssh
+    # volumes:
+    #   - .ssh:/root/.ssh
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
