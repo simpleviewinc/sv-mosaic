@@ -120,8 +120,10 @@ jobs:
       #     name: Add github to known_hosts
       #     command: docker exec -t sv-mosaic-publisher sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
-          name: Copy SSH keys to remote docker
-          command: scp -r ~/.ssh remote-docker:/.ssh
+          name: Find out some things...
+          command: |
+            ssh remote-docker -C 'ls -la /'
+            ssh remote-docker -C 'pwd ~ && ls -la ~'
       - run:
           name: Check the path that we're in
           command: |
