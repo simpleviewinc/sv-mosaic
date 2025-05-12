@@ -121,9 +121,7 @@ jobs:
       #     command: docker exec -t sv-mosaic-publisher sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Copy SSH keys into remote docker
-          command: |
-            scp ~/.ssh/* remote-docker:~/.ssh/
-            ssh remote-docker -t "chown -R root:root ~/.ssh"
+          command: scp ~/.ssh/* remote-docker:~/.ssh/
       - run:
           name: Publish to Github pages
           command: docker compose up --build --exit-code-from storybook-publish storybook-publish

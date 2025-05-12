@@ -28,10 +28,7 @@ services:
   #   depends_on:
   #     - mosaic
   storybook:
-    build:
-      context: ./containers/sb-8
-      ssh:
-        - default
+    build: ./containers/sb-8
     volumes:
       - mosaic:/mosaic
       - storybook-static:/app/storybook-static
@@ -76,11 +73,13 @@ services:
   storybook-publish:
     container_name: storybook-publish
     extends: storybook
-    command: yarn publish:github-pages
     environment:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
     volumes:
       - /home/circleci/.ssh:/root/.ssh
+    command: |
+      chown -R root:root /root/.ssh
+      yarn publish:github-pages
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
