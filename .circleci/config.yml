@@ -122,7 +122,7 @@ jobs:
       - run:
           name: Findings
           command: |
-            ssh remote-docker -t "pwd"
+            ssh remote-docker -t "ls -la /root/.ssh"
       - run:
           name: Publish to Github pages
           command: docker compose up --build --exit-code-from storybook-publish storybook-publish
