@@ -34,26 +34,6 @@ jobs:
       - run:
           name: Run tests
           command: docker compose up --build --exit-code-from e2e-tests storybook-serve e2e-tests
-  Build Mosaic Dist:
-    description: Builds Mosaic library distribution files and persists them to the pipeline workspace at ~/project/dist
-    docker:
-      - image: cimg/base:current
-    resource_class: large
-    steps:
-      - init
-      - run:
-          name: Build Mosaic distribution
-          command: |
-            docker compose build mosaic
-            docker compose run --name sv-mosaic mosaic yarn build
-      - run:
-          name: Extract dist files
-          command: |
-            docker cp sv-mosaic:/app/dist dist
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-              - dist
   Consumer Tests:
     description: Ensures all modules that should be importable from the built library, can be
     docker:
@@ -66,27 +46,6 @@ jobs:
       - run:
           name: Build and bring up consumer tests
           command: docker compose up --build --exit-code-from consumer-tests consumer-tests
-  Build SB Static:
-    description: Builds Storybook 8 static files and persists them to the pipeline workspace at ~/project/storybook-static
-    docker:
-      - image: cimg/base:current
-    resource_class: large
-    steps:
-      - init
-      - run:
-          name: Build static Storybook files
-          command: |
-            docker compose build mosaic
-            docker compose build sb8
-            docker compose run --name sv-mosaic-sb8 sb8 yarn build
-      - run:
-          name: Extract static files
-          command: |
-            docker cp sv-mosaic-sb8:/app/storybook-static storybook-static
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-              - storybook-static
   Publish SB Static:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
@@ -99,26 +58,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
-      # - run:
-      #     name: Spin up publishing container
-      #     command: |
-      #       docker compose build storybook-publish
-      #       docker compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher storybook-publish
-      # - run:
-      #     name: Print memory usage
-      #     command: docker exec -t sv-mosaic-publisher sh -c "free -h"
-      # - run:
-      #     name: Copy SSH
-      #     command: |
-      #       # Copy base container's .ssh to publishing container's .ssh
-      #       docker cp ~/.ssh sv-mosaic-publisher:/root/.ssh
-      #       # Give ~/.ssh and the keys inside the correct ownership and permissions
-      #       docker exec -t sv-mosaic-publisher sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/* && chown -R root:root ~/.ssh"
-      #       # Replace the base container's home path with the publishing container's home path in the .ssh/config file
-      #       docker exec -t sv-mosaic-publisher sh -c "sed -i 's#/home/circleci#/root#g' /root/.ssh/config"
-      # - run:
-      #     name: Add github to known_hosts
-      #     command: docker exec -t sv-mosaic-publisher sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
           name: Copy SSH keys into remote docker
           command: scp ~/.ssh/* remote-docker:~/.ssh/
@@ -161,67 +100,45 @@ jobs:
 workflows:
   main:
     jobs:
-      # - Build Mosaic Dist:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
-      # - Build SB Static:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
-      # - Unit Tests:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
-      # - E2E Tests:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
-      # - Consumer Tests:
-      #     context: default
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /pull.*/
-      #           - /.*publish-ci$/
-      #           - develop
-      #           - qa
-      #           - staging
-      #           - master
+      - Unit Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
+      - E2E Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
+      - Consumer Tests:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       - Publish SB Static:
           context: default
-          # requires:
-          #   - Unit Tests
-          #   - E2E Tests
-          #   - Consumer Tests
+          requires:
+            - Unit Tests
+            - E2E Tests
+            - Consumer Tests
           filters:
             branches:
               only:
