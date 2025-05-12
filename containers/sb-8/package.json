@@ -12,7 +12,7 @@
 		"build": "storybook build",
 		"types": "tsc --noEmit",
 		"lint": "eslint .",
-		"publish:github-pages": "ts-node ./publish-github-pages.ts"
+		"publish:github-pages": "tsx ./publish-github-pages.ts"
 	},
 	"dependencies": {
 		"@emotion/react": "11.9.0",
