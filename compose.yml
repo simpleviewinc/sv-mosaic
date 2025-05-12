@@ -79,9 +79,8 @@ services:
     command: yarn publish:github-pages
     environment:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
-      - SSH_AUTH_SOCK=/ssh-agent
     volumes:
-      - ${SSH_AUTH_SOCK}:/ssh-agent
+      - .ssh:/root/.ssh
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
