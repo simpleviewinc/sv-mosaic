@@ -120,6 +120,10 @@ jobs:
       #     name: Add github to known_hosts
       #     command: docker exec -t sv-mosaic-publisher sh -c "ls -la ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
       - run:
+          name: Findings
+          command: |
+            ssh remote-docker -t "pwd"
+      - run:
           name: Publish to Github pages
           command: docker compose up --build --exit-code-from storybook-publish storybook-publish
       - ms-teams-orb/report:
