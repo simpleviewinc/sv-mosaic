@@ -105,6 +105,9 @@ jobs:
             docker compose build storybook-publish
             docker compose run -d -e CIRCLE_BRANCH=${CIRCLE_BRANCH} --name sv-mosaic-publisher storybook-publish
       - run:
+          name: Print memory usage
+          command: docker exec -t sv-mosaic-publisher sh -c "free -h"
+      - run:
           name: Copy SSH
           command: |
             # Copy base container's .ssh to publishing container's .ssh
