@@ -19,6 +19,7 @@ COPY yarn.lock /app/yarn.lock
 
 RUN cd /app && yarn install
 
+COPY scripts /app/scripts
 COPY stories /app/stories
 COPY utils /app/utils
 COPY .storybook /app/.storybook
