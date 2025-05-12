@@ -28,7 +28,10 @@ services:
   #   depends_on:
   #     - mosaic
   storybook:
-    build: ./containers/sb-8
+    build:
+      context: ./containers/sb-8
+      ssh:
+        - default
     volumes:
       - mosaic:/mosaic
       - storybook-static:/app/storybook-static
