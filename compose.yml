@@ -80,7 +80,7 @@ services:
     environment:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
     volumes:
-      - /home/circleci:/root/.ssh
+      - /home/circleci/.ssh:/root/.ssh
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
