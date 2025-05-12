@@ -23,6 +23,7 @@ ghPages.publish("storybook-static", {
 	if (err) {
 		console.error("Error publishing GitHub Pages:");
 		console.error(err);
+		process.exitCode = 1;
 		throw err;
 	}
 
