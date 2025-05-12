@@ -77,9 +77,7 @@ services:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
     volumes:
       - /home/circleci/.ssh:/root/.ssh
-    command: |
-      chown -R root:root /root/.ssh
-      yarn publish:github-pages
+    command: chown -R root:root /root/.ssh && yarn publish:github-pages
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
