@@ -12,6 +12,7 @@
 		"build": "storybook build",
 		"types": "tsc --noEmit",
 		"lint": "eslint .",
+		"publish:init": "./scripts/publish-init.sh",
 		"publish:github-pages": "tsx ./scripts/publish-github-pages.ts"
 	},
 	"dependencies": {

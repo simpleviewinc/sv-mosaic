@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo Setting permissions for SSH
+chown -R root:root /root/.ssh
+
+echo Running publish script
+yarn publish:github-pages
