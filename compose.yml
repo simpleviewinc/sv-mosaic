@@ -73,7 +73,7 @@ services:
   storybook-publish:
     container_name: storybook-publish
     extends: storybook
-    command: yarn publish
+    command: yarn publish:github-pages
   # consumer-tests:
   #   image: consumer-tests:local
   #   container_name: consumer-tests
