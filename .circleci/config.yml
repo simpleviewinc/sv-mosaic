@@ -122,7 +122,7 @@ jobs:
       - run:
           name: Findings
           command: |
-            ssh remote-docker -t "whoami"
+            ssh remote-docker -t "whoami && pwd ~ && ls -la ~/.ssh"
       - run:
           name: Publish to Github pages
           command: docker compose up --build --exit-code-from storybook-publish storybook-publish
