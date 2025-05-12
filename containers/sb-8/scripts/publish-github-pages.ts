@@ -11,7 +11,7 @@ if (!CIRCLE_BRANCH) {
 
 console.log(`Publishing to GitHub pages at ${CIRCLE_BRANCH}`);
 
-ghPages.publish("docs", {
+ghPages.publish("storybook-static", {
 	branch: "gh-pages",
 	dest: `sb8/${CIRCLE_BRANCH}`,
 	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
