@@ -3,10 +3,9 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 // Components
-import type { ContentFieldDef, ContentProps } from "@root/components/Content";
-import Content from "@root/components/Content";
-import Chip from "@root/components/Chip";
-import { ChipsWrapper } from "@root/components/Content/Content.styled";
+import type { ContentFieldDef, ContentProps } from "#mosaic/components/Content";
+import Content from "#mosaic/components/Content";
+import ChipList from "#mosaic/components/ChipList";
 import {
 	transform_chips,
 	transform_colorPicker,
@@ -14,9 +13,9 @@ import {
 	transform_thumbnail,
 	transform_boolean,
 	transform_dataview,
-} from "@root/transforms/column_transforms";
+} from "#mosaic/transforms";
 import EditIcon from "@mui/icons-material/Edit";
-import type { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "#mosaic/components/Button";
 import Link from "@mui/material/Link";
 
 export default {
@@ -63,11 +62,7 @@ const data = {
 	thumbnail:
 		"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg",
 	chipsAsValue: (
-		<ChipsWrapper>
-			{chips?.map((chip) => (
-				<Chip key={`${chip?.label}-${chip?.value}`} label={chip?.label} />
-			))}
-		</ChipsWrapper>
+		<ChipList options={chips} />
 	),
 	undefinedValue: undefined,
 	emptyStringValue: "",

@@ -3,7 +3,6 @@
  */
 import type { MosaicLabelValue, MosaicObject, MosaicToggle, SvgIconComponent } from "@simpleview/sv-mosaic";
 
-
 /**
  * Components
  */

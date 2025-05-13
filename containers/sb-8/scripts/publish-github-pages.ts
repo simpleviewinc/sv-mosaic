@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import ghPages from "gh-pages";
 
 const {
@@ -10,7 +11,7 @@ if (!CIRCLE_BRANCH) {
 
 console.log(`Publishing to GitHub pages at ${CIRCLE_BRANCH}`);
 
-ghPages.publish("docs", {
+ghPages.publish("storybook-static", {
 	branch: "gh-pages",
 	dest: `sb8/${CIRCLE_BRANCH}`,
 	repo: "git@github.com:simpleviewinc/sv-mosaic.git",
@@ -22,6 +23,7 @@ ghPages.publish("docs", {
 	if (err) {
 		console.error("Error publishing GitHub Pages:");
 		console.error(err);
+		process.exitCode = 1;
 		throw err;
 	}
 

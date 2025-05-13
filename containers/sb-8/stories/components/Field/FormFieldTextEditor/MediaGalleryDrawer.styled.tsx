@@ -1,4 +1,4 @@
-import theme from "@root/theme";
+import theme from "#mosaic/theme";
 import styled from "styled-components";
 
 export const DrawerWrapper = styled.div`

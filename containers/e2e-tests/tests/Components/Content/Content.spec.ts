@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 import { cardKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - Content - Playground", () => {

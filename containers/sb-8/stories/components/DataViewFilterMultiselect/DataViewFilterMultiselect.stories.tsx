@@ -1,11 +1,11 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
-import type { DataViewFilterMultiselectProps } from "@root/components/DataViewFilterMultiselect";
-import DataViewFilterMultiselect from "@root/components/DataViewFilterMultiselect";
-import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
-import categories from "@root/components/DataView/example/categories.json";
-import JSONDB from "@root/utils/JSONDB";
+import type { DataViewFilterMultiselectProps } from "#mosaic/components/DataViewFilterMultiselect";
+import DataViewFilterMultiselect from "#mosaic/components/DataViewFilterMultiselect";
+import MultiSelectHelper from "../DataView/example/MultiSelectHelper";
+import categories from "../DataView/example/categories.json";
+import JSONDB from "../DataView/JSONDB";
 
 export default {
 	title : "Components/DataViewFilterMultiselect",

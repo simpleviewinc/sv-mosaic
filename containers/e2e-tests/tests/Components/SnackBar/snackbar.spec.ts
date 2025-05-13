@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { SnackBarPage } from "../../../pages/Components/SnackBar/SnackBarPagePage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("Components - SnackBarPage - Example", () => {
 	let page: Page;

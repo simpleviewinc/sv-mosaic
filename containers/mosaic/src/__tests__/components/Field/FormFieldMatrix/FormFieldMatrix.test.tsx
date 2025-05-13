@@ -18,9 +18,23 @@ import type { FieldDef } from "@root/components/Field/FieldTypes";
 
 // Utils
 import type { ButtonProps } from "@root/components/Button";
-import { listColumns } from "@root/components/Field/FormFieldMatrix/matrixUtils";
 import type { DataViewProps } from "@root/components/DataView";
 import rawData from "@root/components/DataView/example/rawData.json";
+
+const listColumns = [
+	{
+		name: "id",
+		label: "ID",
+	},
+	{
+		name: "description",
+		label: "Description",
+	},
+	{
+		name: "title",
+		label: "Title",
+	},
+];
 
 export const MatrixExample = (): ReactElement => {
 	const controller = useForm();

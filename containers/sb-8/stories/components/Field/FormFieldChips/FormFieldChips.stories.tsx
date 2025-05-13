@@ -1,10 +1,10 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo } from "react";
-import type { FieldDef } from "@root/components/Field";
-import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
-import { getOptions, mockOptions } from "@root/mock";
+import type { FieldDef } from "#mosaic/components/Field";
+import Form, { useForm } from "#mosaic/components/Form";
+import { commonFieldControls, renderButtons } from "@utils";
+import { getOptions, mockOptions } from "#mosaic/mock";
 
 export default {
 	title: "FormFields/FormFieldChips",

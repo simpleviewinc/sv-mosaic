@@ -2,8 +2,8 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
 
-import type { ButtonProps } from "@root/components/Button";
-import Button from "@root/components/Button";
+import type { ButtonProps } from "#mosaic/components/Button";
+import Button from "#mosaic/components/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -15,9 +15,9 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 
-import ButtonRow from "@root/components/ButtonRow";
-import { useToggle } from "@root/utils/toggle";
-import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "../../../utils";
+import ButtonRow from "#mosaic/components/ButtonRow";
+import { useToggle } from "#mosaic/utils/toggle";
+import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "@utils";
 
 export default {
 	title: "Components/Button",

@@ -1,4 +1,4 @@
-import { isValidDate } from "@root/utils/date";
+import { isValidDate } from "#mosaic/utils/date";
 
 export function parseDateControl(input: string): string | Date | undefined {
 	if (!input) {

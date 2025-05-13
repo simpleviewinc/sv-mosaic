@@ -3,8 +3,8 @@ import type { ReactElement } from "react";
 import styled from "styled-components";
 
 // Components
-import Chip from "@root/components/Chip";
-import theme from "@root/theme";
+import Chip from "#mosaic/components/Chip";
+import theme from "#mosaic/theme";
 
 export default {
 	title: "Components/Chip",

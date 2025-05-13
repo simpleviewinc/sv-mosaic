@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import Spinner from "@root/components/Spinner";
-import { SubtitleText } from "@root/components/Typography";
+import Spinner from "#mosaic/components/Spinner";
+import { SubtitleText } from "#mosaic/components/Typography";
 
 export default {
 	title: "Components/Spinner",

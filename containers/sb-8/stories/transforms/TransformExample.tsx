@@ -1,4 +1,4 @@
-import type { DataViewColumnTransform } from "@root/components/DataView";
+import type { DataViewColumnTransform } from "#mosaic/components/DataView";
 import React from "react";
 
 export const TransformExample = ({ cb, data }: { cb: DataViewColumnTransform; data: any }) => {
