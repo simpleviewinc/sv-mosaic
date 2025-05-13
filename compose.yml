@@ -27,14 +27,6 @@ services:
       - CIRCLE_SHA1=${CIRCLE_SHA1}
       - NPM_TOKEN=${NPM_TOKEN}
     command: ["yarn", "publish:npm"]
-  # mosaic-types:
-  #   image: mosaic-types:local
-  #   container_name: mosaic-types
-  #   build: ./containers/mosaic-types
-  #   volumes:
-  #     - sv-mosaic-types:/app
-  #   depends_on:
-  #     - mosaic
   storybook:
     build: ./containers/sb-8
     volumes:
