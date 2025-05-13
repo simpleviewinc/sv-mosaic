@@ -16,9 +16,9 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
 execSync([
-	"mkdir types-package",
-	"cp package.types.json types-package/package.json",
-	"cp -r dist/types/ types-package/",
+	"mkdir ../types-package",
+	"cp ../package.types.json ../types-package/package.json",
+	"cp -r ../dist/types/ ../types-package/",
 ].join(" && "), { stdio: "inherit" });
 
 const mainPackagePath = resolve(__dirname, "../package.json");
@@ -57,5 +57,5 @@ if (CIRCLE_BRANCH === "master") {
 	writeFileSync(typesPackagePath, JSON.stringify(packages.types, null, "\t"));
 
 	execSync("npm publish --access public --tag beta", { stdio: "inherit" });
-	execSync("cd mosaic-types && npm publish --access public --tag beta", { stdio: "inherit" });
+	execSync("cd ../mosaic-types && npm publish --access public --tag beta", { stdio: "inherit" });
 }
