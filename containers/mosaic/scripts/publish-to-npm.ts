@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import { execSync } from "child_process";
-import { writeFileSync } from "fs";
-
-import pkg from "../package.json";
+import { writeFileSync, readFileSync } from "fs";
+import { resolve } from "path";
 
 const {
 	CIRCLE_BRANCH,
@@ -14,7 +13,16 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 	throw new Error("Must set CIRCLE_BRANCH AND CIRCLE_SHA");
 }
 
+const mainPackagePath = resolve(__dirname, "../package.json");
+const typesPackagePath = resolve(__dirname, "../mosaic-types/package.json");
+
+const packages = {
+	main: JSON.parse(readFileSync(mainPackagePath, "utf8")),
+	types: JSON.parse(readFileSync(typesPackagePath, "utf8")),
+};
+
 execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
+execSync("cp -r dist/types/ mosaic-types/types/", { stdio: "inherit" });
 
 const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
 const versions = JSON.parse(raw.toString());
@@ -23,7 +31,7 @@ if (CIRCLE_BRANCH === "master") {
 	/**
 	 * When on master we publish to the main semver
 	 */
-	if (!versions.includes(pkg.version)) {
+	if (!versions.includes(packages.main.version)) {
 		execSync("npm publish --access public", { stdio: "inherit" });
 	} else {
 		console.log("Version published...");
@@ -33,12 +41,16 @@ if (CIRCLE_BRANCH === "master") {
 	 * When not on master we prepublish a beta version
 	 * Creates a version like 1.0.0-qa-abcdef
 	 */
-	pkg.version = `${pkg.version}-${CIRCLE_BRANCH}-${CIRCLE_SHA1.slice(0, 6)}`;
+	const version = `${packages.main.version}-${CIRCLE_BRANCH}-${CIRCLE_SHA1.slice(0, 6)}`;
 
-	console.log(`Publishing @simpleview/sv-mosaic@${pkg.version}`);
+	console.log(`Publishing @simpleview/sv-mosaic@${version} and @simpleview/sv-mosaic-types@${version}.`);
 
-	writeFileSync(`${__dirname}/../package.json`, JSON.stringify(pkg, null, "\t"));
+	packages.main.version = version;
+	packages.types.version = version;
 
-	execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
+	writeFileSync(mainPackagePath, JSON.stringify(packages.main, null, "\t"));
+	writeFileSync(typesPackagePath, JSON.stringify(packages.types, null, "\t"));
+
 	execSync("npm publish --access public --tag beta", { stdio: "inherit" });
+	execSync("cd mosaic-types && npm publish --access public --tag beta", { stdio: "inherit" });
 }

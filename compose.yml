@@ -26,6 +26,8 @@ services:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
       - CIRCLE_SHA1=${CIRCLE_SHA1}
       - NPM_TOKEN=${NPM_TOKEN}
+    volumes:
+      - ./containers/mosaic-types:/app/mosaic-types
     command: ["yarn", "publish:npm"]
   # mosaic-types:
   #   image: mosaic-types:local
