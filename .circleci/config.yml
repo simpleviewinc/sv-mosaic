@@ -76,7 +76,7 @@ jobs:
         # volumes to all new mosaic/mosaic-types containers
       - run:
           name: Test..
-          command: ssh remote-docker -t "ls -la /home/circleci/"
+          command: ssh remote-docker -t "ls -la /home/circleci/ && ls -la ~ && la -la /"
       # - run:
       #     name: Publish @simpleview/sv-mosaic
       #     command: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
