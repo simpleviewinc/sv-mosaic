@@ -63,7 +63,7 @@ jobs:
       - ms-teams-orb/report:
           webhook_url: ${TEAMS_WEBHOOK_URL}
           only_on_fail: false
-          message: "Static Storybook files have been published to the simpleviewinc/sv-mosaic GitHub repo"
+          message: "Mosaic Storybook has been published to the ${CIRCLE_BRANCH} environment. View it at https://simpleviewinc.github.io/sv-mosaic/sb8/${CIRCLE_BRANCH}/."
   Publish to NPM:
     description: Publishes distribution files to both @simpleview/sv-mosaic and @simpleview/sv-mosaic-types on NPM
     docker:
@@ -77,7 +77,7 @@ jobs:
       - ms-teams-orb/report:
           webhook_url: ${TEAMS_WEBHOOK_URL}
           only_on_fail: false
-          message: "@simpleview/sv-mosaic has been published to NPM"
+          message: "Mosaic ${CIRCLE_BRANCH} build has been published to NPM. View it at https://www.npmjs.com/package/@simpleview/sv-mosaic."
 
 workflows:
   main:
