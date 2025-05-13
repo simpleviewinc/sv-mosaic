@@ -3,7 +3,7 @@ import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 
 export class DataviewPage extends BasePage {
 

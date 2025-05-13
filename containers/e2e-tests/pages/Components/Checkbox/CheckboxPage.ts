@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
-import testIds from "@root/utils/testIds";
+import { testIds } from "@simpleview/sv-mosaic";;
 
 export class CheckboxPage extends BasePage {
 

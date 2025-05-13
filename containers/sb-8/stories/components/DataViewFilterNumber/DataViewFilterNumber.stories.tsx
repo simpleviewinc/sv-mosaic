@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useState } from "react";
-import DataViewFilterNumber from "@root/components/DataViewFilterNumber";
+import DataViewFilterNumber from "#mosaic/components/DataViewFilterNumber";
 import { Playground as NumberFieldPlayground } from "../Field/FormFieldNumber/FormFieldNumber.stories";
 
 export default {

@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldTextPage } from "../../../pages/FormFields/FormFieldText/FormFieldTextPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 
 test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 	let page: Page;

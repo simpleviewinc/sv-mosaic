@@ -3,17 +3,17 @@ import type { ReactElement } from "react";
 import { useEffect, useMemo } from "react";
 
 // Utils
-import type { SectionDef } from "@root/components/Form";
-import { useForm } from "@root/components/Form";
+import type { SectionDef } from "#mosaic/components/Form";
+import { useForm } from "#mosaic/components/Form";
 
 // Components
-import Form from "@root/components/Form";
+import Form from "#mosaic/components/Form";
 
 // Types
-import type { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "#mosaic/components/Field";
 
-import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
-import type { ButtonProps } from "@root/components/Button";
+import { ORIGINAL_BODY_MARGIN } from "@utils/dom";
+import type { ButtonProps } from "#mosaic/components/Button";
 
 export default {
 	title: "Components/Form",

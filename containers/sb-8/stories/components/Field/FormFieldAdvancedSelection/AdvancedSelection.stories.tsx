@@ -3,14 +3,14 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 import { nanoid } from "nanoid";
 
-import type { FieldDef } from "@root/components/Field";
-import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
-import { mockOptions } from "@root/mock";
-import JSONDB from "@root/utils/JSONDB";
-import MultiSelectHelper from "@root/components/DataView/example/MultiSelectHelper";
-import categories from "@root/components/DataView/example/categories.json";
-import type { MosaicLabelValue } from "@root/types";
+import type { FieldDef } from "#mosaic/components/Field";
+import Form, { useForm } from "#mosaic/components/Form";
+import { commonFieldControls, renderButtons } from "@utils";
+import { mockOptions } from "#mosaic/mock";
+import JSONDB from "../../DataView/JSONDB";
+import MultiSelectHelper from "../../DataView/example/MultiSelectHelper";
+import categories from "../../DataView/example/categories.json";
+import type { MosaicLabelValue } from "#mosaic/types";
 
 export default {
 	title: "FormFields/FormFieldAdvancedSelection",

@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
-import theme from "@root/theme";
+import theme from "@simpleview/sv-mosaic/theme";;
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("Components - Checkbox - Example", () => {
