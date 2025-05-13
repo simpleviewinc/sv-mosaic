@@ -13,16 +13,21 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 	throw new Error("Must set CIRCLE_BRANCH AND CIRCLE_SHA");
 }
 
+execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
+
+execSync([
+	"mkdir types-package",
+	"cp package.types.json types-package/package.json",
+	"cp -r dist/types/ types-package/",
+].join("&&"), { stdio: "inherit" });
+
 const mainPackagePath = resolve(__dirname, "../package.json");
-const typesPackagePath = resolve(__dirname, "../mosaic-types/package.json");
+const typesPackagePath = resolve(__dirname, "../types-package/package.json");
 
 const packages = {
 	main: JSON.parse(readFileSync(mainPackagePath, "utf8")),
 	types: JSON.parse(readFileSync(typesPackagePath, "utf8")),
 };
-
-execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
-execSync("cp -r dist/types/ mosaic-types/types/", { stdio: "inherit" });
 
 const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
 const versions = JSON.parse(raw.toString());
