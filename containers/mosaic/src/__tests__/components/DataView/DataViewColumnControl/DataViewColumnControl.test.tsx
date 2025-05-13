@@ -39,8 +39,8 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "DataView.columns" });
 		expect(button).toBeInTheDocument();
-		expect(screen.queryByText("DataView.table_settings")).not.toBeInTheDocument();
+		expect(screen.queryByText("DataView.column_settings")).not.toBeInTheDocument();
 		await user.click(button);
-		expect(screen.queryByText("DataView.table_settings")).toBeInTheDocument();
+		expect(screen.queryByText("DataView.column_settings")).toBeInTheDocument();
 	});
 });

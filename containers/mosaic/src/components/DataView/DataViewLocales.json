@@ -24,11 +24,11 @@
 		"no_view_selected": "No view selected",
 		"selected_options": "Selected Options",
 		"show_for_all_users": "Show for all Users",
-		"table_settings": "Table Settings",
+		"column_settings": "Column Settings",
 		"type": "Type",
 		"cancel_save_view": "Cancel save view",
 		"cancel_saved_views": "Cancel saved views",
-		"cancel_table_settings": "Cancel table settings"
+		"cancel_column_settings": "Cancel column settings"
 	},
 	"es" : {
 		"clear_filters": "Limpiar filtros",
