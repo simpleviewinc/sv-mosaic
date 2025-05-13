@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useState } from "react";
 
 // Components
-import Toggle from "@root/components/Toggle";
+import Toggle from "#mosaic/components/Toggle";
 
 export default {
 	title: "Components/Toggle",

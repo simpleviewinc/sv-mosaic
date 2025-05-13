@@ -2,10 +2,10 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo } from "react";
 import styled from "styled-components";
-import { toggleMap, toggleOptions } from "../../../utils";
+import { toggleMap, toggleOptions } from "@utils";
 
-import ButtonRow from "@root/components/ButtonRow";
-import type { ButtonProps } from "@root/components/Button";
+import ButtonRow from "#mosaic/components/ButtonRow";
+import type { ButtonProps } from "#mosaic/components/Button";
 
 export default {
 	title: "Components/ButtonRow",

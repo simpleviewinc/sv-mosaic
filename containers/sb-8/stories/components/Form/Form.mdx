@@ -107,7 +107,7 @@ This is the top level component that will render the various parts of your form,
 In its simplest usage, the `Form` only needs an instance of the controller and an array of fields to work.
 
 ```ts
-import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+import { Form, useForm, FieldDef } from "#mosaic";
 
 const fields: FieldDef[] = [
   {
@@ -223,7 +223,7 @@ In some cases, you may need to prepopulate the form with values, for example if 
 Use this method if the form values are readily-available by the time you are rendering the form component. This data will be used as the initial data in state only, so changes to this object will not result in the state changing to reflect it.
 
 ```ts
-import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+import { Form, useForm, FieldDef } from "#mosaic";
 
 const fields: FieldDef[] = [
   {
@@ -253,7 +253,7 @@ export default function App() {
 Use this method if you need to run a query inside a side effect before populating the values. It's advised (though not required) to pass the `{ skeleton: true, disabled: true }` properties to your call to `useForm` to ensure the form is not interactable whilst you are performing your query. You can then re-enable the form and make it interactable through the use of `setFormValues`.
 
 ```ts
-import { Form, useForm, FieldDef } from "@simpleview/sv-mosaic";
+import { Form, useForm, FieldDef } from "#mosaic";
 
 const fields: FieldDef[] = [
   {

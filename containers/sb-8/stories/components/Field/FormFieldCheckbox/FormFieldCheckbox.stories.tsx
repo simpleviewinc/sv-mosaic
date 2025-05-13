@@ -1,12 +1,12 @@
 import type { ReactElement } from "react";
 
 import React, { useMemo } from "react";
-import type { FormFieldCheckboxInputSettings } from "@root/components/Field";
-import { type FieldDef } from "@root/components/Field";
+import type { FormFieldCheckboxInputSettings } from "#mosaic/components/Field";
+import { type FieldDef } from "#mosaic/components/Field";
 
-import Form, { useForm } from "@root/components/Form";
-import { commonFieldControls, renderButtons } from "../../../../utils";
-import { getOptions, mockOptions } from "@root/mock";
+import Form, { useForm } from "#mosaic/components/Form";
+import { commonFieldControls, renderButtons } from "@utils";
+import { getOptions, mockOptions } from "#mosaic/mock";
 
 export default {
 	title: "FormFields/FormFieldCheckbox",

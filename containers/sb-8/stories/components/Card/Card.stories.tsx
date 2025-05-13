@@ -1,17 +1,17 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import styled from "styled-components";
-import theme from "@root/theme";
+import theme from "#mosaic/theme";
 import format from "date-fns/format";
-import type { ButtonProps } from "@root/components/Button";
+import type { ButtonProps } from "#mosaic/components/Button";
 
 // Components
-import Card from "@root/components/Card";
+import Card from "#mosaic/components/Card";
 import AddIcon from "@mui/icons-material/Add";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { DATE_FORMAT_FULL } from "@root/constants";
+import { DATE_FORMAT_FULL } from "#mosaic/constants";
 
 export default {
 	title: "Components/Card",

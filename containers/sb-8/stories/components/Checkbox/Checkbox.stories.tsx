@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 
-import Checkbox from "@root/components/Checkbox";
+import Checkbox from "#mosaic/components/Checkbox";
 
 export default {
 	title : "Components/Checkbox",

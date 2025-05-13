@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { useState, useEffect } from "react";
-import DataViewFilterSingleSelect from "@root/components/DataViewFilterSingleSelect";
+import DataViewFilterSingleSelect from "#mosaic/components/DataViewFilterSingleSelect";
 
 export default {
 	title : "Components/DataViewFilterSingleSelect",

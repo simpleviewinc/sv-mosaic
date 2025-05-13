@@ -3,18 +3,18 @@ import * as React from "react";
 import type { ReactElement } from "react";
 import { useMemo, useState } from "react";
 
-import Form, { useForm } from "@root/components/Form";
-import type { ControlWithProps, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "@root/components/Field";
-import { getDefaultExtensions } from "@root/components/Field";
-import { commonFieldControls, renderButtons } from "../../../../utils";
-import Drawer from "@root/components/Drawer";
+import Form, { useForm } from "#mosaic/components/Form";
+import type { ControlWithProps, FieldDef, TextEditorOnImageParams, TextEditorOnLinkParams } from "#mosaic/components/Field";
+import { getDefaultExtensions } from "#mosaic/components/Field";
+import { commonFieldControls, renderButtons } from "@utils";
+import Drawer from "#mosaic/components/Drawer";
 
 import { MediaGalleryDrawer } from "./MediaGalleryDrawer";
 import { LinkLibraryDrawer } from "./LinkLibraryDrawer";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import { SimpleViewAlert } from "./SimpleviewAlertExtension";
-import { Sizes } from "@root/theme";
-import { defaultControls } from "@root/components/Field/FormFieldTextEditor/textEditorUtils";
+import { Sizes } from "#mosaic/theme";
+import { defaultControls } from "#mosaic/components/Field/FormFieldTextEditor";
 
 export default {
 	title: "FormFields/FormFieldTextEditor",

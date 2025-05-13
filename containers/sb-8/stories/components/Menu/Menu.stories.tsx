@@ -4,9 +4,9 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
-import type { ButtonProps } from "@root/components/Button";
-import { default as Button } from "@root/components/Button";
-import Typography from "@root/components/Typography";
+import type { ButtonProps } from "#mosaic/components/Button";
+import { default as Button } from "#mosaic/components/Button";
+import Typography from "#mosaic/components/Typography";
 
 export default {
 	title : "Components/Menu",

@@ -15,7 +15,6 @@ COPY yarn.lock /app/yarn.lock
 
 RUN cd /app && yarn install
 
-COPY scripts /app/scripts
 COPY tsconfig.json /app/tsconfig.json
 COPY tsconfig.cjs.json /app/tsconfig.cjs.json
 COPY tsconfig.esm.json /app/tsconfig.esm.json
@@ -25,3 +24,6 @@ COPY src /app/src
 WORKDIR /app
 
 RUN yarn run build
+
+COPY scripts /app/scripts
+COPY package.types.json /app/package.types.json

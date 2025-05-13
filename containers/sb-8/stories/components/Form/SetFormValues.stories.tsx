@@ -3,14 +3,14 @@ import type { ReactElement } from "react";
 import { useEffect, useMemo } from "react";
 
 // Utils
-import { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../utils";
+import { useForm } from "#mosaic/components/Form";
+import { renderButtons } from "@utils";
 
 // Components
-import Form from "@root/components/Form";
+import Form from "#mosaic/components/Form";
 
 // Types
-import type { FieldDef } from "@root/components/Field";
+import type { FieldDef } from "#mosaic/components/Field";
 
 export default {
 	title: "Components/Form",

@@ -4,21 +4,20 @@ import { useEffect, useMemo } from "react";
 import { nanoid } from "nanoid";
 
 // Utils
-import { mockOptions } from "@root/mock";
-import { useForm } from "@root/components/Form";
-import { renderButtons } from "../../../utils";
+import { mockOptions } from "#mosaic/mock";
+import { useForm } from "#mosaic/components/Form";
+import { renderButtons } from "@utils";
 
 // Components
-import Form from "@root/components/Form";
+import Form from "#mosaic/components/Form";
 
 // Types
-import type { FieldDef } from "@root/components/Field";
-import { getOptionsCountries, getOptionsStates } from "@root/mock/options";
-import { columns, rows, mockNumberTableData } from "@root/mock/numberTable";
+import type { FieldDef } from "#mosaic/components/Field";
+import { getOptionsCountries, getOptionsStates, columns, rows, mockNumberTableData } from "#mosaic/mock";
 
-import { ORIGINAL_BODY_MARGIN } from "@root/components/Form/stories/utils";
-import type { ButtonProps } from "@root/components/Button";
-import testIds from "@root/utils/testIds";
+import { ORIGINAL_BODY_MARGIN } from "@utils/dom";
+import type { ButtonProps } from "#mosaic/components/Button";
+import { testIds } from "#mosaic";
 
 export default {
 	title: "Components/Form",
