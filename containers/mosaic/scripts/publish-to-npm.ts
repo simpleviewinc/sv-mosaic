@@ -15,6 +15,11 @@ if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 
 execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
+/**
+ * First we create a new directory inside /app and copy
+ * package.types.json and the built types in there. That'll
+ * serve to publish to @simpleview/sv-mosaic-types
+ */
 execSync([
 	"mkdir types-package",
 	"cp package.types.json types-package/package.json",
@@ -38,6 +43,11 @@ if (CIRCLE_BRANCH === "master") {
 	 */
 	if (!versions.includes(packages.main.version)) {
 		execSync("npm publish --access public", { stdio: "inherit" });
+
+		packages.types.version = packages.main.version;
+		writeFileSync(typesPackagePath, JSON.stringify(packages.types, null, "\t"));
+
+		execSync("cd types-package && npm publish --access public", { stdio: "inherit" });
 	} else {
 		console.log("Version published...");
 	}
