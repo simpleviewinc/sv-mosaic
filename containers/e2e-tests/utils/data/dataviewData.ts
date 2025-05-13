@@ -19,7 +19,7 @@ const saveAs_data = {
 };
 
 const columns_data = {
-	columnsTitle: "Table Settings",
+	columnsTitle: "Column Settings",
 	columnUpdated: "Updated",
 	defaultColumnsChecked: [
 		"Categories",
