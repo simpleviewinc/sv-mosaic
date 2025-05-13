@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 
+export const NoColumns = styled.div`
+	margin-top: 10px;
+`;
+
+export const MutedText = styled.span`
+	color: ${theme.newColors.grey3["100"]};
+	font-style: italic;
+`;
+
 export const ColumnTitle = styled.h2`
 	color: ${theme.newColors.almostBlack["100"]};
 	font-size: 20px;
