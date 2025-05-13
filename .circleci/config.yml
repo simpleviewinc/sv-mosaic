@@ -29,8 +29,6 @@ jobs:
     resource_class: large
     steps:
       - init
-      - attach_workspace:
-          at: ~/project
       - run:
           name: Run tests
           command: docker compose up --build --exit-code-from e2e-tests storybook-serve e2e-tests
@@ -53,8 +51,6 @@ jobs:
     resource_class: xlarge
     steps:
       - init
-      - attach_workspace:
-          at: ~/project
       - add_ssh_keys:
           fingerprints:
             - 90:c4:82:92:d0:82:28:9d:f4:c9:d0:25:27:1e:07:50
@@ -74,8 +70,6 @@ jobs:
     resource_class: large
     steps:
       - init
-      - attach_workspace:
-          at: ~/project
         # This isn't the way to do this, we should probably be
         # comitting these containers to new images. It only works
         # because we're mounting sv-mosaic-lib/sv-mosaic-types
