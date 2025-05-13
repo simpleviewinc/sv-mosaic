@@ -76,75 +76,54 @@ jobs:
         # volumes to all new mosaic/mosaic-types containers
       - run:
           name: Publish @simpleview/sv-mosaic
-          command: |
-            docker compose build mosaic
-            docker compose up mosaic
-            docker cp dist/. mosaic:/app/dist
-            docker cp README.md mosaic:/app/README.md
-            docker cp LICENSE mosaic:/app/LICENSE
-            docker compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic yarn publish:npm
-      - run:
-          name: Publish @simpleview/sv-mosaic-types
-          command: |
-            docker compose build mosaic-types
-            docker compose up mosaic-types
-            docker cp dist/types/. mosaic-types:/app/types
-            docker compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
+          command: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
+      # - run:
+      #     name: Publish @simpleview/sv-mosaic-types
+      #     command: |
+      #       docker compose build mosaic-types
+      #       docker compose up mosaic-types
+      #       docker cp dist/types/. mosaic-types:/app/types
+      #       docker compose run -e CIRCLE_BRANCH=${CIRCLE_BRANCH} -e CIRCLE_SHA1=${CIRCLE_SHA1} -e NPM_TOKEN=${NPM_TOKEN} mosaic-types yarn publish:npm
 
 workflows:
   main:
     jobs:
-      - Unit Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - E2E Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Consumer Tests:
-          context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      - Publish SB Static:
-          context: default
-          requires:
-            - Unit Tests
-            - E2E Tests
-            - Consumer Tests
-          filters:
-            branches:
-              only:
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
-      # - Publish to NPM:
+      # - Unit Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - E2E Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Consumer Tests:
+      #     context: default
+      #     filters:
+      #       branches:
+      #         only:
+      #           - /pull.*/
+      #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
+      #           - staging
+      #           - master
+      # - Publish SB Static:
       #     context: default
       #     requires:
-      #       - Build Mosaic Dist
       #       - Unit Tests
       #       - E2E Tests
       #       - Consumer Tests
@@ -152,5 +131,19 @@ workflows:
       #       branches:
       #         only:
       #           - /.*publish-ci$/
+      #           - develop
+      #           - qa
       #           - staging
       #           - master
+      - Publish to NPM:
+          context: default
+          # requires:
+          #   - Unit Tests
+          #   - E2E Tests
+          #   - Consumer Tests
+          filters:
+            branches:
+              only:
+                - /.*publish-ci$/
+                - staging
+                - master

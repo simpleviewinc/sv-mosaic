@@ -19,6 +19,14 @@ services:
     volumes:
       - ./containers/mosaic/src:/app/src
     command: ["yarn", "start"]
+  mosaic-publish:
+    container_name: mosaic-publish
+    extends: mosaic
+    environment:
+      - CIRCLE_BRANCH=${CIRCLE_BRANCH}
+      - CIRCLE_SHA1=${CIRCLE_SHA1}
+      - NPM_TOKEN=${NPM_TOKEN}
+    command: ["yarn", "publish:npm"]
   # mosaic-types:
   #   image: mosaic-types:local
   #   container_name: mosaic-types
