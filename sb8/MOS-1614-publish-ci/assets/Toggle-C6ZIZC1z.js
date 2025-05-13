@@ -1,0 +1,12 @@
+import{j as o}from"./jsx-runtime-EKYJJIwR.js";import{useMDXComponents as r}from"./index-BwDDMXeo.js";import{M as n,C as s}from"./index-BpbWTKf8.js";import{s as l,P as m}from"./Toggle.stories-Dygmujal.js";import"./index-D0AnReJb.js";import"./iframe-Ujtrwy-Z.js";import"../sb-preview/runtime.js";import"./index-Bqzh3Cp6.js";import"./index-SI8xS9YR.js";import"./tslib.es6-CvpyDmub.js";import"./index-Cu4lwwaE.js";import"./extends-CF3RwP-h.js";import"./inheritsLoose-CMy1E8oj.js";import"./toString-DoexKoos.js";import"./_baseForOwn-YgwlavHx.js";import"./index-QVqIEGA1.js";import"./_arrayIncludesWith-XJRwRZaz.js";import"./index-DrFu-skq.js";import"./Toggle-9YEwDS0M.js";import"./sizes-BklZZmo4.js";import"./generateUtilityClasses-rDn4KRfY.js";import"./FormControlLabel-BKc7O7Lz.js";import"./formControlState-BAKA1Iy6.js";import"./useControlled-DuXZYv4M.js";import"./ButtonBase-C5QWJNfJ.js";import"./useIsFocusVisible-CvEUtp4E.js";import"./useTheme-D7dAzrtf.js";import"./StyledFormControl.styled-BMW4FUOw.js";import"./testIds-Dso8kRSM.js";function i(t){const e={a:"a",code:"code",h1:"h1",h2:"h2",li:"li",p:"p",ul:"ul",...r(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(n,{of:l}),`
+`,o.jsx(e.h1,{id:"toggle",children:"Toggle"}),`
+`,o.jsxs(e.p,{children:["The ",o.jsx(e.code,{children:"Toggle"})," component is built over a wrapper for ",o.jsx(e.a,{href:"https://mui.com/material-ui/react-switch/#main-content",rel:"nofollow",children:"MUI Switch"})," but with SimpleView brand colors."]}),`
+`,o.jsxs(e.ul,{children:[`
+`,o.jsx(e.li,{children:"Toggle Switch allow users to switch between two possible states. They are commonly used to turn a specific setting on or off"}),`
+`,o.jsx(e.li,{children:"Toggles should be used to turn on or off a preference, notification, or feature"}),`
+`,o.jsx(e.li,{children:"Should be used when an instant response is required/desired"}),`
+`]}),`
+`,o.jsx(e.h2,{id:"props",children:"Props"}),`
+`,o.jsx(e.p,{children:o.jsx(e.a,{href:"https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Toggle/Toggle.tsx",rel:"nofollow",children:"https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Toggle/Toggle.tsx"})}),`
+`,o.jsx(e.h2,{id:"toggle-1",children:"Toggle"}),`
+`,o.jsx(s,{of:m})]})}function V(t={}){const{wrapper:e}={...r(),...t.components};return e?o.jsx(e,{...t,children:o.jsx(i,{...t})}):i(t)}export{V as default};
