@@ -11,7 +11,6 @@ RUN cd /app && npm install
 
 COPY playwright.config.ts /app/playwright.config.ts
 COPY tsconfig.json /app/tsconfig.json
-RUN chmod +x /app/scripts/start
 COPY pages /app/pages
 COPY tests /app/tests
 COPY utils /app/utils
@@ -19,3 +18,4 @@ COPY utils /app/utils
 WORKDIR /app
 
 COPY scripts /app/scripts
+RUN chmod +x /app/scripts/start
