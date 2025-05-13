@@ -75,8 +75,11 @@ jobs:
         # because we're mounting sv-mosaic-lib/sv-mosaic-types
         # volumes to all new mosaic/mosaic-types containers
       - run:
-          name: Publish @simpleview/sv-mosaic
-          command: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
+          name: Test..
+          command: ssh remote-docker -t "ls -la /home/circleci/"
+      # - run:
+      #     name: Publish @simpleview/sv-mosaic
+      #     command: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
       # - run:
       #     name: Publish @simpleview/sv-mosaic-types
       #     command: |
