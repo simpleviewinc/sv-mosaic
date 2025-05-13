@@ -8,7 +8,6 @@ import type { FormFieldCheckboxInputSettings, CheckboxData } from "./FormFieldCh
 
 import { StyledCheckboxList } from "./FormFieldCheckbox.styled";
 import { FormFieldCheckboxSkeleton } from "./FormFieldCheckboxSkeleton";
-import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
 
 const FormFieldCheckbox = (
@@ -26,16 +25,10 @@ const FormFieldCheckbox = (
 
 	const {
 		inputSettings: {
-			getOptions: optionsAsync,
-			options: providedOptions = optionsAsync,
+			options: providedOptions,
 			itemsPerColumn,
 		} = {},
 	} = fieldDef;
-
-	useMountWarning(
-		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
-		Boolean(optionsAsync),
-	);
 
 	const { options, loading } = useOptions({
 		from: providedOptions,
