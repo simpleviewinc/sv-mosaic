@@ -19,7 +19,7 @@ execSync([
 	"mkdir types-package",
 	"cp package.types.json types-package/package.json",
 	"cp -r dist/types/ types-package/",
-].join("&&"), { stdio: "inherit" });
+].join(" && "), { stdio: "inherit" });
 
 const mainPackagePath = resolve(__dirname, "../package.json");
 const typesPackagePath = resolve(__dirname, "../types-package/package.json");
