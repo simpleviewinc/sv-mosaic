@@ -8,6 +8,7 @@
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "5.30.0",
         "@typescript-eslint/parser": "5.30.0",
+        "concurrently": "^9.1.2",
         "eslint": "8.56.0",
         "eslint-plugin-react": "7.30.1",
         "eslint-plugin-react-hooks": "4.6.0",
@@ -19,7 +20,8 @@
     "scripts": {
         "release": "release-it",
         "bump-packages": "ts-node ./scripts/bump-packages.ts",
-        "docker": "docker compose -f compose.dev.yml build mosaic sb8 && docker compose -f compose.dev.yml run --rm --service-ports sb8 /bin/bash || true",
+        "docker": "docker compose up --build storybook-dev",
+        "local": "concurrently \"cd containers/mosaic && yarn start\" \"cd containers/sb-8 && yarn start\"",
         "lint": "eslint . --config .eslintrc.ci.js",
         "each": "ts-node ./scripts/each-run.ts"
     },
