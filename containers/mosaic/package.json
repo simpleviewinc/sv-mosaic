@@ -145,7 +145,7 @@
 		"build": "yarn run build:esm && yarn run build:cjs",
 		"build:esm": "rm -rf ./dist/esm ./dist/types && tspc --project ./tsconfig.esm.json && yarn copy-assets:esm",
 		"build:cjs": "rm -rf ./dist/cjs && tspc --project ./tsconfig.cjs.json && yarn copy-assets:cjs",
-		"start": "tspc --project ./tsconfig.esm.json --watch --incremental",
+		"start": "tspc --project ./tsconfig.esm.json --watch --preserveWatchOutput --incremental",
 		"copy-assets:esm": "copyfiles -u 1 ./src/**/*.css ./dist/esm",
 		"copy-assets:cjs": "copyfiles -u 1 ./src/**/*.css ./dist/cjs",
 		"publish:npm": "ts-node ./scripts/publish-to-npm.ts",
