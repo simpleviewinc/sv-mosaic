@@ -19,6 +19,7 @@ export const Playground = ({
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
+	size,
 	country,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
@@ -38,11 +39,12 @@ export const Playground = ({
 						country,
 					},
 					helperText,
+					size,
 					instructionText,
 					forceInstructionTooltip,
 				},
 			],
-		[label, hideLabel, required, disabled, country, helperText, instructionText, forceInstructionTooltip],
+		[label, hideLabel, required, disabled, country, helperText, size, instructionText, forceInstructionTooltip],
 	);
 
 	return (
@@ -64,11 +66,24 @@ Playground.args = {
 			phone: "+15205302271",
 		},
 	}),
+	size: undefined,
 	country: "",
 };
 
 Playground.argTypes = {
 	...commonFieldControls.argTypes,
+	size: {
+		name: "Size",
+		control: { type: "select" },
+		options: {
+			"Undefined (default: sm)": undefined,
+			XSmall: "xs",
+			Small: "sm",
+			Medium: "md",
+			Large: "lg",
+			Full: "full",
+		},
+	},
 	country: {
 		name: "Initial Country",
 	},
