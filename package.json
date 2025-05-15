@@ -21,7 +21,7 @@
         "release": "release-it",
         "bump-packages": "ts-node ./scripts/bump-packages.ts",
         "docker": "docker compose up --build storybook-dev",
-        "local": "concurrently \"cd containers/mosaic && yarn start\" \"cd containers/sb-8 && yarn start\"",
+        "local": "concurrently -n \"Mosaic,Storybook\" -c \"yellow,green\" \"cd containers/mosaic && yarn start\" \"cd containers/sb-8 && yarn start\"",
         "lint": "eslint . --config .eslintrc.ci.js",
         "each": "ts-node ./scripts/each-run.ts"
     },
