@@ -11,6 +11,8 @@ export const StyledPhoneContainer = styled.div`
 `;
 
 export const StyledPhoneTextField = styled(StyledTextField)`
+	flex-grow: 1;
+
 	fieldset {
 		border-left: 0;
 	}
@@ -18,7 +20,6 @@ export const StyledPhoneTextField = styled(StyledTextField)`
 
 export const StyledFlagSelect = styled.div`
 	display: flex;
-	flex-grow: 1;
 `;
 
 export const StyledFlagSelectButton = styled.button<{ $hasFocus?: boolean; $error?: boolean }>`
