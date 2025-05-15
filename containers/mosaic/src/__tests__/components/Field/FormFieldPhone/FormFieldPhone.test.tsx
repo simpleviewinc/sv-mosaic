@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -49,6 +49,40 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("button")).toBeInTheDocument();
 		expect(screen.queryByRole("textbox")).toBeInTheDocument();
+	});
+
+	it("should render country code in text field if international formatting is enabled", async () => {
+		await setup({
+			value: "+15205302271",
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					international: true,
+				},
+			},
+		});
+
+		const countryButton = screen.queryByRole("button", { name: "Phone number country" });
+		expect(countryButton).toBeInTheDocument();
+		expect(within(countryButton).queryByText("+1")).not.toBeInTheDocument();
+
+		const input = screen.queryByRole("textbox");
+		expect(input).toBeInTheDocument();
+		expect(input).toHaveValue("+1 520 530 2271");
+	});
+
+	it("should render country code in country selection button if international formatting not enabled", async () => {
+		await setup({
+			value: "+15205302271",
+		});
+
+		const countryButton = screen.queryByRole("button", { name: "Phone number country" });
+		expect(countryButton).toBeInTheDocument();
+		expect(within(countryButton).queryByText("+1")).toBeInTheDocument();
+
+		const input = screen.queryByRole("textbox");
+		expect(input).toBeInTheDocument();
+		expect(input).toHaveValue("(520) 530-2271");
 	});
 
 	it("should render the skeleton components if skeleton is truthy", async () => {

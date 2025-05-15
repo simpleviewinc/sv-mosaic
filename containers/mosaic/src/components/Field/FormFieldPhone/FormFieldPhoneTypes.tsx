@@ -39,6 +39,7 @@ export interface FormFieldPhoneContextState {
 	disabled?: boolean;
 	onBlur?: MosaicFieldProps["onBlur"];
 	inputRef?: MosaicFieldProps["inputRef"];
+	international?: boolean;
 }
 
 export interface PhoneSelectionInputSettings {
@@ -52,6 +53,12 @@ export interface PhoneSelectionInputSettings {
 	 * @deprecated
 	 */
 	value?: string;
+	/**
+	 * Whether the field should format phone numbers internationally
+	 * or nationally. Internationally formatted phone numbers include
+	 * the country code in the text field.
+	 */
+	international?: boolean;
 }
 
 export type PhoneDropdownData = string;
