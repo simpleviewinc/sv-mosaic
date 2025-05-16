@@ -21,6 +21,7 @@ export const Playground = ({
 	helperText,
 	size,
 	country,
+	international,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
@@ -37,6 +38,7 @@ export const Playground = ({
 					disabled,
 					inputSettings: {
 						country,
+						international,
 					},
 					helperText,
 					size,
@@ -44,7 +46,7 @@ export const Playground = ({
 					forceInstructionTooltip,
 				},
 			],
-		[label, hideLabel, required, disabled, country, helperText, size, instructionText, forceInstructionTooltip],
+		[label, hideLabel, required, disabled, country, helperText, size, instructionText, forceInstructionTooltip, international],
 	);
 
 	return (
@@ -68,6 +70,7 @@ Playground.args = {
 	}),
 	size: undefined,
 	country: "",
+	international: undefined,
 };
 
 Playground.argTypes = {
@@ -86,6 +89,15 @@ Playground.argTypes = {
 	},
 	country: {
 		name: "Initial Country",
+	},
+	international: {
+		name: "International",
+		type: { control: "select" },
+		options: {
+			"Undefined (default: false)": undefined,
+			true: true,
+			false: false,
+		},
 	},
 };
 
