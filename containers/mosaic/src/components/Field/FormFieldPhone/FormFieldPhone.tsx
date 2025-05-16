@@ -29,6 +29,7 @@ const FormFieldPhone = (
 	const {
 		inputSettings: {
 			country,
+			international = false,
 		} = {},
 	} = fieldDef;
 
@@ -50,7 +51,8 @@ const FormFieldPhone = (
 		disabled,
 		onBlur,
 		inputRef,
-	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef]);
+		international,
+	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef, international]);
 
 	if (skeleton) {
 		return (
@@ -74,7 +76,7 @@ const FormFieldPhone = (
 				countrySelectComponent={PhoneCodeSelect}
 				addInternationalOption={false}
 				countryCodeEditable={false}
-				international={false}
+				international={international}
 			/>
 		</FormFieldPhoneContext.Provider>
 	);

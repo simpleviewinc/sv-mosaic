@@ -26,7 +26,15 @@ function PhoneCodeSelect({
 	iconComponent: _,
 	...props
 }: PhoneCodeSelectProps) {
-	const { disabled, error, hasFocus, autocompleteOpen, setAutocompleteOpen, container } = useContext(FormFieldPhoneContext);
+	const {
+		disabled,
+		error,
+		hasFocus,
+		autocompleteOpen,
+		setAutocompleteOpen,
+		container,
+		international,
+	} = useContext(FormFieldPhoneContext);
 	const flagButtonRef = useRef<HTMLButtonElement>();
 
 	const selectedOption = useMemo(() => options.find((option) => option.value === value), [options, value]);
@@ -49,7 +57,7 @@ function PhoneCodeSelect({
 					label={selectedOption?.label}
 					disabled={disabled}
 				/>
-				{countryCallingCode && (
+				{!international && countryCallingCode && (
 					<span>
 						{`+${countryCallingCode}`}
 					</span>
