@@ -1,27 +1,85 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <style>
             body {
-                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                background: #FCFCFD;
+                font-family: "Roboto", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 500;
                 margin: 2rem;
+                font-size: 14px;
+            }
+            img {
+                width: 80px;
+                height: auto;
+                display: block;
+                margin-bottom: 30px;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            li {
+                margin: 0 0 10px;
+            }
+
+            a {
+                background: white;
+                text-decoration: none;
+                display: block;
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+                max-width: 200px;
+                color: #101112;
+                border-radius: 6px;
+                line-height: 18px;
+                overflow: hidden;
+            }
+
+            a:hover {
+                background: #F7F7F8;
+            }
+
+            a:focus-visible {
+                outline: 2px solid black;
+                outline-offset: 3px;
+            }
+
+            a > span {
+                border-left: 8px solid #2f2f2f;
+                display: block;
+                padding: 16px;
+            }
+
+            li:first-child {
+                margin-bottom: 30px;
+            }
+
+            li:nth-child(2) a > span {
+                border-left-color: #44a841;
+            }
+
+            li:nth-child(3) a > span {
+                border-left-color: #d7631e;
+            }
+
+            li:nth-child(4) a > span {
+                border-left-color: #eb9817;
             }
         </style>
     </head>
     <body>
-        <h3>Storybook v8</h3>
+        <img src="SimpleviewDark.png" alt="Mosaic" />
         <ul>
-            <li><a href="./sb8/master">Master</a></li>
-            <li><a href="./sb8/staging">Staging</a></li>
-            <li><a href="./sb8/qa">QA</a></li>
-            <li><a href="./sb8/develop">Develop</a></li>
-        </ul>
-        <h3>Storybook v5</h3>
-        <ul>
-            <li><a href="./master/">Master</a></li>
-            <li><a href="./staging/">Staging</a></li>
-            <li><a href="./qa/">QA</a></li>
-            <li><a href="./develop/">Develop</a></li>
+            <li><a href="./sb8/master"><span>Master</span></a></li>
+            <li><a href="./sb8/staging"><span>Staging</span></a></li>
+            <li><a href="./sb8/qa"><span>QA</span></a></li>
+            <li><a href="./sb8/develop"><span>Develop</span></a></li>
         </ul>
     </body>
 </html>
