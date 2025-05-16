@@ -33,7 +33,7 @@ describe(__dirname, () => {
 	it("should render the data view column drawer content", async () => {
 		await setup();
 
-		expect(screen.queryByRole("heading", { name: "DataView.table_settings" })).toBeInTheDocument();
+		expect(screen.queryByRole("heading", { name: "DataView.column_settings" })).toBeInTheDocument();
 	});
 
 	it("should invoke the change handler with the correct parameters", async () => {
@@ -51,5 +51,36 @@ describe(__dirname, () => {
 		await user.click(submit);
 
 		expect(onChangeMock).toBeCalledWith(["column1", "column2"]);
+	});
+
+	it("should filter the columns based on the keyword provided", async () => {
+		const { user } = await setup();
+
+		const keywordInput = screen.getByRole("textbox", { name: "Keyword..." });
+		const checkbox = screen.queryAllByRole("checkbox");
+
+		expect(checkbox).toHaveLength(2);
+
+		await user.type(keywordInput, "Column 1");
+
+		expect(screen.queryAllByRole("checkbox")).toHaveLength(1);
+		expect(screen.queryByRole("checkbox", { name: "Column 1" })).toBeInTheDocument();
+		expect(screen.queryByRole("checkbox", { name: "Column 2" })).not.toBeInTheDocument();
+	});
+
+	it("should give a muted warning if no columns match the given keyword", async () => {
+		const { user } = await setup();
+
+		const keywordInput = screen.getByRole("textbox", { name: "Keyword..." });
+
+		await user.type(keywordInput, "non-existing-column");
+
+		expect(screen.queryByText("No columns match the given keyword")).toBeInTheDocument();
+	});
+
+	it("should give a muted warning if no columns are available", async () => {
+		await setup({ allColumns: [], columns: [] });
+
+		expect(screen.queryByText("No columns to display")).toBeInTheDocument();
 	});
 });
