@@ -1,5 +1,25 @@
 # sv-mosaic changelog
 
+### 43.2.0 - 05/27/2025
+
+* `DataView`
+
+  * [MOS-1623](https://simpleviewtools.atlassian.net/browse/MOS-1623 "https://simpleviewtools.atlassian.net/browse/MOS-1623") **Add a keyword search on the column UI**
+    * (DataView) Implement keyword search input for columns. Amend column header.
+* `FormFieldPhoneSelectionDropdown`
+
+  * [MOS-1615](https://simpleviewtools.atlassian.net/browse/MOS-1615 "https://simpleviewtools.atlassian.net/browse/MOS-1615") **Phone Number adds additional digit, when field is edited**
+    * (PhoneField) Allow international formatting toggle to pass down to underlying phone component.
+  * [MOS-1621](https://simpleviewtools.atlassian.net/browse/MOS-1621 "https://simpleviewtools.atlassian.net/browse/MOS-1621") **Phone field country code size**
+    * (Phone) Prevent the country selector from growing when the overall field width is
+* Housekeeping
+
+  * [MOS-1614](https://simpleviewtools.atlassian.net/browse/MOS-1614 "https://simpleviewtools.atlassian.net/browse/MOS-1614") **Optimisations for **WSL****
+    * Revise container configuration to streamline developer experience and speed up CI. Drop the "publisher" and "mosaic-types" containers and let "storybook" and "mosaic" containers take care of their responsibilities respectively. Utilise docker layer caching instead of persisting things to the Circle workspace.
+    * Enable Mosaic container to rebuild itself based on changes thereby eliminating the need to mount node_modules.
+    * Rewrite Circle config to reduce some of the magic carried out by each job. Rely more on docker compose.
+    * Improved Teams notifications.
+
 ### 43.1.0 - 04/28/2025
 
 * `DataView`
