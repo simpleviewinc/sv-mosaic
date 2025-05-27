@@ -1,1 +1,0 @@
-import{g as a}from"./index-DDfD_3TG.js";import{r as d}from"./toString-CUnS8Soe.js";var r,u;function q(){if(u)return r;u=1;var e=d(),i=0;function n(t){var o=++i;return e(t)+o}return r=n,r}var s=q();const I=a(s);export{I as u};

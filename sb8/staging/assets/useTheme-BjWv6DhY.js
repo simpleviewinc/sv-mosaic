@@ -1,1 +1,0 @@
-import{r as n}from"./index-DDfD_3TG.js";import{T as r,c as s}from"./generateUtilityClasses-Dav9K5Jg.js";function o(e){return Object.keys(e).length===0}function m(e=null){const t=n.useContext(r);return!t||o(t)?e:t}const u=s();function h(e=u){return m(e)}export{m as a,h as u};
