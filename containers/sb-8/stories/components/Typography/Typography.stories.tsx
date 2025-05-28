@@ -66,7 +66,7 @@ const Wrapper = styled.div`
 `;
 
 const Heading = styled.h2`
-	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-family: ${theme.family.mono};
 	font-size: 16px;
 	font-weight: ${theme.fontWeight.light};
 	overflow: hidden;
@@ -90,7 +90,7 @@ const Heading = styled.h2`
 const MyBodyText = styled(BodyText)`
 	&& {
 		font-size: 12px;
-		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+		font-family: ${theme.family.mono};
 	}
 `;
 

@@ -19,7 +19,6 @@ const StyledA = styled.a`
 	line-height: 24px;
 	cursor: pointer;
 	text-decoration: none;
-	font-family: ${theme.fontFamily};
 	font-size: 14px;
 
 	&.hasItems > .right > .arrow {

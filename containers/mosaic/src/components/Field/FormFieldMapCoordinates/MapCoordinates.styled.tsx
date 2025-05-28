@@ -5,7 +5,6 @@ import theme from "@root/theme";
 
 export const StyledSpan = styled.div`
   color: ${theme.newColors.grey3["100"]};
-  font-family: ${theme.fontFamily};
   font-size: 14px;
   margin-top: 4px;
 
@@ -17,7 +16,6 @@ export const StyledSpan = styled.div`
 export const CoordinatesCard = styled.div`
   border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
-  font-family: ${theme.fontFamily};
   min-height: 204px;
   padding: 16px;
   padding-bottom: 16px;

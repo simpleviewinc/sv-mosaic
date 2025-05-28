@@ -9,7 +9,6 @@ export const StyledAddressCard = styled.div`
   flex-direction: column;
   color: ${theme.newColors.almostBlack["100"]};
   background-color: ${theme.newColors.grey1["100"]};
-  font-family: ${theme.fontFamily};
   height: 204px;
   padding: 24px 16px 16px 24px;
   width: 300px;

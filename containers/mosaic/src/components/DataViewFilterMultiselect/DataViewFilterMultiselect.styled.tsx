@@ -92,6 +92,5 @@ export const StyledComparisonHeader = styled.div`
 `;
 
 export const StyledComparisonHelp = styled.div`
-	font-family: ${theme.fontFamily};
 	padding: 10px;
 `;

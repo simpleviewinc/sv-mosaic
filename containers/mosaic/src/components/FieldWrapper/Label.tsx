@@ -15,11 +15,9 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
 	align-items: end;
 	margin-bottom: 8px;
-	font-family: ${theme.fontFamily};
 	gap: 8px;
 
 	.MuiInputLabel-root {
-		font-family: inherit;
 		font-size: 16px;
 		color:  ${theme.newColors.almostBlack["100"]};
 		word-wrap: break-word;
@@ -29,7 +27,6 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 `;
 
 const InputLabelDiv = styled.div`
-	font-family: inherit;
 	font-size: 16px;
 	color:  ${theme.newColors.almostBlack["100"]};
 	word-wrap: break-word;

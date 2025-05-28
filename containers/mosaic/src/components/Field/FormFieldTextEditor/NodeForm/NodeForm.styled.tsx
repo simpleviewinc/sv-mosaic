@@ -26,7 +26,6 @@ export const RemoveButton = styled(Button)`
 `;
 
 export const StyledLinkOpen = styled.a.attrs((props) => ({ ...props, target: "_blank" }))`
-    font-family: ${theme.fontFamily};
     display: flex;
     align-items: center;
     gap: 4px;

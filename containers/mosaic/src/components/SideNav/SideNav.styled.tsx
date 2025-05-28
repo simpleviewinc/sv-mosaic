@@ -24,10 +24,6 @@ export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const SidebarWrap = styled.div`
-  	font-family: ${theme.fontFamily};
-`;
-
 export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	display: flex;
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};

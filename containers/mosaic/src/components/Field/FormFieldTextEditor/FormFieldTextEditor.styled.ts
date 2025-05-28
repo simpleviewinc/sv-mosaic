@@ -20,8 +20,6 @@ const selectedNode = css`
 `;
 
 export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
-    font-family: ${theme.fontFamily};
-
     ${({ $disabled }) => $disabled ? `
         --border-color: ${theme.colors.disableBorder};
         color: ${theme.colors.disabledTextColor};
@@ -351,7 +349,6 @@ export const CodeView = styled(TextareaAutosize)`
 `;
 
 export const StyledControlMenu = styled(MenuBase)`
-    font-family: ${theme.fontFamily};
     padding: 10px;
 
     h1 {

@@ -5,7 +5,6 @@ import { CONTAINERS } from "@root/theme/theme";
 import { containerQuery } from "@root/utils/css";
 
 export const MainWrapper = styled.div`
-	font-family: ${theme.fontFamily};
 	padding: 16px 0px;
 	margin: 0px 16px;
 
