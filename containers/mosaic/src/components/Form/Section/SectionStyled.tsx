@@ -45,7 +45,6 @@ export const StyledSectionContent = styled(AccordionDetails)`
 
 export const StyledDescription = styled.p`
 	font-size: 16px;
-	font-family: ${theme.fontFamily};
 	color: ${theme.newColors.grey3["100"]};
 	margin: 18px 0 0;
 	padding: 0 24px;
@@ -67,7 +66,6 @@ export const StyledRows = styled.div<Partial<TransientProps<SectionPropTypes, "t
 
 export const StyledTitle = styled.h2`
 	font-size: 20px;
-	font-family: ${theme.fontFamily};
 	font-weight: 500;
 	margin: 0px;
 `;

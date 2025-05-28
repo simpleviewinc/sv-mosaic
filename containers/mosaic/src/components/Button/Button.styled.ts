@@ -175,7 +175,6 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			cursor: pointer;
 
 			${$variant !== "input" ? `
-				font-family: ${theme.fontFamily};
 				font-size: 14px;
 				font-weight: ${theme.fontWeight.bold};
 				letter-spacing: 1px;

@@ -24,7 +24,6 @@ export const InstructionTextWrapper = styled.div<{ $colsInRow?: number }>`
 
 export const StyledInstructionText = styled.p`
 	color: ${theme.newColors.grey3["100"]};
-	font-family: ${theme.fontFamily};
 	font-size: 14px;
 	margin: 0;
 `;

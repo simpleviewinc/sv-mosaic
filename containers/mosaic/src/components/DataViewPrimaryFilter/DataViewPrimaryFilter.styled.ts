@@ -50,7 +50,6 @@ export const Value = styled.p`
 `;
 
 export const Count = styled.span`
-	font-family: ${theme.museoFont};
 	font-size: 10px;
 	font-weight: 600;
 `;

@@ -37,7 +37,6 @@ export const ContentWrapper = styled.div`
   border-radius: 2px;
   box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
   display: flex;
-  font-family: ${theme.fontFamily};
   max-width: 400px;
   padding: 16px 16px;
 

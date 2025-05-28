@@ -15,7 +15,6 @@ export const StyledInstructionText = styled.p`
   -webkit-line-clamp: 2;
   color: ${theme.newColors.grey3["100"]};
   display: -webkit-box;
-  font-family: ${theme.fontFamily};
   font-size: 14px;
   margin-top: 0px;
   margin-bottom: 0px;
