@@ -25,7 +25,6 @@ export const StyledErrorIcon = styled(MUIErrorOutlineIcon)`
 export const StyledText = styled(MUIFormHelperText)`
   &.MuiFormHelperText-root {
     color: ${theme.newColors.grey3["100"]};
-    font-family: ${theme.fontFamily};
     font-size: 12px;
     margin-top: 8px;
   }

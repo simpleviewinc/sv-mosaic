@@ -44,20 +44,17 @@ export const base = css<BaseProps>`
 `;
 export const variants: Record<TypographyVariant, RuleSet> = {
 	title: css`
-        font-family: ${theme.museoFont};
         font-size: 28px;
         font-weight: ${theme.fontWeight.light};
 		color: ${theme.newColors.almostBlack["100"]};
         line-height: 1.2em;
 	`,
 	subtitle: css`
-        font-family: ${theme.fontFamily};
         font-size: 16px;
 		font-weight: 500;
 		color: ${theme.newColors.almostBlack["100"]};
 	`,
 	body: css`
-        font-family: ${theme.fontFamily};
         font-size: 16px;
 	`,
 	none: css``,

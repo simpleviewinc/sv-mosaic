@@ -10,7 +10,6 @@ export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	padding: 8px;
 	border-radius: 4px;
 	color: white;
-	font-family: ${theme.fontFamily};
 	font-size: 12px;
 	max-width: 500px;
 	pointer-events: none;

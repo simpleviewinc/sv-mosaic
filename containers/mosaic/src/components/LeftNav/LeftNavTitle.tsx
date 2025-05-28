@@ -13,7 +13,6 @@ interface Props {
 const StyledH3 = styled.h3`
 	color: ${theme.colors.gray400};
 	padding: 8px 16px;
-	font-family: ${theme.fontFamily};
 	margin: 0;
 	text-transform: uppercase;
 	letter-spacing: 1px;
