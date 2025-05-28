@@ -14,7 +14,6 @@ export const Title = styled.div`
 
 export const Description = styled.div`
 	color: ${theme.newColors.grey3["100"]};
-	font-family: ${theme.museoFont};
 	font-weight: ${theme.fontWeight.light};
 	font-size: 14px;
 	margin-top: 5px;

@@ -14,7 +14,6 @@ import theme from "#mosaic/theme";
 import TopSummary from "#mosaic/components/TopSummary";
 
 const DescriptionItemParagraph = styled.p`
-	font-family: ${theme.museoFont};
 	font-weight: ${theme.fontWeight.light};
 `;
 

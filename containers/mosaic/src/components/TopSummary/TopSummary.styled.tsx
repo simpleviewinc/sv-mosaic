@@ -5,7 +5,6 @@ export const StyledTopSummary = styled.div`
   background: white;
   border-bottom: 2px solid ${theme.newColors.grey2["100"]};
   color: ${theme.newColors.almostBlack["100"]};
-  font-family: ${theme.fontFamily};
   padding: 24px 24px 16px 24px;
   display: flex;
   gap: 24px;
