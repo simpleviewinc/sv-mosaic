@@ -1,8 +1,17 @@
+import React from "react";
 import type { Preview } from "@storybook/react";
+import ThemeProvider from "#mosaic/components/ThemeProvider";
 
 import "./mosaic-preview.css";
 
 const preview: Preview = {
+	decorators: [
+		(Story) => (
+			<ThemeProvider>
+				<Story />
+			</ThemeProvider>
+		),
+	],
 	parameters: {
 		layout: "fullscreen",
 		controls: {
