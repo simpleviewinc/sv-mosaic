@@ -15,7 +15,6 @@ export const Title = styled.div`
 export const Description = styled.div`
 	color: ${theme.newColors.grey3["100"]};
 	font-weight: ${theme.weight.medium};
-	font-size: 14px;
 	margin-top: 5px;
 `;
 

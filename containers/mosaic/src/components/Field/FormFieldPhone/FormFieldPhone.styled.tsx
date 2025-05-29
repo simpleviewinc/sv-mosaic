@@ -85,7 +85,6 @@ export const StyledAutocompletePaper = styled.div`
 	& .MuiAutocomplete-listbox .MuiAutocomplete-option {
 		display: flex;
 		gap: 8px;
-		font-size: 14px;
 		min-height: 40px;
 		color: ${theme.newColors.grey4["100"]};
 

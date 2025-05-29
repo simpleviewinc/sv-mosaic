@@ -50,7 +50,6 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 	}
 
 	& .file-data {
-		font-size: 14px;
 		width: 100%;
 		flex-direction: column;
 		row-gap: 8px;

@@ -29,6 +29,5 @@ export const StyledLinkOpen = styled.a.attrs((props) => ({ ...props, target: "_b
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 14px;
     color: ${theme.colors.teal};
 `;
