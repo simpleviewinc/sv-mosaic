@@ -34,7 +34,7 @@ const StyledGrid = styled(Grid)`
 
 const Title = styled.p`
 	color: ${theme.newColors.almostBlack["100"]};
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.weight.medium};
 	font-size: 16px;
 	margin-bottom: 8px;
 `;
@@ -161,7 +161,7 @@ const LinkTitle = styled.span`
 	color: ${theme.newColors.almostBlack["100"]};
 	cursor: pointer;
 	font-size: 16px;
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.weight.medium};
 	text-decoration: underline;
 `;
 
@@ -208,7 +208,7 @@ const Value = styled.span`
 const Mail = styled.span`
 	display: block;
 	color: ${theme.newColors.almostBlack["100"]};
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.weight.medium};
 	font-size: 14px;
 	margin: 16px 0;
 `;
@@ -216,7 +216,7 @@ const Mail = styled.span`
 const Link = styled.span`
 	color: ${theme.newColors.realTeal["100"]};
 	cursor: pointer;
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.weight.medium};
 	font-size: 14px;
 `;
 

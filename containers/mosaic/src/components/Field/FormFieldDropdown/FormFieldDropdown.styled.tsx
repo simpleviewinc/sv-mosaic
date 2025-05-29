@@ -92,7 +92,7 @@ export const SingleDropdownWrapper = styled.div<{ $innerWidth: FieldDef["size"] 
   }
 `;
 
-export const StyledPopper = styled(Popper)<{ $value?: boolean }>`
+export const StyledPopper = styled(Popper)`
   z-index: 999999999 !important;
   .MuiAutocomplete-listbox .MuiAutocomplete-option {
     font-size: 14px;
@@ -101,8 +101,8 @@ export const StyledPopper = styled(Popper)<{ $value?: boolean }>`
 		background-color: white;
 
     &[aria-selected='true'] {
-			color: ${({ $value }) => $value ? theme.newColors.grey4["100"] : theme.colors.black };
-			font-weight: ${({ $value }) => $value ? null : theme.fontWeight.semiBold};
+			color: ${theme.newColors.grey4["100"]};
+			font-weight: ${theme.weight.medium};
 			background-color: white;
     }
 

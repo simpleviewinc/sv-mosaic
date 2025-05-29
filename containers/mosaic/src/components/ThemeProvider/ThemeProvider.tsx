@@ -33,7 +33,7 @@ const elemDefs: ElemDef[] = [
 			:root {
 				font-family: ${theme.family.sans};
 				font-optical-sizing: auto;
-				font-weight: 400;
+				font-weight: ${theme.weight.regular};
 				font-style: normal;
 				font-size: 14px;
 				font-variation-settings:
@@ -48,9 +48,22 @@ const muiTheme = createTheme({
 		fontFamily: theme.family.sans,
 	},
 	components: {
-		MuiButtonBase: {
+		MuiChip: {
+			styleOverrides: {
+				root: {
+					fontSize: "inherit",
+				},
+			},
+		},
+		MuiButton: {
 			defaultProps: {
 				disableRipple: true,
+			},
+			styleOverrides: {
+				root: {
+					textTransform: "none",
+					fontSize: "inherit",
+				},
 			},
 		},
 	},

@@ -17,7 +17,7 @@ const TitleButton = styled(Button)`
 			max-width: 300px;
 			margin-right: 2px;
 			text-transform: none;
-			font-weight: ${theme.fontWeight.normal};
+			font-weight: ${theme.weight.regular};
 		}
 
 		&.no-view-selected button {
