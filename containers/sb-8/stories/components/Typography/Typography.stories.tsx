@@ -68,7 +68,7 @@ const Wrapper = styled.div`
 const Heading = styled.h2`
 	font-family: ${theme.family.mono};
 	font-size: 16px;
-	font-weight: ${theme.fontWeight.light};
+	font-weight: ${theme.weight.regular};
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

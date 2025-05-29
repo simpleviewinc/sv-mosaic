@@ -64,8 +64,6 @@ export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected">>`
 	}
 
 	& .MuiChip-label {
-		font-size: 14px;
-		font-weight: ${theme.fontWeight.medium};
 		line-height: 1.4em;
 		padding: 0;
 	}

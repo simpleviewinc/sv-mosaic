@@ -66,6 +66,6 @@ export const StyledRows = styled.div<Partial<TransientProps<SectionPropTypes, "t
 
 export const StyledTitle = styled.h2`
 	font-size: 20px;
-	font-weight: 500;
+	font-weight: ${theme.weight.medium};
 	margin: 0px;
 `;

@@ -47,7 +47,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		`};
 
 		::placeholder {
-			font-weight: ${theme.fontWeight.normal};
 			color: ${theme.newColors.grey3["100"]};
 			opacity: 1;
 		}
