@@ -42,7 +42,7 @@ export const ContentWrapper = styled.div`
 
   .MuiSvgIcon-root {
     color: ${theme.newColors.realTeal["100"]};
-    font-size: 20px;
+    font-size: ${theme.fontSize.text["2xl"]};
   }
 `;
 
@@ -53,7 +53,7 @@ export const ActionWrapper = styled.div`
 export const StyledCloseIcon = styled(CloseIcon)`
   &.MuiSvgIcon-root {
     color: ${theme.newColors.simplyGrey["100"]};
-    font-size: 16px;
+    font-size: ${theme.fontSize.text.lg};
   }
 `;
 

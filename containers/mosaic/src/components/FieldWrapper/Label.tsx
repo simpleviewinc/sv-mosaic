@@ -18,7 +18,9 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	gap: 8px;
 
 	.MuiInputLabel-root {
-		font-size: 16px;
+		font-size: ${theme.fontSize.text.lg};
+		line-height: ${theme.line.tight};
+		font-weight: ${theme.weight.medium};
 		color:  ${theme.newColors.almostBlack["100"]};
 		word-wrap: break-word;
 		text-overflow: clip;
@@ -27,14 +29,16 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 `;
 
 const InputLabelDiv = styled.div`
-	font-size: 16px;
+	font-size: ${theme.fontSize.text.lg};
+	line-height: ${theme.line.tight};
+	font-weight: ${theme.weight.medium};
 	color:  ${theme.newColors.almostBlack["100"]};
 	word-wrap: break-word;
 `;
 
 const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
-	font-size: 12px;
+	font-size: ${theme.fontSize.text.sm};
 	margin-left: auto;
 `;
 
