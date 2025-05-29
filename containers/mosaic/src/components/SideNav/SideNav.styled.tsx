@@ -121,7 +121,7 @@ export const StyledLink = styled.span`
 
 export const Badge = styled.span`
 	color: ${theme.newColors.grey4["100"]};
-	font-size: 10px;
+	font-size: ${theme.fontSize.text.xs};
 	font-weight: ${theme.weight.medium};
 `;
 

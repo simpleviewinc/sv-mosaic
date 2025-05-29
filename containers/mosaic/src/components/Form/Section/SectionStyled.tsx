@@ -44,7 +44,8 @@ export const StyledSectionContent = styled(AccordionDetails)`
 `;
 
 export const StyledDescription = styled.p`
-	font-size: 16px;
+	font-size: ${theme.fontSize.body.lg};
+	line-height: ${theme.line["3xloose"]};
 	color: ${theme.newColors.grey3["100"]};
 	margin: 18px 0 0;
 	padding: 0 24px;
@@ -65,7 +66,8 @@ export const StyledRows = styled.div<Partial<TransientProps<SectionPropTypes, "t
 `;
 
 export const StyledTitle = styled.h2`
-	font-size: 20px;
+	font-size: ${theme.fontSize.text};
+	line-height: ${theme.line.xtight};
 	font-weight: ${theme.weight.medium};
 	margin: 0px;
 `;

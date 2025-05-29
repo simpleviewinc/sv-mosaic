@@ -66,7 +66,7 @@ const StyledA = styled.a`
 	}
 
 	& > .right > * {
-		font-size: 20px;
+		font-size: ${theme.fontSize.text["2xl"]};
 		visibility: hidden;
 	}
 `;
