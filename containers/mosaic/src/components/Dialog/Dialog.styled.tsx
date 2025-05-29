@@ -32,7 +32,8 @@ export const StyledDialog = styled(Dialog)`
 
 export const StyledDialogTitle = styled.div`
   color: ${theme.newColors.almostBlack["100"]};
-  font-size: 20px;
+  font-size: ${theme.fontSize.text.xl};
+  line-height: ${theme.line.xtight};
   font-weight: ${theme.weight.medium};
   padding: 40px 30px 24px 30px;
 `;

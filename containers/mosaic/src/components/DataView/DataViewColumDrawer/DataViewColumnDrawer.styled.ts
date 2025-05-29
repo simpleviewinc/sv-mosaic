@@ -12,9 +12,9 @@ export const MutedText = styled.span`
 
 export const ColumnTitle = styled.h2`
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 20px;
+	font-size: ${theme.fontSize.text.xl};
 	font-weight: ${theme.weight.medium};
-	line-height: 24px;
+	line-height: ${theme.line.xtight};
 	margin: 0px;
 `;
 

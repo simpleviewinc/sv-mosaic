@@ -39,7 +39,7 @@ export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	}
 
 	& > .icon > svg {
-		font-size: ${theme.iconFontSize};
+		font-size: ${theme.fontSize.text["2xl"]};
 	}
 
 	& > .menuLabel {
