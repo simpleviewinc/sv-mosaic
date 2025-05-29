@@ -3,8 +3,8 @@ import { expect } from "@playwright/test";
 import { url, urlWithKnobs } from "../utils/formUrls";
 import { generateRandomId, rgbToHex } from "../utils/helpers/helper";
 import { getDateFormatted } from "../utils/helpers/dateHelper";
-import theme from "@simpleview/sv-mosaic/theme";;
-import { testIds } from "@simpleview/sv-mosaic";;
+import theme from "@simpleview/sv-mosaic/theme";
+import { testIds } from "@simpleview/sv-mosaic";
 export class BasePage {
 
 	readonly page: Page;
@@ -330,9 +330,9 @@ export class BasePage {
 	}
 
 	async validateTitleStylingOfLocator(titleLocator: Locator): Promise<void> {
-		expect(await this.getFontFamilyFromElement(titleLocator), "Checking Font Family of the Title").toContain("Museo-Sans");
+		expect(await this.getFontFamilyFromElement(titleLocator), "Checking Font Family of the Title").toContain("Roboto, sans-serif");
 		expect(await this.getFontSizeFromElement(titleLocator), "Checking Font Size of the Title").toBe("28px");
-		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.fontWeight.light).toString());
+		expect(await this.getFontWeightFromElement(titleLocator), "Checking Font Weight of the Title").toBe((theme.weight.medium).toString());
 		expect(await this.getColorFromElement(titleLocator), "Checking Font Color of the Title").toBe(theme.newColors.almostBlack["100"]);
 	}
 
