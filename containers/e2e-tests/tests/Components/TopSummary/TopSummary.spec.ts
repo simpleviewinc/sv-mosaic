@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { TopSummaryPage } from "../../../pages/Components/TopSummary/TopSummaryPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { commonKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - TopSummary - Kitchen Sink", () => {
