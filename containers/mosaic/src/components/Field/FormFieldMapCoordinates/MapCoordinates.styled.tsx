@@ -5,7 +5,6 @@ import theme from "@root/theme";
 
 export const StyledSpan = styled.div`
   color: ${theme.newColors.grey3["100"]};
-  font-size: 14px;
   margin-top: 4px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -64,14 +63,12 @@ export const MapImageColumn = styled.div`
 
 export const LatLngLabel = styled.span`
   color: ${theme.newColors.grey3["100"]};
-  font-size: 14px;
   font-weight: ${theme.weight.medium};
   margin-bottom: 8px;
 `;
 
 export const CoordinatesValues = styled.span`
   color: ${theme.newColors.almostBlack["100"]};
-  font-size: 14px;
 `;
 
 export const LatitudeValue = styled(CoordinatesValues)`

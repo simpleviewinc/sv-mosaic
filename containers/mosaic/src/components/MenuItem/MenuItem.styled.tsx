@@ -8,7 +8,6 @@ export const colors = ["black", "blue", "red", "yellow", "teal", "gray"];
 export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	&& {
 		color: ${theme.newColors.grey4["100"]};
-		font-size: 14px;
 		min-height: 42px;
 		padding: 8px 16px;
 

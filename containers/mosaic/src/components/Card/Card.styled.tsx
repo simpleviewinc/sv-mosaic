@@ -27,7 +27,7 @@ export const Title = styled.div`
 `;
 
 export const Count = styled.span`
-	font-size: 14px;
+	font-size: ${theme.fontSize.text.md};
 `;
 
 export const CardButtonRow = styled(ButtonRow)`

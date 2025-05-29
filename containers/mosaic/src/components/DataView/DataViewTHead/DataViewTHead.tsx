@@ -29,7 +29,6 @@ const StyledWrapper = styled.thead`
 const StyledTh = styled.th`
 	background-color: ${theme.newColors.grey2["100"]};
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 14px;
 	font-weight: ${theme.weight.medium};
 	height: 40px;
 	padding: 8px;

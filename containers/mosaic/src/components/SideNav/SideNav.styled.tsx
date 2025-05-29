@@ -112,7 +112,6 @@ export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSS
 
 export const StyledLink = styled.span`
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 14px;
 	width: auto;
 	white-space: nowrap;
 	overflow: hidden;
