@@ -1,0 +1,12 @@
+import { Meta  } from '@storybook/blocks';
+
+<Meta title='Contexts/ThemeProvider' />
+
+
+# ThemeProvider
+
+`ThemeProvider` is a context-based component that should be used to wrap your entire application. It carries out a number of functions:
+
+- Injects a reference to the Google CDN into the `head` of your DOM so that the Roboto font can be used. This can be disabled by using the `injectGoogleFontCDN={false}` prop. This `link` reference is removed from the DOM when `ThemeProvider` unmounts.
+- Injects a light stylesheet that defines base font styles. This can be disabled by using the `injectRootFontStyles={false}` prop. This `style` tag is removed from the DOM when `ThemeProvider` unmounts.
+- Utilises the `ThemeProvider` provided by Material UI with a custom theme that applies some style defaults.
