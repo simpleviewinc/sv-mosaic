@@ -17,7 +17,6 @@ export const DropdownListBox = styled.ul`
 
     li {
         color: ${theme.newColors.almostBlack["100"]};
-        font-size: 14px;
         min-height: 40px;
         display: flex;
         gap: 8px;

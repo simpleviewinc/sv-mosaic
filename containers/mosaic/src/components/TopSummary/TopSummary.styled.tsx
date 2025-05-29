@@ -69,7 +69,6 @@ export const Item = styled.div`
   & h5,
   & h6 {
     margin: 0px;
-    font-size: 14px;
     max-width: 280px;
     overflow: hidden;
     text-overflow: ellipsis;

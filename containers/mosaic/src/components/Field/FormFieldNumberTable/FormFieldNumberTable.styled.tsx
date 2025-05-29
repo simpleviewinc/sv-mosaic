@@ -11,7 +11,6 @@ export const StyledTable = styled.table`
 export const Th = styled.th`
   padding: 24px 16px;
   font-weight: ${theme.weight.medium};
-  font-size: 14px;
   text-align: left;
 `;
 
@@ -41,23 +40,19 @@ export const Td = styled.td`
 
 export const TdTitle = styled(Td)`
   font-weight: ${theme.weight.medium};
-  font-size: 14px;
 `;
 
 export const RowTitle = styled.p`
   margin: 0;
   font-weight: ${theme.weight.medium};
-  font-size: 14px;
 `;
 
 export const RowSubtitle = styled.p`
   margin: 8px 0 0 0;
-  font-size: 14px;
 `;
 
 export const TdTotals = styled.td`
   padding-left: 16px;
-  font-size: 14px;
 `;
 
 export const TBody = styled.tbody`

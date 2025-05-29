@@ -209,7 +209,6 @@ const Mail = styled.span`
 	display: block;
 	color: ${theme.newColors.almostBlack["100"]};
 	font-weight: ${theme.weight.medium};
-	font-size: 14px;
 	margin: 16px 0;
 `;
 
@@ -217,7 +216,6 @@ const Link = styled.span`
 	color: ${theme.newColors.realTeal["100"]};
 	cursor: pointer;
 	font-weight: ${theme.weight.medium};
-	font-size: 14px;
 `;
 
 const BottomContent = (): ReactElement => {

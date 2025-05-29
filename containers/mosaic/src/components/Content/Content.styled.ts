@@ -60,7 +60,6 @@ export const ChipsWrapper = styled.div`
 
 export const ColorValue = styled.p`
 	color: ${theme.newColors.grey3["100"]};
-	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
 `;
@@ -104,7 +103,6 @@ export const FieldContainer = styled.div<{ $margin?: boolean }>`
 
 export const FieldTerm = styled.dt`
 	color: ${theme.newColors.grey4["100"]};
-	font-size: 14px;
 	margin-bottom: 8px;
 	margin-top: 0;
 	display: flex;
@@ -115,7 +113,6 @@ export const FieldTerm = styled.dt`
 
 export const FieldDefinition = styled.dd`
 	color: ${theme.newColors.grey3["100"]};
-	font-size: 14px;
 	margin: 0;
 	display: table;
 	table-layout: fixed;
