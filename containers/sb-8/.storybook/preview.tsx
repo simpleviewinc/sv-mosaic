@@ -13,6 +13,15 @@ const preview: Preview = {
 		),
 	],
 	parameters: {
+		options: {
+			storySort: (a) => {
+				if (a.title === "Contexts/ThemeProvider") {
+					return -1;
+				}
+
+				return 0;
+			},
+		},
 		layout: "fullscreen",
 		controls: {
 			matchers: {
