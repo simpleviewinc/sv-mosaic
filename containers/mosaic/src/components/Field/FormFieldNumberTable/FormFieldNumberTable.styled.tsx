@@ -53,6 +53,7 @@ export const RowSubtitle = styled.p`
 
 export const TdTotals = styled.td`
   padding-left: 16px;
+  font-weight: ${theme.weight.medium}
 `;
 
 export const TBody = styled.tbody`
