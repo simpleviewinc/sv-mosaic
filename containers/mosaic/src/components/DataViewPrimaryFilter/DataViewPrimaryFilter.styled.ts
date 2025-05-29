@@ -12,14 +12,13 @@ export const LabelWrapper = styled.div`
 	}
 
 	& > .filter-label {
-		font-weight: ${theme.fontWeight.normal};
 		text-transform: capitalize;
 	}
 
 	& > .filter-value {
 		align-items: center;
 		display: flex;
-		font-weight: ${theme.fontWeight.normal};
+		font-weight: ${theme.weight.regular};
 		text-transform: none;
 	}
 
@@ -45,11 +44,9 @@ export const Value = styled.p`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	font-weight: ${theme.fontWeight.bold};
 	margin: 0px;
 `;
 
 export const Count = styled.span`
-	font-size: 10px;
-	font-weight: 600;
+	font-size: ${theme.fontSize.text.sm};
 `;

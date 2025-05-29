@@ -17,7 +17,7 @@ const StyledH3 = styled.h3`
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-size: 14px;
-	font-weight: normal;
+	font-weight: ${theme.weight.semi};
 	display: flex;
 	align-items: center;
 	line-height: 24px;

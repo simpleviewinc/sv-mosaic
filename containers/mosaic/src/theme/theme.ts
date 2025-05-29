@@ -323,9 +323,21 @@ const line = {
 };
 
 const weight = {
+	/**
+	 * Font weight 400
+	 */
 	regular: "400",
+	/**
+	 * Font weight 500
+	 */
 	medium: "500",
+	/**
+	 * Font weight 600
+	 */
 	semi: "600",
+	/**
+	 * Font weight 700
+	 */
 	bold: "700",
 };
 

@@ -25,7 +25,7 @@ export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 		}
 
 		&.Mui-selected {
-			font-weight: ${theme.fontWeight.bold};
+			font-weight: ${theme.weight.medium};
 			background-color: ${theme.newColors.realTeal["10"]};
 
 			&:hover,

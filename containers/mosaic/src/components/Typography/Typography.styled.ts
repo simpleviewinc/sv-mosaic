@@ -17,7 +17,6 @@ export const base = css<BaseProps>`
 	margin: 0;
 	padding: 0;
 	font-size: inherit;
-	font-weight: inherit;
     line-height: 1.5em;
 
     ${({ $maxLines, $breakAll, $color, $whiteSpace }) => {
@@ -45,13 +44,13 @@ export const base = css<BaseProps>`
 export const variants: Record<TypographyVariant, RuleSet> = {
 	title: css`
         font-size: 28px;
-        font-weight: ${theme.fontWeight.light};
+        font-weight: ${theme.weight.medium};
 		color: ${theme.newColors.almostBlack["100"]};
         line-height: 1.2em;
 	`,
 	subtitle: css`
         font-size: 16px;
-		font-weight: 500;
+        font-weight: ${theme.weight.medium};
 		color: ${theme.newColors.almostBlack["100"]};
 	`,
 	body: css`

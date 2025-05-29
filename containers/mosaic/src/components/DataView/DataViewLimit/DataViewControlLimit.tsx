@@ -6,8 +6,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
 import type { MenuProps } from "@root/components/Menu/MenuTypes";
 
-import { StyledButton } from "./DataViewControlLimit.styled";
 import testIds from "@root/utils/testIds";
+import Button from "@root/components/Button";
 
 const attrs = { "data-testid": testIds.DATA_VIEW_LIMIT_CONTROL };
 
@@ -26,7 +26,7 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 	}, [props.options]);
 
 	return (
-		<StyledButton
+		<Button
 			color="black"
 			label={String(props.limit)}
 			variant="text"

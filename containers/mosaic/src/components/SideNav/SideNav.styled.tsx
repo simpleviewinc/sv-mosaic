@@ -54,7 +54,7 @@ export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSS
 	text-decoration: none;
 
 	${({ $isActive }) => $isActive && `
-		font-weight: ${theme.fontWeight.semiBold};
+		font-weight: ${theme.weight.medium};
 	`}
 
 	${({ $collapse }) => !$collapse ? `
@@ -123,7 +123,7 @@ export const StyledLink = styled.span`
 export const Badge = styled.span`
 	color: ${theme.newColors.grey4["100"]};
 	font-size: 10px;
-	font-weight: ${theme.fontWeight.semiBold};
+	font-weight: ${theme.weight.medium};
 `;
 
 export const BadgeWrapper = styled.div`

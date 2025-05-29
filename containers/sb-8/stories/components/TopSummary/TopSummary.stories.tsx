@@ -7,15 +7,9 @@ import Mail from "@mui/icons-material/Mail";
 import Edit from "@mui/icons-material/Edit";
 import Public from "@mui/icons-material/Public";
 import type { MenuItemProps } from "#mosaic/components/MenuItem";
-import styled from "styled-components";
-import theme from "#mosaic/theme";
 
 // Components
 import TopSummary from "#mosaic/components/TopSummary";
-
-const DescriptionItemParagraph = styled.p`
-	font-weight: ${theme.fontWeight.light};
-`;
 
 export default {
 	title: "Components/TopSummary",
@@ -95,9 +89,9 @@ export const Playground = ({
 	];
 
 	const descriptionItems = [
-		<DescriptionItemParagraph key={1}>Information</DescriptionItemParagraph>,
-		<DescriptionItemParagraph key={2}>Information</DescriptionItemParagraph>,
-		<DescriptionItemParagraph key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</DescriptionItemParagraph>,
+		<p key={1}>Information</p>,
+		<p key={2}>Information</p>,
+		<p key={3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec iaculis quam adipiscing elit. Quisque</p>,
 		<Button
 			key={4}
 			attrs={{ $linkButton: true }}

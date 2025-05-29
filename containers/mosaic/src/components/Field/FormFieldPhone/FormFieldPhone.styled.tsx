@@ -91,7 +91,7 @@ export const StyledAutocompletePaper = styled.div`
 
 		&[aria-selected='true'] {
 			color: ${theme.colors.black};
-			font-weight: ${theme.fontWeight.semiBold};
+			font-weight: ${theme.weight.medium};
 			background-color: white;
 
 			&.Mui-focused {

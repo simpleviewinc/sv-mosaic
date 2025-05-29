@@ -39,7 +39,7 @@ const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 `;
 
 const StyledInputLabel = styled(InputLabel)`
-	font-weight: ${theme.fontWeight.semiBold} !important;
+	font-weight: ${theme.weight.medium};
   	align-self: center;
 	color: ${theme.newColors.grey4["100"]} !important;
 `;
