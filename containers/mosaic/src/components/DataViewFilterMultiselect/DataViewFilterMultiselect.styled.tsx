@@ -51,7 +51,7 @@ export const StyledWrapper = styled.div`
 	}
 
 	& > .topBlock > .selected > .selected-options-title {
-		font-weight: ${theme.fontWeight.medium};
+		font-weight: ${theme.weight.medium};
 		font-size: 16px;
 		line-height: 19px;
 		color: ${theme.newColors.almostBlack["100"]};

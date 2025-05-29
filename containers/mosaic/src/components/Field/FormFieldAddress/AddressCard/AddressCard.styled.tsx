@@ -24,7 +24,7 @@ export const StyledAddressCard = styled.div`
 `;
 
 export const AddressTitle = styled.span`
-  font-weight: ${theme.fontWeight.semiBold};
+  font-weight: ${theme.weight.medium};
   margin-bottom: 12px !important;
 `;
 

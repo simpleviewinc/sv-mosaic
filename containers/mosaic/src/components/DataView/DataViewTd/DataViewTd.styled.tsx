@@ -13,11 +13,10 @@ export const StyledTd = styled.td`
 
 	& > div {
 		color: ${theme.newColors.almostBlack["100"]};
-		font-weight: 400;
 	}
 
 	&.bold > div {
-		font-weight: 600;
+		font-weight: ${theme.weight.semi};
 	}
 
 	&.italic {

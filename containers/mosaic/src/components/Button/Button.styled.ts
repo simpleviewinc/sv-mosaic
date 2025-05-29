@@ -170,15 +170,10 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			gap: 12px;
 			padding: ${getPadding($variant, $size)};
 			width: ${$fullWidth ? "100%" : "auto"};
-			text-transform: ${$variant === "text" || $variant === "input" ? "none" : "uppercase"};
 			line-height: 1.75;
 			cursor: pointer;
 
-			${$variant !== "input" ? `
-				font-size: 14px;
-				font-weight: ${theme.fontWeight.bold};
-				letter-spacing: 1px;
-			` : `
+			${$variant !== "input" ? "" : `
 				font: inherit;
 				height: 1.4375em;
 				box-sizing: content-box;
@@ -204,9 +199,7 @@ export const StyledButton = styled(Button)<TransientProps<ButtonProps, "color" |
 			}
 
 			& .adornment-icon {
-				width: 1em;
-				height: 1em;
-				font-size: 16px;
+				font-size: ${theme.fontSize.text.lg};
 			}
 		}
 	`;

@@ -26,5 +26,5 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledLabel = styled.span`
-	font-weight: 400;
+	color: ${theme.color.gray[500]};
 `;

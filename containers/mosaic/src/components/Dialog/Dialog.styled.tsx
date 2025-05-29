@@ -33,6 +33,6 @@ export const StyledDialog = styled(Dialog)`
 export const StyledDialogTitle = styled.div`
   color: ${theme.newColors.almostBlack["100"]};
   font-size: 20px;
-  font-weight: ${theme.fontWeight.medium};
+  font-weight: ${theme.weight.medium};
   padding: 40px 30px 24px 30px;
 `;

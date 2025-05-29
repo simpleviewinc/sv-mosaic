@@ -45,6 +45,6 @@ export const SuggestionDescription = styled.p`
 
   &:active {
     color: ${theme.colors.gray800};
-    font-weight: ${theme.fontWeight.bold};
+    font-weight: ${theme.weight.medium};
   }
 `;
