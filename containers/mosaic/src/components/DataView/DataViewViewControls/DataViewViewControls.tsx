@@ -28,7 +28,6 @@ const TitleButton = styled(Button)`
 `;
 
 const CurrentViewReadOnly = styled.div`
-	font-size: 14px;
 	padding: 3px 0;
 	letter-spacing: 1px;
 `;

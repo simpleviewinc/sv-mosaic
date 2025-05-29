@@ -12,7 +12,6 @@ export const LocationSearchInputWrapper = styled.div`
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
-  min-width: 684px;
 
   &.MuiTextField-root {
     display: flex;
@@ -40,7 +39,6 @@ export const SuggestionsDescriptionContainer = styled.div<{ $isSuggestionActive?
 `;
 
 export const SuggestionDescription = styled.p`
-  font-size: 14px;
   margin: 0;
 
   &:active {

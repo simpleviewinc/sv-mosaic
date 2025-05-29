@@ -7,7 +7,6 @@ export const StyledDrawerContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	font-size: 14px;
 `;
 
 export const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle; previousStyle: AnchorStyle }; $display?: boolean }>`

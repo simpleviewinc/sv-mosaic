@@ -14,7 +14,6 @@ export const StyledAddressCard = styled.div`
   width: 300px;
 
   & span {
-    font-size: 14px;
     margin: 0;
     overflow: hidden;
     white-space: nowrap;

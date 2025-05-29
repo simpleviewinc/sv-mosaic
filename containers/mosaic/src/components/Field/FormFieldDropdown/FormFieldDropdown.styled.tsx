@@ -95,7 +95,6 @@ export const SingleDropdownWrapper = styled.div<{ $innerWidth: FieldDef["size"] 
 export const StyledPopper = styled(Popper)`
   z-index: 999999999 !important;
   .MuiAutocomplete-listbox .MuiAutocomplete-option {
-    font-size: 14px;
     min-height: 40px;
     color: ${theme.newColors.grey4["100"]};
 		background-color: white;

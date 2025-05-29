@@ -19,7 +19,6 @@ const StyledA = styled.a`
 	line-height: 24px;
 	cursor: pointer;
 	text-decoration: none;
-	font-size: 14px;
 
 	&.hasItems > .right > .arrow {
 		visibility: visible;
@@ -55,7 +54,6 @@ const StyledA = styled.a`
 
 	& > .left > .navLabel {
 		color: ${theme.newColors.grey2["100"]};
-		font-size: 14px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
