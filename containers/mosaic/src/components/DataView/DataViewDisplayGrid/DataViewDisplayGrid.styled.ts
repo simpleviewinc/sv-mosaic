@@ -64,6 +64,7 @@ export const StyledDiv = styled.div`
 	& > .grid > .cell h3 {
 		margin: 0;
 		font-size: 12px;
+		font-weight: ${theme.weight.regular};
 		color: ${theme.newColors.almostBlack["100"]};
 	}
 
