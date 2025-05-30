@@ -18,7 +18,6 @@ export const StyledFormControlLabel = styled(MUIFormControlLabel)`
   }
 
   & .MuiFormControlLabel-label {
-    font-family: ${theme.fontFamily};
     max-width: 414px;
     align-self: center;
   }

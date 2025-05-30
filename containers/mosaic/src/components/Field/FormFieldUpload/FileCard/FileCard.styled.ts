@@ -50,7 +50,6 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 	}
 
 	& .file-data {
-		font-size: 14px;
 		width: 100%;
 		flex-direction: column;
 		row-gap: 8px;
@@ -63,7 +62,7 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 
 	& .file-name {
 		color: ${theme.newColors.grey3["100"]};
-		font-weight: ${theme.fontWeight.semiBold};
+		font-weight: ${theme.weight.medium};
 		line-height: 17px;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
@@ -76,7 +75,6 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 
 	& .file-size {
 		color: ${theme.newColors.almostBlack["100"]};
-		font-weight: ${theme.fontWeight.normal};
 		line-height: 24px;
 	}
 `;

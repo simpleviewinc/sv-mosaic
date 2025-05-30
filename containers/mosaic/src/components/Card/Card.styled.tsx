@@ -4,7 +4,6 @@ import ButtonRow from "../ButtonRow";
 
 export const CardWrapper = styled.div`
 	border: 2px solid ${theme.newColors.grey2["100"]};
-	font-family: ${theme.fontFamily};
 	width: 100%;
 `;
 
@@ -28,7 +27,7 @@ export const Title = styled.div`
 `;
 
 export const Count = styled.span`
-	font-size: 14px;
+	font-size: ${theme.fontSize.text.md};
 `;
 
 export const CardButtonRow = styled(ButtonRow)`

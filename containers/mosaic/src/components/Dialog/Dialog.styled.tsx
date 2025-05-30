@@ -7,8 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import theme from "@root/theme";
 
 export const StyledDialog = styled(Dialog)`
-z-index: 99999 !important;
-  font-family: ${theme.fontFamily};
+  z-index: 99999 !important;
 
   .MuiDialogContent-root {
     border-bottom: 2px solid ${theme.newColors.grey2["100"]};
@@ -33,7 +32,8 @@ z-index: 99999 !important;
 
 export const StyledDialogTitle = styled.div`
   color: ${theme.newColors.almostBlack["100"]};
-  font-size: 20px;
-  font-weight: ${theme.fontWeight.medium};
+  font-size: ${theme.fontSize.text.xl};
+  line-height: ${theme.line.xtight};
+  font-weight: ${theme.weight.medium};
   padding: 40px 30px 24px 30px;
 `;

@@ -44,6 +44,7 @@ import Spinner, { type SpinnerProps } from "@simpleview/sv-mosaic/components/Spi
 import Toggle, { type ToggleProps } from "@simpleview/sv-mosaic/components/Toggle";
 import TopSummary, { type TopSummaryProps } from "@simpleview/sv-mosaic/components/TopSummary";
 import Typography, { type TypographyProps } from "@simpleview/sv-mosaic/components/Typography";
+import ThemeProvider from "@simpleview/sv-mosaic/components/ThemeProvider";
 
 /**
  * Theme

@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { SideNavPage } from "../../../pages/Components/SideNav/SideNavPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("Components - SideNav - Example", () => {
@@ -51,8 +51,8 @@ test.describe("Components - SideNav - Example", () => {
 		expect(await sideNavPage.getHeightFromElement(sideNavPage.navLocator)).toBe(secondExpectedHeight + "px");
 	});
 
-	test("Validate that the selected section is bold", async () => {
+	test("Validate that the selected section is medium", async () => {
 		await sideNavPage.sections.locator("span").last().click();
-		expect(await sideNavPage.getFontWeightFromElement(sideNavPage.sections.locator("span").last())).toBe((theme.fontWeight.semiBold).toString());
+		expect(await sideNavPage.getFontWeightFromElement(sideNavPage.sections.locator("span").last())).toBe((theme.weight.medium).toString());
 	});
 });

@@ -12,9 +12,9 @@ export const MutedText = styled.span`
 
 export const ColumnTitle = styled.h2`
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 20px;
-	font-weight: ${theme.fontWeight.normal};
-	line-height: 24px;
+	font-size: ${theme.fontSize.text.xl};
+	font-weight: ${theme.weight.medium};
+	line-height: ${theme.line.xtight};
 	margin: 0px;
 `;
 
@@ -76,5 +76,4 @@ export const ColumnDraggable = styled.div`
 export const ColumnItemLabel = styled.div`
 	margin-left: 16px;
 	color: ${theme.newColors.almostBlack["100"]};
-	font-weight: ${theme.fontWeight.normal};
 `;

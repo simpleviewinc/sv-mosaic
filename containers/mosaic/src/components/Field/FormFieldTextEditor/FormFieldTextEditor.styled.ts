@@ -20,8 +20,6 @@ const selectedNode = css`
 `;
 
 export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
-    font-family: ${theme.fontFamily};
-
     ${({ $disabled }) => $disabled ? `
         --border-color: ${theme.colors.disableBorder};
         color: ${theme.colors.disabledTextColor};
@@ -124,7 +122,7 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
             border: 1px solid var(--border-color);
             color: ${theme.colors.gray600};
             padding: 0;
-            font-size: 12px;
+            font-size: ${theme.fontSize.text.sm};
             display: flex;
             align-items: center;
             gap: 4px;
@@ -351,7 +349,6 @@ export const CodeView = styled(TextareaAutosize)`
 `;
 
 export const StyledControlMenu = styled(MenuBase)`
-    font-family: ${theme.fontFamily};
     padding: 10px;
 
     h1 {
@@ -416,7 +413,7 @@ export const MenuItemLabel = styled.div`
 
 export const MenuItemShortcut = styled.div`
     background: ${theme.colors.gray200};
-    font-size: 12px;
+    font-size: ${theme.fontSize.text.xs};
     text-align: center;
     padding: 2px 4px;
     border-radius: 3px;

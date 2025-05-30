@@ -5,8 +5,6 @@ import theme from "@root/theme";
 
 export const StyledSpan = styled.div`
   color: ${theme.newColors.grey3["100"]};
-  font-family: ${theme.fontFamily};
-  font-size: 14px;
   margin-top: 4px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -17,7 +15,6 @@ export const StyledSpan = styled.div`
 export const CoordinatesCard = styled.div`
   border: 2px solid ${theme.newColors.grey2["100"]};
   border-radius: 4px;
-  font-family: ${theme.fontFamily};
   min-height: 204px;
   padding: 16px;
   padding-bottom: 16px;
@@ -66,15 +63,12 @@ export const MapImageColumn = styled.div`
 
 export const LatLngLabel = styled.span`
   color: ${theme.newColors.grey3["100"]};
-  font-size: 14px;
-  font-weight: ${theme.fontWeight.semiBold};
+  font-weight: ${theme.weight.medium};
   margin-bottom: 8px;
 `;
 
 export const CoordinatesValues = styled.span`
   color: ${theme.newColors.almostBlack["100"]};
-  font-size: 14px;
-  font-weight: ${theme.fontWeight.normal};
 `;
 
 export const LatitudeValue = styled(CoordinatesValues)`

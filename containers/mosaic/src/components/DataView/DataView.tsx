@@ -12,9 +12,6 @@ import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 import testIds from "@root/utils/testIds";
 
 const StyledWrapper = styled.div`
-	font-family: ${theme.fontFamily};
-	font-weight: 400;
-	font-size: 14px;
 	display: flex;
 	flex-direction: column;
 

@@ -4,7 +4,7 @@ import React, { useCallback, memo } from "react";
 
 import type { SideNavProps, Item, SideNavGroupProps } from "./SideNavTypes";
 
-import { LinkWrapper, StyledSideNav, SidebarWrap, StyledLink, LinksWrapper, Badge, BadgeWrapper } from "./SideNav.styled";
+import { LinkWrapper, StyledSideNav, StyledLink, LinksWrapper, Badge, BadgeWrapper } from "./SideNav.styled";
 import { useToggle } from "@root/utils/toggle";
 
 const SideNavGroup = ({ items, collapse, onLinkClicked, active }: SideNavGroupProps): ReactElement => {
@@ -78,7 +78,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 
 	return (
 		<StyledSideNav className={className} $collapse={collapse}>
-			<SidebarWrap>
+			<div>
 				{items.map((itemGroup, groupIndex) => {
 					return (
 						<SideNavGroup
@@ -90,7 +90,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 						/>
 					);
 				})}
-			</SidebarWrap>
+			</div>
 		</StyledSideNav>
 	);
 };

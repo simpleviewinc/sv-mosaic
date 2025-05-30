@@ -51,9 +51,9 @@ export const StyledWrapper = styled.div`
 	}
 
 	& > .topBlock > .selected > .selected-options-title {
-		font-weight: ${theme.fontWeight.medium};
-		font-size: 16px;
-		line-height: 19px;
+		font-size: ${theme.fontSize.text.xl};
+		font-weight: ${theme.weight.medium};
+		line-height: ${theme.line.xtight};
 		color: ${theme.newColors.almostBlack["100"]};
 		margin: 0px 0px 24px 0px;
 	}
@@ -92,6 +92,5 @@ export const StyledComparisonHeader = styled.div`
 `;
 
 export const StyledComparisonHelp = styled.div`
-	font-family: ${theme.fontFamily};
 	padding: 10px;
 `;
