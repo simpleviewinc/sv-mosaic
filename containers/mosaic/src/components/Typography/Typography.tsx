@@ -2,7 +2,7 @@ import * as React from "react";
 import type { ReactElement } from "react";
 
 import type { TypographyProps, TypographyVariantSize, TypographyTag, TypographyVariant } from "./TypographyTypes";
-import { getComponent } from "./Typography.styled";
+import { StyledTypography } from "./Typography.styled";
 import type { Theme } from "@root/theme/theme";
 
 const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
@@ -37,22 +37,21 @@ export default function Typography<T extends TypographyVariant>({
 	weight = defaultWeightMap[variant],
 }: TypographyProps<T>): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
-	const Component = getComponent<T>();
 
 	return (
-		<Component
+		<StyledTypography
 			{...attrs}
 			className={className}
 			$variant={variant}
 			$maxLines={maxLines}
 			$color={color}
 			$breakAll={breakAll}
-			$size={size}
+			$size={size as any}
 			$weight={weight}
 			title={title !== undefined ? title : typeof children === "string" ? children : undefined}
 			as={tag}
 		>
 			{children}
-		</Component>
+		</StyledTypography>
 	);
 }
