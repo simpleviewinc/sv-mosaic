@@ -31,7 +31,7 @@ export const StyledDialog = styled(Dialog)`
   }
 `;
 
-export const StyledDialogTitle = styled(Text).attrs({ size: "xl", weight: "medium" })`
+export const StyledDialogTitle = styled(Text).attrs({ tag: "h3", size: "xl", weight: "medium" })`
   && {
     padding: 40px 30px 24px 30px;
   }
