@@ -52,7 +52,7 @@ const Top = (props: TopProps): ReactElement => {
 								label={backLabel}
 							/>
 						)}
-						<DisplayText attrs={{ title }}>{title}</DisplayText>
+						<DisplayText attrs={{ title }} tag="h1">{title}</DisplayText>
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}
