@@ -31,7 +31,7 @@ const Card = (props: CardProps): ReactElement => {
 			<Heading data-testid={testIds.CARD_HEADING}>
 				<Title>
 					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
-					<Text maxLines={1} tag="h3" size="lg">{title}</Text>
+					<Text maxLines={1} tag="h3" size="lg" weight="medium">{title}</Text>
 				</Title>
 				{count !== undefined && (count !== 0 || showZeroCount) && (
 					<Text attrs={{ "data-testid": testIds.CARD_COUNT }} size="sm">

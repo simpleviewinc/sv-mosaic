@@ -53,7 +53,7 @@ const Content = (props: ContentProps): ReactElement => {
 			data-testid={testIds.CONTENT}
 		>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
-				<Text maxLines={1} tag="h3">{title}</Text>
+				<Text maxLines={1} tag="h3" size="lg" weight="medium">{title}</Text>
 				{buttons.length > 0 && (
 					<ButtonRow
 						buttons={buttons}
