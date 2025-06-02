@@ -1,11 +1,11 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import type { Properties } from "csstype";
+import type { Theme } from "#mosaic/theme";
 import theme from "#mosaic/theme";
 import type { TypographyVariant } from "#mosaic/components/Typography";
-import Typography, { BodyText, SubtitleText, TitleText } from "#mosaic/components/Typography";
+import Typography, { BodyText, Text, DisplayText } from "#mosaic/components/Typography";
 import styled from "styled-components";
-import type { ColorTypes } from "#mosaic/components/Button";
 import { tags } from "./storyUtils";
 
 export default {
@@ -16,18 +16,7 @@ const content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lob
 const contentShort = content.substring(0, 93);
 const contentUrl = "https://www.google.com/?q=46503807498226023045874012183575071093022671901587285495525521941359381308429902926377654197863336467166861936857990937433143015269066983394795324415786553093224671668619368579909374331430152690669833947";
 
-const variants: TypographyVariant[] = ["title", "subtitle", "body"];
-
-const colors: ColorTypes[] = [
-	"black",
-	"blue",
-	"lightBlue",
-	"red",
-	"yellow",
-	"teal",
-	"gray",
-	"white",
-];
+const variants: TypographyVariant[] = ["display", "text", "body"];
 
 const whiteSpaceOptions: Properties["whiteSpace"][] = [
 	"-moz-initial",
@@ -42,6 +31,15 @@ const whiteSpaceOptions: Properties["whiteSpace"][] = [
 	"pre-wrap",
 	"revert",
 	"revert-layer",
+];
+
+const sizes: (keyof Theme["fontSize"][keyof Theme["fontSize"]])[] = [
+	"2xl",
+	"xl",
+	"lg",
+	"md",
+	"sm",
+	"xs",
 ];
 
 const BackDrop = styled.div`
@@ -94,7 +92,17 @@ const MyBodyText = styled(BodyText)`
 	}
 `;
 
-export function Playground({ variant, tag, maxLines, whiteSpace, breakAll, title, children, color }: typeof Playground.args): ReactElement {
+export function Playground({
+	variant,
+	tag,
+	maxLines,
+	whiteSpace,
+	breakAll,
+	title,
+	children,
+	color,
+	size,
+}: typeof Playground.args): ReactElement {
 	return (
 		<Typography
 			variant={variant}
@@ -105,12 +113,13 @@ export function Playground({ variant, tag, maxLines, whiteSpace, breakAll, title
 			title={title}
 			children={children}
 			color={color}
+			size={size}
 		/>
 	);
 }
 
 Playground.args = {
-	variant: "title",
+	variant: "display",
 	tag: "div",
 	maxLines: 0,
 	whiteSpace: "normal",
@@ -118,6 +127,8 @@ Playground.args = {
 	title: "",
 	children: "Lorem ipsum",
 	color: "black",
+	provideSize: false,
+	size: "md",
 } as const;
 
 Playground.argTypes = {
@@ -149,9 +160,16 @@ Playground.argTypes = {
 		name: "Children",
 	},
 	color: {
-		name: "Colour",
+		name: "Color",
+	},
+	provideSize: {
+		name: "Provide Size",
+	},
+	size: {
+		name: "Size",
 		control: { type: "select" },
-		options: colors,
+		options: sizes,
+		if: { arg: "provideSize" },
 	},
 };
 
@@ -163,24 +181,24 @@ export function KitchenSink(): ReactElement {
 				<Wrapper>
 
 					<Heading>Standard Title</Heading>
-					<TitleText
+					<DisplayText
 						children={contentShort}
 					/>
 
 					<Heading>Title rendered as a h2 element</Heading>
-					<TitleText
+					<DisplayText
 						tag="h2"
 						children={contentShort}
 					/>
 
 					<Heading>Title with a maximum number of lines</Heading>
-					<TitleText
+					<DisplayText
 						children={content}
 						maxLines={1}
 					/>
 
 					<Heading>Subtitle</Heading>
-					<SubtitleText
+					<Text
 						children={contentShort}
 					/>
 

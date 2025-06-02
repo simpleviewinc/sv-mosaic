@@ -14,7 +14,7 @@ import {
 } from "./Content.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentField from "./ContentField";
-import { SubtitleText } from "../Typography";
+import { Text } from "../Typography";
 import { getToggle } from "@root/utils";
 import testIds from "@root/utils/testIds";
 
@@ -53,7 +53,7 @@ const Content = (props: ContentProps): ReactElement => {
 			data-testid={testIds.CONTENT}
 		>
 			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
-				<SubtitleText maxLines={1}>{title}</SubtitleText>
+				<Text maxLines={1} tag="h3">{title}</Text>
 				{buttons.length > 0 && (
 					<ButtonRow
 						buttons={buttons}
