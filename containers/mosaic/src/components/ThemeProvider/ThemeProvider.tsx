@@ -44,6 +44,7 @@ const elemDefs: ElemDef[] = [
 				font-size: 14px;
 				font-variation-settings:
 					"wdth" 100;
+				color: ${theme.color.black};
 			}
 		`.trim(),
 	},
@@ -69,6 +70,13 @@ const muiTheme = createTheme({
 				root: {
 					textTransform: "none",
 					fontSize: "inherit",
+				},
+			},
+		},
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					color: "inherit",
 				},
 			},
 		},

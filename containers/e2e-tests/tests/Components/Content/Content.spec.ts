@@ -1,8 +1,9 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { ContentPage } from "../../../pages/Components/Content/ContentPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { cardKnobs as knob, pageHeaderKnobs } from "../../../utils/data/knobs";
+import { ensureRgbCss } from "utils/helpers/color";
 
 test.describe("Components - Content - Playground", () => {
 	let page: Page;
@@ -15,7 +16,7 @@ test.describe("Components - Content - Playground", () => {
 	});
 
 	test("Validate Content title has almostBlack color.", async () => {
-		const expectedColor = theme.newColors.almostBlack["100"];
+		const expectedColor = ensureRgbCss(theme.color.black);
 		expect(await contentPage.getColorFromElement(contentPage.mainContentTitle)).toBe(expectedColor);
 	});
 
@@ -40,7 +41,7 @@ test.describe("Components - Content - Playground", () => {
 	});
 
 	test("Validate font weight of the Content Title.", async () => {
-		expect(await contentPage.getFontWeightFromElement(contentPage.mainContentTitle)).toBe((theme.fontWeight.medium).toString());
+		expect(await contentPage.getFontWeightFromElement(contentPage.mainContentTitle)).toBe((theme.weight.medium).toString());
 	});
 
 	test("Validate font size of the Content Title.", async () => {
