@@ -1,7 +1,8 @@
 import type { MosaicCSSContainer } from "@root/types";
+import type { ReactNode } from "react";
 
 export interface TitleWrapperProps {
-	title: string;
+	title: ReactNode;
 	description?: string;
 	onBack?: (() => void) | ((e: any) => void);
 	backLabel?: TitleBackButtonProps["label"];
