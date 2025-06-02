@@ -16,7 +16,7 @@ export class DialogPage extends BasePage {
 		this.page = page;
 		this.openDialogButton = page.locator("button", { hasText: "Open Dialog" });
 		this.dialog = page.locator("div[role='dialog']");
-		this.dialogTitle = this.dialog.locator("div").first();
+		this.dialogTitle = this.dialog.getByRole("heading");
 		this.dialogText = this.dialog.locator("div").nth(1);
 	}
 }
