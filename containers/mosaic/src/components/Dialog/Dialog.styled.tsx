@@ -5,6 +5,7 @@ import Dialog from "@mui/material/Dialog";
 
 // Utils
 import theme from "@root/theme";
+import { Text } from "../Typography";
 
 export const StyledDialog = styled(Dialog)`
   z-index: 99999 !important;
@@ -30,10 +31,8 @@ export const StyledDialog = styled(Dialog)`
   }
 `;
 
-export const StyledDialogTitle = styled.div`
-  color: ${theme.newColors.almostBlack["100"]};
-  font-size: ${theme.fontSize.text.xl};
-  line-height: ${theme.line.xtight};
-  font-weight: ${theme.weight.medium};
-  padding: 40px 30px 24px 30px;
+export const StyledDialogTitle = styled(Text).attrs({ tag: "h3", size: "xl", weight: "medium" })`
+  && {
+    padding: 40px 30px 24px 30px;
+  }
 `;

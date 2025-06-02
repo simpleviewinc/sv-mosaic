@@ -323,6 +323,7 @@ const line = {
 };
 
 const weight = {
+	inherit: "inherit",
 	/**
 	 * Font weight 400
 	 */
@@ -430,7 +431,7 @@ const rounded = {
 	full: "9999px",
 };
 
-export default {
+const theme = {
 	...legacyThemeProps,
 	fontSize,
 	line,
@@ -441,4 +442,8 @@ export default {
 	spacing,
 	color,
 	rounded,
-};
+} as const;
+
+export type Theme = typeof theme;
+
+export default theme;
