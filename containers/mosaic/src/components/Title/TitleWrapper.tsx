@@ -26,7 +26,11 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 						label={backLabel}
 					/>
 				)}
-				<TitleText attrs={{ title }} >{title}</TitleText>
+				{typeof title === "string" ? (
+					<TitleText attrs={{ title }} tag="h1">{title}</TitleText>
+				) : (
+					title
+				)}
 			</Title>
 			{description && <Description>{description}</Description>}
 		</>

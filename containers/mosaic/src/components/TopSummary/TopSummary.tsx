@@ -22,7 +22,7 @@ import ButtonRow from "../ButtonRow/ButtonRow";
 import { useToggle } from "@root/utils/toggle";
 import testIds from "@root/utils/testIds";
 
-const SumaryPageTopComponent = (props: TopSummaryProps): ReactElement => {
+const TopSummary = (props: TopSummaryProps): ReactElement => {
 	const {
 		title,
 		onBack,
@@ -104,4 +104,4 @@ const SumaryPageTopComponent = (props: TopSummaryProps): ReactElement => {
 	);
 };
 
-export default memo(SumaryPageTopComponent);
+export default memo(TopSummary);

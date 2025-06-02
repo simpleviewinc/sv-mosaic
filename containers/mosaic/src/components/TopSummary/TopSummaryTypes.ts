@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { TitleWrapperProps } from "@root/components/Title";
 import type { ButtonProps } from "../Button";
 import type { MenuItemProps } from "../MenuItem";
@@ -6,7 +7,7 @@ export interface TopSummaryProps {
 	/**
 	 * Mandatory title.
 	 */
-	title: string;
+	title: ReactNode;
 	/**
 	 * Optional favorite to show favorite icon or no favorite icon.
 	 */
