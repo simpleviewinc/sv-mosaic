@@ -10,14 +10,6 @@ export const MutedText = styled.span`
 	font-style: italic;
 `;
 
-export const ColumnTitle = styled.h2`
-	color: ${theme.newColors.almostBlack["100"]};
-	font-size: ${theme.fontSize.text.xl};
-	font-weight: ${theme.weight.medium};
-	line-height: ${theme.line.xtight};
-	margin: 0px;
-`;
-
 export const StyledWrapper = styled.div`
 	display: flex;
 	margin-top: 30px;

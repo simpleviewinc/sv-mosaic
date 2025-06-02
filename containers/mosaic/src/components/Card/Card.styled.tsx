@@ -26,10 +26,6 @@ export const Title = styled.div`
 	}
 `;
 
-export const Count = styled.span`
-	font-size: ${theme.fontSize.text.md};
-`;
-
 export const CardButtonRow = styled(ButtonRow)`
 	margin-left: auto;
 `;

@@ -1,17 +1,27 @@
 import type { ReactNode } from "react";
 import type { MosaicObject } from "../../types";
-import type { ColorTypes } from "../Button";
 import type { Properties } from "csstype";
+import type { Theme } from "@root/theme/theme";
 
-export type TypographyVariant = "title" | "subtitle" | "body" | "none";
+export type TypographyVariant = keyof Theme["fontSize"];
 
 export type TypographyTag = string;
 
-export interface TypographyProps {
+export type TypographyVariantSize<T extends TypographyVariant> = keyof Theme["fontSize"][T]
+
+export type TypographyVariantSizeMap = {
+	[V in TypographyVariant]: {
+		[S in keyof Theme["fontSize"][V]]: {
+			fontSize: Theme["fontSize"][V][S];
+			lineHeight: Theme["line"][keyof Theme["line"]];
+		}
+	};
+};
+export interface TypographyProps<T extends TypographyVariant> {
 	/**
 	 * Controls the look of the typography
 	 */
-	variant?: TypographyVariant;
+	variant?: T;
 	/**
 	 * The HTML element to use.
 	 */
@@ -47,5 +57,14 @@ export interface TypographyProps {
 	/**
 	 * The text colour of the typography
 	 */
-	color?: ColorTypes;
+	color?: string;
+	/**
+	 * The size of the text, which is determined by the variant
+	 */
+	size?: TypographyVariantSize<T>;
+	/**
+	 * The weight of the font. Defaults to different weights depending
+	 * on the Typography variant.
+	 */
+	weight?: keyof Theme["weight"];
 }

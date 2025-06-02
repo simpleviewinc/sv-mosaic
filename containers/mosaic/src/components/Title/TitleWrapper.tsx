@@ -6,7 +6,7 @@ import { memo } from "react";
 import { Description, Title } from "./TitleWrapper.styled";
 import type { TitleWrapperProps } from "./TitleWrapperTypes";
 import TitleBackButton from "./TitleBackButton";
-import { TitleText } from "../Typography";
+import { DisplayText } from "../Typography";
 
 const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 	const {
@@ -26,7 +26,7 @@ const TitleWrapper = (props: TitleWrapperProps): ReactElement => {
 						label={backLabel}
 					/>
 				)}
-				<TitleText attrs={{ title }} >{title}</TitleText>
+				<DisplayText attrs={{ title }} tag="h1">{title}</DisplayText>
 			</Title>
 			{description && <Description>{description}</Description>}
 		</>
