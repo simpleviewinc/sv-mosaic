@@ -99,43 +99,41 @@ const variantStyleMap: TypographyVariantSizeMap = {
 	},
 };
 
-export function getComponent<T extends TypographyVariant>() {
-	return styled.div<BaseProps<T> & { $variant: T }>(({
-		$variant,
-		$size,
-		$maxLines,
-		$breakAll,
-		$color,
-		$whiteSpace,
-		$weight,
-	}) => {
-		const { fontSize, lineHeight } = variantStyleMap[$variant][$size];
+export const StyledTypography = styled.div<BaseProps<TypographyVariant> & { $variant: TypographyVariant }>(({
+	$variant,
+	$size,
+	$maxLines,
+	$breakAll,
+	$color,
+	$whiteSpace,
+	$weight,
+}) => {
+	const { fontSize, lineHeight } = variantStyleMap[$variant][$size];
 
-		const parts: string[] = [
-			`
-				margin: 0;
-				padding: 0;
-				font-size: ${fontSize};
-				font-weight: ${theme.weight[$weight]};
-				line-height: ${lineHeight};
-			`,
-			$maxLines && `
-				display: -webkit-box;
-				-webkit-line-clamp: ${$maxLines};
-				-webkit-box-orient: vertical;
-				overflow: hidden;
-			`,
-			$breakAll && `
-				word-break: break-all;
-			`,
-			$color && `
-				color: ${$color};
-			`,
-			$whiteSpace && `
-				white-space: ${$whiteSpace};
-			`,
-		];
+	const parts: string[] = [
+		`
+			margin: 0;
+			padding: 0;
+			font-size: ${fontSize};
+			font-weight: ${theme.weight[$weight]};
+			line-height: ${lineHeight};
+		`,
+		$maxLines && `
+			display: -webkit-box;
+			-webkit-line-clamp: ${$maxLines};
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		`,
+		$breakAll && `
+			word-break: break-all;
+		`,
+		$color && `
+			color: ${$color};
+		`,
+		$whiteSpace && `
+			white-space: ${$whiteSpace};
+		`,
+	];
 
-		return parts.filter(Boolean).map(str => str.trim()).join("\n");
-	});
-}
+	return parts.filter(Boolean).map(str => str.trim()).join("\n");
+});
