@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import Spinner from "#mosaic/components/Spinner";
-import { SubtitleText } from "#mosaic/components/Typography";
+import { Text } from "#mosaic/components/Typography";
 
 export default {
 	title: "Components/Spinner",
@@ -30,9 +30,9 @@ Playground.argTypes = {
 export const KitchenSink = (): ReactElement => {
 	return (
 		<>
-			<SubtitleText tag="h3">Spinner that spins indifinitely</SubtitleText>
+			<Text tag="h3">Spinner that spins indifinitely</Text>
 			<Spinner />
-			<SubtitleText tag="h3">Spinner that spins indifinitely</SubtitleText>
+			<Text tag="h3">Spinner that reaches 60%</Text>
 			<Spinner progress={60} />
 		</>
 	);
