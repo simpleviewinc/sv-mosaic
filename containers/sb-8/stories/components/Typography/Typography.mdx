@@ -5,7 +5,25 @@ import * as stories from './Typography.stories';
 
 # Typography
 
-The `Typography` and its helper components offer a way to consistently style text. This ensures that text throughout your application matches the Mosaic system. The `Typography` component currently offers 3 variations. There are helper components for each variation, enabling you to invoke, for example `<Prose />` instead of `<Typography variant="prose" />`.
+The `Typography` and its helper components offer a way to consistently style text. This ensures that text throughout your application matches the Mosaic system. The `Typography` component currently offers 3 variations. There are helper components for each variation, enabling you to invoke, for example `<BodyText />` instead of `<Typography variant="body" />`.
+
+## Props
+Both the base `Typography` component *and* the helper components have the below properties, with the exception of `variant`. `variant` is a required property when using the `Typography` component and an invalid property when using the variation helper components.
+
+| Prop name | Type | Description |
+| ------ | ------ | ------ |
+| <code>variant</code> | <code>"text" &#124; "body" &#124; "display"</code>  | **Base <code>Typography</code> component only**. Controls the look of the typography. See table below for more information on variants. |
+| <code>tag</code> | Any valid HTML tag | The HTML element to use. Each variant defaults to its own, specifically picked HTML tag (see above) |
+| <code>maxLines</code> | <code>number</code> | If provided, text will be truncated at the given number of lines |
+| <code>whiteSpace</code> | Any valid CSS white-space value | The "white-space" CSS style |
+| <code>breakAll</code> | <code>boolean</code> | Utilises <code>word-break: break-all</code> - useful for displaying long strings with no breaking characters like URLs |
+| <code>children</code> | <code>ReactNode</code> | The content, usually text, of the Typography component |
+| <code>className</code> | <code>string</code> | Pass custom classes to the wrapping element |
+| <code>title</code> | <code>string</code> | Provides a title attribute to the Typography element |
+| <code>attrs</code> | Any valid HTML attribute | Additional attributes to be provided to the Typography element |
+| <code>color</code> | <code>string</code> | A CSS color in which to render the typography text. |
+
+## Variants
 
 <table width="100%">
 	<tr>
@@ -81,7 +99,7 @@ The `Typography` and its helper components offer a way to consistently style tex
 			`Text`
 		</td>
 		<td rowspan="6">
-			`div`
+			`span`
 		</td>
 		<td>
 			`xs`
@@ -193,21 +211,3 @@ The `Typography` and its helper components offer a way to consistently style tex
 		</td>
 	</tr>
 </table>
-
-## Props
-Both the base `Typography` component *and* the helper components have the below properties, with the exception of `variant`. `variant` is a required property when using the `Typography` component and an invalid property when using the variation helper components.
-
-| Prop name | Type | Description |
-| ------ | ------ | ------ |
-| <code>variant</code> | <code>"title" &#124; "subtitle" &#124; "body"</code>  | **Base <code>Typography</code> component only**. Controls the look of the typography |
-| <code>as</code> | Any valid HTML tag | **DEPRECATED** Use "tag" prop instead |
-| <code>tag</code> | Any valid HTML tag | The HTML element to use. Each variant defaults to its own, specifically picked HTML tag (see above) |
-| <code>maxLines</code> | <code>number</code> | If provided, text will be truncated at the given number of lines |
-| <code>whiteSpace</code> | Any valid CSS white-space value | The "white-space" CSS style |
-| <code>breakAll</code> | <code>boolean</code> | Utilises <code>word-break: break-all</code> - useful for displaying long strings with no breaking characters like URLs |
-| <code>style</code> | <code>MosaicObject</code> | **DEPRECATED** Use a style property on an object provided to <code>attrs</code> instead |
-| <code>children</code> | <code>ReactNode</code> | The content, usually text, of the Typography component |
-| <code>className</code> | <code>string</code> | Pass custom classes to the wrapping element |
-| <code>title</code> | <code>string</code> | Provides a title attribute to the Typography element |
-| <code>attrs</code> | Any valid HTML attribute | Additional attributes to be provided to the Typography element |
-| <code>color</code> | <code>ColorTypes</code> | The text colour of the typography |
