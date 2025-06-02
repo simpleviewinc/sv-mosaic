@@ -10,11 +10,10 @@ import {
 	StyledHr,
 	Title,
 	Heading,
-	Count,
 	CardButtonRow,
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
-import { SubtitleText } from "../Typography";
+import { Text } from "../Typography";
 
 const Card = (props: CardProps): ReactElement => {
 	const {
@@ -32,14 +31,14 @@ const Card = (props: CardProps): ReactElement => {
 			<Heading data-testid={testIds.CARD_HEADING}>
 				<Title>
 					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
-					<SubtitleText maxLines={1}>{title}</SubtitleText>
+					<Text maxLines={1} tag="h3" size="lg">{title}</Text>
 				</Title>
 				{count !== undefined && (count !== 0 || showZeroCount) && (
-					<Count data-testid={testIds.CARD_COUNT}>
+					<Text attrs={{ "data-testid": testIds.CARD_COUNT }} size="sm">
 						(
 						{count}
 						)
-					</Count>
+					</Text>
 				)}
 				{topActions?.length > 0 && (
 					<CardButtonRow className="Foo" buttons={topActions} />

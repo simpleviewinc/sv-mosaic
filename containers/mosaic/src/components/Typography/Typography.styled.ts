@@ -1,26 +1,124 @@
-import type { RuleSet } from "styled-components";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import theme from "@root/theme";
 
-import type { TypographyVariant } from "./TypographyTypes";
-import type { ColorTypes } from "../Button";
+import type { Theme } from "@root/theme/theme";
+import type { TypographyVariantSize, TypographyVariant, TypographyVariantSizeMap } from "./TypographyTypes";
 import type { Properties } from "csstype";
-
-interface BaseProps {
+interface BaseProps<T extends TypographyVariant> {
 	$maxLines?: number;
-	$color?: ColorTypes;
+	$color?: string;
 	$breakAll?: boolean;
 	$whiteSpace?: Properties["whiteSpace"];
+	$size?: TypographyVariantSize<T>;
+	$weight?: keyof Theme["weight"];
 }
 
-export const base = css<BaseProps>`
-	margin: 0;
-	padding: 0;
-	font-size: inherit;
-    line-height: 1.5em;
+/**
+ * It seems counter intuitive to remap the font sizes like this, but
+ * my gut is telling me not to tightly couple the size of the Typograhpy
+ * component with the font sizes in the theme object.
+ */
+const variantStyleMap: TypographyVariantSizeMap = {
+	body: {
+		xs: {
+			fontSize: theme.fontSize.body["xs"],
+			lineHeight: theme.line["8xloose"],
+		},
+		sm: {
+			fontSize: theme.fontSize.body["sm"],
+			lineHeight: theme.line["3xloose"],
+		},
+		md: {
+			fontSize: theme.fontSize.body["md"],
+			lineHeight: theme.line["2xloose"],
+		},
+		lg: {
+			fontSize: theme.fontSize.body["lg"],
+			lineHeight: theme.line["3xloose"],
+		},
+		xl: {
+			fontSize: theme.fontSize.body["xl"],
+			lineHeight: theme.line["4xloose"],
+		},
+		"2xl": {
+			fontSize: theme.fontSize.body["2xl"],
+			lineHeight: theme.line["3xloose"],
+		},
+	},
+	display: {
+		xs: {
+			fontSize: theme.fontSize.display["xs"],
+			lineHeight: theme.line.loose,
+		},
+		sm: {
+			fontSize: theme.fontSize.display["sm"],
+			lineHeight: theme.line.snug,
+		},
+		md: {
+			fontSize: theme.fontSize.display["md"],
+			lineHeight: theme.line.xtight,
+		},
+		lg: {
+			fontSize: theme.fontSize.display["lg"],
+			lineHeight: theme.line.tight,
+		},
+		xl: {
+			fontSize: theme.fontSize.display["xl"],
+			lineHeight: theme.line["2xtight"],
+		},
+		"2xl": {
+			fontSize: theme.fontSize.display["2xl"],
+			lineHeight: theme.line.tight,
+		},
+	},
+	text: {
+		xs: {
+			fontSize: theme.fontSize.text["xs"],
+			lineHeight: theme.line.xloose,
+		},
+		sm: {
+			fontSize: theme.fontSize.text["sm"],
+			lineHeight: theme.line.loose,
+		},
+		md: {
+			fontSize: theme.fontSize.text["md"],
+			lineHeight: theme.line.normal,
+		},
+		lg: {
+			fontSize: theme.fontSize.text["lg"],
+			lineHeight: theme.line.tight,
+		},
+		xl: {
+			fontSize: theme.fontSize.text["xl"],
+			lineHeight: theme.line.xtight,
+		},
+		"2xl": {
+			fontSize: theme.fontSize.text["2xl"],
+			lineHeight: theme.line.relaxed,
+		},
+	},
+};
 
-    ${({ $maxLines, $breakAll, $color, $whiteSpace }) => {
-		const parts = [
+export function getComponent<T extends TypographyVariant>() {
+	return styled.div<BaseProps<T> & { $variant: T }>(({
+		$variant,
+		$size,
+		$maxLines,
+		$breakAll,
+		$color,
+		$whiteSpace,
+		$weight,
+	}) => {
+		const { fontSize, lineHeight } = variantStyleMap[$variant][$size];
+
+		const parts: string[] = [
+			`
+				margin: 0;
+				padding: 0;
+				font-size: ${fontSize};
+				font-weight: ${theme.weight[$weight]};
+				line-height: ${lineHeight};
+			`,
 			$maxLines && `
 				display: -webkit-box;
 				-webkit-line-clamp: ${$maxLines};
@@ -31,35 +129,13 @@ export const base = css<BaseProps>`
 				word-break: break-all;
 			`,
 			$color && `
-				color: ${theme.colors[$color]};
+				color: ${$color};
 			`,
 			$whiteSpace && `
 				white-space: ${$whiteSpace};
 			`,
 		];
 
-		return parts.filter(Boolean).join("\n");
-	}}
-`;
-export const variants: Record<TypographyVariant, RuleSet> = {
-	title: css`
-        font-size: 28px;
-        font-weight: ${theme.weight.medium};
-		color: ${theme.newColors.almostBlack["100"]};
-        line-height: 1.2em;
-	`,
-	subtitle: css`
-        font-size: 16px;
-        font-weight: ${theme.weight.medium};
-		color: ${theme.newColors.almostBlack["100"]};
-	`,
-	body: css`
-        font-size: 16px;
-	`,
-	none: css``,
-};
-
-export const Component = styled.div<BaseProps & { $variant: TypographyVariant }>`
-	${base}
-	${({ $variant }) => $variant ? variants[$variant] : ""}
-`;
+		return parts.filter(Boolean).map(str => str.trim()).join("\n");
+	});
+}
