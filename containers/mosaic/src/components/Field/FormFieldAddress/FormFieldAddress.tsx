@@ -50,7 +50,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	} = props;
 
 	// State variables
-	const [open, setOpen] = useState<((AddressItem | { __newAddress: true }) & { key: string }) | false>(false);
+	const [open, setOpen] = useState<({ address: AddressItem | { __newAddress: true }; key: string }) | false>(false);
 	const value = useMemo(() => !providedValue || Array.isArray(providedValue) ? providedValue : [providedValue], [providedValue]);
 
 	const [hasUnsavedChanges, setUnsavedChanges] = useState(false);
@@ -103,7 +103,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 	 * and sets editing mode to false.
 	 */
 	const addAddressHandler = () => {
-		setOpen({ __newAddress: true, key: nanoid() });
+		setOpen({ address: { __newAddress: true }, key: nanoid() });
 	};
 
 	/**
@@ -147,8 +147,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		const newValue = [...value];
 		const newAddress = { ...address, types: singleType ? [{ value: singleType.value, label: singleType.label }] : address.types };
 
-		if (!isNewAddress(open)) {
-			const index = value.findIndex(item => item === open);
+		if (!isNewAddress(open.address)) {
+			const index = value.findIndex(item => item === open.address);
 			newValue.splice(index, 1, newAddress);
 		} else {
 			newValue.push(newAddress);
@@ -200,7 +200,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 						<AddressCard
 							key={`${idx}`}
 							address={address}
-							onEdit={(address) => setOpen({ ...address, key: nanoid() })}
+							onEdit={(address) => setOpen({ address, key: nanoid() })}
 							disabled={disabled}
 							onRemoveAddress={setRemoveDialog}
 						/>
@@ -211,7 +211,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				<AddressDrawer
 					googleMapsApiKey={fieldDef?.inputSettings?.googleMapsApiKey}
 					handleClose={handleClose}
-					addressToEdit={open && !isNewAddress(open) ? open : undefined}
+					addressToEdit={open && !isNewAddress(open.address) ? open.address : undefined}
 					handleUnsavedChanges={(e) => setUnsavedChanges(e)}
 					dialogOpen={dialogOpen}
 					handleDialogClose={handleDialogClose}

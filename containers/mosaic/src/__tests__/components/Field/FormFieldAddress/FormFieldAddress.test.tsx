@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -253,6 +253,38 @@ describe(__dirname, () => {
 		await user.click(cancel);
 		expect(onChangeMock).not.toBeCalled();
 		await waitFor(() => expect(screen.queryByRole("button", { name: "No, keep it" })).toBeNull());
+	});
+
+	it("should fire the on change handler with correctly updated addresses", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({
+			value: mockAddresses,
+			onChange: onChangeMock,
+		});
+
+		const addressCards = screen.queryAllByTestId("address-card-test");
+		expect(addressCards).toHaveLength(3);
+		const [firstAddressCard] = addressCards;
+		expect(within(firstAddressCard).queryByLabelText("Address 1")).toHaveTextContent("81 Sussex Gardens");
+		const editButton = within(firstAddressCard).queryByRole("button", { name: "Edit" });
+		expect(editButton).toBeInTheDocument();
+		await user.click(editButton);
+		const addressInput = screen.queryByRole("textbox", { name: "Address" });
+		expect(addressInput).toBeInTheDocument();
+		await user.clear(addressInput);
+		await user.type(addressInput, "82 Sussex Gardens");
+		expect(addressInput).toHaveValue("82 Sussex Gardens");
+		const saveButton = screen.queryByRole("button", { name: "Save" });
+		expect(saveButton).toBeInTheDocument();
+		await user.click(saveButton);
+		expect(onChangeMock).toBeCalledWith([
+			{
+				...mockAddresses[0],
+				address1: "82 Sussex Gardens",
+			},
+			mockAddresses[1],
+			mockAddresses[2],
+		]);
 	});
 
 	it("should fire the on blur handler when an address is removed", { timeout: 50_000 }, async () => {
