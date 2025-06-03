@@ -438,13 +438,14 @@ export const ModeButton = styled.button.attrs((props) => ({ ...props, type: "but
     border-radius: 0;
     border: 1px solid transparent;
     padding: 4px 8px;
+    font-size: ${theme.fontSize.text.sm};
 
     ${({ $active, $focus }) => !$active ? `
         background: white;
         cursor: pointer;
     ` : `
         background: ${theme.newColors.grey1["100"]};
-        border-color: ${$focus ? theme.newColors.almostBlack["100"] : theme.colors.gray300};
+        border-color: ${$focus ? theme.newColors.almostBlack["100"] : "var(--border-color)"};
         border-bottom-color: ${theme.newColors.grey1["100"]};
         padding-bottom: 5px;
         margin-bottom: -1px;
