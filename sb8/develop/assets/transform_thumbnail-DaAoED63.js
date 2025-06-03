@@ -1,0 +1,19 @@
+import{j as i}from"./jsx-runtime-EKYJJIwR.js";import{useMDXComponents as m}from"./index-BwDDMXeo.js";import{M as n}from"./index-Kbs8nGOd.js";import{c as p}from"./column_transforms-BUItqA2p.js";import{T as e}from"./TransformExample-B_3tsE0N.js";import"./index-D0AnReJb.js";import"./iframe-B1z6G6fe.js";import"../sb-preview/runtime.js";import"./index-Bqzh3Cp6.js";import"./index-SI8xS9YR.js";import"./tslib.es6-CvpyDmub.js";import"./index-Cu4lwwaE.js";import"./extends-CF3RwP-h.js";import"./inheritsLoose-CMy1E8oj.js";import"./toString-DoexKoos.js";import"./_baseForOwn-YgwlavHx.js";import"./index-QVqIEGA1.js";import"./_arrayIncludesWith-XJRwRZaz.js";import"./index-DrFu-skq.js";import"./index-xUlmrCO2.js";import"./styled-components.browser.esm-B06rF3P8.js";import"./sizes-HwDk6ODv.js";import"./testIds-Dso8kRSM.js";import"./TitleWrapper-DbGdO_qH.js";import"./Button-Bb1YkNRl.js";import"./DefaultPropsProvider-DAx12mnL.js";import"./generateUtilityClasses-B-YHycAP.js";import"./ButtonBase-DI0zIr47.js";import"./useIsFocusVisible-CvEUtp4E.js";import"./index-DJOBlCMp.js";import"./Popper-DwGs7ij-.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-CEnrwtsk.js";import"./useThemeWithoutDefault-_krlN3OB.js";import"./useToggle-CTbnrs6g.js";import"./containerQuery-BgNGRgoI.js";import"./createSvgIcon-SiNoGNLO.js";import"./createSvgIcon-Dpio520k.js";import"./useId-BgzzDjMB.js";import"./useControlled-DuXZYv4M.js";import"./Typography-CaKiXxBh.js";import"./DisplayText-p-dXd17y.js";import"./ButtonRow-o01CmugY.js";import"./index-Cx_oxk9s.js";import"./debounce-D-BUC-g1.js";import"./DataViewPrimaryFilter.styled-DOv3O6Qd.js";import"./Chip-CxjPie9P.js";import"./useMosaicTranslation-CoWLI8L7.js";import"./FormFieldText.styled-1uP8QWr0.js";import"./formControlState-Cf1KMWlV.js";import"./Spinner-Bh-LCVD3.js";import"./Text-SN-dsdu2.js";import"./CheckboxList-M1uSKKL_.js";import"./Checkbox-B7o2aMoG.js";import"./FormControlLabel-DHYheffG.js";import"./MoreVert-Bzx_zck9.js";import"./ChevronRight-C0GgObWN.js";import"./PageHeader-smgljVMb.js";import"./formats-CMvQHWsT.js";import"./RadioButton-D8tkv9AU.js";import"./StyledFormControl.styled-BUp5Nrjc.js";import"./Toggle-BqCsCBy-.js";import"./Dialog-B-sGlfn4.js";import"./ThemeProvider-xpJBffxI.js";import"./ChipList-BIFBiti5.js";import"./SideNav-CRhfVc2i.js";import"./Snackbar-BrqHKIPs.js";import"./Close-ClEuQas1.js";import"./ClickAwayListener-Dkkr5f_-.js";import"./Image-ZO9EpWKf.js";function o(t){const r={code:"code",h1:"h1",h4:"h4",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...m(),...t.components};return i.jsxs(i.Fragment,{children:[i.jsx(n,{title:"Utils/Transforms/Thumbnail"}),`
+`,i.jsx(r.h1,{id:"transform_thumbnail",children:"transform_thumbnail"}),`
+`,i.jsxs(r.p,{children:["Converts an image URL to an ",i.jsx(r.code,{children:"<img />"})," element with a given height and width."]}),`
+`,i.jsx(r.h4,{id:"conversions",children:"Conversions"}),`
+`,i.jsxs(r.ul,{children:[`
+`,i.jsxs(r.li,{children:[i.jsx(r.code,{children:'"https://myImgUrl.com"'})," => ",i.jsx(e,{cb:p({width:150,height:150}),data:"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg"})]}),`
+`]}),`
+`,i.jsx(r.h4,{id:"args",children:"Args"}),`
+`,i.jsxs(r.ul,{children:[`
+`,i.jsxs(r.li,{children:[i.jsx(r.strong,{children:"width"})," - width of the image in pixels."]}),`
+`,i.jsxs(r.li,{children:[i.jsx(r.strong,{children:"height"})," - height of the image in pixels."]}),`
+`]}),`
+`,i.jsx(r.h4,{id:"example",children:"Example"}),`
+`,i.jsx(r.pre,{children:i.jsx(r.code,{className:"language-js",children:`import { transform_thumbnail } from "#mosaic"
+...
+transforms : [
+    transform_thumbnail()
+]
+`})})]})}function Di(t={}){const{wrapper:r}={...m(),...t.components};return r?i.jsx(r,{...t,children:i.jsx(o,{...t})}):o(t)}export{Di as default};
