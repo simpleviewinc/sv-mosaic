@@ -6,6 +6,7 @@ import createElem from "@root/utils/dom/createElem";
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import theme from "@root/theme";
 import type { ThemeProviderProps } from "./ThemeProviderTypes";
+import baselineCss from "./baselineCss";
 
 type ElemDef<T extends keyof HTMLElementTagNameMap = keyof HTMLElementTagNameMap> = {
 	tagName: T;
@@ -35,18 +36,7 @@ const elemDefs: ElemDef[] = [
 	{
 		condition: ({ injectRootFontStyles }) => injectRootFontStyles,
 		tagName: "style",
-		innerHTML: `
-			:root {
-				font-family: ${theme.family.sans};
-				font-optical-sizing: auto;
-				font-weight: ${theme.weight.regular};
-				font-style: normal;
-				font-size: 14px;
-				font-variation-settings:
-					"wdth" 100;
-				color: ${theme.color.black};
-			}
-		`.trim(),
+		innerHTML: baselineCss,
 	},
 ];
 
@@ -93,7 +83,7 @@ const ThemeProvider = ({
 			.filter(({ condition }) => !condition || condition({ injectGoogleFontCDN, injectRootFontStyles }))
 			.map(({ tagName, ...elemProps }) => createElem(tagName, {
 				...elemProps,
-				appendTo: document.head,
+				prependTo: document.head,
 			}));
 
 		return () => {
@@ -101,7 +91,7 @@ const ThemeProvider = ({
 				document.head.removeChild(elem);
 			}
 		};
-	}, []);
+	}, [injectGoogleFontCDN, injectRootFontStyles]);
 
 	return (
 		<MuiThemeProvider theme={muiTheme}>
