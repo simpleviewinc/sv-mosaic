@@ -26,13 +26,13 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			<AddressTitle>
 				{`${joinAnd(typesLabels)} Address`}
 			</AddressTitle>
-			<span>{address?.address1}</span>
-			{address?.address2 && <span>{address?.address2}</span>}
-			{address?.address3 && <span>{address?.address3}</span>}
-			<span>
+			<span aria-label="Address 1">{address?.address1}</span>
+			{address?.address2 && <span aria-label="Address 2">{address?.address2}</span>}
+			{address?.address3 && <span aria-label="Address 3">{address?.address3}</span>}
+			<span aria-label="City, State and Postal Code">
 				{`${address?.city}, ${address?.state?.label ? address.state.label : ""} ${address?.postalCode}`}
 			</span>
-			<span>{address?.country?.label}</span>
+			<span aria-label="Country">{address?.country?.label}</span>
 			<StyledButtonRow separator>
 				<Button
 					label="Edit"
