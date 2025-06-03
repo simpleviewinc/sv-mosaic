@@ -15,7 +15,17 @@ export default {
 	title: "Components/TopSummary",
 };
 
+function MockTitleReactNode() {
+	return (
+		<div>
+			<div><strong>Pellentesque eget mollis augue</strong></div>
+			<div><small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small></div>
+		</div>
+	);
+}
+
 export const Playground = ({
+	titleType,
 	title,
 	showBack,
 	img,
@@ -131,7 +141,7 @@ export const Playground = ({
 
 	return (
 		<TopSummary
-			title={title}
+			title={titleType === "String" ? title : <MockTitleReactNode />}
 			onBack={showBack ? () => alert("Cancelling, going back to previous site") : undefined}
 			backLabel="Go back"
 			favorite={showFavorite && favorite}
@@ -144,6 +154,7 @@ export const Playground = ({
 };
 
 Playground.args = {
+	titleType: "String",
 	title: "Laudantium est optio voluptas",
 	showBack: false,
 	img: false,
@@ -154,6 +165,11 @@ Playground.args = {
 };
 
 Playground.argTypes = {
+	titleType: {
+		name: "Title Type",
+		options: ["String", "React Node"],
+		control: { type: "select" },
+	},
 	title: {
 		name: "Title",
 	},
