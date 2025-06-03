@@ -14,12 +14,28 @@ const preview: Preview = {
 	],
 	parameters: {
 		options: {
-			storySort: (a) => {
-				if (a.title === "Contexts/ThemeProvider") {
+			storySort: (a, b) => {
+				const explicitStoryOrder = [
+					"Introduction",
+					"Contexts/ThemeProvider",
+				];
+
+				const aIndex = explicitStoryOrder.indexOf(a.title);
+				const bIndex = explicitStoryOrder.indexOf(b.title);
+
+				if (aIndex < 0 && bIndex < 0) {
+					return 0;
+				}
+
+				if (bIndex < 0) {
 					return -1;
 				}
 
-				return 0;
+				if (aIndex < 0) {
+					return 1;
+				}
+
+				return aIndex - bIndex;
 			},
 		},
 		layout: "fullscreen",
