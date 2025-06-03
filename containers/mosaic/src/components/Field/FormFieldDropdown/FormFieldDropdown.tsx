@@ -8,7 +8,6 @@ import type { MosaicLabelValue } from "@root/types";
 import type { DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
-import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import InputWrapper from "../../InputWrapper";
 import { StyledAutocomplete, StyledPopper, SingleDropdownWrapper } from "./FormFieldDropdown.styled";
 import testIds from "@root/utils/testIds";
@@ -28,15 +27,9 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 
 	const {
 		inputSettings: {
-			getOptions: optionsAsync,
-			options: providedOptions = optionsAsync,
+			options: providedOptions,
 		} = {},
 	} = fieldDef;
-
-	useMountWarning(
-		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
-		Boolean(optionsAsync),
-	);
 
 	const { options, loading } = useOptions({
 		from: providedOptions,
