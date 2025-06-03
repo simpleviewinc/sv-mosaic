@@ -255,7 +255,7 @@ describe(__dirname, () => {
 		await waitFor(() => expect(screen.queryByRole("button", { name: "No, keep it" })).toBeNull());
 	});
 
-	it.only("should fire the on change handler with correctly updated addresses", async () => {
+	it("should fire the on change handler with correctly updated addresses", async () => {
 		const onChangeMock = vi.fn();
 		const { user } = await setup({
 			value: mockAddresses,
