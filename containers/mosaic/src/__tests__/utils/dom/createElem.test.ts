@@ -3,6 +3,7 @@ import createElem from "@root/utils/dom/createElem";
 describe(__dirname, () => {
 	afterEach(() => {
 		vi.unstubAllGlobals();
+		document.body.innerHTML = "";
 	});
 
 	it("should create an element", () => {
@@ -17,7 +18,18 @@ describe(__dirname, () => {
 	});
 
 	it("should append the element to a specified parent", () => {
+		document.body.appendChild(document.createElement("div"));
+
 		const elem = createElem("span", { appendTo: document.body });
+		expect(document.body.childNodes.length).toBe(2);
+		expect(document.body.childNodes[1]).toBe(elem);
+	});
+
+	it("should prepend the element to a specified parent", () => {
+		document.body.appendChild(document.createElement("div"));
+
+		const elem = createElem("span", { prependTo: document.body });
+		expect(document.body.childNodes.length).toBe(2);
 		expect(document.body.childNodes[0]).toBe(elem);
 	});
 

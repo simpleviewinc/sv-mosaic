@@ -1,4 +1,13 @@
-function createElem<K extends keyof HTMLElementTagNameMap>(tag: K, { appendTo, ...props }: Partial<HTMLElementTagNameMap[K]> & { appendTo?: HTMLElement } = {}): HTMLElementTagNameMap[K] {
+type CreateElemParams<K extends keyof HTMLElementTagNameMap> = Partial<HTMLElementTagNameMap[K]> & {
+	appendTo?: HTMLElement;
+	prependTo?: HTMLElement;
+}
+
+function createElem<K extends keyof HTMLElementTagNameMap>(tag: K, {
+	appendTo,
+	prependTo,
+	...props
+}: CreateElemParams<K> = {}): HTMLElementTagNameMap[K] {
 	if (!document || !document.createElement) {
 		throw new Error("Document is not available. This function should be run in a browser environment.");
 	}
@@ -10,7 +19,11 @@ function createElem<K extends keyof HTMLElementTagNameMap>(tag: K, { appendTo, .
 	}
 
 	if (appendTo) {
-		appendTo.appendChild(elem);
+		appendTo.append(elem);
+	}
+
+	if (prependTo) {
+		prependTo.prepend(elem);
 	}
 
 	return elem;
