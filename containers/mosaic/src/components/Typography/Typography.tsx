@@ -11,10 +11,10 @@ const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
 	text: "span",
 };
 
-const defaultSizeMap: {[T in TypographyVariant]: TypographyVariantSize<T>} = {
+const defaultSizeMap: {[T in TypographyVariant]: TypographyVariantSize<T> | "inherit"} = {
 	body: "md",
 	display: "sm",
-	text: "md",
+	text: "inherit",
 };
 
 const defaultWeightMap: Record<TypographyVariant, keyof Theme["weight"]> = {
