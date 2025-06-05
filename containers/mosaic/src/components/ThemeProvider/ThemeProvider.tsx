@@ -53,13 +53,13 @@ const muiTheme = createTheme({
 			},
 		},
 		MuiButton: {
-			defaultProps: {
-				disableRipple: true,
-			},
 			styleOverrides: {
 				root: {
 					textTransform: "none",
 					fontSize: "inherit",
+					":focus": {
+						outline: "none",
+					},
 				},
 			},
 		},
