@@ -351,6 +351,10 @@ template {
   display: none;
 }
 
+/**
+ * Preferred formatting
+ */
+
 :root {
 	font-family: ${theme.family.sans};
 	font-optical-sizing: auto;
@@ -360,6 +364,10 @@ template {
 	font-variation-settings:
 		"wdth" 100;
 	color: ${theme.color.black};
+}
+
+b, strong {
+  font-weight: ${theme.weight.medium};
 }
 
 `;
