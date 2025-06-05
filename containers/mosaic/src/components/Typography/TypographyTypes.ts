@@ -61,7 +61,7 @@ export interface TypographyProps<T extends TypographyVariant> {
 	/**
 	 * The size of the text, which is determined by the variant
 	 */
-	size?: TypographyVariantSize<T>;
+	size?: TypographyVariantSize<T> | "inherit";
 	/**
 	 * The weight of the font. Defaults to different weights depending
 	 * on the Typography variant.
