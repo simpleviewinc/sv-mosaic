@@ -12,7 +12,6 @@ const baselineCss = `
  */
 
 html {
-  line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
@@ -364,6 +363,7 @@ template {
 	font-variation-settings:
 		"wdth" 100;
 	color: ${theme.color.black};
+  line-height: ${theme.line["3xloose"]}
 }
 
 b, strong {
