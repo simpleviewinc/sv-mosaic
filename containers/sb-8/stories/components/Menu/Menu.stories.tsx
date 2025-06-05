@@ -6,7 +6,7 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 import type { ButtonProps } from "#mosaic/components/Button";
 import { default as Button } from "#mosaic/components/Button";
-import Typography from "#mosaic/components/Typography";
+import { DisplayText } from "#mosaic/components/Typography";
 
 export default {
 	title : "Components/Menu",
@@ -143,10 +143,11 @@ export const Selectable = (): ReactElement => {
 
 	return (
 		<div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: 8 }}>
-			<Typography variant="title">
+			<DisplayText>
 				Current value:
+				{" "}
 				{value || "Not set"}
-			</Typography>
+			</DisplayText>
 			<div style={{ display: "flex", gap: 8 }}>
 				<Button
 					label="Set Value"
@@ -157,7 +158,7 @@ export const Selectable = (): ReactElement => {
 					menuValue={value}
 				/>
 				<Button
-					label="CLear"
+					label="Clear"
 					color="red"
 					variant="contained"
 					onClick={() => setValue("")}
