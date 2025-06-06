@@ -44,6 +44,15 @@ jobs:
       - run:
           name: Build and bring up consumer tests
           command: docker compose up --build --exit-code-from consumer-tests consumer-tests
+  Storybook Typecheck:
+    description: Ensures storybook files pass typechecks
+    docker:
+      - image: cimg/base:current
+    steps:
+      - init
+      - run:
+          name: Run Storybook typechecker
+          command: docker compose up --build storybook-typecheck
   Publish SB Static:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
@@ -115,12 +124,24 @@ workflows:
                 - qa
                 - staging
                 - master
+      - Storybook Typecheck:
+          context: default
+          filters:
+            branches:
+              only:
+                - /pull.*/
+                - /.*publish-ci$/
+                - develop
+                - qa
+                - staging
+                - master
       - Publish SB Static:
           context: default
           requires:
             - Unit Tests
             - E2E Tests
             - Consumer Tests
+            - Storybook Typecheck
           filters:
             branches:
               only:
@@ -135,6 +156,7 @@ workflows:
             - Unit Tests
             - E2E Tests
             - Consumer Tests
+            - Storybook Typecheck
           filters:
             branches:
               only:

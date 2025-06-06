@@ -899,6 +899,7 @@ export const Playground = ({
 		additionalActions: [
 			{
 				name: "view_children",
+				// @ts-expect-error Typescript doesn't like this even though it's valid
 				label: "View Children",
 				onClick: function ({ data }) {
 					alert(`View Children ${data.id}`);
@@ -907,6 +908,7 @@ export const Playground = ({
 			},
 			{
 				name: "history",
+				// @ts-expect-error Typescript doesn't like this even though it's valid
 				label: "History",
 				onClick: function ({ data }) {
 					alert(`History ${data.id}`);
