@@ -1,0 +1,16 @@
+import{j as r}from"./jsx-runtime-EKYJJIwR.js";import{useMDXComponents as m}from"./index-BwDDMXeo.js";import{M as p}from"./index-DhKL4smz.js";import{a as n}from"./column_transforms-DN3Z9vM3.js";import{T as e}from"./TransformExample-B_3tsE0N.js";import"./index-D0AnReJb.js";import"./iframe-CIPlkAb7.js";import"../sb-preview/runtime.js";import"./index-Bqzh3Cp6.js";import"./index-SI8xS9YR.js";import"./tslib.es6-CvpyDmub.js";import"./index-Cu4lwwaE.js";import"./extends-CF3RwP-h.js";import"./inheritsLoose-CMy1E8oj.js";import"./toString-DoexKoos.js";import"./_baseForOwn-YgwlavHx.js";import"./index-QVqIEGA1.js";import"./_arrayIncludesWith-XJRwRZaz.js";import"./index-DrFu-skq.js";import"./index-0j0SjakP.js";import"./sizes-BklZZmo4.js";import"./testIds-Dso8kRSM.js";import"./TitleWrapper-BVBDXDWY.js";import"./Button-DWbCZful.js";import"./generateUtilityClasses-rDn4KRfY.js";import"./ButtonBase-C5QWJNfJ.js";import"./useIsFocusVisible-CvEUtp4E.js";import"./Popper-BwE5duTX.js";import"./ownerWindow-DvT1GKkC.js";import"./createChainedFunction-BO_9K8Jh.js";import"./useTheme-D7dAzrtf.js";import"./useToggle-CTbnrs6g.js";import"./containerQuery-CZARXB1J.js";import"./createSvgIcon-BLTtL5Y9.js";import"./createSvgIcon-Dg0jtXvj.js";import"./useId-BgzzDjMB.js";import"./useControlled-DuXZYv4M.js";import"./Typography-iddL5eaH.js";import"./TitleText-CICG0G5h.js";import"./ButtonRow-BOELw1Tj.js";import"./index-5FtVc0ZK.js";import"./debounce-D-BUC-g1.js";import"./DataViewPrimaryFilter.styled-BizDTt4x.js";import"./Chip-CMTBWucu.js";import"./useMosaicTranslation-CoWLI8L7.js";import"./FormFieldText.styled-CGYIYrSS.js";import"./formControlState-BAKA1Iy6.js";import"./Spinner-CbDJlIED.js";import"./SubtitleText-DS-qVyZH.js";import"./CheckboxList-BfityfDx.js";import"./Checkbox-CpLxzsg0.js";import"./FormControlLabel-BKc7O7Lz.js";import"./MoreVert-CMcGX8SU.js";import"./ChevronRight-BydWUgoJ.js";import"./PageHeader-DhpZ4BIu.js";import"./formats-CMvQHWsT.js";import"./RadioButton-p7gSMkH6.js";import"./StyledFormControl.styled-BMW4FUOw.js";import"./Toggle-9YEwDS0M.js";import"./Dialog-CnKRaqxG.js";import"./ChipList-DGWZ9ZdD.js";import"./SideNav-kqb59Ukq.js";import"./Snackbar-CMDie7lV.js";import"./Close-DQPzhJmS.js";import"./ClickAwayListener-Dkkr5f_-.js";import"./Image-ZO9EpWKf.js";function t(i){const o={code:"code",h1:"h1",h4:"h4",li:"li",p:"p",pre:"pre",ul:"ul",...m(),...i.components};return r.jsxs(r.Fragment,{children:[r.jsx(p,{title:"Utils/Transforms/ColorPicker"}),`
+`,r.jsx(o.h1,{id:"transform_colorpicker",children:"transform_colorPicker"}),`
+`,r.jsx(o.p,{children:"Converts a hexadecimal string to a readonly Color Picker."}),`
+`,r.jsx(o.h4,{id:"conversions",children:"Conversions"}),`
+`,r.jsxs(o.ul,{children:[`
+`,r.jsxs(o.li,{children:[r.jsx(o.code,{children:'"#a8001791"'})," => ",r.jsx(e,{cb:n(),data:"#a8001791"})]}),`
+`]}),`
+`,r.jsx(o.h4,{id:"args",children:"Args"}),`
+`,r.jsx(o.p,{children:"None"}),`
+`,r.jsx(o.h4,{id:"example",children:"Example"}),`
+`,r.jsx(o.pre,{children:r.jsx(o.code,{className:"language-js",children:`import { transform_colorPicker } from "#mosaic"
+...
+transforms : [
+    transform_colorPicker()
+]
+`})})]})}function _r(i={}){const{wrapper:o}={...m(),...i.components};return o?r.jsx(o,{...i,children:r.jsx(t,{...i})}):t(i)}export{_r as default};
