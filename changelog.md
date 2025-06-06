@@ -1,5 +1,14 @@
 # sv-mosaic changelog
 
+### 43.2.1 - 06/10/2025
+
+* `FormFieldAddress`
+  * [MOS-1662](https://simpleviewtools.atlassian.net/browse/MOS-1662 "https://simpleviewtools.atlassian.net/browse/MOS-1662") **FormFieldAddress bug**
+    * (AddressField) Nest the unique key used for the address drawer to prevent mutating the address object.
+* `SummaryPageTopComponent`
+  * [MOS-1647](https://simpleviewtools.atlassian.net/browse/MOS-1647 "https://simpleviewtools.atlassian.net/browse/MOS-1647") **TopSummary should accept title?: ReactNode**
+    * (TopSummary) Adds support to provide an arbitrary `ReactNode` title which doesn't receive the same formatting as string-based titles.
+
 ### 43.2.0 - 05/27/2025
 
 * `DataView`
