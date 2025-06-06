@@ -36,6 +36,10 @@ services:
       - mosaic
     ports:
       - 10001:10001
+  storybook-typecheck:
+    container_name: storybook-typecheck
+    extends: storybook
+    command: ["yarn", "types"]
   storybook-dev:
     container_name: storybook-dev
     extends: storybook
