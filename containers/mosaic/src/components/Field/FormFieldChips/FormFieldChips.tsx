@@ -7,7 +7,6 @@ import type { MosaicFieldProps } from "@root/components/Field";
 import type { ChipData, FormFieldChipsInputSettings } from "./FormFieldChipsTypes";
 
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
-import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 import Chip from "../../Chip";
 import { StyledChipGroup } from "./FormFieldChips.styled";
 import { FormFieldChipsSkeleton } from "./FormFieldChipsSkeleton";
@@ -25,15 +24,9 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 
 	const {
 		inputSettings: {
-			getOptions: optionsAsync,
-			options: providedOptions = optionsAsync,
+			options: providedOptions,
 		} = {},
 	} = fieldDef;
-
-	useMountWarning(
-		`The \`getOptions\` input setting (provided to the \`${fieldDef.name}\` field) is deprecated and will be removed in future versions. Use the \`options\` input setting instead.`,
-		Boolean(optionsAsync),
-	);
 
 	const { options, loading } = useOptions({
 		from: providedOptions,
