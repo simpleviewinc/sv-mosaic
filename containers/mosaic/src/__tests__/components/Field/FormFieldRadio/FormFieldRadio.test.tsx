@@ -82,25 +82,6 @@ describe(__dirname, () => {
 		});
 	});
 
-	it("should use the legacy getOptions input setting if no options are provided but show a deprecation warning", async () => {
-		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
-
-		await setup({
-			fieldDef: {
-				...defaultFieldDef,
-				inputSettings: {
-					getOptions,
-				},
-			},
-		});
-
-		await waitFor(() => {
-			expect(screen.queryByRole("radio", { name: "Dog" })).toBeInTheDocument();
-			expect(screen.queryByRole("radio", { name: "Cat" })).toBeInTheDocument();
-		});
-		expect(warnMock).toHaveBeenCalled();
-	});
-
 	it("should provide an additional option to the useOptions hook if the value is defined", async () => {
 		await setup({
 			value: { value: "Turnip", label: "Turnip" },
