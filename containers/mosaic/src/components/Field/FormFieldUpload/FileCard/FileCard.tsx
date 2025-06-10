@@ -16,6 +16,7 @@ const FileCard = (props: FileCardProps) => {
 		id,
 		name,
 		size,
+		dimensions,
 		fileUrl,
 		thumbnailUrl,
 		downloadUrl,
@@ -61,7 +62,14 @@ const FileCard = (props: FileCardProps) => {
 							<FileCardTitle name={name} />
 						</p>
 					)}
-					<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
+					<div>
+						<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
+						{dimensions && (
+							<p className="file-dimensions" data-testid="file-dimensions">
+								{`${dimensions.width}px × ${dimensions.height}px`}
+							</p>
+						)}
+					</div>
 				</div>
 				{isDeleting ? (
 					<StyledSpinner />

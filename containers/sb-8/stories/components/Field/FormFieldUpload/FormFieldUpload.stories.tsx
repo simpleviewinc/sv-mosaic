@@ -5,7 +5,8 @@ import type { FieldDef } from "#mosaic/components/Field";
 import Form, { useForm } from "#mosaic/components/Form";
 import { commonFieldControls, renderButtons } from "@utils";
 import { nanoid } from "nanoid";
-import type { UploadFieldInputSettings } from "#mosaic/components/Field/FormFieldUpload";
+import type { UploadData } from "#mosaic/components/Field/FormFieldUpload";
+import { type UploadFieldInputSettings } from "#mosaic/components/Field/FormFieldUpload";
 
 export default {
 	title: "FormFields/FormFieldUpload",
@@ -52,12 +53,24 @@ export const Playground = ({
 			throw new Error(error);
 		}
 
+		const isImage = ["image/gif", "image/jpeg", "image/png"].includes(file.type);
+		const uploadedFileUrl = URL.createObjectURL(file);
+		const dimensions = !isImage ? undefined : (await new Promise<UploadData["dimensions"]>((resolve) => {
+			const img = new Image();
+			img.onload = () => resolve({
+				width: img.width,
+				height: img.height,
+			});
+			img.src = uploadedFileUrl;
+		}));
+
 		await onUploadComplete({
 			id: nanoid(),
 			name: file.name,
 			size: file.size,
-			thumbnailUrl: thumbnailUrl || (["image/gif", "image/jpeg", "image/png"].includes(file.type) ? URL.createObjectURL(file) : ""),
-			fileUrl: fileUrl || URL.createObjectURL(file),
+			dimensions,
+			thumbnailUrl: thumbnailUrl || (isImage ? uploadedFileUrl : ""),
+			fileUrl: fileUrl || uploadedFileUrl,
 			downloadUrl: downloadUrl,
 		});
 	}, [
@@ -121,6 +134,10 @@ Playground.args = {
 					thumbnailUrl: "https://res.cloudinary.com/simpleview/image/upload/c_fill,h_75,w_75/v1434940819/clients/grandrapids/Bluedoor%20Antiques-1_c08c7c71-ac14-43df-81a1-30909c362030.jpg",
 					size: 2630000,
 					name: "antiques.jpg",
+					dimensions: {
+						width: 1832,
+						height: 1081,
+					},
 				},
 				{
 					id: 1,
