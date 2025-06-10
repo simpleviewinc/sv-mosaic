@@ -8,7 +8,7 @@ export default [
 				"error",
 				{
 					patterns: [{
-						regex: "@mui\\/material$",
+						regex: "@mui\\/(?:icons-)?material$",
 						message: "Do not import from the root of material UI. For example, instead of `import { InputAdornment } from \"@mui/material\"`, do `import InputAdornment from \"@mui/material/InputAdornment\"`",
 					}],
 				},
