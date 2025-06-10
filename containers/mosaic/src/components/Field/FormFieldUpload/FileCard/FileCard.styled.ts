@@ -53,7 +53,7 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 		font-size: 14px;
 		width: 100%;
 		flex-direction: column;
-		row-gap: 8px;
+		row-gap: 4px;
 
 		p {
 			margin: 0px;
@@ -78,6 +78,10 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 		color: ${theme.newColors.almostBlack["100"]};
 		font-weight: ${theme.fontWeight.normal};
 		line-height: 24px;
+	}
+
+	& .file-dimensions {
+		font-size: 12px;
 	}
 `;
 
