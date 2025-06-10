@@ -8,7 +8,6 @@ import testIds from "@root/utils/testIds";
 
 const StyledDiv = styled.div`
 	text-align: center;
-	font-weight: normal;
 	color: ${theme.newColors.grey3["100"]};
 	border-bottom: ${theme.borders.lightGray};
 	line-height: 1.75;

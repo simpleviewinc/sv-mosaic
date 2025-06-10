@@ -33,7 +33,6 @@ const ErrorMessage = styled.div`
 	color: white;
 	padding: 1rem;
 	font-size: 16px;
-	font-family: sans-serif;
 	animation-name: ${shake};
 	animation-duration: 0.5s;
 	animation-iteration-count: 1;

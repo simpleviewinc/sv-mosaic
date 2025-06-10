@@ -12,7 +12,6 @@ export const LocationSearchInputWrapper = styled.div`
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
-  min-width: 684px;
 
   &.MuiTextField-root {
     display: flex;
@@ -28,7 +27,6 @@ export const SuggestionsContainer = styled.div`
   background-color: white;
   border: ${theme.borders.fieldGray};
   border-top: 0;
-  font-family: ${theme.fontFamily};
   padding: 8px 0;
   box-shadow: 0 1px 3px rgba(0,0,0,.05);
 `;
@@ -41,11 +39,10 @@ export const SuggestionsDescriptionContainer = styled.div<{ $isSuggestionActive?
 `;
 
 export const SuggestionDescription = styled.p`
-  font-size: 14px;
   margin: 0;
 
   &:active {
     color: ${theme.colors.gray800};
-    font-weight: ${theme.fontWeight.bold};
+    font-weight: ${theme.weight.medium};
   }
 `;

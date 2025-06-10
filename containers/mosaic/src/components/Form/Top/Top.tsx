@@ -22,7 +22,7 @@ import {
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { Title } from "@root/components/Title/TitleWrapper.styled";
 import { TitleBackButton } from "@root/components/Title";
-import { TitleText } from "@root/components/Typography";
+import { DisplayText } from "@root/components/Typography";
 
 const Top = (props: TopProps): ReactElement => {
 	const {
@@ -52,7 +52,7 @@ const Top = (props: TopProps): ReactElement => {
 								label={backLabel}
 							/>
 						)}
-						<TitleText attrs={{ title }} >{title}</TitleText>
+						<DisplayText attrs={{ title }} tag="h1">{title}</DisplayText>
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}

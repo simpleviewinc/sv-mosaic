@@ -85,14 +85,12 @@ export const StyledAutocompletePaper = styled.div`
 	& .MuiAutocomplete-listbox .MuiAutocomplete-option {
 		display: flex;
 		gap: 8px;
-		font-family: ${theme.fontFamily};
-		font-size: 14px;
 		min-height: 40px;
 		color: ${theme.newColors.grey4["100"]};
 
 		&[aria-selected='true'] {
 			color: ${theme.colors.black};
-			font-weight: ${theme.fontWeight.semiBold};
+			font-weight: ${theme.weight.medium};
 			background-color: white;
 
 			&.Mui-focused {

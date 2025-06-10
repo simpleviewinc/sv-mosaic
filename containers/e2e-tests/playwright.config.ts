@@ -7,7 +7,7 @@ import { env } from "./utils/urls/environments";
 export default defineConfig({
 	testDir: "./tests",
 	forbidOnly: !!process.env.CI,
-	retries: 2,
+	retries: 0,
 	timeout: 30000,
 	reporter: [["html", { open: "never", outputFolder: "./playwright-report" }]],
 	workers: process.env.CI ? 2 : 4,

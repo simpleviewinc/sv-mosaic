@@ -1,18 +1,11 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import styled from "styled-components";
 
-// Components
 import Chip from "#mosaic/components/Chip";
-import theme from "#mosaic/theme";
 
 export default {
 	title: "Components/Chip",
 };
-
-const KitchenSinkContainerChip = styled.div`
-    font-family: ${theme.fontFamily};
-`;
 
 export const Playground = ({ deletable, clickable, label, disabled, selected }: typeof Playground.args): ReactElement => {
 	return (
@@ -48,7 +41,7 @@ export const KitchenSink = (): ReactElement => {
 	};
 
 	return (
-		<KitchenSinkContainerChip>
+		<div>
 			<h1>Chip</h1>
 			<h2>Basic Chip with onClick</h2>
 			<Chip
@@ -97,6 +90,6 @@ export const KitchenSink = (): ReactElement => {
 			<Chip
 				label="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sapien purus, condimentum nec fringilla porttitor, bibendum vitae odio. Etiam tincidunt id ante eu cursus."
 			/>
-		</KitchenSinkContainerChip>
+		</div>
 	);
 };

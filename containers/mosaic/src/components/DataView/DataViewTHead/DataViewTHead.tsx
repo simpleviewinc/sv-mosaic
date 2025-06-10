@@ -29,8 +29,7 @@ const StyledWrapper = styled.thead`
 const StyledTh = styled.th`
 	background-color: ${theme.newColors.grey2["100"]};
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 14px;
-	font-weight: 510;
+	font-weight: ${theme.weight.medium};
 	height: 40px;
 	padding: 8px;
 	position: sticky;
@@ -69,7 +68,6 @@ const StyledTh = styled.th`
 
 	&.active {
 		color: ${theme.newColors.almostBlack["100"]};
-		font-weight: 510;
 	}
 
 	&.active > .columnHeader > .icon {
@@ -183,14 +181,14 @@ function DataViewTHead(props: DataViewTHeadProps) {
 			{
 				props.showBulkAll && (
 					<tr>
-						<th colSpan={columnCount}>
+						<td colSpan={columnCount}>
 							<DataViewBulkAllBar
 								rowCount={props.rowCount}
 								count={props.count}
 								checkedAllPages={props.checkedAllPages}
 								onCheckAllPagesClick={props.onCheckAllPagesClick}
 							/>
-						</th>
+						</td>
 					</tr>
 				)
 			}

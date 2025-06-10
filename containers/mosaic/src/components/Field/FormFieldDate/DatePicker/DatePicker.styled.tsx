@@ -11,7 +11,6 @@ export const popperSx = {
 	"& .MuiPickersDay-today": {
 		color: `${theme.newColors.realTeal["100"]} !important`,
 		border: "none !important",
-		fontFamily: theme.fontFamily,
 		fontWeight: theme.fontWeight.bold,
 		backgroundColor: "transparent !important",
 
@@ -23,7 +22,6 @@ export const popperSx = {
 
 	"& .MuiPickersDay-dayWithMargin": {
 		color: theme.newColors.almostBlack["100"],
-		fontFamily: theme.fontFamily,
 
 		"&:hover": {
 			color: theme.newColors.realTeal["100"],

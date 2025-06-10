@@ -15,12 +15,12 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
 	align-items: end;
 	margin-bottom: 8px;
-	font-family: ${theme.fontFamily};
 	gap: 8px;
 
 	.MuiInputLabel-root {
-		font-family: inherit;
-		font-size: 16px;
+		font-size: ${theme.fontSize.text.lg};
+		line-height: ${theme.line.tight};
+		font-weight: ${theme.weight.medium};
 		color:  ${theme.newColors.almostBlack["100"]};
 		word-wrap: break-word;
 		text-overflow: clip;
@@ -29,20 +29,21 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 `;
 
 const InputLabelDiv = styled.div`
-	font-family: inherit;
-	font-size: 16px;
+	font-size: ${theme.fontSize.text.lg};
+	line-height: ${theme.line.tight};
+	font-weight: ${theme.weight.medium};
 	color:  ${theme.newColors.almostBlack["100"]};
 	word-wrap: break-word;
 `;
 
 const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
-	font-size: 12px;
+	font-size: ${theme.fontSize.text.sm};
 	margin-left: auto;
 `;
 
 const StyledInputLabel = styled(InputLabel)`
-	font-weight: ${theme.fontWeight.semiBold} !important;
+	font-weight: ${theme.weight.medium};
   	align-self: center;
 	color: ${theme.newColors.grey4["100"]} !important;
 `;

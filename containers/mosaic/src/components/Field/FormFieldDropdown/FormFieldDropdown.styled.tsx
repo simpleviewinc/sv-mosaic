@@ -9,7 +9,6 @@ import type { FieldDef } from "@root/components/Field";
 
 export const StyledAutocomplete = styled(MUIAutocomplete)<{ $error?: boolean }>`
   & .MuiFormControl-root .MuiInputBase-root {
-    font-family: ${theme.fontFamily};
     color: ${theme.newColors.almostBlack["100"]};
 
     ${({ disabled }) => !disabled ? (`
@@ -93,18 +92,16 @@ export const SingleDropdownWrapper = styled.div<{ $innerWidth: FieldDef["size"] 
   }
 `;
 
-export const StyledPopper = styled(Popper)<{ $value?: boolean }>`
+export const StyledPopper = styled(Popper)`
   z-index: 999999999 !important;
   .MuiAutocomplete-listbox .MuiAutocomplete-option {
-    font-family: ${theme.fontFamily};
-    font-size: 14px;
     min-height: 40px;
     color: ${theme.newColors.grey4["100"]};
 		background-color: white;
 
     &[aria-selected='true'] {
-			color: ${({ $value }) => $value ? theme.newColors.grey4["100"] : theme.colors.black };
-			font-weight: ${({ $value }) => $value ? null : theme.fontWeight.semiBold};
+			color: ${theme.newColors.grey4["100"]};
+			font-weight: ${theme.weight.medium};
 			background-color: white;
     }
 

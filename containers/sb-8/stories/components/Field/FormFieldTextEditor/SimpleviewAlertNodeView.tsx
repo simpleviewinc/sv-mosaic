@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import React from "react";
 import { NodeViewWrapper, NodeViewContent } from "@tiptap/react";
-import { TridentIcon } from "#mosaic/theme";
+import theme, { TridentIcon } from "#mosaic/theme";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -17,8 +17,7 @@ const Heading = styled.div`
 
 const Title = styled.div`
     text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
+    font-weight: ${theme.weight.medium};
 `;
 
 const Logo = styled(TridentIcon)`

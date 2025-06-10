@@ -20,8 +20,6 @@ import TridentIcon from "../../theme/TridentIcon";
 const RootDiv = styled(LeftNavRoot)`
 	width: 80vw;
 	max-width: 250px;
-	font-family: ${theme.fontFamily};
-	font-size: 14px;
 
 	& > .header {
 		padding: 8px 16px;

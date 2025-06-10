@@ -4,8 +4,8 @@ import React from "react";
 import Typography from "./Typography";
 import type { TypographyProps } from "./TypographyTypes";
 
-const SubtitleText = (props: Omit<TypographyProps, "variant">): ReactElement => {
-	return <Typography {...props} variant="subtitle" />;
+const DisplayText = (props: Omit<TypographyProps<"display">, "variant">): ReactElement => {
+	return <Typography {...props} variant="display" />;
 };
 
-export default SubtitleText;
+export default DisplayText;

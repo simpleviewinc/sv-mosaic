@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataviewData";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { dataviewKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
 
 test.describe("Components - Data View - Playground", () => {

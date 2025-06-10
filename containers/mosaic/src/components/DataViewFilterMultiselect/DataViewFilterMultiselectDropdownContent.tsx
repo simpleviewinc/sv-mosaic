@@ -16,7 +16,7 @@ import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdo
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
 import Spinner from "../Spinner";
-import { SubtitleText } from "../Typography";
+import { Text } from "../Typography";
 import { StyledWrapper, StyledComparisonHeader, StyledComparisonHelp } from "./DataViewFilterMultiselect.styled";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import CheckboxList from "../CheckboxList";
@@ -185,9 +185,9 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		comparisonDropdown = (
 			<div className="comparisonDropdown">
 				<StyledComparisonHeader>
-					<SubtitleText tag="h3">
+					<Text tag="h3">
 						{t("mosaic:DataView.comparison")}
-					</SubtitleText>
+					</Text>
 				</StyledComparisonHeader>
 				<ButtonRow>
 					<Button

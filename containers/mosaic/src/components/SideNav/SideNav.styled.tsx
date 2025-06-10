@@ -24,10 +24,6 @@ export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const SidebarWrap = styled.div`
-  	font-family: ${theme.fontFamily};
-`;
-
 export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	display: flex;
 	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
@@ -58,7 +54,7 @@ export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSS
 	text-decoration: none;
 
 	${({ $isActive }) => $isActive && `
-		font-weight: ${theme.fontWeight.semiBold};
+		font-weight: ${theme.weight.medium};
 	`}
 
 	${({ $collapse }) => !$collapse ? `
@@ -116,7 +112,6 @@ export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSS
 
 export const StyledLink = styled.span`
 	color: ${theme.newColors.almostBlack["100"]};
-	font-size: 14px;
 	width: auto;
 	white-space: nowrap;
 	overflow: hidden;
@@ -126,8 +121,8 @@ export const StyledLink = styled.span`
 
 export const Badge = styled.span`
 	color: ${theme.newColors.grey4["100"]};
-	font-size: 10px;
-	font-weight: ${theme.fontWeight.semiBold};
+	font-size: ${theme.fontSize.text.xs};
+	font-weight: ${theme.weight.medium};
 `;
 
 export const BadgeWrapper = styled.div`

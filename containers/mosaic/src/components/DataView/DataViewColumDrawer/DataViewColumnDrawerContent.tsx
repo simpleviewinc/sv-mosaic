@@ -7,7 +7,6 @@ import type { ButtonProps } from "../../Button";
 import type { DataViewColumnDrawerContentProps } from "./DataViewColumnDrawerTypes";
 import {
 	StyledWrapper,
-	ColumnTitle,
 	MutedText,
 	NoColumns,
 } from "./DataViewColumnDrawer.styled";
@@ -17,6 +16,7 @@ import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldT
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { escapeRegexp } from "@root/utils/string/escapeRegexp";
+import { Text } from "@root/components/Typography";
 
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [activeColumns, setActiveColumns] = useState<string[]>(props.columns.map((val) => val.name));
@@ -128,7 +128,9 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 					)}
 				</div>
 				<div className="right">
-					<ColumnTitle>{t("mosaic:DataView.column_order")}</ColumnTitle>
+					<Text size="xl" tag="h3" weight="medium">
+						{t("mosaic:DataView.column_order")}
+					</Text>
 					<DataViewColumnDrawerColumns
 						activeColumns={activeColumns}
 						allColumns={props.allColumns}

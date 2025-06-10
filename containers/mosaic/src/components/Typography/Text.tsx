@@ -4,8 +4,8 @@ import React from "react";
 import Typography from "./Typography";
 import type { TypographyProps } from "./TypographyTypes";
 
-const TitleText = (props: Omit<TypographyProps, "variant">): ReactElement => {
-	return <Typography {...props} variant="title" />;
+const Text = (props: Omit<TypographyProps<"text">, "variant">): ReactElement => {
+	return <Typography {...props} variant="text" />;
 };
 
-export default TitleText;
+export default Text;

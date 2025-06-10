@@ -44,5 +44,4 @@ export const NoColor = styled.div`
 `;
 
 export const StyledPopover = styled(Popover)`
-	font-family: ${theme.fontFamily}
 `;

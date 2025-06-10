@@ -60,7 +60,6 @@ export const Arrow = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-	font-family: ${theme.fontFamily};
 	padding: 24px 32px;
 `;
 
