@@ -13,6 +13,13 @@ export interface UploadDataBase {
 	 * The name of the file, which will be rendered as the file title
 	 */
 	name: string;
+	/**
+	 * The image dimensions of the file in pixels.
+	 */
+	dimensions?: {
+		width: number;
+		height: number;
+	};
 }
 
 export type UploadData = UploadDataBase & {
