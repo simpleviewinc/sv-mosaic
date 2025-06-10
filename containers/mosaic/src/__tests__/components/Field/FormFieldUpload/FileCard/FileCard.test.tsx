@@ -11,6 +11,10 @@ const fileCards = [
 		id: "1",
 		name: "MyCard.jpg",
 		size: 123,
+		dimensions: {
+			width: 1380,
+			height: 768,
+		},
 		attachmentUrl: "myurl.com",
 		thumbnailUrl: "myurl.com",
 		onFileDelete,
@@ -50,12 +54,14 @@ describe("File card", () => {
 
 		const name = screen.getByTestId("file-name");
 		const size = screen.getByTestId("file-size");
+		const dimensions = screen.getByTestId("file-dimensions");
 		const img = screen.getByRole("img");
 		const deleteIcon = screen.getByRole("button");
 		fireEvent.click(deleteIcon);
 
 		expect(name.textContent).toBe(fileCards[0].name);
 		expect(size.textContent).toBe(`${fileCards[0].size} B`);
+		expect(dimensions).toHaveTextContent(`${fileCards[0].dimensions.width}px × ${fileCards[0].dimensions.height}px`);
 		expect(img.getAttribute("src")).toBe(fileCards[0].thumbnailUrl);
 		expect(deleteIcon).toBeInTheDocument();
 		expect(onFileDelete).toHaveBeenCalled();
