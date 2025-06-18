@@ -1,5 +1,36 @@
 # sv-mosaic changelog
 
+### 44.0.0 - 06/24/2025
+
+* `FormFieldCheckbox`
+
+  * [MOS-1550](https://simpleviewtools.atlassian.net/browse/MOS-1550 "https://simpleviewtools.atlassian.net/browse/MOS-1550") **Remove getOptions input setting from all fields that deprecate it**
+    * **(BREAKING CHANGE)** (chore) Removes deprecated getOptions input setting for applicable (optionable) field types.
+    * **(BREAKING CHANGE)** (ChipField) Removes the deprecated `onSelect` input setting.
+* `FormFieldUpload`
+
+  * [MOS-1649](https://simpleviewtools.atlassian.net/browse/MOS-1649 "https://simpleviewtools.atlassian.net/browse/MOS-1649") **File Upload Field Enhancements**
+    * (FormFieldUpload) Add support for optional image dimensions for uploaded files.
+* `Typography`
+
+  * [MOS-1628](https://simpleviewtools.atlassian.net/browse/MOS-1628 "https://simpleviewtools.atlassian.net/browse/MOS-1628") **Typography Polish**
+    * (Typography) Swaps out variants. Adds support for the size and weight props.
+    * **(BREAKING CHANGE)** the `variant` prop now accepts `text`, `body` or `display`. Similarly, the helper components are now `Text`, `BodyText` and `DisplayText`. The typography [documentation](https://simpleviewinc.github.io/sv-mosaic/sb8/master/?path=/docs/components-typography--docs "https://simpleviewinc.github.io/sv-mosaic/sb8/master/?path=/docs/components-typography--docs") has been updated to list the variants and their default tag, available sizes and default weight.
+    * **(BREAKING CHANGE)** `as` is no longer an accepted property - use `tag` instead..
+    * **(BREAKING CHANGE)** `style` is not longer an accepted property - use `attrs` instead.
+* Housekeeping
+
+  * [MOS-1627](https://simpleviewtools.atlassian.net/browse/MOS-1627 "https://simpleviewtools.atlassian.net/browse/MOS-1627") **Initial Polish Setup**
+    * **BREAKING CHANGE** Adds new theme tokens and deprecates the old ones. Introduce the theme provider which utilises a custom **MUI** theme, injects the Google font links and root CSS.
+
+      * Normalises CSS.
+      * Consumers should now wrap their entire app in Mosaic's `ThemeProvider` component.
+    * Eliminate any unnecessary usage of the font-family style, resulting in all components and some stories using Roboto.
+    * Updates all font weight and font size styles both in components and stories, to reflect the new theme tokens.
+  * [MOS-1665](https://simpleviewtools.atlassian.net/browse/MOS-1665 "https://simpleviewtools.atlassian.net/browse/MOS-1665") **Bad import slowing mosaic**
+    * (chore) Add icons-material to eslint rule to prevent loose importing of all icons.
+    * (ChipList) Fix loose icon import.
+
 ### 43.2.1 - 06/10/2025
 
 * `FormFieldAddress`
