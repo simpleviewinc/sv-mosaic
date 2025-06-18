@@ -5,88 +5,233 @@ import * as stories from './Typography.stories';
 
 # Typography
 
-The `Typography` and its helper components offer a way to consistently style text. This ensures that text throughout your application matches the Mosaic system. The `Typography` component currently offers 3 variations. There are helper components for each variation, enabling you to invoke `<TitleText />` instead of `<Typography variant="title" />`.
-
-<table width="100%">
-<tr>
-<td>Variant</td>
-<td>Component Name</td>
-<td>Default Tag</td>
-<td>Default Styles</td>
-</tr>
-<tr>
-<td>title</td>
-<td>
-
-`TitleText`
-</td>
-<td>
-
-`h1`
-</td>
-<td>
-
-```css
-font-family: ${theme.museoFont};
-font-size: 28px;
-font-weight: ${theme.fontWeight.light};
-line-height: 1.2em;
-```
-</td>
-</tr>
-<tr>
-<td>subtitle</td>
-<td>
-
-`SubtitleText`
-</td>
-<td>
-
-`h3`
-</td>
-<td>
-
-```css
-font-family: ${theme.fontFamily};
-font-size: 18px;
-font-weight: 600;
-```
-</td>
-</tr>
-<tr>
-<td>body</td>
-<td>
-
-`BodyText`
-</td>
-<td>
-
-`div`
-</td>
-<td>
-
-```css
-font-family: ${theme.fontFamily};
-font-size: 16px;
-```
-</td>
-</tr>
-</table>
+The `Typography` and its helper components offer a way to consistently style text. This ensures that text throughout your application matches the Mosaic system. The `Typography` component currently offers 3 variations. There are helper components for each variation, enabling you to invoke, for example `<BodyText />` instead of `<Typography variant="body" />`.
 
 ## Props
 Both the base `Typography` component *and* the helper components have the below properties, with the exception of `variant`. `variant` is a required property when using the `Typography` component and an invalid property when using the variation helper components.
 
 | Prop name | Type | Description |
 | ------ | ------ | ------ |
-| <code>variant</code> | <code>"title" &#124; "subtitle" &#124; "body"</code>  | **Base <code>Typography</code> component only**. Controls the look of the typography |
-| <code>as</code> | Any valid HTML tag | **DEPRECATED** Use "tag" prop instead |
+| <code>variant</code> | <code>"text" &#124; "body" &#124; "display"</code>  | **Base <code>Typography</code> component only**. Controls the look of the typography. See table below for more information on variants. |
 | <code>tag</code> | Any valid HTML tag | The HTML element to use. Each variant defaults to its own, specifically picked HTML tag (see above) |
 | <code>maxLines</code> | <code>number</code> | If provided, text will be truncated at the given number of lines |
 | <code>whiteSpace</code> | Any valid CSS white-space value | The "white-space" CSS style |
 | <code>breakAll</code> | <code>boolean</code> | Utilises <code>word-break: break-all</code> - useful for displaying long strings with no breaking characters like URLs |
-| <code>style</code> | <code>MosaicObject</code> | **DEPRECATED** Use a style property on an object provided to <code>attrs</code> instead |
 | <code>children</code> | <code>ReactNode</code> | The content, usually text, of the Typography component |
 | <code>className</code> | <code>string</code> | Pass custom classes to the wrapping element |
 | <code>title</code> | <code>string</code> | Provides a title attribute to the Typography element |
 | <code>attrs</code> | Any valid HTML attribute | Additional attributes to be provided to the Typography element |
-| <code>color</code> | <code>ColorTypes</code> | The text colour of the typography |
+| <code>color</code> | <code>string</code> | A CSS color in which to render the typography text. |
+
+## Variants
+
+<table width="100%">
+	<tr>
+		<th>Variant</th>
+		<th>Component Name</th>
+		<th>Default Tag</th>
+		<th colspan="2">Sizes (Font Size / Line Height)</th>
+		<th>Default Weight</th>
+	</tr>
+	{/** Display */}
+	<tr>
+		<td rowspan="7">display</td>
+		<td rowspan="7">
+			`DisplayText`
+		</td>
+		<td rowspan="7">
+			`div`
+		</td>
+		<td>
+			`inherit`
+		</td>
+		<td>
+			`inherit` / `inherit`
+		</td>
+		<td rowspan="7">
+			`medium`
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xs`
+		</td>
+		<td>
+			24px / 32px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`sm` (default)
+		</td>
+		<td>
+			30px / 38px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`md`
+		</td>
+		<td>
+			36px / 44px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`lg`
+		</td>
+		<td>
+			48px / 60px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xl`
+		</td>
+		<td>
+			60px / 72px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`2xl`
+		</td>
+		<td>
+			72px / 90px
+		</td>
+	</tr>
+	{/** Text */}
+	<tr>
+		<td rowspan="7">text</td>
+		<td rowspan="7">
+			`Text`
+		</td>
+		<td rowspan="7">
+			`span`
+		</td>
+		<td>
+			`inherit` (default)
+		</td>
+		<td>
+			`inherit` / `inherit`
+		</td>
+		<td rowspan="7">
+			`normal`
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xs`
+		</td>
+		<td>
+			10px / 14px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`sm`
+		</td>
+		<td>
+			12px / 16px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`md`
+		</td>
+		<td>
+			14px / 18px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`lg`
+		</td>
+		<td>
+			16px / 20px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xl`
+		</td>
+		<td>
+			18px / 22px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`2xl`
+		</td>
+		<td>
+			20px / 26px
+		</td>
+	</tr>
+	{/** Body */}
+	<tr>
+		<td rowspan="7">body</td>
+		<td rowspan="7">
+			`BodyText`
+		</td>
+		<td rowspan="7">
+			`div`
+		</td>
+		<td>
+			`inherit`
+		</td>
+		<td>
+			`inherit` / `inherit`
+		</td>
+		<td rowspan="7">
+			`normal`
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xs`
+		</td>
+		<td>
+			10px / 18px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`sm`
+		</td>
+		<td>
+			12px / 18px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`md` (default)
+		</td>
+		<td>
+			14px / 20px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`lg`
+		</td>
+		<td>
+			16px / 24px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`xl`
+		</td>
+		<td>
+			18px / 28px
+		</td>
+	</tr>
+	<tr>
+		<td>
+			`2xl`
+		</td>
+		<td>
+			20px / 30px
+		</td>
+	</tr>
+</table>

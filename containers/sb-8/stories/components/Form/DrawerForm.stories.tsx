@@ -55,9 +55,8 @@ const baseMapCoordinatesField = {
 };
 
 const Heading = styled.h2`
-	font-family: ${theme.museoFont};
 	font-size: 26px;
-	font-weight: ${theme.fontWeight.light};
+	font-weight: ${theme.weight.regular};
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

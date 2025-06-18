@@ -16,7 +16,7 @@ export const ErrorTextWrapper = styled.div`
 
 export const StyledErrorIcon = styled(MUIErrorOutlineIcon)<{ $error?: boolean }>`
   &.MuiSvgIcon-root {
-    font-size: 16px;
+    font-size: ${theme.fontSize.text.lg};
     color: ${({ $error }) => $error ? theme.newColors.darkRed["100"] : "transparent"};
 	margin-right: 8px;
   }
@@ -25,8 +25,7 @@ export const StyledErrorIcon = styled(MUIErrorOutlineIcon)<{ $error?: boolean }>
 export const StyledText = styled(MUIFormHelperText)`
   &.MuiFormHelperText-root {
     color: ${theme.newColors.grey3["100"]};
-    font-family: ${theme.fontFamily};
-    font-size: 12px;
+    font-size: ${theme.fontSize.text.sm};
     margin-top: ${theme.fieldSpecs.inputSpacing.helperText.marginTop};
   }
 

@@ -37,13 +37,12 @@ export const ContentWrapper = styled.div`
   border-radius: 2px;
   box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
   display: flex;
-  font-family: ${theme.fontFamily};
   max-width: 400px;
   padding: 16px 16px;
 
   .MuiSvgIcon-root {
     color: ${theme.newColors.realTeal["100"]};
-    font-size: 20px;
+    font-size: ${theme.fontSize.text["2xl"]};
   }
 `;
 
@@ -54,7 +53,7 @@ export const ActionWrapper = styled.div`
 export const StyledCloseIcon = styled(CloseIcon)`
   &.MuiSvgIcon-root {
     color: ${theme.newColors.simplyGrey["100"]};
-    font-size: 16px;
+    font-size: ${theme.fontSize.text.lg};
   }
 `;
 

@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { MosaicLabelValue } from "@root/types";
-import type { CustomPopperProps, DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
+import type { DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
 import InputWrapper from "../../InputWrapper";
@@ -80,10 +80,6 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 		return option.value === value?.value;
 	};
 
-	const CustomPopper = (props: CustomPopperProps) => {
-		return <StyledPopper $value={value?.value === ""} {...props} />;
-	};
-
 	if (skeleton || loading) {
 		return (
 			<Skeleton
@@ -109,7 +105,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				onChange={(_event, option) => onDropDownChange(option as MosaicLabelValue)}
 				$error={Boolean(error)}
 				renderInput={renderInput}
-				PopperComponent={CustomPopper}
+				PopperComponent={StyledPopper}
 				popupIcon={<ExpandMoreIcon />}
 				onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 				open={isOpen}

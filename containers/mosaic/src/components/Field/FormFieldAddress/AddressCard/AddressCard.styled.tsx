@@ -9,13 +9,11 @@ export const StyledAddressCard = styled.div`
   flex-direction: column;
   color: ${theme.newColors.almostBlack["100"]};
   background-color: ${theme.newColors.grey1["100"]};
-  font-family: ${theme.fontFamily};
   height: 204px;
   padding: 24px 16px 16px 24px;
   width: 300px;
 
   & span {
-    font-size: 14px;
     margin: 0;
     overflow: hidden;
     white-space: nowrap;
@@ -25,7 +23,7 @@ export const StyledAddressCard = styled.div`
 `;
 
 export const AddressTitle = styled.span`
-  font-weight: ${theme.fontWeight.semiBold};
+  font-weight: ${theme.weight.medium};
   margin-bottom: 12px !important;
 `;
 

@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { CardPage } from "../../../pages/Components/Card/CardPlaygroundPage";
 import { cardKnobs } from "../../../utils/data/knobs";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("Components - Card - Playground", () => {
 	let page: Page;
@@ -31,11 +31,11 @@ test.describe("Components - Card - Playground", () => {
 		await validateNumberOfButtons(cardKnobs.knobTopActions);
 	});
 
-	test("Validate font weight of the Content Title.", async () => {
-		expect(await cardPage.getFontWeightFromElement(cardPage.cardTitle)).toBe((theme.fontWeight.medium).toString());
+	test("Validate font weight of the Card Title.", async () => {
+		expect(await cardPage.getFontWeightFromElement(cardPage.cardTitle)).toBe((theme.weight.medium).toString());
 	});
 
-	test("Validate font size of the Content Title.", async () => {
+	test("Validate font size of the Card Title.", async () => {
 		expect(await cardPage.getFontSizeFromElement(cardPage.cardTitle)).toBe("16px");
 	});
 });

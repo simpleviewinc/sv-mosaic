@@ -33,7 +33,7 @@ export const DragAndDropContainer = styled.label<{ $isOver?: boolean; $disabled?
 export const DragAndDropSpan = styled.span<{ $isOver?: boolean }>`
   color: ${({ $isOver }) =>
 		$isOver ? theme.newColors.realTeal["100"] : theme.newColors.grey3["100"]};
-  font-size: 16px;
+  font-size: ${theme.fontSize.text.md};
   margin-bottom: ${({ $isOver }) => ($isOver ? "" : "24px")};
 `;
 

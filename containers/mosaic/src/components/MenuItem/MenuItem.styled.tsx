@@ -8,8 +8,6 @@ export const colors = ["black", "blue", "red", "yellow", "teal", "gray"];
 export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	&& {
 		color: ${theme.newColors.grey4["100"]};
-		font-family: ${theme.fontFamily};
-		font-size: 14px;
 		min-height: 42px;
 		padding: 8px 16px;
 
@@ -26,7 +24,7 @@ export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 		}
 
 		&.Mui-selected {
-			font-weight: ${theme.fontWeight.bold};
+			font-weight: ${theme.weight.medium};
 			background-color: ${theme.newColors.realTeal["10"]};
 
 			&:hover,
@@ -41,7 +39,7 @@ export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	}
 
 	& > .icon > svg {
-		font-size: ${theme.iconFontSize};
+		font-size: ${theme.fontSize.text["2xl"]};
 	}
 
 	& > .menuLabel {
