@@ -2,6 +2,7 @@ import type { FieldDefAddress, FieldDefAddressSingle } from "@root/components/Fi
 import type { FieldDefAdvancedSelection } from "@root/components/Field/FormFieldAdvancedSelection";
 import type { FieldDefCheckbox } from "@root/components/Field/FormFieldCheckbox";
 import type { FieldDefChip } from "@root/components/Field/FormFieldChips";
+import type { FieldDefCode } from "@root/components/Field/FormFieldCode/FormFieldCodeTypes";
 import type { FieldDefColor } from "@root/components/Field/FormFieldColor/FormFieldColorTypes";
 import type { FieldDefDate } from "@root/components/Field/FormFieldDate";
 import type { FieldDefTime } from "@root/components/Field/FormFieldTime/TimeField";
@@ -229,6 +230,7 @@ export type FieldDef =
 	| FieldDefDate
 	| FieldDefTime
 	| FieldDefColor
+	| FieldDefCode
 	| FieldDefChip
 	| FieldDefCheckbox
 	| FieldDefAdvancedSelection

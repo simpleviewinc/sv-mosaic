@@ -16,6 +16,7 @@ import FormFieldRadio from "@root/components/Field/FormFieldRadio/FormFieldRadio
 import FormFieldRaw from "@root/components/Field/FormFieldRaw/FormFieldRaw";
 import FormFieldToggle from "@root/components/Field/FormFieldToggle/FormFieldToggle";
 import FormFieldColor from "@root/components/Field/FormFieldColor/FormFieldColor";
+import FormFieldCode from "@root/components/Field/FormFieldCode/FormFieldCode";
 import FormFieldDate from "@root/components/Field/FormFieldDate";
 import type { TimeData } from "@root/components/Field/FormFieldTime/TimeField";
 import FormFieldTime from "@root/components/Field/FormFieldTime/TimeField";
@@ -98,6 +99,13 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			},
 			color: {
 				Component: FormFieldColor,
+				validate: "onBlur",
+				externalToInternalValue,
+				internalToExternalValue,
+				hasValue: defaultHasValue,
+			},
+			code: {
+				Component: FormFieldCode,
 				validate: "onBlur",
 				externalToInternalValue,
 				internalToExternalValue,
