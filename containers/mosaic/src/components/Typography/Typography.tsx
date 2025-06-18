@@ -1,41 +1,57 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 
-import type { TypographyProps, TypographyTag, TypographyVariant } from "./TypographyTypes";
-import { Component } from "./Typography.styled";
+import type { TypographyProps, TypographyVariantSize, TypographyTag, TypographyVariant } from "./TypographyTypes";
+import { StyledTypography } from "./Typography.styled";
+import type { Theme } from "@root/theme/theme";
 
 const defaultTagMap: Record<TypographyVariant, TypographyTag> = {
-	title: "h1",
-	subtitle: "h3",
 	body: "div",
-	none: "span",
+	display: "div",
+	text: "span",
 };
 
-export default function Typography({
+const defaultSizeMap: {[T in TypographyVariant]: TypographyVariantSize<T> | "inherit"} = {
+	body: "md",
+	display: "sm",
+	text: "inherit",
+};
+
+const defaultWeightMap: Record<TypographyVariant, keyof Theme["weight"]> = {
+	body: "regular",
+	display: "medium",
+	text: "inherit",
+};
+
+export default function Typography<T extends TypographyVariant>({
 	children,
 	attrs = {},
 	tag: providedTag,
-	variant = "none",
+	variant = "text" as T,
 	maxLines,
 	color,
 	breakAll,
 	className,
 	title,
-}: TypographyProps): ReactElement {
+	size = defaultSizeMap[variant],
+	weight = defaultWeightMap[variant],
+}: TypographyProps<T>): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
 
 	return (
-		<Component
+		<StyledTypography
 			{...attrs}
 			className={className}
 			$variant={variant}
 			$maxLines={maxLines}
 			$color={color}
 			$breakAll={breakAll}
+			$size={size as any}
+			$weight={weight}
 			title={title !== undefined ? title : typeof children === "string" ? children : undefined}
 			as={tag}
 		>
 			{children}
-		</Component>
+		</StyledTypography>
 	);
 }

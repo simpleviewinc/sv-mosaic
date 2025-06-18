@@ -40,8 +40,6 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 	}
 
 	.MuiOutlinedInput-input {
-		font-family: ${theme.fontFamily};
-
 		${({ disabled }) => !disabled ? `
 			color: ${theme.newColors.almostBlack["100"]};
 		` : `
@@ -49,25 +47,15 @@ export const StyledTextField = styled(({ fieldSize, ...rest }) => (
 		`};
 
 		::placeholder {
-			font-weight: ${theme.fontWeight.normal};
 			color: ${theme.newColors.grey3["100"]};
 			opacity: 1;
 		}
 	}
 
 	.MuiFormHelperText-contained {
-		font-family: ${theme.fontFamily};
 		margin-top: ${pr => pr.error ? "9px" : "7px"};
 		margin-left: 0;
 		word-break: break-all;
-	}
-
-	.MuiTypography-root {
-		font-family: ${theme.fontFamily};
-	}
-
-	.MuiFormHelperText-root.Mui-error {
-		color: ${theme.newColors.darkRed["100"]}
 	}
 
 	& .Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{

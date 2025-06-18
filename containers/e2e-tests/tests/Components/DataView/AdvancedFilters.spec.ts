@@ -6,7 +6,7 @@ import { AdvancedFiltersComponent } from "../../../pages/Components/DataView/Adv
 import type { PaginationComponent } from "../../../pages/Components/DataView/PaginationComponent";
 import { isACorrentDateRange } from "../../../utils/helpers/helper";
 import type { ColumnsComponent } from "../../../pages/Components/DataView/ColumnsComponent";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("Components - Data View - Advanced Filters", () => {
 	let page: Page;
@@ -34,7 +34,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 	});
 
 	const validateFilterStyles = async () => {
-		const expectedFontWeight = (theme.fontWeight.bold).toString();
+		const expectedFontWeight = (theme.weight.medium).toString();
 		const expectedFontSize = "14px";
 		const expectedFontColor = theme.newColors.almostBlack[100];
 		const applyLocator = advancedFilters.applyBtn;

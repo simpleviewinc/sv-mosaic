@@ -1,5 +1,4 @@
 import React, { memo, useMemo, useCallback } from "react";
-import styled from "styled-components";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
@@ -7,11 +6,6 @@ import type { DataViewDisplayGridSortControlProps } from "./DataViewDisplayGridS
 
 import Button from "../../Button";
 import testIds from "@root/utils/testIds";
-
-const StyledDiv = styled.div`
-	${/* The arrow is comically large without this */""}
-	& > .directionButton svg { font-size: 20px; }
-`;
 
 const dirButtonAtts = { "aria-label": "Sort Direction" };
 
@@ -53,7 +47,7 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 	}, [props.sort, props.onSortChange]);
 
 	return (
-		<StyledDiv>
+		<div>
 			<Button
 				label={activeColumn.label}
 				variant="text"
@@ -72,7 +66,7 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 				onClick={onDirectionChange}
 				muiAttrs={dirButtonAtts}
 			/>
-		</StyledDiv>
+		</div>
 	);
 }
 
