@@ -4,8 +4,6 @@ import theme from "../../theme";
 export const StyledTopSummary = styled.div`
   background: white;
   border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-  color: ${theme.newColors.almostBlack["100"]};
-  font-family: ${theme.fontFamily};
   padding: 24px 24px 16px 24px;
   display: flex;
   gap: 24px;
@@ -70,7 +68,6 @@ export const Item = styled.div`
   & h5,
   & h6 {
     margin: 0px;
-    font-size: 14px;
     max-width: 280px;
     overflow: hidden;
     text-overflow: ellipsis;

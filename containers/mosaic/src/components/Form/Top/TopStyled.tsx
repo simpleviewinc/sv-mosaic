@@ -85,8 +85,6 @@ export const SmallBackIcon = styled(ClearIcon)`
 
 // Title
 export const Heading = styled.div`
-	font-family: ${theme.fontFamily};
-
 	${containerQuery("sm", "FORM")} {
 		margin-right: auto;
 		max-width: 50%;

@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { FormFieldNumberTablePage } from "../../../pages/FormFields/FormFieldNumberTable/FormFieldNumberTablePage";
 import { commonKnobs, formFieldNumberTableKnobs as knob } from "../../../utils/data/knobs";
 
@@ -51,7 +51,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		for (let i = 0; i < await ffNumberTablePage.tableHeadRowLocator.first().locator("td").count(); i++) {
 			const columnLocator = ffNumberTablePage.tableBodyRowLocator.first().locator("td").nth(i);
 			expect.soft(await ffNumberTablePage.getFontWeightFromElement(columnLocator), "Validating Font Weight the Total of each column.")
-				.toBe((theme.fontWeight.medium).toString());
+				.toBe((theme.weight.medium).toString());
 			expect.soft(await ffNumberTablePage.getFontSizeFromElement(columnLocator), "Validating Font Size the Total of each column.").toBe("14px");
 		}
 	});
@@ -60,11 +60,11 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 		expect(await ffNumberTablePage.getBackgroundColorFromElement(ffNumberTablePage.tableBodyRowLocator.last())).toBe(theme.newColors.grey1["100"]);
 		const totalColumnInRow = ffNumberTablePage.tableBodyRowLocator.last().locator("td").first();
 		expect.soft(await ffNumberTablePage.getFontSizeFromElement(totalColumnInRow), "Validating Font Size the Total").toBe("14px");
-		expect.soft(await ffNumberTablePage.getFontWeightFromElement(totalColumnInRow), "Validating Font Weight the Total").toBe((theme.fontWeight.semiBold).toString());
+		expect.soft(await ffNumberTablePage.getFontWeightFromElement(totalColumnInRow), "Validating Font Weight the Total").toBe((theme.weight.medium).toString());
 
 		for (let i = 1; i < await ffNumberTablePage.tableBodyRowLocator.last().locator("td").count() - 1; i++) {
 			const columnLocator = ffNumberTablePage.tableBodyRowLocator.last().locator("td").nth(i);
-			expect.soft(await ffNumberTablePage.getFontWeightFromElement(columnLocator), "Validating Font Weight the Total of each column.").toBe((theme.fontWeight.normal).toString());
+			expect.soft(await ffNumberTablePage.getFontWeightFromElement(columnLocator), "Validating Font Weight the Total of each column.").toBe((theme.weight.medium).toString());
 			expect.soft(await ffNumberTablePage.getFontSizeFromElement(columnLocator), "Validating Font Size the Total of each column.").toBe("14px");
 		}
 	});

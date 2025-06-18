@@ -5,10 +5,10 @@ import Dialog from "@mui/material/Dialog";
 
 // Utils
 import theme from "@root/theme";
+import { Text } from "../Typography";
 
 export const StyledDialog = styled(Dialog)`
-z-index: 99999 !important;
-  font-family: ${theme.fontFamily};
+  z-index: 99999 !important;
 
   .MuiDialogContent-root {
     border-bottom: 2px solid ${theme.newColors.grey2["100"]};
@@ -31,9 +31,8 @@ z-index: 99999 !important;
   }
 `;
 
-export const StyledDialogTitle = styled.div`
-  color: ${theme.newColors.almostBlack["100"]};
-  font-size: 20px;
-  font-weight: ${theme.fontWeight.medium};
-  padding: 40px 30px 24px 30px;
+export const StyledDialogTitle = styled(Text).attrs({ tag: "h3", size: "xl", weight: "medium" })`
+  && {
+    padding: 40px 30px 24px 30px;
+  }
 `;

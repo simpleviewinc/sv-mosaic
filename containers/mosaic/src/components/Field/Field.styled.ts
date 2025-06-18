@@ -16,7 +16,6 @@ export const StyledFieldContainer = styled.div`
 `;
 
 export const StyledFieldWrapper = styled.div<{ $error?: boolean; $spacing?: FormSpacing }>`
-	font-family: ${theme.fontFamily};
 	position: relative;
 	min-width: 0;
 	flex-grow: 1;

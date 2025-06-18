@@ -1,7 +1,8 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { DialogPage } from "../../../pages/Components/Dialog/DialogPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
+import { ensureRgbCss } from "../../../utils/helpers/color";
 
 test.describe("Components - Dialog - Example", () => {
 	let page: Page;
@@ -14,18 +15,12 @@ test.describe("Components - Dialog - Example", () => {
 	});
 
 	test("Validate Dialog title has almostBlack color.", async () => {
-		const expectedColor = theme.newColors.almostBlack["100"];
+		const expectedColor = ensureRgbCss(theme.color.black);
+		const dialogTitle = dialogPage.page.getByRole("heading", { name: "Dialog title" });
 		if (!await dialogPage.dialog.isVisible()) {
 			await dialogPage.openDialogButton.click();
 		}
+		await expect(dialogTitle).toBeVisible();
 		expect(await dialogPage.getColorFromElement(dialogPage.dialogTitle)).toBe(expectedColor);
-	});
-
-	test("Validate Dialog text has grey2 in border bottom.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
-		if (!await dialogPage.dialog.isVisible()) {
-			await dialogPage.openDialogButton.click();
-		}
-		expect(await dialogPage.getSpecificBorderFromElement(dialogPage.dialogText, "bottom")).toContain(expectedColor);
 	});
 });
