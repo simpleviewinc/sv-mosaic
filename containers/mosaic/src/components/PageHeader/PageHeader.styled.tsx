@@ -3,13 +3,11 @@ import styled from "styled-components";
 
 export const StyledPageHeader = styled.div`
 	display: flex;
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	// TODO Make everything border-box at a higher level and just inherit.
-	box-sizing: border-box;
+	border-bottom: 1px solid ${theme.color.gray[300]};
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 24px;
+	padding: ${theme.spacing(5, 6)};
 	min-height: 80px;
 	max-height: 80px;
 `;
