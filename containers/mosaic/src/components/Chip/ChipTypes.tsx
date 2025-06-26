@@ -24,4 +24,8 @@ export interface ChipsProps {
    * Function to be executed as callback when clicking on a Chip
    */
 	onClick?: (...args: any) => void;
+   /**
+    * Whether to stretch the full width of its container
+    */
+   fullWidth?: boolean;
 }
