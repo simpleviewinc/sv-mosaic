@@ -47,7 +47,7 @@ describe(__dirname, () => {
 			comparisons: [{ value: "in", label: "In" }],
 		});
 
-		expect(screen.queryByRole("button", { name: "In" })).toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "Comparison Selector" })).toBeInTheDocument();
 	});
 
 	it("should disable the list of checkboxes if there is a select limit and it has been reached", async () => {
@@ -76,7 +76,7 @@ describe(__dirname, () => {
 		expect(checkbox).toBeInTheDocument();
 		expect(checkbox).toBeChecked();
 
-		const comparison = screen.queryByRole("button", { name: "In" });
+		const comparison = screen.queryByRole("button", { name: "Comparison Selector" });
 		expect(comparison).toBeInTheDocument();
 		await user.click(comparison);
 		const exists = screen.queryByRole("menuitem", { name: "Exists" });
@@ -95,7 +95,7 @@ describe(__dirname, () => {
 		});
 
 		const checkbox = screen.queryByLabelText("Option 1");
-		const comparison = screen.queryByRole("button", { name: "Not In" });
+		const comparison = screen.queryByRole("button", { name: "Comparison Selector" });
 		const selectedOption = screen.queryByRole("button", { name: "Option 1" });
 		const clear = screen.queryByRole("button", { name: "Clear" });
 		expect(checkbox).toBeInTheDocument();
@@ -160,7 +160,7 @@ describe(__dirname, () => {
 		await user.click(option1);
 		await user.click(option2);
 
-		const comparison = screen.queryByRole("button", { name: "In" });
+		const comparison = screen.queryByRole("button", { name: "Comparison Selector" });
 		expect(comparison).toBeInTheDocument();
 		await user.click(comparison);
 		const exists = screen.queryByRole("menuitem", { name: "Exists" });
@@ -314,7 +314,7 @@ describe(__dirname, () => {
 		});
 
 		const option = screen.queryByLabelText("Option 1");
-		const comparison = screen.queryByRole("button", { name: "In" });
+		const comparison = screen.queryByRole("button", { name: "Comparison Selector" });
 		expect(option).toBeInTheDocument();
 		expect(option).toBeChecked();
 		expect(comparison).toBeInTheDocument();

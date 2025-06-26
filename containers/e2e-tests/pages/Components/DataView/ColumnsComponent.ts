@@ -1,4 +1,4 @@
-import { testIds } from "@simpleview/sv-mosaic";;
+import { testIds } from "@simpleview/sv-mosaic";
 import { BasePage } from "../../BasePage";
 import type { Locator, Page } from "@playwright/test";
 
@@ -18,7 +18,7 @@ export class ColumnsComponent extends BasePage {
 		this.page = page;
 		this.title = page.locator("[data-testid='drawer-title-test-id']");
 		this.columnsBtn = page.locator(".headerActions button").first();
-		this.rightItems = page.locator(".right [role='button']");
+		this.rightItems = page.getByTestId("mos:DataView:activeColumns").locator("[role='button']");
 		this.leftItems = this.listItemLabelLocator;
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = `[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`;
