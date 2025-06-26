@@ -67,4 +67,9 @@ export interface TypographyProps<T extends TypographyVariant> {
 	 * on the Typography variant.
 	 */
 	weight?: keyof Theme["weight"];
+	/**
+	 * The line height of the text. If not provided, it will be derived
+	 * from the size property.
+	 */
+	line?: keyof Theme["line"];
 }
