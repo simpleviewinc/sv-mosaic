@@ -46,7 +46,10 @@ export const Playground = ({ showComparisons, limit }: typeof Playground.args): 
 				key="multi_select_category"
 				label="Multi Select Category"
 				args={{
-					getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+					getOptions: async (params) => {
+						await new Promise((resolve) => setTimeout(() => resolve(null), 2_000));
+						return categoriesHelper.getOptions.bind(categoriesHelper)(params);
+					},
 					getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 					comparisons: showComparisons && ["in", "not_in", "all", "exists", "not_exists"],
 					limit,

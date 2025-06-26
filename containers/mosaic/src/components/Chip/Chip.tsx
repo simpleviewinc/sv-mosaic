@@ -12,6 +12,7 @@ const Chip = ({
 	selected = false,
 	onDelete,
 	label,
+	fullWidth,
 	...props
 }: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const ref = useRef<HTMLDivElement>();
@@ -37,6 +38,7 @@ const Chip = ({
 			ref={ref}
 			tabIndex={onDelete ? -1 : undefined}
 			title={label}
+			$fullWidth={fullWidth}
 		/>
 	);
 };

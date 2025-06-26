@@ -2,7 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { DatePickerComponent } from "./DatePickerComponent";
 import { FilterComponent } from "../../Components/DataView/FilterComponent";
-import { testIds } from "@simpleview/sv-mosaic";;
+import { testIds } from "@simpleview/sv-mosaic";
 
 export class AdvancedFiltersComponent extends FilterComponent {
 	readonly page: Page;
@@ -62,8 +62,8 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.comparisonExistsOption = this.dropdownOptions.locator(":scope", { hasText: "Exists" }).nth(0);
 		this.comparisonNotExistsOption = this.dropdownOptions.locator(":scope", { hasText: "Not Exists" }).nth(0);
 
-		this.comparisonDropdown = page.locator("div.comparisonDropdown button").nth(0);
-		this.helpComparisonCategoriesDialogButton = page.locator("div.comparisonDropdown button").nth(1);
+		this.comparisonDropdown = page.getByRole("button", { name: "Comparison Selector" });
+		this.helpComparisonCategoriesDialogButton = page.getByRole("button", { name: "Comparison Help" });
 		this.helpComparisonCategoriesDialog = page.getByTestId(testIds.COMPARISON_HELP);
 		this.keywordSearchComparisonCategories = page.locator("div.options input[type='text']");
 

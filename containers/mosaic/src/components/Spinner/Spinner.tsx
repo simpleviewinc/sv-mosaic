@@ -8,7 +8,7 @@ import theme from "@root/theme";
 function Spinner(props: SpinnerProps) {
 	return (
 		<CircularProgress
-			style={{ color : theme.newColors.realTeal["100"] }}
+			style={{ color: theme.color.gray[500] }}
 			size={30}
 			className={props.className}
 			value={props.progress ?? undefined}
