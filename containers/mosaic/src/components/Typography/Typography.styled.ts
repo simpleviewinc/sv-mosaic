@@ -11,6 +11,7 @@ interface BaseProps<T extends TypographyVariant> {
 	$whiteSpace?: Properties["whiteSpace"];
 	$size?: TypographyVariantSize<T> | "inherit";
 	$weight?: keyof Theme["weight"];
+	$line?: keyof Theme["line"];
 }
 
 /**
@@ -107,6 +108,7 @@ export const StyledTypography = styled.div<BaseProps<TypographyVariant> & { $var
 	$color,
 	$whiteSpace,
 	$weight,
+	$line: providedLineHeight,
 }) => {
 	const { fontSize, lineHeight } = $size !== "inherit" ? variantStyleMap[$variant][$size] : {
 		fontSize: "inherit",
@@ -119,7 +121,7 @@ export const StyledTypography = styled.div<BaseProps<TypographyVariant> & { $var
 			padding: 0;
 			font-size: ${fontSize};
 			font-weight: ${theme.weight[$weight]};
-			line-height: ${lineHeight};
+			line-height: ${providedLineHeight ? theme.line[providedLineHeight] : lineHeight};
 		`,
 		$maxLines && `
 			display: -webkit-box;
