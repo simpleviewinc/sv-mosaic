@@ -1,4 +1,4 @@
-import { testIds } from "@simpleview/sv-mosaic";;
+import { testIds } from "@simpleview/sv-mosaic";
 import { BasePage } from "../../BasePage";
 import { DataviewPage } from "../../Components/DataView/DataViewPage";
 import type { Page, Locator } from "@playwright/test";
@@ -36,7 +36,7 @@ export class FilterComponent extends BasePage {
 		super(page);
 		this.page = page;
 		this._dataviewPage = new DataviewPage(page);
-		this.optionsLocator = page.locator(".options");
+		this.optionsLocator = page.getByTestId("mos:PickerPanel:options");
 		this.labelCheckbox = this.optionsLocator.locator("[data-testid='label-test-id']");
 		this.filterCheckbox = this.optionsLocator.locator(this.checkboxInputString);
 		this.keywordFilterOption = this.labelCheckbox.locator(":scope", { hasText: "Keyword" });
@@ -44,7 +44,7 @@ export class FilterComponent extends BasePage {
 		this.keywordInput = page.locator(".inputRow input");
 		this.categoryFilterOption = this.labelCheckbox.locator(":scope", { hasText: "Categories" });
 		this.categoryBtn = this._dataviewPage.filterRowBtn.locator(":scope", { hasText: "Categories" }).first();
-		this.categoryKeywordInput = page.locator(".searchBar input");
+		this.categoryKeywordInput = page.getByPlaceholder("Keyword...");
 
 		this.singleSelectCategoryOption = this.labelCheckbox.locator(":scope", { hasText: "Single Select Category" });
 		this.categoryWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Categories with Comparisons" });
@@ -54,8 +54,8 @@ export class FilterComponent extends BasePage {
 		this.titleWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Title with Comparisons" });
 
 		this.categoryItems = this.listItemLabelLocator;
-		this.selectedOptions = page.locator(".chips div");
-		this.loadMoreBtn = page.locator(".loadContainer button");
+		this.selectedOptions = page.getByTestId("mos:Chip:root");
+		this.loadMoreBtn = page.getByRole("button", { name: "Load more..." });
 		this.moreCategoriesTooltip = page.getByTestId(testIds.DATA_VIEW_FILTER_MULTI_COUNTER);
 		this.clearBtn = page.locator("div[role='presentation'] >> text=Clear");
 		this.filtersRowLocator = page.getByTestId("mos:DataView:filterBar");

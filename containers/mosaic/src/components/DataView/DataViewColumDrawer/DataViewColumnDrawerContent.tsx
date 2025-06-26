@@ -5,6 +5,7 @@ import { StyledWrapper } from "./DataViewColumnDrawer.styled";
 import DataViewColumnDrawerColumns from "./DataViewColumnDrawerColumns";
 import type { MosaicLabelValue } from "@root/types";
 import PickerPanel, { PickerPanelActive, PickerPanelSubtitle } from "@root/components/PickerPanel";
+import testIds from "@root/utils/testIds";
 
 function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 	const [activeColumns, setActiveColumns] = useState<string[]>(props.columns.map((val) => val.name));
@@ -52,7 +53,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 				onCancel={props.onClose}
 				onBack={props.onClose}
 				activePanel={(
-					<PickerPanelActive>
+					<PickerPanelActive data-testid={testIds.DATA_VIEW_ACTIVE_COLUMNS}>
 						<PickerPanelSubtitle>{t("mosaic:DataView.column_order")}</PickerPanelSubtitle>
 						<DataViewColumnDrawerColumns
 							activeColumns={activeColumns}

@@ -70,7 +70,7 @@ function DataViewFilterMultiselectDropdownContent({
 		};
 
 		comparisonDropdown = (
-			<ComparisonDropdown>
+			<ComparisonDropdown data-testid={testIds.DATA_VIEW_FILTERS_COMPARISON}>
 				<StyledComparisonHeader>
 					{t("mosaic:DataView.comparison")}
 				</StyledComparisonHeader>
@@ -82,6 +82,7 @@ function DataViewFilterMultiselectDropdownContent({
 						iconPosition="right"
 						mIcon={ExpandMoreIcon}
 						menuItems={menuItems}
+						muiAttrs={{ "aria-label": "Comparison Selector" }}
 					/>
 					<Button
 						variant="icon"
@@ -101,6 +102,7 @@ function DataViewFilterMultiselectDropdownContent({
 								))}
 							</StyledComparisonHelp>
 						)}
+						muiAttrs={{ "aria-label": "Comparison Help" }}
 					/>
 				</ButtonRow>
 			</ComparisonDropdown>
@@ -124,7 +126,7 @@ function DataViewFilterMultiselectDropdownContent({
 				checked={checked}
 				disabled={disabled}
 				activePanel={(
-					<StyledPanelPickerActive>
+					<StyledPanelPickerActive data-testid={testIds.DATA_VIEW_FILTER_MULTI_ACTIVE}>
 						{comparisonDropdown}
 						<SelectedOptionsSubtitle>{t("mosaic:DataView.selected_options")}</SelectedOptionsSubtitle>
 						<Column $align="start" $gap={[3]}>

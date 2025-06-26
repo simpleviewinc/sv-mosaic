@@ -8,7 +8,7 @@ export const StyledPickerPanel = styled(PickerPanel)`
 	height: 344px;
 `;
 
-export const StyledComparisonHeader = styled(Text).attrs({ tag: "h4", size: "lg" })`
+export const StyledComparisonHeader = styled(Text).attrs({ tag: "h3", size: "lg" })`
 	margin-bottom: ${theme.spacing(2)};
 `;
 

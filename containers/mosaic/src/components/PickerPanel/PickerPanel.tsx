@@ -15,6 +15,7 @@ import CheckboxList from "../CheckboxList";
 import Button from "../Button";
 import { useMosaicTranslation } from "@root/i18n";
 import { Row } from "../common";
+import testIds from "@root/utils/testIds";
 
 function PickerPanel({
 	fullHeight = true,
@@ -93,7 +94,7 @@ function PickerPanel({
 				/>
 			)}
 			<PickerPanelPrimary>
-				<LeftPanel>
+				<LeftPanel data-testid={testIds.PICKER_PANEL_OPTIONS}>
 					<LeftPanelTop>
 						{optionsSubtitle && (
 							<PickerPanelSubtitle>
