@@ -61,6 +61,8 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 						/>
 					</PickerPanelActive>
 				)}
+				noOptions="No columns to display"
+				saveText={t("mosaic:common:apply")}
 			/>
 		</StyledWrapper>
 	);

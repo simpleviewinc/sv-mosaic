@@ -125,6 +125,16 @@ const AdvancedSelectionDrawerAsync = ({
 const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
 	const { fieldDef } = props;
 
+	if (
+		!fieldDef.inputSettings ||
+		(
+			!("options" in fieldDef.inputSettings) &&
+			!("getOptions" in fieldDef.inputSettings)
+		)
+	) {
+		throw new Error("AdvancedSelection field requires inputSettings containing either an `options` or `getOptions` property.");
+	}
+
 	if ("options" in fieldDef.inputSettings) {
 		return (
 			<AdvancedSelectionDrawerSync

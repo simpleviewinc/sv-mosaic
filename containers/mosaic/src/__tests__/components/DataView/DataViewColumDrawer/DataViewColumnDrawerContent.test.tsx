@@ -75,7 +75,7 @@ describe(__dirname, () => {
 
 		await user.type(keywordInput, "non-existing-column");
 
-		expect(screen.queryByText("No columns match the given keyword")).toBeInTheDocument();
+		expect(screen.queryByText("No columns to display")).toBeInTheDocument();
 	});
 
 	it("should give a muted warning if no columns are available", async () => {
