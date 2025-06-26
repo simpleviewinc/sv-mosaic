@@ -35,6 +35,7 @@ export default function Typography<T extends TypographyVariant>({
 	title,
 	size = defaultSizeMap[variant],
 	weight = defaultWeightMap[variant],
+	line,
 }: TypographyProps<T>): ReactElement {
 	const tag = providedTag || defaultTagMap[variant];
 
@@ -48,6 +49,7 @@ export default function Typography<T extends TypographyVariant>({
 			$breakAll={breakAll}
 			$size={size as any}
 			$weight={weight}
+			$line={line}
 			title={title !== undefined ? title : typeof children === "string" ? children : undefined}
 			as={tag}
 		>
