@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import theme from "@root/theme";
 import Popover from "@mui/material/Popover";
-
-export const StyledWrapper = styled.div`
-	border-radius: 5px;
-	border: 1px solid ${theme.newColors.grey2["100"]};
-	background: white;
-`;
+import theme from "@root/theme";
 
 export const StyledPopover = styled(Popover)`
 	.MuiPaper-root {
-		box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
+		border-radius: ${theme.rounded.md};
+		box-shadow: ${theme.border.light}, ${theme.shadow["2xl"]};
+		border: 0;
 	}
+`;
+
+export const StyledWrapper = styled.div`
+	background: ${theme.color.white};
 `;

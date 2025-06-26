@@ -127,7 +127,7 @@ describe(__dirname, () => {
 
 		expect(button).toBeInTheDocument();
 		await user.click(button);
-		const comparison = screen.queryByRole("button", { name: "Exists" });
+		const comparison = screen.queryByRole("button", { name: "Comparison Selector" });
 		const apply = screen.queryByRole("button", { name: "Apply" });
 		expect(apply).toBeInTheDocument();
 		expect(comparison).toBeInTheDocument();

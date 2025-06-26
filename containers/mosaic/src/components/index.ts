@@ -97,3 +97,5 @@ export * from "./PageHeader";
 export { default as ThemeProvider } from "./ThemeProvider";
 
 export { default as Badge } from "./Badge";
+
+export { default as PickerPanel } from "./PickerPanel";
