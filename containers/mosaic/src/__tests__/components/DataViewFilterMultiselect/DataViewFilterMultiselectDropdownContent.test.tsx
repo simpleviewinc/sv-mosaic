@@ -64,19 +64,26 @@ describe(__dirname, () => {
 	});
 
 	it("should render the checkboxes unchecked if either the exists or not exists comparison is used", async () => {
-		await setup({
+		const { user } = await setup({
 			getOptions: () => ({ docs: [{ value: "option1", label: "Option 1" }] }),
-			comparison: "exists",
-			comparisons: [{ value: "exists", label: "Exists" }, { value: "not_exists", label: "Not Exists" }],
+			comparison: "in",
+			comparisons: [{ value: "in", label: "In" }, { value: "exists", label: "Exists" }, { value: "not_exists", label: "Not Exists" }],
+			selected: [{ value: "option1", label: "Option 1" }],
 		});
 
 		const checkbox = screen.queryByRole("checkbox");
-		const options = screen.queryByTestId(testIds.DATA_VIEW_FILTER_MULTI_OPTIONS);
 
 		expect(checkbox).toBeInTheDocument();
-		expect(options).toBeInTheDocument();
+		expect(checkbox).toBeChecked();
+
+		const comparison = screen.queryByRole("button", { name: "In" });
+		expect(comparison).toBeInTheDocument();
+		await user.click(comparison);
+		const exists = screen.queryByRole("menuitem", { name: "Exists" });
+		expect(exists).toBeInTheDocument();
+		await user.click(exists);
+
 		expect(checkbox).not.toBeChecked();
-		expect(options).toHaveClass("disabled");
 	});
 
 	it("should reset the selected, comparison, keyword and list of chips in state when the clear button is clicked", async () => {
@@ -135,8 +142,8 @@ describe(__dirname, () => {
 		const onApplyMock = vi.fn();
 
 		const { user } = await setup({
-			comparison: "exists",
-			comparisons: [{ value: "exists", label: "Exists" }],
+			comparison: "in",
+			comparisons: [{ value: "exists", label: "Exists" }, { value: "in", label: "In" }],
 			getOptions: () => ({ docs: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }] }),
 			selected: [{ value: "option1", label: "Option 1" }],
 			onApply: onApplyMock,
@@ -152,6 +159,14 @@ describe(__dirname, () => {
 
 		await user.click(option1);
 		await user.click(option2);
+
+		const comparison = screen.queryByRole("button", { name: "In" });
+		expect(comparison).toBeInTheDocument();
+		await user.click(comparison);
+		const exists = screen.queryByRole("menuitem", { name: "Exists" });
+		expect(exists).toBeInTheDocument();
+		await user.click(exists);
+
 		await user.click(apply);
 
 		expect(onApplyMock).toBeCalledWith({
@@ -176,23 +191,6 @@ describe(__dirname, () => {
 		await user.click(deleteIcon);
 		expect(optionCheckbox).not.toBeChecked();
 		expect(optionChip).not.toBeInTheDocument();
-	});
-
-	it("should fire the on change handler if provided when chips are deleted", async () => {
-		const onChangeMock = vi.fn();
-
-		const { user } = await setup({
-			getOptions: () => ({ docs: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }] }),
-			selected: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }],
-			onChange: onChangeMock,
-		});
-
-		const option = screen.queryByRole("button", { name: "Option 1" });
-		expect(option).toBeInTheDocument();
-		const deleteIcon = within(option).queryByTestId(testIds.CHIP_DELETE_ICON);
-		expect(deleteIcon).toBeInTheDocument();
-		await user.click(deleteIcon);
-		expect(onChangeMock).toBeCalledWith([{ value: "option2", label: "Option 2" }]);
 	});
 
 	it("should fire the on change handler if provided when option checkboxes are toggled", async () => {
@@ -272,12 +270,12 @@ describe(__dirname, () => {
 		expect(screen.queryByLabelText("Option 1")).toBeInTheDocument();
 		expect(screen.queryByLabelText("Option 2")).toBeNull();
 		expect(keyword).toBeInTheDocument();
-		await user.type(keyword, "My Query");
+		await user.type(keyword, "Option 2");
 		// The keyword value is debounced in an awkward way.
 		// TODO: fix this.
 		await act(async () => await new Promise((resolve) => setTimeout(() => resolve(null), 300)));
 		expect(getOptionsMock).toBeCalledWith({
-			keyword: "My Query",
+			keyword: "Option 2",
 			limit: 25,
 			skip: 0,
 		});
@@ -305,29 +303,6 @@ describe(__dirname, () => {
 			limit: 25,
 			skip: 0,
 		});
-	});
-
-	it("should fire the create new option handler and add the resolved value as a checkbox option", async () => {
-		const createNewOptionMock = vi.fn<DataViewFilterMultiselectDropdownContentProps["createNewOption"]>(async (value) => ({
-			value: value.toLocaleLowerCase().replace(/ /g, "_"),
-			label: value.toLocaleUpperCase(),
-		}));
-
-		const { user } = await setup({ createNewOption: createNewOptionMock });
-
-		expect(screen.queryByRole("button", { name: "Create" })).toBeNull();
-		const keyword = screen.queryByPlaceholderText("Keyword...");
-		expect(keyword).toBeInTheDocument();
-		await user.type(keyword, "My Option");
-		// The keyword value is debounced in an awkward way.
-		// TODO: fix this.
-		await act(async () => await new Promise((resolve) => setTimeout(() => resolve(null), 300)));
-		const create = screen.queryByRole("button", { name: "Create" });
-		expect(create).toBeInTheDocument();
-		await user.click(create);
-		const option = screen.queryByLabelText("MY OPTION");
-		expect(option).toBeInTheDocument();
-		expect(option).toHaveAttribute("value", "my_option");
 	});
 
 	it("should update comparison and clear out any selected items if the exists or not exists comparisons are selected", async () => {

@@ -17,4 +17,6 @@ export interface PickerPanelProps extends Pick<PageHeaderProps, "title" | "onBac
 	onChange?: (options: MosaicLabelValue[]) => void;
 	onKeywordChange?: (keyword: string) => void;
 	isLoading?: boolean;
+	noOptions?: string;
+	saveText?: string;
 }

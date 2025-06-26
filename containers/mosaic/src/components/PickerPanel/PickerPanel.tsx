@@ -31,6 +31,8 @@ function PickerPanel({
 	onCancel,
 	onCreateNew,
 	isLoading,
+	noOptions = "No options to display",
+	saveText = "Save",
 	...rest
 }: PickerPanelProps): ReactElement {
 	const [keyword, setKeyword] = useState<string>("");
@@ -67,7 +69,7 @@ function PickerPanel({
 
 		if (onSave) {
 			result.push({
-				label: "Save",
+				label: saveText,
 				onClick: () => onSave(checked),
 				color: "yellow",
 				variant: "contained",
@@ -75,7 +77,7 @@ function PickerPanel({
 		}
 
 		return result;
-	}, [checked, onCancel, onSave]);
+	}, [checked, onCancel, onSave, saveText]);
 
 	const onKeywordInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
 		setKeyword(value);
@@ -105,6 +107,9 @@ function PickerPanel({
 							placeholder={t("mosaic:common.keyword___")}
 							autoFocus
 							InputProps={{
+								inputProps: {
+									"aria-label": t("mosaic:common.keyword___"),
+								},
 								startAdornment: (
 									<InputAdornment position="start">
 										<SearchIcon />
@@ -125,13 +130,17 @@ function PickerPanel({
 						/>
 					</LeftPanelTop>
 					<OptionsWrapper>
-						<CheckboxList
-							checked={checked}
-							options={filteredOptions}
-							onChange={onCheckboxListChange}
-							itemsPerColumn={-1}
-							disabled={disabled}
-						/>
+						{filteredOptions.length ? (
+							<CheckboxList
+								checked={checked}
+								options={filteredOptions}
+								onChange={onCheckboxListChange}
+								itemsPerColumn={-1}
+								disabled={disabled}
+							/>
+						) : (
+							<>{noOptions}</>
+						)}
 						{isLoading && (
 							<Row $justify="center">
 								<StyledSpinner />
@@ -141,7 +150,7 @@ function PickerPanel({
 							<LoadMoreButton
 								color="black"
 								variant="outlined"
-								label="Load More"
+								label={t("mosaic:common.load_more___")}
 								onClick={onLoadMore}
 							/>
 						)}
