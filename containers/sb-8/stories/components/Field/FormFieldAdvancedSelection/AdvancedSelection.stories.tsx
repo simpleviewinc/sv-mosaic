@@ -26,7 +26,7 @@ export const Playground = ({
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
-	optionsOrigin,
+	optionsType,
 	getOptionsLimit,
 	createNewOptionsKnob,
 	selectLimit,
@@ -81,12 +81,12 @@ export const Playground = ({
 					forceInstructionTooltip,
 					type: "advancedSelection",
 					inputSettings: {
-						options: optionsOrigin === "Local" ? options : undefined,
-						getOptions: optionsOrigin === "DB" ? categoriesHelper.getOptions.bind(categoriesHelper) : undefined,
-						getOptionsLimit:
-						optionsOrigin === "DB" && getOptionsLimit
-							? getOptionsLimit
-							: undefined,
+						...(optionsType === "Synchronous" ? {
+							options,
+						} : {
+							getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+							getOptionsLimit,
+						}),
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
 						selectLimit,
 					},
@@ -102,7 +102,7 @@ export const Playground = ({
 			forceInstructionTooltip,
 			getOptionsLimit,
 			options,
-			optionsOrigin,
+			optionsType,
 			createNewOptionsKnob,
 			selectLimit,
 		],
@@ -125,7 +125,7 @@ Playground.args = {
 	...commonFieldControls.args({
 		prepopData: { advancedSelection: mockOptions.slice(0, 3) },
 	}),
-	optionsOrigin: "Local",
+	optionsType: "Synchronous",
 	getOptionsLimit: 5,
 	createNewOptionsKnob: true,
 	selectLimit: -1,
@@ -133,8 +133,10 @@ Playground.args = {
 
 Playground.argTypes = {
 	...commonFieldControls.argTypes,
-	optionsOrigin: {
-		name: "Options Origin",
+	optionsType: {
+		name: "Options Type",
+		options: ["Synchronous", "Asynchronous"],
+		control: { type: "select" },
 	},
 	getOptionsLimit: {
 		name: "Get Options Limit",

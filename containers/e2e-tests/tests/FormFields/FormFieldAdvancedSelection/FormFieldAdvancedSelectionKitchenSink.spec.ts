@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionKitchenSinkPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { DataViewFilterMultiselectComponent } from "../../../pages/Components/DataView/DataViewFilterMultiselect";
 
 test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
@@ -70,21 +70,21 @@ test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 
 	test("Validate that the valid sections are displayed in Advanced selection with options prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithOptionsPropButton.click();
-		await multiSelect.validateMultiselectSectionsAreVisible();
+		await ffAdvancedSelectionPage.validateMultiselectSectionsAreVisible();
 	});
 
 	test("Validate that the valid sections are displayed in Advanced selection with getOptions prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithGetOptionsPropButton.click();
-		await multiSelect.validateMultiselectSectionsAreVisible();
+		await ffAdvancedSelectionPage.validateMultiselectSectionsAreVisible();
 	});
 
 	test("Validate that the valid sections are displayed in Advanced selection with createNewOption prop", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithCreateNewOptionPropButton.click();
-		await multiSelect.validateMultiselectSectionsAreVisible();
+		await ffAdvancedSelectionPage.validateMultiselectSectionsAreVisible();
 	});
 
 	test("Validate that the valid sections are displayed in Advanced selection with selectLimit prop (Max 2 options)", async () => {
 		await ffAdvancedSelectionPage.advancedSelectionWithSelectLimitButton.click();
-		await multiSelect.validateMultiselectSectionsAreVisible();
+		await ffAdvancedSelectionPage.validateMultiselectSectionsAreVisible();
 	});
 });

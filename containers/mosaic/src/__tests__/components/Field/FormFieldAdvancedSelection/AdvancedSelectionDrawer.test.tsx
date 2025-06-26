@@ -39,14 +39,21 @@ async function setup(props: Partial<AdvanceSelectionDrawerPropTypes> = {}) {
 
 describe(__dirname, () => {
 	it("should render the advanced selection drawer", async () => {
-		await setup();
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					options: defaultOptions,
+				},
+			},
+		});
 
 		expect(screen.queryByRole("button", { name: "Cancel advanced selection" })).toBeInTheDocument();
 		expect(screen.queryByRole("heading", { level: 1, name: "My Advanced Selection" })).toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "Cancel" })).toBeInTheDocument();
 		expect(screen.queryByRole("button", { name: "Save" })).toBeInTheDocument();
-		expect(screen.queryByPlaceholderText("Search...")).toBeInTheDocument();
-		expect(screen.queryByText("Selected Options")).toBeInTheDocument();
+		expect(screen.queryByPlaceholderText("Keyword...")).toBeInTheDocument();
+		expect(screen.queryByText("DataView.selected_options")).toBeInTheDocument();
 
 	});
 
@@ -124,6 +131,12 @@ describe(__dirname, () => {
 
 		const { user } = await setup({
 			handleClose: handleCloseMock,
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					options: defaultOptions,
+				},
+			},
 		});
 
 		const save = screen.queryByRole("button", { name: "Save" });
@@ -137,6 +150,12 @@ describe(__dirname, () => {
 
 		const { user } = await setup({
 			handleClose: handleCloseMock,
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					options: defaultOptions,
+				},
+			},
 		});
 
 		const cancel = screen.queryByRole("button", { name: "Cancel" });
@@ -157,7 +176,7 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("checkbox", { name: "Option 1" })).toBeInTheDocument();
 		expect(screen.queryByRole("checkbox", { name: "Option 2" })).toBeInTheDocument();
-		const keyword = screen.queryByPlaceholderText("Search...");
+		const keyword = screen.queryByPlaceholderText("Keyword...");
 		expect(keyword).toBeInTheDocument();
 		await user.type(keyword, "Option 1");
 		await waitFor(() => new Promise((resolve) => setTimeout(() => resolve(null), 200)));

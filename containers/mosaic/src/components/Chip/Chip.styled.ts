@@ -27,11 +27,19 @@ function getChipBackground({ $selected, disabled, onClick, onDelete }: Pick<Comp
 	};
 }
 
-export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected">>`
+export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected"> & { $fullWidth?: boolean }>`
 	&&.MuiChip-root {
-		max-width: 186px;
 		color: ${theme.newColors.almostBlack["100"]};
 		padding: 8px 16px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+
+		${({ $fullWidth }) => $fullWidth ? `
+			width: 100%;
+		` : `
+			max-width: 186px;
+		`}
 
 		${({ onDelete }) => !onDelete && `
 			&:focus{

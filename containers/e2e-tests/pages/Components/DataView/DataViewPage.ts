@@ -3,7 +3,7 @@ import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 import { ColumnsComponent } from "./ColumnsComponent";
 import { PaginationComponent } from "./PaginationComponent";
-import { testIds } from "@simpleview/sv-mosaic";;
+import { testIds } from "@simpleview/sv-mosaic";
 
 export class DataviewPage extends BasePage {
 
@@ -69,7 +69,7 @@ export class DataviewPage extends BasePage {
 		this.dataviewTable = page.locator("table tbody");
 		this.columnHeaders = page.locator(".columnHeader");
 		this.noResults = page.locator("div.noResults");
-		this.selectedChips = page.locator(".chips .chip");
+		this.selectedChips = page.getByTestId(testIds.CHIP);
 		this.removeFilterIcon = page.locator(".chips svg[data-testid='CancelIcon']");
 		this.filterRowBtn = page.locator(".filterRow button");
 		this.filtersBtn = this.filterRowBtn.locator(":scope", { hasText: "Filters" }).first();

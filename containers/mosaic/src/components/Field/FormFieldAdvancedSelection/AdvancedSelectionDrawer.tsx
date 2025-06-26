@@ -2,99 +2,162 @@ import type { ReactElement } from "react";
 
 import React, { memo, useCallback, useState } from "react";
 
-import type { ButtonProps } from "@root/components/Button";
 import type { AdvancedSelectionExternalOptions, AdvancedSelectionLocalOptions, AdvanceSelectionDrawerPropTypes } from ".";
-import type { GetOptions } from "@root/components/DataViewFilterMultiselect";
 import type { MosaicLabelValue } from "@root/types";
 
-import { FormDrawerWrapper } from "@root/components/common";
-import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataViewFilterMultiselect";
-import PageHeader from "@root/components/PageHeader";
-import { escapeRegexp } from "@root/utils/string/escapeRegexp";
+import { Column, FormDrawerWrapper } from "@root/components/common";
+import type { PickerPanelProps } from "@root/components/PickerPanel";
+import { useAdvancedOptions } from "@root/utils/hooks";
+import { SelectedOptionsSubtitle, StyledPanelPickerActive } from "@root/components/DataViewFilterMultiselect/DataViewFilterMultiselect.styled";
+import Chip from "@root/components/Chip";
+import { useMosaicTranslation } from "@root/i18n";
+import type { FieldDefBase } from "../FieldTypes";
+import { StyledPickerPanel } from "./AdvancedSelection.styled";
+import testIds from "@root/utils/testIds";
 
-const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
-	const {
-		value,
-		fieldDef,
-		onChange,
-		handleClose,
-	} = props;
-
-	let externalOptions: AdvancedSelectionExternalOptions | undefined;
-	let localOptions: AdvancedSelectionLocalOptions | undefined;
-
-	if (fieldDef.inputSettings && "getOptions" in fieldDef.inputSettings) {
-		externalOptions = fieldDef.inputSettings;
+type AdvancedSelectionDrawerSyncProps = Omit<AdvanceSelectionDrawerPropTypes, "fieldDef">
+	& Pick<PickerPanelProps, "onKeywordChange" | "onLoadMore" | "onCreateNew" | "isLoading">
+	& {
+		fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionLocalOptions>;
 	}
 
-	if (fieldDef.inputSettings && "options" in fieldDef.inputSettings) {
-		localOptions = fieldDef.inputSettings;
-	}
-
-	const [selectedOptions, setSelectedOptions] = useState(value?.length > 0 ? value : []);
-
-	const onSubmit = useCallback(async() => {
-		await onChange(selectedOptions);
-		handleClose(true);
-	}, [selectedOptions]);
-
-	const buttons: ButtonProps[] = [
-		{
-			label: "Cancel",
-			onClick: () => handleClose(),
-			color: "gray",
-			variant: "outlined",
+const AdvancedSelectionDrawerSync = ({
+	fieldDef: {
+		label,
+		inputSettings: {
+			options,
+			selectLimit = -1,
 		},
-		{
-			label: "Save",
-			onClick: onSubmit,
-			color: "yellow",
-			variant: "contained",
-		},
-	];
+	},
+	value,
+	onChange,
+	onKeywordChange,
+	onLoadMore,
+	onCreateNew,
+	isLoading,
+	handleClose,
+}: AdvancedSelectionDrawerSyncProps): ReactElement => {
+	const [checked, setChecked] = useState(value?.length > 0 ? value : []);
+	const { t } = useMosaicTranslation();
 
-	const getSyncOptions: GetOptions = ({ keyword }) => {
-		let newOptions: MosaicLabelValue[] = localOptions?.options || [];
-		const regSearchKeyword = new RegExp(escapeRegexp(keyword), "i");
-		if (keyword !== undefined && localOptions.options !== undefined) {
-			newOptions = localOptions?.options.filter(option => {
-				return regSearchKeyword.exec(option.label);
-			});
-		}
-		return {
-			docs: newOptions,
-			hasMore: false,
-		};
+	const onOptionRemove = (option: MosaicLabelValue) => {
+		setChecked(checked => checked.filter(item => item.value !== option.value));
 	};
 
-	// TODO: Already doing this in FormFieldAdvancedSelection.
-	// Clean it up.
-	const selectLimit = (fieldDef?.inputSettings?.selectLimit || 0) > 0 ? fieldDef?.inputSettings?.selectLimit : -1;
+	const disabled = (selectLimit > 0 && checked.length >= selectLimit);
+
+	const onSubmit = useCallback(async() => {
+		await onChange(checked);
+		handleClose(true);
+	}, [checked, handleClose, onChange]);
 
 	return (
 		<FormDrawerWrapper className="advancedSelection">
-			<PageHeader
-				title={fieldDef?.label}
-				buttons={buttons}
+			<StyledPickerPanel
+				title={label}
+				options={options}
+				checked={checked}
+				disabled={disabled}
+				activePanel={(
+					<StyledPanelPickerActive data-testid={testIds.ADVANCED_SELECTION_ACTIVE}>
+						<SelectedOptionsSubtitle>{t("mosaic:DataView.selected_options")}</SelectedOptionsSubtitle>
+						<Column $align="start" $gap={[3]}>
+							{checked.map(option => (
+								<Chip
+									key={option.value}
+									label={option.label}
+									onDelete={() => onOptionRemove(option)}
+									fullWidth
+								/>
+							))}
+						</Column>
+					</StyledPanelPickerActive>
+				)}
+				onChange={setChecked}
+				onKeywordChange={onKeywordChange}
+				onLoadMore={onLoadMore}
+				onCreateNew={onCreateNew}
+				onSave={onSubmit}
 				onBack={handleClose}
 				backLabel="Cancel advanced selection"
-			/>
-			<DataViewFilterMultiselectDropdownContent
-				comparison=""
-				selected={value}
-				getOptions={externalOptions?.getOptions !== undefined ? externalOptions.getOptions : getSyncOptions}
-				isOpen={true}
-				onApply={onSubmit}
-				placeholder="Search..."
-				limit={externalOptions?.getOptionsLimit}
-				selectLimit={selectLimit}
-				onChange={(value) => setSelectedOptions(value)}
-				hideButtons={true}
-				createNewOption={fieldDef.inputSettings?.createNewOption}
+				onCancel={handleClose}
+				isLoading={isLoading}
 			/>
 		</FormDrawerWrapper>
-
 	);
+};
+
+type AdvancedSelectionDrawerAsyncProps = Omit<AdvanceSelectionDrawerPropTypes, "fieldDef">
+	& {
+		fieldDef: FieldDefBase<"advancedSelection", AdvancedSelectionExternalOptions>;
+	}
+
+const AdvancedSelectionDrawerAsync = ({
+	fieldDef: {
+		inputSettings: {
+			getOptions,
+			getOptionsLimit,
+		},
+	},
+	fieldDef,
+	...props
+}: AdvancedSelectionDrawerAsyncProps) => {
+	const { state, loadMore, debouncedSetKeyword, createNewOption } = useAdvancedOptions({
+		getOptions: getOptions,
+		limit: getOptionsLimit,
+	});
+
+	return (
+		<AdvancedSelectionDrawerSync
+			{...props}
+			fieldDef={{
+				...fieldDef,
+				inputSettings: {
+					options: state.options,
+				},
+			}}
+			onLoadMore={loadMore}
+			onKeywordChange={debouncedSetKeyword}
+			onCreateNew={createNewOption}
+		/>
+	);
+};
+
+const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactElement => {
+	const { fieldDef } = props;
+
+	if (
+		!fieldDef.inputSettings ||
+		(
+			!("options" in fieldDef.inputSettings) &&
+			!("getOptions" in fieldDef.inputSettings)
+		)
+	) {
+		throw new Error("AdvancedSelection field requires inputSettings containing either an `options` or `getOptions` property.");
+	}
+
+	if ("options" in fieldDef.inputSettings) {
+		return (
+			<AdvancedSelectionDrawerSync
+				{...props}
+				fieldDef={{
+					...fieldDef,
+					inputSettings: fieldDef.inputSettings,
+				}}
+			/>
+		);
+	}
+
+	return (
+		<AdvancedSelectionDrawerAsync
+			{...props}
+			fieldDef={{
+				...fieldDef,
+				inputSettings: fieldDef.inputSettings,
+			}}
+		/>
+	);
+
 };
 
 export default memo(AdvancedSelectionDrawer);
