@@ -1,4 +1,4 @@
-import type { Locator, Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 import { BasePage } from "../../BasePage";
 
 export class FormFieldAdvancedSelectionPage extends BasePage {
@@ -12,7 +12,6 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 	readonly advancedSelectionWithCreateNewOptionPropButton: Locator;
 	readonly advancedSelectionWithSelectLimitButton: Locator;
 	readonly searchOptionInput: Locator;
-	readonly checkboxListLocator: Locator;
 	readonly advancedSelectionLocator: Locator;
 	readonly advancedSelectionDrawer: Locator;
 	readonly advancedSelectionLayout: Locator;
@@ -21,6 +20,8 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 	readonly searchBarSection: Locator;
 	readonly loadMoreSection: Locator;
 	readonly loadMoreButton: Locator;
+	readonly optionsLocator: Locator;
+	readonly selectedOptionsLocator: Locator;
 
 	constructor(page: Page) {
 		super(page);
@@ -32,7 +33,6 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.advancedSelectionWithSelectLimitButton = page.locator("[data-testid='field-test-id']", { hasText: "Advanced selection with selectLimit prop" })
 			.locator("button");
 		this.searchOptionInput = page.locator("input[type='text']");
-		this.checkboxListLocator = page.locator("#checkboxList");
 		this.advancedSelectionLocator = page.locator(".advancedSelection");
 		this.advancedSelectionDrawer = this.advancedSelectionLocator.locator("form");
 		this.advancedSelectionDrawerHeader = this.advancedSelectionDrawer.locator("div").first();
@@ -41,5 +41,12 @@ export class FormFieldAdvancedSelectionPage extends BasePage {
 		this.searchBarSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").nth(1);
 		this.loadMoreSection = this.advancedSelectionLocator.locator("[data-testid='section-test-id']").last();
 		this.loadMoreButton = this.advancedSelectionLocator.locator("button", { hasText: "Load more" });
+		this.optionsLocator = page.getByTestId("mos:PickerPanel:options");
+		this.selectedOptionsLocator = page.getByTestId("mos:AdvancedSelection:active");
+	}
+
+	async validateMultiselectSectionsAreVisible(): Promise<void> {
+		await expect(this.optionsLocator).toBeVisible();
+		await expect(this.selectedOptionsLocator).toBeVisible();
 	}
 }

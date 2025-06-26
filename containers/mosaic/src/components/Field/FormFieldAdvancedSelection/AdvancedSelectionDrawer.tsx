@@ -13,6 +13,7 @@ import Chip from "@root/components/Chip";
 import { useMosaicTranslation } from "@root/i18n";
 import type { FieldDefBase } from "../FieldTypes";
 import { StyledPickerPanel } from "./AdvancedSelection.styled";
+import testIds from "@root/utils/testIds";
 
 type AdvancedSelectionDrawerSyncProps = Omit<AdvanceSelectionDrawerPropTypes, "fieldDef">
 	& Pick<PickerPanelProps, "onKeywordChange" | "onLoadMore" | "onCreateNew" | "isLoading">
@@ -58,7 +59,7 @@ const AdvancedSelectionDrawerSync = ({
 				checked={checked}
 				disabled={disabled}
 				activePanel={(
-					<StyledPanelPickerActive>
+					<StyledPanelPickerActive data-testid={testIds.ADVANCED_SELECTION_ACTIVE}>
 						<SelectedOptionsSubtitle>{t("mosaic:DataView.selected_options")}</SelectedOptionsSubtitle>
 						<Column $align="start" $gap={[3]}>
 							{checked.map(option => (
