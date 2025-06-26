@@ -1,40 +1,10 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-
-export const NoColumns = styled.div`
-	margin-top: 10px;
-`;
-
-export const MutedText = styled.span`
-	color: ${theme.newColors.grey3["100"]};
-	font-style: italic;
-`;
+import { Text } from "@root/components/Typography";
 
 export const StyledWrapper = styled.div`
-	display: flex;
-	margin-top: 30px;
-
-	& > .left {
-		border-right: 2px solid ${theme.newColors.grey2["100"]};
-		flex: 1;
-		margin: 0 32px 0 40px;
-		width: 265px;
-	}
-
-	& > .left .listItem {
-		margin: 14px 0px 0px -10px;
-		background: white;
-	}
-
-	& > .right {
-		flex: 1;
-		margin: 0 44px 0 32px;
-		width: 280px;
-	}
-
-	& > .right .droppable-columns {
-		margin-top: 4px;
-	}
+	height: 100%;
+	width: 700px;
 `;
 
 export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
@@ -48,12 +18,12 @@ export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
 	`}
 
 	align-items: center;
-	border-bottom: 1px solid ${theme.newColors.grey2["100"]};
+	border-bottom: 1px solid ${theme.color.gray[200]};
 	display: flex;
 
 
 	.MuiSvgIcon-root {
-		color: ${theme.newColors.grey3["100"]};
+		color: ${theme.color.gray[500]};
 	}
 `;
 
@@ -62,10 +32,9 @@ export const ColumnDraggable = styled.div`
 	cursor: grab;
 	display: flex;
 	flex-grow: 1;
-	padding: 20px 0;
+	padding: ${theme.spacing(5, 5)};
 `;
 
-export const ColumnItemLabel = styled.div`
+export const ColumnItemLabel = styled(Text).attrs({ tag: "div", size: "lg" })`
 	margin-left: 16px;
-	color: ${theme.newColors.almostBlack["100"]};
 `;
