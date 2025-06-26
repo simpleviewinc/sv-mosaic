@@ -355,6 +355,7 @@ template {
  */
 
 :root {
+  box-sizing: border-box;
 	font-family: ${theme.family.sans};
 	font-optical-sizing: auto;
 	font-weight: ${theme.weight.regular};
@@ -363,7 +364,23 @@ template {
 	font-variation-settings:
 		"wdth" 100;
 	color: ${theme.color.black};
-  line-height: ${theme.line["3xloose"]}
+  line-height: ${theme.line["3xloose"]};
+
+  --mos-border-dark: 0 0 0 1px rgba(0, 0, 0, 0.4);
+  --mos-border-medium: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  --mos-border-light: 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  --mos-shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
+  --mos-shadow-md: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+  --mos-shadow-lg: 0 8px 10px 0 rgba(0, 0, 0, 0.08);
+  --mos-shadow-xl: 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+  --mos-shadow-2xl: 0 7px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 b, strong {

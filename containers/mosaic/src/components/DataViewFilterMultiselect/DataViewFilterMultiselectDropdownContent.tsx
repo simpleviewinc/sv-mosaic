@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react";
-import debounce from "lodash/debounce";
-import xor from "lodash/xor";
-import InputAdornment from "@mui/material/InputAdornment";
+import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SearchIcon from "@mui/icons-material/Search";
 import HelpIcon from "@mui/icons-material/Help";
-import AddIcon from "@mui/icons-material/Add";
 
-import type { DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
+import type { MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
+import { type DataViewFilterMultiselectDropdownContentProps } from "./DataViewFilterMultiselectTypes";
 
 import Chip from "@root/components/Chip";
 import { useMosaicTranslation } from "@root/i18n";
@@ -15,139 +11,40 @@ import testIds from "@root/utils/testIds";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import Button from "../Button";
 import ButtonRow from "../ButtonRow";
-import Spinner from "../Spinner";
-import { Text } from "../Typography";
-import { StyledWrapper, StyledComparisonHeader, StyledComparisonHelp } from "./DataViewFilterMultiselect.styled";
-import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
-import CheckboxList from "../CheckboxList";
+import { ComparisonDropdown, SelectedOptionsSubtitle, StyledComparisonHeader, StyledComparisonHelp, StyledPanelPickerActive, StyledPickerPanel } from "./DataViewFilterMultiselect.styled";
+import { Column } from "../common";
+import type { MosaicLabelValue } from "@root/types";
+import { useAdvancedOptions } from "@root/utils/hooks";
 
-function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultiselectDropdownContentProps) {
-	const [state, setState] = useState({
-		options : [],
-		selected : props.selected.map(val => val.value),
-		hasMore : false,
-		skip : 0,
-		keyword : undefined,
-		comparison : props.comparison,
-		loaded : false,
-		listOfChips: props.selected,
+function DataViewFilterMultiselectDropdownContent({
+	createNewOption: onCreateNew,
+	...props
+}: DataViewFilterMultiselectDropdownContentProps) {
+	const [comparison, setComparison] = useState<"" | MultiSelectComparison>(props.comparison);
+	const [checked, setChecked] = useState<MosaicLabelValue[]>(props.selected);
+	const { state, loadMore, reset, debouncedSetKeyword, createNewOption } = useAdvancedOptions({
+		getOptions: props.getOptions,
+		limit: props.limit,
+		onCreateNew,
 	});
-
-	const [showCreateOptionButton, setShowCreateOptionButton] = useState(false);
 
 	const { t } = useMosaicTranslation();
 
-	const limit = Math.abs(props.limit) || 25;
-
 	// mark the active comparison
-	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
-	const disabled = props.selectLimit > 0 && state.selected.length >= props.selectLimit;
-
-	useEffect(() => {
-		async function fetchData() {
-			const options = await props.getOptions({ limit, skip : state.skip });
-
-			setState({
-				...state,
-				options : options.docs,
-				hasMore : options.hasMore === true,
-				skip : state.skip + limit,
-				loaded : true,
-			});
-		}
-
-		fetchData();
-	}, []);
+	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === comparison) : undefined;
+	const disabled = (props.selectLimit > 0 && checked.length >= props.selectLimit)
+		|| ["exists", "not_exists"].includes(comparison);
 
 	const onClear = function() {
-		setState({
-			...state,
-			selected : [],
-			comparison : "in",
-			keyword : undefined,
-			listOfChips: [],
-		});
+		setComparison("in");
+		setChecked([]);
+		reset();
 	};
 
 	const onApply = function() {
 		props.onApply({
-			value : optionsDisabled ? [] : state.selected,
-			comparison : state.comparison,
-		});
-	};
-
-	const handleToggle = option => () => {
-		const newSelected = xor(state.selected, [option.value]);
-
-		const newListOfChips = state.listOfChips.filter(chip => chip.value !== option.value);
-
-		props.onChange?.(newListOfChips);
-
-		setState({
-			...state,
-			selected : newSelected,
-			listOfChips: newListOfChips,
-		});
-	};
-
-	const loadMore = function(e) {
-		// stash the target to prevent issues with React event persistence in our async callback
-		const target = e.currentTarget;
-
-		async function fetchData() {
-			const newOptions = await props.getOptions({
-				limit,
-				skip : state.skip,
-				keyword : state.keyword,
-			});
-
-			setState({
-				...state,
-				options : [...state.options, ...newOptions.docs],
-				hasMore : newOptions.hasMore === true,
-				skip : state.skip + limit,
-			});
-
-			// By blurring on the target we prevent the browser from keeping our load more button in view
-			// this ensures that our options scrollable maintains it's previous scroll position
-			target.blur();
-		}
-
-		fetchData();
-	};
-
-	const debouncedSetKeyword = debounce(function(value) {
-		const keyword = value || undefined;
-		setShowCreateOptionButton(!!props.createNewOption && value.trim().length > 0);
-
-		async function fetchData() {
-			const newOptions = await props.getOptions({
-				limit,
-				skip : 0,
-				keyword,
-			});
-
-			setState({
-				...state,
-				options : newOptions.docs,
-				hasMore : newOptions.hasMore === true,
-				keyword,
-				skip : limit,
-			});
-		}
-
-		fetchData();
-	}, 200);
-
-	const keywordChange = function(e) {
-		debouncedSetKeyword(e.target.value);
-	};
-
-	const createOption = async () => {
-		const newOption = await props.createNewOption(state.keyword);
-		setState({
-			...state,
-			options : [...state.options, newOption],
+			value : disabled ? [] : checked.map(({ value }) => value),
+			comparison : comparison,
 		});
 	};
 
@@ -158,18 +55,8 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 			return {
 				label : comparison.label,
 				onClick : function() {
-					// for exists and not_exists we want to clear the value
-					if (["exists", "not_exists"].includes(comparison.value) === true) {
-						setState({
-							...state,
-							selected : [],
-						});
-					}
-
-					setState({
-						...state,
-						comparison : comparison.value,
-					});
+					setChecked(checked => ["exists", "not_exists"].includes(comparison.value) ? [] : checked);
+					setComparison(comparison.value);
 				},
 			};
 		});
@@ -183,11 +70,9 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 		};
 
 		comparisonDropdown = (
-			<div className="comparisonDropdown">
+			<ComparisonDropdown>
 				<StyledComparisonHeader>
-					<Text tag="h3">
-						{t("mosaic:DataView.comparison")}
-					</Text>
+					{t("mosaic:DataView.comparison")}
 				</StyledComparisonHeader>
 				<ButtonRow>
 					<Button
@@ -218,124 +103,55 @@ function DataViewFilterMultiselectDropdownContent(props: DataViewFilterMultisele
 						)}
 					/>
 				</ButtonRow>
-			</div>
+			</ComparisonDropdown>
 		);
 	}
-
-	// if the user has chosen exists or not_exists then we need to disable the left panel since it isn't valid in that case
-	const optionsDisabled = ["exists", "not_exists"].includes(state.comparison);
-
-	// we want to avoid showing the list until the dropdown is fully open and the results are loaded from the db
-	const showList = props.isOpen && state.loaded;
 
 	const onChange = async function(selected) {
 		const fullOptions = [...selected];
 		props.onChange?.(fullOptions);
-		setState({
-			...state,
-			selected : fullOptions.map(option => option.value),
-			listOfChips: fullOptions,
-		});
+		setChecked(fullOptions);
+	};
+
+	const onOptionRemove = (option: MosaicLabelValue) => {
+		setChecked(checked => checked.filter(item => item.value !== option.value));
 	};
 
 	return (
-		<StyledWrapper data-testid={testIds.DATA_VIEW_FILTER_MULTI_CONTENT}>
-			<div className="topBlock">
-				<div
-					data-testid={testIds.DATA_VIEW_FILTER_MULTI_OPTIONS}
-					className={`options ${optionsDisabled ? "disabled" : "" }`}
-				>
-					<StyledTextField
-						autoComplete="off"
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position="start">
-									<SearchIcon />
-								</InputAdornment>
-							),
-							endAdornment: showCreateOptionButton && (
-								<InputAdornment position="end">
-									<Button
-										label="Create"
-										variant="text"
-										color="teal"
-										className="realTeal-icon"
-										mIcon={AddIcon}
-										onClick={createOption}
-									/>
-								</InputAdornment>
-							),
-						}}
-						className="searchBar"
-						placeholder={props.placeholder || t("mosaic:common.keyword___")}
-						autoFocus={true}
-						onChange={keywordChange}
-						fieldSize="100%"
-					/>
-					{
-						!showList &&
-							<Spinner className="spinner" />
-					}
-					{
-						showList && (
-							<CheckboxList
-								checked={optionsDisabled ? [] : state.listOfChips}
-								options={state.options}
-								onChange={onChange}
-								disabled={disabled}
-							/>
-						)
-					}
-					{
-						state.hasMore && (
-							<div className="loadContainer">
-								<Button
-									label={t("mosaic:common.load_more___")}
-									color="blue"
-									variant="outlined"
-									fullWidth={true}
-									onClick={loadMore}
+		<div data-testid={testIds.DATA_VIEW_FILTER_MULTI_CONTENT}>
+			<StyledPickerPanel
+				options={state.options}
+				checked={checked}
+				disabled={disabled}
+				activePanel={(
+					<StyledPanelPickerActive>
+						{comparisonDropdown}
+						<SelectedOptionsSubtitle>{t("mosaic:DataView.selected_options")}</SelectedOptionsSubtitle>
+						<Column $align="start" $gap={[3]}>
+							{checked.map(option => (
+								<Chip
+									key={option.value}
+									label={option.label}
+									onDelete={() => onOptionRemove(option)}
+									fullWidth
 								/>
-							</div>
-						)
-					}
-				</div>
-				<div className="selected">
-					{comparisonDropdown}
-					{
-						!optionsDisabled && (
-							<>
-								<p className="selected-options-title">{t("mosaic:DataView.selected_options")}</p>
-								<div className="chips">
-									{
-										showList &&
-									state.listOfChips?.length > 0 &&
-									state.listOfChips.map(option => (
-										<Chip
-											className="chip"
-											key={option.value}
-											label={option.label}
-											onDelete={handleToggle(option)}
-										/>
-									))
-									}
-								</div>
-							</>
-						)
-					}
-				</div>
-			</div>
-			{
-				!props.hideButtons && (
-					<>
-						<DataViewFilterDropdownButtons
-							onApply={onApply}
-							onClear={onClear}
-						/>
-					</>
-				)
-			}
-		</StyledWrapper>
+							))}
+						</Column>
+					</StyledPanelPickerActive>
+				)}
+				onChange={onChange}
+				onKeywordChange={debouncedSetKeyword}
+				onLoadMore={state.hasMore ? loadMore : undefined}
+				onCreateNew={createNewOption}
+				isLoading={state.isLoading}
+			/>
+			{!props.hideButtons && (
+				<DataViewFilterDropdownButtons
+					onApply={onApply}
+					onClear={onClear}
+				/>
+			)}
+		</div>
 	);
 }
 
