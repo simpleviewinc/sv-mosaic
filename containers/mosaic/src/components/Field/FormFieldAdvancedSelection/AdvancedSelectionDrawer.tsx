@@ -7,12 +7,12 @@ import type { MosaicLabelValue } from "@root/types";
 
 import { Column, FormDrawerWrapper } from "@root/components/common";
 import type { PickerPanelProps } from "@root/components/PickerPanel";
-import PickerPanel from "@root/components/PickerPanel";
 import { useAdvancedOptions } from "@root/utils/hooks";
 import { SelectedOptionsSubtitle, StyledPanelPickerActive } from "@root/components/DataViewFilterMultiselect/DataViewFilterMultiselect.styled";
 import Chip from "@root/components/Chip";
 import { useMosaicTranslation } from "@root/i18n";
 import type { FieldDefBase } from "../FieldTypes";
+import { StyledPickerPanel } from "./AdvancedSelection.styled";
 
 type AdvancedSelectionDrawerSyncProps = Omit<AdvanceSelectionDrawerPropTypes, "fieldDef">
 	& Pick<PickerPanelProps, "onKeywordChange" | "onLoadMore" | "onCreateNew" | "isLoading">
@@ -22,6 +22,7 @@ type AdvancedSelectionDrawerSyncProps = Omit<AdvanceSelectionDrawerPropTypes, "f
 
 const AdvancedSelectionDrawerSync = ({
 	fieldDef: {
+		label,
 		inputSettings: {
 			options,
 			selectLimit = -1,
@@ -51,8 +52,8 @@ const AdvancedSelectionDrawerSync = ({
 
 	return (
 		<FormDrawerWrapper className="advancedSelection">
-			<PickerPanel
-				title="Cancel advanced selection"
+			<StyledPickerPanel
+				title={label}
 				options={options}
 				checked={checked}
 				disabled={disabled}
@@ -77,6 +78,7 @@ const AdvancedSelectionDrawerSync = ({
 				onCreateNew={onCreateNew}
 				onSave={onSubmit}
 				onBack={handleClose}
+				backLabel="Cancel advanced selection"
 				onCancel={handleClose}
 				isLoading={isLoading}
 			/>
