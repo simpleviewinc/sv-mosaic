@@ -95,3 +95,5 @@ export { default as PageHeader } from "./PageHeader";
 export * from "./PageHeader";
 
 export { default as ThemeProvider } from "./ThemeProvider";
+
+export { default as Badge } from "./Badge";
