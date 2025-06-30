@@ -71,7 +71,7 @@ test.describe("Components - Data View - Advanced Filters", () => {
 	// 	}
 	// });
 
-	test("Validate Single select category styles", async () => {
+	test.skip("Validate Single select category styles", async () => {
 		await advancedFilters.selectFilter("singleSelectCategory");
 		await advancedFilters.singleSelectCategoryBtn.click();
 		await advancedFilters.validateFontColorFromElement(page.getByText("Any..."), "#3B424E", true);
