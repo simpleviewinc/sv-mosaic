@@ -7,15 +7,15 @@ import { Description } from "@root/components/Title/TitleWrapper.styled";
 import { containerQuery } from "@root/utils/css";
 
 export const TopRoot = styled.div<{ $bottomBorder?: boolean; $hideSectionNav?: boolean }>`
-	padding: 0 24px;
+	padding: ${theme.spacing(0, 6)};
 
 	${({ $hideSectionNav }) => !$hideSectionNav && `
-		padding-bottom: 24px;
-		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+		padding-bottom: ${theme.spacing(5)};
+		border-bottom: 1px solid ${theme.color.gray[300]};
 	`}
 
 	${containerQuery("sm", "FORM")} {
-		padding-top: 24px;
+		padding-top: ${theme.spacing(5)};
 	}
 
 	${({ $bottomBorder, $hideSectionNav }) => !$bottomBorder && `
@@ -26,7 +26,7 @@ export const TopRoot = styled.div<{ $bottomBorder?: boolean; $hideSectionNav?: b
 
 		${!$hideSectionNav && `
 			${containerQuery("xl", "FORM")} {
-				padding-bottom: 24px;
+				padding-bottom: ${theme.spacing(5)};
 			}
 		`}
 	`}

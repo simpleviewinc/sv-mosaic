@@ -2,8 +2,8 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const TitleBarWrapper = styled.div`
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-	padding: 24px 24px 16px 24px;
+	border-bottom: 1px solid ${theme.color.gray[300]};
+	padding: ${theme.spacing(5, 6)};
 	width: 100%;
 `;
 
