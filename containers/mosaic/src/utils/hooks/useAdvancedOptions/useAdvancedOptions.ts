@@ -136,19 +136,22 @@ function useAdvancedOptions({
 		});
 	};
 
-	const createNewOption = useMemo(() => {
+	const createNewOption = useMemo<undefined | UseAdvancedOptionsResult["createNewOption"]>(() => {
 		if (!onCreateNew) {
 			return;
 		}
 
-		return async () => {
-			const newOption = await onCreateNew(state.keyword);
+		return async (keyword: string) => {
+			const newOption = await onCreateNew(keyword);
+
 			setState((state) => ({
 				...state,
 				options : [...state.options, newOption],
 			}));
+
+			return newOption;
 		};
-	}, [onCreateNew, state.keyword]);
+	}, [onCreateNew]);
 
 	const reset = () => setState((state) => ({ ...state, keyword: undefined }));
 

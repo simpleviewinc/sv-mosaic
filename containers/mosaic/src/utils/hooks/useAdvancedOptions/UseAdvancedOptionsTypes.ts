@@ -20,5 +20,5 @@ export interface UseAdvancedOptionsResult {
 	reset: () => void;
 	loadMore: () => void;
 	debouncedSetKeyword: (keyword: string) => void;
-	createNewOption?: () => Promise<void>;
+	createNewOption?: (keyword: string) => Promise<MosaicLabelValue>;
 }
