@@ -462,7 +462,6 @@ const gridColumnsMap = {
 };
 
 const StyledDiv = styled.div`
-	padding: 0px 16px;
 	height: 100vh;
 `;
 
