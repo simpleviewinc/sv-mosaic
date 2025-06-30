@@ -101,9 +101,9 @@ test.describe("Components - Data View - Playground", () => {
 	test("Validate Dataview Page Top Component padding is valid.", async () => {
 		const locator = dataviewPage.dataviewTopComponent;
 		await locator.waitFor();
-		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "top")).toBe("24px");
+		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "top")).toBe("20px");
 		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
-		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
+		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("20px");
 		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
 	});
 
