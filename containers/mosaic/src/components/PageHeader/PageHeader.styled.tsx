@@ -8,8 +8,6 @@ export const StyledPageHeader = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	padding: ${theme.spacing(5, 6)};
-	min-height: 80px;
-	max-height: 80px;
 `;
 
 export const StyledTitleRow = styled.div`
