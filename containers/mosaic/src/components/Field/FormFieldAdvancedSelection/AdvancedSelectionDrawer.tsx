@@ -105,6 +105,7 @@ const AdvancedSelectionDrawerAsync = ({
 	const { state, loadMore, debouncedSetKeyword, createNewOption } = useAdvancedOptions({
 		getOptions: getOptions,
 		limit: getOptionsLimit,
+		onCreateNew: fieldDef.inputSettings.createNewOption,
 	});
 
 	return (
@@ -144,6 +145,7 @@ const AdvancedSelectionDrawer = (props: AdvanceSelectionDrawerPropTypes): ReactE
 					...fieldDef,
 					inputSettings: fieldDef.inputSettings,
 				}}
+				onCreateNew={fieldDef.inputSettings.createNewOption}
 			/>
 		);
 	}
