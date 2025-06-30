@@ -34,15 +34,15 @@ export const Playground = ({
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
-	const options: MosaicLabelValue[] = mockOptions ? mockOptions : [];
-	const categoriesApi = new JSONDB(categories);
+	const [options, setOptions] = React.useState<MosaicLabelValue[]>(mockOptions);
 
-	const categoriesHelper = new MultiSelectHelper({
-		api: categoriesApi,
+	const categoriesApi = React.useRef(new JSONDB(categories));
+	const categoriesHelper = React.useRef(new MultiSelectHelper({
+		api: categoriesApi.current,
 		labelColumn: "tag",
 		valueColumn: "id",
 		sortColumn: "sort_tag",
-	});
+	}));
 
 	const createNewOption = async (newOptionLabel) => {
 		const value = nanoid();
@@ -56,13 +56,13 @@ export const Playground = ({
 		};
 
 		//Insert to db
-		mockOptions.push({ label: newOption.tag, value: newOption.id });
+		setOptions((options) => [...options, { label: newOption.tag, value: newOption.id }]);
 
-		const data = await categoriesApi.getData();
+		const data = await categoriesApi.current.getData();
 
 		const newData = [...data, newOption];
 
-		await categoriesApi.setData(newData);
+		await categoriesApi.current.setData(newData);
 
 		return { label: newOption.tag, value: newOption.id };
 	};
@@ -84,7 +84,7 @@ export const Playground = ({
 						...(optionsType === "Synchronous" ? {
 							options,
 						} : {
-							getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+							getOptions: categoriesHelper.current.getOptions.bind(categoriesHelper.current),
 							getOptionsLimit,
 						}),
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
