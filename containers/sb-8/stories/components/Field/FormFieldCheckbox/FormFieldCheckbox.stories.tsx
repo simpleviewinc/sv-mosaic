@@ -64,13 +64,13 @@ export const Playground = ({
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
 				buttons={renderButtons(handleSubmit)}
 				title="Checkbox Field"
 				fields={fields}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };

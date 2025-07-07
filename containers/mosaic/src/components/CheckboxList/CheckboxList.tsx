@@ -8,7 +8,7 @@ import type { CheckboxListProps } from "./CheckboxListTypes";
 
 import Checkbox from "@root/components/Checkbox";
 import { arrayChunks } from "@root/utils/array";
-import { StyledFormGroup, StyledGrid } from "./CheckboxList.styled";
+import { StyledColumn, StyledFormGroup, StyledGrid } from "./CheckboxList.styled";
 
 const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputElement>, "onChange">): ReactElement => {
 	const fallbackId = useId();
@@ -60,7 +60,7 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 		>
 			<StyledGrid>
 				{columns.map((options, columnIndex) => (
-					<div key={columnIndex}>
+					<StyledColumn key={columnIndex}>
 						{(options || []).map(({ value, label }, optionIndex) => (
 							<div key={value}>
 								<Checkbox
@@ -73,7 +73,7 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 								/>
 							</div>
 						))}
-					</div>
+					</StyledColumn>
 				))}
 			</StyledGrid>
 		</StyledFormGroup>

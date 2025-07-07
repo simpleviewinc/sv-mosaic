@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react";
 import React, { useEffect } from "react";
 
 import createElem from "@root/utils/dom/createElem";
-import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider as MuiThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import theme from "@root/theme";
 import type { ThemeProviderProps } from "./ThemeProviderTypes";
 import baselineCss from "./baselineCss";
@@ -94,9 +94,11 @@ const ThemeProvider = ({
 	}, [injectGoogleFontCDN, injectRootFontStyles]);
 
 	return (
-		<MuiThemeProvider theme={muiTheme}>
-			{children}
-		</MuiThemeProvider>
+		<StyledEngineProvider injectFirst>
+			<MuiThemeProvider theme={muiTheme}>
+				{children}
+			</MuiThemeProvider>
+		</StyledEngineProvider>
 	);
 };
 
