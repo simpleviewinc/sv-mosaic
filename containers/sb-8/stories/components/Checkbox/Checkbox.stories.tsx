@@ -5,6 +5,9 @@ import Checkbox from "#mosaic/components/Checkbox";
 
 export default {
 	title : "Components/Checkbox",
+	parameters: {
+		layout: "centered",
+	},
 };
 
 export const Playground = ({ label, checked, disabled, indeterminate }: typeof Playground.args): ReactElement => {
