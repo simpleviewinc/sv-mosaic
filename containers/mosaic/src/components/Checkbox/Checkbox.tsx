@@ -40,6 +40,7 @@ const Checkbox = (props: CheckboxProps) => {
 					checkedIcon={<CheckboxIcon checked />}
 					indeterminateIcon={<CheckboxIcon indeterminate />}
 					disableRipple
+					disabled={props.disabled}
 				/>
 			)}
 		/>
