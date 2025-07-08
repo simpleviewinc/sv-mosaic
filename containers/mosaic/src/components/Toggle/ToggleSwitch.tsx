@@ -6,10 +6,12 @@ import React, { useState } from "react";
 import { StyledCheckboxInput, StyledSwitchKnob, StyledSwitchKnobFocus, StyledSwitchTrack, StyledSwitchWrapper } from "./Toggle.styled";
 
 export function ToggleSwitch({
+	disabled,
 	checked,
 	onChange,
 	onBlur: providedOnBlur,
 }: {
+	disabled?: boolean;
 	checked?: boolean;
 	onChange?: ChangeEventHandler<HTMLInputElement>;
 	onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -37,6 +39,7 @@ export function ToggleSwitch({
 			<StyledCheckboxInput
 				onChange={onChange}
 				ref={ref}
+				disabled={disabled}
 				{...inputProps}
 			/>
 			<StyledSwitchTrack $checked={checked} />
