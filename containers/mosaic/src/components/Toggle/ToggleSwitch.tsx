@@ -42,8 +42,8 @@ export function ToggleSwitch({
 				disabled={disabled}
 				{...inputProps}
 			/>
-			<StyledSwitchTrack $checked={checked} />
-			<StyledSwitchKnob $checked={checked} />
+			<StyledSwitchTrack $checked={checked} $disabled={disabled} />
+			<StyledSwitchKnob $checked={checked} $disabled={disabled} />
 			<StyledSwitchKnobFocus
 				$checked={checked}
 				$isFocusVisible={isFocusVisible}

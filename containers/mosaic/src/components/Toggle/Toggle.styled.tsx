@@ -79,20 +79,20 @@ export const StyledCheckboxInput = styled.input.attrs({ type: "checkbox" })`
 	z-index: 1;
 `;
 
-export const StyledSwitchTrack = styled.div<{ $checked?: boolean }>`
+export const StyledSwitchTrack = styled.div<{ $checked?: boolean; $disabled?: boolean }>`
 	width: 36px;
 	height: 14px;
 	border-radius: ${theme.rounded.full};
 	transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 
-	${({ $checked }) => $checked ? `
-		background-color: ${theme.color.gold[200]};
-		border: 1px solid ${theme.color.gold[300]};
-		box-shadow: 0 0 6px 0 rgba(244, 178, 35, 0.6) inset;
+	${({ $checked, $disabled }) => $checked ? `
+		background-color: ${$disabled ? theme.color.gold[100] : theme.color.gold[200]};
+		border: 1px solid ${$disabled ? "transparent" : theme.color.gold[300]};
+		box-shadow: ${$disabled ? "0 0 6px 0 rgba(244, 178, 35, 0.3) inset" : "0 0 6px 0 rgba(244, 178, 35, 0.6) inset"};
 	` : `
-		background-color: ${theme.color.gray[400]};
+		background-color: ${$disabled ? theme.color.gray[100] : theme.color.gray[400]};
 		border: 1px solid transparent;
-		box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.25) inset;
+		box-shadow: ${$disabled ? "0 0 2px 0 rgba(0, 0, 0, 0.05) inset" : "0 0 2px 0 rgba(0, 0, 0, 0.25) inset"};
 	`}
 `;
 
@@ -104,22 +104,29 @@ export const StyledSwitchKnobBase = styled.div<{ $checked?: boolean }>`
 	border-radius: ${theme.rounded.full};
 `;
 
-export const StyledSwitchKnob = styled(StyledSwitchKnobBase)`
+export const StyledSwitchKnob = styled(StyledSwitchKnobBase)<{ $disabled?: boolean }>`
 	width: 20px;
 	height: 20px;
 
-	${({ $checked }) => $checked ? `
+	${({ $checked, $disabled }) => $checked ? `
 		transform: translateX(16px);
-		background-image: linear-gradient(to bottom, #FDBA26, #FDAE02);
-		border: 1px solid ${theme.color.gold[600]};
-		box-shadow:
-			0 0 2px 0 rgba(0, 0, 0, 0.10),
-			0 1px 2px 0 rgba(177, 125, 10, 0.35);
+		border: 1px solid ${$disabled ? "transparent" : theme.color.gold[600]};
+		${$disabled ? `
+			background-color: ${theme.color.gold[200]};
+			box-shadow:
+				0 0 2px 0 rgba(0, 0, 0, 0.05),
+				0 1px 2px 0 rgba(177, 125, 10, 0.2);
+		` : `
+			background-image: linear-gradient(to bottom, #FDBA26, #FDAE02);
+			box-shadow:
+				0 0 2px 0 rgba(0, 0, 0, 0.10),
+				0 1px 2px 0 rgba(177, 125, 10, 0.35);
+		`}
 	` : `
 		transform: translateX(0);
 		background-color: ${theme.color.white};
-		border: 1px solid ${theme.color.gray[400]};
-		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+		border: 1px solid ${$disabled ? theme.color.gray[200] : theme.color.gray[400]};
+		box-shadow: ${$disabled ? "0 1px 2px 0 rgba(0, 0, 0, 0.05)" : "0 1px 2px 0 rgba(0, 0, 0, 0.15)"};
 	`}
 `;
 
