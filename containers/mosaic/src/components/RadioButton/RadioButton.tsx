@@ -35,6 +35,9 @@ const RadioButton = (
 					icon={<RadioIcon />}
 					checkedIcon={<RadioIcon checked />}
 					disableRipple
+					// Set the required prop on the DOM element rather than using the RadioButton required prop because
+					// we don't want it adding an asterisk. That's already done above.
+					inputProps={{ required }}
 				/>
 			)}
 		/>
