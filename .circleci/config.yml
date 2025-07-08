@@ -52,7 +52,7 @@ jobs:
       - init
       - run:
           name: Run Storybook typechecker
-          command: docker compose up --build storybook-typecheck
+          command: docker compose up --build --exit-code-from storybook-typecheck storybook-typecheck
   Publish SB Static:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
