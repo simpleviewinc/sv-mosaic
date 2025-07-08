@@ -56,3 +56,9 @@ export const StyledRadioCheckedDot = styled.span`
 	background-color: currentColor;
 	border-radius: ${theme.rounded.full};
 `;
+
+export const StyledRequired = styled.span`
+	display: inline-block;
+	color: ${theme.color.red[600]};
+	margin-left: ${theme.spacing(1)};
+`;
