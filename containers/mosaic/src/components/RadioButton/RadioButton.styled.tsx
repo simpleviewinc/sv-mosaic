@@ -41,6 +41,7 @@ export const StyledRadioButton = styled(Radio)`
 `;
 
 export const StyledRadioIcon = styled.span`
+	margin-top: -1px;
 	width: 16px;
 	height: 16px;
 	border: 2px solid currentColor;
@@ -55,10 +56,4 @@ export const StyledRadioCheckedDot = styled.span`
 	height: 8px;
 	background-color: currentColor;
 	border-radius: ${theme.rounded.full};
-`;
-
-export const StyledRequired = styled.span`
-	display: inline-block;
-	color: ${theme.color.red[600]};
-	margin-left: ${theme.spacing(1)};
 `;

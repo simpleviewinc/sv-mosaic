@@ -47,6 +47,7 @@ export const StyledCheckboxOutline = styled.span`
 `;
 
 export const StyledCheckboxIcon = styled.span`
+	margin-top: -1px;
 	border-radius: 2px;
 	overflow: hidden;
 	vertical-align: middle;
