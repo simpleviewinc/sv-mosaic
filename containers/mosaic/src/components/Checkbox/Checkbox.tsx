@@ -1,18 +1,20 @@
 import React, { useId, memo } from "react";
 import type { CheckboxProps } from "./CheckboxTypes";
 
-import { StyledCheckbox, StyledFormControlLabel, StyledLabel } from "./Checkbox.styled";
+import { StyledCheckbox } from "./Checkbox.styled";
 import testIds from "@root/utils/testIds";
 import CheckboxIcon from "./CheckboxIcon";
+import { StyledOptionLabel } from "../common/StyledOptionLabel";
+import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
 
 const Checkbox = (props: CheckboxProps) => {
 	const fallbackId = useId();
 	const id = props.id || fallbackId;
 
 	return (
-		<StyledFormControlLabel
+		<StyledOptionFormControl
 			label={props.label && (
-				<StyledLabel $disabled={props.disabled}>{props.label}</StyledLabel>
+				<StyledOptionLabel $disabled={props.disabled}>{props.label}</StyledOptionLabel>
 			)}
 			labelPlacement="end"
 			data-testid="label-test-id"

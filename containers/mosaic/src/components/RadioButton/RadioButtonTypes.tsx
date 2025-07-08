@@ -15,4 +15,8 @@ export interface RadioButtonProps {
    * The value of the component.
    */
 	value?: string;
+	/**
+	 * Whether or not the radio button is checked
+	 */
+	checked?: boolean;
 }
