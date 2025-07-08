@@ -127,7 +127,7 @@ export const KitchenSink = (): ReactElement => {
 					required: false,
 					disabled: false,
 					inputSettings: {
-						getOptions,
+						options: getOptions,
 					},
 					helperText: "Helper text",
 					instructionText: "Instruction text",

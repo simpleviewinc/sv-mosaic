@@ -111,7 +111,7 @@ const kitchenSinkFields: FieldDef[] = [
 		required: false,
 		disabled: false,
 		inputSettings: {
-			getOptions,
+			options: getOptions,
 		},
 		helperText: "Helper text",
 		instructionText: "Instruction text",
