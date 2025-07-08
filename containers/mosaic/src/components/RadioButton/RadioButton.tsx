@@ -3,7 +3,7 @@ import type { ReactElement, HTMLAttributes } from "react";
 
 // Types and styles
 import type { RadioButtonProps } from "./RadioButtonTypes";
-import { StyledRadioButton, StyledRequired } from "./RadioButton.styled";
+import { StyledRadioButton } from "./RadioButton.styled";
 import { StyledOptionLabel } from "../common/StyledOptionLabel";
 import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
 import RadioIcon from "./RadioIcon";
@@ -16,9 +16,11 @@ const RadioButton = (
 	return (
 		<StyledOptionFormControl
 			label={label && (
-				<StyledOptionLabel $disabled={disabled}>
+				<StyledOptionLabel
+					disabled={disabled}
+					required={required}
+				>
 					{props.label}
-					{required && <StyledRequired>*</StyledRequired>}
 				</StyledOptionLabel>
 			)}
 			disableTypography
