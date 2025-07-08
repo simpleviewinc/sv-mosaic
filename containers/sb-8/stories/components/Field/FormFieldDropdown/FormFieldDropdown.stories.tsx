@@ -116,7 +116,7 @@ const kitchenSinkFields: FieldDef[] = [
 		type: "dropdown",
 		size: "md",
 		inputSettings: {
-			getOptions,
+			options: getOptions,
 			placeholder: "placeholder",
 		},
 		helperText: "Helper text",

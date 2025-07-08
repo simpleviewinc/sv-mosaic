@@ -247,7 +247,7 @@ export const Profile = ({
 								size: "full",
 								required: true,
 								inputSettings: {
-									getOptions: getOptionsCountries,
+									options: getOptionsCountries,
 								},
 								validates: [{
 									name: "postalCode",
