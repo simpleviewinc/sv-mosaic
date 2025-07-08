@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { default as MUIRadioGroup } from "@mui/material/RadioGroup";
+import theme from "@root/theme";
 
 export const StyledRadioGroup = styled(MUIRadioGroup)`
-  margin-left: -12px;
+	& {
+		margin-left: ${theme.spacing(-1.5)};
+		gap: ${theme.spacing(1)};
+	}
 `;
 
 export const StyledSkeletonWrapper = styled.div`

@@ -1,25 +1,6 @@
 import styled from "styled-components";
 import { default as MUICheckbox } from "@mui/material/Checkbox";
-import { default as MUIFormControlLabel } from "@mui/material/FormControlLabel";
 import theme from "@root/theme";
-import { Text } from "../Typography";
-
-export const StyledFormControlLabel = styled(MUIFormControlLabel)`
-	&& {
-		align-items: center;
-		gap: ${theme.spacing(1)};
-		margin-left: 0;
-		margin-right: 0;
-	}
-`;
-
-export const StyledLabel = styled(Text)
-	.attrs<{ $disabled?: boolean }>(({ $disabled }) => ({
-		size: "lg",
-		color: $disabled ? theme.color.gray[600] : undefined,
-	}))`
-		max-width: 414px;
-	`;
 
 export const StyledCheckbox = styled(MUICheckbox)`
 	&& {

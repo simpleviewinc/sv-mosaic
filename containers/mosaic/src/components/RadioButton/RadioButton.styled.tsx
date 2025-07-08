@@ -6,28 +6,53 @@ import Radio from "@mui/material/Radio";
 import theme from "@root/theme";
 
 export const StyledRadioButton = styled(Radio)`
-  &.MuiRadio-colorPrimary {
-    color: ${theme.newColors.almostBlack["100"]};
+	padding: ${theme.spacing(2)};
+	color: ${theme.color.black};
 
-    &.Mui-checked {
-      color: ${theme.newColors.simplyGold["100"]};
-    }
-  }
+	svg {
+		width: 18px;
+		height: 18px;
+	}
 
-  &.MuiRadio-colorPrimary,
-  &.MuiRadio-colorPrimary.Mui-checked {
-    &:hover {
-      background-color: ${theme.newColors.grey2["100"]};
-    }
-  }
+	&:hover {
+		background-color: ${theme.color.translucent.grey[100]};
+	}
 
-  &.MuiRadio-root {
-    margin-right: 2px;
-    padding: 10px;
-  }
+	&.Mui-disabled {
+		color: ${theme.color.gray[400]};
+	}
 
-  & svg {
-    height: ${theme.fieldSpecs.selectors.dimentions};
-    width: ${theme.fieldSpecs.selectors.dimentions};
-  }
+	&.Mui-checked {
+		color: ${theme.color.gold[500]};
+
+		&.Mui-disabled {
+			color: ${theme.color.gold[200]};
+		}
+
+		&:hover {
+			background-color: ${theme.color.translucent.gold[100]};
+		}
+	}
+
+	&.Mui-focusVisible {
+		outline: 2px solid ${theme.color.gray[700]};
+		outline-offset: -2px;
+	}
+`;
+
+export const StyledRadioIcon = styled.span`
+	width: 16px;
+	height: 16px;
+	border: 2px solid currentColor;
+	border-radius: ${theme.rounded.full};
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+export const StyledRadioCheckedDot = styled.span`
+	width: 8px;
+	height: 8px;
+	background-color: currentColor;
+	border-radius: ${theme.rounded.full};
 `;
