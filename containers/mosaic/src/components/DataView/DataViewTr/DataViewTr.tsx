@@ -8,7 +8,7 @@ import type { DataViewTrDndProps, DataViewTrProps } from "./DataViewTrTypes";
 import Checkbox from "@root/components/Checkbox";
 import DataViewTd from "../DataViewTd";
 import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
-import { TableRow, TableRowDragHandle } from "./DataViewTr.styled";
+import { TableRow } from "./DataViewTr.styled";
 import Button from "@root/components/Button";
 import testIds from "@root/utils/testIds";
 
@@ -46,7 +46,6 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 						variant="icon"
 						mIcon={DragIndicatorIcon}
 						muiAttrs={{ ...props }}
-						component={TableRowDragHandle}
 					/>
 				</DataViewTd>
 			)}

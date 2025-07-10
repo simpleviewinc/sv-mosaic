@@ -18,7 +18,7 @@ export const RemoveButton = styled(Button)`
     && {
         margin-left: auto;
 
-        .adornment-icon {
+        .Mos-ButtonAdornmentIcon {
             width: 24px;
             height: 24px;
         }
