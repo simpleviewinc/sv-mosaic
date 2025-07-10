@@ -7,7 +7,7 @@ import DataViewTr from "@root/components/DataView/DataViewTr";
 import userEvent from "@testing-library/user-event";
 import testIds from "@root/utils/testIds";
 
-const primaryActions: DataViewTrProps["primaryActions"] = [{ name: "primary1", label: "Primary 1", color: "black", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", color: "black", variant: "contained", onClick: vi.fn() }];
+const primaryActions: DataViewTrProps["primaryActions"] = [{ name: "primary1", label: "Primary 1", intent: "secondary", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", intent: "secondary", variant: "contained", onClick: vi.fn() }];
 const additionalActions: DataViewTrProps["additionalActions"] = [{ name: "additional1", label: "Additional 1", onClick: vi.fn() }, { name: "additional2", label: "Additional 2", onClick: vi.fn() }];
 const columns: DataViewTrProps["columns"] = [{ name: "column1", label: "Column 1" }, { name: "column2", label: "Column 2" }];
 const originalRowData: DataViewTrProps["originalRowData"] = { id: "abc123", column1: "My Column 1", column2: "My Column 2" };

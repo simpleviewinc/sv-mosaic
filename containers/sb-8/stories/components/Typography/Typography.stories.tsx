@@ -126,7 +126,7 @@ Playground.args = {
 	breakAll: false,
 	title: "",
 	children: "Lorem ipsum",
-	color: "black",
+	intent: "secondary",
 	provideSize: false,
 	size: "md",
 } as const;

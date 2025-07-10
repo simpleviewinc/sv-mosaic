@@ -222,14 +222,14 @@ const MapCoordinatesDrawer = (props: MapCoordinatesDrawerProps): ReactElement =>
 		{
 			label: "Cancel",
 			onClick: () => handleClose(),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Save",
 			onClick: onSubmit,
 			type: "submit",
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	], [handleClose, onSubmit]);

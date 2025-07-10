@@ -7,18 +7,18 @@ import type { ButtonProps } from "@root/components/Button";
 
 import Button from "@root/components/Button";
 
-const color = "black";
+const intent = "primary";
 const variant = "contained";
 const label = "My Button";
-const buttonColors: ButtonProps["color"][] = ["black", "blue", "gray", "lightBlue", "red", "teal", "white", "yellow"];
-const buttonVariants: ButtonProps["variant"][] = ["contained", "icon", "input", "outlined", "text"];
+const buttonIntents: ButtonProps["intent"][] = ["danger", "info", "primary", "secondary", "specialized", "tertiary"];
+const buttonVariants: ButtonProps["variant"][] = ["contained", "text"];
 const menuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null }, { label: "Test 2", onClick: () => null }];
 const notShownMenuItems: ButtonProps["menuItems"] = [{ label: "Test 1", onClick: () => null, show: false }];
 
 async function setup(props: Partial<ButtonProps> = {}) {
 	const renderResult = await act(() => render(
 		<Button
-			color={color}
+			intent={intent}
 			variant={variant}
 			label={label}
 			{...props}
@@ -43,10 +43,10 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button")).not.toBeInTheDocument();
 	});
 
-	for (const color of buttonColors) {
+	for (const intent of buttonIntents) {
 		for (const variant of buttonVariants) {
-			it(`should render buttons of the ${variant} variant in ${color}`, async () => {
-				await setup({ color, variant, mIcon: Icon });
+			it(`should render buttons of the ${variant} variant in ${intent}`, async () => {
+				await setup({ intent, variant, mIcon: Icon });
 				expect(screen.queryByRole("button")).toBeInTheDocument();
 			});
 		}
@@ -57,18 +57,8 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button")).toBeInTheDocument();
 	});
 
-	it("should render a large outlined button", async () => {
-		await setup({ size: "large", variant: "outlined" });
-		expect(screen.queryByRole("button")).toBeInTheDocument();
-	});
-
 	it("should render a small contained button", async () => {
 		await setup({ size: "small" });
-		expect(screen.queryByRole("button")).toBeInTheDocument();
-	});
-
-	it("should render a small outlined button", async () => {
-		await setup({ size: "small", variant: "outlined" });
 		expect(screen.queryByRole("button")).toBeInTheDocument();
 	});
 
@@ -85,7 +75,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render a disabled icon button", async () => {
-		await setup({ disabled: true, variant: "icon", mIcon: Icon });
+		await setup({ disabled: true, variant: "text", mIcon: Icon });
 		const button = screen.queryByRole("button");
 		expect(button).toBeInTheDocument();
 		expect(button).toBeDisabled();

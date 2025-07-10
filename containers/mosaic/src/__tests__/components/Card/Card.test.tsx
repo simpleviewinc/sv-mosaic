@@ -9,7 +9,7 @@ import Card from "@root/components/Card";
 
 const title = "My Card";
 const content = [<>Card Content 1</>, <>Card Content 2</>];
-const actions: CardProps["topActions"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
+const actions: CardProps["topActions"] = [{ intent: "secondary", variant: "contained", label: "Button 1" }, { intent: "secondary", variant: "contained", label: "Button 2" }];
 
 async function setup(props: Partial<CardProps> = {}) {
 	const renderResult = await act(() => render(
