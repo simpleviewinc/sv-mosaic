@@ -8,7 +8,7 @@ import DataViewActionsRow from "@root/components/DataView/DataViewActionsRow";
 import { DataViewDisplayList, DataViewDisplayGrid } from "@root/components/DataView/DataViewDisplays";
 import testIds from "@root/utils/testIds";
 
-const bulkActions: DataViewActionsRowProps["bulkActions"] = [{ name: "action1", label: "Action 1", color: "black", variant: "contained" }, { name: "action2", label: "Action 2", color: "black", variant: "contained" }];
+const bulkActions: DataViewActionsRowProps["bulkActions"] = [{ name: "action1", label: "Action 1", intent: "secondary", variant: "contained" }, { name: "action2", label: "Action 2", intent: "secondary", variant: "contained" }];
 const activeColumnObjs: DataViewActionsRowProps["activeColumnObjs"] = [{ name: "column1", label: "Column 1", sortable: true }, { name: "column2", label: "Column 2" }];
 const columns: DataViewActionsRowProps["columns"] = [{ name: "column1", label: "Column 1", sortable: true }, { name: "column2", label: "Column 2" }];
 const displayOptionsFull: DataViewActionsRowProps["displayOptionsFull"] = [DataViewDisplayList, DataViewDisplayGrid];

@@ -9,7 +9,7 @@ import testIds from "@root/utils/testIds";
 
 const fields: ContentProps["fields"] = [{ name: "content1", label: "My Content 1" }, { name: "content2", label: "My Content 2" }];
 const data: ContentProps["data"] = { content1: "My first content", content2: "My second content" };
-const buttons: ContentProps["buttons"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
+const buttons: ContentProps["buttons"] = [{ intent: "secondary", variant: "contained", label: "Button 1" }, { intent: "secondary", variant: "contained", label: "Button 2" }];
 
 async function setup(props: Partial<ContentProps> = {}) {
 	const renderResult = await act(() => render(

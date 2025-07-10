@@ -180,7 +180,7 @@ export const Playground = ({
 		primaryActions: [
 			{
 				name: "edit",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: async ({ data }) => {
@@ -214,7 +214,7 @@ export const Playground = ({
 			},
 			{
 				name: "delete",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {

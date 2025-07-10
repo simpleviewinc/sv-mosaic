@@ -46,7 +46,7 @@ const MapCoordinatesExample = (): ReactElement => {
 		{
 			label: "Save",
 			onClick: onSubmit,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];
@@ -146,7 +146,7 @@ describe("MapCoordinates component without an address", () => {
 			render(<MapCoordinatesExample />);
 		});
 
-		const addCoordinatesButton = getByText("ADD COORDINATES");
+		const addCoordinatesButton = getByText("Add Coordinates");
 		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
@@ -163,7 +163,7 @@ describe("MapCoordinates component without an address", () => {
 			render(<MapCoordinatesExample />);
 		});
 
-		const addCoordinatesButton = getByText("ADD COORDINATES");
+		const addCoordinatesButton = getByText("Add Coordinates");
 		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
@@ -185,7 +185,7 @@ describe("MapCoordinates component without an address", () => {
 			await act(async () => {
 				removeButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
 			});
-			expect(getByText("ADD COORDINATES")).toBeTruthy();
+			expect(getByText("Add Coordinates")).toBeTruthy();
 		}, 5000);
 	});
 
@@ -194,7 +194,7 @@ describe("MapCoordinates component without an address", () => {
 			render(<MapCoordinatesExample />);
 		});
 
-		const addCoordinatesButton = getByText("ADD COORDINATES");
+		const addCoordinatesButton = getByText("Add Coordinates");
 		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
@@ -225,7 +225,7 @@ describe("MapCoordinates component without an address", () => {
 			render(<MapCoordinatesExample />);
 		});
 
-		const addCoordinatesButton = getByText("ADD COORDINATES");
+		const addCoordinatesButton = getByText("Add Coordinates");
 		await act(async () => {
 			fireEvent.click(addCoordinatesButton);
 		});
