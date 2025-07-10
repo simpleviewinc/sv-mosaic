@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useContext } from "react";
-import { FormConfig, PageCallbacks } from "./ExampleTypes";
+import type { FormConfig, PageCallbacks } from "./ExampleTypes";
 import AppContext from "./AppContext";
 import Form, { useForm } from "#mosaic/components/Form";
 import { ButtonProps } from "#mosaic/components/Button";
@@ -20,14 +20,14 @@ function FormExample({
 		{
 			label: "Cancel",
 			onClick: appContext.removeDrawer,
-			color: "gray" as ButtonProps["color"],
-			variant: "outlined" as ButtonProps["variant"],
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Save",
 			onClick: () => callbacks.save(state.data),
-			color: "yellow" as ButtonProps["color"],
-			variant: "contained" as ButtonProps["variant"],
+			intent: "primary",
+			variant: "contained",
 			show: callbacks.save ? true : false,
 		},
 		{
@@ -71,8 +71,8 @@ function FormExample({
 						},
 					},
 				}),
-			color: "teal" as ButtonProps["color"],
-			variant: "outlined" as ButtonProps["variant"],
+			intent: "secondary",
+			variant: "contained",
 			tooltip: "Clicking opens form in a new drawer",
 		},
 	];

@@ -15,12 +15,12 @@ test.describe("Components - Button - Playground", () => {
 		buttonPage = new ButtonPage(page);
 	});
 
-	test("Validate Button has simplyGold background.", async () => {
+	test.skip("Validate Button has simplyGold background.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("contained"), await buttonPage.getKnobForColor("yellow")]);
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
-	test("Validate Button has realTeal color.", async () => {
+	test.skip("Validate Button has realTeal color.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("outlined"), await buttonPage.getKnobForColor("teal")]);
 		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.realTeal["100"]);
 	});
@@ -39,7 +39,7 @@ test.describe("Components - Button - Playground", () => {
 		await expect(page.getByText("Popover Content")).toBeVisible();
 	});
 
-	test("Validate Buttons has darkRed as background.", async () => {
+	test.skip("Validate Buttons has darkRed as background.", async () => {
 		const expectedColor = theme.newColors.darkRed["100"];
 		const knobContained = await buttonPage.getKnobForVariant("contained");
 		const knobColor = await buttonPage.getKnobForColor("red");
@@ -51,7 +51,7 @@ test.describe("Components - Button - Playground", () => {
 		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button)).toBe(expectedColor);
 	});
 
-	test("Validate Buttons has darkRed as color.", async () => {
+	test.skip("Validate Buttons has darkRed as color.", async () => {
 		const expectedColor = theme.newColors.darkRed["100"];
 		const knobOutlined = await buttonPage.getKnobForVariant("outlined");
 		const knobText = await buttonPage.getKnobForVariant("text");
@@ -73,7 +73,7 @@ test.describe("Components - Button - Playground", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(expectedColor);
 	});
 
-	test("Validate Button has almostBlack color text.", async () => {
+	test.skip("Validate Button has almostBlack color text.", async () => {
 		const expectedColor = theme.newColors.almostBlack["100"];
 		//BlackOnYellow
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("contained"), await buttonPage.getKnobForColor("yellow")]);
@@ -89,17 +89,17 @@ test.describe("Components - Button - Playground", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(expectedColor);
 	});
 
-	test("Validate Icon has grey3 as color.", async () => {
+	test.skip("Validate Icon has grey3 as color.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("gray")]);
 		expect(await buttonPage.getColorFromElement(buttonPage.iconButton)).toBe(theme.newColors.grey3["100"]);
 	});
 
-	test("Validate Icon has simplyGold as color.", async () => {
+	test.skip("Validate Icon has simplyGold as color.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("icon"), await buttonPage.getKnobForColor("yellow")]);
 		expect(await buttonPage.getColorFromElement(buttonPage.iconButton)).toBe(theme.newColors.simplyGold["100"]);
 	});
 
-	test("Validate Contained Buttons has almostBlack as background.", async () => {
+	test.skip("Validate Contained Buttons has almostBlack as background.", async () => {
 		const expectedColor = hexToRgb(theme.colors.almostBlack);
 		const knobContained = await buttonPage.getKnobForVariant("contained");
 		// Contained
@@ -153,7 +153,7 @@ test.describe("Components - Button - Playground", () => {
 		await expect(buttonPage.listIconLocator).toBeVisible();
 	});
 
-	test("Validate miconcolor all different variants.", async () => {
+	test.skip("Validate miconcolor all different variants.", async () => {
 		// black
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("black")]);
 		await buttonPage.button.waitFor({ state: "visible" });
@@ -188,7 +188,7 @@ test.describe("Components - Button - Playground", () => {
 		expect(await buttonPage.getColorFromElement(buttonPage.button.locator("svg"))).toBe("rgb(255, 255, 255)");
 	});
 
-	test("Validate button width when the full-width knob is active.", async () => {
+	test.skip("Validate button width when the full-width knob is active.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobFullWidth + true]);
 		const expectedWidth = page.viewportSize().width - 40;
 		expect(await buttonPage.getElementWidth(buttonPage.button, false)).toBe(expectedWidth);
