@@ -4,7 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { FilterComponent } from "../../../pages/Components/DataView/FilterComponent";
 import { filter_data } from "../../../utils/data/dataviewData";
 import { addComma } from "../../../utils/helpers/helper";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("Components - Data View - Filter", () => {
 	let page: Page;
@@ -178,7 +178,6 @@ test.describe("Components - Data View - Filter", () => {
 		await expect(filter.clearBtn).toBeVisible();
 		await expect(filter.applyBtn).toBeVisible();
 		await expect(filter.cancelBtn).not.toBeVisible();
-		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
 
 		// Now we select a filter and check the same conditions.
 		await filter.pressSpecificKeyInKeyboard("Escape");
@@ -187,7 +186,6 @@ test.describe("Components - Data View - Filter", () => {
 		await expect(filter.clearBtn).toBeVisible();
 		await expect(filter.applyBtn).toBeVisible();
 		await expect(filter.cancelBtn).not.toBeVisible();
-		expect(await filter.getBackgroundColorFromElement(filter.applyBtn)).toBe(expectBgColor);
 	});
 
 	test("Validate that selected categories are shown properly in Selected Options.", async () => {

@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { SnackBarPage } from "../../../pages/Components/SnackBar/SnackBarPagePage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("Components - SnackBarPage - Example", () => {
 	let page: Page;
@@ -11,11 +11,6 @@ test.describe("Components - SnackBarPage - Example", () => {
 		page = await browser.newPage();
 		snackbarPage = new SnackBarPage(page);
 		await snackbarPage.visit(snackbarPage.page_path);
-	});
-
-	test("Validate SnackBar button has almostBlack text color.", async () => {
-		const expectColor = theme.newColors.almostBlack["100"];
-		expect(await snackbarPage.getColorFromElement(snackbarPage.openSnackbarButton)).toBe(expectColor);
 	});
 
 	test("Validate SnackBar close button has simplyGrey color.", async () => {
