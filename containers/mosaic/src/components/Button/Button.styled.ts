@@ -63,6 +63,8 @@ const intentStyles: Record<ButtonIntent, Partial<Record<ButtonProps["variant"], 
 			--over-bg: ${theme.color.gray[50]};
 		`,
 		text: `
+			--icon-color: ${theme.color.gray[500]};
+
 			--over-bg: ${theme.color.gray[50]};
 		`,
 	},
@@ -94,6 +96,8 @@ const intentStyles: Record<ButtonIntent, Partial<Record<ButtonProps["variant"], 
 			--over-shadow-border: ${theme.color.black};
 		`,
 		text: `
+			--icon-color: ${theme.color.gray[500]};
+
 			--over-bg: ${theme.color.gray[50]};
 		`,
 	},
@@ -108,6 +112,8 @@ const intentStyles: Record<ButtonIntent, Partial<Record<ButtonProps["variant"], 
 			--over-bg: ${theme.color.gray[200]};
 		`,
 		text: `
+			--icon-color: ${theme.color.gray[500]};
+
 			--over-bg: ${theme.color.gray[200]};
 		`,
 	},
@@ -179,7 +185,7 @@ function getButtonDimensions({
 
 export const StyledButton = styled(Button)<TransientProps<
 	ButtonProps,
-	| "color" | "intent" | "variant" | "fullWidth" | "size"
+	| "intent" | "variant" | "fullWidth" | "size"
 > & { $isIconButton?: boolean }>(({
 	$intent,
 	$variant,

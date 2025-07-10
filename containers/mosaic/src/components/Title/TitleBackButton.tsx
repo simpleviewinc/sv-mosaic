@@ -21,8 +21,8 @@ const TitleBackButton = ({
 				$collapse={collapse}
 				{...props}
 				className="back-button"
-				color="gray"
-				variant="icon"
+				intent="secondary"
+				variant="text"
 				mIcon={ChevronLeftIcon}
 				muiAttrs={{ "aria-label": label, ...anchorProps }}
 			/>

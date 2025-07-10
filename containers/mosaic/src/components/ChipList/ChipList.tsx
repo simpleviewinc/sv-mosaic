@@ -51,7 +51,7 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 				<ShowButton
 					label={showMore ? "Show Less" : `Show ${options.length - maxInitialChips} More`}
 					onClick={() => setShowMore(!showMore)}
-					color="teal"
+					intent="info"
 					variant="text"
 					mIcon={showMore ? ExpandLess : ExpandMore}
 				/>

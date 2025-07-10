@@ -36,14 +36,16 @@ const AddressCard = (props: AddressCardProps): ReactElement => {
 			<StyledButtonRow separator>
 				<Button
 					label="Edit"
-					color="teal"
+					intent="info"
 					variant="text"
+					size="small"
 					disabled={disabled}
 					onClick={() => onEdit(address)}
 				/>
 				<Button
-					color="red"
+					intent="danger"
 					variant="text"
+					size="small"
 					disabled={disabled}
 					label="Remove"
 					onClick={() => onRemoveAddress(address)}
