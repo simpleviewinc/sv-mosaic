@@ -3,7 +3,7 @@ import { useContext } from "react";
 import type { FormConfig, PageCallbacks } from "./ExampleTypes";
 import AppContext from "./AppContext";
 import Form, { useForm } from "#mosaic/components/Form";
-import { ButtonProps } from "#mosaic/components/Button";
+import type { ButtonProps } from "@simpleview/sv-mosaic/components/Button";
 
 function FormExample({
 	config,
@@ -16,7 +16,7 @@ function FormExample({
 	const controller = useForm();
 	const { state, methods: { setFieldValue } } = controller;
 
-	const buttons = [
+	const buttons: ButtonProps[] = [
 		{
 			label: "Cancel",
 			onClick: appContext.removeDrawer,
