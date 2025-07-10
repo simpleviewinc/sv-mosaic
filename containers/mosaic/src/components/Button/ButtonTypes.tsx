@@ -4,15 +4,32 @@ import type { WebTarget } from "styled-components";
 import type { MenuProps } from "../Menu/MenuTypes";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
+
+export type ButtonIntent = "primary" | "secondary" | "tertiary" | "info" | "specialized" | "danger";
 export interface ButtonProps {
 	name?: string;
 	label?: string | JSX.Element;
 	className?: string;
 	href?: string;
-	color: ColorTypes;
+	/**
+	 * @deprecated The `color` prop is deprecated and should no longer be used, it will be removed in a future version. Use the `intent` prop instead.
+	 */
+	color?: ColorTypes;
+	intent?: ButtonIntent;
 	mIcon?: SvgIconComponent;
-	variant: "icon" | "outlined" | "contained" | "text" | "input";
-	size?: "small" | "medium" | "large";
+	variant:
+		/**
+		 * @deprecated
+		 */
+		| "icon"
+		/**
+		 * @deprecated
+		 */
+		| "outlined"
+		| "contained"
+		| "text"
+		| "input";
+	size?: "xsmall" | "small" | "medium" | "large" | "inherit";
 	iconPosition?: "left" | "right";
 	disabled?: MosaicToggle;
 	/** Button will occupy 100% of the width provided to it */
