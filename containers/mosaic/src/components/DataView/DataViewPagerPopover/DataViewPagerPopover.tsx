@@ -54,14 +54,14 @@ function DataViewPagerPopover({
 				bottomSlot={(
 					<StyledFormFooter $spacing="compact">
 						<StyledFormFooterButton
-							color="gray"
-							variant="outlined"
+							intent="secondary"
+							variant="contained"
 							label="Cancel"
 							$push="right"
 							onClick={onClose}
 						/>
 						<StyledFormFooterButton
-							color="yellow"
+							intent="primary"
 							variant="contained"
 							label="Go"
 							type="submit"

@@ -69,11 +69,10 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 	);
 
 	// TODO Remove when the color prop is dropped.
-	const intent = props.intent ?? colorToIntent[props.color];
+	const intent = props.intent ?? colorToIntent[props.color] ?? "secondary";
 
 	const buttonProps = {
 		$variant: props.variant,
-		$color: props.color,
 		$intent: intent,
 		disabled: props.invisible || shouldDisable,
 		size: size,

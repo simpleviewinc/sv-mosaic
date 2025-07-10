@@ -69,9 +69,8 @@ function DataViewViewControls({
 							mIcon={ExpandMoreIcon}
 							iconPosition="right"
 							label={currentView ? `${t("mosaic:DataView.view")}: ${currentView.label}` : t("mosaic:DataView.no_view_selected")}
+							intent="secondary"
 							variant="contained"
-							size="small"
-							color="gray"
 							onClick={onViewList}
 							className={!currentView && "no-view-selected"}
 						/>
@@ -85,8 +84,7 @@ function DataViewViewControls({
 						iconPosition="right"
 						label={t("mosaic:DataView.save_view")}
 						variant="text"
-						size="small"
-						color="teal"
+						intent="info"
 						menuItems={viewMenuItems}
 					/>
 				</ButtonRow>

@@ -78,8 +78,8 @@ const TopSummary = (props: TopSummaryProps): ReactElement => {
 							<>
 								<Button
 									className={`${favorite?.checked ? "checked" : "unchecked"}`}
-									color={`${favorite?.checked ? "yellow" : "gray"}`}
-									variant="icon"
+									intent={favorite?.checked ? "primary" : "secondary"}
+									variant="text"
 									mIcon={favorite?.checked ? StarRateRounded : StarBorder}
 									onClick={() => favorite.onClick(favorite?.checked ? false : true)}
 								/>
