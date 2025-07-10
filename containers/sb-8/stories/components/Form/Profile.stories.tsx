@@ -74,7 +74,7 @@ export const Profile = ({
 		primaryActions: [
 			{
 				name: "delete",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: ({ data }) => {

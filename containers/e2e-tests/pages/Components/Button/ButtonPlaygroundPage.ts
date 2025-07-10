@@ -25,7 +25,7 @@ export class ButtonPage extends BasePage {
 		return (knob.knobVariant + variant).toString();
 	}
 
-	async getKnobForColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
+	async getKnobForColor(intent: "secondary" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
 		return (knob.knobColor + color).toString();
 	}
 
@@ -47,7 +47,7 @@ export class ButtonPage extends BasePage {
 		return (knob.knobTypeOfLabel + type).toString();
 	}
 
-	async getKnobForIconColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
+	async getKnobForIconColor(intent: "secondary" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
 		return (knob.knobmIconColor + color).toString();
 	}
 }

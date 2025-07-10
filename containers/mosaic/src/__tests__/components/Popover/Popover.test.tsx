@@ -29,13 +29,13 @@ const PopoverExample = () => {
 	return (
 		<div>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Open Popover"
 				onClick={onClick}
 			/>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Close Popover"
 				onClick={handleClose}

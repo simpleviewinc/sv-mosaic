@@ -8,7 +8,7 @@ import DataViewTitleBar from "@root/components/DataView/DataViewTitleBar";
 import testIds from "@root/utils/testIds";
 import { DataViewFilterText } from "@root/components";
 
-const buttons: DataViewTitleBarProps["buttons"] = [{ name: "titleButton1", label: "Title Button 1", color: "black", variant: "contained", onClick: vi.fn() }, { name: "titleButton2", label: "Title Button 2", color: "black", variant: "contained", onClick: vi.fn() }];
+const buttons: DataViewTitleBarProps["buttons"] = [{ name: "titleButton1", label: "Title Button 1", intent: "secondary", variant: "contained", onClick: vi.fn() }, { name: "titleButton2", label: "Title Button 2", intent: "secondary", variant: "contained", onClick: vi.fn() }];
 const filters: DataViewTitleBarProps["filters"] = [{ name: "myFilter", label: "Keyword", component: DataViewFilterText, onChange: vi.fn() }];
 
 async function setup(props: Partial<DataViewTitleBarProps> = {}) {

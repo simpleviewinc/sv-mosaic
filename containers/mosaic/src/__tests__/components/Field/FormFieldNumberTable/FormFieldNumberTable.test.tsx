@@ -55,7 +55,7 @@ const NumberTableExample = ({
 		{
 			label: "Save",
 			onClick: onSubmit,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];

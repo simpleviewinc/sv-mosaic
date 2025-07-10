@@ -149,8 +149,8 @@ function PickerPanel({
 						)}
 						{!isLoading && onLoadMore && (
 							<LoadMoreButton
-								color="black"
-								variant="outlined"
+								intent="secondary"
+								variant="contained"
 								label={t("mosaic:common.load_more___")}
 								onClick={onLoadMore}
 							/>

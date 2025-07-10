@@ -83,8 +83,8 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		{
 			label: "No, keep it",
 			onClick: () => setRemoveDialog(false),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Yes, remove it",
@@ -92,7 +92,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 				removeLocation();
 				setRemoveDialog(false);
 			},
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	], [removeDialog]);
