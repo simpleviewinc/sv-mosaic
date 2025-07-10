@@ -41,7 +41,7 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 
 export const Playground = ({
 	backgroundColor,
-	buttonColor,
+	buttonIntent,
 	buttonVariant,
 	disabled,
 	fullWidth,
@@ -66,7 +66,7 @@ export const Playground = ({
 		name: "show",
 		onClick: () => alert("Clicked"),
 		show: toggleMap[show],
-		color: buttonColor,
+		intent: buttonIntent,
 		variant: buttonVariant,
 	};
 
@@ -79,7 +79,7 @@ export const Playground = ({
 					attrs={{ $smallText: smallText }}
 					label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
 					variant={buttonVariant}
-					color={buttonColor}
+					intent={buttonIntent}
 					fullWidth={fullWidth}
 					disabled={toggleMapInverse[disabled]}
 					tooltip={tooltipType}
@@ -99,7 +99,7 @@ export const Playground = ({
 
 Playground.args = {
 	backgroundColor: "light",
-	buttonColor: "black",
+	buttonIntent: "primary",
 	buttonVariant: "contained",
 	disabled: "Undefined",
 	fullWidth: false,
@@ -124,13 +124,13 @@ Playground.argTypes = {
 		control: { type: "select" },
 		name: "Background Color",
 	},
-	buttonColor: {
-		options: ["black", "blue", "lightBlue", "red", "yellow", "teal", "gray", "white"],
+	buttonIntent: {
+		options: ["primary", "secondary", "tertiary", "info", "specialized", "danger"],
 		control: { type: "select" },
-		name: "Color",
+		name: "Intent",
 	},
 	buttonVariant: {
-		options: ["text", "outlined", "contained", "icon"],
+		options: ["text", "contained"],
 		control: { type: "select" },
 		name: "Variant",
 	},

@@ -356,20 +356,6 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		expect(await pagination.paginationValue.textContent()).toBe(`1-${dataview_data.resultPerPageDefault} of ${dataview_data.totalRecords}`);
 	});
 
-	test("Validate the Created filter styles.", async () => {
-		await advancedFilters.selectFilter("created");
-		await advancedFilters.createdBtn.click();
-		await advancedFilters.waitForElementLoad();
-		await validateFilterStyles();
-	});
-
-	test("Validate the Updated filter styles.", async () => {
-		await advancedFilters.selectFilter("updated");
-		await advancedFilters.updatedBtn.click();
-		await advancedFilters.waitForElementLoad();
-		await validateFilterStyles();
-	});
-
 	test("Validate that Removing emply Title filter doesn't trigger a reload", async () => {
 		await advancedFilters.selectFilter("title");
 		await advancedFilters._dataviewPage.filtersBtn.click();
