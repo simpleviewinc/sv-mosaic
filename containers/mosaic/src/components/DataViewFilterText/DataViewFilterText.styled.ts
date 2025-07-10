@@ -2,12 +2,14 @@ import styled from "styled-components";
 import Sizes from "@root/theme/sizes";
 import { StyledTextField } from "@root/components/Field/FormFieldText/FormFieldText.styled";
 import Button from "@root/components/Button";
+import theme from "@root/theme";
 
 export const StyledContents = styled.div`
 
 	& > .inputRow {
 		display: flex;
 		align-items: center;
+		gap: ${theme.spacing(2)};
 		padding: 16px 16px 0;
 		margin-bottom: 16px;
 	}
@@ -55,8 +57,6 @@ export const StyledFilterButton = styled(Button)<{ $hasQuery?: boolean }>`
 export const StyledFilterTextField = styled(StyledTextField)<{ $hasComparisonDropdown?: boolean }>`
 	${({ $hasComparisonDropdown }) => $hasComparisonDropdown && `
 		&& {
-			margin-left: -1px;
-
 			.Mui-focused fieldset,
 			fieldset:hover {
 				z-index: 1;

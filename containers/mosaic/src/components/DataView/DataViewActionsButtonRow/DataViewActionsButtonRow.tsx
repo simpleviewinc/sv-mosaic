@@ -59,8 +59,8 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 		return [
 			<Button
 				key="additional"
-				color="black"
-				variant="icon"
+				intent="secondary"
+				variant="text"
 				mIcon={props.activeDisplay && MoreVertIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"

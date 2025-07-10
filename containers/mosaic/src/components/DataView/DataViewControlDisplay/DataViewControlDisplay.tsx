@@ -24,11 +24,10 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 	return (
 		<StyledSpan>
 			<Button
-				variant="icon"
-				color="black"
+				variant="text"
+				intent="secondary"
 				mIcon={Icon}
 				iconPosition="right"
-				size="small"
 				menuItems={options}
 				menuValue={props.display}
 				menuOnChange={props.onDisplayChange}

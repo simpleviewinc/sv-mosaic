@@ -35,9 +35,9 @@ function DataViewPager(props: DataViewPagerProps) {
 	return (
 		<StyledSpan data-testid={testIds.DATA_VIEW_PAGER}>
 			<Button
-				color="black"
-				variant="text"
-				size="small"
+				intent="secondary"
+				variant="contained"
+				size="medium"
 				tooltip={t("mosaic:DataView.jump_to_page")}
 				label={(
 					<span>
@@ -60,18 +60,16 @@ function DataViewPager(props: DataViewPagerProps) {
 				)}
 			/>
 			<StyledButton
-				color="gray"
-				variant="icon"
-				size="small"
+				intent="secondary"
+				variant="text"
 				mIcon={ChevronLeftIcon}
 				onClick={skipClick(props.skip - props.limit)}
 				disabled={previousDisabled}
 				muiAttrs={prevPageAttrs}
 			/>
 			<StyledButton
-				color="gray"
-				variant="icon"
-				size="small"
+				intent="secondary"
+				variant="text"
 				mIcon={ChevronRightIcon}
 				onClick={skipClick(props.skip + props.limit)}
 				disabled={nextDisabled}

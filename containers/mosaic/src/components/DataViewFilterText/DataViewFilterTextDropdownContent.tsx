@@ -89,8 +89,8 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 			<StyledFilterButton
 				className="comparisonButton"
 				label={activeComparison.label}
-				variant="input"
-				color="black"
+				variant="contained"
+				intent="secondary"
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}

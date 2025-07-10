@@ -1,6 +1,5 @@
 import * as React from "react";
 import { memo, useMemo, useCallback } from "react";
-import theme from "@root/theme";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import type { DataViewControlLimitProps } from "./DataViewControlLimitTypes";
@@ -27,13 +26,11 @@ function DataViewLimit(props: DataViewControlLimitProps) {
 
 	return (
 		<Button
-			color="black"
+			intent="secondary"
 			label={String(props.limit)}
 			variant="text"
-			size="small"
 			iconPosition="right"
 			mIcon={ExpandMoreIcon}
-			mIconColor={theme.newColors.almostBlack["100"]}
 			menuItems={options}
 			menuOnChange={onChange}
 			menuValue={props.limit.toString()}

@@ -247,13 +247,13 @@ const Form = (props: FormProps) => {
 		{
 			label: "No, stay",
 			onClick: () => handleDialogClose(false),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Yes, leave",
 			onClick: () => handleDialogClose(true),
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];

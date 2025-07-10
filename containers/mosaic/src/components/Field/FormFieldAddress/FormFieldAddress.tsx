@@ -187,8 +187,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				<Footer>
 					<Button
 						disabled={disabled}
-						color="gray"
-						variant="outlined"
+						intent="secondary"
+						variant="contained"
 						label="Add Address"
 						onClick={addAddressHandler}
 					/>

@@ -15,7 +15,7 @@ function ResetButton({
 		<ResetButtonContainer>
 			<Button
 				className="reset-button"
-				color="teal"
+				intent="danger"
 				variant="text"
 				label="Reset"
 				onClick={onClick}

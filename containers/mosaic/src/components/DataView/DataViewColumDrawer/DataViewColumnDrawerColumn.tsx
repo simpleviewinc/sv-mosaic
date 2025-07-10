@@ -44,8 +44,8 @@ function DataViewColumnDrawerColumn({ name, allColumns, onRemove }: DataViewColu
 				<ColumnItemLabel>{column.label}</ColumnItemLabel>
 			</ColumnDraggable>
 			<Button
-				variant="icon"
-				color="gray"
+				variant="text"
+				intent="tertiary"
 				mIcon={ClearIcon}
 				tooltip="Remove Column"
 				onClick={() => onRemove(name)}

@@ -42,8 +42,8 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 				>
 					<Button
 						disabled={disabled}
-						color="black"
-						variant="icon"
+						intent="secondary"
+						variant="text"
 						mIcon={DragIndicatorIcon}
 						muiAttrs={{ ...props }}
 					/>

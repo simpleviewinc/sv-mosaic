@@ -78,8 +78,9 @@ const FormFieldColor = (
 				/>
 				{value ? (
 					<Button
-						color="red"
+						intent="danger"
 						variant="text"
+						size="small"
 						label="Remove color"
 						onClick={clearColor}
 						mIcon={ClearIcon}

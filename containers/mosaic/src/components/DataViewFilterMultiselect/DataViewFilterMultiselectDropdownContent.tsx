@@ -77,16 +77,16 @@ function DataViewFilterMultiselectDropdownContent({
 				<ButtonRow>
 					<Button
 						label={activeComparison.label}
-						variant="outlined"
-						color="black"
+						variant="contained"
+						intent="secondary"
 						iconPosition="right"
 						mIcon={ExpandMoreIcon}
 						menuItems={menuItems}
 						muiAttrs={{ "aria-label": "Comparison Selector" }}
 					/>
 					<Button
-						variant="icon"
-						color="blue"
+						variant="text"
+						intent="info"
 						mIcon={HelpIcon}
 						popover={(
 							<StyledComparisonHelp data-testid={testIds.COMPARISON_HELP}>
