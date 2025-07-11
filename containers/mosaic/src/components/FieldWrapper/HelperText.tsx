@@ -16,12 +16,12 @@ const HelperText = ({
 	error = false,
 }: HelperTextProps): ReactElement => {
 	return error ? (
-		<ErrorTextWrapper>
+		<ErrorTextWrapper className="Mos-FieldErrorText">
 			<StyledErrorIcon $error={!!children} data-testid="error-icon-test-id" />
 			<StyledText error={error}>{children}</StyledText>
 		</ErrorTextWrapper>
 	) : (
-		<StyledText error={error}>{children}</StyledText>
+		<StyledText className="Mos-FieldHelperText" error={error}>{children}</StyledText>
 	);
 };
 
