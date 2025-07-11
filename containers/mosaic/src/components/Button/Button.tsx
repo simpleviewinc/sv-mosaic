@@ -4,12 +4,13 @@ import type { PopoverProps } from "@mui/material/Popover";
 import React, { createContext, memo, useState, forwardRef } from "react";
 import Popover from "@mui/material/Popover";
 
-import type { ButtonPopoverContextProps, ButtonProps } from "./ButtonTypes";
+import type { ButtonIntent, ButtonPopoverContextProps, ButtonProps, ColorTypes } from "./ButtonTypes";
 
-import { StyledButton, StyledIconButton, StyledWrapper } from "./Button.styled";
+import { StyledButton, StyledButtonContent, StyledButtonHover, StyledButtonIcon, StyledButtonLabel, StyledWrapper } from "./Button.styled";
 import Menu from "../Menu";
 import { useToggle } from "@root/utils/toggle";
 import Tooltip, { useTooltip } from "@root/components/Tooltip";
+import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 
 export const ButtonPopoverContext = createContext<ButtonPopoverContextProps>(null);
 
@@ -24,19 +25,58 @@ const popoverProps: Pick<PopoverProps, "anchorOrigin" | "transformOrigin"> = {
 	},
 };
 
-const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase(props, ref) {
+const colorToIntent: Record<ColorTypes, ButtonIntent> = {
+	black: "specialized",
+	blue: "info",
+	gray: "secondary",
+	lightBlue: "secondary",
+	red: "danger",
+	teal: "info",
+	white: "secondary",
+	yellow: "primary",
+};
+
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase({
+	size = "medium",
+	...props
+}, ref) {
 	const Icon = props.mIcon;
-	const isIconButton = props.variant === "icon";
-	const adornmentIcon = Icon && <Icon className="adornment-icon" style={{ color: props.mIconColor }} />;
+	const isIconButton = !props.label && Icon;
+	const iconPosition = props.iconPosition || "left";
+	const adornmentIcon = Icon && (
+		<StyledButtonIcon
+			as={Icon}
+			style={{ color: props.mIconColor }}
+			$isAdornment={!isIconButton}
+			$inherit={size === "inherit"}
+		/>
+	);
 
 	const shouldDisable = useToggle(props, "disabled", false);
+	useMountWarning(
+		"[MOS Button] The `color` prop is deprecated and should no longer be used, it will be removed in a future version. Use the `intent` prop instead.",
+		props.color !== undefined,
+	);
+
+	useMountWarning(
+		"[MOS Button] The `icon` variant is deprecated. Mosaic now infers an icon variant from the use of the `mIcon` prop and the lack of a `label` prop.",
+		props.variant === "icon",
+	);
+
+	useMountWarning(
+		"[MOS Button] The `outlined` variant is deprecated and should no longer be used, it will be removed in a future version. Use either `contained` or `text`",
+		props.variant === "outlined",
+	);
+
+	// TODO Remove when the color prop is dropped.
+	const intent = props.intent ?? colorToIntent[props.color] ?? "secondary";
 
 	const buttonProps = {
 		$variant: props.variant,
-		$color: props.color,
+		$intent: intent,
 		disabled: props.invisible || shouldDisable,
-		size: props.size,
-		$size: props.size,
+		size: size,
+		$size: size,
 		onClick: props.onClick,
 		onBlur: props.onBlur,
 		href: props.href,
@@ -45,12 +85,10 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		type: props.type || "button",
 		as: props.as,
 		ref,
+		disableRipple: true,
 		"aria-label": typeof props.label === "string" ? props.label : typeof props.tooltip === "string" ? props.tooltip : undefined,
 		...props.muiAttrs,
 	};
-
-	const iconPosition = props.iconPosition || "left";
-	const Component = props.component || (isIconButton ? StyledIconButton : StyledButton) as any;
 
 	const cn = [
 		"button",
@@ -58,7 +96,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 		props.variant === "icon" ? "iconButton" : "normalButton",
 		props.fullWidth && "fullWidth",
 		props.invisible && "invisible",
-		`size_${props.size}`,
+		`size_${size}`,
 		`variant_${props.variant}`,
 	].filter(Boolean).join(" ");
 
@@ -70,17 +108,18 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 			onMouseEnter={props.onMouseEnter}
 			onMouseLeave={props.onMouseLeave}
 		>
-			{isIconButton ? (
-				<Component {...buttonProps}>
-					<Icon data-testid="icon-button-test" />
-				</Component>
-			) : (
-				<Component {...buttonProps} $fullWidth={props.fullWidth}>
+			<StyledButton
+				{...buttonProps}
+				$fullWidth={props.fullWidth}
+				$isIconButton={isIconButton}
+			>
+				<StyledButtonHover />
+				<StyledButtonContent $size={size}>
 					{iconPosition === "left" && adornmentIcon}
-					{props.label}
+					{props.label && <StyledButtonLabel>{props.label}</StyledButtonLabel>}
 					{iconPosition === "right" && adornmentIcon}
-				</Component>
-			)}
+				</StyledButtonContent>
+			</StyledButton>
 		</StyledWrapper>
 	);
 });

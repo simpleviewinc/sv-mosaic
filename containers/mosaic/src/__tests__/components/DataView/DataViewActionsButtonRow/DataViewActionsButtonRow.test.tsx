@@ -7,7 +7,7 @@ import DataViewActionsButtonRow from "@root/components/DataView/DataViewActionsB
 import testIds from "@root/utils/testIds";
 import userEvent from "@testing-library/user-event";
 
-const primaryActions: DataViewActionsButtonRowProps["primaryActions"] = [{ name: "primary1", label: "Primary 1", color: "black", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", color: "black", variant: "contained", onClick: vi.fn() }];
+const primaryActions: DataViewActionsButtonRowProps["primaryActions"] = [{ name: "primary1", label: "Primary 1", intent: "secondary", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", intent: "secondary", variant: "contained", onClick: vi.fn() }];
 const additionalActions: DataViewActionsButtonRowProps["additionalActions"] = [{ name: "additional1", label: "Additional 1", onClick: vi.fn() }, { name: "additional2", label: "Additional 2", onClick: vi.fn() }];
 const originalRowData: DataViewActionsButtonRowProps["originalRowData"] = { id: "abc123" };
 

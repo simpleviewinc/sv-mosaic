@@ -50,7 +50,7 @@ export const Playground = ({
 }: typeof Playground.args): ReactElement => {
 	const topActions: ButtonProps[] = [
 		{
-			color: "black",
+			intent: "secondary",
 			variant: "icon",
 			onClick: () => alert("+ icon clicked"),
 			mIcon: AddIcon,

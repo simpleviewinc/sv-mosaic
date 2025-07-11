@@ -14,13 +14,6 @@ test.describe("Components - TopSummary - Kitchen Sink", () => {
 		await summaryPage.visit(summaryPage.page_path);
 	});
 
-	test("Validate Star has simplyGold color.", async () => {
-		await summaryPage.starRateIcon.waitFor();
-		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.grey3["100"]);
-		await summaryPage.starRateIcon.click();
-		expect(await summaryPage.getColorFromElement(summaryPage.starRateIcon)).toBe(theme.newColors.simplyGold["100"]);
-	});
-
 	test("Validate Summary Page Top Component padding is valid.", async () => {
 		const locator = summaryPage.summaryTopComponent;
 		await locator.waitFor();

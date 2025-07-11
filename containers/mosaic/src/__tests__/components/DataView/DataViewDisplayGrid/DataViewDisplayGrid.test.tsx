@@ -9,7 +9,7 @@ import testIds from "@root/utils/testIds";
 
 const columns: DataViewDisplayGridProps["columns"] = [{ name: "column1", label: "Column 1", sortable: true }, { name: "column2", label: "Column 2" }];
 const data: DataViewDisplayGridProps["data"] = [{ id: "abc123", column1: "Column 1A", column2: "Column 2A" }, { id: "def456", column1: "Column 1B", column2: "Column 2B" }];
-const primaryActions: DataViewDisplayGridProps["rowActions"][number]["primary"] = [{ name: "primary1", label: "Primary 1", color: "black", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", color: "black", variant: "contained", onClick: vi.fn() }];
+const primaryActions: DataViewDisplayGridProps["rowActions"][number]["primary"] = [{ name: "primary1", label: "Primary 1", intent: "secondary", variant: "contained", onClick: vi.fn() }, { name: "primary2", label: "Primary 2", intent: "secondary", variant: "contained", onClick: vi.fn() }];
 const additionalActions: DataViewDisplayGridProps["rowActions"][number]["additional"] = [{ name: "additional1", label: "Additional 1", onClick: vi.fn() }, { name: "additional2", label: "Additional 2", onClick: vi.fn() }];
 const rowActions: DataViewDisplayGridProps["rowActions"] = { id: { primary: primaryActions, additional: additionalActions } };
 const gridColumnsMap = { image: "column1", primary: "column2", secondary: "column2" };

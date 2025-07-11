@@ -34,7 +34,7 @@ const SnackbarExample = () => {
 	return (
 		<>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Open snackbar"
 				onClick={handleClickOpen}
