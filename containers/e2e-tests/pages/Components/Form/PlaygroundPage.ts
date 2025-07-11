@@ -66,7 +66,7 @@ export class PlaygroundPage extends BasePage {
 		this.advancedSelectionChip = page.locator(`#advancedSelection [data-testid='${testIds.CHIP_LIST}'] [role='button']`);
 		this.advancedSelectionFieldButton = page.locator("#advancedSelection button");
 		this.textEditorField = page.locator("#textEditor div[contenteditable='true']");
-		this.mapCoordinatesExampleButton = page.locator("text=ADD COORDINATES");
+		this.mapCoordinatesExampleButton = page.locator("text=Add Coordinates");
 		//Address Information
 		this.countryDropdown = page.locator("input[role='combobox']").nth(1);
 		this.firstAddressField = page.locator("#address1 input");

@@ -38,8 +38,8 @@ const TopSummary = (props: TopSummaryProps): ReactElement => {
 	const shownAdditionalActions = useToggle(additionalActions, "show");
 
 	const additionActionsButton: ButtonProps | null = useMemo(() => shownAdditionalActions.length > 0 ? {
-		color: "black",
-		variant: "icon",
+		intent: "secondary",
+		variant: "text",
 		tooltip: "More Actions",
 		mIcon: MoreVert,
 		menuItems: shownAdditionalActions,
@@ -78,10 +78,11 @@ const TopSummary = (props: TopSummaryProps): ReactElement => {
 							<>
 								<Button
 									className={`${favorite?.checked ? "checked" : "unchecked"}`}
-									color={`${favorite?.checked ? "yellow" : "gray"}`}
-									variant="icon"
+									intent={favorite?.checked ? "primary" : "secondary"}
+									variant="text"
 									mIcon={favorite?.checked ? StarRateRounded : StarBorder}
 									onClick={() => favorite.onClick(favorite?.checked ? false : true)}
+									tooltip="Favorite"
 								/>
 							</>
 						)}

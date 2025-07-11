@@ -55,8 +55,8 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
 					{action?.function && action?.label && (
 						<ActionWrapper>
 							<Button
-								color="teal"
-								variant="text"
+								intent="secondary"
+								variant="contained"
 								onClick={action.function}
 								label={action.label}
 								muiAttrs={{ disableRipple: true }}
