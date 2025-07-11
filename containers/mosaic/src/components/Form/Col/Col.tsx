@@ -31,6 +31,7 @@ const Col = (props: ColPropsTypes) => {
 
 	return (
 		<StyledCol
+			className="Mos-FormColumn"
 			data-layout="column"
 			$gridColumn={`${gridStart} / ${gridEnd}`}
 			$gridMinWidth={gridMinWidth}

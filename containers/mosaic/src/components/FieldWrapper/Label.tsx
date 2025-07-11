@@ -10,6 +10,7 @@ import { containerQuery } from "@root/utils/css";
 import Tooltip, { useTooltip } from "../Tooltip";
 import testIds from "@root/utils/testIds";
 import { TooltipIcon } from "../common";
+import { classnames } from "@root/utils/string";
 
 const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 	display: flex;
@@ -76,6 +77,7 @@ interface LabelProps {
 	forceInstructionTooltip?: boolean;
 	colsInRow?: number;
 	as?: "label" | "div";
+	isGroup?: boolean;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -90,6 +92,7 @@ const Label = (props: LabelProps): ReactElement => {
 		forceInstructionTooltip,
 		colsInRow,
 		as = "label",
+		isGroup,
 	} = props;
 
 	const { anchorProps, tooltipProps } = useTooltip();
@@ -106,6 +109,7 @@ const Label = (props: LabelProps): ReactElement => {
 					as={as === "label" ? InputLabel : InputLabelDiv}
 					data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
 					title={typeof children === "string" ? children : undefined}
+					className={classnames("Mos-FieldLabel", isGroup && "Mos-GroupLabel")}
 				>
 					{children}
 					{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
@@ -115,6 +119,7 @@ const Label = (props: LabelProps): ReactElement => {
 				<StyledTooltipWrapper
 					$colsInRow={colsInRow}
 					$alwaysShow={forceInstructionTooltip}
+					className="Mos-FieldTooltip"
 				>
 					<TooltipIcon {...anchorProps} />
 					<Tooltip {...tooltipProps}>
@@ -123,7 +128,10 @@ const Label = (props: LabelProps): ReactElement => {
 				</StyledTooltipWrapper>
 			)}
 			{limit && (
-				<CharCounterWrapper $invalid={limit[0] > limit[1]}>
+				<CharCounterWrapper
+					className="Mos-CharacterCount"
+					$invalid={limit[0] > limit[1]}
+				>
 					{limit[0]}
 					/
 					{limit[1]}
