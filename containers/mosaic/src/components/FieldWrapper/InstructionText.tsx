@@ -13,7 +13,7 @@ interface InstructionTextProps {
 const InstructionText = (props: InstructionTextProps): ReactElement => {
 	const { children, colsInRow } = props;
 	return (
-		<InstructionTextWrapper $colsInRow={colsInRow}>
+		<InstructionTextWrapper className="Mos-FieldInstructionText" $colsInRow={colsInRow}>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);
