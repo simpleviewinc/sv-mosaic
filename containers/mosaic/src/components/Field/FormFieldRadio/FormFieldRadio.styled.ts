@@ -6,6 +6,7 @@ export const StyledRadioGroup = styled(MUIRadioGroup)`
 	& {
 		margin-left: ${theme.spacing(-1.5)};
 		gap: ${theme.spacing(1)};
+		align-items: start;
 	}
 `;
 
