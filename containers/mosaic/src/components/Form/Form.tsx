@@ -286,6 +286,7 @@ const Form = (props: FormProps) => {
 				role="form"
 				aria-label={title}
 				$fullHeight={fullHeight}
+				className="Mos-Form"
 			>
 				<StyledForm
 					autoComplete="off"

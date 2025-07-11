@@ -8,7 +8,7 @@ import { default as HelperText } from "./HelperText";
 import { default as InstructionText } from "./InstructionText";
 import { type FieldDef, type MosaicFieldProps } from "../Field";
 import Skeleton from "@mui/material/Skeleton";
-import { getTextLength } from "@root/utils/string";
+import { classnames, getTextLength } from "@root/utils/string";
 import useRegisterField from "@root/utils/hooks/useRegisterField";
 import { getHtmlCharacterCount } from "@root/utils/dom/getHtmlCharacterCount";
 
@@ -107,7 +107,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 	return (
 		<StyledFieldContainer
 			id={id}
-			className={fieldDef?.className}
+			className={classnames(fieldDef?.className, "Mos-Field", `Mos-Field--${fieldDef.type}`)}
 			style={fieldDef?.style}
 			data-testid="field-test-id"
 			ref={fieldRef}
@@ -133,12 +133,17 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 								name={fieldDef.name}
 								as={hasRealLabel ? "label" : "div"}
 								hideLabel={fieldDef.hideLabel}
+								isGroup={fieldDef.type === "group"}
+								useHeaderLabel={fieldDef.type === "group" && fieldDef?.inputSettings.useHeaderLabel}
 							>
 								{fieldDef?.label}
 							</Label>
 						)
 					)}
-					<StyledControlWrapper $size={fieldDef?.size}>
+					<StyledControlWrapper
+						className="Mos-FieldControl"
+						$size={fieldDef?.size}
+					>
 						{children}
 					</StyledControlWrapper>
 				</StyledLabelControlWrapper>
