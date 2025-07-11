@@ -47,8 +47,8 @@ export const MatrixExample = (): ReactElement => {
 		primaryActions: [
 			{
 				name: "edit",
-				color: "black",
-				variant: "icon",
+				intent: "secondary",
+				variant: "text",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
@@ -56,8 +56,8 @@ export const MatrixExample = (): ReactElement => {
 			},
 			{
 				name: "delete",
-				color: "black",
-				variant: "icon",
+				intent: "secondary",
+				variant: "text",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
@@ -110,7 +110,7 @@ export const MatrixExample = (): ReactElement => {
 							{
 								label: "Add",
 								onClick: addRow,
-								color: "teal",
+								intent: "info",
 								variant: "text",
 								mIcon: AddIcon,
 							},
@@ -125,7 +125,7 @@ export const MatrixExample = (): ReactElement => {
 		{
 			label: "Save",
 			onClick: onSubmit,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];

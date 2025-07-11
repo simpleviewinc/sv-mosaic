@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import styled from "styled-components";
 import pick from "lodash/pick";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import testIds from "@root/utils/testIds";
 import theme from "@root/theme";
@@ -119,8 +120,8 @@ function DataViewFilters(props: DataViewFiltersProps) {
 					<FiltersRow data-testid={testIds.DATA_VIEW_FILTER_BAR}>
 						<Button
 							label={t("mosaic:DataView.filters")}
-							variant="text"
-							color="black"
+							variant="contained"
+							intent="secondary"
 							size="small"
 							iconPosition="left"
 							mIcon={FilterListIcon}
@@ -167,7 +168,8 @@ function DataViewFilters(props: DataViewFiltersProps) {
 									label={t("mosaic:DataView.clear_filters")}
 									variant="text"
 									size="small"
-									color="teal"
+									intent="secondary"
+									mIcon={DeleteIcon}
 									onClick={onClearFilters}
 								/>
 							)

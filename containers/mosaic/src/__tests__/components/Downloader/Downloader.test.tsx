@@ -9,7 +9,7 @@ import Downloader from "@root/components/Downloader/Downloader";
 async function setup(props: Partial<DownloaderProps> = {}) {
 	const renderResult = await act(async () => render(
 		<Downloader
-			color="yellow"
+			intent="primary"
 			variant="contained"
 			url="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 			muiAttrs={{ "aria-label": "Download" }}

@@ -653,7 +653,7 @@ const ViewsListGrid = ({
 	const viewsListActions: DataViewProps["primaryActions"] = [
 		{
 			name: "view",
-			color: "black",
+			intent: "secondary",
 			variant: "icon",
 			onClick: onView,
 			mIcon: Visibility,
@@ -662,7 +662,7 @@ const ViewsListGrid = ({
 		},
 		{
 			name: "delete",
-			color: "black",
+			intent: "secondary",
 			variant: "icon",
 			onClick: onDelete,
 			mIcon: Delete,
@@ -874,7 +874,7 @@ export const Playground = ({
 		primaryActions: [
 			{
 				name: "edit",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
@@ -918,7 +918,7 @@ export const Playground = ({
 		bulkActions: bulkActions ? [
 			{
 				name: "download",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
@@ -929,7 +929,7 @@ export const Playground = ({
 			},
 			{
 				name: "delete",
-				color: "black",
+				intent: "secondary",
 				variant: "icon",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {

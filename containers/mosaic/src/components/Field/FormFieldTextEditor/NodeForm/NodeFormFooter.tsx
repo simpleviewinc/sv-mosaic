@@ -13,14 +13,14 @@ export function NodeFormFooter({ onRemove }: NodeFormFooterProps): ReactElement 
 	return (
 		<StyledFormFooter $spacing="compact">
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Submit"
 				type="submit"
 			/>
 			{onRemove && (
 				<RemoveButton
-					color="red"
+					intent="danger"
 					variant="text"
 					label="Remove"
 					onClick={onRemove}

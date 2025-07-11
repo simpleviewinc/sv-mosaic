@@ -77,7 +77,7 @@ export class DataviewPage extends BasePage {
 		this.headerActionsLocator = page.locator(".headerActions");
 		this.dataviewTopComponent = page.getByTestId(testIds.DATA_VIEW_TITLE_BAR);
 		this.dataviewTableHeadLocator = page.locator("thead th");
-		this.backIconLocator = page.locator(".headerRow button svg[data-testid='icon-button-test']");
+		this.backIconLocator = page.getByRole("button", { name: "Go back" });
 		this.dataviewRowHeaderLocator = page.locator(".row-header");
 		this.ariaLabelRowTitleLocator = page.locator("[aria-label='Title'] div");
 		this.ariaLabelRowCategoryLocator = page.locator("[aria-label='Categories'] div");

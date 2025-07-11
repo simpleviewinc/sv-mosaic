@@ -7,17 +7,11 @@ import type { DataViewBulkAllBarProps } from "./DataViewBulkAllBarTypes";
 import testIds from "@root/utils/testIds";
 
 const StyledDiv = styled.div`
+	padding: ${theme.spacing(1)};
 	text-align: center;
 	color: ${theme.newColors.grey3["100"]};
 	border-bottom: ${theme.borders.lightGray};
 	line-height: 1.75;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	& > .bulkText {
-		margin-right: 6px;
-	}
 `;
 
 function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
@@ -47,7 +41,14 @@ function DataViewBulkAllBar(props: DataViewBulkAllBarProps) {
 					)
 				}
 			</span>
-			<Button color="blue" variant="text" label={!props.checkedAllPages ? `Select All ${props.count} Records` : "Clear Selection"} onClick={props.onCheckAllPagesClick} />
+			{" "}
+			<Button
+				intent="info"
+				variant="text"
+				size="inherit"
+				label={!props.checkedAllPages ? `Select All ${props.count} Records` : "Clear Selection"}
+				onClick={props.onCheckAllPagesClick}
+			/>
 		</StyledDiv>
 	);
 }

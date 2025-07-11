@@ -38,13 +38,13 @@ describe(__dirname, () => {
 		const { user } = await setup({
 			buttons: [
 				{
-					color: "yellow",
+					intent: "primary",
 					variant: "contained",
 					label: "Action 1",
 					onClick: onClickMock1,
 				},
 				{
-					color: "yellow",
+					intent: "primary",
 					variant: "contained",
 					label: "Action 2",
 					onClick: onClickMock2,

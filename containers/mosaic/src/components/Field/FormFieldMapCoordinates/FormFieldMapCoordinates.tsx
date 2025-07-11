@@ -83,8 +83,8 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		{
 			label: "No, keep it",
 			onClick: () => setRemoveDialog(false),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Yes, remove it",
@@ -92,7 +92,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 				removeLocation();
 				setRemoveDialog(false);
 			},
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	], [removeDialog]);
@@ -136,16 +136,18 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 						</Details>
 						<ButtonsWrapper>
 							<Button
-								color="teal"
+								intent="info"
 								variant="text"
+								size="small"
 								label="Edit"
 								disabled={disabled}
 								onClick={handleAddCoordinates}
 							/>
 							<Button
-								color="red"
+								intent="danger"
 								disabled={disabled}
 								variant="text"
+								size="small"
 								label="Remove"
 								onClick={() => setRemoveDialog(true)}
 							/>
@@ -156,9 +158,9 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 				<Button
 					disabled={disabled}
 					onClick={handleAddCoordinates}
-					color="gray"
-					variant="outlined"
-					label="ADD COORDINATES"
+					intent="secondary"
+					variant="contained"
+					label="Add Coordinates"
 				/>
 			)}
 			<Drawer open={isModalOpen} onClose={handleClose}>

@@ -291,9 +291,9 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								</DragAndDropSpan>
 							)}
 							<Button
-								color="gray"
-								variant="outlined"
-								label="UPLOAD FILES"
+								intent="secondary"
+								variant="contained"
+								label="Upload Files"
 								disabled={disabled}
 								onClick={handleUploadButtonClick}
 							/>

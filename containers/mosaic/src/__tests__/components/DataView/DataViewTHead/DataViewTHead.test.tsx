@@ -7,7 +7,7 @@ import DataViewTHead from "@root/components/DataView/DataViewTHead";
 import userEvent from "@testing-library/user-event";
 import testIds from "@root/utils/testIds";
 
-const bulkActions: DataViewTHeadProps["bulkActions"] = [{ name: "action1", label: "Action 1", color: "black", variant: "contained" }, { name: "action2", label: "Action 2", color: "black", variant: "contained" }];
+const bulkActions: DataViewTHeadProps["bulkActions"] = [{ name: "action1", label: "Action 1", intent: "secondary", variant: "contained" }, { name: "action2", label: "Action 2", intent: "secondary", variant: "contained" }];
 const columns: DataViewTHeadProps["columns"] = [{ name: "column1", label: "Column 1" }, { name: "column2", label: "Column 2" }];
 const data: DataViewTHeadProps["data"] = [{ id: "abc123" }, { id: "def456" }];
 

@@ -10,8 +10,8 @@ function DataViewFilterDropdownButtons(props: DataViewFilterDropdownButtonsProps
 
 	return (
 		<StyledWrapper>
-			<Button label={t("mosaic:common.clear")} color="gray" variant="outlined" onClick={props.onClear} />
-			<Button label={t("mosaic:common.apply")} color="yellow" variant="contained" onClick={props.onApply} disabled={(props.disableApply !== undefined) ? props.disableApply : false} />
+			<Button label={t("mosaic:common.clear")} intent="secondary" variant="contained" onClick={props.onClear} />
+			<Button label={t("mosaic:common.apply")} intent="primary" variant="contained" onClick={props.onApply} disabled={(props.disableApply !== undefined) ? props.disableApply : false} />
 		</StyledWrapper>
 	);
 }

@@ -7,7 +7,7 @@ import DataViewBulkActionsButtonsRow from "@root/components/DataView/DataViewBul
 import userEvent from "@testing-library/user-event";
 import testIds from "@root/utils/testIds";
 
-const bulkActions: DataViewBulkActionsButtonsRowProps["bulkActions"] = [{ name: "action1", label: "Action 1", color: "black", variant: "contained" }, { name: "action2", label: "Action 2", color: "black", variant: "contained" }];
+const bulkActions: DataViewBulkActionsButtonsRowProps["bulkActions"] = [{ name: "action1", label: "Action 1", intent: "secondary", variant: "contained" }, { name: "action2", label: "Action 2", intent: "secondary", variant: "contained" }];
 const checked: DataViewBulkActionsButtonsRowProps["checked"] = [false, true];
 const data: DataViewBulkActionsButtonsRowProps["data"] = [{ id: "abc123" }, { id: "def456" }];
 

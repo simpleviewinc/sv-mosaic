@@ -161,8 +161,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		{
 			label: "No, keep it",
 			onClick: () => setRemoveDialog(undefined),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Yes, remove it",
@@ -170,7 +170,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				removeAddressHandler(removeDialog);
 				setRemoveDialog(undefined);
 			},
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	], [removeAddressHandler, removeDialog]);
@@ -187,8 +187,8 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				<Footer>
 					<Button
 						disabled={disabled}
-						color="gray"
-						variant="outlined"
+						intent="secondary"
+						variant="contained"
 						label="Add Address"
 						onClick={addAddressHandler}
 					/>

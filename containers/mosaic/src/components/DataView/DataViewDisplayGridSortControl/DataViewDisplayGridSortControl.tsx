@@ -6,6 +6,7 @@ import type { DataViewDisplayGridSortControlProps } from "./DataViewDisplayGridS
 
 import Button from "../../Button";
 import testIds from "@root/utils/testIds";
+import { Row } from "@root/components/common";
 
 const dirButtonAtts = { "aria-label": "Sort Direction" };
 
@@ -47,26 +48,24 @@ function DataViewDisplayGridSortControl(props: DataViewDisplayGridSortControlPro
 	}, [props.sort, props.onSortChange]);
 
 	return (
-		<div>
+		<Row $align="center">
 			<Button
 				label={activeColumn.label}
 				variant="text"
-				color="black"
-				size="small"
+				intent="secondary"
 				menuItems={labelOptions}
 				menuOnChange={onColumnChange}
 				menuValue={props.sort.name}
 			/>
 			<Button
 				className="directionButton"
-				variant="icon"
-				color="black"
-				size="small"
+				variant="text"
+				intent="secondary"
 				mIcon={Icon}
 				onClick={onDirectionChange}
 				muiAttrs={dirButtonAtts}
 			/>
-		</div>
+		</Row>
 	);
 }
 

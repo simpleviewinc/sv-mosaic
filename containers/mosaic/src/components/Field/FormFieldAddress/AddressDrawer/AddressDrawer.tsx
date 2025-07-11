@@ -131,13 +131,13 @@ const AddressDrawer = (props: AddressDrawerProps): ReactElement => {
 		{
 			label: "Cancel",
 			onClick: () => handleClose(),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Save",
 			onClick: onSubmit,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			type: "submit",
 		},

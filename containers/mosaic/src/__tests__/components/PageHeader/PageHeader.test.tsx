@@ -17,13 +17,13 @@ const buttons: ButtonProps[] = [
 	{
 		label: "Cancel",
 		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
+		intent: "secondary",
+		variant: "contained",
 	},
 	{
 		label: "Save",
 		onClick: onSubmit,
-		color: "yellow",
+		intent: "primary",
 		variant: "contained",
 	},
 ];
@@ -53,7 +53,7 @@ describe("PageHeader component", () => {
 	});
 
 	it("should execute the onBack callback", async () => {
-		const onBackBtn = screen.getByTestId("icon-button-test");
+		const onBackBtn = screen.getByRole("button", { name: "Go back" });
 
 		fireEvent.click(onBackBtn);
 

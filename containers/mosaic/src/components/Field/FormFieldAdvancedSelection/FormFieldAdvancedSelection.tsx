@@ -73,7 +73,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 				<div>
 					{(selectLimit < 0 || value?.length < selectLimit) && (
 						<StyledButton
-							color="teal"
+							intent="info"
 							variant="text"
 							label="Add"
 							onClick={handleOpenModal}
@@ -91,8 +91,8 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 				</div>
 			) : (
 				<Button
-					color="gray"
-					variant="outlined"
+					intent="secondary"
+					variant="contained"
 					label="Add"
 					onClick={handleOpenModal}
 					disabled={disabled}

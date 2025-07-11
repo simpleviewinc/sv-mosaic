@@ -51,7 +51,7 @@ const ComponentExample = (props: {
 		<Button
 			key={4}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[0].label}
 			mIcon={textLinks[0].mIcon}
@@ -61,7 +61,7 @@ const ComponentExample = (props: {
 		<Button
 			key={5}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[1].label}
 			mIcon={textLinks[1].mIcon}
@@ -71,7 +71,7 @@ const ComponentExample = (props: {
 		<Button
 			key={6}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[2].label}
 			mIcon={textLinks[2].mIcon}
@@ -85,21 +85,21 @@ const ComponentExample = (props: {
 			label: "Button 1",
 			mIcon: Mail,
 			onClick: vi.fn(),
-			color: "black",
+			intent: "secondary",
 			variant: "text",
 		},
 		{
 			label: "Button 2",
 			mIcon: Mail,
 			onClick: vi.fn(),
-			color: "black",
+			intent: "secondary",
 			variant: "text",
 		},
 		{
 			label: "Button 3",
 			mIcon: Edit,
 			onClick: vi.fn(),
-			color: "black",
+			intent: "secondary",
 			variant: "text",
 		},
 	];
@@ -165,8 +165,7 @@ describe("TopSummary", () => {
 			element = render(<ComponentExample />);
 		});
 
-		const iconButtons = await screen.findAllByTestId("icon-button-test");
-		const starButton = iconButtons[0];
+		const starButton = screen.getByRole("button", { name: "Favorite" });
 		expect(starButton).toBeInTheDocument();
 		expect(element.container.getElementsByClassName("unchecked").length).toBe(1);
 

@@ -63,8 +63,8 @@ function PickerPanel({
 			result.push({
 				label: "Cancel",
 				onClick: onCancel,
-				color: "gray",
-				variant: "outlined",
+				intent: "secondary",
+				variant: "contained",
 			});
 		}
 
@@ -72,7 +72,7 @@ function PickerPanel({
 			result.push({
 				label: saveText,
 				onClick: () => onSave(checked),
-				color: "yellow",
+				intent: "primary",
 				variant: "contained",
 			});
 		}
@@ -149,8 +149,8 @@ function PickerPanel({
 						)}
 						{!isLoading && onLoadMore && (
 							<LoadMoreButton
-								color="black"
-								variant="outlined"
+								intent="secondary"
+								variant="contained"
 								label={t("mosaic:common.load_more___")}
 								onClick={onLoadMore}
 							/>

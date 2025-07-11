@@ -16,7 +16,7 @@ export class FormFieldMapCoordinatesPage extends BasePage {
 		super(page);
 		this.page = page;
 		this.map = page.locator("[aria-label='Map']");
-		this.mapWithoutAddressAndAutocoordinatesDisabledButton = page.locator("button", { hasText: "ADD COORDINATES" }).nth(0);
+		this.mapWithoutAddressAndAutocoordinatesDisabledButton = page.locator("button", { hasText: "Add Coordinates" }).nth(0);
 		this.mapDisabledDefaultLocation = page.locator("#mapDisabled div div div div").nth(1);
 		this.mapWithAddressDiv = page.locator("#mapWithAddress div div div").nth(2);
 	}

@@ -1,26 +1,25 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useState } from "react";
 
-import type { ButtonProps } from "#mosaic/components/Button";
+import type { ButtonIntent, ButtonProps } from "#mosaic/components/Button";
 import Button from "#mosaic/components/Button";
 import CreateIcon from "@mui/icons-material/Create";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import HelpIcon from "@mui/icons-material/Help";
-import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
-import GridOnOutlinedIcon from "@mui/icons-material/GridOnOutlined";
 
-import ButtonRow from "#mosaic/components/ButtonRow";
 import { useToggle } from "#mosaic/utils/toggle";
 import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "@utils";
+import { ButtonHeading, ButtonGrid, ButtonRow, ButtonCell } from "./Button.stories.styled";
+import { BodyText } from "@simpleview/sv-mosaic/components/Typography";
 
 export default {
 	title: "Components/Button",
+	parameters: {
+		layout: "centered",
+	},
 };
 
 const dropdownWithIcons: ButtonProps["menuItems"] = [
@@ -42,7 +41,7 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 
 export const Playground = ({
 	backgroundColor,
-	buttonColor,
+	buttonIntent,
 	buttonVariant,
 	disabled,
 	fullWidth,
@@ -67,7 +66,7 @@ export const Playground = ({
 		name: "show",
 		onClick: () => alert("Clicked"),
 		show: toggleMap[show],
-		color: buttonColor,
+		intent: buttonIntent,
 		variant: buttonVariant,
 	};
 
@@ -80,7 +79,7 @@ export const Playground = ({
 					attrs={{ $smallText: smallText }}
 					label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
 					variant={buttonVariant}
-					color={buttonColor}
+					intent={buttonIntent}
 					fullWidth={fullWidth}
 					disabled={toggleMapInverse[disabled]}
 					tooltip={tooltipType}
@@ -100,7 +99,7 @@ export const Playground = ({
 
 Playground.args = {
 	backgroundColor: "light",
-	buttonColor: "black",
+	buttonIntent: "primary",
 	buttonVariant: "contained",
 	disabled: "Undefined",
 	fullWidth: false,
@@ -125,13 +124,13 @@ Playground.argTypes = {
 		control: { type: "select" },
 		name: "Background Color",
 	},
-	buttonColor: {
-		options: ["black", "blue", "lightBlue", "red", "yellow", "teal", "gray", "white"],
+	buttonIntent: {
+		options: ["primary", "secondary", "tertiary", "info", "specialized", "danger"],
 		control: { type: "select" },
-		name: "Color",
+		name: "Intent",
 	},
 	buttonVariant: {
-		options: ["text", "outlined", "contained", "icon"],
+		options: ["text", "contained"],
 		control: { type: "select" },
 		name: "Variant",
 	},
@@ -198,381 +197,329 @@ Playground.argTypes = {
 	},
 };
 
+const buttonIntents: Record<string, ButtonIntent> = {
+	Primary: "primary",
+	Secondary: "secondary",
+	Tertiary: "tertiary",
+	Info: "info",
+	Danger: "danger",
+	Specialized: "specialized",
+};
+
 export const KitchenSink = (): ReactElement => {
-	const [, setAnchorEl] = useState(null);
-
-	function clickHandler() {
-		alert("yes");
-	}
-
-	const openDropdown = function(event) {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const dropdownWithColoredIcons: ButtonProps["menuItems"] = [
-		{
-			label : "Edit",
-			mIcon : CreateIcon,
-			color : "blue",
-			onClick : function() {
-				alert("EDIT CLICK");
-			},
-		},
-		{
-			label : "Download",
-			mIcon : CloudDownloadIcon,
-			color : "blue",
-			onClick : function() {
-				alert("DOWNLOAD CLICK");
-			},
-		},
-		{
-			label : "Delete",
-			mIcon : DeleteIcon,
-			color : "red",
-			onClick : function() {
-				alert("DELETE CLICK");
-			},
-		},
-		{
-			label : "Cancel",
-			mIcon : ChevronLeftIcon,
-			onClick : function() {
-				alert("CANCEL CLICK");
-			},
-		},
-	];
-
-	const dropdownWithText: ButtonProps["menuItems"] = [
-		{
-			label : "Edit",
-			onClick : function() {
-				alert("EDIT CLICK");
-			},
-		},
-		{
-			label : "Download",
-			onClick : function() {
-				alert("DOWNLOAD CLICK");
-			},
-		},
-	];
-
 	return (
 		<div>
-			<h1>Buttons!</h1>
-			<h2>Contained</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="contained" label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" label="Save" onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="contained" label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="contained" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="contained" label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="contained" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="yellow" variant="contained" label="Save" onClick={clickHandler} />
-					<Button color="yellow" variant="contained" label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Contained - disabled</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="contained" disabled label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" disabled label="Save" onClick={clickHandler} />
-					<Button color="lightBlue" variant="contained" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="contained" disabled label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="contained" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="contained" disabled label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="contained" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="yellow" variant="contained" disabled label="Save" onClick={clickHandler} />
-					<Button color="yellow" variant="contained" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Outlined</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="outlined" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="outlined" label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="outlined" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="outlined" label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="outlined" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="gray" variant="outlined" label="Save" onClick={clickHandler} />
-					<Button color="gray" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="teal" variant="outlined" label="Save" onClick={clickHandler} />
-					<Button color="teal" variant="outlined" label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Outlined - disabled</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="outlined" disabled label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="outlined" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="outlined" disabled label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="outlined" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="outlined" disabled label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="outlined" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="gray" variant="outlined" disabled label="Save" onClick={clickHandler} />
-					<Button color="gray" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="teal" variant="outlined" disabled label="Save" onClick={clickHandler} />
-					<Button color="teal" variant="outlined" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Text</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="text" label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="text" label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="text" label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="teal" variant="text" label="Save" onClick={clickHandler} />
-					<Button color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Text - disabled</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="text" disabled label="Save" onClick={clickHandler} />
-					<Button color="blue" variant="text" disabled label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="red" variant="text" disabled label="Delete" onClick={clickHandler} />
-					<Button color="red" variant="text" disabled label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button color="black" variant="text" disabled label="Cancel" onClick={clickHandler} />
-					<Button color="black" variant="text" disabled label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button color="teal" variant="text" disabled label="Save" onClick={clickHandler} />
-					<Button color="teal" variant="text" disabled label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Small Text</h2>
-			<div>
-				<ButtonRow>
-					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="blue" variant="text" label="Save" mIcon={AddIcon} onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="red" variant="text" label="Delete" mIcon={DeleteIcon} onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="black" variant="text" label="Cancel" mIcon={ChevronLeftIcon} onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Save" onClick={clickHandler} />
-					<Button attrs={{ $smallText: true }} color="teal" variant="text" label="Add" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Icon Positions</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="contained" label="Save" iconPosition="left" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="blue" variant="contained" label="Save" iconPosition="right" mIcon={AddIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Multi-Icon buttons</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="contained" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon />} variant="contained" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="outlined" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon />} variant="outlined" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
-					<Button color="blue" label={<FormatListBulletedOutlinedIcon />} variant="text" iconPosition="right" mIcon={ExpandMoreOutlinedIcon} onClick={clickHandler} />
-					<Button color="blue" label={<GridOnOutlinedIcon />} variant="text" iconPosition="right" mIcon={MoreHorizIcon} onClick={clickHandler} />
-				</ButtonRow>
-			</div>
-
-			<h2>Icon Buttons</h2>
-			<div>
-				<Button color="blue" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="red" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="black" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="gray" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="gray" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="gray" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="teal" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="teal" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="teal" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="teal" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="yellow" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="yellow" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="yellow" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="yellow" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<div style={{ background: "black", display: "inline-block" }}>
-					<Button color="white" variant="icon" mIcon={AddIcon} onClick={clickHandler} />
-					<Button color="white" variant="icon" mIcon={CreateIcon} onClick={clickHandler} />
-					<Button color="white" variant="icon" mIcon={CloudDownloadIcon} onClick={clickHandler} />
-					<Button color="white" variant="icon" mIcon={MoreHorizIcon} onClick={openDropdown} />
+			{Object.entries(buttonIntents).map(([header, intent]) => (
+				<div key={header}>
+					<ButtonHeading>{header}</ButtonHeading>
+					<ButtonGrid>
+						<ButtonRow>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={AddIcon}
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									mIcon={AddIcon}
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={AddIcon}
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									mIcon={AddIcon}
+								/>
+							</ButtonCell>
+						</ButtonRow>
+						<ButtonRow>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={AddIcon}
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									mIcon={AddIcon}
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={AddIcon}
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									disabled
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									mIcon={AddIcon}
+									disabled
+								/>
+							</ButtonCell>
+						</ButtonRow>
+						<ButtonRow>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={AddIcon}
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									mIcon={AddIcon}
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={AddIcon}
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									size="small"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									mIcon={AddIcon}
+									size="small"
+								/>
+							</ButtonCell>
+						</ButtonRow>
+						<ButtonRow>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={AddIcon}
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="contained"
+									mIcon={AddIcon}
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={AddIcon}
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									label="Label"
+									mIcon={ExpandMoreIcon}
+									iconPosition="right"
+									size="xsmall"
+								/>
+							</ButtonCell>
+							<ButtonCell>
+								<Button
+									intent={intent}
+									variant="text"
+									mIcon={AddIcon}
+									size="xsmall"
+								/>
+							</ButtonCell>
+						</ButtonRow>
+					</ButtonGrid>
+					<BodyText attrs={{ style:{ maxWidth: 700, margin: "0 auto 15px", textAlign: "center" } }}>
+						<>This is a body of text used to demonstrate a button with the inline size. This button can be nested amongst a large paragraph of text, but will inherit the font size, line height of the text that surrounds it. It works just like the one you see</>
+						{" "}
+						<Button
+							intent={intent}
+							variant="text"
+							label="here"
+							size="inherit"
+						/>
+						{". "}
+						<>You can even include an icon</>
+						{" "}
+						<Button
+							intent={intent}
+							variant="text"
+							label="like this"
+							size="inherit"
+							mIcon={OpenInNewIcon}
+							href="https://www.google.com"
+							muiAttrs={{ target: "_blank" }}
+						/>
+						{" "}
+						and it fits in there nice and snug.
+					</BodyText>
 				</div>
-			</div>
-
-			<h2>Icon Buttons - disabled</h2>
-			<div>
-				<Button color="blue" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="blue" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="red" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="red" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
-				<Button color="black" variant="icon" disabled mIcon={AddIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" disabled mIcon={CreateIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" disabled mIcon={CloudDownloadIcon} onClick={clickHandler} />
-				<Button color="black" variant="icon" disabled mIcon={MoreHorizIcon} onClick={openDropdown} />
-			</div>
-
-			<h2>Button Sizes</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="contained" label="Small" size="small" />
-					<Button color="blue" variant="contained" label="Medium (default)" />
-				</ButtonRow>
-			</div>
-			<br />
-			<br />
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Small" size="small" mIcon={AddIcon} />
-					<Button color="blue" variant="outlined" label="Medium (default)" mIcon={AddIcon} />
-				</ButtonRow>
-			</div>
-			<br />
-			<br />
-			<div>
-				<ButtonRow>
-					<Button color="black" variant="icon" size="small" mIcon={AddIcon} />
-					<Button color="black" variant="icon" mIcon={AddIcon} />
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons that open menus</h2>
-			<div>
-				<ButtonRow>
-					<Button color="blue" variant="outlined" label="Dropdown with Icons" menuItems={dropdownWithIcons} />
-					<Button color="blue" variant="outlined" label="Dropdown with text" menuItems={dropdownWithText} />
-					<Button color="blue" variant="outlined" label="Dropdown with colored icons" menuItems={dropdownWithColoredIcons} />
-					<Button color="blue" variant="icon" mIcon={MoreHorizIcon} menuItems={dropdownWithIcons} />
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons that triggers Popover on click</h2>
-			<div>
-				<ButtonRow>
-					<Button
-						color="blue"
-						variant="outlined"
-						popover={<p>Popover Content</p>}
-						label="With Popover"
-					/>
-					<Button
-						color="blue"
-						variant="icon"
-						mIcon={HelpIcon}
-						popover={<p>Helper Text</p>}
-						popoverEvent="onClick"
-					/>
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons that triggers Popover on hover</h2>
-			<div>
-				<ButtonRow>
-					<Button
-						color="blue"
-						variant="outlined"
-						popover={<p>Popover Content</p>}
-						popoverEvent="onHover"
-						label="With Popover"
-					/>
-					<Button
-						color="blue"
-						variant="icon"
-						mIcon={HelpIcon}
-						popoverEvent="onHover"
-						popover={<p>Helper Text</p>}
-					/>
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons with custom attrs</h2>
-			<div>
-				<ButtonRow>
-					<Button
-						color="black"
-						variant="outlined"
-						label="With data attribute"
-						attrs={{ "data-foo" : "foo value" }}
-						muiAttrs={{ "data-bar": "bar value" }}
-					/>
-					<Button
-						color="black"
-						variant="icon"
-						mIcon={AddIcon}
-						attrs={{ "data-foo" : "foo value" }}
-						muiAttrs={{ "data-bar": "bar value" }}
-					/>
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons with tooltips</h2>
-			<div>
-				<ButtonRow>
-					<Button
-						color="black"
-						variant="outlined"
-						label="One"
-						tooltip="I can haz a tooltip"
-					/>
-					<Button
-						color="black"
-						variant="outlined"
-						label="Two"
-						tooltip="I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long. I can haz a tooltip. That's really really long."
-					/>
-				</ButtonRow>
-			</div>
-
-			<h2>Buttons with href that turn into a tags</h2>
-			<div>
-				<ButtonRow>
-					<Button
-						color="black"
-						variant="outlined"
-						label="With Link"
-						href="https://www.google.com/"
-					/>
-					<Button
-						color="black"
-						variant="outlined"
-						label="With Link and click handler"
-						href="https://www.bing.com/"
-						onClick={function(e) { e.preventDefault(); alert("Click handler"); }}
-					/>
-					<Button
-						color="blue"
-						variant="icon"
-						mIcon={AddIcon}
-						onClick={clickHandler}
-						size="small"
-						href="https://www.google.com/"
-					/>
-				</ButtonRow>
-			</div>
+			))}
 		</div>
 	);
 };

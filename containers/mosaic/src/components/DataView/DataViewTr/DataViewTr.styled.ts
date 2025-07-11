@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledIconButton } from "@root/components/Button/Button.styled";
 
 export const TableRow = styled.tr<{ $isDragOverlay?: boolean }>`
 	${({ $isDragOverlay }) => $isDragOverlay && `
@@ -14,11 +13,5 @@ export const TableRow = styled.tr<{ $isDragOverlay?: boolean }>`
 
 	&.checked {
 		background-color: ${theme.newColors.grey1["100"]};
-	}
-`;
-
-export const TableRowDragHandle = styled(StyledIconButton)`
-	&&{
-		cursor: grab;
 	}
 `;

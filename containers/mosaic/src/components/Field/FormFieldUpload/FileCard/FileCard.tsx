@@ -81,15 +81,15 @@ const FileCard = (props: FileCardProps) => {
 									<Button
 										muiAttrs={{ download: true }}
 										href={fileUrl}
-										color="gray"
-										variant="icon"
+										intent="secondary"
+										variant="text"
 										mIcon={CloudDownload}
 									/>
 								) : (
 									<Downloader
 										url={downloadUrl || fileUrl}
-										color="gray"
-										variant="icon"
+										intent="secondary"
+										variant="text"
 									/>
 								)}
 							</div>
@@ -97,8 +97,8 @@ const FileCard = (props: FileCardProps) => {
 						{onFileDelete && !disabled && (
 							<div className="file-delete-btn">
 								<Button
-									color="gray"
-									variant="icon"
+									intent="danger"
+									variant="text"
 									mIcon={DeleteIcon}
 									onClick={() => onFileDelete({ id: id })}
 								/>

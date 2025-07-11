@@ -18,15 +18,15 @@ export class ButtonPage extends BasePage {
 		this.button = page.locator("button");
 		this.iconButton = page.locator("button", { has: page.getByTestId("icon-button-test") });
 		this.listIconLocator = page.locator("[data-testid='FormatListBulletedOutlinedIcon']");
-		this.hrefLocator = page.getByRole("link").and(page.getByText("Text"));
+		this.hrefLocator = page.getByRole("link", { name: "Text" });
 	}
 
 	async getKnobForVariant(variant: "icon" | "outlined" | "contained" | "text"): Promise<string> {
 		return (knob.knobVariant + variant).toString();
 	}
 
-	async getKnobForColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
-		return (knob.knobColor + color).toString();
+	async getKnobForColor(intent: string): Promise<string> {
+		return (knob.knobColor + intent).toString();
 	}
 
 	async getKnobForPopoverEvent(event: "onClick" | "onHover"): Promise<string> {
@@ -47,7 +47,7 @@ export class ButtonPage extends BasePage {
 		return (knob.knobTypeOfLabel + type).toString();
 	}
 
-	async getKnobForIconColor(color: "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white"): Promise<string> {
-		return (knob.knobmIconColor + color).toString();
+	async getKnobForIconColor(intent): Promise<string> {
+		return (knob.knobmIconColor + intent).toString();
 	}
 }

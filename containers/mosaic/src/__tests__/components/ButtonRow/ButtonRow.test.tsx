@@ -7,8 +7,8 @@ import Button from "@root/components/Button";
 import ButtonRow from "@root/components/ButtonRow";
 import testIds from "@root/utils/testIds";
 
-const buttonDefs: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained", label: "Button 1" }, { color: "black", variant: "contained", label: "Button 2" }];
-const buttonDefsNoLabels: ButtonRowProps["buttons"] = [{ color: "black", variant: "contained" }, { color: "black", variant: "contained" }];
+const buttonDefs: ButtonRowProps["buttons"] = [{ intent: "secondary", variant: "contained", label: "Button 1" }, { intent: "secondary", variant: "contained", label: "Button 2" }];
+const buttonDefsNoLabels: ButtonRowProps["buttons"] = [{ intent: "secondary", variant: "contained" }, { intent: "secondary", variant: "contained" }];
 const buttonChildren: ButtonRowProps["children"] = [<Button key={0} {...buttonDefs[0]} />, <Button key={1} {...buttonDefs[0]} />];
 
 async function setup(props: Partial<ButtonRowProps> = {}) {
