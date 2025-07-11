@@ -437,6 +437,14 @@ const color = {
 		900: "#0E576B",
 		950: "#023A4A",
 	},
+	translucent: {
+		grey: {
+			100: "rgba(0, 0, 0, 0.06)",
+		},
+		gold: {
+			100: "rgba(255, 192, 0, 0.27)",
+		},
+	},
 };
 
 const rounded = {

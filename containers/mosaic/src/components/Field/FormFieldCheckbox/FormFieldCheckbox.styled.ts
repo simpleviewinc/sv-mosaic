@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import CheckboxList from "../../CheckboxList";
+import theme from "@root/theme";
 
 export const StyledWrapper = styled.div`
   display: flex;
 `;
 
 export const StyledCheckboxList = styled(CheckboxList)`
-  &.MuiFormGroup-root {
-    margin-left: -12px;
-		height: fit-content !important;
-  }
+	& {
+		margin-left: ${theme.spacing(-1.5)};
+	}
 `;
 
 export const StyledSkeletonWrapper = styled.div`
