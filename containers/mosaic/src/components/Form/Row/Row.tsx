@@ -43,7 +43,12 @@ const Row = (props: RowPropTypes) => {
 	}
 
 	return (
-		<StyledRow data-layout="row" $columns={row.length} $gridMinWidth={gridMinWidth} $spacing={spacing}>
+		<StyledRow
+			className="Mos-FormRow"
+			data-layout="row"
+			$columns={row.length}
+			$gridMinWidth={gridMinWidth} $spacing={spacing}
+		>
 			{row.map((col, i) => {
 				return (
 					<Col
