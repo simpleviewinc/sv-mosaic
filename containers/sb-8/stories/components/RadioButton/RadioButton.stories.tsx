@@ -8,11 +8,15 @@ import RadioButton from "#mosaic/components/RadioButton";
 
 export default {
 	title: "Components/RadioButton",
+	parameters: {
+		layout: "centered",
+	},
 };
 
-export const Playground = ({ label, disabled, required }: typeof Playground.args): ReactElement => (
+export const Playground = ({ label, checked, disabled, required }: typeof Playground.args): ReactElement => (
 	<RadioButton
 		label={label}
+		checked={checked}
 		disabled={disabled}
 		required={required}
 	/>
@@ -20,6 +24,7 @@ export const Playground = ({ label, disabled, required }: typeof Playground.args
 
 Playground.args = {
 	label: "Label",
+	checked: false,
 	disabled: false,
 	required: false,
 };
@@ -27,6 +32,9 @@ Playground.args = {
 Playground.argTypes = {
 	label: {
 		name: "Label",
+	},
+	checked: {
+		name: "Checked",
 	},
 	disabled: {
 		name: "Disabled",
