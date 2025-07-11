@@ -1,51 +1,61 @@
 import styled from "styled-components";
 import { default as MUICheckbox } from "@mui/material/Checkbox";
-import { default as MUIFormControlLabel } from "@mui/material/FormControlLabel";
 import theme from "@root/theme";
 
-export const StyledFormControlLabel = styled(MUIFormControlLabel)`
-  &.MuiFormControlLabel-root {
-    margin-left: 0px;
-    margin-right: 0px;
-    align-items: flex-start;
-    color: ${theme.newColors.grey4["100"]};
-  }
+export const StyledCheckbox = styled(MUICheckbox)`
+	&& {
+		padding: ${theme.spacing(2)};
+		color: ${theme.color.black};
 
-  & > span.checked,
-  & > span.MuiCheckbox-indeterminate {
-    color: ${theme.newColors.simplyGold["100"]};
-    opacity: ${(pr) => (pr.disabled ? "50%" : "100%")};
-  }
+		svg {
+			width: 22px;
+			height: 22px;
+		}
 
-  & .MuiFormControlLabel-label {
-    max-width: 414px;
-    align-self: center;
-  }
+		&:hover {
+			background-color: ${theme.color.translucent.grey[100]};
+		}
+
+		&.Mui-disabled {
+			color: ${theme.color.gray[400]};
+		}
+
+		&.Mui-checked,
+		&.MuiCheckbox-indeterminate {
+			color: ${theme.color.gold[500]};
+
+			&.Mui-disabled {
+				color: ${theme.color.gold[200]};
+			}
+
+			&:hover {
+				background-color: ${theme.color.translucent.gold[100]};
+			}
+		}
+
+		&.Mui-focusVisible {
+			outline: 2px solid ${theme.color.gray[700]};
+			outline-offset: -2px;
+		}
+  	}
 `;
 
-export const StyledCheckbox = styled(MUICheckbox)`
-  &.MuiCheckbox-colorPrimary {
-    color: ${theme.newColors.almostBlack["100"]};
+export const StyledCheckboxOutline = styled.span`
+	border: 2px solid currentColor;
+	width: 16px;
+	height: 16px;
+`;
 
-    &.Mui-checked {
-      color: ${theme.newColors.simplyGold["100"]};
-    }
-  }
+export const StyledCheckboxIcon = styled.span`
+	margin-top: -1px;
+	border-radius: 2px;
+	overflow: hidden;
+	vertical-align: middle;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 
-  &.MuiCheckbox-colorPrimary,
-  &.MuiCheckbox-colorPrimary.Mui-checked {
-    &:hover {
-      background-color: ${theme.newColors.grey2["100"]};
-    }
-  }
-
-  &.custom-checkbox {
-    padding: 10px;
-    margin-right: 2px;
-  }
-
-  & svg {
-    height: ${theme.fieldSpecs.selectors.dimentions};
-    width: ${theme.fieldSpecs.selectors.dimentions};
-  }
+	svg {
+		margin: -3px;
+	}
 `;

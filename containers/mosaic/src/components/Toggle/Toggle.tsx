@@ -4,35 +4,40 @@ import * as React from "react";
 
 import type { ToggleProps } from "./ToggleTypes";
 
-import { StyledSwitch } from "./Toggle.styled";
-import StyledFormControlLabel from "@root/components/StyledFormControlLabel";
 import testIds from "@root/utils/testIds";
+import { ToggleSwitch } from "./ToggleSwitch";
+import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
+import { StyledOptionLabel } from "../common/StyledOptionLabel";
 
-const Toggle = (
-	props: ToggleProps,
-): ReactElement => {
-	const {
-		checked,
-		label,
-		labelPlacement = "end",
-		required = false,
-		disabled = false,
-		onChange,
-		onBlur,
-	} = props;
-
+const Toggle = ({
+	checked,
+	label,
+	labelPlacement = "end",
+	required = false,
+	disabled = false,
+	onChange,
+	onBlur,
+}: ToggleProps): ReactElement => {
 	return (
-		<StyledFormControlLabel
-			label={label}
+		<StyledOptionFormControl
+			label={label && (
+				<StyledOptionLabel
+					disabled={disabled}
+					required={required}
+				>
+					{label}
+				</StyledOptionLabel>
+			)}
+			$gap={[3]}
+			disableTypography
 			labelPlacement={labelPlacement}
 			disabled={disabled}
 			data-testid={testIds.TOGGLE}
 			control={(
-				<StyledSwitch
-					onBlur={(e) => onBlur && onBlur((e.target as any).checked)}
-					checked={!!checked}
+				<ToggleSwitch
+					checked={checked}
 					onChange={(e) => onChange && onChange(e.target.checked)}
-					required={required}
+					onBlur={(e) => onBlur && onBlur(e.target.checked)}
 				/>
 			)}
 		/>

@@ -36,11 +36,13 @@ export class ColumnsComponent extends BasePage {
 	}
 
 	async getColumnsChecked(): Promise<string[]> {
-		const items = await this.leftItems.elementHandles();
+		const items = await this.leftItems.all();
 		const resultItems = [];
 		for (const item of items) {
-			if ((await (await item.$(this.checkboxLocator)).isChecked()) == true) {
-				resultItems.push(await (await item.$("span:nth-child(2)")).textContent());
+			const checkbox = item.getByRole("checkbox");
+
+			if (await checkbox.isChecked()) {
+				resultItems.push(await item.textContent());
 			}
 		}
 		return resultItems;

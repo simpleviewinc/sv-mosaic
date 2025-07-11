@@ -61,3 +61,92 @@ export const StyledSwitch = styled(Switch)`
     opacity: 0.5;
   }
 `;
+
+export const StyledSwitchWrapper = styled.div`
+	position: relative;
+	padding: 3px 0;
+	z-index: 1;
+`;
+
+export const StyledCheckboxInput = styled.input.attrs({ type: "checkbox" })`
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: inherit;
+	z-index: 1;
+`;
+
+export const StyledSwitchTrack = styled.div<{ $checked?: boolean; $disabled?: boolean }>`
+	width: 36px;
+	height: 14px;
+	border-radius: ${theme.rounded.full};
+	transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+	${({ $checked, $disabled }) => $checked ? `
+		background-color: ${$disabled ? theme.color.gold[100] : theme.color.gold[200]};
+		border: 1px solid ${$disabled ? "transparent" : theme.color.gold[300]};
+		box-shadow: ${$disabled ? "0 0 6px 0 rgba(244, 178, 35, 0.3) inset" : "0 0 6px 0 rgba(244, 178, 35, 0.6) inset"};
+	` : `
+		background-color: ${$disabled ? theme.color.gray[100] : theme.color.gray[400]};
+		border: 1px solid transparent;
+		box-shadow: ${$disabled ? "0 0 2px 0 rgba(0, 0, 0, 0.05) inset" : "0 0 2px 0 rgba(0, 0, 0, 0.25) inset"};
+	`}
+`;
+
+export const StyledSwitchKnobBase = styled.div<{ $checked?: boolean }>`
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+	border-radius: ${theme.rounded.full};
+`;
+
+export const StyledSwitchKnob = styled(StyledSwitchKnobBase)<{ $disabled?: boolean }>`
+	width: 20px;
+	height: 20px;
+
+	${({ $checked, $disabled }) => $checked ? `
+		transform: translateX(16px);
+		border: 1px solid ${$disabled ? "transparent" : theme.color.gold[600]};
+		${$disabled ? `
+			background-color: ${theme.color.gold[200]};
+			box-shadow:
+				0 0 2px 0 rgba(0, 0, 0, 0.05),
+				0 1px 2px 0 rgba(177, 125, 10, 0.2);
+		` : `
+			background-image: linear-gradient(to bottom, #FDBA26, #FDAE02);
+			box-shadow:
+				0 0 2px 0 rgba(0, 0, 0, 0.10),
+				0 1px 2px 0 rgba(177, 125, 10, 0.35);
+		`}
+	` : `
+		transform: translateX(0);
+		background-color: ${theme.color.white};
+		border: 1px solid ${$disabled ? theme.color.gray[200] : theme.color.gray[400]};
+		box-shadow: ${$disabled ? "0 1px 2px 0 rgba(0, 0, 0, 0.05)" : "0 1px 2px 0 rgba(0, 0, 0, 0.15)"};
+	`}
+`;
+
+export const StyledSwitchKnobFocus = styled(StyledSwitchKnobBase)<{ $isFocusVisible?: boolean; $isOver?: boolean }>`
+	width: 32px;
+	height: 32px;
+	border: 2px solid transparent;
+	z-index: -1;
+
+	${({ $isFocusVisible }) => $isFocusVisible && `
+		border-color: ${theme.color.gray[700]};
+	`}
+
+	${({ $isOver }) => $isOver && `
+		background-color: ${theme.color.translucent.grey[100]};
+	`}
+
+	${({ $checked }) => $checked ? `
+		transform: translate(10px, -6px);
+	` : `
+		transform: translate(-6px, -6px);
+	`}
+`;
