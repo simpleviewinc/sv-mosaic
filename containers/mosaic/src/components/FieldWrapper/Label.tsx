@@ -45,9 +45,10 @@ const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 const StyledInputLabel = styled(InputLabel)<{ $isHeader?: boolean }>`
 	font-weight: ${theme.weight.medium};
   	align-self: center;
+	color: ${theme.newColors.grey4["100"]} !important;
 
 	${({ $isHeader }) => $isHeader ? `
-		font-weight: ${theme.weight.semi};
+		font-weight: ${theme.weight.bold};
 		font-size: ${theme.fontSize.text["2xl"]};
 		margin-bottom: ${theme.spacing(1)};
 	` : `
