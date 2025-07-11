@@ -33,7 +33,6 @@ const InputLabelDiv = styled.div`
 	font-size: ${theme.fontSize.text.lg};
 	line-height: ${theme.line.tight};
 	font-weight: ${theme.weight.medium};
-	color:  ${theme.newColors.almostBlack["100"]};
 	word-wrap: break-word;
 `;
 
@@ -43,10 +42,17 @@ const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	margin-left: auto;
 `;
 
-const StyledInputLabel = styled(InputLabel)`
+const StyledInputLabel = styled(InputLabel)<{ $isHeader?: boolean }>`
 	font-weight: ${theme.weight.medium};
   	align-self: center;
-	color: ${theme.newColors.grey4["100"]} !important;
+
+	${({ $isHeader }) => $isHeader ? `
+		font-weight: ${theme.weight.semi};
+		font-size: ${theme.fontSize.text["2xl"]};
+		margin-bottom: ${theme.spacing(1)};
+	` : `
+		font-weight: ${theme.weight.medium};
+	`}
 `;
 
 const StyledRequiredIndicator = styled.span`
@@ -78,6 +84,7 @@ interface LabelProps {
 	colsInRow?: number;
 	as?: "label" | "div";
 	isGroup?: boolean;
+	useHeaderLabel?: boolean;
 }
 
 const Label = (props: LabelProps): ReactElement => {
@@ -93,6 +100,7 @@ const Label = (props: LabelProps): ReactElement => {
 		colsInRow,
 		as = "label",
 		isGroup,
+		useHeaderLabel,
 	} = props;
 
 	const { anchorProps, tooltipProps } = useTooltip();
@@ -110,6 +118,7 @@ const Label = (props: LabelProps): ReactElement => {
 					data-testid={name && `${testIds.FORM_FIELD_LABEL}:${name}`}
 					title={typeof children === "string" ? children : undefined}
 					className={classnames("Mos-FieldLabel", isGroup && "Mos-GroupLabel")}
+					$isHeader={useHeaderLabel}
 				>
 					{children}
 					{required && <StyledRequiredIndicator>*</StyledRequiredIndicator>}
