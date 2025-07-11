@@ -4,6 +4,7 @@ import type { FieldDef, FieldDefBase } from "../FieldTypes";
 export interface GroupInputSettings {
 	fields: FieldDef[];
 	layout?: SectionPropTypes["rows"];
+	useHeaderLabel?: boolean;
 }
 
 export type GroupData = Record<string, any>;
