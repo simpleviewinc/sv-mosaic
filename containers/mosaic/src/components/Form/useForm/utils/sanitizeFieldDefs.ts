@@ -38,6 +38,7 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 				...field,
 				type: "group",
 				inputSettings: {
+					useHeaderLabel: true,
 					fields: getAddressFields({
 						getOptionsCountries,
 						getOptionsStates,

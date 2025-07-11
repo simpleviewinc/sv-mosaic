@@ -134,6 +134,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 								as={hasRealLabel ? "label" : "div"}
 								hideLabel={fieldDef.hideLabel}
 								isGroup={fieldDef.type === "group"}
+								useHeaderLabel={fieldDef.type === "group" && fieldDef?.inputSettings.useHeaderLabel}
 							>
 								{fieldDef?.label}
 							</Label>
