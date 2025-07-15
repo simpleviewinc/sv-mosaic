@@ -40,7 +40,6 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 ];
 
 export const Playground = ({
-	backgroundColor,
 	buttonIntent,
 	buttonVariant,
 	disabled,
@@ -72,8 +71,30 @@ export const Playground = ({
 
 	const showButton = useToggle(action, "show");
 
+	React.useEffect(() => {
+		// When displaying the button full width, we need to remove Storybook's default padding
+		const styleTag = document.createElement("style");
+		styleTag.innerHTML = ".sb-show-main.sb-main-centered #storybook-root { padding: 0; }";
+
+		const remove = () => {
+			if (document.head.contains(styleTag)) {
+				document.head.removeChild(styleTag);
+			}
+		};
+
+		if (fullWidth) {
+			document.head.appendChild(styleTag);
+		} else {
+			remove();
+		}
+
+		return () => {
+			remove();
+		};
+	}, [fullWidth]);
+
 	return (
-		<div style={{ backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20 }}>
+		<div style={{ width: fullWidth ? "100vw" : undefined }}>
 			{showButton && (
 				<Button
 					attrs={{ $smallText: smallText }}
@@ -98,7 +119,6 @@ export const Playground = ({
 };
 
 Playground.args = {
-	backgroundColor: "light",
 	buttonIntent: "primary",
 	buttonVariant: "contained",
 	disabled: "Undefined",
@@ -119,11 +139,6 @@ Playground.args = {
 };
 
 Playground.argTypes = {
-	backgroundColor: {
-		options: ["light", "dark"],
-		control: { type: "select" },
-		name: "Background Color",
-	},
 	buttonIntent: {
 		options: ["primary", "secondary", "tertiary", "info", "specialized", "danger"],
 		control: { type: "select" },
