@@ -20,19 +20,19 @@ const StyledButtonRow = styled(ButtonRow)`
 export const Playground = ({ showToast, showTea, showCrumpets }: typeof Playground.args): ReactElement => {
 	const buttonDefs: ButtonProps[] = useMemo(() => [
 		{
-			color: "red",
+			intent: "danger",
 			variant: "contained",
 			label: "Toast",
 			show: toggleMap[showToast],
 		},
 		{
-			color: "blue",
+			intent: "info",
 			variant: "contained",
 			label: "Tea",
 			show: toggleMap[showTea],
 		},
 		{
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			label: "Crumpets",
 			show: toggleMap[showCrumpets],
