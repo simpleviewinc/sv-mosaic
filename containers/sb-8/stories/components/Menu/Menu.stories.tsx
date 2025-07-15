@@ -52,7 +52,7 @@ export const Playground = ({ menuItemCount, showIcons, iconColor }: typeof Playg
 	return (
 		<Button
 			label="Open"
-			color="blue"
+			intent="info"
 			variant="contained"
 			menuItems={menuItems}
 		/>
@@ -114,7 +114,7 @@ export const WithIcons = (): ReactElement => {
 	return (
 		<Button
 			label="Open"
-			color="blue"
+			intent="info"
 			variant="contained"
 			menuItems={menuItems}
 		/>
@@ -151,7 +151,7 @@ export const Selectable = (): ReactElement => {
 			<div style={{ display: "flex", gap: 8 }}>
 				<Button
 					label="Set Value"
-					color="blue"
+					intent="info"
 					variant="contained"
 					menuItems={menuItems}
 					menuOnChange={setValue}
@@ -159,7 +159,7 @@ export const Selectable = (): ReactElement => {
 				/>
 				<Button
 					label="Clear"
-					color="red"
+					intent="danger"
 					variant="contained"
 					onClick={() => setValue("")}
 				/>

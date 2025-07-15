@@ -16,13 +16,13 @@ export const Playground = ({ title, showButtons, showBack }: typeof Playground.a
 					{
 						label: "Cancel",
 						onClick: onCancel,
-						color: "gray",
-						variant: "outlined",
+						intent: "secondary",
+						variant: "contained",
 					},
 					{
 						label: "Save",
 						onClick: () => alert("Saving"),
-						color: "yellow",
+						intent: "primary",
 						variant: "contained",
 					},
 				]

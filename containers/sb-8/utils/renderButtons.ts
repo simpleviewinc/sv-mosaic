@@ -9,14 +9,14 @@ export const renderButtons = (handleSubmit: FormHandleSubmit, show = { showCance
 	{
 		label: "Cancel",
 		onClick: onCancel,
-		color: "gray",
-		variant: "outlined",
+		intent: "secondary",
+		variant: "contained",
 		show: show.showCancel,
 	},
 	{
 		label: "Save",
 		onClick: handleSubmit(({ data, activeFields }) => alert(`Form submitted with the following data: ${JSON.stringify(data, null, " ")}\nActive fields: ${JSON.stringify(activeFields, null, "")}`)),
-		color: "yellow",
+		intent: "primary",
 		variant: "contained",
 		show: show.showSave,
 	},
