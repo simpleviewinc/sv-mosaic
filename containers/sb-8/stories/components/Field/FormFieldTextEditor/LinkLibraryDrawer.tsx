@@ -127,19 +127,19 @@ export function LinkLibraryDrawer({ onClose, updateLink, removeLink, url, newTab
 				removeLink();
 				onClose();
 			},
-			color: "red",
-			variant: "outlined",
+			intent: "danger",
+			variant: "contained",
 		},
 		{
 			label: "Cancel",
 			onClick: onClose,
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: "Save",
 			type: "submit",
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	], [removeLink, onClose]);

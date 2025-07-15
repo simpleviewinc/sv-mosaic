@@ -419,8 +419,8 @@ export const Playground = ({
 			name: "reset",
 			label: "Reset",
 			onClick: () => reset(),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		...renderButtons(handleSubmit, { showCancel, showSave }),
 	], [handleSubmit, reset, showCancel, showSave]);

@@ -577,13 +577,13 @@ const NewSavedViewForm = ({
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			onClick: onCancel,
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 			label: "Cancel",
 		},
 		{
 			type: "submit",
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			label: "Save",
 		},
@@ -643,8 +643,8 @@ const ViewsListGrid = ({
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			onClick: onReset,
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 			label: "Clear current view",
 			show: Boolean(onReset),
 		},
@@ -654,7 +654,7 @@ const ViewsListGrid = ({
 		{
 			name: "view",
 			intent: "secondary",
-			variant: "icon",
+			variant: "text",
 			onClick: onView,
 			mIcon: Visibility,
 			tooltip: "Apply View",
@@ -663,7 +663,7 @@ const ViewsListGrid = ({
 		{
 			name: "delete",
 			intent: "secondary",
-			variant: "icon",
+			variant: "text",
 			onClick: onDelete,
 			mIcon: Delete,
 			tooltip: "Delete View",
@@ -875,7 +875,7 @@ export const Playground = ({
 			{
 				name: "edit",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
 				mIcon: CreateIcon,
 				onClick: function ({ data }) {
 					alert(`EDIT ${data.id}`);
@@ -885,8 +885,8 @@ export const Playground = ({
 			},
 			{
 				name: "draft",
-				color: "blue",
-				variant: "icon",
+				intent: "info",
+				variant: "text",
 				mIcon: SaveAsIcon,
 				onClick: function ({ data }) {
 					alert(`VIEW DRAFT ${data.id}`);
@@ -919,18 +919,19 @@ export const Playground = ({
 			{
 				name: "download",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
 				mIcon: GetAppIcon,
 				onClick: function ({ data }) {
 					alert(`DOWNLOAD ${data.map(val => val.id)}`);
 				},
 				show: ({ data }) => data.length <= 5,
 				muiAttrs: { title: "Download checked" },
+				tooltip: "Download Selected",
 			},
 			{
 				name: "delete",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
 				mIcon: DeleteIcon,
 				onClick: function ({ data }) {
 					alert(`DELETE ${data.map(val => val.id)}`);
@@ -940,6 +941,7 @@ export const Playground = ({
 				} : undefined,
 				show: ({ checkedAllPages }) => !checkedAllPages,
 				muiAttrs: { title: "Delete checked" },
+				tooltip: "Delete Selected",
 			},
 		] : [],
 		buttons: [
@@ -947,7 +949,7 @@ export const Playground = ({
 				name: "create",
 				label: "Create New",
 				mIcon: AddIcon,
-				color: "yellow",
+				intent: "primary",
 				variant: "contained",
 				onClick: function () {
 					alert("CREATE NEW");

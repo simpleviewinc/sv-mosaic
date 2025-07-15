@@ -105,7 +105,7 @@ export const Playground = ({
 		<Button
 			key={4}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[0].label}
 			mIcon={textLinks[0].mIcon}
@@ -115,7 +115,7 @@ export const Playground = ({
 		<Button
 			key={5}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[1].label}
 			mIcon={textLinks[1].mIcon}
@@ -125,7 +125,7 @@ export const Playground = ({
 		<Button
 			key={6}
 			attrs={{ $linkButton: true }}
-			color="black"
+			intent="secondary"
 			variant="text"
 			label={textLinks[2].label}
 			mIcon={textLinks[2].mIcon}

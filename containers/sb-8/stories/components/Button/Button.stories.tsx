@@ -40,7 +40,6 @@ const dropdownWithIcons: ButtonProps["menuItems"] = [
 ];
 
 export const Playground = ({
-	backgroundColor,
 	buttonIntent,
 	buttonVariant,
 	disabled,
@@ -56,10 +55,8 @@ export const Playground = ({
 	show,
 	showIcon,
 	size,
-	smallText,
 	tooltip,
 }: typeof Playground.args): ReactElement => {
-	const useIcon = buttonVariant === "icon" || showIcon;
 	const tooltipType = tooltip ? tooltip === "string" ? "Tooltip string" : <h2>Tooltip as an H2</h2> : undefined;
 
 	const action = {
@@ -72,11 +69,32 @@ export const Playground = ({
 
 	const showButton = useToggle(action, "show");
 
+	React.useEffect(() => {
+		// When displaying the button full width, we need to remove Storybook's default padding
+		const styleTag = document.createElement("style");
+		styleTag.innerHTML = ".sb-show-main.sb-main-centered #storybook-root { padding: 0; }";
+
+		const remove = () => {
+			if (document.head.contains(styleTag)) {
+				document.head.removeChild(styleTag);
+			}
+		};
+
+		if (fullWidth) {
+			document.head.appendChild(styleTag);
+		} else {
+			remove();
+		}
+
+		return () => {
+			remove();
+		};
+	}, [fullWidth]);
+
 	return (
-		<div style={{ backgroundColor: backgroundColor === "light" ? "white" : "#333", padding: 20 }}>
+		<div style={{ width: fullWidth ? "100vw" : undefined }}>
 			{showButton && (
 				<Button
-					attrs={{ $smallText: smallText }}
 					label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
 					variant={buttonVariant}
 					intent={buttonIntent}
@@ -84,8 +102,8 @@ export const Playground = ({
 					disabled={toggleMapInverse[disabled]}
 					tooltip={tooltipType}
 					size={size}
-					mIcon={useIcon && AddIcon}
-					mIconColor={useIcon && iconColor}
+					mIcon={showIcon ? AddIcon : undefined}
+					mIconColor={iconColor}
 					href={href ? "https://www.google.com/" : null}
 					iconPosition={iconPosition}
 					popover={popover && !tooltipType && <p>Popover Content</p>}
@@ -98,7 +116,6 @@ export const Playground = ({
 };
 
 Playground.args = {
-	backgroundColor: "light",
 	buttonIntent: "primary",
 	buttonVariant: "contained",
 	disabled: "Undefined",
@@ -114,16 +131,10 @@ Playground.args = {
 	show: "Undefined",
 	showIcon: false,
 	size: "medium",
-	smallText: false,
 	tooltip: null,
 };
 
 Playground.argTypes = {
-	backgroundColor: {
-		options: ["light", "dark"],
-		control: { type: "select" },
-		name: "Background Color",
-	},
 	buttonIntent: {
 		options: ["primary", "secondary", "tertiary", "info", "specialized", "danger"],
 		control: { type: "select" },
@@ -186,9 +197,6 @@ Playground.argTypes = {
 		options: ["small", "medium"],
 		control: { type: "select" },
 		name: "Size",
-	},
-	smallText: {
-		name: "Small Text",
 	},
 	tooltip: {
 		options: ["string", "JSX", null],
