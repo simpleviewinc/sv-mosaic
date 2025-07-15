@@ -48,13 +48,13 @@ const DrawerEditForm = ({
 				{
 					label: "Cancel",
 					onClick: onClose,
-					color: "gray",
-					variant: "outlined",
+					intent: "secondary",
+					variant: "contained",
 				},
 				{
 					label: "Save",
 					onClick: onSaveClick,
-					color: "yellow",
+					intent: "primary",
 					variant: "contained",
 				},
 			]}
@@ -173,7 +173,7 @@ export const Playground = ({
 					{" "}
 					component.
 				</div>
-				<Button variant="outlined" color="gray" label="Create one" onClick={onAddClick} />
+				<Button variant="contained" intent="secondary" label="Create one" onClick={onAddClick} />
 			</div>
 		),
 		columns: listColumns,
@@ -181,7 +181,8 @@ export const Playground = ({
 			{
 				name: "edit",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
+				tooltip: "Edit",
 				mIcon: CreateIcon,
 				onClick: async ({ data }) => {
 					const rowToEdit = state.data.formMatrix.filter(row => row.id === data.id);
@@ -215,7 +216,8 @@ export const Playground = ({
 			{
 				name: "delete",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
+				tooltip: "Delete",
 				mIcon: DeleteIcon,
 				onClick: async ({ data }) => {
 					const filteredRows = state.data.formMatrix.filter(row => row.id !== data.id);
@@ -264,7 +266,7 @@ export const Playground = ({
 							{
 								label: "Add",
 								onClick: onAddClick,
-								color: "teal",
+								intent: "info",
 								variant: "text",
 								mIcon: AddIcon,
 							},

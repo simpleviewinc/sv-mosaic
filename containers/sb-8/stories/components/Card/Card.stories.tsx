@@ -51,7 +51,7 @@ export const Playground = ({
 	const topActions: ButtonProps[] = [
 		{
 			intent: "secondary",
-			variant: "icon",
+			variant: "text",
 			onClick: () => alert("+ icon clicked"),
 			mIcon: AddIcon,
 			show: () => quantityOfTopActions > 0,
@@ -59,15 +59,15 @@ export const Playground = ({
 		{
 			label: "Save",
 			onClick: () => alert("Save button clicked"),
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			show: () => quantityOfTopActions > 1,
 		},
 		{
 			label: "Remove",
 			onClick: () => alert("Remove button clicked"),
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 			mIcon: DeleteIcon,
 			show: () => quantityOfTopActions > 2,
 		},
@@ -75,7 +75,7 @@ export const Playground = ({
 
 	const bottomActions: ButtonProps[] = [
 		{
-			color: "teal",
+			intent: "info",
 			label: "Add a new task",
 			variant: "text",
 			onClick: () => alert("Add new task clicked"),
@@ -83,7 +83,7 @@ export const Playground = ({
 			show: () => quantityOfBottomActions > 0,
 		},
 		{
-			color: "teal",
+			intent: "info",
 			label: "Edit task",
 			variant: "text",
 			onClick: () => alert("Add new task clicked"),
@@ -93,7 +93,7 @@ export const Playground = ({
 		{
 			label: "Go to tasks",
 			onClick: () => alert("Go to tasks clicked"),
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			show: () => quantityOfBottomActions > 2,
 		},
@@ -176,7 +176,7 @@ export const RecentActivity = (): ReactElement => {
 			content={recentActivityContent}
 			topActions={[
 				{
-					color: "teal",
+					intent: "info",
 					label: "Show All",
 					variant: "text",
 					onClick: () => alert("Show all clicked"),
