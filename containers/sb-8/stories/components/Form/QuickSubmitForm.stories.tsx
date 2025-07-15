@@ -72,7 +72,7 @@ export const QuickSubmit = ({ showSections }: typeof QuickSubmit.args): ReactEle
 	const buttons = useMemo<ButtonProps[]>(() => [
 		{
 			label: "Save",
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 			type: "submit",
 		},

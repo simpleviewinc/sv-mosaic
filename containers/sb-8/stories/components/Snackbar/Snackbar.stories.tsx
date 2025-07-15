@@ -38,7 +38,7 @@ export const Playground = ({ label, autoHideDuration, showAction, showIcon }: ty
 	return (
 		<>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Open snackbar"
 				onClick={handleClickOpen}

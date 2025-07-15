@@ -57,7 +57,6 @@ export const Playground = ({
 	size,
 	tooltip,
 }: typeof Playground.args): ReactElement => {
-	const useIcon = buttonVariant === "icon" || showIcon;
 	const tooltipType = tooltip ? tooltip === "string" ? "Tooltip string" : <h2>Tooltip as an H2</h2> : undefined;
 
 	const action = {
@@ -103,8 +102,8 @@ export const Playground = ({
 					disabled={toggleMapInverse[disabled]}
 					tooltip={tooltipType}
 					size={size}
-					mIcon={useIcon && AddIcon}
-					mIconColor={useIcon && iconColor}
+					mIcon={showIcon ? AddIcon : undefined}
+					mIconColor={iconColor}
 					href={href ? "https://www.google.com/" : null}
 					iconPosition={iconPosition}
 					popover={popover && !tooltipType && <p>Popover Content</p>}
