@@ -55,7 +55,6 @@ export const Playground = ({
 	show,
 	showIcon,
 	size,
-	smallText,
 	tooltip,
 }: typeof Playground.args): ReactElement => {
 	const useIcon = buttonVariant === "icon" || showIcon;
@@ -97,7 +96,6 @@ export const Playground = ({
 		<div style={{ width: fullWidth ? "100vw" : undefined }}>
 			{showButton && (
 				<Button
-					attrs={{ $smallText: smallText }}
 					label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
 					variant={buttonVariant}
 					intent={buttonIntent}
@@ -134,7 +132,6 @@ Playground.args = {
 	show: "Undefined",
 	showIcon: false,
 	size: "medium",
-	smallText: false,
 	tooltip: null,
 };
 
@@ -201,9 +198,6 @@ Playground.argTypes = {
 		options: ["small", "medium"],
 		control: { type: "select" },
 		name: "Size",
-	},
-	smallText: {
-		name: "Small Text",
 	},
 	tooltip: {
 		options: ["string", "JSX", null],
