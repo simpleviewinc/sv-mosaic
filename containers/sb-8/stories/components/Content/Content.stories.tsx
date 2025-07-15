@@ -122,10 +122,10 @@ export const Playground = ({
 	const buttons: ButtonProps[] = [
 		{
 			name: "edit",
-			label: "Edit",
+			tooltip: "Edit",
 			mIcon: EditIcon,
-			color: "gray",
-			variant: "icon",
+			intent: "secondary",
+			variant: "text",
 			show: [showButtons !== "undefined", Number(showButtons) >= 1],
 			onClick: function () {
 				alert("Edit button clicked");
@@ -133,7 +133,7 @@ export const Playground = ({
 		},
 		{
 			name: "showDetails",
-			color: "teal",
+			intent: "info",
 			variant: "text",
 			label: showMore ? "Less Details" : "More Details",
 			onClick: showDetails,
@@ -271,17 +271,17 @@ export const KitchenSink = (): ReactElement => {
 	const buttons: ButtonProps[] = [
 		{
 			name: "edit",
-			label: "Edit",
+			tooltip: "Edit",
 			mIcon: EditIcon,
-			color: "gray",
-			variant: "icon",
+			intent: "secondary",
+			variant: "text",
 			onClick: function () {
 				alert("Edit button clicked");
 			},
 		},
 		{
 			name: "showDetails",
-			color: "teal",
+			intent: "info",
 			variant: "text",
 			label: "More Details",
 			onClick: () => alert("More details"),

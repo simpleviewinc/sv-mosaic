@@ -121,7 +121,7 @@ function PickerPanel({
 										<Button
 											label="Create"
 											variant="text"
-											color="black"
+											intent="secondary"
 											mIcon={AddIcon}
 											onClick={() => onCreateNew(keyword)}
 										/>

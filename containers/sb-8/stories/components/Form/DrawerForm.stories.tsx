@@ -274,7 +274,7 @@ export const DrawerForm = ({
 					{
 						label: "Add",
 						onClick: () => null,
-						color: "teal",
+						intent: "info",
 						variant: "text",
 						mIcon: AddCircleOutline,
 					},
@@ -341,7 +341,7 @@ export const DrawerForm = ({
 		{
 			label: "Save",
 			onClick: onDrawerSubmit,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];
@@ -370,7 +370,7 @@ export const DrawerForm = ({
 				<Button
 					onClick={() => setOpen(true)}
 					label="Open Drawer"
-					color="yellow"
+					intent="primary"
 					variant="contained"
 				/>
 			</div>

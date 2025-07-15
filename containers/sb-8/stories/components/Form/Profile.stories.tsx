@@ -75,7 +75,8 @@ export const Profile = ({
 			{
 				name: "delete",
 				intent: "secondary",
-				variant: "icon",
+				variant: "text",
+				tooltip: "Delete",
 				mIcon: DeleteIcon,
 				onClick: ({ data }) => {
 					setFieldValue({
@@ -372,7 +373,7 @@ export const Profile = ({
 										touched: true,
 									});
 								},
-								color: "teal",
+								intent: "info",
 								variant: "text",
 								mIcon: AddIcon,
 							},

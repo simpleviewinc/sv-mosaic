@@ -31,13 +31,13 @@ export const Playground = ({ dialogContent, dialogTitle, primaryBtnLabel, second
 		{
 			label: secondaryBtnLabel,
 			onClick: handleClose,
-			color: "gray",
-			variant: "outlined",
+			intent: "secondary",
+			variant: "contained",
 		},
 		{
 			label: primaryBtnLabel,
 			onClick: primaryAction,
-			color: "yellow",
+			intent: "primary",
 			variant: "contained",
 		},
 	];
@@ -45,7 +45,7 @@ export const Playground = ({ dialogContent, dialogTitle, primaryBtnLabel, second
 	return (
 		<>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				onClick={handleClickOpen}
 				label="Open Dialog"

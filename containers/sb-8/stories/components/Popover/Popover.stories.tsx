@@ -54,7 +54,7 @@ const ExampleTopContent = (
 const ButtonBottomContent = (
 	<div style={{ display: "flex", justifyContent: "center" }}>
 		<Button
-			color="teal"
+			intent="info"
 			variant="text"
 			label="Add"
 			mIcon={AddIcon}
@@ -91,7 +91,7 @@ export const Playground = (): ReactElement => {
 				<StyledGrid container ref={centerScroll}>
 					<div>
 						<Button
-							color="yellow"
+							intent="primary"
 							variant="contained"
 							label="Open Popover"
 							onClick={handleClick}
@@ -141,7 +141,7 @@ export const Input = (): ReactElement => {
 	return (
 		<div>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
@@ -254,7 +254,7 @@ export const TextAndLinks = (): ReactElement => {
 	return (
 		<div>
 			<Button
-				color="yellow"
+				intent="primary"
 				variant="contained"
 				label="Open Popover"
 				onClick={handleClick}
