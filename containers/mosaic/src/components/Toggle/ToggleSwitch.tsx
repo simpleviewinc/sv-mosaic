@@ -1,5 +1,5 @@
 import type { ChangeEventHandler, ComponentProps, FocusEventHandler, ReactElement } from "react";
-import useIsFocusVisible from "@mui/material/utils/useIsFocusVisible";
+import useIsFocusVisible from "@mui/utils/useIsFocusVisible";
 
 import React, { useState } from "react";
 
