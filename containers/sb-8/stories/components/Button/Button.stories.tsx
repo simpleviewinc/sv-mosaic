@@ -11,7 +11,7 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 
 import { useToggle } from "#mosaic/utils/toggle";
-import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse } from "@utils";
+import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse, useStretchedWidthStory } from "@utils";
 import { ButtonHeading, ButtonGrid, ButtonRow, ButtonCell } from "./Button.stories.styled";
 import { BodyText } from "@simpleview/sv-mosaic/components/Typography";
 
@@ -57,6 +57,7 @@ export const Playground = ({
 	size,
 	tooltip,
 }: typeof Playground.args): ReactElement => {
+	useStretchedWidthStory(fullWidth);
 	const tooltipType = tooltip ? tooltip === "string" ? "Tooltip string" : <h2>Tooltip as an H2</h2> : undefined;
 
 	const action = {
@@ -69,49 +70,27 @@ export const Playground = ({
 
 	const showButton = useToggle(action, "show");
 
-	React.useEffect(() => {
-		// When displaying the button full width, we need to remove Storybook's default padding
-		const styleTag = document.createElement("style");
-		styleTag.innerHTML = ".sb-show-main.sb-main-centered #storybook-root { padding: 0; }";
-
-		const remove = () => {
-			if (document.head.contains(styleTag)) {
-				document.head.removeChild(styleTag);
-			}
-		};
-
-		if (fullWidth) {
-			document.head.appendChild(styleTag);
-		} else {
-			remove();
-		}
-
-		return () => {
-			remove();
-		};
-	}, [fullWidth]);
+	if (!showButton) {
+		return null;
+	}
 
 	return (
-		<div style={{ width: fullWidth ? "100vw" : undefined }}>
-			{showButton && (
-				<Button
-					label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
-					variant={buttonVariant}
-					intent={buttonIntent}
-					fullWidth={fullWidth}
-					disabled={toggleMapInverse[disabled]}
-					tooltip={tooltipType}
-					size={size}
-					mIcon={showIcon ? AddIcon : undefined}
-					mIconColor={iconColor}
-					href={href ? "https://www.google.com/" : null}
-					iconPosition={iconPosition}
-					popover={popover && !tooltipType && <p>Popover Content</p>}
-					popoverEvent={popoverEvent}
-					menuItems={menuItems && dropdownWithIcons}
-				/>
-			)}
-		</div>
+		<Button
+			label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
+			variant={buttonVariant}
+			intent={buttonIntent}
+			fullWidth={fullWidth}
+			disabled={toggleMapInverse[disabled]}
+			tooltip={tooltipType}
+			size={size}
+			mIcon={showIcon ? AddIcon : undefined}
+			mIconColor={iconColor}
+			href={href ? "https://www.google.com/" : null}
+			iconPosition={iconPosition}
+			popover={popover && !tooltipType && <p>Popover Content</p>}
+			popoverEvent={popoverEvent}
+			menuItems={menuItems && dropdownWithIcons}
+		/>
 	);
 };
 

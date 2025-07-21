@@ -28,4 +28,10 @@ export interface ChipsProps {
     * Whether to stretch the full width of its container
     */
    fullWidth?: boolean;
+   /**
+    * Which color variant to use when styling the Chip.
+    *
+    * @default light
+    */
+   variant?: "secondary" | "tertiary" | "primary";
 }
