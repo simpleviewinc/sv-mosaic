@@ -1,98 +1,111 @@
-import type { ComponentProps } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 
-import type { TransientProps } from "@root/types";
 import type { ChipsProps } from "./ChipTypes";
 
 import theme from "@root/theme";
 
-function getChipBackground({ $selected, disabled, onClick, onDelete }: Pick<ComponentProps<typeof StyledChip>, "$selected" | "disabled" | "onClick" | "onDelete">) {
-	if ($selected || onDelete) {
-		if (disabled) {
-			return { base: theme.newColors.simplyGold["60"] };
+const variantStyles: Record<ChipsProps["variant"], string> = {
+	primary: `
+		--bg: ${theme.color.gold[400]};
+		--border: 0 0;
+		--shadow: var(--mos-shadow-sm);
+		--icon: ${theme.color.gold[950]};
+		--weight: ${theme.weight.regular};
+
+		--over-bg: ${theme.color.gold[300]};
+	`,
+	secondary: `
+		--bg: ${theme.color.white};
+		--border: var(--mos-border-medium);
+		--shadow: var(--mos-shadow-sm);
+		--icon: ${theme.color.gray[500]};
+		--weight: ${theme.weight.regular};
+
+		--over-bg: ${theme.color.gray[100]};
+	`,
+	tertiary: `
+		--bg: ${theme.color.gray[100]};
+		--border: var(--mos-border-medium);
+		--shadow: var(--mos-shadow-sm);
+		--icon: ${theme.color.gray[500]};
+		--weight: ${theme.weight.medium};
+
+		--over-bg: ${theme.color.gray[300]};
+	`,
+};
+
+export const StyledChip = styled(Chip)<{
+	$fullWidth?: boolean;
+	$variant?: ChipsProps["variant"];
+}>(({ $fullWidth, $variant, onDelete, onClick }) => `
+	${variantStyles[$variant]};
+
+	background-color: var(--bg);
+	font-weight: var(--weight);
+	line-height: ${theme.line.normal};
+	padding: 0 ${theme.spacing(4)};
+	justify-content: space-between;
+
+	${(!onDelete && !onClick) ? `
+		box-shadow: var(--border);
+	` : `
+		box-shadow: var(--border), var(--shadow);
+	`}
+
+	${!onDelete ? "" : `
+		padding-right: ${theme.spacing(3)};
+	`}
+
+	${$fullWidth ? `
+		width: 100%;
+	` : `
+		max-width: 176px;
+	`}
+
+	${!onClick ? "" : `
+		text-decoration: underline;
+
+		&:hover {
+			background-color: var(--over-bg);
 		}
+	`}
 
-		return {
-			base: theme.newColors.simplyGold["100"],
-			focus: onClick && theme.newColors.darkerSimplyGold["100"],
-			hover: onClick && theme.newColors.darkerSimplyGold["100"],
-		};
+	&:active {
+		box-shadow: var(--border);
 	}
 
-	return {
-		base: theme.newColors.grey2["100"],
-		focus: onClick && theme.newColors.simplyGrey["100"],
-		hover: onClick && theme.newColors.simplyGrey["100"],
-	};
-}
-
-export const StyledChip = styled(Chip)<TransientProps<ChipsProps, "selected"> & { $fullWidth?: boolean }>`
-	&&.MuiChip-root {
-		color: ${theme.newColors.almostBlack["100"]};
-		padding: 8px 16px;
-		display: inline-flex;
-		align-items: center;
-		justify-content: space-between;
-
-		${({ $fullWidth }) => $fullWidth ? `
-			width: 100%;
-		` : `
-			max-width: 186px;
-		`}
-
-		${({ onDelete }) => !onDelete && `
-			&:focus{
-				box-shadow: none;
-				outline: 1px solid white;
-				outline-offset: -2px;
-			}
-		`}
-
-		${({ $selected, disabled, onClick, onDelete }) => {
-			const { base, focus, hover } = getChipBackground({ $selected, disabled, onClick, onDelete });
-
-			return `
-				background-color: ${base};
-
-				${focus && `
-					&:focus
-					&:focusVisible{
-						background-color: ${focus}
-					}
-				`}
-
-				${hover && `
-					&:hover{
-						background-color: ${hover}
-					}
-				`}
-			`;
-		}}
+	&.Mui-focusVisible {
+		background-color: var(--bg);
+		outline: 2px solid ${theme.color.gray[700]};
+		outline-offset: 3px;
 	}
 
-	& .MuiChip-label {
-		line-height: 1.4em;
+	&.MuiChip-deletable.Mui-focusVisible {
+		background-color: var(--bg);
+		outline: none;
+	}
+
+	.MuiChip-label {
 		padding: 0;
+		margin-bottom: -1px;
 	}
-`;
+`);
 
 export const StyledChipDelete = styled.button`
-	&&& {
+	&& {
 		all: unset;
-		color: ${theme.newColors.almostBlack["100"]} !important;
+		color: var(--icon);
 		cursor: pointer;
 		margin: 0;
-		margin-left: 12px;
+		margin-left: ${theme.spacing(2)};
 		display: flex;
 		position: relative;
+		border-radius: 9999em;
 
-		&:focus-visible::after {
-			background-color: rgba(0, 0, 0, .2);
-			border-radius: 9999em;
-			content: " ";
-			position: absolute;
-			inset: -2px;
+		&:focus-visible {
+			outline: 2px solid ${theme.color.gray[700]};
+			outline-offset: 1px;
 		}
 	}
 

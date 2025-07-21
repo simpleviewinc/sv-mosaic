@@ -7,20 +7,30 @@ import type { ChipsProps } from "./ChipTypes";
 import { StyledChip, StyledChipDelete } from "./Chip.styled";
 import testIds from "@root/utils/testIds";
 
+declare module "@mui/material/Chip" {
+	interface ChipOwnProps {
+		disableRipple: boolean;
+	}
+}
+
 const Chip = ({
 	children,
 	selected = false,
 	onDelete,
 	label,
 	fullWidth,
+	variant: providedVariant,
 	...props
 }: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
 	const ref = useRef<HTMLDivElement>();
+	const variant =
+		providedVariant !== undefined ? providedVariant :
+		(selected ? "primary" : "secondary");
 
 	return (
 		<StyledChip
 			{...props}
-			$selected={selected}
+			$variant={variant}
 			aria-selected={selected}
 			color="default"
 			data-testid={testIds.CHIP}
@@ -39,6 +49,7 @@ const Chip = ({
 			tabIndex={onDelete ? -1 : undefined}
 			title={label}
 			$fullWidth={fullWidth}
+			disableRipple
 		/>
 	);
 };
