@@ -2,25 +2,43 @@ import * as React from "react";
 import type { ReactElement } from "react";
 
 import Chip from "#mosaic/components/Chip";
+import { useStretchedWidthStory } from "@utils";
 
 export default {
 	title: "Components/Chip",
+	parameters: {
+		layout: "centered",
+	},
 };
 
-export const Playground = ({ deletable, clickable, label, disabled, selected }: typeof Playground.args): ReactElement => {
+export const Playground = ({
+	variant,
+	deletable,
+	clickable,
+	label,
+	disabled,
+	selected,
+	fullWidth,
+}: typeof Playground.args): ReactElement => {
+	useStretchedWidthStory(fullWidth);
+
+	const common = {
+		variant: variant === "Undefined" ? undefined : variant,
+		label,
+		disabled,
+		selected,
+		fullWidth,
+	};
+
 	return (
 		deletable ? (
 			<Chip
-				label={label}
-				disabled={disabled}
-				selected={selected}
+				{...common}
 				onDelete={() => alert("Deleted")}
 			/>
 		) : (
 			<Chip
-				label={label}
-				disabled={disabled}
-				selected={selected}
+				{...common}
 				onClick={clickable ? () => alert("onClick") : null}
 			/>
 		)
@@ -28,11 +46,39 @@ export const Playground = ({ deletable, clickable, label, disabled, selected }: 
 };
 
 Playground.args = {
+	variant: "Undefined",
 	deletable: false,
 	clickable: false,
 	label: "Label",
 	disabled: false,
 	selected: false,
+	fullWidth: false,
+};
+
+Playground.argTypes = {
+	variant: {
+		name: "Variant",
+		options: ["Undefined", "primary", "secondary", "tertiary"],
+		control: { type: "select" },
+	},
+	deletable: {
+		name: "Deletable",
+	},
+	clickable: {
+		name: "Clickable",
+	},
+	label: {
+		name: "Label",
+	},
+	disabled: {
+		name: "Disabled",
+	},
+	selected: {
+		name: "Selected",
+	},
+	fullWidth: {
+		name: "Full Width",
+	},
 };
 
 export const KitchenSink = (): ReactElement => {
