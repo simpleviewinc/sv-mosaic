@@ -1,7 +1,0 @@
-import{g as E,r as i,R as o}from"./index-D0AnReJb.js";import{r as C}from"./identifier-C21A9frq.js";import{r as L}from"./createSvgIcon-DLboviGw.js";import{r as I}from"./jsx-runtime-EKYJJIwR.js";import{E as w}from"./ExpandMore-CEbXN-sG.js";import{C as R}from"./Chip-BMBxB4HT.js";import{s as f}from"./styled-components.browser.esm-aVcmUYMZ.js";import{B as b}from"./Button-Cu24UfKA.js";import{t as g}from"./testIds-BKutUmNQ.js";var t={},c;function S(){if(c)return t;c=1;var l=C();Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var n=l(L()),p=I();return t.default=(0,n.default)((0,p.jsx)("path",{d:"m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"}),"ExpandLess"),t}var _=S();const q=E(_),M=f.div`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 12px;
-`,D=f(b)`
-	margin-top: 8px;
-`,j=[],v=i.forwardRef((l,n)=>{const{disabled:p,onDelete:m,options:r=j,maxInitialChips:a=8}=l;if(a<1)throw new Error("ChipList `maxInitialChips` prop must be more than 0.");const[s,x]=i.useState(!1),d=i.useMemo(()=>{if(m)return e=>m(r.filter(u=>u.value!==e))},[m,r]),h=s?r:r.slice(0,a);return o.createElement("div",{ref:n},o.createElement(M,{"data-testid":g.CHIP_LIST},h.map((e,u)=>o.createElement(R,{disabled:p,key:`${e==null?void 0:e.label}-${u}`,label:e==null?void 0:e.label,onDelete:d&&(()=>d(e==null?void 0:e.value))}))),r.length>a&&o.createElement(D,{label:s?"Show Less":`Show ${r.length-a} More`,onClick:()=>x(!s),color:"teal",variant:"text",mIcon:s?q:w}))});v.displayName="ChipList";const F=i.memo(v);export{F as C,q as E,j as a};
