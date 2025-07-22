@@ -19,21 +19,46 @@ const selectedNode = css`
     outline-offset: 2px;
 `;
 
-export const StyledTextEditor = styled.div<{ $disabled?: boolean }>`
-    ${({ $disabled }) => $disabled ? `
-        --border-color: ${theme.colors.disableBorder};
+export const StyledTextEditor = styled.div<{
+    $disabled?: boolean;
+    $focus?: boolean;
+    $error?: boolean;
+}>`
+    --bg: ${theme.color.gray[25]};
+    --border: var(--mos-border-medium);
+    --shadow: var(--mos-shadow-sm);
+    --inner-border-color: ${theme.color.gray[300]};
+
+    border-radius: ${theme.rounded.md};
+    box-shadow: var(--border), var(--shadow);
+    color: ${theme.color.black};
+
+    ${({ $focus }) => !$focus ? "" : `
+        --border: var(--mos-border-dark);
+    `}
+
+    ${({ $error, $disabled }) => !$error ? ($disabled ? "" : `
+        &:hover {
+            --border: var(--mos-border-dark);
+        }
+    `) : `
+        --bg: ${theme.color.red[25]};
+        --border: var(--mos-border-danger);
+        --inner-border-color: ${theme.color.red[100]};
+    `}
+
+    ${({ $disabled }) => !$disabled ? "" : `
+        --border: var(--mos-border-light);
+        --inner-border-color: ${theme.color.gray[200]};
         color: ${theme.colors.disabledTextColor};
-    ` : `
-        --border-color: ${theme.newColors.simplyGrey["100"]};
-        color: ${theme.newColors.almostBlack["100"]};
     `}
 `;
 
 export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $maxHeight?: string | number }>`
     .tiptap {
-        background-color: ${theme.newColors.grey1["100"]};
-        border: 1px solid var(--border-color);
-        border-top: 0;
+        background-color: var(--bg);
+        border-bottom-left-radius: ${theme.rounded.md};
+        border-bottom-right-radius: ${theme.rounded.md};
         padding: 16px;
         overflow: auto;
 
@@ -119,7 +144,7 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
         .tiptap-pill {
             background-color: ${theme.colors.gray200};
             border-radius: 3px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--inner-border-color);
             color: ${theme.colors.gray600};
             padding: 0;
             font-size: ${theme.fontSize.text.sm};
@@ -162,20 +187,20 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
         pre {
             background-color: ${theme.colors.gray200};
             border-radius: 3px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--inner-border-color);
             font-size: 0.85rem;
             line-height: 1.4em;
             padding: 8px 12px;
         }
 
         blockquote {
-            border-left: 3px solid var(--border-color);
+            border-left: 3px solid var(--inner-border-color);
             padding: 4px 16px;
         }
 
         hr {
             border: none;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--inner-border-color);
             margin: 20px 0;
         }
 
@@ -202,26 +227,21 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
 
 export const StyledFloatingToolbar = styled.div<{ $disabled?: boolean }>`
     ${({ $disabled }) => `
-        --border-color: ${$disabled ? theme.colors.disableBorder : theme.newColors.simplyGrey["100"]};
+        --inner-border-color: ${$disabled ? theme.colors.disableBorder : theme.newColors.simplyGrey["100"]};
     `}
 
     background: white;
     box-shadow: box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--inner-border-color);
     border-bottom: 0;
 `;
 
-export const StyledPrimaryToolbar = styled.div<{ $focus?: boolean }>`
-    background: ${theme.newColors.grey1["100"]};
-    border: 1px solid var(--border-color);
-    border-bottom: 0;
+export const StyledPrimaryToolbar = styled.div`
+    background: var(--bg);
+    border-top: 1px solid var(--inner-border-color);
     position: sticky;
     top: -25px;
     z-index: 1;
-
-    ${({ $focus }) => $focus && `
-        border-color: ${theme.newColors.almostBlack["100"]};
-    `}
 `;
 
 export const ToolbarOverflow = styled.div`
@@ -239,7 +259,7 @@ export const ControlRow = styled.div`
     padding: 4px 0;
 
     &::after {
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--inner-border-color);
         bottom: 0;
         content: " ";
         left: 8px;
@@ -265,7 +285,7 @@ export const ControlGroup = styled.div`
     &::before {
         content: " ";
         position: absolute;
-        border-left: 1px solid var(--border-color);
+        border-left: 1px solid var(--inner-border-color);
         top: 6px;
         bottom: 6px;
         left: -1px;
@@ -284,6 +304,11 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
 
     &:not(:disabled) {
         cursor: pointer;
+    }
+
+    &:focus-visible {
+        outline: 2px solid ${theme.color.gray[700]};
+        outline-offset: 0;
     }
 
     svg {
@@ -331,8 +356,11 @@ export const MultipleStyles = styled.div`
 `;
 
 export const CodeView = styled(TextareaAutosize)`
-    background: ${theme.newColors.grey1["100"]};
-    border: 1px solid var(--border-color);
+    background: var(--bg);
+    border: 0;
+    border-top: 1px solid var(--inner-border-color);
+    border-bottom-left-radius: ${theme.rounded.md};
+    border-bottom-right-radius: ${theme.rounded.md};
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -341,9 +369,9 @@ export const CodeView = styled(TextareaAutosize)`
     min-height: 10rem;
     width: 100%;
     resize: vertical;
+    display: block;
 
     &:focus {
-        border-color: ${theme.newColors.almostBlack["100"]};
         outline: none;
     }
 `;
@@ -421,9 +449,9 @@ export const MenuItemShortcut = styled.div`
 `;
 
 export const StyledModeSwitch = styled.div`
+    border-top-left-radius: ${theme.rounded.md};
+    border-top-right-radius: ${theme.rounded.md};
     background: white;
-    border: 1px solid var(--border-color);
-    border-bottom: 0;
     justify-content: end;
     align-items: center;
     display: flex;
@@ -434,20 +462,31 @@ export const StyledModeSwitch = styled.div`
     z-index: 2;
 `;
 
-export const ModeButton = styled.button.attrs((props) => ({ ...props, type: "button" }))<{ $active?: boolean; $focus?: boolean }>`
+export const ModeButton = styled.button.attrs((props) => ({ ...props, type: "button" }))<{
+    $active?: boolean;
+    $error?: boolean;
+}>`
     border-radius: 0;
     border: 1px solid transparent;
-    padding: 4px 8px;
-    font-size: ${theme.fontSize.text.sm};
+    border-top-left-radius: ${theme.rounded.md};
+    border-top-right-radius: ${theme.rounded.md};
+    padding: ${theme.spacing(1, 3)};
+    font-size: ${theme.fontSize.text.md};
+    line-height: ${theme.line.normal};
 
-    ${({ $active, $focus }) => !$active ? `
+    ${({ $active, $error }) => !$active ? `
         background: white;
         cursor: pointer;
     ` : `
-        background: ${theme.newColors.grey1["100"]};
-        border-color: ${$focus ? theme.newColors.almostBlack["100"] : "var(--border-color)"};
-        border-bottom-color: ${theme.newColors.grey1["100"]};
+        background: var(--bg);
+        border-color: var(--inner-border-color);
+        border-bottom-color: ${$error ? theme.color.red[25] : theme.color.gray[25]};
         padding-bottom: 5px;
         margin-bottom: -1px;
     `}
+
+    &:focus-visible {
+        outline: 2px solid ${theme.color.gray[700]};
+        outline-offset: 2px;
+    }
 `;

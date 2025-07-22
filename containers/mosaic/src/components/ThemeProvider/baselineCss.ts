@@ -369,6 +369,7 @@ template {
   --mos-border-dark: 0 0 0 1px rgba(0, 0, 0, 0.4);
   --mos-border-medium: 0 0 0 1px rgba(0, 0, 0, 0.2);
   --mos-border-light: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --mos-border-danger: 0 0 0 1px ${theme.color.red[600]};
 
   --mos-shadow-sm: 0 1px 4px 0 rgba(0, 0, 0, 0.08);
   --mos-shadow-md: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
