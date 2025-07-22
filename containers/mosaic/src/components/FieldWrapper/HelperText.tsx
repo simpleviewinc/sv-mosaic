@@ -1,9 +1,8 @@
 import * as React from "react";
 import type { ReactElement, ReactNode } from "react";
 import {
-	ErrorTextWrapper,
 	StyledErrorIcon,
-	StyledText,
+	StyledWrapper,
 } from "./HelperText.styled";
 
 interface HelperTextProps {
@@ -15,13 +14,16 @@ const HelperText = ({
 	children,
 	error = false,
 }: HelperTextProps): ReactElement => {
-	return error ? (
-		<ErrorTextWrapper className="Mos-FieldErrorText">
-			<StyledErrorIcon $error={!!children} data-testid="error-icon-test-id" />
-			<StyledText error={error}>{children}</StyledText>
-		</ErrorTextWrapper>
-	) : (
-		<StyledText className="Mos-FieldHelperText" error={error}>{children}</StyledText>
+	return (
+		<StyledWrapper
+			$error={error}
+			className={error ? "Mos-FieldErrorText" : "Mos-FieldHelperText"}
+		>
+			{error && (
+				<StyledErrorIcon data-testid="error-icon-test-id" />
+			)}
+			{children}
+		</StyledWrapper>
 	);
 };
 

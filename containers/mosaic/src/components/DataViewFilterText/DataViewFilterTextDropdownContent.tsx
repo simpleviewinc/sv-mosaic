@@ -113,7 +113,6 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						variant="outlined"
 						onChange={onInputChange}
 						onKeyPress={onKeyPress}
-						fieldSize=""
 						disabled={disabled}
 						$hasComparisonDropdown={Boolean(comparisonButton)}
 					/>

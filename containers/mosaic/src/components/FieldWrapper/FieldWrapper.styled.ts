@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import theme from "@root/theme";
 import { containerQuery } from "@root/utils/css";
 import type { FormSpacing } from "../Form";
 
@@ -22,12 +21,6 @@ export const StyledFieldWrapper = styled.div<{ $error?: boolean; $spacing?: Form
 	display: flex;
 	flex-direction: column;
 	align-items: start;
-
-	${({ $error, $spacing }) => $error && `
-		background-color: ${theme.newColors.darkRed["5"]};
-		margin: ${$spacing === "compact" ? "-4px -4px -6px" : "-4px -11px -6px"};
-		padding: ${$spacing === "compact" ? "4px 4px 6px" : "4px 11px 6px"};
-	`}
 `;
 
 export const StyledLabelControlWrapper = styled.div<{ $fullWidth?: boolean }>`

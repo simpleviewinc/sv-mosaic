@@ -5,8 +5,8 @@ import theme from "@root/theme";
 
 export const TooltipIcon = styled(InfoOutlinedIcon)`
   && {
-	fill: ${theme.newColors.realTeal["100"]};
-	width: 24px;
-	height: 24px;
+	fill: ${theme.color.gray[500]};
+	width: 18px;
+	height: 18px;
   }
 `;
