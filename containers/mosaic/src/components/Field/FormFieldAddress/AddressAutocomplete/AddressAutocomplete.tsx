@@ -18,6 +18,7 @@ import {
 	SuggestionsDescriptionContainer,
 } from "./AddressAutocomplete.styled";
 import testIds from "@root/utils/testIds";
+import type { TextFieldProps } from "@mui/material/TextField";
 
 const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 	const {
@@ -49,7 +50,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		onBlur && onBlur();
 	};
 
-	const inputProps = {
+	const inputProps: TextFieldProps = {
 		...textField,
 		inputProps: {
 			"data-testid": "location-search-input",
@@ -65,7 +66,6 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		return (
 			<StyledInputSearch
 				{...inputProps}
-				fieldSize="lg"
 				onChange={({ target: { value } }) => onChange(value)}
 				disabled={disabled}
 				id={id}
@@ -83,7 +83,6 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							{...getInputProps({
 								placeholder: placeholder,
 							})}
-							fieldSize=""
 							onFocus={handleFocus}
 							onBlur={handleBlur}
 							disabled={disabled}

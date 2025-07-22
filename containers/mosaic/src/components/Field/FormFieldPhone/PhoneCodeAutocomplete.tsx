@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import type { AutocompleteProps as MuiAutocompleteProps, AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
+import InputAdornment from "@mui/material/InputAdornment";
 
 import React, { memo, useCallback, useContext, useEffect, useMemo, useRef } from "react";
 import { getCountryCallingCode, isSupportedCountry } from "react-phone-number-input";
@@ -7,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import type { PhoneCodeAutocompleteProps } from "./FormFieldPhoneTypes";
 
-import { StyledAdornment, StyledTextField } from "../FormFieldText/FormFieldText.styled";
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import { StyledAutocomplete, StyledAutocompletePaper } from "./FormFieldPhone.styled";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import { isLabelValue, isReactNode } from "@root/types";
@@ -30,9 +31,8 @@ function PhoneCodeAutocomplete({
 					{...props}
 					InputProps={{
 						inputRef: autocompleteInputRef, ...props.InputProps,
-						startAdornment: <StyledAdornment position="start"><SearchIcon /></StyledAdornment>,
+						startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
 					}}
-					fieldSize=""
 				/>
 			),
 			getOptionLabel: ({ label }) => label,

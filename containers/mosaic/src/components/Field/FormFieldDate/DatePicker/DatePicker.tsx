@@ -7,7 +7,7 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 import type { DatePickerProps } from ".";
 
-import { DatePickerTextField, DatePickerWrapper, popperSx } from "./DatePicker.styled";
+import { DatePickerTextField, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
@@ -42,7 +42,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<DatePickerWrapper data-testid="date-picker-test-id" $isPickerOpen={isPickerOpen} $disabled={disabled}>
+			<div data-testid="date-picker-test-id">
 				<DesktopDatePicker
 					renderInput={renderInput}
 					inputFormat={DATE_FORMAT_FULL}
@@ -57,7 +57,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 					maxDate={fieldDef?.inputSettings?.maxDate}
 					disabled={disabled}
 				/>
-			</DatePickerWrapper>
+			</div>
 		</LocalizationProvider>
 	);
 };

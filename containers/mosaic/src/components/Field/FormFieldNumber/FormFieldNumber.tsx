@@ -147,9 +147,8 @@ const NumberField = (
 				error={Boolean(errorFlash) || Boolean(error)}
 				className={fieldDef?.className}
 				placeholder={fieldDef?.inputSettings?.placeholder}
-				fieldSize={fieldDef?.size}
 				InputProps={InputProps}
-				required={fieldDef?.required}
+				required={Boolean(fieldDef?.required)}
 				type="text"
 				disabled={disabled}
 			/>

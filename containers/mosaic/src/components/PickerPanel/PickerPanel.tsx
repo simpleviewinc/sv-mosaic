@@ -102,7 +102,6 @@ function PickerPanel({
 							</PickerPanelSubtitle>
 						)}
 						<KeywordSearchInput
-							fieldSize="100%"
 							onChange={onKeywordInputChange}
 							value={keyword}
 							placeholder={t("mosaic:common.keyword___")}
