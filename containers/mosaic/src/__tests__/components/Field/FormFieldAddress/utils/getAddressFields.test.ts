@@ -139,6 +139,7 @@ describe(__dirname, () => {
 					getOptionsStates: getOptionsStates,
 					googleMapsApiKey: "Foo",
 				},
+				validateOn: "onBlurAmend",
 			},
 			{
 				disabled: undefined,
