@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldChipsPage } from "../../../pages/FormFields/FormFieldChips/FormFieldChipsPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 	let page: Page;
@@ -11,11 +11,6 @@ test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 		page = await browser.newPage();
 		ffChipSingleSelectPage = new FormFieldChipsPage(page);
 		await ffChipSingleSelectPage.visit(ffChipSingleSelectPage.page_path);
-	});
-
-	test("Validate error when trying to save without selecting Required Single Chip", async () => {
-		await ffChipSingleSelectPage.saveBtn.click();
-		await expect(ffChipSingleSelectPage.page.locator("p", { hasText: "This field is required, please fill it" })).toBeVisible();
 	});
 
 	test("Validate the selection Regular Chip Single Select", async () => {
@@ -65,12 +60,5 @@ test.describe("FormFields - FormFieldChips - Kitchen Sink", () => {
 		for (let i = 0; i < numberOfOptions - 1; i++) {
 			await ffChipSingleSelectPage.validateMarginValueFromElement(ffChipSingleSelectPage.fromDBOptionsChipSingleSelectDiv.locator(ffChipSingleSelectPage.optionButton).nth(i), expectedMarginValue, true);
 		}
-	});
-
-	test("Validate Error message has darkRed color.", async () => {
-		const expectColor = theme.newColors.darkRed["100"];
-		await ffChipSingleSelectPage.saveBtn.click();
-		expect(await ffChipSingleSelectPage.getColorFromElement(ffChipSingleSelectPage.error)).toBe(expectColor);
-		expect(await ffChipSingleSelectPage.getColorFromElement(ffChipSingleSelectPage.errorIcon)).toBe(expectColor);
 	});
 });

@@ -4,6 +4,7 @@ import {
 	StyledErrorIcon,
 	StyledWrapper,
 } from "./HelperText.styled";
+import testIds from "@root/utils/testIds";
 
 interface HelperTextProps {
 	children: ReactNode;
@@ -18,6 +19,7 @@ const HelperText = ({
 		<StyledWrapper
 			$error={error}
 			className={error ? "Mos-FieldErrorText" : "Mos-FieldHelperText"}
+			data-testid={testIds.FORM_FIELD_ERROR}
 		>
 			{error && (
 				<StyledErrorIcon data-testid="error-icon-test-id" />
