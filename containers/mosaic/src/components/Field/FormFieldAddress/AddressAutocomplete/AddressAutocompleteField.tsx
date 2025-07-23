@@ -17,7 +17,7 @@ import Snackbar from "@root/components/Snackbar";
 import testIds from "@root/utils/testIds";
 
 function AddressAutocompleteField(props: MosaicFieldProps<"text", AddressAutocompleteInputSettings, string>): ReactElement {
-	const { fieldDef, path, skeleton } = props;
+	const { fieldDef, path, skeleton, error } = props;
 	const { label, inputSettings } = fieldDef;
 	const {
 		getOptionsCountries,
@@ -193,6 +193,7 @@ function AddressAutocompleteField(props: MosaicFieldProps<"text", AddressAutocom
 						googleMapsApiKey={googleMapsApiKey}
 						disabled={props.disabled}
 						id={`${fieldDef.name}-input`}
+						error={error}
 					/>
 				)}
 			</FieldWrapper>

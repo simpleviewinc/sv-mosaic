@@ -1,21 +1,41 @@
-import React, { useState, memo } from "react";
-import TextField from "@mui/material/TextField";
+import type { HTMLAttributes } from "react";
+import React, { useState, memo, useCallback } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import type { AutocompleteRenderInputParams } from "@mui/material/Autocomplete";
 
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { MosaicLabelValue } from "@root/types";
 import type { DropdownData, DropdownInputSettings } from "./FormFieldDropdownTypes";
 
 import useOptions from "@root/utils/hooks/useOptions/useOptions";
-import InputWrapper from "../../InputWrapper";
-import { StyledAutocomplete, StyledPopper, SingleDropdownWrapper } from "./FormFieldDropdown.styled";
+import { StyledPopper, StyledPopperPaper, StyledPopperListbox } from "@root/components/common";
+import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
 import testIds from "@root/utils/testIds";
+import { StyledPopperListboxOption } from "@root/components/common/StyledPopperListboxOption";
+import { StyledAutocomplete } from "./FormFieldDropdown.styled";
+
+const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
+	if (value?.value === "") {
+		return true;
+	}
+
+	return option.value === value?.value;
+};
+
+const getOptionKey = (option: MosaicLabelValue) => option.value;
+
+const renderOption = (props: HTMLAttributes<HTMLLIElement>, option: MosaicLabelValue) => (
+	<StyledPopperListboxOption {...props} className={`${props.className || ""} Mos-listboxOption`}>
+		{option.label}
+	</StyledPopperListboxOption>
+);
+
+const componentsProps = { popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" } };
 
 const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {
 	const {
 		fieldDef,
-		error,
 		onChange,
 		onBlur,
 		value,
@@ -26,8 +46,11 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 	} = props;
 
 	const {
+		label,
+		required,
 		inputSettings: {
 			options: providedOptions,
+			placeholder,
 		} = {},
 	} = fieldDef;
 
@@ -38,47 +61,42 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 
 	const [isOpen, setIsOpen] = useState(false);
 
-	const renderInput = (params) => {
+	const renderInput = useCallback((params: AutocompleteRenderInputParams) => {
 		return (
-			<InputWrapper>
-				<TextField
-					{...params}
-					data-testid="textfield-test-id"
-					variant="outlined"
-					placeholder={fieldDef?.inputSettings?.placeholder}
-					required={fieldDef?.required}
-					inputProps={{
-						...params.inputProps,
-						ref: (el) => {
-							if (inputRef) {
-								inputRef.current = el;
-							}
+			<StyledTextField
+				{...params}
+				data-testid="textfield-test-id"
+				variant="outlined"
+				placeholder={placeholder}
+				required={typeof required === "object" ? required.asterisk : required}
+				inputProps={{
+					...params.inputProps,
+					ref: (el: HTMLInputElement) => {
+						if (inputRef) {
+							inputRef.current = el;
+						}
 
+						if (typeof params.inputProps.ref === "function") {
+							params.inputProps.ref(el);
+						} else {
+							// @ts-expect-error It's not read only, TS only thinks it is.
 							params.inputProps.ref.current = el;
-						},
-						id,
-						"aria-label": fieldDef.label,
-					}}
-				/>
-			</InputWrapper>
+						}
+					},
+					id,
+					"aria-label": label,
+				}}
+			/>
 		);
-	};
+	}, [placeholder, label, required, id, inputRef]);
 
 	const handleOpen = () => {
 		setIsOpen(!isOpen);
 	};
 
-	const onDropDownChange = async (option: MosaicLabelValue) => {
+	const onDropDownChange = useCallback(async (_: unknown, option: MosaicLabelValue) => {
 		onChange && (await onChange(option ? option : undefined));
-	};
-
-	const isOptionEqualToValue = (option: MosaicLabelValue, value: MosaicLabelValue) => {
-		if (value?.value === "") {
-			return true;
-		}
-
-		return option.value === value?.value;
-	};
+	}, [onChange]);
 
 	if (skeleton || loading) {
 		return (
@@ -92,26 +110,28 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 	}
 
 	return (
-		<SingleDropdownWrapper data-testid="dropdown-single-selection-test-id" $innerWidth={fieldDef?.size}>
+		<div data-testid="dropdown-single-selection-test-id">
 			<StyledAutocomplete
 				value={value || null}
 				onOpen={handleOpen}
 				onClose={handleOpen}
 				data-testid="autocomplete-test-id"
 				options={options}
-				getOptionLabel={(option: MosaicLabelValue) => option.label}
-				getOptionKey={(option: MosaicLabelValue) => option.value}
+				getOptionKey={getOptionKey}
 				isOptionEqualToValue={isOptionEqualToValue}
-				onChange={(_event, option) => onDropDownChange(option as MosaicLabelValue)}
-				$error={Boolean(error)}
+				onChange={onDropDownChange}
 				renderInput={renderInput}
+				ListboxComponent={StyledPopperListbox}
 				PopperComponent={StyledPopper}
+				PaperComponent={StyledPopperPaper}
+				renderOption={renderOption}
 				popupIcon={<ExpandMoreIcon />}
+				componentsProps={componentsProps}
 				onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 				open={isOpen}
 				disabled={disabled}
 			/>
-		</SingleDropdownWrapper>
+		</div>
 	);
 };
 
