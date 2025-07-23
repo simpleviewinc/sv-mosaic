@@ -150,6 +150,7 @@ const heightMap: Record<ButtonProps["size"], string> = {
 	small: "32px",
 	medium: "36px",
 	large: "40px",
+	xlarge: "44px",
 	inherit: "auto",
 };
 
@@ -185,13 +186,15 @@ function getButtonDimensions({
 
 export const StyledButton = styled(Button)<TransientProps<
 	ButtonProps,
-	| "intent" | "variant" | "fullWidth" | "size"
+	| "intent" | "variant" | "fullWidth" | "size" | "bluntLeft" | "bluntRight"
 > & { $isIconButton?: boolean }>(({
 	$intent,
 	$variant,
 	$fullWidth,
 	$size,
 	$isIconButton,
+	$bluntLeft,
+	$bluntRight,
 }) => {
 	const padding = getButtonPadding({ $size, $isIconButton });
 	const [width, height] = getButtonDimensions({ $fullWidth, $isIconButton, $size });
@@ -231,6 +234,16 @@ export const StyledButton = styled(Button)<TransientProps<
 			transition-property: background-color, box-shadow;
 			vertical-align: middle;
 
+			${!$bluntLeft ? "" : `
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			`}
+
+			${!$bluntRight ? "" : `
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			`}
+
 			${$size !== "inherit" ? "" : `
 				margin-left: -0.25em;
 				margin-right: -0.25em;
@@ -262,6 +275,8 @@ export const StyledButton = styled(Button)<TransientProps<
 			&:focus-visible {
 				outline: 2px solid ${theme.color.gray[700]};
 				outline-offset: ${$variant === "text" ? "-2px" : "3px"};
+				position: relative;
+				z-index: 2;
 			}
 
 			&:disabled {
