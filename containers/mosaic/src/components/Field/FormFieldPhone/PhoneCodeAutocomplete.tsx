@@ -9,10 +9,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import type { PhoneCodeAutocompleteProps } from "./FormFieldPhoneTypes";
 
 import { StyledTextField } from "../FormFieldText/FormFieldText.styled";
-import { StyledAutocomplete, StyledAutocompletePaper } from "./FormFieldPhone.styled";
+import { StyledAutocomplete, StyledNonPopper } from "./FormFieldPhone.styled";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import { isLabelValue, isReactNode } from "@root/types";
 import PhoneCountryFlag from "./PhoneCountryFlag";
+import { StyledPopperListbox, StyledPopperPaper, StyledPopperListboxOption } from "@root/components/common";
 
 type AutocompleteProps = MuiAutocompleteProps<PhoneCodeAutocompleteProps["options"][number], false, true, false>;
 
@@ -24,7 +25,7 @@ function PhoneCodeAutocomplete({
 	const { setAutocompleteOpen } = useContext(FormFieldPhoneContext);
 	const autocompleteInputRef = useRef<HTMLInputElement>();
 
-	const autocompleteProps = useMemo<Pick<AutocompleteProps, "renderInput" | "getOptionLabel" | "getOptionKey" | "PopperComponent" | "isOptionEqualToValue" | "renderOption">>(() => {
+	const autocompleteProps = useMemo<Omit<AutocompleteProps, "options">>(() => {
 		return {
 			renderInput: (props: AutocompleteRenderInputParams) => (
 				<StyledTextField
@@ -37,18 +38,18 @@ function PhoneCodeAutocomplete({
 			),
 			getOptionLabel: ({ label }) => label,
 			getOptionKey: ({ value }) => value,
-			PopperComponent: ({ children, placement, disablePortal, anchorEl, ...props }) => (
-				<div {...props}>
-					{isReactNode(children) ? children : children({ placement })}
-				</div>
+			PopperComponent: ({ disablePortal, anchorEl, placement, children, ...props }) => (
+				<StyledNonPopper {...props}>{isReactNode(children) ? children : children({ placement })}</StyledNonPopper>
 			),
+			PaperComponent: (props) => <StyledPopperPaper {...props} $hideShadow />,
+			ListboxComponent: StyledPopperListbox,
 			isOptionEqualToValue: (option, value) => isLabelValue(option) && isLabelValue(value) && option.value === value.value,
 			renderOption: ({ key: _, ...props }, option, __, { getOptionKey, getOptionLabel }) => {
 				const value = String(getOptionKey(option));
 				const label = getOptionLabel(option);
 
 				return (
-					<li key={value} {...props}>
+					<StyledPopperListboxOption key={value} {...props}>
 						<PhoneCountryFlag
 							aria-hidden
 							country={value}
@@ -56,7 +57,7 @@ function PhoneCodeAutocomplete({
 						/>
 						{label}
 						<span>{isSupportedCountry(value) && `+${getCountryCallingCode(value)}`}</span>
-					</li>
+					</StyledPopperListboxOption>
 				);
 			},
 		};
@@ -82,7 +83,6 @@ function PhoneCodeAutocomplete({
 			value={value}
 			disableClearable
 			popupIcon={false}
-			PaperComponent={StyledAutocompletePaper}
 			open
 		/>
 	);

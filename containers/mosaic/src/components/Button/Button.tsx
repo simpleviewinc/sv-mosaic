@@ -74,6 +74,8 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 	const buttonProps = {
 		$variant: props.variant,
 		$intent: intent,
+		$bluntLeft: props.bluntLeft,
+		$bluntRight: props.bluntRight,
 		disabled: props.invisible || shouldDisable,
 		size: size,
 		$size: size,

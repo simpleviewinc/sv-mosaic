@@ -3,8 +3,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
 import { useMosaicTranslation } from "@root/i18n";
 import type { DataViewFilterTextDropdownContentProps } from "./DataViewFilterTextTypes";
-import { StyledContents, StyledFilterButton, StyledFilterTextField } from "./DataViewFilterText.styled";
+import { StyledContents } from "./DataViewFilterText.styled";
 import testIds from "@root/utils/testIds";
+import Button from "../Button";
+import { StyledTextField } from "../Field/FormFieldText/FormFieldText.styled";
 
 const existsComparisons = ["exists", "not_exists"];
 
@@ -86,7 +88,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 		});
 
 		comparisonButton = (
-			<StyledFilterButton
+			<Button
 				className="comparisonButton"
 				label={activeComparison.label}
 				variant="contained"
@@ -94,7 +96,8 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 				iconPosition="right"
 				mIcon={ExpandMoreIcon}
 				menuItems={menuItems}
-				$hasQuery={!disabled}
+				bluntRight
+				size="xlarge"
 			/>
 		);
 	}
@@ -104,7 +107,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 			<div className="inputRow">
 				{comparisonButton}
 				{!disabled && (
-					<StyledFilterTextField
+					<StyledTextField
 						autoComplete="off"
 						autoFocus
 						placeholder={props.placeholder || t("mosaic:common.filter___")}
@@ -114,7 +117,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						onChange={onInputChange}
 						onKeyPress={onKeyPress}
 						disabled={disabled}
-						$hasComparisonDropdown={Boolean(comparisonButton)}
+						$bluntLeft
 					/>
 				)}
 			</div>

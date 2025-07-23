@@ -29,7 +29,7 @@ export interface ButtonProps {
 		| "contained"
 		| "text"
 		| "input";
-	size?: "xsmall" | "small" | "medium" | "large" | "inherit";
+	size?: "xsmall" | "small" | "medium" | "large" | "xlarge" | "inherit";
 	iconPosition?: "left" | "right";
 	disabled?: MosaicToggle;
 	/** Button will occupy 100% of the width provided to it */
@@ -57,6 +57,14 @@ export interface ButtonProps {
 	id?: string;
 	as?: WebTarget;
 	invisible?: boolean;
+	/**
+	 * Do not apply rounded corners to the left side of the button
+	 */
+	bluntLeft?: boolean;
+	/**
+	 * Do not apply rounded corners to the right side of the button
+	 */
+	bluntRight?: boolean;
 }
 
 export interface ButtonPopoverContextProps {

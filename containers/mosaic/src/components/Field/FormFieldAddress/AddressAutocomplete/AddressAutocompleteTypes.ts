@@ -13,6 +13,7 @@ export interface AddressAutocompleteProps {
 	disabled?: boolean;
 	id?: string;
 	label: string;
+	error?: string | boolean;
 }
 
 export type AddressAutocompleteInputSettings = Pick<AddressFieldInputSettings,
