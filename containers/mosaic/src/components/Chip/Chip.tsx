@@ -49,7 +49,7 @@ const Chip = ({
 			tabIndex={onDelete ? -1 : undefined}
 			title={label}
 			$fullWidth={fullWidth}
-			disableRipple
+			disableRipple={props.onClick ? true : undefined}
 		/>
 	);
 };
