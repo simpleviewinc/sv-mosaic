@@ -5,8 +5,9 @@ import { StyledPhoneTextField } from "./FormFieldPhone.styled";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import { useSpreadRefs } from "@root/utils/hooks";
 
-const PhoneTextField = forwardRef<HTMLInputElement, ComponentProps<"input">>(function PhoneTextField({
+const PhoneTextField = forwardRef<HTMLInputElement, ComponentProps<"input"> & { countryCodeEditable: boolean }>(function PhoneTextField({
 	onFocus,
+	countryCodeEditable: _,
 	...props
 }, ref) {
 	const { id, disabled, error, onBlur, setHasFocus, inputRef } = useContext(FormFieldPhoneContext);
