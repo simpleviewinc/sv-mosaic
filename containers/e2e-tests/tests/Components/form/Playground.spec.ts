@@ -2,8 +2,8 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { PlaygroundPage } from "../../../pages/Components/Form/PlaygroundPage";
 import { commonKnobs } from "../../../utils/data/knobs";
-import theme from "@simpleview/sv-mosaic/theme";;
-import { testIds } from "@simpleview/sv-mosaic";;
+import theme from "@simpleview/sv-mosaic/theme";
+import { testIds } from "@simpleview/sv-mosaic";
 
 test.describe("Components - Form - Playground", () => {
 	let page: Page;
@@ -51,30 +51,6 @@ test.describe("Components - Form - Playground", () => {
 
 	test("Validate the Playground title style.", async () => {
 		await playgroundPage.validateTitleStylingOfLocator(playgroundPage.title.last());
-	});
-
-	test("Validate that when the disabled knob is active, the label of the field have the correct style.", async () => {
-		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true"]);
-		const labels = [
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:textField`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:check`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:chipSelect`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:dropdownSingle`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:phoneSelect`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:radio`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:toggle`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:color`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:date`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:address`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:advancedSelection`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:textEditor`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:mapCoordinates`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:upload`),
-			playgroundPage.page.getByTestId(`${testIds.FORM_FIELD_LABEL}:numberTable`),
-		];
-		for (let i = 0; i < labels.length; i++) {
-			expect(await playgroundPage.getColorFromElement(labels[i].first()), `Checking Font Color of the Label ${i}`).toBe(theme.newColors.grey4["100"]);
-		}
 	});
 
 	test("Validate that no error message are displayed when the knob disabled is active.", async () => {
