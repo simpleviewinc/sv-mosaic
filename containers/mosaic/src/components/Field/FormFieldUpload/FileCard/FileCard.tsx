@@ -4,7 +4,7 @@ import { memo, useMemo } from "react";
 import type { FileCardProps } from "./FileCardTypes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloudDownload from "@mui/icons-material/CloudDownload";
-import { StyledFileCard, StyledSpinner } from "./FileCard.styled";
+import { FileMeta, StyledFileCard, StyledSpinner } from "./FileCard.styled";
 import InsertDriveFile from "@mui/icons-material/InsertDriveFile";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
@@ -54,27 +54,33 @@ const FileCard = (props: FileCardProps) => {
 				</div>
 				<div className="file-data" data-testid="file-data">
 					{(fileUrl && !isDeleting) ? (
-						<a href={fileUrl} rel="noreferrer" target="_blank" className="file-name" data-testid="file-name">
-							<FileCardTitle name={name} />
-						</a>
+						<Button
+							href={fileUrl}
+							className="file-name"
+							variant="text"
+							size="inherit"
+							intent="info"
+							label={<FileCardTitle name={name} />}
+							muiAttrs={{ rel: "noreferrer", target: "_blank", "data-testid": "file-name" }}
+						/>
 					) : (
-						<p className="file-name" data-testid="file-name">
+						<div className="file-name" data-testid="file-name">
 							<FileCardTitle name={name} />
-						</p>
+						</div>
 					)}
-					<div>
-						<p className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</p>
+					<FileMeta>
+						<div className="file-size" data-testid="file-size">{sizeHuman ?? "File size"}</div>
 						{dimensions && (
-							<p className="file-dimensions" data-testid="file-dimensions">
+							<div className="file-dimensions" data-testid="file-dimensions">
 								{`${dimensions.width}px × ${dimensions.height}px`}
-							</p>
+							</div>
 						)}
-					</div>
+					</FileMeta>
 				</div>
 				{isDeleting ? (
 					<StyledSpinner />
 				) : (
-					<ButtonRow separator>
+					<ButtonRow>
 						{(downloadUrl || fileUrl) && (
 							<div className="file-download-btn">
 								{downloadStrategy === "anchor" ? (

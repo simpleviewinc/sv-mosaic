@@ -9,7 +9,7 @@ import type { UploadDataPending, UploadData, UploadFieldInputSettings } from "./
 import Button from "@root/components/Button";
 import Snackbar from "@root/components/Snackbar";
 import FileCard from "./FileCard";
-import { StyledFileList, DragAndDropContainer, DragAndDropSpan, FileInput } from "./FormFieldUpload.styled";
+import { StyledFileList, DragAndDropContainer, FileInput, StyledCloudIcon, DragAndDropText } from "./FormFieldUpload.styled";
 import { isPendingUploadData } from "./FormFieldUploadTypes";
 import { FileExtensions } from "@root/utils/classes";
 import { pretty } from "@root/utils/formatters";
@@ -279,21 +279,20 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 					data-testid="drag-and-drop-container"
 					htmlFor={`${id}-input`}
 				>
-					{!disabled && isOver ? (
-						<DragAndDropSpan $isOver={Boolean(isOver)}>
-							Release and Drop
-						</DragAndDropSpan>
+					<StyledCloudIcon $disabled={disabled} />
+					{isOver ? (
+						<div>
+							Release to add file
+						</div>
 					) : (
 						<>
-							{!disabled && (
-								<DragAndDropSpan $isOver={Boolean(isOver)}>
-									Drag & Drop files here or
-								</DragAndDropSpan>
-							)}
+							<DragAndDropText $disabled={disabled}>
+								Drag & Drop files here or
+							</DragAndDropText>
 							<Button
 								intent="secondary"
 								variant="contained"
-								label="Upload Files"
+								label="Add Files"
 								disabled={disabled}
 								onClick={handleUploadButtonClick}
 							/>
