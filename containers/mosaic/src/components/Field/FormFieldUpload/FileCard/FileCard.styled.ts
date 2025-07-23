@@ -5,11 +5,13 @@ import styled from "styled-components";
 export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boolean }>`
 	display: flex;
 	flex-direction: row;
-	background-color: ${theme.colors.white};
-	border: 2px solid ${({ $error }) => $error ? theme.newColors.darkRed["100"] : theme.newColors.grey2["100"]};
-	padding: 16px;
+	background-color: ${theme.color.white};
+	box-shadow: var(--mos-border-light), var(--mos-shadow-sm);
+	border-radius: ${theme.rounded.md};
+	padding: ${theme.spacing(3, 4, 3, 3)};
 	width: 100%;
-	column-gap: 16px;
+	column-gap: ${theme.spacing(5)};
+	align-items: center;
 
 	${({ $isDeleting }) => $isDeleting && `
 		opacity: 0.5;
@@ -25,15 +27,14 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 	}
 
 	& .file-img {
-		border: 2px solid ${theme.newColors.grey2["100"]};
-
 		a, img {
 			display: block;
 		}
 
 		img, div {
-			width: 62px;
-			height: 62px;
+			border-radius: ${theme.rounded.md};
+			width: 50px;
+			height: 50px;
 		}
 
 		img {
@@ -52,19 +53,12 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 	& .file-data {
 		width: 100%;
 		flex-direction: column;
-		row-gap: 4px;
-
-		p {
-			margin: 0px;
-			padding: 0px;
-		}
+		align-items: start;
 	}
 
 	& .file-name {
-		color: ${theme.newColors.grey3["100"]};
 		font-weight: ${theme.weight.medium};
 		line-height: 17px;
-		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
@@ -73,14 +67,14 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 		word-break: break-word;
 	}
 
-	& .file-size {
-		color: ${theme.newColors.almostBlack["100"]};
-		line-height: 24px;
-	}
-
 	& .file-dimensions {
 		font-size: 12px;
 	}
+`;
+
+export const FileMeta = styled.div`
+	color: ${theme.color.gray[600]};
+	line-height: ${theme.line.normal};
 `;
 
 export const StyledSpinner = styled(Spinner)`

@@ -448,6 +448,7 @@ const color = {
 };
 
 const rounded = {
+	xs: "3px",
 	sm: "4px",
 	md: "6px",
 	full: "9999px",
