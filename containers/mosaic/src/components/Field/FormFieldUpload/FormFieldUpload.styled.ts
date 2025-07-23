@@ -3,10 +3,10 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import theme from "@root/theme";
 
 export const StyledFileList = styled.div`
-	margin-top: 16px;
+	margin-top: ${theme.spacing(3)};
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: ${theme.spacing(2)};
 `;
 
 export const DragAndDropContainer = styled.label<{ $isOver?: boolean; $disabled?: boolean }>`
