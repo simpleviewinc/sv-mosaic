@@ -1,90 +1,97 @@
-import * as React from "react";
 import styled from "styled-components";
 
 // Material UI
 import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
 
 //Styles & Types
 import theme from "@root/theme";
 
-export const StyledTextField = styled(({ fieldSize, ...rest }) => (
-	<TextField {...rest} />
-))`
-	&.MuiFormControl-root {
-		${({ disabled }) => !disabled ? (`
-			background-color: ${theme.newColors.grey1["100"]};
+export const StyledTextField = styled(TextField)<{ $bluntLeft?: boolean; $bluntRight?: boolean }>(({ $bluntLeft, $bluntRight }) => `
+	--border: var(--mos-border-medium);
+	--shadow: var(--mos-shadow-sm);
+
+	.MuiInputBase-root {
+		z-index: 1;
+		padding: 0;
+
+		.MuiInputBase-input {
+			font-size: ${theme.fontSize.text.lg};
+			line-height: ${theme.line.tight};
+			padding: ${theme.spacing(3, 4)};
+			height: auto;
+		}
+
+		fieldset {
+			background-color: ${theme.color.white};
+			border: 0;
+			border-radius: ${theme.rounded.md};
+			box-shadow: var(--border), var(--shadow);
+			top: 0;
+			z-index: -1;
+
+			${!$bluntLeft ? "" : `
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			`}
+
+			${!$bluntRight ? "" : `
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			`}
+
+			legend {
+				display: none;
+			}
+		}
+
+		&.Mui-error {
+			fieldset {
+				background-color: ${theme.color.red[25]};
+				--border: var(--mos-border-danger);
+			}
+		}
+
+		&:not(.Mui-error):not(.Mui-disabled) {
 			&:hover {
-				& fieldset {
-					border-color: ${theme.colors.disabledBorderFocus};
+				fieldset {
+					--border: var(--mos-border-dark);
 				}
 			}
-		`) : (`
-			background-color: ${theme.colors.disableBackground};
-		`)}
-	}
+		}
 
-	& .MuiInputBase-root{
-		overflow: hidden;
-		border-radius: 0;
-	}
+		&.Mui-focused {
+			z-index: 2;
 
-	fieldset {
-		border-radius: 0px;
-		border-color: ${theme.newColors.simplyGrey["100"]};
-	}
+			fieldset {
+				outline: 2px solid ${theme.color.gray[700]};
+				outline-offset: 3px;
+			}
+		}
 
-	& :not(.MuiInputBase-multiline) .MuiOutlinedInput-input,
-	& .MuiInputBase-multiline{
-		padding: 10px 16px;
-	}
+		&.Mui-disabled {
+			fieldset {
+				--border: var(--mos-border-light);
+			}
+		}
 
-	.MuiOutlinedInput-input {
-		${({ disabled }) => !disabled ? `
-			color: ${theme.newColors.almostBlack["100"]};
-		` : `
-			color: ${theme.colors.disabledTextColor};
-		`};
+		&.MuiInputBase-adornedStart {
+			padding-left: ${theme.spacing(4)};
 
-		::placeholder {
-			color: ${theme.newColors.grey3["100"]};
-			opacity: 1;
+			.MuiInputBase-input {
+				padding-left: 0;
+			}
+		}
+
+		&.MuiInputBase-adornedEnd {
+			padding-right: ${theme.spacing(4)};
+
+			.MuiInputBase-input {
+				padding-right: 0;
+			}
+		}
+
+		.MuiInputAdornment-root {
+			color: currentColor;
 		}
 	}
-
-	.MuiFormHelperText-contained {
-		margin-top: ${pr => pr.error ? "9px" : "7px"};
-		margin-left: 0;
-		word-break: break-all;
-	}
-
-	& .Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{
-		border-color: ${theme.colors.disableBorder};
-	}
-
-	& .MuiOutlinedInput-root {
-		&.Mui-focused fieldset {
-			border-color: ${theme.newColors.almostBlack["100"]};
-			border-width: 1px;
-			box-shadow: ${theme.fieldSpecs.inputText.shadow};
-		}
-	}
-
-	.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline {
-		border-color: ${pr => pr.error ? theme.newColors.darkRed["100"] : "transparent"};
-	}
-
-	& .MuiInputBase-adornedStart .MuiInputBase-input {
-		padding-left: 0;
-	}
-
-	& .MuiInputBase-adornedEnd .MuiInputBase-input {
-		padding-right: 0;
-	}
-`;
-
-export const StyledAdornment = styled(InputAdornment)`
-	& svg {
-		color: ${theme.newColors.almostBlack["100"]};
-	}
-`;
+`);

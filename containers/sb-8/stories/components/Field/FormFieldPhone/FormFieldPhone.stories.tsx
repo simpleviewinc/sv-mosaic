@@ -19,8 +19,10 @@ export const Playground = ({
 	instructionText,
 	forceInstructionTooltip,
 	helperText,
+	provideSize,
 	size,
 	country,
+	provideInternational,
 	international,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
@@ -38,26 +40,26 @@ export const Playground = ({
 					disabled,
 					inputSettings: {
 						country,
-						international,
+						international: provideInternational ? international : undefined,
 					},
 					helperText,
-					size,
+					size: provideSize ? size : undefined,
 					instructionText,
 					forceInstructionTooltip,
 				},
 			],
-		[label, hideLabel, required, disabled, country, helperText, size, instructionText, forceInstructionTooltip, international],
+		[label, hideLabel, required, disabled, country, provideInternational, international, helperText, provideSize, size, instructionText, forceInstructionTooltip],
 	);
 
 	return (
 		<>
-			<pre>{JSON.stringify(state, null, "  ")}</pre>
 			<Form
 				{...controller}
 				buttons={renderButtons(handleSubmit)}
 				title="Phone Field"
 				fields={fields}
 			/>
+			<pre>{JSON.stringify(state, null, "  ")}</pre>
 		</>
 	);
 };
@@ -68,36 +70,33 @@ Playground.args = {
 			phone: "+15205302271",
 		},
 	}),
+	provideSize: false,
 	size: undefined,
 	country: "",
-	international: undefined,
+	provideInternational: false,
+	international: false,
 };
 
 Playground.argTypes = {
 	...commonFieldControls.argTypes,
+	provideSize: {
+		name: "Provide Size",
+	},
 	size: {
 		name: "Size",
 		control: { type: "select" },
-		options: {
-			"Undefined (default: sm)": undefined,
-			XSmall: "xs",
-			Small: "sm",
-			Medium: "md",
-			Large: "lg",
-			Full: "full",
-		},
+		options: ["xs", "sm", "md", "lg", "full"],
+		if: { arg: "provideSize" },
 	},
 	country: {
 		name: "Initial Country",
 	},
+	provideInternational: {
+		name: "Provide International",
+	},
 	international: {
 		name: "International",
-		type: { control: "select" },
-		options: {
-			"Undefined (default: false)": undefined,
-			true: true,
-			false: false,
-		},
+		if: { arg: "provideInternational" },
 	},
 };
 

@@ -12,37 +12,12 @@ export const LocationSearchInputWrapper = styled.div`
 `;
 
 export const StyledInputSearch = styled(StyledTextField)`
-
-  &.MuiTextField-root {
-    display: flex;
-  }
+	&.MuiTextField-root {
+		display: flex;
+	}
 `;
 
 export const StyledClearIcon = styled(ClearIcon)`
-  cursor: pointer;
-  color: ${theme.newColors.almostBlack["100"]};
-`;
-
-export const SuggestionsContainer = styled.div`
-  background-color: white;
-  border: ${theme.borders.fieldGray};
-  border-top: 0;
-  padding: 8px 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,.05);
-`;
-
-export const SuggestionsDescriptionContainer = styled.div<{ $isSuggestionActive?: boolean }>`
-  	background-color: ${({ $isSuggestionActive }) => $isSuggestionActive ? theme.colors.gray200 : "white"};
-  	cursor: pointer;
-	padding: 6px 16px;
-	width: 100%;
-`;
-
-export const SuggestionDescription = styled.p`
-  margin: 0;
-
-  &:active {
-    color: ${theme.colors.gray800};
-    font-weight: ${theme.weight.medium};
-  }
+	cursor: pointer;
+	color: ${theme.newColors.almostBlack["100"]};
 `;
