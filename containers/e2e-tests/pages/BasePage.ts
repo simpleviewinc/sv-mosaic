@@ -57,12 +57,12 @@ export class BasePage {
 		this.cancelBtn = page.locator("button:has-text('Cancel')");
 		this.saveBtn = page.locator("text=Save");
 		this.table = page.locator("table");
-		this.errorMessage = page.locator("p.Mui-error");
+		this.errorMessage = page.getByText("This field is required, please fill it");
 		this.formTestIDLocator = page.locator("[data-testid='form-test-id']");
 		this.latitude = page.locator("input#lat-input");
 		this.longitude = page.locator("input#lng-input");
 		this.saveCoordinatesButton = this.formTestIDLocator.nth(1).locator("button", { hasText: "Save" });
-		this.error = page.locator(".Mui-error.MuiFormHelperText-root");
+		this.error = page.getByTestId("mos:Field:error");
 		this.errorIcon = page.locator("[data-testid='error-icon-test-id']");
 		this.checkboxTestIdLocator = page.locator(`[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`);
 		this.tooltip = page.locator("[role='tooltip']");

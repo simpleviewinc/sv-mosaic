@@ -22,7 +22,7 @@ const LabelWrapper = styled.div<TransientProps<LabelProps, "required">>`
 		font-size: ${theme.fontSize.text.lg};
 		line-height: ${theme.line.tight};
 		font-weight: ${theme.weight.medium};
-		color:  ${theme.newColors.almostBlack["100"]};
+		color:  ${theme.color.black};
 		word-wrap: break-word;
 		text-overflow: clip;
 		white-space: normal;
@@ -39,13 +39,13 @@ const InputLabelDiv = styled.div`
 const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
 	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
 	font-size: ${theme.fontSize.text.sm};
+	line-height: ${theme.line.loose};
 	margin-left: auto;
 `;
 
 const StyledInputLabel = styled(InputLabel)<{ $isHeader?: boolean }>`
 	font-weight: ${theme.weight.medium};
   	align-self: center;
-	color: ${theme.newColors.grey4["100"]} !important;
 
 	${({ $isHeader }) => $isHeader ? `
 		font-weight: ${theme.weight.bold};
@@ -57,7 +57,8 @@ const StyledInputLabel = styled(InputLabel)<{ $isHeader?: boolean }>`
 `;
 
 const StyledRequiredIndicator = styled.span`
-	color: ${theme.newColors.darkRed["100"]};
+	color: ${theme.color.red[600]};
+	margin-left: ${theme.spacing(1)};
 `;
 
 const StyledTooltipWrapper = styled.div<{ $colsInRow?: number; $alwaysShow?: boolean }>`

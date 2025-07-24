@@ -61,7 +61,7 @@ export const StyledRows = styled.div<Partial<TransientProps<SectionPropTypes, "t
 	`}
 
 	${({ $spacing }) => `
-		gap: ${$spacing === "compact" ? "24px" : "12px"} 0;
+		gap: ${theme.spacing($spacing === "compact" ? 3 : 6)} 0;
 	`}
 `;
 
