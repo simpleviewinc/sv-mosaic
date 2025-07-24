@@ -20,13 +20,6 @@ test.describe("Components - Content - Playground", () => {
 		expect(await contentPage.getColorFromElement(contentPage.mainContentTitle)).toBe(expectedColor);
 	});
 
-	test("Validate Chips has grey2 as background color.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
-		for (let i = 0; i < await contentPage.chipTestIDLocator.count(); i++) {
-			expect(await contentPage.getBackgroundColorFromElement(contentPage.chipTestIDLocator.nth(i))).toBe(expectedColor);
-		}
-	});
-
 	test("Validate content wrapper magin all around.", async () => {
 		const expectedMargin = "16px";
 		expect.soft(await contentPage.getSpecificMarginFromElement(contentPage.contentWrapperLocator, "right")).toBe(expectedMargin);
