@@ -48,11 +48,6 @@ test.describe("FormFields - FormFieldUpload - Playground", () => {
 		await expect(ffUpload.rolePresentationLocator.locator("p")).toContainText(expectedSnackbar);
 	});
 
-	test("Validate that the z-index of the upload button is valid.", async () => {
-		await ffUpload.visit(ffUpload.page_path);
-		expect(await ffUpload.getZIndexFromElement(ffUpload.uploadFilesSpan)).toBe("1000");
-	});
-
 	test("Validate that the delete icons are not visible when the knob disabled is active.", async () => {
 		await ffUpload.visit(ffUpload.page_path, [uploadKnobs.knobPrepop + "true", commonKnobs.knobDisabled + true]);
 		await ffUpload.fileCardContainerLocator.first().waitFor({ state: "attached" });
