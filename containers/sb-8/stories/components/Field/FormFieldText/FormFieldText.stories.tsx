@@ -83,7 +83,7 @@ Playground.args = {
 	}),
 	size: "sm",
 	type: "text",
-	placeholder: "placeholder",
+	placeholder: "Placeholder",
 	maxCharacters: 20,
 	multiline: false,
 	minRows: 3,

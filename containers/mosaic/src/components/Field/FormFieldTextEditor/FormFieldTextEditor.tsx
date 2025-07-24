@@ -31,6 +31,7 @@ function FormFieldTextEditorUnmemo({
 	},
 	disabled,
 	skeleton,
+	error,
 }: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>): ReactElement {
 	const {
 		extensions: providedExtensions,
@@ -195,14 +196,18 @@ function FormFieldTextEditorUnmemo({
 	}
 
 	return (
-		<StyledTextEditor $disabled={disabled}>
+		<StyledTextEditor
+			$focus={focus}
+			$disabled={disabled}
+			$error={Boolean(error)}
+		>
 			<ModeSwitch
 				mode={mode}
 				onChange={setMode}
-				focus={focus}
+				error={Boolean(error)}
 			/>
 			{mode === "visual" && (
-				<PrimaryToolbar focus={focus}>
+				<PrimaryToolbar>
 					<ToolbarControls
 						editor={editor}
 						controls={controls}

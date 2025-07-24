@@ -52,48 +52,6 @@ export const popperSx = {
 	},
 };
 
-export const DatePickerWrapper = styled.div<{ $isPickerOpen?: boolean; $disabled?: boolean }>`
-	min-width: 0;
-
-  	.MuiOutlinedInput-root {
-		padding-right: 16px;
-
-		& fieldset {
-			border-radius: 0;
-			border: ${({ $isPickerOpen }) => $isPickerOpen ? `1px solid ${theme.newColors.almostBlack["100"]}` : theme.borders.simplyGrey};
-		}
-
-		${({ $disabled }) => !$disabled ? `
-			background-color: ${theme.newColors.grey1["100"]};
-			&:hover {
-				& fieldset {
-					border-color: ${theme.newColors.simplyGrey["100"]};
-				}
-			}
-		` : `
-			background-color: ${theme.colors.disableBackground};
-		`}
-
-		&.Mui-disabled fieldset.MuiOutlinedInput-notchedOutline{
-			border-color: ${theme.colors.disableBorder};
-		}
-
-		.MuiOutlinedInput-input {
-			height: ${theme.fieldSpecs.inputText.height};
-			padding: ${theme.fieldSpecs.inputText.padding};
-		}
-
-		&.Mui-focused fieldset {
-			border-color: ${theme.newColors.almostBlack["100"]};
-			border-width: 1px;
-		}
-  	}
-
-	.MuiIconButton-root {
-		color: ${({ $isPickerOpen }) => $isPickerOpen ? theme.newColors.almostBlack["100"] : theme.newColors.grey3["100"]};
-	}
-`;
-
 export const DatePickerTextField = styled(StyledTextField)`
 	width: 100%;
 `;

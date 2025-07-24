@@ -6,31 +6,23 @@ import theme from "@root/theme";
 export const colors = ["black", "blue", "red", "yellow", "teal", "gray"];
 
 export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
-	&& {
-		color: ${theme.newColors.grey4["100"]};
-		min-height: 42px;
-		padding: 8px 16px;
+	padding: ${theme.spacing(2, 3)};
+	border-radius: ${theme.rounded.md};
 
-		&:active {
-			color: ${theme.newColors.almostBlack["100"]};
-		}
+	&:hover {
+		background-color: ${theme.color.gray[100]};
+	}
 
-		&:hover {
-			background-color: ${theme.newColors.grey2["60"]};
-		}
+	&:focus-visible {
+		background-color: ${theme.color.gray[200]};
+	}
 
-		&:focus-visible {
-			background-color: ${theme.newColors.grey2["100"]};
-		}
+	&.Mui-selected {
+		background-color: ${theme.color.teal[50]};
 
-		&.Mui-selected {
-			font-weight: ${theme.weight.medium};
-			background-color: ${theme.newColors.realTeal["10"]};
-
-			&:hover,
-			&.Mui-focusVisible {
-				background-color: ${theme.newColors.realTeal["20"]};
-			}
+		&:hover,
+		&.Mui-focusVisible {
+			background-color: ${theme.color.teal[100]};
 		}
 	}
 

@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import type { TextFieldProps } from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
 
 import React, { memo, useMemo } from "react";
 import Skeleton from "@mui/material/Skeleton";
@@ -7,7 +8,7 @@ import Skeleton from "@mui/material/Skeleton";
 import type { TextFieldData, TextFieldInputSettings } from "./FormFieldTextTypes";
 import type { MosaicFieldProps } from "@root/components/Field";
 
-import { StyledAdornment, StyledTextField } from "./FormFieldText.styled";
+import { StyledTextField } from "./FormFieldText.styled";
 import testIds from "@root/utils/testIds";
 
 const TextField = (
@@ -36,7 +37,7 @@ const TextField = (
 		};
 
 		if (prefix) {
-			props.startAdornment = <StyledAdornment position="start">{prefix}</StyledAdornment>;
+			props.startAdornment = <InputAdornment position="start">{prefix}</InputAdornment>;
 		}
 
 		return props;
@@ -65,9 +66,8 @@ const TextField = (
 			className={fieldDef?.className}
 			placeholder={fieldDef?.inputSettings?.placeholder}
 			multiline={fieldDef?.inputSettings?.multiline}
-			fieldSize={fieldDef?.size}
 			InputProps={InputProps}
-			required={fieldDef?.required}
+			required={Boolean(fieldDef?.required)}
 			type={fieldDef?.inputSettings?.type === "number" ? "text" : fieldDef?.inputSettings?.type}
 			minRows={fieldDef?.inputSettings?.minRows}
 			maxRows={fieldDef?.inputSettings?.maxRows}

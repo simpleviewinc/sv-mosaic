@@ -85,6 +85,7 @@ function getAddressFields({
 					getOptionsStates,
 					googleMapsApiKey,
 				},
+				validateOn: "onBlurAmend",
 			} : {
 				type: "text",
 			}),

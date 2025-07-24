@@ -3,7 +3,6 @@ import type { ReactElement } from "react";
 import React, { memo } from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useLoadScript } from "@react-google-maps/api";
-import Popover from "@mui/material/Popover";
 
 import type { AddressAutocompleteProps } from "./AddressAutocompleteTypes";
 
@@ -13,11 +12,10 @@ import { libraries } from "@root/components/Field/FormFieldMapCoordinates/MapCoo
 import {
 	LocationSearchInputWrapper,
 	StyledInputSearch,
-	SuggestionDescription,
-	SuggestionsContainer,
-	SuggestionsDescriptionContainer,
 } from "./AddressAutocomplete.styled";
 import testIds from "@root/utils/testIds";
+import type { TextFieldProps } from "@mui/material/TextField";
+import { StyledPopperPaper, StyledPopperListbox, StyledPopperListboxOption, StyledPopper } from "@root/components/common";
 
 const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 	const {
@@ -32,6 +30,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		googleMapsApiKey,
 		disabled,
 		id,
+		error,
 	} = props;
 	const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -49,7 +48,7 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		onBlur && onBlur();
 	};
 
-	const inputProps = {
+	const inputProps: TextFieldProps = {
 		...textField,
 		inputProps: {
 			"data-testid": "location-search-input",
@@ -65,10 +64,10 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 		return (
 			<StyledInputSearch
 				{...inputProps}
-				fieldSize="lg"
 				onChange={({ target: { value } }) => onChange(value)}
 				disabled={disabled}
 				id={id}
+				error={Boolean(error)}
 			/>
 		);
 	}
@@ -83,41 +82,35 @@ const AddressAutocomplete = (props: AddressAutocompleteProps): ReactElement => {
 							{...getInputProps({
 								placeholder: placeholder,
 							})}
-							fieldSize=""
 							onFocus={handleFocus}
 							onBlur={handleBlur}
 							disabled={disabled}
 							id={id}
 							data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_TEXTBOX}
+							error={Boolean(error)}
 						/>
-						<Popover
+						<StyledPopper
 							open={Boolean(anchorEl) && suggestions?.length > 0}
 							anchorEl={anchorEl}
-							onClose={handleBlur}
-							anchorOrigin={{
-								vertical: "bottom",
-								horizontal: "left",
-							}}
-							disableAutoFocus={true}
-							disableEnforceFocus={true}
 							data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_BACKDROP}
+							style={{ zIndex: 1200 }}
 						>
-							<SuggestionsContainer data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_SUGGESTIONS}>
-								{suggestions?.map((suggestion) => {
-									return (
-										<SuggestionsDescriptionContainer
-											{...getSuggestionItemProps(suggestion)}
-											key={suggestion?.placeId}
-											$isSuggestionActive={suggestion?.active}
-										>
-											<SuggestionDescription>
+							<StyledPopperPaper>
+								<StyledPopperListbox data-testid={testIds.FORM_FIELD_AUTOCOMPLETE_SUGGESTIONS}>
+									{suggestions?.map((suggestion) => {
+										return (
+											<StyledPopperListboxOption
+												{...getSuggestionItemProps(suggestion)}
+												key={suggestion?.placeId}
+												className={suggestion?.active ? "Mui-focused" : ""}
+											>
 												{suggestion?.description}
-											</SuggestionDescription>
-										</SuggestionsDescriptionContainer>
-									);
-								})}
-							</SuggestionsContainer>
-						</Popover>
+											</StyledPopperListboxOption>
+										);
+									})}
+								</StyledPopperListbox>
+							</StyledPopperPaper>
+						</StyledPopper>
 					</div>
 				)}
 			</PlacesAutocomplete>

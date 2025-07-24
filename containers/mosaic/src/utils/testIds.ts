@@ -60,6 +60,7 @@ const testIds = {
 	FORM_FIELD_AUTOCOMPLETE_SUGGESTIONS: "mos:Field:autocompleteSuggestions",
 	FORM_FIELD_AUTOCOMPLETE_TEXTBOX: "mos:Field:autocompleteTextbox",
 	FORM_FIELD_COLOR_POPOVER: "mos:Field:colorPopover",
+	FORM_FIELD_ERROR: "mos:Field:error",
 	FORM_FIELD_LABEL: "mos:Field:label",
 	FORM_FIELD_SKELETON: "mos:Field:skeleton",
 	FORM_STATE: "mos:Form:state",
