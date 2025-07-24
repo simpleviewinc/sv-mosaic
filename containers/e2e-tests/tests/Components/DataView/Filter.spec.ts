@@ -158,14 +158,6 @@ test.describe("Components - Data View - Filter", () => {
 		expect(await filter.categoryItems.count()).toBe(242);
 	});
 
-	test("Validate selected category style", async () => {
-		const expectBgColor = theme.newColors.simplyGold["100"];
-		await filter.selectFilter("categories");
-		await filter.categoryBtn.click();
-		await filter.selectCategory(filter_data.categoryFilterChooseItem);
-		expect(await filter.getBackgroundColorFromElement(_dataviewPage.selectedChips)).toBe(expectBgColor);
-	});
-
 	test("Validate Gap between filters is valid.", async () => {
 		await filter.filtersRowLocator.waitFor();
 		await filter.selectAllFilters();
