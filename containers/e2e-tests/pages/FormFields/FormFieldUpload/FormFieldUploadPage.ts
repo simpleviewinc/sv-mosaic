@@ -19,7 +19,7 @@ export class FormFieldUploadPage extends BasePage {
 		this.page = page;
 		this.uploadFilesLocator = page.locator("#uploadField");
 		this.uploadFilesInput = this.uploadFilesLocator.locator("input");
-		this.uploadFilesButton = this.uploadFilesLocator.getByText("UPLOAD FILES");
+		this.uploadFilesButton = this.uploadFilesLocator.getByText("Add Files");
 		this.uploadFilesSpan = this.uploadFilesLocator.locator("span.button");
 		this.fileCardContainerLocator = page.locator("[data-testid='file-card-container']");
 		this.fileDeleteButton = page.locator(".file-delete-btn button");
