@@ -1,12 +1,13 @@
 import type { ReactElement } from "react";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 
 import type { DataViewFilterNumberProps } from "./DataViewFilterNumberTypes";
 
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import DataViewFilterNumberDropdownContent from "./DataViewFilterNumberDropdownContent";
+import Badge from "../Badge";
 
 export default function DataViewFilterNumber({
 	args,
@@ -25,27 +26,30 @@ export default function DataViewFilterNumber({
 		setAnchorEl(null);
 	};
 
-	const formattedValue = useMemo(() => {
-		if (min === undefined && max === undefined) {
-			return;
-		}
-
-		if (min === undefined) {
-			return `${max} or less`;
-		}
-
-		if (max === undefined) {
-			return `${min} or greater`;
-		}
-
-		return `Between ${min} and ${max}`;
-	}, [min, max]);
-
 	return (
 		<>
 			<DataViewPrimaryFilter
 				label={label}
-				value={formattedValue}
+				value={(
+					min !== undefined && max !== undefined ? (
+						<>
+							Between
+							<Badge>{min}</Badge>
+							and
+							<Badge>{max}</Badge>
+						</>
+					) : min !== undefined ? (
+						<>
+							<Badge>{min}</Badge>
+							or greater
+						</>
+					) : max !== undefined && (
+						<>
+							<Badge>{max}</Badge>
+							or less
+						</>
+					)
+				)}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

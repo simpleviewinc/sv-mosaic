@@ -19,4 +19,5 @@ export interface PickerPanelProps extends Pick<PageHeaderProps, "title" | "onBac
 	isLoading?: boolean;
 	noOptions?: string;
 	saveText?: string;
+	rounded?: boolean;
 }

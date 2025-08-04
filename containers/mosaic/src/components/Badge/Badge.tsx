@@ -9,9 +9,10 @@ import { StyledBadge } from "./Badge.styled";
 function Badge({
 	children,
 	variant = "light",
+	...props
 }: BadgeProps): ReactElement {
 	return (
-		<StyledBadge $variant={variant}>
+		<StyledBadge $variant={variant} {...props}>
 			{children}
 		</StyledBadge>
 	);

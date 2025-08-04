@@ -4,6 +4,7 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import type { DataViewFilterTextProps, FilterTextComparison } from "./DataViewFilterTextTypes";
+import Badge from "../Badge";
 
 const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Contains...", value : "contains" },
@@ -56,18 +57,6 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 		setAnchorEl(null);
 	};
 
-	// based on the state lets figure out what our value should be
-	let valueString: string;
-	if (comparison === "exists") {
-		valueString = "exists";
-	} else if (comparison === "not_exists") {
-		valueString = "does not exist";
-	} else if (value === "") {
-		valueString = "";
-	} else {
-		valueString = `${comparisonMap[comparison]} "${value}"`;
-	}
-
 	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 
@@ -75,7 +64,18 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 		<span>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={valueString}
+				value={(
+					comparison === "exists" ? (
+						"exists"
+					) : comparison === "not_exists" ? (
+						"does not exist"
+					) : value && (
+						<>
+							{comparisonMap[comparison]}
+							<Badge>{value}</Badge>
+						</>
+					)
+				)}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

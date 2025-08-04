@@ -1,52 +1,48 @@
 import styled from "styled-components";
+import Button from "../Button";
 import theme from "@root/theme";
+import { Row } from "../common";
 
-export const LabelWrapper = styled.div`
+export const FilterButton = styled(Button)`
+	&& {
+		.MuiButtonBase-root,
+		.Mos-ButtonContent,
+		.Mos-ButtonLabel {
+			align-items: stretch;
+		}
+
+		.MuiButtonBase-root {
+			padding-right: 0;
+
+			&:hover {
+				background-color: ${theme.color.white};
+				box-shadow: var(--mos-border-dark), var(--mos-shadow-sm);
+			}
+		}
+
+		.Mos-ButtonLabel {
+			display: flex;
+			align-self: auto;
+		}
+	}
+`;
+
+export const FilterValue = styled(Row).attrs({ $align: "center", $gap: [1] })`
+	font-weight: ${theme.weight.regular};
+	color: ${theme.color.gray[800]};
+`;
+
+export const FilterExpand = styled.div`
+	background-color: ${theme.color.gray[100]};
+	border-left: 1px solid ${theme.color.gray[300]};
+	border-top-right-radius: ${theme.rounded.md};
+	border-bottom-right-radius: ${theme.rounded.md};
+	align-self: stretch;
 	display: flex;
 	align-items: center;
+	padding: ${theme.spacing(1)};
 
-	& > .dropdownIcon {
-		color: ${theme.newColors.grey3["100"]};
-		margin-left: 4px;
-		margin-right: -4px;
+	.MuiSvgIcon-root {
+		font-size: ${theme.fontSize.text.lg};
 	}
-
-	& > .filter-label {
-		text-transform: capitalize;
-	}
-
-	& > .filter-value {
-		align-items: center;
-		display: flex;
-		font-weight: ${theme.weight.regular};
-		text-transform: none;
-	}
-
-	& > .filter-value b {
-		margin: 0px 8px;
-	}
-`;
-
-export const MultiselectCounter = styled.div`
-	align-items: center;
-	background-color: white;
-	border-radius: 300px;
-	display: flex;
-	height: 20px;
-	justify-content: center;
-	margin-left: 12px;
-	min-width: 20px;
-	padding: 4px;
-`;
-
-export const Value = styled.p`
-	max-width: 187px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	margin: 0px;
-`;
-
-export const Count = styled.span`
-	font-size: ${theme.fontSize.text.sm};
 `;

@@ -1,54 +1,66 @@
 import React from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import Button from "@root/components/Button";
 import testIds from "@root/utils/testIds";
 
 import Tooltip, { useTooltip } from "../Tooltip";
-import { Count, LabelWrapper, MultiselectCounter, Value } from "./DataViewPrimaryFilter.styled";
+import { FilterButton, FilterExpand, FilterValue } from "./DataViewPrimaryFilter.styled";
 import type { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
+import { Row } from "../common";
+import Badge from "../Badge";
 
-function DataViewPrimaryFilter(props: DataViewPrimaryFilterProps) {
+function DataViewPrimaryFilter({
+	label,
+	onClick,
+	multiselect,
+	value,
+}: DataViewPrimaryFilterProps) {
 	const { anchorProps, tooltipProps } = useTooltip();
-
-	const label = (
-		<LabelWrapper>
-			<div className="filter-label">{props.label}</div>
-			{props.value && (
-				<div className="filter-value">
-					<b>|</b>
-					<Value title={props.value}>{props.value}</Value>
-					{props.multiselect?.length > 1 && (
-						<>
-							<MultiselectCounter
-								{...anchorProps}
-								data-testid={testIds.DATA_VIEW_FILTER_MULTI_COUNTER}
-							>
-								<Count>
-									+
-									{props.multiselect.length - 1}
-								</Count>
-							</MultiselectCounter>
-							<Tooltip {...tooltipProps}>
-								{props.multiselect.slice(1).map(val => val.label).join(", ")}
-							</Tooltip>
-						</>
-					)}
-				</div>
-			)}
-		</LabelWrapper>
-	);
+	const hasValue = Boolean(value);
 
 	return (
-		<Button
+		<FilterButton
 			intent="secondary"
 			variant="contained"
 			size="small"
-			onClick={props.onClick}
-			label={label}
-			iconPosition="right"
-			mIcon={ExpandMoreIcon}
-			muiAttrs={{ "aria-label": `Filter: ${props.label}` }}
+			onClick={onClick}
+			label={(
+				<Row
+					$align="center"
+					$gap={[3]}
+				>
+					<Row
+						$align="center"
+						$gap={[1]}
+					>
+						<span>
+							{label}
+							{hasValue && ":"}
+						</span>
+						{hasValue && <FilterValue>{value}</FilterValue>}
+						{multiselect?.length > 1 && (
+							<>
+								<Badge
+									attrs={{
+										...anchorProps,
+										"data-testid": testIds.DATA_VIEW_FILTER_MULTI_COUNTER,
+									}}
+								>
+									+
+									{multiselect.length - 1}
+								</Badge>
+								<Tooltip {...tooltipProps}>
+									{multiselect.slice(1).map(val => val.label).join(", ")}
+								</Tooltip>
+							</>
+						)}
+					</Row>
+					<FilterExpand>
+						<KeyboardArrowDownIcon />
+					</FilterExpand>
+				</Row>
+			)}
+			muiAttrs={{ "aria-label": `Filter: ${label}` }}
 		/>
 	);
 }
