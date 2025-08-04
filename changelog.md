@@ -1,5 +1,75 @@
 # sv-mosaic changelog
 
+### 44.3.0 - 08/05/2025
+
+* `Chip`
+  * [MOS-1632](https://simpleviewtools.atlassian.net/browse/MOS-1632 "https://simpleviewtools.atlassian.net/browse/MOS-1632") **Chips**
+    * (Chip) Align chip styles with Apex Design System. Introduce a new variant, defaulting to the appropriate variant depending on selectable prop.
+* `FormFieldDate`
+  * [MOS-1634](https://simpleviewtools.atlassian.net/browse/MOS-1634 "https://simpleviewtools.atlassian.net/browse/MOS-1634") **Input, Date, Textarea Fields**
+    * Aligns text-base fields with design system with focus on text field, text editor field and date/time fields.
+    * Dropped the fieldSize prop from text field that had no business existing.
+    * Some cleanup and replacement of old theme tokens for the new.
+    * Aligns dropdown field style with the design system.
+    * Introduces an xlarge button size which can be used to match the size of adjacent form fields.
+    * Unifies the popper styles across all components that use it, i.e. dropdowns, autocomplete, menus.
+* `FormFieldUpload`
+  * [MOS-1638](https://simpleviewtools.atlassian.net/browse/MOS-1638 "https://simpleviewtools.atlassian.net/browse/MOS-1638") **File Upload Field**
+    * (FileUploadField) Align styles with the Apex design system.
+
+### 44.2.0 - 07/22/2025
+
+* `Button`
+
+  * [MOS-1631](https://simpleviewtools.atlassian.net/browse/MOS-1631 "https://simpleviewtools.atlassian.net/browse/MOS-1631") **Buttons and Links **
+    * (Button) New style implementation which aligns the look and feel of buttons with the Figma compositions.
+    * (Button) Eliminates "IconButton", since it's redundant when we can just use a normal **MUI** button.
+    * (Button) Deprecates the use of the "color" prop in favour of the `intent` prop.
+    * (Button) Deprecates a number of variants:
+
+      * "icon" is now inferred from the use of `mIcon` and lack of a `label`.
+      * "outlined" is dead
+      * "input" is only used internally but will soon be redundant.
+    * (Button) Backtracked on the decision to introduce a new `Link` component because buttons already support the `href` prop (which renders an anchor instead of a button). Instead, the `size="inherit"` prop can be provided to `Button` to imitate a link inside a body of text.
+* `Checkbox`
+
+  * [MOS-1630](https://simpleviewtools.atlassian.net/browse/MOS-1630 "https://simpleviewtools.atlassian.net/browse/MOS-1630") **Checkboxes, Radio Buttons and Toggles **
+    * (Checkbox) Restyled checkbox and checkbox list according to Figma comps.
+    * (Radio) Restyled radio button according to Figma comps.
+* Housekeeping
+
+  * [MOS-1667](https://simpleviewtools.atlassian.net/browse/MOS-1667 "https://simpleviewtools.atlassian.net/browse/MOS-1667") **Inconsistency with label spacing checkbox/radio**
+    * (RadioField) Fix flex alignment to prevent clickable area extending far beyond the corresponding radio label.
+  * [MOS-1670](https://simpleviewtools.atlassian.net/browse/MOS-1670 "https://simpleviewtools.atlassian.net/browse/MOS-1670") **Make it easier for **CMS** ops to style forms**
+    (Form) Adds class names to form and field elements for easy CSS targeting:
+    * `Mos-Form`
+    * `Mos-FormRow`
+    * `Mos-FormColumn`
+    * `Mos-Field` and {{Mos-Field--
+      {type}
+      }}
+    * `Mos-FieldErrorText`
+    * `Mos-FieldHelperText`
+    * `Mos-FieldInstructionText`
+    * `Mos-FieldLabel` and `Mos-FieldGroupLabel`
+    * `Mos-FieldTooltip`
+    * `Mos-CharacterCount`
+
+### 44.1.0 - 07/08/2025
+
+* `FormFieldAdvancedSelection`
+
+  * [MOS-1629](https://simpleviewtools.atlassian.net/browse/MOS-1629 "https://simpleviewtools.atlassian.net/browse/MOS-1629") **Filter/Advanced Selection Drawer **
+    * (PickerPanel) Implements new picker panel which is a generic checkbox option picker with keyword search and arbitrary selected options right panel. Utilised by AdvancedSelection field, DataView column settings drawer and DataView multi-select filter popover.
+* `PageHeader`
+
+  * [MOS-1641](https://simpleviewtools.atlassian.net/browse/MOS-1641 "https://simpleviewtools.atlassian.net/browse/MOS-1641") **PageHeader**
+    * (PageHeader) Minor style updates to align with design comps.
+* Housekeeping
+
+  * [MOS-1633](https://simpleviewtools.atlassian.net/browse/MOS-1633 "https://simpleviewtools.atlassian.net/browse/MOS-1633") **Badge and Sortable List Tile**
+    * (Badge) Implement new badge component
+
 ### 44.0.0 - 06/24/2025
 
 * `FormFieldCheckbox`
