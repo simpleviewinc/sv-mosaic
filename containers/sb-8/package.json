@@ -1,7 +1,7 @@
 {
 	"name": "sb-8",
 	"private": true,
-	"version": "44.2.0",
+	"version": "44.3.0",
 	"type": "module",
 	"imports": {
 		"#mosaic": "@simpleview/sv-mosaic",
