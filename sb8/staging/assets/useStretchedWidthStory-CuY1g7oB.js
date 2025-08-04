@@ -1,0 +1,1 @@
+import{r as n}from"./index-D0AnReJb.js";function d(t){n.useEffect(()=>{const e=document.createElement("style");e.innerHTML=".sb-show-main.sb-main-centered #storybook-root { padding: 0; width: 100vw; }";const o=()=>{document.head.contains(e)&&document.head.removeChild(e)};return t?document.head.appendChild(e):o(),()=>{o()}},[t])}export{d as u};
