@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import styled from "styled-components";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ButtonRow from "../../ButtonRow";
@@ -8,29 +7,9 @@ import Button from "../../Button";
 import { useMosaicTranslation } from "@root/i18n";
 import type { DataViewViewControlsProps } from "./DataViewViewControlsTypes";
 import type { MenuItemProps } from "@root/components/MenuItem";
-import theme from "@root/theme";
 import testIds from "@root/utils/testIds";
-
-const TitleButton = styled(Button)`
-	&& {
-		button {
-			max-width: 300px;
-			margin-right: 2px;
-			text-transform: none;
-			font-weight: ${theme.weight.regular};
-		}
-
-		&.no-view-selected button {
-			color: ${theme.newColors.grey3["100"]};
-			font-style: italic;
-		}
-	}
-`;
-
-const CurrentViewReadOnly = styled.div`
-	padding: 3px 0;
-	letter-spacing: 1px;
-`;
+import { DataViewViewButton } from "./DataViewViewButton";
+import { DataViewViewListWrapper } from "./DataViewViewListWrapper";
 
 function DataViewViewControls({
 	currentView,
@@ -65,19 +44,14 @@ function DataViewViewControls({
 			<div className="right">
 				<ButtonRow>
 					{onViewList ? (
-						<TitleButton
-							mIcon={ExpandMoreIcon}
-							iconPosition="right"
-							label={currentView ? `${t("mosaic:DataView.view")}: ${currentView.label}` : t("mosaic:DataView.no_view_selected")}
-							intent="secondary"
-							variant="contained"
-							onClick={onViewList}
-							className={!currentView && "no-view-selected"}
+						<DataViewViewButton
+							currentView={currentView}
+							onViewList={onViewList}
 						/>
-					) : currentView && (
-						<CurrentViewReadOnly>
-							{`${t("mosaic:DataView.view")}: ${currentView.label}`}
-						</CurrentViewReadOnly>
+					) : (
+						<DataViewViewListWrapper
+							currentView={currentView}
+						/>
 					)}
 					<Button
 						mIcon={ExpandMoreIcon}
