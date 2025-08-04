@@ -12,3 +12,13 @@ export type DataViewViewControlsProps = Pick<DataViewProps,
 	| "onViewSaveAs"
 	| "onViewList"
 >;
+
+export type DataViewViewButtonProps = Pick<DataViewProps,
+	| "currentView"
+	| "onViewList"
+>
+
+export type DataViewViewListWrapperProps = Pick<DataViewProps,
+	| "currentView"
+	| "onViewList"
+>
