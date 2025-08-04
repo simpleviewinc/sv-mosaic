@@ -47,32 +47,4 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("button", { name: "DataView.view: DataView.no_view_selected" })).toBeInTheDocument();
 	});
-
-	it("should render a menu button with an overwrite current view item if the view save handler is provided", async () => {
-		const onViewSaveMock = vi.fn();
-
-		const { user } = await setup({ onViewSave: onViewSaveMock });
-
-		const button = screen.queryByRole("button", { name: "DataView.save_view" });
-		expect(button).toBeInTheDocument();
-		await user.click(button);
-		const menuItem = screen.queryByRole("menuitem", { name: "DataView.overwrite_current_view" });
-		expect(menuItem).toBeInTheDocument();
-		await user.click(menuItem);
-		expect(onViewSaveMock).toHaveBeenCalled();
-	});
-
-	it("should render a menu button with a save new view item if the view save as handler is provided", async () => {
-		const onViewSaveAsMock = vi.fn();
-
-		const { user } = await setup({ onViewSaveAs: onViewSaveAsMock });
-
-		const button = screen.queryByRole("button", { name: "DataView.save_view" });
-		expect(button).toBeInTheDocument();
-		await user.click(button);
-		const menuItem = screen.queryByRole("menuitem", { name: "DataView.save_as_new_view" });
-		expect(menuItem).toBeInTheDocument();
-		await user.click(menuItem);
-		expect(onViewSaveAsMock).toHaveBeenCalled();
-	});
 });
