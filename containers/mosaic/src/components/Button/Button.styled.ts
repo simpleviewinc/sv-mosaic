@@ -309,7 +309,7 @@ export const StyledButtonHover = styled.span.attrs({ className: "Mos-ButtonGradi
 	transition: opacity 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 `;
 
-export const StyledButtonContent = styled.span<{ $size: ButtonProps["size"] }>`
+export const StyledButtonContent = styled.div.attrs({ className: "Mos-ButtonContent" })<{ $size: ButtonProps["size"] }>`
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -320,6 +320,6 @@ export const StyledButtonContent = styled.span<{ $size: ButtonProps["size"] }>`
 	`}
 `;
 
-export const StyledButtonLabel = styled.span`
+export const StyledButtonLabel = styled.div.attrs({ className: "Mos-ButtonLabel" })`
 	align-self: baseline;
 `;

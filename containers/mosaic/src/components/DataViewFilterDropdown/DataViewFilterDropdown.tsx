@@ -1,49 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 
 import type { DataViewFilterDropdownProps } from "./DataViewFilterDropdownTypes";
 
-import { StyledPopover, StyledWrapper } from "./DataViewFilterDropdown.styled";
-import testIds from "@root/utils/testIds";
+import { createPortal } from "react-dom";
+import type { GrowProps } from "@mui/material/Grow";
+import { DataViewFilterDropdownPopover } from "./DataViewFilterDropdownPopover";
 
 function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
-	// track whether the content of the dropdown should be visible
-	const [exists, setExists] = useState(false);
+	const isOpen = Boolean(props.anchorEl);
+	const [inTransit, setInTransit] = useState(false);
 
-	// if the anchorEl exists, we phase in
-	useEffect(() => {
-		if (Boolean(props.anchorEl) === true) {
-			setExists(true);
-		}
-	}, [props.anchorEl]);
+	const growProps = useMemo<Omit<GrowProps, "children">>(() => ({
+		style: { transformOrigin: "0 0 0" },
+		timeout: {
+			enter: 300,
+			exit: 200,
+		},
+		onEnter: () => setInTransit(true),
+		onExited: () => setInTransit(false),
+	}), []);
 
-	// wait for the animation to complete before hiding
-	const onExited = function() {
-		setExists(false);
-
-		if (props.onExited) {
-			props.onExited();
-		}
-	};
-
-	// avoid processing the content of the dropdown until we have been invoked
-	if (exists === false) {
+	if (!isOpen && !inTransit) {
 		return null;
 	}
 
 	return (
-		<StyledPopover
-			anchorEl={props.anchorEl}
-			onClose={props.onClose}
-			open={Boolean(props.anchorEl)}
-			TransitionProps={{
-				onExited,
-				onEntered : props.onEntered,
-			}}
-		>
-			<StyledWrapper data-testid={testIds.DATA_VIEW_FILTERS_DROPDOWN}>
-				{props.children}
-			</StyledWrapper>
-		</StyledPopover>
+		createPortal(
+			<DataViewFilterDropdownPopover
+				onClose={props.onClose}
+				isOpen={isOpen}
+				inTransit={inTransit}
+				anchorEl={props.anchorEl}
+				growProps={growProps}
+				children={props.children}
+			/>,
+			document.body,
+		)
 	);
 }
 
