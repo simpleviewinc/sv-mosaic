@@ -23,7 +23,7 @@ describe(__dirname, () => {
 	it("should render the data view view controls in read-only if a current view is provided", async () => {
 		await setup({ currentView: { value: "myView", label: "My View" } });
 
-		expect(screen.queryByText("DataView.view: My View")).toBeInTheDocument();
+		expect(screen.queryByText("My View")).toBeInTheDocument();
 	});
 
 	it("should render button showing the current view label if a current view and list handler is provided", async () => {
@@ -45,7 +45,7 @@ describe(__dirname, () => {
 
 		await setup({ onViewList: onViewListMock });
 
-		expect(screen.queryByRole("button", { name: "DataView.no_view_selected" })).toBeInTheDocument();
+		expect(screen.queryByRole("button", { name: "DataView.view: DataView.no_view_selected" })).toBeInTheDocument();
 	});
 
 	it("should render a menu button with an overwrite current view item if the view save handler is provided", async () => {
