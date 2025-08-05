@@ -38,6 +38,7 @@ const colorToIntent: Record<ColorTypes, ButtonIntent> = {
 
 const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase({
 	size = "medium",
+	alignItems = "center",
 	...props
 }, ref) {
 	const Icon = props.mIcon;
@@ -114,6 +115,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 				{...buttonProps}
 				$fullWidth={props.fullWidth}
 				$isIconButton={isIconButton}
+				$alignItems={alignItems}
 			>
 				<StyledButtonHover />
 				<StyledButtonContent $size={size}>
