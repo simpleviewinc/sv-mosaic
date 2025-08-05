@@ -6,6 +6,7 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import Badge from "../Badge";
+import testIds from "@root/utils/testIds";
 
 const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
@@ -91,13 +92,13 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 				label={props.label}
 				value={(
 					comparison === "exists" ? (
-						"exists"
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>exists</Badge>
 					) : comparison === "not_exists" ? (
-						"does not exist"
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>does not exist</Badge>
 					) : state.selected.length > 0 && (
 						<>
-							{comparisonMap[comparison]}
-							<Badge>{state.selected[0].label}</Badge>
+							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
+							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{state.selected[0].label}</Badge>
 						</>
 					)
 				)}
