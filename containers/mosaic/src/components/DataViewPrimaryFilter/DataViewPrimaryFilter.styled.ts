@@ -6,8 +6,7 @@ import { Row } from "../common";
 export const FilterButton = styled(Button)`
 	&& {
 		.MuiButtonBase-root,
-		.Mos-ButtonContent,
-		.Mos-ButtonLabel {
+		.Mos-ButtonContent {
 			align-items: stretch;
 		}
 
@@ -18,11 +17,6 @@ export const FilterButton = styled(Button)`
 				background-color: ${theme.color.white};
 				box-shadow: var(--mos-border-dark), var(--mos-shadow-sm);
 			}
-		}
-
-		.Mos-ButtonLabel {
-			display: flex;
-			align-self: auto;
 		}
 	}
 `;
