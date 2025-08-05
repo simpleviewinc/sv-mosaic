@@ -206,8 +206,16 @@ export class DataviewPage extends BasePage {
 		}
 	}
 
+	async getFilterOperators(locator: Locator): Promise<string[]> {
+		const locators = await locator.getByTestId("mos:DataView:filterOperator").all();
+		const operatorTexts = locators.map(locator => locator.innerText());
+		const result = await Promise.all(operatorTexts);
+
+		return result;
+	}
+
 	async getFilterText(locator: Locator): Promise<string> {
-		return await this.getOnlyStringWithLetters(await locator.locator(".filter-value p").innerText());
+		return await this.getOnlyStringWithLetters(await locator.getByTestId("mos:DataView:filterValue").innerText());
 	}
 
 	async removeAllSelectedFilters(): Promise<void> {

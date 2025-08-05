@@ -3,9 +3,9 @@ import React, { useEffect } from "react";
 import type { DataViewFilterDropdownPopoverProps } from "./DataViewFilterDropdownTypes";
 import testIds from "@root/utils/testIds";
 import { StyledPopper, StyledPopperPaper } from "../common";
-import Backdrop from "@mui/material/Backdrop";
 import Grow from "@mui/material/Grow";
 import FocusTrap from "@mui/material/Unstable_TrapFocus";
+import { StyledBackdrop } from "./DataViewFilterDropdown.styled";
 
 export function DataViewFilterDropdownPopover({
 	onClose,
@@ -31,31 +31,33 @@ export function DataViewFilterDropdownPopover({
 	};
 
 	return (
-		<Backdrop
-			open={isOpen || inTransit}
-			onClick={onClose}
-			invisible
-		>
+		<div role="presentation">
+			<StyledBackdrop
+				open={isOpen || inTransit}
+				onClick={onClose}
+				invisible
+			/>
 			<StyledPopper
 				anchorEl={anchorEl}
 				open={isOpen || inTransit}
 				$width="auto"
 				placement="bottom-start"
 				onClick={handleContentClick}
+				disablePortal
 			>
-				<Grow
-					in={isOpen}
-					{...growProps}
-				>
-					<StyledPopperPaper>
-						<FocusTrap open>
+				<FocusTrap open>
+					<Grow
+						in={isOpen}
+						{...growProps}
+					>
+						<StyledPopperPaper>
 							<div data-testid={testIds.DATA_VIEW_FILTERS_DROPDOWN}>
 								{children}
 							</div>
-						</FocusTrap>
-					</StyledPopperPaper>
-				</Grow>
+						</StyledPopperPaper>
+					</Grow>
+				</FocusTrap>
 			</StyledPopper>
-		</Backdrop>
+		</div>
 	);
 }

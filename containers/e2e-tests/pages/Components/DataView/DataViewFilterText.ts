@@ -10,7 +10,7 @@ export class DataViewFilterTextComponent extends BasePage {
 
 	readonly filterTextButton: Locator;
 	readonly inputRowLocator: Locator;
-	readonly wordFilterLocator: Locator;
+	readonly filterValue: Locator;
 	readonly inputLocator: Locator;
 	readonly comparisonButton: Locator;
 
@@ -20,7 +20,7 @@ export class DataViewFilterTextComponent extends BasePage {
 		this.inputRowLocator = page.locator(".inputRow");
 		this.filterTextButton = page.getByRole("button", { name: "Filter text example" });
 		this.inputLocator = this.inputRowLocator.locator("input");
-		this.wordFilterLocator = this.filterTextButton.locator("p");
+		this.filterValue = this.filterTextButton.getByTestId("mos:DataView:filterValue");
 		this.comparisonButton = page.locator(".inputRow .comparisonButton button");
 	}
 
