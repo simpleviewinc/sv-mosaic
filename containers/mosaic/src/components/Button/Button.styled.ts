@@ -287,12 +287,16 @@ export const StyledButton = styled(Button)<TransientProps<
 	`;
 });
 
-export const StyledButtonIcon = styled.div<{ $inherit?: boolean; $isAdornment?: boolean }>`
+export const StyledButtonIcon = styled.div<{
+	$inherit?: boolean;
+	$isAdornment?: boolean;
+	$size?: keyof Theme["fontSize"]["icon"];
+}>`
 	&& {
 		margin: -2px;
 
-		${({ $inherit }) => `
-			font-size: ${$inherit ? "1em" : theme.fontSize.text["2xl"]};
+		${({ $inherit, $size = "sm" }) => `
+			font-size: ${$inherit ? "1em" : theme.fontSize.icon[$size]};
 		`}
 
 		${({ $isAdornment }) => !$isAdornment ? "" : `
@@ -322,4 +326,5 @@ export const StyledButtonContent = styled.div.attrs({ className: "Mos-ButtonCont
 
 export const StyledButtonLabel = styled.div.attrs({ className: "Mos-ButtonLabel" })`
 	align-self: baseline;
+	margin-bottom: -1px;
 `;

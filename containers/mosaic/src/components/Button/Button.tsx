@@ -50,6 +50,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 			style={{ color: props.mIconColor }}
 			$isAdornment={!isIconButton}
 			$inherit={size === "inherit"}
+			$size={isIconButton ? "md" : "sm"}
 		/>
 	);
 
@@ -120,7 +121,13 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 				<StyledButtonHover />
 				<StyledButtonContent $size={size}>
 					{iconPosition === "left" && adornmentIcon}
-					{props.label && <StyledButtonLabel>{props.label}</StyledButtonLabel>}
+					{props.label && (
+						typeof props.label === "string" ? (
+							<StyledButtonLabel>{props.label}</StyledButtonLabel>
+						) : (
+							props.label
+						)
+					)}
 					{iconPosition === "right" && adornmentIcon}
 				</StyledButtonContent>
 			</StyledButton>
