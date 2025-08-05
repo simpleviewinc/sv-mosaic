@@ -360,11 +360,11 @@ template {
 	font-optical-sizing: auto;
 	font-weight: ${theme.weight.regular};
 	font-style: normal;
-	font-size: 14px;
+	font-size: 0.875em;
 	font-variation-settings:
 		"wdth" 100;
 	color: ${theme.color.black};
-  line-height: ${theme.line["3xloose"]};
+  line-height: 1.5;
 
   --mos-border-dark: 0 0 0 1px rgba(0, 0, 0, 0.4);
   --mos-border-medium: 0 0 0 1px rgba(0, 0, 0, 0.2);
