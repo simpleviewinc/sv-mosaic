@@ -89,8 +89,8 @@ const TopSummary = (props: TopSummaryProps): ReactElement => {
 					</ContainerTitle>
 					<ButtonRow separator wrap buttons={buttons} />
 				</Row>
-				<Row>
-					{descriptionItems && (
+				{descriptionItems?.length && (
+					<Row>
 						<ButtonRow separator wrap>
 							{descriptionItems.map((item, i) => (
 								<Item key={i} data-testid="description-item">
@@ -98,8 +98,8 @@ const TopSummary = (props: TopSummaryProps): ReactElement => {
 								</Item>
 							))}
 						</ButtonRow>
-					)}
-				</Row>
+					</Row>
+				)}
 			</Container>
 		</StyledTopSummary>
 	);
