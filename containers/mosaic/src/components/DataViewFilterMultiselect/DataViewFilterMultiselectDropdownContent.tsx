@@ -126,7 +126,10 @@ function DataViewFilterMultiselectDropdownContent({
 				checked={checked}
 				disabled={disabled}
 				activePanel={(
-					<StyledPanelPickerActive data-testid={testIds.DATA_VIEW_FILTER_MULTI_ACTIVE}>
+					<StyledPanelPickerActive
+						data-testid={testIds.DATA_VIEW_FILTER_MULTI_ACTIVE}
+						$rounded
+					>
 						{comparisonDropdown}
 						<SelectedOptionsSubtitle>{t("mosaic:DataView.selected_options")}</SelectedOptionsSubtitle>
 						<Column $align="start" $gap={[3]}>

@@ -30,7 +30,8 @@ test.describe("Components - Data View - Filter", () => {
 		const titles = await filter._dataviewPage.getAllRowData("Title");
 		expect(titles).toContain(filter_data.validKeywordFilter.toLowerCase());
 		expect(await filter._dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumber} of ${filter_data.expectedKeywordFilterNumber}`);
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(`is ${filter_data.validKeywordFilter}`);
+		expect(await filter._dataviewPage.getFilterOperators(filter.keywordBtn)).toStrictEqual(["is"]);
+		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.validKeywordFilter);
 	});
 
 	test("Filter title with a valid keyword and several results", async () => {
@@ -39,18 +40,20 @@ test.describe("Components - Data View - Filter", () => {
 		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.validKeywordFilterSeveralResults);
 		expect(await filter._dataviewPage.paginationComponent.paginationValue.textContent()).toBe(`1-${filter_data.expectedKeywordFilterNumberSeveralResults} of ${filter_data.expectedKeywordFilterNumberSeveralResults}`);
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(`is ${filter_data.validKeywordFilterSeveralResults}`);
+		expect(await filter._dataviewPage.getFilterOperators(filter.keywordBtn)).toStrictEqual(["is"]);
+		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.validKeywordFilterSeveralResults);
 	});
 
 	test("Filter title with a valid keyword and no results", async () => {
 		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
 		await expect(filter._dataviewPage.noResults).toBeVisible();
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(`is ${filter_data.keywordNoResultsFilter}`);
+		expect(await filter._dataviewPage.getFilterOperators(filter.keywordBtn)).toStrictEqual(["is"]);
+		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.keywordNoResultsFilter);
 	});
 
 	test("Filter title with a special character", async () => {
 		await filter.searchForTerm("keyword", "+");
-		expect(await filter.keywordBtn.locator(".filter-value p").innerText()).toContain("+");
+		expect(await filter.keywordBtn.getByTestId("mos:DataView:filterValue").innerText()).toContain("+");
 	});
 
 	test("Filter title with an Uppercase keyword", async () => {
@@ -58,7 +61,8 @@ test.describe("Components - Data View - Filter", () => {
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.upperCaseFilterNumber);
 		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.upperCaseKeywordFilter);
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(`is ${filter_data.upperCaseKeywordFilter}`);
+		expect(await filter._dataviewPage.getFilterOperators(filter.keywordBtn)).toStrictEqual(["is"]);
+		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.upperCaseKeywordFilter);
 	});
 
 	test("Filter the title with a Lowercase keyword.", async () => {
@@ -66,7 +70,8 @@ test.describe("Components - Data View - Filter", () => {
 		expect(await (await filter._dataviewPage.getTableRows()).count()).toBe(filter_data.lowerCaseFilterNumber);
 		const titles = await filter._dataviewPage.getAllRowData("Title");
 		await filter._dataviewPage.validateContainsKeyword(titles, filter_data.lowerCaseKeywordFilter);
-		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(`is ${filter_data.lowerCaseKeywordFilter}`);
+		expect(await filter._dataviewPage.getFilterOperators(filter.keywordBtn)).toStrictEqual(["is"]);
+		expect(await filter._dataviewPage.getFilterText(filter.keywordBtn)).toBe(filter_data.lowerCaseKeywordFilter);
 		await filter.validateKeywordFilterIsVisible(false);
 	});
 
@@ -161,7 +166,7 @@ test.describe("Components - Data View - Filter", () => {
 	test("Validate Gap between filters is valid.", async () => {
 		await filter.filtersRowLocator.waitFor();
 		await filter.selectAllFilters();
-		expect(await filter.getGapFromElement(filter.filtersRowLocator)).toBe("16px");
+		expect(await filter.getGapFromElement(filter.filtersRowLocator)).toBe("12px");
 	});
 
 	test("Validate bottons in filters selection are as expected.", async () => {

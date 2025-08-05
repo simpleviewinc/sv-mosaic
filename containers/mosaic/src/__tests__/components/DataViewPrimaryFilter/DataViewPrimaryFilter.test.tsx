@@ -35,7 +35,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Primary" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Primary|My Query");
+		expect(button).toHaveTextContent("Filter Primary:My Query");
 	});
 
 	it("should render additional multiselect option count indicator if there is more than one option selected", async () => {

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -56,7 +56,7 @@ describe(__dirname, () => {
 		const dropdown = screen.queryByTestId(testIds.DATA_VIEW_FILTERS_DROPDOWN);
 		expect(dropdown).toBeInTheDocument();
 		await user.keyboard("{Escape}");
-		expect(dropdown).not.toBeInTheDocument();
+		await waitFor(() => expect(dropdown).not.toBeInTheDocument());
 	});
 
 	it("should fire the on apply handler if the popover is submitted with items checked", async () => {
@@ -171,7 +171,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Multiselect" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Multiselect|EXISTS");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("exists");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toBeNull();
 	});
 
 	it("should render the correct description of the filter when the not exists comparison is used", async () => {
@@ -188,7 +189,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Multiselect" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Multiselect|NOT EXISTS");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("does not exist");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toBeNull();
 	});
 
 	it("should render the correct description of the filter when the in comparison is used", async () => {
@@ -206,7 +208,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Multiselect" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Multiselect|Option 1");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toBeNull();
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Option 1");
 	});
 
 	it("should render the correct description of the filter when the not in comparison is used", async () => {
@@ -224,7 +227,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Multiselect" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Multiselect|Not In - Option 1");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("not in");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Option 1");
 	});
 
 	it("should render the correct description of the filter when the all comparison is used", async () => {
@@ -242,6 +246,7 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Multiselect" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Multiselect|All - Option 1");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("all");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Option 1");
 	});
 });

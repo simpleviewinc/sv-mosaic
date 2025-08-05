@@ -1,23 +1,26 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { DataViewFilterTextComponent } from "../../../pages/Components/DataView/DataViewFilterText";
+import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { filter_data } from "../../../utils/data/dataviewData";
 import { dataviewKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("Components - DataViewFilterText - Playground", () => {
 	let page: Page;
 	let dvFilterComponent: DataViewFilterTextComponent;
+	let dataViewPage: DataviewPage;
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
 		dvFilterComponent = new DataViewFilterTextComponent(page);
+		dataViewPage = new DataviewPage(page);
 		await dvFilterComponent.visit(dvFilterComponent.page_path);
 	});
 
 	test("Validate that the filter is displayed when searched.", async () => {
 		const expectedWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.searchForWord(expectedWord);
-		expect(await dvFilterComponent.getOnlyStringWithLetters(await dvFilterComponent.wordFilterLocator.textContent())).toBe(`is ${expectedWord}`);
+		await expect(dvFilterComponent.filterValue).toHaveText(expectedWord);
 	});
 
 	test("Validate that the comparison button is displayed.", async () => {
@@ -31,15 +34,15 @@ test.describe("Components - DataViewFilterText - Playground", () => {
 		const searchWord = filter_data.validKeywordFilter;
 		await dvFilterComponent.visit(dvFilterComponent.page_path, [knob.knobComparison + "true"]);
 		await dvFilterComponent.searchWithComparison(searchWord, "Contains...");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("contains");
+		expect(await dataViewPage.getFilterOperators(dvFilterComponent.filterTextButton)).toStrictEqual(["contains"]);
 		await dvFilterComponent.searchWithComparison(searchWord, "Does not contain...");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("does not contain");
+		expect(await dataViewPage.getFilterOperators(dvFilterComponent.filterTextButton)).toStrictEqual(["does not contain"]);
 		await dvFilterComponent.searchWithComparison(searchWord, "Not equal to...");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain("is not");
+		expect(await dataViewPage.getFilterOperators(dvFilterComponent.filterTextButton)).toStrictEqual(["is not"]);
 		await dvFilterComponent.searchWithComparison(searchWord, ("Exists"));
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("exists"));
+		expect(await dataViewPage.getFilterOperators(dvFilterComponent.filterTextButton)).toStrictEqual(["exists"]);
 		await dvFilterComponent.searchWithComparison(searchWord, "Not Exists");
-		expect(await dvFilterComponent.wordFilterLocator.textContent()).toContain(("does not exist"));
+		expect(await dataViewPage.getFilterOperators(dvFilterComponent.filterTextButton)).toStrictEqual(["does not exist"]);
 	});
 
 	test("Validate that the text filter comparison logic is consistent.", async () => {

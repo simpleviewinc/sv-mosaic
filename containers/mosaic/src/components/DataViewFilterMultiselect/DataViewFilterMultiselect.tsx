@@ -5,6 +5,8 @@ import type { DataViewFilterMultiselectProps, MultiSelectComparison } from "./Da
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
+import Badge from "../Badge";
+import testIds from "@root/utils/testIds";
 
 const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
@@ -16,8 +18,8 @@ const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 
 const comparisonMap = {
 	in : "",
-	not_in : "Not In - ",
-	all : "All - ",
+	not_in : "not in",
+	all : "all",
 };
 
 function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
@@ -81,17 +83,6 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 		onClose();
 	};
 
-	let valueString: string;
-	if (comparison === "exists") {
-		valueString = "EXISTS";
-	} else if (comparison === "not_exists") {
-		valueString = "NOT EXISTS";
-	} else if (state.selected.length > 0) {
-		valueString = `${comparisonMap[comparison]}${state.selected[0]?.label}`;
-	} else {
-		valueString = "";
-	}
-
 	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 
@@ -99,7 +90,20 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 		<span>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={valueString}
+				value={(
+					comparison === "exists" ? (
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>exists</span>
+					) : comparison === "not_exists" ? (
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>does not exist</span>
+					) : state.selected.length > 0 && (
+						<>
+							{comparisonMap[comparison] && (
+								<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
+							)}
+							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{state.selected[0].label}</Badge>
+						</>
+					)
+				)}
 				onClick={onClick}
 				multiselect={state?.selected}
 			/>

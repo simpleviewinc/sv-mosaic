@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -65,7 +65,7 @@ describe(__dirname, () => {
 		const menu = screen.queryByRole("menu");
 		expect(menu).toBeInTheDocument();
 		await user.keyboard("{Escape}");
-		expect(menu).not.toBeInTheDocument();
+		await waitFor(() => expect(menu).not.toBeInTheDocument());
 	});
 
 	it("should correct render the text if an option is selected", async () => {

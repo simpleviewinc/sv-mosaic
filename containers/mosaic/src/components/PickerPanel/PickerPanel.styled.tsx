@@ -43,7 +43,7 @@ export const LoadMoreButton = styled(Button).attrs({ fullWidth: true })`
 	margin-top: ${theme.spacing(3)};
 `;
 
-export const PickerPanelActive = styled.div`
+export const PickerPanelActive = styled.div<{ $rounded?: boolean }>`
 	background-color: ${theme.color.gray[25]};
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0));
 	background-size: 10px 100%;
@@ -55,6 +55,10 @@ export const PickerPanelActive = styled.div`
 	max-width: 380px;
 	flex: none;
 	overflow: auto;
+
+	${({ $rounded }) => !$rounded ? "" : `
+		border-top-right-radius: ${theme.rounded.md};
+	`}
 `;
 
 export const StyledSpinner = styled(Spinner)`

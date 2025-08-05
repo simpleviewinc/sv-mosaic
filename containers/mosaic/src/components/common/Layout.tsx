@@ -6,6 +6,7 @@ import styled from "styled-components";
 export const Row = styled.div<{
 	$align?: CSSProperties["alignItems"];
 	$justify?: CSSProperties["justifyContent"];
+	$wrap?: CSSProperties["flexWrap"];
 	$gap?: Parameters<typeof theme.spacing>;
 }>`
 	display: flex;
@@ -16,6 +17,10 @@ export const Row = styled.div<{
 
 	${({ $justify }) => $justify && `
 		justify-content: ${$justify};
+	`}
+
+	${({ $wrap }) => $wrap && `
+		flex-wrap: ${$wrap};
 	`}
 
 	${({ $gap }) => $gap && `

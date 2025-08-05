@@ -14,11 +14,13 @@ export const StyledPopper = styled(Popper).attrs({
 			},
 		],
 	},
-})<{ $width?: number }>`
+})<{ $width?: number | string }>`
 	z-index: 1300;
 
-	${({ $width, anchorEl }) => $width !== undefined ? `
+	${({ $width, anchorEl }) => typeof $width === "number" ? `
 		width: ${$width}px;
+	` : typeof $width === "string" ? `
+		width: ${$width};
 	` : anchorEl && "clientWidth" in anchorEl ? `
 		width: ${anchorEl.clientWidth}px;
 	` : ""}

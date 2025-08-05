@@ -62,7 +62,7 @@ function DataViewTitleBar({
 				</div>
 				{buttons.length > 0 && <ButtonRow buttons={buttons} />}
 			</StyledWrapper>
-			{filters && (
+			{filters?.length > 0 && (
 				<DataViewFilters
 					filter={filter}
 					filters={filters}

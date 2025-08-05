@@ -7,6 +7,7 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 
 import type { DataViewFilterSingleSelectProps, DataViewFilterSingleSelectState } from "./DataViewFilterSingleSelectTypes";
 import Menu from "../Menu";
+import Badge from "../Badge";
 
 const StyledWrapper = styled.span``;
 
@@ -50,11 +51,6 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 		});
 	};
 
-	let valueString: string;
-	if (state.selected !== undefined) {
-		valueString = state.selected.label;
-	}
-
 	const onChange = function (value: string) {
 		if (value === "" || value === undefined) {
 			props.onChange(undefined);
@@ -70,7 +66,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 		<StyledWrapper>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={valueString}
+				value={(state.selected && <Badge>{state.selected.label}</Badge>)}
 				onClick={onClick}
 			/>
 			<Menu
