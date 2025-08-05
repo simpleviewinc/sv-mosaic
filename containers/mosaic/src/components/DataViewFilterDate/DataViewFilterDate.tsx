@@ -37,27 +37,27 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 			const endFormat = hasEnd ? format(props.data.rangeEnd, DATE_FORMAT_SHORT) : undefined;
 
 			if (isSameDay(props.data.rangeStart, props.data.rangeEnd)) {
-				valueString = <Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{startFormat}</Badge>;
+				valueString = <Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>;
 			} else if (hasStart && hasEnd) {
 				valueString = (
 					<>
-						<Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{startFormat}</Badge>
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>
 						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>to</span>
-						<Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{endFormat}</Badge>
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{endFormat}</Badge>
 					</>
 				);
 			} else if (hasStart) {
 				valueString = (
 					<>
 						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>from</span>
-						<Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{startFormat}</Badge>
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>
 					</>
 				);
 			} else {
 				valueString = (
 					<>
 						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>to</span>
-						<Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{endFormat}</Badge>
+						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{endFormat}</Badge>
 					</>
 				);
 			}
@@ -65,7 +65,7 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 			const selectedOption = props.args.options.find(({ value }) => "option" in props.data && value === props.data.option);
 
 			if (selectedOption) {
-				valueString = <Badge data-testid={testIds.DATA_VIEW_FILTER_VALUE}>{selectedOption.label}</Badge>;
+				valueString = <Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{selectedOption.label}</Badge>;
 			}
 		}
 

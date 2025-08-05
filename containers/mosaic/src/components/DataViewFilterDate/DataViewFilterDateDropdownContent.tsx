@@ -150,6 +150,7 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 						sections={sections}
 						fullHeight={false}
 						spacing="compact"
+						autoFocus
 					/>
 				</div>
 				<DataViewFilterDropdownButtons
