@@ -88,7 +88,7 @@ describe("DataViewFilters", () => {
 		expect(onChangeMocks[1]).not.toBeCalled();
 	});
 
-	it.only("should open the filters popover list when the filters button is clicked and close it again", async () => {
+	it("should open the filters popover list when the filters button is clicked and close it again", async () => {
 		const { user } = await setup();
 
 		const filters = screen.queryByRole("button", { name: "Filters" });
