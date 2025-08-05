@@ -8,7 +8,15 @@ import type { DataViewProps } from "../DataViewTypes";
 
 export type DataViewViewControlsProps = Pick<DataViewProps,
 	| "currentView"
-	| "onViewSave"
-	| "onViewSaveAs"
 	| "onViewList"
 >;
+
+export type DataViewViewButtonProps = Pick<DataViewProps,
+	| "currentView"
+	| "onViewList"
+>
+
+export type DataViewViewListWrapperProps = Pick<DataViewProps,
+	| "currentView"
+	| "onViewList"
+>
