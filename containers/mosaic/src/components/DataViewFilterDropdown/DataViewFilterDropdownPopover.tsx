@@ -33,13 +33,13 @@ export function DataViewFilterDropdownPopover({
 	return (
 		<div role="presentation">
 			<StyledBackdrop
-				open={isOpen || inTransit}
+				open={isOpen || Boolean(inTransit)}
 				onClick={onClose}
 				invisible
 			/>
 			<StyledPopper
-				anchorEl={anchorEl}
-				open={isOpen || inTransit}
+				anchorEl={anchorEl ?? inTransit}
+				open={isOpen || Boolean(inTransit)}
 				$width="auto"
 				placement="bottom-start"
 				onClick={handleContentClick}
@@ -50,7 +50,7 @@ export function DataViewFilterDropdownPopover({
 						in={isOpen}
 						{...growProps}
 					>
-						<StyledPopperPaper>
+						<StyledPopperPaper tabIndex={-1}>
 							<div data-testid={testIds.DATA_VIEW_FILTERS_DROPDOWN}>
 								{children}
 							</div>

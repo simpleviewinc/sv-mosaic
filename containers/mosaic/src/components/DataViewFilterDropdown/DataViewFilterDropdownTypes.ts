@@ -14,6 +14,6 @@ export type DataViewFilterDropdownPopoverProps = Pick<DataViewFilterDropdownProp
 	| "children"
 > & {
 	isOpen: boolean;
-	inTransit: boolean;
+	inTransit: HTMLElement;
 	growProps: Omit<GrowProps, "children">;
 }

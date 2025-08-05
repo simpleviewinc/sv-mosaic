@@ -8,7 +8,7 @@ import { DataViewFilterDropdownPopover } from "./DataViewFilterDropdownPopover";
 
 function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 	const isOpen = Boolean(props.anchorEl);
-	const [inTransit, setInTransit] = useState(false);
+	const [inTransit, setInTransit] = useState<HTMLElement | undefined>(undefined);
 
 	const growProps = useMemo<Omit<GrowProps, "children">>(() => ({
 		style: { transformOrigin: "0 0 0" },
@@ -16,9 +16,9 @@ function DataViewFilterDropdown(props: DataViewFilterDropdownProps) {
 			enter: 300,
 			exit: 200,
 		},
-		onEnter: () => setInTransit(true),
-		onExited: () => setInTransit(false),
-	}), []);
+		onEnter: () => setInTransit(props.anchorEl),
+		onExited: () => setInTransit(undefined),
+	}), [props.anchorEl]);
 
 	if (!isOpen && !inTransit) {
 		return null;

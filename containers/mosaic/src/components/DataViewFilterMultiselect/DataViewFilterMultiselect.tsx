@@ -92,12 +92,14 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 				label={props.label}
 				value={(
 					comparison === "exists" ? (
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>exists</Badge>
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>exists</span>
 					) : comparison === "not_exists" ? (
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>does not exist</Badge>
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>does not exist</span>
 					) : state.selected.length > 0 && (
 						<>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
+							{comparisonMap[comparison] && (
+								<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
+							)}
 							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{state.selected[0].label}</Badge>
 						</>
 					)

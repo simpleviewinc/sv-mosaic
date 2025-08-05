@@ -102,6 +102,7 @@ export default function DataViewFilterNumberDropdownContent({
 				sections={sections}
 				fullHeight={false}
 				spacing="compact"
+				autoFocus
 			/>
 			<DataViewFilterDropdownButtons
 				onApply={onApply}

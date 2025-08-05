@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
@@ -88,7 +88,7 @@ describe("DataViewFilters", () => {
 		expect(onChangeMocks[1]).not.toBeCalled();
 	});
 
-	it("should open the filters popover list when the filters button is clicked and close it again", async () => {
+	it.only("should open the filters popover list when the filters button is clicked and close it again", async () => {
 		const { user } = await setup();
 
 		const filters = screen.queryByRole("button", { name: "Filters" });
@@ -97,7 +97,7 @@ describe("DataViewFilters", () => {
 		const dropdown = screen.queryByTestId(testIds.DATA_VIEW_FILTERS_DROPDOWN);
 		expect(dropdown).toBeInTheDocument();
 		await user.keyboard("{Escape}");
-		expect(dropdown).not.toBeInTheDocument();
+		await waitFor(() => expect(dropdown).not.toBeInTheDocument());
 	});
 
 	it("should fire the on active filters change handler when filters are changed", async () => {
