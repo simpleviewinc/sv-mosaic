@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -46,7 +46,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|exists");
+		expect(button).toHaveTextContent("Filter Text:exists");
 	});
 
 	it("should use the default comparison it exists in the list of comparisons provided", async () => {
@@ -54,7 +54,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|exists");
+		expect(button).toHaveTextContent("Filter Text:exists");
 	});
 
 	it("should use first comparison in the list of comparisons if no default is provided", async () => {
@@ -62,7 +62,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|exists");
+		expect(button).toHaveTextContent("Filter Text:exists");
 	});
 
 	it("should display the filter popover when clicked and hide it again when escape is pressed", async () => {
@@ -75,7 +75,7 @@ describe(__dirname, () => {
 		const dropdown = screen.queryByTestId(testIds.DATA_VIEW_FILTERS_DROPDOWN);
 		expect(dropdown).toBeInTheDocument();
 		await user.keyboard("{Escape}");
-		expect(dropdown).not.toBeInTheDocument();
+		await waitFor(() => expect(dropdown).not.toBeInTheDocument());
 	});
 
 	it("should display the correct text if the exists comparison is used", async () => {
@@ -83,7 +83,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|exists");
+		expect(button).toHaveTextContent("Filter Text:exists");
 	});
 
 	it("should display the correct text if the not exists comparison is used", async () => {
@@ -91,7 +91,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|does not exist");
+		expect(button).toHaveTextContent("Filter Text:does not exist");
 	});
 
 	it("should display the correct text if there is no value, regardless of comparison", async () => {
@@ -99,7 +99,8 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toBeNull();
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toBeNull();
 	});
 
 	it("should display the correct text if the equals comparison is used and there is a value", async () => {
@@ -107,7 +108,8 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|is \"Query\"");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("is");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Query");
 	});
 
 	it("should display the correct text if the not equals comparison is used and there is a value", async () => {
@@ -115,7 +117,8 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|is not \"Query\"");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("is not");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Query");
 	});
 
 	it("should display the correct text if the contains comparison is used and there is a value", async () => {
@@ -123,7 +126,8 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|contains \"Query\"");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("contains");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Query");
 	});
 
 	it("should display the correct text if the not contains comparison is used and there is a value", async () => {
@@ -131,6 +135,7 @@ describe(__dirname, () => {
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Text" });
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Text|does not contain \"Query\"");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("does not contain");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Query");
 	});
 });
