@@ -1,8 +1,11 @@
 import React, { useMemo } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import type { DataViewTitleBarProps } from "./DataViewTitleBarTypes";
 import type { ButtonProps } from "@root/components/Button";
+import type { MenuItemProps } from "@root/components/MenuItem";
 
+import { useMosaicTranslation } from "@root/i18n";
 import testIds from "@root/utils/testIds";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../../ButtonRow";
@@ -25,18 +28,55 @@ function DataViewTitleBar({
 	onViewList,
 	title,
 }: DataViewTitleBarProps) {
-	const buttons: ButtonProps[] = useMemo(() => {
-		if (providedButtons === undefined) {
-			return [];
+	const { t } = useMosaicTranslation();
+
+	const viewMenuItems = useMemo<MenuItemProps[]>(() => {
+		const listItems: MenuItemProps[] = [];
+
+		if (onViewSave) {
+			listItems.push({
+				label: t("mosaic:DataView.overwrite_current_view"),
+				onClick: onViewSave,
+			});
 		}
 
-		return providedButtons.map((button) => {
+		if (onViewSaveAs) {
+			listItems.push({
+				label: t("mosaic:DataView.save_as_new_view"),
+				onClick: onViewSaveAs,
+			});
+		}
+
+		return listItems;
+	}, [onViewSave, onViewSaveAs, t]);
+
+	const buttons: ButtonProps[] = useMemo(() => {
+		const result: ButtonProps[] = [];
+
+		if (viewMenuItems) {
+			result.push({
+				variant: "contained",
+				intent: "secondary",
+				menuItems: viewMenuItems,
+				mIcon: ExpandMoreIcon,
+				iconPosition: "right",
+				label: t("mosaic:DataView.save_view"),
+			});
+		}
+
+		if (providedButtons === undefined) {
+			return result;
+		}
+
+		result.push(...providedButtons.map((button) => {
 			const { name, ...buttonArgs } = button;
 			buttonArgs.attrs = { "data-mosaic-id": `button_${name}` };
 			buttonArgs.disabled = buttonArgs.disabled === undefined ? disabled : buttonArgs.disabled;
 			return buttonArgs;
-		});
-	}, [providedButtons, disabled]);
+		}));
+
+		return result;
+	}, [viewMenuItems, providedButtons, t, disabled]);
 
 	const hasViewControls = currentView || onViewSave || onViewSaveAs || onViewList;
 
@@ -54,8 +94,6 @@ function DataViewTitleBar({
 					{hasViewControls && (
 						<DataViewViewControls
 							currentView={currentView}
-							onViewSave={onViewSave}
-							onViewSaveAs={onViewSaveAs}
 							onViewList={onViewList}
 						/>
 					)}

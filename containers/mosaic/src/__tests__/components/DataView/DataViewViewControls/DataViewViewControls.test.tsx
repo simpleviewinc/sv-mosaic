@@ -23,7 +23,7 @@ describe(__dirname, () => {
 	it("should render the data view view controls in read-only if a current view is provided", async () => {
 		await setup({ currentView: { value: "myView", label: "My View" } });
 
-		expect(screen.queryByText("DataView.view: My View")).toBeInTheDocument();
+		expect(screen.queryByText("My View")).toBeInTheDocument();
 	});
 
 	it("should render button showing the current view label if a current view and list handler is provided", async () => {
@@ -45,34 +45,6 @@ describe(__dirname, () => {
 
 		await setup({ onViewList: onViewListMock });
 
-		expect(screen.queryByRole("button", { name: "DataView.no_view_selected" })).toBeInTheDocument();
-	});
-
-	it("should render a menu button with an overwrite current view item if the view save handler is provided", async () => {
-		const onViewSaveMock = vi.fn();
-
-		const { user } = await setup({ onViewSave: onViewSaveMock });
-
-		const button = screen.queryByRole("button", { name: "DataView.save_view" });
-		expect(button).toBeInTheDocument();
-		await user.click(button);
-		const menuItem = screen.queryByRole("menuitem", { name: "DataView.overwrite_current_view" });
-		expect(menuItem).toBeInTheDocument();
-		await user.click(menuItem);
-		expect(onViewSaveMock).toHaveBeenCalled();
-	});
-
-	it("should render a menu button with a save new view item if the view save as handler is provided", async () => {
-		const onViewSaveAsMock = vi.fn();
-
-		const { user } = await setup({ onViewSaveAs: onViewSaveAsMock });
-
-		const button = screen.queryByRole("button", { name: "DataView.save_view" });
-		expect(button).toBeInTheDocument();
-		await user.click(button);
-		const menuItem = screen.queryByRole("menuitem", { name: "DataView.save_as_new_view" });
-		expect(menuItem).toBeInTheDocument();
-		await user.click(menuItem);
-		expect(onViewSaveAsMock).toHaveBeenCalled();
+		expect(screen.queryByRole("button", { name: "DataView.view: DataView.no_view_selected" })).toBeInTheDocument();
 	});
 });

@@ -84,4 +84,32 @@ describe(__dirname, () => {
 
 		expect(screen.queryByTestId(testIds.DATA_VIEW_FILTERS)).toBeInTheDocument();
 	});
+
+	it("should render a menu button with an overwrite current view item if the view save handler is provided", async () => {
+		const onViewSaveMock = vi.fn();
+
+		const { user } = await setup({ onViewSave: onViewSaveMock });
+
+		const button = screen.queryByRole("button", { name: "Save View" });
+		expect(button).toBeInTheDocument();
+		await user.click(button);
+		const menuItem = screen.queryByRole("menuitem", { name: "Overwrite Current View" });
+		expect(menuItem).toBeInTheDocument();
+		await user.click(menuItem);
+		expect(onViewSaveMock).toHaveBeenCalled();
+	});
+
+	it("should render a menu button with a save new view item if the view save as handler is provided", async () => {
+		const onViewSaveAsMock = vi.fn();
+
+		const { user } = await setup({ onViewSaveAs: onViewSaveAsMock });
+
+		const button = screen.queryByRole("button", { name: "Save View" });
+		expect(button).toBeInTheDocument();
+		await user.click(button);
+		const menuItem = screen.queryByRole("menuitem", { name: "Save as New View" });
+		expect(menuItem).toBeInTheDocument();
+		await user.click(menuItem);
+		expect(onViewSaveAsMock).toHaveBeenCalled();
+	});
 });
