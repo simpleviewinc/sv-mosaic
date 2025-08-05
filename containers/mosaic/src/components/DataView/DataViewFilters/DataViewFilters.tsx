@@ -1,12 +1,10 @@
 import * as React from "react";
 import { useState, useMemo } from "react";
-import styled from "styled-components";
 import pick from "lodash/pick";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import testIds from "@root/utils/testIds";
-import theme from "@root/theme";
 import { useMosaicTranslation } from "@root/i18n";
 
 import DataViewFilterDropdown from "../../DataViewFilterDropdown";
@@ -14,12 +12,7 @@ import { DataViewFilterMultiselectDropdownContent } from "@root/components/DataV
 import Button from "../../Button";
 import type { DataViewProps } from "../DataViewTypes";
 import type { DataViewFiltersProps } from "./DataViewFiltersTypes";
-
-const FiltersRow = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 16px;
-`;
+import { Row } from "@root/components/common";
 
 function DataViewFilters(props: DataViewFiltersProps) {
 	const { t } = useMosaicTranslation();
@@ -115,68 +108,58 @@ function DataViewFilters(props: DataViewFiltersProps) {
 			data-testid={testIds.DATA_VIEW_FILTERS}
 			className="filterRow"
 		>
-			{
-				props?.filters?.length > 0 && (
-					<FiltersRow data-testid={testIds.DATA_VIEW_FILTER_BAR}>
-						<Button
-							label={t("mosaic:DataView.filters")}
-							variant="contained"
-							intent="secondary"
-							size="small"
-							iconPosition="left"
-							mIcon={FilterListIcon}
-							mIconColor={theme.newColors.almostBlack["100"]}
-							onClick={onClick}
+			<Row $gap={[5]}>
+				<Row
+					$gap={[3]}
+					$wrap="wrap"
+					data-testid={testIds.DATA_VIEW_FILTER_BAR}
+				>
+					<Button
+						label={t("mosaic:DataView.filters")}
+						variant="contained"
+						intent="secondary"
+						size="small"
+						iconPosition="left"
+						mIcon={FilterListIcon}
+						onClick={onClick}
+					/>
+					<DataViewFilterDropdown
+						anchorEl={state.anchorEl}
+						onClose={onClose}
+						onEntered={onEntered}
+						onExited={onExited}
+					>
+						<DataViewFilterMultiselectDropdownContent
+							comparison=""
+							selected={optionsSelected}
+							getOptions={getOptions}
+							isOpen={state.dropdownOpen}
+							onApply={onActiveFiltersChange}
 						/>
-						<DataViewFilterDropdown
-							anchorEl={state.anchorEl}
-							onClose={onClose}
-							onEntered={onEntered}
-							onExited={onExited}
-						>
-							<DataViewFilterMultiselectDropdownContent
-								comparison=""
-								selected={optionsSelected}
-								getOptions={getOptions}
-								isOpen={state.dropdownOpen}
-								onApply={onActiveFiltersChange}
-							/>
-						</DataViewFilterDropdown>
-						{
-							active?.length > 0 && (
-								<>
-									{
-										active.map(filter => {
-											const Component = filter.component;
-											return (
-												<Component
-													key={filter.name}
-													label={filter.label}
-													args={filter.args || {}}
-													data={props.filter[filter.name] || {}}
-													onChange={value => onChange(value, filter)}
-												/>
-											);
-										})
-									}
-								</>
-							)
-						}
-						{
-							active?.length > 0 && (
-								<Button
-									label={t("mosaic:DataView.clear_filters")}
-									variant="text"
-									size="small"
-									intent="secondary"
-									mIcon={DeleteIcon}
-									onClick={onClearFilters}
-								/>
-							)
-						}
-					</FiltersRow>
-				)
-			}
+					</DataViewFilterDropdown>
+					{active?.length > 0 && active.map(({ component: Component, ...filter }) => (
+						<Component
+							key={filter.name}
+							label={filter.label}
+							args={filter.args || {}}
+							data={props.filter[filter.name] || {}}
+							onChange={value => onChange(value, filter)}
+						/>
+					))}
+				</Row>
+				{
+					active?.length > 0 && (
+						<Button
+							label={t("mosaic:DataView.clear_filters")}
+							variant="text"
+							size="small"
+							intent="secondary"
+							mIcon={DeleteIcon}
+							onClick={onClearFilters}
+						/>
+					)
+				}
+			</Row>
 		</div>
 	);
 }

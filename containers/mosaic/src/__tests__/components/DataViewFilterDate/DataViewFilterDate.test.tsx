@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React, { act } from "react";
 import userEvent from "@testing-library/user-event";
 
@@ -39,7 +39,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Date|11/23/2024");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toBeNull();
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("11/23/2024");
 	});
 
 	it("should render the correct text if the start and end dates provided are on different days", async () => {
@@ -48,7 +49,11 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Date|11/23/2024 - 11/24/2024");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("to");
+		const values = within(button).queryAllByTestId(testIds.DATA_VIEW_FILTER_VALUE);
+		expect(values).toHaveLength(2);
+		expect(values[0]).toHaveTextContent("11/23/2024");
+		expect(values[1]).toHaveTextContent("11/24/2024");
 	});
 
 	it("should render the correct text if a start date is provided but an end date is not", async () => {
@@ -57,7 +62,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Date|from 11/23/2024");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("from");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("11/23/2024");
 	});
 
 	it("should render the correct text if an end date is provided but a start date is not", async () => {
@@ -66,7 +72,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Date|to 11/24/2024");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toHaveTextContent("to");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("11/24/2024");
 	});
 
 	it("should render the correct text if an option is provided", async () => {
@@ -75,7 +82,8 @@ describe(__dirname, () => {
 		const button = screen.queryByRole("button", { name: "Filter: Filter Date" });
 
 		expect(button).toBeInTheDocument();
-		expect(button).toHaveTextContent("Filter Date|Today");
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_OPERATOR)).toBeNull();
+		expect(within(button).queryByTestId(testIds.DATA_VIEW_FILTER_VALUE)).toHaveTextContent("Today");
 	});
 
 	it("should only render the label if no data is provided", async () => {
@@ -106,6 +114,6 @@ describe(__dirname, () => {
 		const dropdown = screen.queryByTestId(testIds.DATA_VIEW_FILTERS_DROPDOWN);
 		expect(dropdown).toBeInTheDocument();
 		await user.keyboard("{Escape}");
-		expect(dropdown).not.toBeInTheDocument();
+		await waitFor(() => expect(dropdown).not.toBeInTheDocument());
 	});
 });

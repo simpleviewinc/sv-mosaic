@@ -2,6 +2,7 @@ import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { MenuItemProps } from "../MenuItem";
 import type { WebTarget } from "styled-components";
 import type { MenuProps } from "../Menu/MenuTypes";
+import type { CSSProperties } from "react";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 
@@ -65,6 +66,10 @@ export interface ButtonProps {
 	 * Do not apply rounded corners to the right side of the button
 	 */
 	bluntRight?: boolean;
+	/**
+	 * How to flex align the content (or label) of the button
+	 */
+	alignItems?: CSSProperties["alignItems"];
 }
 
 export interface ButtonPopoverContextProps {
