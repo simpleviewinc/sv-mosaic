@@ -5,6 +5,7 @@ import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownConte
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import type { DataViewFilterTextProps, FilterTextComparison } from "./DataViewFilterTextTypes";
 import Badge from "../Badge";
+import testIds from "@root/utils/testIds";
 
 const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Contains...", value : "contains" },
@@ -66,13 +67,13 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 				label={props.label}
 				value={(
 					comparison === "exists" ? (
-						"exists"
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>exists</span>
 					) : comparison === "not_exists" ? (
-						"does not exist"
+						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>does not exist</span>
 					) : value && (
 						<>
-							{comparisonMap[comparison]}
-							<Badge>{value}</Badge>
+							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
+							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{value}</Badge>
 						</>
 					)
 				)}
