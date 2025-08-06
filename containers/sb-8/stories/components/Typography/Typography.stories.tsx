@@ -1,7 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import type { Properties } from "csstype";
-import type { Theme } from "#mosaic/theme";
 import theme from "#mosaic/theme";
 import type { TypographyVariant } from "#mosaic/components/Typography";
 import Typography, { BodyText, Text, DisplayText } from "#mosaic/components/Typography";
@@ -33,7 +32,7 @@ const whiteSpaceOptions: Properties["whiteSpace"][] = [
 	"revert-layer",
 ];
 
-const sizes: (keyof Theme["fontSize"][keyof Theme["fontSize"]])[] = [
+const sizes = [
 	"2xl",
 	"xl",
 	"lg",
