@@ -8,12 +8,12 @@ import AddIcon from "@mui/icons-material/Add";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 
 import { useToggle } from "#mosaic/utils/toggle";
 import { toggleMap, toggleMapInverse, toggleOptions, toggleOptionsInverse, useStretchedWidthStory } from "@utils";
 import { ButtonHeading, ButtonGrid, ButtonRow, ButtonCell } from "./Button.stories.styled";
 import { BodyText } from "@simpleview/sv-mosaic/components/Typography";
+import icons from "./icons";
 
 export default {
 	title: "Components/Button",
@@ -45,15 +45,14 @@ export const Playground = ({
 	disabled,
 	fullWidth,
 	href,
+	icon,
 	iconColor,
 	iconPosition,
 	label,
-	labelText,
 	menuItems,
 	popover,
 	popoverEvent,
 	show,
-	showIcon,
 	size,
 	tooltip,
 }: typeof Playground.args): ReactElement => {
@@ -76,14 +75,14 @@ export const Playground = ({
 
 	return (
 		<Button
-			label={label === "String" ? labelText : <FormatListBulletedOutlinedIcon />}
+			label={label}
 			variant={buttonVariant}
 			intent={buttonIntent}
 			fullWidth={fullWidth}
 			disabled={toggleMapInverse[disabled]}
 			tooltip={tooltipType}
 			size={size}
-			mIcon={showIcon ? AddIcon : undefined}
+			mIcon={icons[icon]}
 			mIconColor={iconColor}
 			href={href ? "https://www.google.com/" : null}
 			iconPosition={iconPosition}
@@ -100,15 +99,14 @@ Playground.args = {
 	disabled: "Undefined",
 	fullWidth: false,
 	href: false,
+	icon: "Undefined",
 	iconColor: "",
 	iconPosition: "left",
-	label: "String",
-	labelText: "Text",
+	label: "Browse Mosaic",
 	menuItems: false,
 	popover: false,
 	popoverEvent: "onClick",
 	show: "Undefined",
-	showIcon: false,
 	size: "medium",
 	tooltip: null,
 };
@@ -135,6 +133,11 @@ Playground.argTypes = {
 	href: {
 		name: "URL (href)",
 	},
+	icon: {
+		name: "Icon",
+		options: ["Undefined", ...Object.keys(icons)],
+		control: { type: "select" },
+	},
 	iconColor: {
 		options: ["black", "blue", "lightBlue", "red", "yellow", "teal", "gray", "white"],
 		control: { type: "select" },
@@ -146,11 +149,6 @@ Playground.argTypes = {
 		name: "Icon Position",
 	},
 	label: {
-		options: ["String", "JSX"],
-		control: { type: "select" },
-		name: "Label",
-	},
-	labelText: {
 		name: "Label Text",
 	},
 	menuItems: {
@@ -168,9 +166,6 @@ Playground.argTypes = {
 		options: toggleOptions,
 		control: { type: "select" },
 		name: "Show",
-	},
-	showIcon: {
-		name: "Show Icon",
 	},
 	size: {
 		options: ["small", "medium"],
