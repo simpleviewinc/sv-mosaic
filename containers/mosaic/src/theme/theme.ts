@@ -305,6 +305,12 @@ const fontSize = {
 		/** 10px */
 		xs: "0.7142857143rem",
 	},
+	icon: {
+		sm: "18px",
+		md: "24px",
+		lg: "36px",
+		xl: "48px",
+	},
 };
 
 const line = {

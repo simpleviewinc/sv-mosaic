@@ -3,7 +3,7 @@ import type { MosaicObject } from "../../types";
 import type { Properties } from "csstype";
 import type { Theme } from "@root/theme/theme";
 
-export type TypographyVariant = keyof Theme["fontSize"];
+export type TypographyVariant = Exclude<keyof Theme["fontSize"], "icon">;
 
 export type TypographyTag = string;
 

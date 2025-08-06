@@ -18,7 +18,7 @@ export class ButtonPage extends BasePage {
 		this.button = page.locator("button");
 		this.iconButton = page.locator("button", { has: page.getByTestId("icon-button-test") });
 		this.listIconLocator = page.locator("[data-testid='FormatListBulletedOutlinedIcon']");
-		this.hrefLocator = page.getByRole("link", { name: "Text" });
+		this.hrefLocator = page.getByRole("link", { name: "Browse Mosaic" });
 	}
 
 	async getKnobForVariant(variant: "icon" | "outlined" | "contained" | "text"): Promise<string> {
