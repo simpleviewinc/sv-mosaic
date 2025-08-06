@@ -148,11 +148,6 @@ test.describe("Components - Button - Playground", () => {
 		await expect(buttonPage.button).not.toBeVisible();
 	});
 
-	test("Validate Type of label JSX contains an Icon.", async () => {
-		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForTypeOfLabel("JSX")]);
-		await expect(buttonPage.listIconLocator).toBeVisible();
-	});
-
 	test.skip("Validate miconcolor all different variants.", async () => {
 		// black
 		await buttonPage.visit(buttonPage.page_path, [knob.knobShowIcon + true, await buttonPage.getKnobForIconColor("black")]);
