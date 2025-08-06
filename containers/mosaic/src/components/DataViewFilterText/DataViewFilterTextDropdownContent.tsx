@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DataViewFilterDropdownButtons from "@root/components/DataViewFilterDropdownButtons";
@@ -18,7 +19,8 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 
 	const { t } = useMosaicTranslation();
 
-	const activeComparison = props.comparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
+	const hasComparisons = props.comparisons?.length > 0;
+	const activeComparison = hasComparisons ? props.comparisons.find(val => val.value === state.comparison) : undefined;
 
 	const onApply = function() {
 		const cleanValue = state.value.trim();
@@ -65,8 +67,8 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 
 	const disabled = existsComparisons.includes(state.comparison);
 
-	let comparisonButton;
-	if (props.comparisons) {
+	let comparisonButton: ReactNode;
+	if (hasComparisons) {
 		const menuItems = props.comparisons.map(comparison => {
 			return {
 				label : comparison.label,
@@ -117,7 +119,7 @@ function DataViewFilterTextDropdownContent(props: DataViewFilterTextDropdownCont
 						onChange={onInputChange}
 						onKeyPress={onKeyPress}
 						disabled={disabled}
-						$bluntLeft
+						$bluntLeft={hasComparisons}
 					/>
 				)}
 			</div>
