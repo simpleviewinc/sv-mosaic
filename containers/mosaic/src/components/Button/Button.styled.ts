@@ -295,8 +295,12 @@ export const StyledButtonIcon = styled.div<{
 	&& {
 		margin: -2px;
 
-		${({ $inherit, $size = "sm" }) => `
-			font-size: ${$inherit ? "1em" : theme.fontSize.icon[$size]};
+		${({ $inherit, $size = "sm" }) => $inherit ? `
+			font-size: 1em;
+			line-height: inherit;
+		` : `
+			font-size: ${theme.fontSize.icon[$size]};
+			line-height: ${theme.fontSize.icon[$size]};
 		`}
 
 		${({ $isAdornment }) => !$isAdornment ? "" : `
