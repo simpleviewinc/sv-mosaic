@@ -40,7 +40,7 @@ export function ToggleSwitch({
 				onChange={onChange}
 				ref={ref}
 				disabled={disabled}
-				checked={checked}
+				checked={Boolean(checked)}
 				{...inputProps}
 			/>
 			<StyledSwitchTrack $checked={checked} $disabled={disabled} />
