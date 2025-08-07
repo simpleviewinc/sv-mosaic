@@ -4,7 +4,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import testIds from "@root/utils/testIds";
 
 import Tooltip, { useTooltip } from "../Tooltip";
-import { FilterButton, FilterExpand, FilterValue } from "./DataViewPrimaryFilter.styled";
+import { FilterButton, FilterExpand, FilterValue, FilterValueBadge } from "./DataViewPrimaryFilter.styled";
 import type { DataViewPrimaryFilterProps } from "./DataViewPrimaryFilterTypes";
 import { Row } from "../common";
 import Badge from "../Badge";
@@ -13,10 +13,9 @@ function DataViewPrimaryFilter({
 	label,
 	onClick,
 	multiselect,
-	value,
+	parts,
 }: DataViewPrimaryFilterProps) {
 	const { anchorProps, tooltipProps } = useTooltip();
-	const hasValue = Boolean(value);
 
 	return (
 		<FilterButton
@@ -35,9 +34,23 @@ function DataViewPrimaryFilter({
 					>
 						<span>
 							{label}
-							{hasValue && ":"}
+							{parts !== undefined && ":"}
 						</span>
-						{hasValue && <FilterValue>{value}</FilterValue>}
+						{parts !== undefined && (
+							<FilterValue>
+								{parts.map(({ type, label }, index) => type === "operator" ? (
+									<span key={index} data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{label}</span>
+								) : (
+									<FilterValueBadge
+										key={index}
+										attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}
+										maxLines={1}
+									>
+										{label}
+									</FilterValueBadge>
+								))}
+							</FilterValue>
+						)}
 						{multiselect?.length > 1 && (
 							<>
 								<Badge
