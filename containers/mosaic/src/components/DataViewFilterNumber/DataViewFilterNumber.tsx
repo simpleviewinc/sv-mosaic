@@ -1,14 +1,13 @@
 import type { ReactElement } from "react";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import type { DataViewFilterNumberProps } from "./DataViewFilterNumberTypes";
 
+import type { DataViewPrimaryFilterProps } from "../DataViewPrimaryFilter";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import DataViewFilterNumberDropdownContent from "./DataViewFilterNumberDropdownContent";
-import Badge from "../Badge";
-import testIds from "@root/utils/testIds";
 
 export default function DataViewFilterNumber({
 	args,
@@ -27,30 +26,36 @@ export default function DataViewFilterNumber({
 		setAnchorEl(null);
 	};
 
+	const parts = useMemo<DataViewPrimaryFilterProps["parts"]>(() => {
+		if (min !== undefined && max !== undefined) {
+			return [
+				{ type: "operator", label: "between" },
+				{ type: "term", label: min },
+				{ type: "operator", label: "and" },
+				{ type: "term", label: max },
+			];
+		}
+
+		if (min !== undefined) {
+			return [
+				{ type: "term", label: min },
+				{ type: "operator", label: "or greater" },
+			];
+		}
+
+		if (max !== undefined) {
+			return [
+				{ type: "term", label: max },
+				{ type: "operator", label: "or less" },
+			];
+		}
+	}, [max, min]);
+
 	return (
 		<>
 			<DataViewPrimaryFilter
 				label={label}
-				value={(
-					min !== undefined && max !== undefined ? (
-						<>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>between</span>
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{min}</Badge>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>and</span>
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{max}</Badge>
-						</>
-					) : min !== undefined ? (
-						<>
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{min}</Badge>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>or greater</span>
-						</>
-					) : max !== undefined && (
-						<>
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{max}</Badge>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>or less</span>
-						</>
-					)
-				)}
+				parts={parts}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

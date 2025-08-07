@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from "react";
 
+import type { DataViewPrimaryFilterProps } from "../DataViewPrimaryFilter";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterTextDropdownContent from "./DataViewFilterTextDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import type { DataViewFilterTextProps, FilterTextComparison } from "./DataViewFilterTextTypes";
-import Badge from "../Badge";
-import testIds from "@root/utils/testIds";
 
 const validComparisons: { label: string; value: FilterTextComparison }[] = [
 	{ label : "Contains...", value : "contains" },
@@ -61,22 +60,28 @@ function DataViewFilterText(props: DataViewFilterTextProps) {
 	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 
+	const parts = useMemo<DataViewPrimaryFilterProps["parts"]>(() => {
+		if (comparison === "exists") {
+			return [{ type: "operator", label: "exists" }];
+		}
+
+		if (comparison === "not_exists") {
+			return [{ type: "operator", label: "does not exist" }];
+		}
+
+		if (value) {
+			return [
+				{ type: "operator", label: comparisonMap[comparison] },
+				{ type: "term", label: value },
+			];
+		}
+	}, [comparison, value]);
+
 	return (
 		<span>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={(
-					comparison === "exists" ? (
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>exists</span>
-					) : comparison === "not_exists" ? (
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>does not exist</span>
-					) : value && (
-						<>
-							<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{value}</Badge>
-						</>
-					)
-				)}
+				parts={parts}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

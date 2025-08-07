@@ -1,18 +1,17 @@
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement } from "react";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 import format from "date-fns/format";
 import isSameDay from "date-fns/isSameDay";
 
 import type { DataViewFilterDateProps } from "./DataViewFilterDateTypes";
 
+import type { DataViewPrimaryFilterProps } from "../DataViewPrimaryFilter";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterDateDropdownContent from "./DataViewFilterDateDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
 import { DATE_FORMAT_SHORT } from "@root/constants";
-import testIds from "@root/utils/testIds";
-import Badge from "../Badge";
 
 const StyledWrapper = styled.span``;
 
@@ -27,9 +26,11 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		setAnchorEl(null);
 	};
 
-	let valueString: ReactNode | undefined = undefined;
+	const parts = useMemo<DataViewPrimaryFilterProps["parts"]>(() => {
+		if (!props.data) {
+			return;
+		}
 
-	if (props.data)
 		if ("rangeStart" in props.data || "rangeEnd" in props.data) {
 			const hasStart = props.data.rangeStart !== undefined;
 			const hasEnd = props.data.rangeEnd !== undefined;
@@ -37,43 +38,36 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 			const endFormat = hasEnd ? format(props.data.rangeEnd, DATE_FORMAT_SHORT) : undefined;
 
 			if (isSameDay(props.data.rangeStart, props.data.rangeEnd)) {
-				valueString = <Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>;
+				return [{ type: "term", label: startFormat }];
 			} else if (hasStart && hasEnd) {
-				valueString = (
-					<>
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>to</span>
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{endFormat}</Badge>
-					</>
-				);
+				return [
+					{ type: "term", label: startFormat },
+					{ type: "operator", label: "to" },
+					{ type: "term", label: endFormat },
+				];
 			} else if (hasStart) {
-				valueString = (
-					<>
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>from</span>
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{startFormat}</Badge>
-					</>
-				);
+				return [
+					{ type: "operator", label: "from" },
+					{ type: "term", label: startFormat },
+				];
 			} else {
-				valueString = (
-					<>
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>to</span>
-						<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{endFormat}</Badge>
-					</>
-				);
+				return [
+					{ type: "operator", label: "to" },
+					{ type: "term", label: endFormat },
+				];
 			}
 		} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {
 			const selectedOption = props.args.options.find(({ value }) => "option" in props.data && value === props.data.option);
 
-			if (selectedOption) {
-				valueString = <Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{selectedOption.label}</Badge>;
-			}
+			return [{ type: "term", label: selectedOption.label }];
 		}
+	}, [props.args.options, props.data]);
 
 	return (
 		<StyledWrapper>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={valueString}
+				parts={parts}
 				onClick={onClick}
 			/>
 			<DataViewFilterDropdown

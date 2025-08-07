@@ -7,7 +7,6 @@ import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 
 import type { DataViewFilterSingleSelectProps, DataViewFilterSingleSelectState } from "./DataViewFilterSingleSelectTypes";
 import Menu from "../Menu";
-import Badge from "../Badge";
 
 const StyledWrapper = styled.span``;
 
@@ -66,7 +65,7 @@ export default function DataViewFilterSingleSelect(props: DataViewFilterSingleSe
 		<StyledWrapper>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={(state.selected && <Badge>{state.selected.label}</Badge>)}
+				parts={state.selected && [{ type: "term", label: state.selected.label }]}
 				onClick={onClick}
 			/>
 			<Menu

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import type { DataViewFilterMultiselectProps, MultiSelectComparison } from "./DataViewFilterMultiselectTypes";
 
+import type { DataViewPrimaryFilterProps } from "../DataViewPrimaryFilter";
 import DataViewPrimaryFilter from "../DataViewPrimaryFilter";
 import DataViewFilterMultiselectDropdownContent from "./DataViewFilterMultiselectDropdownContent";
 import DataViewFilterDropdown from "../DataViewFilterDropdown";
-import Badge from "../Badge";
-import testIds from "@root/utils/testIds";
 
 const validComparisons: { label: string; value: MultiSelectComparison }[] = [
 	{ label : "In", value : "in" },
@@ -86,24 +85,31 @@ function DataViewFilterMultiselect(props: DataViewFilterMultiselectProps) {
 	// filter the valid comparisons based on what the developer is allowing
 	const activeComparisons = props.args && props.args.comparisons ? validComparisons.filter(val => props.args.comparisons.includes(val.value)) : undefined;
 
+	const parts = useMemo<DataViewPrimaryFilterProps["parts"]>(() => {
+		if (comparison === "exists") {
+			return [{ type: "operator", label: "exists" }];
+		}
+
+		if (comparison === "not_exists") {
+			return [{ type: "operator", label: "does not exist" }];
+		}
+
+		if (state.selected.length > 0) {
+			const result: DataViewPrimaryFilterProps["parts"] = [{ type: "term", label: state.selected[0].label }];
+
+			if (comparisonMap[comparison]) {
+				result.unshift({ type: "operator", label: comparisonMap[comparison] });
+			}
+
+			return result;
+		}
+	}, [comparison, state.selected]);
+
 	return (
 		<span>
 			<DataViewPrimaryFilter
 				label={props.label}
-				value={(
-					comparison === "exists" ? (
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>exists</span>
-					) : comparison === "not_exists" ? (
-						<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>does not exist</span>
-					) : state.selected.length > 0 && (
-						<>
-							{comparisonMap[comparison] && (
-								<span data-testid={testIds.DATA_VIEW_FILTER_OPERATOR}>{comparisonMap[comparison]}</span>
-							)}
-							<Badge attrs={{ "data-testid": testIds.DATA_VIEW_FILTER_VALUE }}>{state.selected[0].label}</Badge>
-						</>
-					)
-				)}
+				parts={parts}
 				onClick={onClick}
 				multiselect={state?.selected}
 			/>
