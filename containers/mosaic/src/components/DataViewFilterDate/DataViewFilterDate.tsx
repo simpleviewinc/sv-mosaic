@@ -59,7 +59,9 @@ export default function DataViewFilterDate(props: DataViewFilterDateProps): Reac
 		} else if ("option" in props.data && props.data.option !== undefined && props.args.options !== undefined) {
 			const selectedOption = props.args.options.find(({ value }) => "option" in props.data && value === props.data.option);
 
-			return [{ type: "term", label: selectedOption.label }];
+			if (selectedOption) {
+				return [{ type: "term", label: selectedOption.label }];
+			}
 		}
 	}, [props.args.options, props.data]);
 
