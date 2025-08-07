@@ -31,7 +31,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render the value alongside the label if provided", async () => {
-		await setup({ value: "My Query" });
+		await setup({ parts: [{ type: "term", label: "My Query" }] });
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Primary" });
 		expect(button).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe(__dirname, () => {
 	});
 
 	it("should render additional multiselect option count indicator if there is more than one option selected", async () => {
-		await setup({ value: "Option 1", multiselect: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }] });
+		await setup({ parts: [{ type: "term", label: "Option 1" }], multiselect: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }] });
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Primary" });
 		expect(button).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe(__dirname, () => {
 	});
 
 	it("should list the additional multiselect options in a tooltip when the indicator is hovered", async () => {
-		const { user } = await setup({ value: "Option 1", multiselect: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }, { value: "option3", label: "Option 3" }] });
+		const { user } = await setup({ parts: [{ type: "term", label: "Option 1" }], multiselect: [{ value: "option1", label: "Option 1" }, { value: "option2", label: "Option 2" }, { value: "option3", label: "Option 3" }] });
 
 		const button = screen.queryByRole("button", { name: "Filter: Filter Primary" });
 		expect(button).toBeInTheDocument();
