@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../Button";
 import theme from "@root/theme";
 import { Row } from "../common";
+import Badge from "../Badge";
 
 export const FilterButton = styled(Button)`
 	&& {
@@ -24,6 +25,12 @@ export const FilterButton = styled(Button)`
 export const FilterValue = styled(Row).attrs({ $align: "center", $gap: [1] })`
 	font-weight: ${theme.weight.regular};
 	color: ${theme.color.gray[800]};
+`;
+
+export const FilterValueBadge = styled(Badge)`
+	max-width: 187px;
+	display: -webkit-box;
+	text-overflow: ellipsis;
 `;
 
 export const FilterExpand = styled.div`
