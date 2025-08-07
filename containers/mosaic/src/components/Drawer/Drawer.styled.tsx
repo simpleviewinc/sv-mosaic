@@ -10,8 +10,6 @@ export const StyledDrawerContent = styled.div`
 `;
 
 export const MUIDrawerStyled = styled(MUIDrawer)<{ $anchorStyle: { currentStyle: AnchorStyle; previousStyle: AnchorStyle }; $display?: boolean }>`
-	z-index: 1100;
-
 	${({ $anchorStyle, $display }) => $anchorStyle && `
 		.MuiDrawer-paper {
 			background: white;
