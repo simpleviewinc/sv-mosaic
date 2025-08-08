@@ -27,24 +27,31 @@ export const Playground = ({
 	forceInstructionTooltip,
 	helperText,
 	optionsType,
-	getOptionsLimit,
 	createNewOptionsKnob,
 	selectLimit,
+	itemsPerLoad,
+	totalAvailableOptions,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const [options, setOptions] = React.useState<MosaicLabelValue[]>(mockOptions);
 
-	const categoriesApi = React.useRef(new JSONDB(categories));
-	const categoriesHelper = React.useRef(new MultiSelectHelper({
-		api: categoriesApi.current,
-		labelColumn: "tag",
-		valueColumn: "id",
-		sortColumn: "sort_tag",
-	}));
+	const { categoriesApi, categoriesHelper } = useMemo(() => {
+		const categoriesApi = new JSONDB(
+			totalAvailableOptions > -1 ? categories.slice(0, totalAvailableOptions) : categories,
+		);
+		const categoriesHelper = new MultiSelectHelper({
+			api: categoriesApi,
+			labelColumn: "tag",
+			valueColumn: "id",
+			sortColumn: "sort_tag",
+		});
 
-	const createNewOption = async (newOptionLabel) => {
+		return { categoriesApi, categoriesHelper };
+	}, [totalAvailableOptions]);
+
+	const createNewOption = React.useCallback(async (newOptionLabel) => {
 		const value = nanoid();
 		const newOption = {
 			_id: value,
@@ -58,14 +65,14 @@ export const Playground = ({
 		//Insert to db
 		setOptions((options) => [...options, { label: newOption.tag, value: newOption.id }]);
 
-		const data = await categoriesApi.current.getData();
+		const data = await categoriesApi.getData();
 
 		const newData = [...data, newOption];
 
-		await categoriesApi.current.setData(newData);
+		await categoriesApi.setData(newData);
 
 		return { label: newOption.tag, value: newOption.id };
-	};
+	}, [categoriesApi]);
 
 	const fields = useMemo(
 		() : FieldDef[] =>
@@ -84,28 +91,15 @@ export const Playground = ({
 						...(optionsType === "Synchronous" ? {
 							options,
 						} : {
-							getOptions: categoriesHelper.current.getOptions.bind(categoriesHelper.current),
-							getOptionsLimit,
+							getOptions: categoriesHelper.getOptions.bind(categoriesHelper),
+							getOptionsLimit: itemsPerLoad,
 						}),
 						createNewOption: createNewOptionsKnob ? createNewOption : undefined,
 						selectLimit,
 					},
 				},
 			],
-		[
-			label,
-			hideLabel,
-			required,
-			disabled,
-			helperText,
-			instructionText,
-			forceInstructionTooltip,
-			getOptionsLimit,
-			options,
-			optionsType,
-			createNewOptionsKnob,
-			selectLimit,
-		],
+		[label, hideLabel, required, disabled, helperText, instructionText, forceInstructionTooltip, optionsType, options, categoriesHelper, itemsPerLoad, createNewOptionsKnob, createNewOption, selectLimit],
 	);
 
 	return (
@@ -126,9 +120,10 @@ Playground.args = {
 		prepopData: { advancedSelection: mockOptions.slice(0, 3) },
 	}),
 	optionsType: "Synchronous",
-	getOptionsLimit: 5,
 	createNewOptionsKnob: true,
 	selectLimit: -1,
+	itemsPerLoad: 5,
+	totalAvailableOptions: -1,
 };
 
 Playground.argTypes = {
@@ -138,14 +133,17 @@ Playground.argTypes = {
 		options: ["Synchronous", "Asynchronous"],
 		control: { type: "select" },
 	},
-	getOptionsLimit: {
-		name: "Get Options Limit",
-	},
 	createNewOptionsKnob: {
 		name: "Create New Option",
 	},
 	selectLimit: {
 		name: "Select Limit",
+	},
+	itemsPerLoad: {
+		name: "Items Per Load",
+	},
+	totalAvailableOptions: {
+		name: "Total Available Options",
 	},
 };
 
