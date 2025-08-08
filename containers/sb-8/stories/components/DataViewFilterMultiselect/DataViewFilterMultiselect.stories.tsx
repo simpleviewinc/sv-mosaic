@@ -11,20 +11,28 @@ export default {
 	title : "Components/DataViewFilterMultiselect",
 };
 
-const categoriesApi = new JSONDB(categories);
-
-const categoriesHelper = new MultiSelectHelper({
-	api: categoriesApi,
-	labelColumn: "tag",
-	valueColumn: "id",
-	sortColumn: "sort_tag",
-});
-
-export const Playground = ({ showComparisons, limit }: typeof Playground.args): ReactElement => {
+export const Playground = ({
+	showComparisons,
+	itemsPerLoad,
+	totalAvailableOptions,
+}: typeof Playground.args): ReactElement => {
 	const [state, setState] = useState<DataViewFilterMultiselectProps["data"]>({
 		comparison: "in",
 		value: [],
 	});
+
+	const categoriesHelper = React.useMemo(() => {
+		const categoriesApi = new JSONDB(
+			totalAvailableOptions > -1 ? categories.slice(0, totalAvailableOptions) : categories,
+		);
+
+		return new MultiSelectHelper({
+			api: categoriesApi,
+			labelColumn: "tag",
+			valueColumn: "id",
+			sortColumn: "sort_tag",
+		});
+	}, [totalAvailableOptions]);
 
 	const onChange = function(data) {
 		if (data === undefined) return setState({
@@ -52,7 +60,7 @@ export const Playground = ({ showComparisons, limit }: typeof Playground.args): 
 					},
 					getSelected: categoriesHelper.getSelected.bind(categoriesHelper),
 					comparisons: showComparisons && ["in", "not_in", "all", "exists", "not_exists"],
-					limit,
+					limit: itemsPerLoad,
 				}}
 				data={state}
 				onChange={value => onChange(value)}
@@ -63,10 +71,33 @@ export const Playground = ({ showComparisons, limit }: typeof Playground.args): 
 
 Playground.args = {
 	showComparisons: false,
-	limit: 25,
+	itemsPerLoad: 25,
+	totalAvailableOptions: -1,
+};
+
+Playground.argTypes = {
+	showComparisons: {
+		name: "Show Comparisons",
+	},
+	itemsPerLoad: {
+		name: "Items Per Load",
+	},
+	totalAvailableOptions: {
+		name: "Total Available Options",
+	},
 };
 
 export const KitchenSink = (): ReactElement => {
+	const categoriesHelper = React.useMemo(() => {
+		const categoriesApi = new JSONDB(categories);
+
+		return new MultiSelectHelper({
+			api: categoriesApi,
+			labelColumn: "tag",
+			valueColumn: "id",
+			sortColumn: "sort_tag",
+		});
+	}, []);
 
 	const [state, setState] = useState<DataViewFilterMultiselectProps["data"]>({
 		comparison: "in",
