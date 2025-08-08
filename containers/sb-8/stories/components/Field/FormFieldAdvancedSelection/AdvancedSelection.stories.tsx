@@ -30,13 +30,16 @@ export const Playground = ({
 	getOptionsLimit,
 	createNewOptionsKnob,
 	selectLimit,
+	totalAvailableOptions,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const [options, setOptions] = React.useState<MosaicLabelValue[]>(mockOptions);
 
-	const categoriesApi = React.useRef(new JSONDB(categories));
+	const categoriesApi = React.useRef(new JSONDB(
+		totalAvailableOptions > -1 ? categories.slice(0, totalAvailableOptions) : categories,
+	));
 	const categoriesHelper = React.useRef(new MultiSelectHelper({
 		api: categoriesApi.current,
 		labelColumn: "tag",
@@ -129,6 +132,7 @@ Playground.args = {
 	getOptionsLimit: 5,
 	createNewOptionsKnob: true,
 	selectLimit: -1,
+	totalAvailableOptions: -1,
 };
 
 Playground.argTypes = {
@@ -146,6 +150,9 @@ Playground.argTypes = {
 	},
 	selectLimit: {
 		name: "Select Limit",
+	},
+	totalAvailableOptions: {
+		name: "Total Available Options",
 	},
 };
 
