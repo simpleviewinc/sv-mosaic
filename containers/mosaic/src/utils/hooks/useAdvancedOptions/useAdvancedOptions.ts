@@ -119,12 +119,18 @@ function useAdvancedOptions({
 		fetchOptions({ limit });
 	}, [fetchOptions, limit]);
 
-	const loadMore = () => fetchOptions({
-		limit,
-		skip: state.skip + limit,
-		keyword: state.keyword,
-		append: true,
-	});
+	const loadMore = useMemo(() => {
+		if (!state.hasMore) {
+			return;
+		}
+
+		return () => fetchOptions({
+			limit,
+			skip: state.skip + limit,
+			keyword: state.keyword,
+			append: true,
+		});
+	}, [fetchOptions, limit, state.hasMore, state.keyword, state.skip]);
 
 	const debouncedSetKeyword = (keyword: string) => {
 		setState((state) => ({ ...state, hasMore: false }));
