@@ -1,5 +1,33 @@
 # sv-mosaic changelog
 
+### 44.4.0 - 08/19/2025
+
+* `DataView`
+
+  * [MOS-1636](https://simpleviewtools.atlassian.net/browse/MOS-1636 "https://simpleviewtools.atlassian.net/browse/MOS-1636") **Filter Dropdown**
+    * (Badge) Add support for additional attributes that can be passed down to the underlying `Typography` component
+    * (Button) Add classes to `Button` sub-components for more control.
+    * (DataView) Rewrites the filter popover component due to lack of support for `Popover` fine tuning in the version of **MUII** we're currently using.
+    * (DataView) Improve DataView filters with new drop down styles that align with the Apex design system, and refactor styles for better consistency.
+  * [MOS-1637](https://simpleviewtools.atlassian.net/browse/MOS-1637 "https://simpleviewtools.atlassian.net/browse/MOS-1637") **Simple Dropdown**
+    * (DataView) Updates list view button to align with Apex design system.
+    * Updates units to reflect minor changes in DOM structure.
+    * (DataView) Moves save view button to primary buttons row to align with Apex design system.
+    * (DataView) Updates units to reflect save view button location change.
+* `FormFieldAdvancedSelection`
+
+  * [MOS-1701](https://simpleviewtools.atlassian.net/browse/MOS-1701 "https://simpleviewtools.atlassian.net/browse/MOS-1701") **Load more button remains visible after the list is exhausted**
+    * (AdvancedSelection) Prevent load more from continuing to appear after list of options has been exhausted.
+* `SummaryPageTopComponent`
+
+  * [MOS-1688](https://simpleviewtools.atlassian.net/browse/MOS-1688 "https://simpleviewtools.atlassian.net/browse/MOS-1688") **Extraneous TopSummary element**
+    * (TopSummary) Don't render extraneous element if there are no description items to display.
+* Housekeeping
+
+  * [MOS-1698](https://simpleviewtools.atlassian.net/browse/MOS-1698 "https://simpleviewtools.atlassian.net/browse/MOS-1698") **Fixes for 44.2.0**
+    * (Drawer) Removes a redundant z-index style which was causing conflicts with Apex drawer system.
+    * (Toggle) Pass down the checked property to the underlying HTML checkbox input.
+
 ### 44.3.0 - 08/05/2025
 
 * `Chip`
