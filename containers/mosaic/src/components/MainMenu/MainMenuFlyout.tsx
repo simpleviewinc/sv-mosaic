@@ -7,6 +7,7 @@ import FocusTrap from "@mui/material/Unstable_TrapFocus";
 import Slide from "@mui/material/Slide";
 import type { MainMenuItemDef, MainMenuPop } from "./MainMenuTypes";
 import { useMainMenu } from "./MainMenuContext";
+import testIds from "@root/utils/testIds";
 
 interface MainMenuFlyoutProps {
 	showBack: boolean;
@@ -28,7 +29,11 @@ export function MainMenuFlyout({
 
 	return (
 		<FocusTrap open>
-			<StyledMainMenuFlyout ref={container} tabIndex={-1}>
+			<StyledMainMenuFlyout
+				ref={container}
+				tabIndex={-1}
+				data-testid={testIds.MAIN_MENU_FLYOUT}
+			>
 				<Slide in direction="right" container={container.current}>
 					<StyledMainMenuPanel>
 						<StyledGroupHeader>
@@ -38,9 +43,10 @@ export function MainMenuFlyout({
 									mIcon={ChevronLeft}
 									size="small"
 									onClick={pop}
+									tooltip="Back"
 								/>
 							)}
-							<StyledLabel>
+							<StyledLabel data-testid={testIds.MAIN_MENU_FLYOUT_TITLE}>
 								{title}
 							</StyledLabel>
 							<StyledPanelClose
@@ -48,6 +54,7 @@ export function MainMenuFlyout({
 								mIcon={Close}
 								size="small"
 								onClick={close}
+								tooltip="Close"
 							/>
 						</StyledGroupHeader>
 						<MainMenuItems
