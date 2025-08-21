@@ -12,9 +12,14 @@ import ContactsIcon from "@mui/icons-material/Contacts";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DATE_FORMAT_FULL } from "#mosaic/constants";
+import { Text } from "@simpleview/sv-mosaic/components/Typography";
+import { Column } from "@simpleview/sv-mosaic/components/common";
 
 export default {
 	title: "Components/Card",
+	parameters: {
+		layout: "centered",
+	},
 };
 
 const ActivityWrapper = styled.div`
@@ -31,22 +36,27 @@ const ActivityDate = styled.span`
 `;
 
 const content = [
-	<p key="p-key-1">First Element</p>,
-	<p key="p-key-2">Second Element</p>,
-	<div key="div-key">
-		<p key="div-p-key-1">Paragraph</p>
-		<button key="div-button-key-1">Button</button>
-	</div>,
+	<Column>
+		<Text weight="semi" line="normal">Slide Title</Text>
+		<Text size="sm" line="loose" color={theme.color.gray[800]}>Feb 13, 2025</Text>
+	</Column>,
+	<Column>
+		<Text weight="semi" line="normal">Slide Title</Text>
+		<Text size="sm" line="loose" color={theme.color.gray[800]}>Feb 13, 2025</Text>
+	</Column>,
+	<Column>
+		<Text weight="semi" line="normal">Slide Title</Text>
+		<Text size="sm" line="loose" color={theme.color.gray[800]}>Feb 13, 2025</Text>
+	</Column>,
 ];
 
 export const Playground = ({
 	showTitleIcon,
-	showTopAction,
-	showBottomAction,
 	quantityOfTopActions,
 	quantityOfBottomActions,
 	count,
 	showZeroCount,
+	collapsed,
 }: typeof Playground.args): ReactElement => {
 	const topActions: ButtonProps[] = [
 		{
@@ -54,14 +64,12 @@ export const Playground = ({
 			variant: "text",
 			onClick: () => alert("+ icon clicked"),
 			mIcon: AddIcon,
-			show: () => quantityOfTopActions > 0,
 		},
 		{
 			label: "Save",
 			onClick: () => alert("Save button clicked"),
 			intent: "primary",
 			variant: "contained",
-			show: () => quantityOfTopActions > 1,
 		},
 		{
 			label: "Remove",
@@ -69,7 +77,6 @@ export const Playground = ({
 			intent: "secondary",
 			variant: "contained",
 			mIcon: DeleteIcon,
-			show: () => quantityOfTopActions > 2,
 		},
 	];
 
@@ -80,7 +87,6 @@ export const Playground = ({
 			variant: "text",
 			onClick: () => alert("Add new task clicked"),
 			mIcon: AddIcon,
-			show: () => quantityOfBottomActions > 0,
 		},
 		{
 			intent: "info",
@@ -88,49 +94,43 @@ export const Playground = ({
 			variant: "text",
 			onClick: () => alert("Add new task clicked"),
 			mIcon: CreateIcon,
-			show: () => quantityOfBottomActions > 1,
 		},
 		{
 			label: "Go to tasks",
 			onClick: () => alert("Go to tasks clicked"),
 			intent: "primary",
 			variant: "contained",
-			show: () => quantityOfBottomActions > 2,
 		},
 	];
 
 	return (
-		<Card
-			content={content}
-			title="Section Title"
-			titleIcon={showTitleIcon && ContactsIcon}
-			topActions={showTopAction && topActions}
-			bottomActions={showBottomAction && bottomActions}
-			count={count !== undefined && count >= 0 ? count : undefined}
-			showZeroCount={showZeroCount}
-		/>
+		<div style={{ maxWidth: "100%", width: 400 }}>
+			<Card
+				content={content}
+				title="Section Title"
+				titleIcon={showTitleIcon && ContactsIcon}
+				topActions={topActions.slice(0, quantityOfTopActions)}
+				bottomActions={bottomActions.slice(0, quantityOfBottomActions)}
+				count={count !== undefined && count >= 0 ? count : undefined}
+				showZeroCount={showZeroCount}
+				collapsed={collapsed}
+			/>
+		</div>
 	);
 };
 
 Playground.args = {
 	showTitleIcon: true,
-	showTopAction: true,
-	showBottomAction: true,
 	quantityOfTopActions: 1,
 	quantityOfBottomActions: 1,
 	count: 0,
 	showZeroCount: false,
+	collapsed: false,
 };
 
 Playground.argTypes = {
 	showTitleIcon: {
 		name: "Show Title Icon",
-	},
-	showTopAction: {
-		name: "Show Top Action",
-	},
-	showBottomAction: {
-		name: "Show Bottom Action",
 	},
 	quantityOfTopActions: {
 		options: [0, 1, 2, 3],
@@ -147,6 +147,9 @@ Playground.argTypes = {
 	},
 	showZeroCount: {
 		name: "Display Zero Count",
+	},
+	collapsed: {
+		name: "Collapsed",
 	},
 };
 

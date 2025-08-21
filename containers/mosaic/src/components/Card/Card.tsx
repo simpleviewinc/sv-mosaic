@@ -4,16 +4,17 @@ import type { CardProps } from "./CardTypes";
 
 import testIds from "@root/utils/testIds";
 import {
-	BottomActionWrapper,
+	CardBottom,
 	ContentWrapper,
 	CardWrapper,
-	StyledHr,
 	Title,
 	Heading,
 	CardButtonRow,
+	ContentItem,
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { Text } from "../Typography";
+import Badge from "../Badge";
 
 const Card = (props: CardProps): ReactElement => {
 	const {
@@ -24,38 +25,58 @@ const Card = (props: CardProps): ReactElement => {
 		title,
 		titleIcon: TitleIcon,
 		topActions,
+		collapsed,
 	} = props;
 
 	return (
-		<CardWrapper data-testid={testIds.CARD}>
-			<Heading data-testid={testIds.CARD_HEADING}>
+		<CardWrapper
+			data-testid={testIds.CARD}
+			$collapsed={collapsed}
+		>
+			<Heading
+				data-testid={testIds.CARD_HEADING}
+				$collapsed={collapsed}
+			>
 				<Title>
 					{TitleIcon && <TitleIcon data-testid={testIds.CARD_TITLE_ICON} />}
-					<Text maxLines={1} tag="h3" size="lg" weight="medium">{title}</Text>
+					<Text
+						maxLines={1}
+						tag="h3"
+						size="xl"
+						line="xtight"
+						weight="medium"
+					>
+						{title}
+					</Text>
 				</Title>
 				{count !== undefined && (count !== 0 || showZeroCount) && (
-					<Text attrs={{ "data-testid": testIds.CARD_COUNT }} size="sm">
-						(
+					<Badge
+						attrs={{ "data-testid": testIds.CARD_COUNT }}
+						size="sm"
+						variant="dark"
+					>
 						{count}
-						)
-					</Text>
+					</Badge>
 				)}
 				{topActions?.length > 0 && (
 					<CardButtonRow className="Foo" buttons={topActions} />
 				)}
 			</Heading>
-			<ContentWrapper>
-				{content.map((element, idx) => (
-					<div key={idx} data-testid={testIds.CARD_ITEM}>
-						{element}
-						{idx !== content.length - 1 && <StyledHr />}
-					</div>
-				))}
-			</ContentWrapper>
-			{bottomActions?.length > 0 && (
-				<BottomActionWrapper>
-					<ButtonRow buttons={bottomActions} />
-				</BottomActionWrapper>
+			{!collapsed && (
+				<>
+					<ContentWrapper>
+						{content.map((element, idx) => (
+							<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
+								{element}
+							</ContentItem>
+						))}
+					</ContentWrapper>
+					{bottomActions?.length > 0 && (
+						<CardBottom>
+							<ButtonRow buttons={bottomActions} />
+						</CardBottom>
+					)}
+				</>
 			)}
 		</CardWrapper>
 	);
