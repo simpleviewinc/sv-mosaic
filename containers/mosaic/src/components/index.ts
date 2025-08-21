@@ -53,6 +53,8 @@ export * from "./Dialog";
 export { default as LeftNav } from "./LeftNav";
 export * from "./LeftNav";
 
+export * from "./MainMenu";
+
 export { default as SideNav } from "./SideNav";
 export * from "./SideNav";
 
