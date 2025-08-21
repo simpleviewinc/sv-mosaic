@@ -1,4 +1,4 @@
-const leftnav_data = {
+const mainmenu_data = {
 	staticItem: "Nav Display",
 	full: "Full",
 	iconsOnly: "Icons Only",
@@ -8,4 +8,4 @@ const leftnav_data = {
 	sitemap: "Sitemap",
 };
 
-export { leftnav_data };
+export { mainmenu_data };
