@@ -1,28 +1,35 @@
 import styled from "styled-components";
 import theme from "@root/theme";
 import ButtonRow from "../ButtonRow";
+import { Row } from "../common";
 
-export const CardWrapper = styled.div`
-	border: 2px solid ${theme.newColors.grey2["100"]};
+export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
+	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
+
+	border-radius: ${theme.rounded.md};
 	width: 100%;
+	box-shadow: var(--mos-border-light), var(--card-shadow);
 `;
 
-export const Heading = styled.div`
-	align-items: center;
-  	background: ${theme.newColors.grey2["100"]};
-	display: flex;
-	padding: 8px 16px;
-	gap: 8px;
+export const Heading = styled(Row).attrs({ $align: "center" })<{ $collapsed?: boolean }>`
+  	background: ${theme.color.gray[50]};
+	border-radius: ${theme.rounded.md};
+	padding: ${theme.spacing(0, 5)};
+	gap: ${theme.spacing(2)};
+	height: 48px;
+
+	${({ $collapsed }) => $collapsed ? "" : `
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	`}
 `;
 
-export const Title = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 8px;
+export const Title = styled(Row).attrs({ $align: "center" })`
+	gap: ${theme.spacing(2)};
 
 	& .MuiSvgIcon-root {
-		color: ${theme.newColors.almostBlack["100"]};
-		width: 16px;
+		color: ${theme.color.gray[600]};
+		font-size: ${theme.fontSize.icon.sm};
 	}
 `;
 
@@ -30,17 +37,21 @@ export const CardButtonRow = styled(ButtonRow)`
 	margin-left: auto;
 `;
 
-export const BottomActionWrapper = styled.div`
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 16px;
-`;
-
 export const ContentWrapper = styled.div`
-	padding: 0 16px;
+	padding: ${theme.spacing(0, 5)};
+	border-top: 1px solid ${theme.color.gray[300]};
 `;
 
-export const StyledHr = styled.hr`
-	border-top: 1px solid ${theme.newColors.grey2["100"]};
+export const ContentItem = styled.div`
+	padding: ${theme.spacing(4, 2)};
+
+	&:not(:first-child) {
+		border-top: 1px solid ${theme.color.gray[200]};
+	}
+`;
+
+export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "center" })`
+	border-top: 1px solid ${theme.color.gray[200]};
+	padding: ${theme.spacing(3, 0)};
+	margin: ${theme.spacing(0, 5)};
 `;
