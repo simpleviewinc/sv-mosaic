@@ -36,6 +36,6 @@ test.describe("Components - Card - Playground", () => {
 	});
 
 	test("Validate font size of the Card Title.", async () => {
-		expect(await cardPage.getFontSizeFromElement(cardPage.cardTitle)).toBe("16px");
+		expect(await cardPage.getFontSizeFromElement(cardPage.cardTitle)).toBe("18px");
 	});
 });

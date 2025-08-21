@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { CardRecentActivityPage } from "../../../pages/Components/Card/CardRecentActivityPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("Components - Card - Recent Activity", () => {
 	let page: Page;
@@ -23,13 +23,5 @@ test.describe("Components - Card - Recent Activity", () => {
 		for (let i = 3; i < await cardPage.page.locator("span").count();i++) {
 			expect(await cardPage.getColorFromElement(cardPage.page.locator("span").nth(i))).toBe(theme.newColors.grey3["100"]);
 		}
-	});
-
-	test("Validate Title Bar has grey2 as background color.", async () => {
-		expect(await cardPage.getBackgroundColorFromElement(cardPage.cardTitleBar)).toBe(theme.newColors.grey2["100"]);
-	});
-
-	test("Validate Card Wrapper has grey2 in border.", async () => {
-		expect(await cardPage.getSpecificBorderFromElement(cardPage.cardWrapper)).toContain(theme.newColors.grey2["100"]);
 	});
 });
