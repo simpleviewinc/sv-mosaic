@@ -97,6 +97,7 @@ const AdvancedSelectionDrawerAsync = ({
 		inputSettings: {
 			getOptions,
 			getOptionsLimit,
+			selectLimit,
 		},
 	},
 	fieldDef,
@@ -115,6 +116,7 @@ const AdvancedSelectionDrawerAsync = ({
 				...fieldDef,
 				inputSettings: {
 					options: state.options,
+					selectLimit,
 				},
 			}}
 			onLoadMore={loadMore}
