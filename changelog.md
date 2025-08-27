@@ -1,5 +1,14 @@
 # sv-mosaic changelog
 
+### 44.4.1 - 08/27/2025
+
+* `Content`
+  * [MOS-1705](https://jira.granicus.com/browse/MOS-1705) Fix the display of Content fields to avoid a table cell hack
+    * (Content) Remove display table/table-cell hacks.
+* `FormFieldAdvancedSelection`
+  * [MOS-1706](https://jira.granicus.com/browse/MOS-1706) Advanced selection limit not respected
+    * (AdvSelField) Pass down the select limit to async advanced selection variant.
+
 ### 44.4.0 - 08/19/2025
 
 * `DataView`
