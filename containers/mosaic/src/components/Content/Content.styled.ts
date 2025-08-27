@@ -114,13 +114,10 @@ export const FieldTerm = styled.dt`
 export const FieldDefinition = styled.dd`
 	color: ${theme.newColors.grey3["100"]};
 	margin: 0;
-	display: table;
-	table-layout: fixed;
 	width: 100%;
 `;
 
 export const FieldDefinitionInner = styled.span`
-	display: table-cell;
 	vertical-align: middle;
 	overflow: hidden;
 	word-wrap: break-word;
