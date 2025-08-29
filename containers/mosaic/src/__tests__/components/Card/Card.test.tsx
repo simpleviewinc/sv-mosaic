@@ -59,7 +59,7 @@ describe(__dirname, () => {
 
 		const heading = screen.queryByTestId(testIds.CARD_HEADING);
 		expect(heading).toBeInTheDocument();
-		expect(heading).toHaveTextContent("My Card(1)");
+		expect(heading).toHaveTextContent("My Card1");
 	});
 
 	it("should display the count alongside the title if it's zero and zero counts should be displayed", async () => {
@@ -67,7 +67,7 @@ describe(__dirname, () => {
 
 		const heading = screen.queryByTestId(testIds.CARD_HEADING);
 		expect(heading).toBeInTheDocument();
-		expect(heading).toHaveTextContent("My Card(0)");
+		expect(heading).toHaveTextContent("My Card0");
 	});
 
 	it("should not display the count alongside the title if it's zero and zero counts should not be displayed", async () => {

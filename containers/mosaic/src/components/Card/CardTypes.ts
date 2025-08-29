@@ -32,4 +32,8 @@ export interface CardProps {
 	 * is `undefined`.
 	 */
 	showZeroCount?: boolean;
+	/**
+	 * Whether to collapse the main content of the card, showing only the title region
+	 */
+	collapsed?: boolean;
 }
