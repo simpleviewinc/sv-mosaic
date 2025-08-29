@@ -1,5 +1,15 @@
 # sv-mosaic changelog
 
+### 44.5.0 - 09/02/2025
+
+* `SideNav` → `MainMenu`
+  * [MOS-1639](https://jira.granicus.com/browse/MOS-1639) SideNav polish
+    * **Deprecates** LeftNav in favour of MainMenu. The contract remains the same.
+    * Brings Apex design polish to the MainMenu and it's sub components
+* `Card`
+  * [MOS-1643](https://jira.granicus.com/browse/MOS-1643) Card polish
+    * Aligns Card polish with Apex design system.
+
 ### 44.4.1 - 08/27/2025
 
 * `Content`
