@@ -1,11 +1,11 @@
 import type { Page, Locator } from "playwright-core";
 import { BasePage } from "../../BasePage";
 import { randomNumber } from "../../../utils/helpers/helper";
-import { leftnav_data } from "../../../utils/data/leftNavData";
+import { mainmenu_data } from "../../../utils/data/mainMenuData";
 
-export class LeftNavPage extends BasePage {
+export class MainMenuPage extends BasePage {
 
-	readonly page_path = "components-leftnav--playground";
+	readonly page_path = "components-mainmenu--playground";
 
 	readonly page: Page;
 	readonly title: Locator;
@@ -27,7 +27,9 @@ export class LeftNavPage extends BasePage {
 		this.title = page.locator(".content h1");
 		this.subtitle = page.locator(".content h2");
 		this.leftNavDiv = page.locator("div.left");
-		this.allLeftItems = page.locator("a .left");
+		this.allLeftItems = page.getByRole("listitem").filter({
+			has: page.getByRole("link").or(page.getByRole("button")),
+		});
 		this.topLeftItems = page.locator(".top a .left");
 		this.navDisplayMenu = page.locator("h3[title='Nav Display'] >> xpath=..");
 		this.menu = page.locator("span.menuButton");
@@ -93,11 +95,11 @@ export class LeftNavPage extends BasePage {
 			item = await this.getRandomItems(true);
 			itemText = await item.textContent();
 			if (isWithSubmenu) {
-				if ((itemText == leftnav_data.publicRelations) || (itemText == leftnav_data.sitemap)) {
+				if ((itemText == mainmenu_data.publicRelations) || (itemText == mainmenu_data.sitemap)) {
 					isValidItem = false;
 				}
 			} else {
-				if ((itemText != leftnav_data.publicRelations) || (itemText != leftnav_data.sitemap)) {
+				if ((itemText != mainmenu_data.publicRelations) || (itemText != mainmenu_data.sitemap)) {
 					isValidItem = false;
 				}
 			}
@@ -106,11 +108,8 @@ export class LeftNavPage extends BasePage {
 	}
 
 	async selectTypeOfNavDisplay(type: string): Promise<void> {
-		if (!await (await this.getLastItem()).isVisible()) {
-			await this.openNavigationButton.click();
-		}
-		await (await this.getLastItem()).click();
-		await this.page.locator("text=" + type).click();
+		await this.allLeftItems.last().click();
+		await this.page.getByRole("button", { name: type }).click();
 	}
 
 	async getSpecificMenuItem(menuTitle: string): Promise<Locator> {

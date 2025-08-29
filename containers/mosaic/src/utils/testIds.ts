@@ -66,6 +66,8 @@ const testIds = {
 	FORM_FIELD_LABEL: "mos:Field:label",
 	FORM_FIELD_SKELETON: "mos:Field:skeleton",
 	FORM_STATE: "mos:Form:state",
+	MAIN_MENU_FLYOUT: "mos:MainMenu:flyout",
+	MAIN_MENU_FLYOUT_TITLE: "mos:MainMenu:flyoutTitle",
 	PICKER_PANEL_OPTIONS: "mos:PickerPanel:options",
 	TEXT_EDITOR_CANVAS: "mos:TextEditor:canvas",
 	TEXT_EDITOR_CODE: "mos:TextEditor:code",

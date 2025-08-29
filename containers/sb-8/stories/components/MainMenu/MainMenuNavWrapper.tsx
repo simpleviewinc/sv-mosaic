@@ -6,8 +6,8 @@ import theme from "#mosaic/theme";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
-import LeftNav from "#mosaic/components/LeftNav";
-import type { LeftNavProps, LeftNavItemRootDef } from "#mosaic/components/LeftNav";
+import { MainMenu } from "#mosaic/components/MainMenu";
+import type { MainMenuProps, MainMenuItemRootDef } from "#mosaic/components/MainMenu";
 import type { TransientProps } from "#mosaic/types";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -97,14 +97,16 @@ const noop = () => undefined;
 
 interface NavWrapperProps {
 	children?: ReactElement;
-	items : LeftNavItemRootDef[];
+	items : MainMenuItemRootDef[];
 	onlyContent?: boolean;
+	active?: string;
 }
 
-export const NavWrapper = function(props: NavWrapperProps): ReactElement {
+export const MainMenuNavWrapper = function(props: NavWrapperProps): ReactElement {
 	const [state, setState] = useState({
 		open : false,
-		variant : (localStorage.getItem(localKey) ?? "full") as LeftNavProps["variant"],
+		collapsed: false,
+		variant : (localStorage.getItem(localKey) ?? "full") as MainMenuProps["variant"],
 		label : props.items[0]?.label || "home",
 		name : props.items[0]?.name || "Home",
 	});
@@ -126,7 +128,7 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		});
 	};
 
-	const onNav: LeftNavProps["onNav"] = function({ item }) {
+	const onNav: MainMenuProps["onNav"] = function({ item }) {
 		setState({
 			...state,
 			open : false,
@@ -157,17 +159,15 @@ export const NavWrapper = function(props: NavWrapperProps): ReactElement {
 		<AppDiv onClick={noop} $onlyContent={props.onlyContent}>
 			<FakeTopBar variant={variant} openNav={onClick} />
 			<div className="main">
-				<div className="left">
-					<LeftNav
-						active={state.name}
-						open={state.open}
-						items={props.items}
-						variant={variant}
-						onClose={onClose}
-						onNav={onNav}
-						onVariantChange={onVariantChange}
-					/>
-				</div>
+				<MainMenu
+					active={state.name}
+					open={state.open}
+					items={props.items}
+					variant={variant}
+					onClose={onClose}
+					onNav={onNav}
+					onVariantChange={onVariantChange}
+				/>
 				<div className="content" ref={contentRef}>
 					{!props.onlyContent && (
 						<>
