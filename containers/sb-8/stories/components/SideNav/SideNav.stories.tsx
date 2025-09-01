@@ -172,7 +172,11 @@ export const Playground = ({ parentHeight, showAssets, showMapPublisher, showDyn
 
 	return (
 		<div style={{ display: "flex", height: parentHeight }}>
-			<SideNav items={items} active={active} onNav={onNav} />
+			<SideNav
+				items={items}
+				active={active}
+				onNav={onNav}
+			/>
 			<div>{content}</div>
 		</div>
 	);
