@@ -24,7 +24,7 @@ export class FormWithLayout extends BasePage {
 		this.topComponentContainer = page.locator("//*[@id='root']/div/div/form/div[1]/div[2]");
 		this.topComponentContainerSections = this.topComponentContainer.locator("a");
 		this.sideNav = page.locator(".form-primary").locator("nav");
-		this.sideNavSections = this.sideNav.locator("a");
+		this.sideNavSections = this.sideNav.getByRole("button");
 		this.sectionContainer = page.locator("[data-testid='section-test-id']");
 		this.formTopComponent = page.locator("//*[@id='root']/div/div/form/div[1]");
 		this.formLayout = page.locator("[data-testid='form-layout-test-id']");
