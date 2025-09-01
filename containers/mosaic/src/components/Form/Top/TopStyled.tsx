@@ -33,7 +33,7 @@ export const TopRoot = styled.div<{ $bottomBorder?: boolean; $hideSectionNav?: b
 
 	${({ $hideSectionNav }) => !$hideSectionNav && `
 		${containerQuery("xl", "FORM")} {
-			border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+			border-bottom: 1px solid ${theme.color.gray[300]};
 		}
 	`}
 `;
