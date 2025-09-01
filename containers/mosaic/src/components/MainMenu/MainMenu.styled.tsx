@@ -4,7 +4,11 @@ import { Column, Row } from "../common";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Button from "../Button";
 
-export const StyledMainMenu = styled.nav<{ $hidden?: boolean; $collapsed?: boolean }>(({ $collapsed, $hidden }) => `
+export const StyledMainMenu = styled.nav<{
+	$hidden?: boolean;
+	$collapsed?: boolean;
+	$zIndex?: number;
+}>(({ $collapsed, $hidden, $zIndex }) => `
 	--collapse-duration: 0.15s;
 	--collapse-timing-fn: ease-in-out;
 	--collapsed-width: 56px;
@@ -21,6 +25,10 @@ export const StyledMainMenu = styled.nav<{ $hidden?: boolean; $collapsed?: boole
 
 	${$hidden ? "" : `
 		margin-right: ${$collapsed ? "var(--collapsed-width)" : "var(--expanded-width)"};
+	`}
+
+	${$zIndex === undefined ? "" : `
+		z-index: ${$zIndex};
 	`}
 `);
 

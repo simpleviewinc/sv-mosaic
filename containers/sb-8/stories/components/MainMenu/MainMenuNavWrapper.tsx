@@ -167,6 +167,7 @@ export const MainMenuNavWrapper = function(props: NavWrapperProps): ReactElement
 					onClose={onClose}
 					onNav={onNav}
 					onVariantChange={onVariantChange}
+					zIndex={1101}
 				/>
 				<div className="content" ref={contentRef}>
 					{!props.onlyContent && (

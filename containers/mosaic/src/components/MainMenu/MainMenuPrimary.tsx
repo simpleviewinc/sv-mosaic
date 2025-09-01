@@ -16,6 +16,7 @@ export function MainMenuPrimary({
 	onNav,
 	variant,
 	onVariantChange,
+	zIndex,
 }: MainMenuProps) {
 	const [stack, setStack] = useState<MainMenuStackPanel[]>([]);
 	const currentPanel = stack[stack.length - 1];
@@ -108,6 +109,7 @@ export function MainMenuPrimary({
 			<StyledMainMenu
 				$collapsed={collapsed}
 				$hidden={hidden}
+				$zIndex={zIndex}
 			>
 				{currentPanel && !hidden && (
 					<StyledBackdrop onClick={close} />
