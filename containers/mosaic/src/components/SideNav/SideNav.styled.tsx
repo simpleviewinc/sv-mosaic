@@ -63,9 +63,8 @@ export const LinkWrapper = styled.button<{
 
 		.MuiSvgIcon-root:not(:first-child) {
 			display: block;
-			color: ${theme.newColors.grey3["100"]};
-			margin: -2px -12px -2px auto;
-			width: 16px;
+			font-size: ${theme.fontSize.icon.sm};
+			margin-left: auto;
 		}
 	}
 
