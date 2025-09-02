@@ -27,9 +27,11 @@ const StyledWrapper = styled.thead`
 `;
 
 const StyledTh = styled.th`
-	background-color: ${theme.newColors.grey2["100"]};
-	color: ${theme.newColors.almostBlack["100"]};
+	background-color: ${theme.color.gray[100]};
+	color: ${theme.color.gray[800]};
 	font-weight: ${theme.weight.medium};
+	border: 0;
+	border-bottom: 1px solid ${theme.color.gray[300]};
 	height: 40px;
 	padding: 8px;
 	position: sticky;
@@ -66,10 +68,6 @@ const StyledTh = styled.th`
 		transform: rotate(90deg);
 	}
 
-	&.active {
-		color: ${theme.newColors.almostBlack["100"]};
-	}
-
 	&.active > .columnHeader > .icon {
 		visibility: visible;
 	}
@@ -96,7 +94,11 @@ function DataViewTHead(props: DataViewTHeadProps) {
 
 	const { t } = useMosaicTranslation();
 
-	const columnCount = (props.bulkActions?.length > 0 ? 1 : 0) + 1 + props.columns.length;
+	const columnCount =
+		(props.onReorder ? 1 : 0) +
+		(props.onCheckAllClick ? 1 : 0) +
+		(props.hasActions ? 1 : 0) +
+		props.columns.length;
 
 	return (
 		<StyledWrapper>

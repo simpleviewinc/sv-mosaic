@@ -4,19 +4,20 @@ import styled from "styled-components";
 import type { DataViewTBodyProps } from "./DataViewTBodyTypes";
 
 import DataViewTr from "../DataViewTr";
-import theme from "@root/theme";
 import testIds from "@root/utils/testIds";
 
 const StyledTBody = styled.tbody`
 	& > tr {
-		border-bottom: 1px solid ${theme.newColors.grey2["100"]};
-
 		& > td:first-child {
 			padding-left: 16px;
 		}
 
 		& > td:last-child {
 			padding-right: 16px;
+		}
+
+		&:last-child > td {
+			border-bottom: 0;
 		}
 	}
 

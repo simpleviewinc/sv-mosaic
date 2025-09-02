@@ -7,14 +7,19 @@ import type { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTy
 import { useWrappedToggle } from "@root/utils/toggle";
 import Button from "../../Button";
 import { StyledButtonRow } from "./DataViewActionsButtonRow.styled";
+import { EMPTY_ARRAY } from "@root/constants/stable";
 
-function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
-	const showParams = useMemo(() => ({ row: props.originalRowData }), [props.originalRowData]);
+function DataViewActionsButtonRow({
+	activeDisplay,
+	originalRowData,
+	actionsHidden,
+	additionalActions = EMPTY_ARRAY,
+	disabled,
+	primaryActions = EMPTY_ARRAY,
+}: DataViewActionsButtonRowProps) {
+	const showParams = useMemo(() => ({ row: originalRowData }), [originalRowData]);
 
-	const primaryActions = useMemo(() => props.primaryActions || [], [props.primaryActions]);
 	const shownPrimaryActions = useWrappedToggle(primaryActions, showParams, "show");
-
-	const additionalActions = useMemo(() => props.additionalActions || [], [props.additionalActions]);
 	const shownadditionalActions = useWrappedToggle(additionalActions, showParams, "show");
 
 	const primaryActionButtons = useMemo(() => {
@@ -27,44 +32,39 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 			} = action;
 
 			const newOnClick = () => {
-				onClick({ data : props.originalRowData });
+				onClick({ data : originalRowData });
 			};
 
-			const disabled = [buttonArgs.disabled, props.disabled, props.actionsHidden].some(disabled => disabled);
+			const calculatedDisabled = [buttonArgs.disabled, disabled, actionsHidden].some(disabled => disabled);
 
 			return (
 				<Button
 					{...buttonArgs}
-					disabled={disabled}
+					disabled={calculatedDisabled}
 					key={`primary_${name}`}
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
 			);
 		});
-	}, [
-		shownPrimaryActions,
-		props.originalRowData,
-		props.disabled,
-		props.actionsHidden,
-	]);
+	}, [shownPrimaryActions, disabled, actionsHidden, originalRowData]);
 
 	const additionalActionsButton = useMemo(() => {
 		if (!shownadditionalActions.length) {
 			return [];
 		}
 
-		const disabled = [props.disabled, props.actionsHidden].some(disabled => disabled);
+		const calculatedDisabled = [disabled, actionsHidden].some(disabled => disabled);
 
 		return [
 			<Button
 				key="additional"
 				intent="secondary"
 				variant="text"
-				mIcon={props.activeDisplay && MoreVertIcon}
+				mIcon={activeDisplay && MoreVertIcon}
 				attrs={{ "data-mosaic-id" : "additional_actions_dropdown" }}
 				tooltip="More actions"
-				disabled={disabled}
+				disabled={calculatedDisabled}
 				menuItems={shownadditionalActions.map(action => {
 					const {
 						name,
@@ -78,18 +78,19 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 						attrs : { "data-mosaic-id" : `action_additional_${name}` },
 						onClick : () => {
 							onClick({
-								data : props.originalRowData,
+								data : originalRowData,
 							});
 						},
 					};
 				})}
 			/>,
 		];
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		shownadditionalActions,
-		props.originalRowData,
-		props.disabled,
-		props.actionsHidden,
+		originalRowData,
+		disabled,
+		actionsHidden,
 	]);
 
 	// concat the buttons into a single row so that we have a single child allowing caching of the ButtonRow
@@ -101,7 +102,7 @@ function DataViewActionsButtonRow(props: DataViewActionsButtonRowProps) {
 	}, [primaryActionButtons, additionalActionsButton]);
 
 	return (
-		<StyledButtonRow $hidden={props.actionsHidden}>
+		<StyledButtonRow $hidden={actionsHidden}>
 			{buttons}
 		</StyledButtonRow>
 	);
