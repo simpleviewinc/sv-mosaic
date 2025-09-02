@@ -23,4 +23,5 @@ export interface ButtonRowProps {
 	separator?: boolean;
 	wrap?: boolean;
 	skeleton?: boolean;
+	gap?: number;
 }
