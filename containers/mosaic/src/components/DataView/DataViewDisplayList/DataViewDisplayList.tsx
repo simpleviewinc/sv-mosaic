@@ -17,7 +17,8 @@ import testIds from "@root/utils/testIds";
 
 const StyledTable = styled.table`
 	width: 100%;
-	border-collapse: collapse;
+	border-collapse: separate;
+	border-spacing: 0;
 `;
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {

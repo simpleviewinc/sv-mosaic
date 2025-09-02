@@ -146,7 +146,7 @@ const advanced_filter_data = {
 	errorMessageDates: "End of range cannot be before start of range.",
 	updatedOptionFilter: "Updated",
 	updateFilterResults: 3,
-	noResults: "No results were found.",
+	noResults: "No records to display.",
 };
 
 export { dataview_data, saveAs_data, columns_data, filter_data, advanced_filter_data };

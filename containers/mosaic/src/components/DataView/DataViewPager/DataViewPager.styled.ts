@@ -7,10 +7,6 @@ export const StyledSpan = styled.span`
 	align-items: center;
 	white-space: nowrap;
 
-	& > .pagerText {
-		line-height: 100%;
-	}
-
 	span.button:first-child {
 		padding-right: 4px;
 	}
