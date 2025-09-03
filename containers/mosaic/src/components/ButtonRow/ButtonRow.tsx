@@ -9,13 +9,19 @@ import Skeleton from "@mui/material/Skeleton";
 import testIds from "@root/utils/testIds";
 import { isReactElement } from "@root/types";
 
-function ButtonRowWrapper({ className, wrap, children, separator, skeleton }: ButtonsRowWrapperProps) {
+function ButtonRowWrapper({ className, wrap, children, separator, skeleton, ...props }: ButtonsRowWrapperProps) {
 	if (!children.length) {
 		return null;
 	}
 
 	return (
-		<Row className={className} $wrap={wrap} data-testid={testIds.BUTTON_ROW} role="toolbar">
+		<Row
+			className={className}
+			$wrap={wrap}
+			data-testid={testIds.BUTTON_ROW}
+			role="toolbar"
+			{...props}
+		>
 			{children.map(({ item, key }) => (
 				<Item key={key} $separator={separator}>
 					{skeleton ? (

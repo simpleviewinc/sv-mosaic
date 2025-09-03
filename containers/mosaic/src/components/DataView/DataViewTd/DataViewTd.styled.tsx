@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const StyledTd = styled.td`
+	border-bottom: 1px solid ${theme.color.gray[200]};
 	height: 40px;
 	vertical-align: middle;
 

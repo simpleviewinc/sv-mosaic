@@ -1,58 +1,14 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 import { forwardRef, useEffect, useMemo, useRef } from "react";
-import styled from "styled-components";
 
 import DataViewTitleBar from "./DataViewTitleBar";
-import theme from "@root/theme";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
 import type { DataViewProps, DataViewRowActions } from "./DataViewTypes";
 import DataViewActionsRow from "./DataViewActionsRow";
 import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 import testIds from "@root/utils/testIds";
-
-const StyledWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-
-	& > .noResults {
-		margin: 0px 20px;
-	}
-
-	& > .headerRow {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		-ms-flex: 0 0 auto;
-		-webkit-flex: 0 0 auto;
-		flex: 0 0 auto;
-	}
-
-	& > .headerActions {
-		display: flex;
-		flex-direction: column;
-		padding: 8px 24px;
-	}
-
-	& > .headerActions .grid {
-		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding-bottom: 8px;
-	}
-
-	& > .viewContainer {
-		overflow: auto;
-		padding: 0 24px;
-	}
-
-	&.loading {
-		opacity: .5;
-		pointer-events: none;
-	}
-
-	&.sticky {
-		height: 100%;
-	}
-`;
+import { StyledDataViewContent, StyledDataViewDisplay, StyledWrapper } from "./DataView.styled";
 
 const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement {
 	props.activeFilters?.forEach(activeFilter => {
@@ -63,7 +19,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		}
 	});
 
-	const { noResults = "No results were found." } = props;
+	const { noResults = "No records to display." } = props;
 
 	// set defaults
 	const display = props.display || "list";
@@ -177,14 +133,15 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 		});
 	}, [activeColumns, props.columns]);
 
-	const shouldRenderHeading =
+	const shouldRenderHeading = Boolean(
 		props.title ||
 		props.buttons ||
 		props.filters ||
 		props.currentView ||
 		props.onViewList ||
 		props.onViewSave ||
-		props.onViewSaveAs;
+		props.onViewSaveAs,
+	);
 
 	const shouldRenderActionsRow: boolean = useMemo(() => {
 		if (
@@ -306,8 +263,8 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 					/>
 				</div>
 			)}
-			{
-				shouldRenderActionsRow && (
+			<StyledDataViewContent $hasHeading={shouldRenderHeading}>
+				{shouldRenderActionsRow && (
 					<div className="headerActions">
 						<DataViewActionsRow
 							activeColumnObjs={activeColumnObjs}
@@ -336,50 +293,48 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 							disabled={props.disabled}
 						/>
 					</div>
-				)
-			}
-			<div
-				ref={viewContainerRef}
-				className={`
-					viewContainer
-				`}
-			>
-				<Display
-					checked={props.checked}
-					checkedAllPages={props.checkedAllPages}
-					columns={props.columns}
-					bulkActions={shownBulkActions}
-					sort={props.sort}
-					data={props.data}
-					disabled={props.disabled}
-					rowActions={rowActions}
-					activeColumns={props.activeColumns}
-					gridColumnsMap={props.gridColumnsMap}
-					limit={props.limit}
-					count={props.count}
-					rowCount={props.data.length}
-					activeColumnObjs={activeColumnObjs}
-					onSortChange={props.onSortChange}
-					onColumnsChange={props.onColumnsChange}
-					onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
-					onCheckboxClick={checkboxEnabled ? onCheckboxClick : undefined}
-					onCheckAllPagesClick={onCheckAllPagesClick}
-					onReorder={props.onReorder}
-					showBulkAll={showBulkAll}
-					allChecked={allChecked}
-					anyChecked={anyChecked}
-					actionsHidden={actionsHidden || undefined}
-				/>
-			</div>
-			{!props.loading && !props.data.length && (
-				typeof noResults === "string" ? (
-					<div className="noResults">
-						<p>{noResults}</p>
-					</div>
-				) : (
-					noResults
-				)
-			)}
+				)}
+				<StyledDataViewDisplay
+					ref={viewContainerRef}
+					className="viewContainer"
+				>
+					<Display
+						checked={props.checked}
+						checkedAllPages={props.checkedAllPages}
+						columns={props.columns}
+						bulkActions={shownBulkActions}
+						sort={props.sort}
+						data={props.data}
+						disabled={props.disabled}
+						rowActions={rowActions}
+						activeColumns={props.activeColumns}
+						gridColumnsMap={props.gridColumnsMap}
+						limit={props.limit}
+						count={props.count}
+						rowCount={props.data.length}
+						activeColumnObjs={activeColumnObjs}
+						onSortChange={props.onSortChange}
+						onColumnsChange={props.onColumnsChange}
+						onCheckAllClick={checkboxEnabled ? onCheckAllClick : undefined}
+						onCheckboxClick={checkboxEnabled ? onCheckboxClick : undefined}
+						onCheckAllPagesClick={onCheckAllPagesClick}
+						onReorder={props.onReorder}
+						showBulkAll={showBulkAll}
+						allChecked={allChecked}
+						anyChecked={anyChecked}
+						actionsHidden={actionsHidden || undefined}
+					/>
+					{!props.loading && !props.data.length && (
+						typeof noResults === "string" ? (
+							<div className="noResults">
+								<p>{noResults}</p>
+							</div>
+						) : (
+							noResults
+						)
+					)}
+				</StyledDataViewDisplay>
+			</StyledDataViewContent>
 		</StyledWrapper>
 	);
 });

@@ -82,7 +82,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					allColumns={allColumns}
 				/>
 			)}
-			<ButtonRow separator>
+			<ButtonRow>
 				{
 					hasSortControl && display === "grid" && (
 						<DataViewDisplayGridSortControl
