@@ -4,36 +4,36 @@ import type { MosaicCSSContainer } from "@root/types";
 import { containerQuery } from "@root/utils/css";
 
 export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
+	font-weight: ${theme.weight.medium};
+
 	${({ $collapse }) => $collapse ? `
-		border-bottom: 2px solid ${theme.newColors.grey2["100"]};
-		padding: 0 24px;
+		border-bottom: 1px solid ${theme.color.gray[300]};
+		padding: ${theme.spacing(0, 6)};
 
 		${containerQuery($collapse.minWidth, $collapse.name)}  {
 			border-bottom: 0;
-			border-right: 2px solid ${theme.newColors.grey2["100"]};
-			width: 196px;
-			min-width: 196px;
+			border-right: 1px solid ${theme.color.gray[300]};
+			width: 200px;
 			padding: 0;
 			overflow: auto;
 		}
 	` : `
-		border-right: 2px solid ${theme.newColors.grey2["100"]};
-		width: 196px;
-		min-width: 196px;
+		border-right: 1px solid ${theme.color.gray[300]};
+		width: 200px;
 		overflow: auto;
 	`}
 `;
 
 export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	display: flex;
-	border-bottom: 2px solid ${theme.newColors.grey2["100"]};
+	border-bottom: 1px solid ${theme.color.gray[300]};
 
 	&:last-child{
 		border-bottom: 0;
 	}
 
 	${({ $collapse }) => $collapse ? `
-		gap: 40px;
+		gap: ${theme.spacing(2)};
 		border-bottom: 0;
 
 		${containerQuery($collapse.minWidth, $collapse.name)} {
@@ -45,92 +45,102 @@ export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const LinkWrapper = styled.a<{ $isActive?: boolean; $collapse?: MosaicCSSContainer }>`
+export const LinkWrapper = styled.button<{
+	$isActive?: boolean;
+	$collapse?: MosaicCSSContainer;
+}>(({ $collapse, $isActive }) => `
+	all: unset;
+	color: inherit;
 	cursor: pointer;
-	padding-bottom: 16px;
+	padding: ${theme.spacing(1, 2, 2)};
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: ${theme.spacing(2)};
 	text-decoration: none;
 
-	${({ $isActive }) => $isActive && `
-		font-weight: ${theme.weight.medium};
+	&:hover {
+		background-color: ${theme.color.gray[50]};
+
+		.MuiSvgIcon-root:not(:first-child) {
+			display: block;
+			font-size: ${theme.fontSize.icon.sm};
+			margin-left: auto;
+		}
+	}
+
+	${$isActive ? `
+		&:focus-visible {
+			outline: 4px solid ${theme.color.gold[400]};
+			outline-offset: -4px;
+		}
+	` : `
+		&:focus-visible {
+			outline: 2px solid ${theme.color.black};
+			outline-offset: -6px;
+		}
 	`}
 
-	${({ $collapse }) => !$collapse ? `
-		border-left: 3px solid transparent;
-		padding: 12px 20px;
+	${!$collapse ? `
+		border-left: 4px solid transparent;
+		padding: ${theme.spacing(0, 4)};
+		height: 44px;
 	` : `
 		border-bottom: 4px solid transparent;
 	`};
 
-	${({ $collapse, $isActive }) => $collapse && $isActive && `
-		border-bottom-color: ${theme.newColors.simplyGold["100"]};
+	${$collapse && $isActive && `
+		border-bottom-color: ${theme.color.gold[400]};
 	`};
 
-	${({ $collapse, $isActive }) => !$collapse && $isActive && `
-		background-color: ${theme.newColors.grey2["100"]};
-		border-left-color: ${theme.newColors.simplyGold["100"]};
+	${!$collapse && $isActive && `
+		background-color: ${theme.color.gray[50]};
+		border-left-color: ${theme.color.gold[400]};
+		box-shadow:
+			0 0 6px 0 rgba(0, 0, 0, 0.04) inset,
+			0 -1px 0 0 rgba(0, 0, 0, 0.02) inset;
+
+		&:hover {
+			background-color: ${theme.color.gray[100]};
+		}
 	`};
 
-	${({ $collapse }) => $collapse && `
+	${$collapse && `
 		${containerQuery($collapse.minWidth, $collapse.name)} {
 			align-items: center;
 			border-bottom: 0;
-			border-left: 3px solid transparent;
+			border-left: 4px solid transparent;
 			display: flex;
-			padding: 12px 20px;
+			padding: ${theme.spacing(0, 4)};
+			height: 44px;
 		}
 	`}
 
-	${({ $collapse, $isActive }) => $collapse && $isActive && `
+	${$collapse && $isActive && `
 		${containerQuery($collapse.minWidth, $collapse.name)} {
-			background-color: ${theme.newColors.grey2["100"]};
-			border-left-color: ${theme.newColors.simplyGold["100"]};
+			background-color: ${theme.color.gray[50]};
+			border-left-color: ${theme.color.gold[400]};
+			box-shadow:
+				0 0 6px 0 rgba(0, 0, 0, 0.04) inset,
+				0 -1px 0 0 rgba(0, 0, 0, 0.02) inset;
+
+			&:hover {
+				background-color: ${theme.color.gray[100]};
+			}
 		}
 	`}
 
 	.MuiSvgIcon-root:first-child {
-		color: ${theme.newColors.almostBlack["100"]};
-		width: 16px;
-		margin: -2px 0;
-	}
-
-	&:hover {
-		.MuiSvgIcon-root:not(:first-child) {
-			display: block;
-			color: ${theme.newColors.grey3["100"]};
-			margin: -2px -12px -2px auto;
-			width: 16px;
-		}
+		font-size: ${theme.fontSize.icon.sm};
 	}
 
 	.MuiSvgIcon-root:not(:first-child) {
 		display: none;
 	}
-`;
+`);
 
 export const StyledLink = styled.span`
-	color: ${theme.newColors.almostBlack["100"]};
 	width: auto;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	height: 20px;
-`;
-
-export const Badge = styled.span`
-	color: ${theme.newColors.grey4["100"]};
-	font-size: ${theme.fontSize.text.xs};
-	font-weight: ${theme.weight.medium};
-`;
-
-export const BadgeWrapper = styled.div`
-	align-items: center;
-	background-color: ${theme.newColors.simplyGold["100"]};
-	border-radius: 20px;
-	display: flex;
-	height: 20px;
-	justify-content: center;
-	min-width: 20px;
 `;
