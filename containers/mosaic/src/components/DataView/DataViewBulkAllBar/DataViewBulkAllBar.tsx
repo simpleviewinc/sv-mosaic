@@ -9,8 +9,8 @@ import testIds from "@root/utils/testIds";
 const StyledDiv = styled.div`
 	padding: ${theme.spacing(1)};
 	text-align: center;
-	color: ${theme.newColors.grey3["100"]};
-	border-bottom: ${theme.borders.lightGray};
+	color: ${theme.color.gray[800]};
+	border-bottom: 1px solid ${theme.color.gray[300]};
 	line-height: 1.75;
 `;
 

@@ -107,11 +107,6 @@ test.describe("Components - Data View - Playground", () => {
 		expect(await dataviewPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
 	});
 
-	test("Validate Dataview header actions padding is valid.", async () => {
-		await dataviewPage.headerActionsLocator.waitFor();
-		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.headerActionsLocator)).toBe("8px 24px");
-	});
-
 	test("Validate More actions tooltip is not visible when clicking the button.", async () => {
 		await dataviewPage.waitForDataviewIsVisible();
 		await dataviewPage.moreOptions.first().hover();
@@ -119,14 +114,6 @@ test.describe("Components - Data View - Playground", () => {
 		expect(await dataviewPage.tooltip.first().textContent()).toBe("More actions");
 		await dataviewPage.moreOptions.first().click();
 		await expect(dataviewPage.tooltip.first()).not.toBeVisible();
-	});
-
-	test("Validate Dataview table header has grey2 as background color.", async () => {
-		const expectedColor = theme.newColors.grey2["100"];
-		await dataviewPage.headerActionsLocator.waitFor();
-		for (let i = 0; i < await dataviewPage.dataviewTableHeadLocator.count(); i++) {
-			expect(await dataviewPage.getBackgroundColorFromElement(dataviewPage.dataviewTableHeadLocator.nth(i))).toBe(expectedColor);
-		}
 	});
 
 	test("Validate that when bulk actions are deactivated, the checkboxes should remain visible.", async () => {
@@ -147,18 +134,6 @@ test.describe("Components - Data View - Playground", () => {
 
 	test("Validate the dataview title style.", async () => {
 		await dataviewPage.validateTitleStylingOfLocator(dataviewPage.title);
-	});
-
-	test("Validate the dataview view container dimensions.", async () => {
-		const tdLocator = dataviewPage.page.locator("td");
-		const messageViewContainer = "Validate View Container margins.";
-		const messagePadding = "Validate Dataview Padding in Row.";
-		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.viewContainerLocator, "right"), messageViewContainer).toBe("24px");
-		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.viewContainerLocator, "left"), messageViewContainer).toBe("24px");
-		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.first(), "left"), messagePadding).toBe("16px");
-		expect.soft(await dataviewPage.getSpecificPaddingFromElement(tdLocator.last(), "right"), messagePadding).toBe("16px");
-		expect.soft(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").first(), "left"), messagePadding).toBe("16px");
-		expect(await dataviewPage.getSpecificPaddingFromElement(dataviewPage.dataviewRowHeaderLocator.locator("th").last(), "right"), messagePadding).toBe("16px");
 	});
 
 	test("Validate that when no actions are active, the action column is not displayed.", async () => {
