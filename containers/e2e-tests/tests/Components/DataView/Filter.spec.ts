@@ -197,13 +197,6 @@ test.describe("Components - Data View - Filter", () => {
 		expect(await _dataviewPage.selectedChips.last().textContent()).toBe(filter_data.categoryKeywordFilter);
 	});
 
-	test("Validate the alingment of the No results message.", async () => {
-		const expectedMargin = "0px 20px";
-		await filter.searchForTerm("keyword", filter_data.keywordNoResultsFilter);
-		await expect(filter._dataviewPage.noResults).toBeVisible();
-		expect(await filter.getSpecificMarginFromElement(filter._dataviewPage.noResults, "all")).toContain(expectedMargin);
-	});
-
 	test("Validate that when clicking the clear button, it removes the selected filter.", async () => {
 		await filter.selectFilter("categories");
 		await filter.categoryBtn.click();

@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import theme from "@root/theme";
+import { Column } from "@root/components/common";
 
-export const TitleBarWrapper = styled.div`
+export const TitleBarWrapper = styled(Column)`
 	border-bottom: 1px solid ${theme.color.gray[300]};
 	padding: ${theme.spacing(5, 6)};
 	width: 100%;
+	gap: ${theme.spacing(4)};
 `;
 
 export const StyledWrapper = styled.div`
@@ -12,7 +14,6 @@ export const StyledWrapper = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	margin-bottom: 16px;
 
 	& > .left {
 		display: flex;

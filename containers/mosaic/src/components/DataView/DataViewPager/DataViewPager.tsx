@@ -7,8 +7,9 @@ import type { DataViewPagerProps } from "./DataViewPagerTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import Button from "../../Button";
 import DataViewPagerPopover from "../DataViewPagerPopover";
-import { StyledSpan, StyledLabel, StyledButton } from "./DataViewPager.styled";
+import { StyledLabel, StyledButton } from "./DataViewPager.styled";
 import testIds from "@root/utils/testIds";
+import ButtonRow from "@root/components/ButtonRow";
 
 const prevPageAttrs = { "aria-label": "Previous Page" };
 const nextPageAttrs = { "aria-label": "Next Page" };
@@ -33,7 +34,7 @@ function DataViewPager(props: DataViewPagerProps) {
 	}
 
 	return (
-		<StyledSpan data-testid={testIds.DATA_VIEW_PAGER}>
+		<ButtonRow data-testid={testIds.DATA_VIEW_PAGER}>
 			<Button
 				intent="secondary"
 				variant="contained"
@@ -75,7 +76,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				disabled={nextDisabled}
 				muiAttrs={nextPageAttrs}
 			/>
-		</StyledSpan>
+		</ButtonRow>
 	);
 }
 
