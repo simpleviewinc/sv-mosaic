@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme from "../../theme";
 import type { MosaicCSSContainer } from "@root/types";
 import { containerQuery } from "@root/utils/css";
+import Button from "../Button";
 
 export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
 	font-weight: ${theme.weight.medium};
@@ -24,8 +25,10 @@ export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
-	display: flex;
+export const StyledSidenavGroup = styled.ul<{ $collapse?: MosaicCSSContainer }>`
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	border-bottom: 1px solid ${theme.color.gray[300]};
 
 	&:last-child{
@@ -45,7 +48,13 @@ export const LinksWrapper = styled.div<{ $collapse?: MosaicCSSContainer }>`
 	`}
 `;
 
-export const LinkWrapper = styled.button<{
+export const StyledSideNavItem = styled.li`
+	position: relative;
+	display: flex;
+	align-items: center;
+`;
+
+export const StyledSidenavItemButton = styled.button<{
 	$isActive?: boolean;
 	$collapse?: MosaicCSSContainer;
 }>(({ $collapse, $isActive }) => `
@@ -57,15 +66,10 @@ export const LinkWrapper = styled.button<{
 	align-items: center;
 	gap: ${theme.spacing(2)};
 	text-decoration: none;
+	flex: 1;
 
 	&:hover {
 		background-color: ${theme.color.gray[50]};
-
-		.MuiSvgIcon-root:not(:first-child) {
-			display: block;
-			font-size: ${theme.fontSize.icon.sm};
-			margin-left: auto;
-		}
 	}
 
 	${$isActive ? `
@@ -132,10 +136,6 @@ export const LinkWrapper = styled.button<{
 	.MuiSvgIcon-root:first-child {
 		font-size: ${theme.fontSize.icon.sm};
 	}
-
-	.MuiSvgIcon-root:not(:first-child) {
-		display: none;
-	}
 `);
 
 export const StyledLink = styled.span`
@@ -143,4 +143,10 @@ export const StyledLink = styled.span`
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+`;
+
+export const StyledActionButton = styled(Button)`
+	position: absolute;
+	right: 0;
+	margin: ${theme.spacing(0, 1)};
 `;
