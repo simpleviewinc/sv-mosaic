@@ -17,11 +17,13 @@ export const StyledSideNav = styled.nav<{ $collapse?: MosaicCSSContainer }>`
 			width: 200px;
 			padding: 0;
 			overflow: auto;
+			flex: none;
 		}
 	` : `
 		border-right: 1px solid ${theme.color.gray[300]};
 		width: 200px;
 		overflow: auto;
+		flex: none;
 	`}
 `;
 
