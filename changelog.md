@@ -1,5 +1,11 @@
 # sv-mosaic changelog
 
+### 44.6.1 - 09/17/2024
+
+* `SideNav`
+  * [MOS-1719](https://jira.granicus.com/browse/MOS-1719) SideNav not displaying at the top when using a narrow viewport
+    * (SideNav) Reinstate the lost flex style.
+
 ### 44.6.0 - 09/17/2024
 
 * `SideNav`
