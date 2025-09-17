@@ -1,8 +1,18 @@
 # sv-mosaic changelog
 
+### 44.6.0 - 09/17/2024
+
+* `SideNav`
+  * [MOS-1640](https://jira.granicus.com/browse/MOS-1640) SideNav polish
+    * (SideNav) Align sidenav styles to Apex design system in Figma.
+* `DataView`
+  * [MOS-1642](https://jira.granicus.com/browse/MOS-1642) DataView polish
+    * (DataView) Styles aligned with the design system in Figma.
+    * (ButtonRow) Allows arbritary properties to be passed down to the underlying div element.
+
 ### 44.5.0 - 09/02/2025
 
-* `SideNav` → `MainMenu`
+* `LeftNav` → `MainMenu`
   * [MOS-1639](https://jira.granicus.com/browse/MOS-1639) SideNav polish
     * **Deprecates** LeftNav in favour of MainMenu. The contract remains the same.
     * Brings Apex design polish to the MainMenu and it's sub components
