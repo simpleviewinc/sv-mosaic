@@ -32,6 +32,7 @@ export const StyledSidenavGroup = styled.ul<{ $collapse?: MosaicCSSContainer }>`
 	margin: 0;
 	padding: 0;
 	border-bottom: 1px solid ${theme.color.gray[300]};
+	display: flex;
 
 	&:last-child{
 		border-bottom: 0;
