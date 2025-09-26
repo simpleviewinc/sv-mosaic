@@ -1,13 +1,14 @@
-import type { ReactNode } from "react";
 import React, { useMemo } from "react";
 import type { ContentFieldProps } from "./ContentTypes";
 
 import {
-	FieldContainer, FieldDefinition, FieldDefinitionInner, FieldTerm,
+	FieldContainer, FieldDefinition, FieldDefinitionInner, FieldDefinitionText, FieldTerm,
 } from "./Content.styled";
 import Blank from "@root/components/Blank";
 import testIds from "@root/utils/testIds";
 import { ContentFieldTooltip } from "./ContentFieldTooltip";
+import { Text } from "../Typography";
+import { isReactNode } from "@root/types";
 
 /**
  * Checks if the field exists, can be shown and executes its transform function
@@ -32,12 +33,18 @@ const ContentField = ({ label, transforms, value: rawValue, tooltip }: ContentFi
 			$margin
 		>
 			<FieldTerm>
-				{label}
+				<Text size="md" line="normal">
+					{label}
+				</Text>
 				{tooltip && <ContentFieldTooltip tooltip={tooltip} />}
 			</FieldTerm>
 			<FieldDefinition>
 				<FieldDefinitionInner>
-					{value as ReactNode}
+					{typeof value === "string" ? (
+						<FieldDefinitionText>{value}</FieldDefinitionText>
+					) : isReactNode(value) ? (
+						value
+					) : null}
 				</FieldDefinitionInner>
 			</FieldDefinition>
 		</FieldContainer>

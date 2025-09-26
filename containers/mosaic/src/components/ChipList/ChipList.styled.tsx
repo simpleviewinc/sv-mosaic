@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 import Button from "../Button";
+import theme from "@root/theme";
 
 export const ChipsWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px;
+	gap: ${theme.spacing(3)};
 `;
 
 export const ShowButton = styled(Button)`

@@ -3,3 +3,7 @@ code {
   	white-space: normal !important;
   	line-height: 1.4em !important;
 }
+
+.sb-main-centered #storybook-root {
+	max-width: 100%;
+}

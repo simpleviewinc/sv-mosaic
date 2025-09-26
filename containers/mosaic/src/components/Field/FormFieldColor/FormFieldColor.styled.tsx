@@ -45,3 +45,8 @@ export const NoColor = styled.div`
 
 export const StyledPopover = styled(Popover)`
 `;
+
+export const ExpressedColor = styled.div`
+	color: ${theme.color.gray[800]};
+	margin-bottom: ${theme.spacing(2)};
+`;
