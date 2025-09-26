@@ -29,6 +29,7 @@
   "include": [
     "./stories/**/*.tsx",
     "./utils/**/*.ts",
+    "./utils/**/*.tsx",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
