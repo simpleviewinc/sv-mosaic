@@ -2,45 +2,62 @@ import type { ReactElement } from "react";
 
 import React, { useMemo } from "react";
 
-import type { ContentFieldDef, ContentProps } from "./ContentTypes";
-import type { MosaicGridConfig } from "@root/types";
+import type { ContentRow, ContentFieldDef, ContentProps } from "./ContentTypes";
 
 import {
-	MainWrapper,
-	TitleWrapper,
-	ContentRowWrapper,
-	FieldsList,
+	StyledContentRow,
+	ContentFields,
 	FieldContainer,
 } from "./Content.styled";
-import ButtonRow from "../ButtonRow/ButtonRow";
 import ContentField from "./ContentField";
-import { Text } from "../Typography";
 import { getToggle } from "@root/utils";
 import testIds from "@root/utils/testIds";
+import { CardContent, CardWrapper } from "../Card/Card.styled";
+import { CardHeading } from "../Card/CardHeading";
 
 const Content = (props: ContentProps): ReactElement => {
-	const { fields, data, sections: providedSections, title, buttons = [], variant } = props;
+	const { fields, data, sections: providedSections, title, buttons = [], columns } = props;
 
-	const cardVariant = variant === "card" ? true : false;
-
-	const rows = useMemo<MosaicGridConfig<ContentFieldDef>[number]>(() => {
-		const sections: MosaicGridConfig[number] = providedSections ?
+	const rows = useMemo<ContentRow<ContentFieldDef>[]>(() => {
+		const result: ContentRow<ContentFieldDef>[] = [];
+		const rows: ContentProps["sections"] = providedSections ?
 			providedSections :
 			fields.map(({ name, column }) => [column || name]);
 
-		return sections.map((rows, sectionIdx) => rows.map((fieldName, rowIdx) => {
-			const field = fields.find(({ name, column }) => (column || name) === fieldName);
+		for (let rowIdx = 0; rowIdx < rows.length; rowIdx++) {
+			const rowDef = rows[rowIdx];
+			const { fields: rowFieldNames, breakpoints }: ContentRow = Array.isArray(rowDef) ? {
+				fields: rowDef,
+				breakpoints: typeof columns === "object" ?
+					columns :
+					{ [typeof columns === "string" ? columns : "md"]: rowDef.length },
+			} : rowDef;
+			const rowFields: ContentFieldDef[] = [];
 
-			if (fieldName && !field) {
-				throw new Error(`No field declared for field name '${fieldName}'. (section ${sectionIdx}, row ${rowIdx})`);
+			for (let fieldIdx = 0; fieldIdx < rowFieldNames.length; fieldIdx++) {
+				const fieldName = rowFieldNames[fieldIdx];
+				const field = fields.find(({ name, column }) => (column || name) === fieldName);
+
+				if (fieldName && !field) {
+					throw new Error(`No field declared for field name '${fieldName}'. (row ${rowIdx}, field ${fieldIdx})`);
+				}
+
+				if (field && !getToggle(field.show, true)) {
+					continue;
+				}
+
+				rowFields.push(field);
 			}
 
-			if (field && !getToggle(field.show, true)) {
-				return;
+			if (rowFields) {
+				result.push({
+					fields: rowFields,
+					breakpoints,
+				});
 			}
+		}
 
-			return field;
-		})).filter(rows => rows.flat().length);
+		return result;
 	}, [fields, providedSections]);
 
 	if (!data) {
@@ -48,40 +65,32 @@ const Content = (props: ContentProps): ReactElement => {
 	}
 
 	return (
-		<MainWrapper
-			className={cardVariant ? "card-wrapper" : "content-wrapper"}
-			data-testid={testIds.CONTENT}
-		>
-			<TitleWrapper className={cardVariant ? "title-bar" : ""}>
-				<Text maxLines={1} tag="h3" size="lg" weight="medium">{title}</Text>
-				{buttons.length > 0 && (
-					<ButtonRow
-						buttons={buttons}
-						separator={!cardVariant}
-					/>
-				)}
-			</TitleWrapper>
-			<FieldsList className={cardVariant ? "card-content" : ""}>
-				{rows.map((columns, idx) => (
-					<ContentRowWrapper
-						key={`${idx}-row`}
-						className={cardVariant ? "card-row" : ""}
-						$columns={columns.length}
-						data-testid={testIds.CONTENT_ROW}
-					>
-						{columns.map((field, colIdx) => field ? (
-							<ContentField
-								{...field}
-								key={field.name}
-								value={data[field.column || field.name]}
-							/>
-						) : (
-							<FieldContainer key={colIdx} data-testid={testIds.CONTENT_FIELD} />
-						))}
-					</ContentRowWrapper>
-				))}
-			</FieldsList>
-		</MainWrapper>
+		<CardWrapper data-testid={testIds.CONTENT}>
+			<CardHeading buttons={buttons}>
+				{title}
+			</CardHeading>
+			<CardContent>
+				<ContentFields data-testid={testIds.CONTENT_FIELD_LIST}>
+					{rows.map(({ fields, breakpoints }, idx) => (
+						<StyledContentRow
+							key={`${idx}-row`}
+							$breakpoints={breakpoints}
+							data-testid={testIds.CONTENT_ROW}
+						>
+							{fields.map((field, colIdx) => field ? (
+								<ContentField
+									{...field}
+									key={field.name}
+									value={data[field.column || field.name]}
+								/>
+							) : (
+								<FieldContainer key={colIdx} data-testid={testIds.CONTENT_FIELD} />
+							))}
+						</StyledContentRow>
+					))}
+				</ContentFields>
+			</CardContent>
+		</CardWrapper>
 	);
 };
 

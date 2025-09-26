@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { MosaicObject, MosaicToggle } from "@root/types";
 import type { DataViewColumnTransform } from "../DataView";
 import type { ButtonProps } from "@root/components/Button";
+import type { BREAKPOINTS } from "@root/theme";
 
 export interface ContentFieldDef {
 	/**
@@ -36,6 +37,15 @@ export interface ContentFieldDef {
 	column?: string;
 }
 
+export type BreakpointColumns = Partial<{
+	[K in keyof typeof BREAKPOINTS]: number
+}>
+
+export interface ContentRow<T = string> {
+	breakpoints: BreakpointColumns;
+	fields: T[];
+}
+
 export interface ContentProps {
 	/**
 	 * List of the definitions of the fields that will be render.
@@ -50,7 +60,7 @@ export interface ContentProps {
 	 * Includes the configuration of where each field is going to be
 	 * render. Fields will be render in a max of two columns.
 	 */
-	sections?: string[][];
+	sections?: (string[] | ContentRow)[];
 	/**
 	 * Name of the section or subsection.
 	 */
@@ -61,10 +71,14 @@ export interface ContentProps {
 	 */
 	buttons?: ButtonProps[];
 	/**
-	 * Variant of the component defines what styles should render
-	 * if "card" is passed, content component looks like a card component
+	 * @deprecated All content components now have the style of cards.
 	 */
 	variant?: "standard" | "card";
+	/**
+	 * A breakpoint identifier at which point to display fields as columns
+	 * or a full column breakpoint object.
+	 */
+	columns?: keyof typeof BREAKPOINTS | BreakpointColumns;
 }
 
 export type ContentFieldProps = ContentFieldDef & {
