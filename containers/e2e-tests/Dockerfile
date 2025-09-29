@@ -14,6 +14,7 @@ COPY tsconfig.json /app/tsconfig.json
 COPY pages /app/pages
 COPY tests /app/tests
 COPY utils /app/utils
+COPY fixtures.ts /app/fixtures.ts
 
 WORKDIR /app
 
