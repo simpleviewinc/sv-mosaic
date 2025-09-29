@@ -42,7 +42,7 @@ describe(__dirname, () => {
 
 		await expect(() => setup({ sections: [["noExist"]] }))
 			.rejects
-			.toThrow("No field declared for field name 'noExist'. (section 0, row 0)");
+			.toThrow("No field declared for field name 'noExist'. (row 0, field 0)");
 	});
 
 	it("should evaluate a fields show property if provided", async () => {
