@@ -3,7 +3,6 @@ import type { Preview } from "@storybook/react";
 import ThemeProvider from "#mosaic/components/ThemeProvider";
 
 import "./mosaic-preview.css";
-import "./docs-fonts.css";
 
 const preview: Preview = {
 	decorators: [
@@ -56,6 +55,9 @@ const preview: Preview = {
      */
 		docs: {
 			source: { type: "code" },
+			toc: {
+				headingSelector: "h1, h2, h3",
+			},
 		},
 	},
 };

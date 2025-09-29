@@ -1,7 +1,6 @@
 import { Canvas, Meta } from '@storybook/blocks';
 import * as stories from "./Content.stories";
-import { Required } from "../../../utils/Required";
-import { Optional } from "../../../utils/Optional";
+import { Header } from "../../../utils/Header";
 
 <Meta of={stories} />
 
@@ -13,13 +12,13 @@ The `Content` helps to show the primary information from each specific record, w
 
 https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Content/ContentTypes.ts
 
-### `title` <Required />
+<Header title="title" required />
 
 `string`
 
 Name of the section or subsection.
 
-### `fields` <Required />
+<Header title="fields" required />
 
 `ContentFieldDef[]`
 
@@ -56,12 +55,13 @@ Array of field definitions that control how content data is displayed. Each fiel
 * **show** - [`MosaicToggle`](/docs/components-form-readme--page#MosaicToggle-t-type) optional - A value, array of values, function, or array of functions that controls whether or not to display a field.
 * **column** - `string` optional - If provided, will be used as the data key instead of the field name for data extraction.
 
-### `data` <Required />
+<Header title="data" required />
 
 `MosaicObject`
 
 Data that will be used by the transform function of each field to generate the corresponding JSX element.
-### `sections` <Optional />
+
+<Header title="sections" />
 
 `(string[] | ContentRow)[]`
 
@@ -103,7 +103,7 @@ If not provided, defaults to displaying all fields in a single column layout. Th
     ["description"] // Full-width description
   ]}
   ```
-### `columns` <Optional />
+<Header title="columns" />
 
 `keyof typeof BREAKPOINTS | BreakpointColumns`
 
@@ -140,7 +140,7 @@ Controls the responsive layout behavior of content fields. Can be either:
   ]}
   ```
 
-### `buttons` <Optional />
+<Header title="buttons" />
 
 `ButtonProps[]` **optional** - Array of buttons that will be display on the top-right corner of the component.
 
