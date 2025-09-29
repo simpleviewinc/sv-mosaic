@@ -11,10 +11,14 @@
 		"baseUrl": "./",
 		"skipLibCheck": true,
 		"esModuleInterop": true,
+		"rootDirs": [
+			"."
+		]
 	},
 	"include": [
 		"./pages/**/*",
-		"./tests/**/*"
+		"./tests/**/*",
+		"./fixtures.ts",
 	],
 	"exclude": [
 		"node_modules"
