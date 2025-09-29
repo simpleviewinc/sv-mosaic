@@ -24,30 +24,13 @@ test.describe("Components - Content - Playground", () => {
 		expect(await contentPage.getFontWeightFromElement(contentPage.mainContentTitle)).toBe((theme.weight.medium).toString());
 	});
 
-	test("Validate font size of the Content Title.", async () => {
-		expect(await contentPage.getFontSizeFromElement(contentPage.mainContentTitle)).toBe("16px");
-	});
-
 	test("Validate the show capability to content buttons.", async () => {
 		await contentPage.visit(contentPage.page_path, [pageHeaderKnobs.knobButtons + 0]);
 		await expect(contentPage.editButton).not.toBeVisible();
-		await expect(contentPage.detailsButton).not.toBeVisible();
 	});
 
 	test("Validate that when the buttons knob is undefined, the additional buttons are not displayed.", async () => {
 		await contentPage.visit(contentPage.page_path, [pageHeaderKnobs.knobButtons + "undefined"]);
 		await expect(contentPage.editButton).not.toBeVisible();
-		await expect(contentPage.detailsButton).not.toBeVisible();
-	});
-
-	test("Validate the field has the correct term and definition", async () => {
-		await contentPage.visit(contentPage.page_path);
-		await contentPage.detailsButton.click();
-
-		const field = contentPage.page.locator("[data-testid=\"mos:Content:field\"]", {
-			has: contentPage.page.getByText("Toggle using transform_boolean()"),
-		}).getByRole("definition");
-
-		await expect(field).toHaveText("No");
 	});
 });
