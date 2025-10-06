@@ -16,6 +16,7 @@ const testIds = {
 	CONTENT: "mos:Content:root",
 	CONTENT_COL: "mos:Content:col",
 	CONTENT_FIELD: "mos:Content:field",
+	CONTENT_FIELD_LIST: "mos:Content:fieldList",
 	CONTENT_ROW: "mos:Content:row",
 	CONTENT_SECTION: "mos:Content:section",
 	CONTENT_TOOLTIP_ICON: "mos:Content:tooltipIcon",

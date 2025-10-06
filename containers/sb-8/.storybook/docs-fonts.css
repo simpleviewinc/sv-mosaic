@@ -1,0 +1,47 @@
+/* Documentation Font Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+/* Apply to all documentation content (excluding code elements) */
+.docs-story,
+.sbdocs-content,
+.sbdocs-wrapper,
+.sbdocs-preview {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Keep docblock-source (code blocks) as monospace */
+.docblock-source {
+	font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+}
+
+/* Headings */
+.sbdocs-content h1,
+.sbdocs-content h2,
+.sbdocs-content h3,
+.sbdocs-content h4,
+.sbdocs-content h5,
+.sbdocs-content h6 {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+	font-weight: 600;
+}
+
+/* Body text */
+.sbdocs-content p,
+.sbdocs-content li,
+.sbdocs-content td,
+.sbdocs-content th,
+.sbdocs-content span {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+/* Code blocks - keep monospace with higher specificity */
+.sbdocs-content pre,
+.sbdocs-content code,
+.sbdocs-content pre *,
+.sbdocs-content code *,
+.docblock-source pre,
+.docblock-source code,
+.docblock-source pre *,
+.docblock-source code * {
+	font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+}

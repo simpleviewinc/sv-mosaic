@@ -7,12 +7,13 @@ import type { MosaicLabelValue, MosaicObject } from "../types";
 import type { DataViewColumn, DataViewColumnTransform } from "../components/DataView";
 import DataView from "../components/DataView";
 import Chip from "@root/components/Chip";
-import { ChipsWrapper, ColorValue } from "@root/components/Content/Content.styled";
 import ColorSelected from "@root/components/Field/FormFieldColor/ColorSelected";
 import Image from "@root/components/Image";
 import React from "react";
 import { DATE_FORMAT_SHORT } from "@root/constants";
 import styled from "styled-components";
+import { ChipsWrapper } from "@root/components/ChipList/ChipList.styled";
+import { ExpressedColor } from "@root/components/Field/FormFieldColor/FormFieldColor.styled";
 
 export function transform_boolean(): DataViewColumnTransform<boolean> {
 	return function({ data }): string {
@@ -90,7 +91,7 @@ export function transform_colorPicker(): DataViewColumnTransform<string> {
 	return function Color({ data }: { data: string }): ReactNode {
 		return (
 			<div>
-				<ColorValue>{data}</ColorValue>
+				<ExpressedColor>{data}</ExpressedColor>
 				<ColorSelected
 					color={data}
 				/>

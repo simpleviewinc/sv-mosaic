@@ -55,6 +55,9 @@ const preview: Preview = {
      */
 		docs: {
 			source: { type: "code" },
+			toc: {
+				headingSelector: "h1, h2, h3",
+			},
 		},
 	},
 };
