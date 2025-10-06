@@ -1,9 +1,8 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useState } from "react";
 
 // Components
-import type { ContentFieldDef, ContentProps } from "#mosaic/components/Content";
+import type { ContentFieldDef } from "#mosaic/components/Content";
 import Content from "#mosaic/components/Content";
 import ChipList from "#mosaic/components/ChipList";
 import {
@@ -20,6 +19,9 @@ import Link from "@mui/material/Link";
 
 export default {
 	title: "Components/Content",
+	parameters: {
+		layout: "centered",
+	},
 };
 
 const chips = [
@@ -68,57 +70,19 @@ const data = {
 	emptyStringValue: "",
 	emptyArrayValue: [],
 	animals: [{ id: 1, species: "Dog", color: "Brown" }, { id: 2, species: "Cat", color: "White" }],
-	cars: [{ id: 1, make: "BMW", model: "M3" }, { id: 2, make: "Volkswagen", model: "Golf" }],
-	multipleTransforms: "This is some text",
 	fieldWithLongWord: "Pneumonoultramicroscopicsilicovolcanoconiosis",
 	fieldWithLongURL: "https://simpleviewinc.github.io/sv-mosaic/master/?path=/story/components-content--kitchen-sink",
 	fieldWithLongSentence: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mollis diam non imperdiet luctus. Morbi in augue leo. Vestibulum non tellus in elit molestie pretium sollicitudin eget purus. Mauris varius, est sed placerat ornare, nulla libero consequat nisi, id tempor nibh felis non velit.",
-};
-
-const sectionConfigs: Record<string, ContentProps["sections"]> = {
-	"Single Column": [
-		["tags"],
-		["colorPicker"],
-		["toggle"],
-		["date"],
-		["thumbnail"],
-		["chipsAsValue"],
-		["animals"],
-		["cars"],
-		["multipleTransforms"],
-	],
-	"Two Columns": [
-		["tags", "colorPicker"],
-		["toggle", "date"],
-		["thumbnail", "chipsAsValue"],
-		["animals", "cars"],
-		["multipleTransforms"],
-	],
-	"Three Columns": [
-		["tags", "colorPicker", undefined],
-		["toggle", "date", "thumbnail"],
-		["animals", "cars", "chipsAsValue"],
-		["multipleTransforms"],
-	],
+	multipleTransforms: "This is some text",
 };
 
 export const Playground = ({
 	title,
-	variant,
-	sectionConfigKey,
+	sections,
 	showButtons,
-	showFirstRowItems,
-	amountContent,
+	columns,
+	columnBreakpoints,
 }: typeof Playground.args): ReactElement => {
-	const [showMore, setShowMore] = useState(false);
-
-	/**
-	 * Toggles the state use to show or hide the content.
-	 */
-	const showDetails = () => {
-		setShowMore(!showMore);
-	};
-
 	const buttons: ButtonProps[] = [
 		{
 			name: "edit",
@@ -135,8 +99,8 @@ export const Playground = ({
 			name: "showDetails",
 			intent: "info",
 			variant: "text",
-			label: showMore ? "Less Details" : "More Details",
-			onClick: showDetails,
+			label: "Create Card",
+			onClick: () => alert("Create Card clicked"),
 			show: [showButtons !== "undefined", Number(showButtons) >= 2],
 		},
 	];
@@ -148,7 +112,11 @@ export const Playground = ({
 			tooltip: "This is a list of chips",
 			transforms: [transform_chips()],
 			column: "tags",
-			show: showFirstRowItems,
+		},
+		{
+			name: "date",
+			label: "Date using transform_dateFormat()",
+			transforms: [transform_dateFormat()],
 		},
 		{
 			name: "toggle",
@@ -163,16 +131,10 @@ export const Playground = ({
 			transforms: [transform_boolean()],
 		},
 		{
-			name: "date",
-			label: "Date using transform_dateFormat()",
-			transforms: [transform_dateFormat()],
-		},
-		{
 			name: "color",
 			label: "Color using transform_colorPicker()",
 			transforms: [transform_colorPicker()],
 			column: "colorPicker",
-			show: showFirstRowItems,
 		},
 		{
 			name: "thumbnail",
@@ -184,14 +146,33 @@ export const Playground = ({
 			label: "Chips with no transform only value",
 		},
 		{
+			name: "undefinedValue",
+			label: "Undefined Value",
+		},
+		{
+			name: "emptyStringValue",
+			label: "Empty String",
+		},
+		{
+			name: "emptyArrayValue",
+			label: "Empty Array",
+		},
+		{
 			name: "animals",
 			label: "Animals",
 			transforms: [transform_dataview({ columns: [{ name: "species", label: "Species" }, { name: "color", label: "Color" }] })],
 		},
 		{
-			name: "cars",
-			label: "Cars",
-			transforms: [transform_dataview({ columns: [{ name: "make", label: "Make" }, { name: "model", label: "Model" }] })],
+			name: "fieldWithLongWord",
+			label: "Long Word",
+		},
+		{
+			name: "fieldWithLongURL",
+			label: "Long URL",
+		},
+		{
+			name: "fieldWithLongSentence",
+			label: "Long Sentence",
 		},
 		{
 			name: "multipleTransforms",
@@ -203,66 +184,55 @@ export const Playground = ({
 		},
 	];
 
-	const sections = sectionConfigs[sectionConfigKey];
-
 	return (
-		<>
+		<div style={{ maxWidth: "100%", width: 1200 }}>
 			<Content
 				title={title}
 				data={data}
 				fields={fields}
-				sections={sections.slice(0, showMore ? undefined : 2)}
+				sections={sections}
 				buttons={buttons}
-				variant={variant}
+				columns={columns !== "custom" ? columns : columnBreakpoints}
 			/>
-			{amountContent === 2 && (
-				<Content
-					title="Second content"
-					data={data}
-					fields={fields}
-					sections={sections}
-					variant={variant}
-				/>
-			)}
-		</>
+		</div>
 	);
 };
 
 Playground.args = {
 	title: "Main Content Title",
-	variant: "standard",
-	sectionConfigKey: "Single Column",
 	showButtons: "2",
-	showFirstRowItems: true,
-	amountContent: 1,
+	provideColumns: false,
+	columns: "md",
+	columnBreakpoints: {
+		md: 2,
+	},
+	sections: Object.keys(data).map(key => [key]),
 };
 
 Playground.argTypes = {
 	title: {
 		name: "Title",
 	},
-	variant: {
-		name: "Variant",
-		options: ["standard", "card"],
-		control: { type: "select" },
-	},
-	sectionConfigKey: {
-		name: "Sections",
-		options: ["Single Column", "Two Columns", "Three Columns"],
-		control: { type: "select" },
-	},
 	showButtons: {
 		name: "Buttons",
 		options: ["1", "2", "0", "undefined"],
 		control: { type: "select" },
 	},
-	showFirstRowItems: {
-		name: "Show first row",
+	provideColumns: {
+		name: "Provide Columns",
 	},
-	amountContent: {
-		name: "Amount of contents",
-		options: [1, 2],
+	columns: {
+		name: "Columns",
+		options: ["sm", "md", "lg", "xl", "2xl", "custom"],
 		control: { type: "select" },
+		if: { arg: "provideColumns" },
+	},
+	columnBreakpoints: {
+		name: "Column Breakpoints",
+		if: { arg: "columns", eq: "custom" },
+	},
+	sections: {
+		name: "Sections",
 	},
 };
 

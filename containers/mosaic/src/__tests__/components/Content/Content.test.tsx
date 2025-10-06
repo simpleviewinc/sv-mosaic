@@ -37,18 +37,12 @@ describe(__dirname, () => {
 		expect(screen.queryByText("My Content 2")).toBeInTheDocument();
 	});
 
-	it("should render a content component using the card variant", async () => {
-		await setup({ variant: "card" });
-
-		expect(screen.queryByTestId(testIds.CONTENT)).toHaveClass("card-wrapper");
-	});
-
 	it("should throw an error if a field in the sections provided does not exist in the field definitions provided", async () => {
 		vi.spyOn(console, "error").mockImplementation(() => null);
 
 		await expect(() => setup({ sections: [["noExist"]] }))
 			.rejects
-			.toThrow("No field declared for field name 'noExist'. (section 0, row 0)");
+			.toThrow("No field declared for field name 'noExist'. (row 0, field 0)");
 	});
 
 	it("should evaluate a fields show property if provided", async () => {

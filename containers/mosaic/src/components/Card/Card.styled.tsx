@@ -37,15 +37,16 @@ export const CardButtonRow = styled(ButtonRow)`
 	margin-left: auto;
 `;
 
-export const ContentWrapper = styled.div`
-	padding: ${theme.spacing(0, 5)};
+export const CardContent = styled.div`
+	padding: ${theme.spacing(4, 5, 0)};
 	border-top: 1px solid ${theme.color.gray[300]};
 `;
 
 export const ContentItem = styled.div`
-	padding: ${theme.spacing(4, 2)};
+	padding: ${theme.spacing(0, 2, 4)};
 
 	&:not(:first-child) {
+		padding-top: ${theme.spacing(4)};
 		border-top: 1px solid ${theme.color.gray[200]};
 	}
 `;

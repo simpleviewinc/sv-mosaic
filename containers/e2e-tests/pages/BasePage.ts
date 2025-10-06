@@ -87,12 +87,9 @@ export class BasePage {
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {
-		if (knobs) {
-			await this.page.goto(urlWithKnobs(page_path, knobs), { waitUntil: "domcontentloaded", timeout: 900000 });
-		} else {
-			await this.page.goto(url(page_path), { waitUntil: "domcontentloaded", timeout: 900000 });
-		}
+		const urlToVisit = knobs ? urlWithKnobs(page_path, knobs) : url(page_path);
 
+		await this.page.goto(urlToVisit, { waitUntil: "domcontentloaded", timeout: 900000 });
 		await this.clean();
 	}
 
@@ -358,5 +355,12 @@ export class BasePage {
 
 	async isElementFocused(element: Locator): Promise<boolean> {
 		return await (element).evaluate(el => el === document.activeElement);
+	}
+
+	async getElementViewportGutter(locator: Locator, initialViewportWidth: number) {
+		await this.page.setViewportSize({ width: initialViewportWidth, height: 800 });
+		const element = await locator.elementHandle();
+		const box = await element.boundingBox();
+		return initialViewportWidth - box.width;
 	}
 }
