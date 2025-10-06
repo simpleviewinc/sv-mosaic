@@ -1,5 +1,32 @@
+/* Import your custom font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
+/* Apply font to documentation content */
+.docs-story, .sbdocs-content, .sbdocs-wrapper {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Apply font to headings in docs */
+.sbdocs-content h1, .sbdocs-content h2, .sbdocs-content h3, .sbdocs-content h4, .sbdocs-content h5, .sbdocs-content h6 {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Apply font to paragraphs and other text elements */
+.sbdocs-content p, .sbdocs-content li, .sbdocs-content td, .sbdocs-content th {
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Ensure code and pre elements use monospace fonts */
+.sbdocs-content pre, .sbdocs-content code, .sbdocs-content pre *, .sbdocs-content code * {
+	font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace !important;
+}
+
 code {
 	max-width: 400px !important;
   	white-space: normal !important;
   	line-height: 1.4em !important;
+}
+
+.sb-main-centered #storybook-root {
+	max-width: 100%;
 }
