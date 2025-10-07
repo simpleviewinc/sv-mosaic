@@ -19,18 +19,20 @@ export function CardHeading({
 	count,
 	icon: Icon,
 	showZeroCount,
+	compact,
 }: CardHeadingProps) {
 	return (
 		<Heading
 			data-testid={testIds.CARD_HEADING}
 			$collapsed={collapsed}
+			$compact={compact}
 		>
 			<Title>
 				{Icon && <Icon data-testid={testIds.CARD_TITLE_ICON} />}
 				<Text
 					maxLines={1}
 					tag="h3"
-					size="xl"
+					size={compact ? "lg" : "xl"}
 					line="xtight"
 					weight="medium"
 				>

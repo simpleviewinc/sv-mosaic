@@ -42,4 +42,5 @@ export type CardHeadingProps = Pick<CardProps, "collapsed" | "count" | "showZero
 	icon?: CardProps["titleIcon"];
 	children: CardProps["title"];
 	buttons?: CardProps["topActions"];
+	compact?: boolean;
 };

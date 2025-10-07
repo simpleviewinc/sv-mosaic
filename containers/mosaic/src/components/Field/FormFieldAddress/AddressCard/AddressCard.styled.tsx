@@ -1,33 +1,26 @@
+import { CardWrapper } from "@root/components/Card/Card.styled";
 import styled from "styled-components";
 
-// Utils
-import theme from "@root/theme";
-import ButtonRow from "@root/components/ButtonRow";
-
-export const StyledAddressCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${theme.newColors.almostBlack["100"]};
-  background-color: ${theme.newColors.grey1["100"]};
-  height: 204px;
-  padding: 24px 16px 16px 24px;
+export const StyledCardWrapper = styled(CardWrapper)`
   width: 300px;
+`;
 
-  & span {
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-	line-height: 20px;
+export const ScreenReaderOnly = styled.span`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
+export const AddressLine = styled.div`
+  margin-bottom: 4px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
-`;
-
-export const AddressTitle = styled.span`
-  font-weight: ${theme.weight.medium};
-  margin-bottom: 12px !important;
-`;
-
-export const StyledButtonRow = styled(ButtonRow)`
-  align-self: flex-end;
-  margin-top: auto;
 `;

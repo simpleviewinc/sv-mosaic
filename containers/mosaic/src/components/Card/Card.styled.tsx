@@ -7,16 +7,22 @@ export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
 	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
 
 	border-radius: ${theme.rounded.md};
-	width: 100%;
 	box-shadow: var(--mos-border-light), var(--card-shadow);
 `;
 
-export const Heading = styled(Row).attrs({ $align: "center" })<{ $collapsed?: boolean }>`
+export const Heading = styled(Row).attrs({ $align: "center" })<{
+	$collapsed?: boolean;
+	$compact?: boolean;
+}>`
   	background: ${theme.color.gray[50]};
 	border-radius: ${theme.rounded.md};
-	padding: ${theme.spacing(0, 5)};
+	border-bottom: 1px solid ${theme.color.gray[300]};
 	gap: ${theme.spacing(2)};
-	height: 48px;
+
+	${({ $compact }) => `
+		padding: ${theme.spacing(0, $compact ? 4 : 5)};
+		height: ${$compact ? "42" : "48"}px;
+	`}
 
 	${({ $collapsed }) => $collapsed ? "" : `
 		border-bottom-left-radius: 0;
@@ -37,10 +43,17 @@ export const CardButtonRow = styled(ButtonRow)`
 	margin-left: auto;
 `;
 
-export const CardContent = styled.div`
-	padding: ${theme.spacing(4, 5, 0)};
-	border-top: 1px solid ${theme.color.gray[300]};
-`;
+export const CardContent = styled.div<{
+	$compact?: boolean;
+	$paddingBottom?: boolean;
+}>(({ $compact, $paddingBottom }) => `
+	${$compact ? `
+		padding: ${theme.spacing(3, 4, $paddingBottom ? 3 : 0)};
+	` : `
+		padding: ${theme.spacing(4, 5, $paddingBottom ? 4 : 0)};
+	`}
+
+`);
 
 export const ContentItem = styled.div`
 	padding: ${theme.spacing(0, 2, 4)};
@@ -51,8 +64,16 @@ export const ContentItem = styled.div`
 	}
 `;
 
-export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "center" })`
+export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "center" })<{
+	$compact?: boolean;
+}>`
 	border-top: 1px solid ${theme.color.gray[200]};
-	padding: ${theme.spacing(3, 0)};
-	margin: ${theme.spacing(0, 5)};
+
+	${({ $compact }) => $compact ? `
+		padding: ${theme.spacing(2, 0)};
+		margin: ${theme.spacing(0, 4)};
+	` : `
+		padding: ${theme.spacing(3, 0)};
+		margin: ${theme.spacing(0, 5)};
+	`}
 `;
