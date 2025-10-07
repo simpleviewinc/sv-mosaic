@@ -4,7 +4,7 @@ import * as React from "react";
 import { memo } from "react";
 
 import type { AddressCardProps } from "../AddressTypes";
-import { ScreenReaderOnly, AddressLine, StyledCardWrapper } from "./AddressCard.styled";
+import { AddressLine, StyledCardWrapper } from "./AddressCard.styled";
 import { joinAnd } from "@root/utils/string";
 import { CardBottom, CardContent } from "@root/components/Card/Card.styled";
 import { EMPTY_ARRAY } from "@root/constants/stable";
@@ -27,56 +27,48 @@ const AddressCard = ({ address, onEdit, onRemoveAddress, disabled }: AddressCard
 	return (
 		<StyledCardWrapper data-testid="address-card-test">
 			<CardContent $paddingBottom $compact>
-				<AddressLine>
-					<ScreenReaderOnly>Address types: </ScreenReaderOnly>
+				<AddressLine aria-label="Address types">
 					<strong>{`${joinAnd(typesLabels)} Address`}</strong>
 				</AddressLine>
 				<div role="group" aria-label="Mailing address">
 					{address1 && (
-						<AddressLine>
-							<ScreenReaderOnly>Street address: </ScreenReaderOnly>
+						<AddressLine aria-label="Address 1">
 							{address1}
 						</AddressLine>
 					)}
 					{address2 && (
-						<AddressLine>
-							<ScreenReaderOnly>Address line 2: </ScreenReaderOnly>
+						<AddressLine aria-label="Address 2">
 							{address2}
 						</AddressLine>
 					)}
 					{address3 && (
-						<AddressLine>
-							<ScreenReaderOnly>Address line 3: </ScreenReaderOnly>
+						<AddressLine aria-label="Address 3">
 							{address3}
 						</AddressLine>
 					)}
 					{(city || state || postalCode) && (
-						<AddressLine>
+						<AddressLine aria-label="City, State and Postal Code">
 							{city && (
 								<>
-									<ScreenReaderOnly>City: </ScreenReaderOnly>
 									{city}
 									{(state || postalCode) && ", "}
 								</>
 							)}
 							{state && (
 								<>
-									<ScreenReaderOnly>State: </ScreenReaderOnly>
 									{state.label}
 									{postalCode && " "}
 								</>
 							)}
 							{postalCode && (
 								<>
-									<ScreenReaderOnly>Postal code: </ScreenReaderOnly>
 									{postalCode}
 								</>
 							)}
 						</AddressLine>
 					)}
 					{country && (
-						<AddressLine>
-							<ScreenReaderOnly>Country: </ScreenReaderOnly>
+						<AddressLine aria-label="Country">
 							{country.label}
 						</AddressLine>
 					)}
