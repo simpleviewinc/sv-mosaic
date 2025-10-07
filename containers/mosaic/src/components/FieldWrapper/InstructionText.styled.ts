@@ -4,7 +4,7 @@ import { containerQuery } from "@root/utils/css";
 
 export const InstructionTextWrapper = styled.div<{ $colsInRow?: number }>`
 	padding-left: 20px;
-	border-left: 2px solid ${theme.newColors.grey2["100"]};
+	border-left: 1px solid ${theme.color.gray[300]};
 	flex: none;
 	align-self: stretch;
 	margin-left: auto;
@@ -23,6 +23,6 @@ export const InstructionTextWrapper = styled.div<{ $colsInRow?: number }>`
 `;
 
 export const StyledInstructionText = styled.p`
-	color: ${theme.newColors.grey3["100"]};
+	color: ${theme.color.gray[600]};
 	margin: 0;
 `;
