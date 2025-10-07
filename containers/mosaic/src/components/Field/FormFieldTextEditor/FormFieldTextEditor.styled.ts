@@ -231,9 +231,11 @@ export const StyledFloatingToolbar = styled.div<{ $disabled?: boolean }>`
     `}
 
     background: white;
-    box-shadow: box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    border: 1px solid var(--inner-border-color);
-    border-bottom: 0;
+    box-shadow:
+		var(--mos-border-light),
+		0 34px 60px 0 rgba(0, 0, 0, 0.15),
+		var(--mos-shadow-xl);
+    border-radius: ${theme.rounded.md};
 `;
 
 export const StyledPrimaryToolbar = styled.div`
@@ -252,25 +254,27 @@ export const ToolbarOffset = styled.div`
     margin-left: -1px;
 `;
 
-export const ControlRow = styled.div`
+export const ControlRow = styled.div<{ $horizontalSeparator?: boolean }>`
     display: flex;
     flex-wrap: wrap;
     position: relative;
     padding: 4px 0;
 
-    &::after {
-        border-bottom: 1px solid var(--inner-border-color);
-        bottom: 0;
-        content: " ";
-        left: 8px;
-        right: 8px;
-        position: absolute;
-    }
+    ${({ $horizontalSeparator }) => !$horizontalSeparator ? "" : `
+        &::after {
+            border-bottom: 1px solid var(--inner-border-color);
+            bottom: 0;
+            content: " ";
+            left: 8px;
+            right: 8px;
+            position: absolute;
+        }
 
-    &:last-child::after {
-        left: 0;
-        right: 0;
-    }
+        &:last-child::after {
+            left: 0;
+            right: 0;
+        }
+    `}
 `;
 
 export const ControlGroup = styled.div`

@@ -21,6 +21,7 @@ export interface ToolbarControlsProps {
 	selectionTypes?: SelectionType[];
 	inputSettings: TextEditorInputSettings;
 	disabled?: boolean;
+	horizontalSeparator?: boolean;
 }
 
 export interface FloatingToolbarState {

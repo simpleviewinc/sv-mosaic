@@ -5,10 +5,11 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 import type { NodeFormState } from "../FormFieldTextEditorTypes";
 
-import { StyledNodeForm, StyledPopper } from "./NodeForm.styled";
+import { StyledPopper } from "./NodeForm.styled";
 import { NodeFormLink } from "./NodeFormLink";
 import { NodeFormImage } from "./NodeFormImage";
 import testIds from "@root/utils/testIds";
+import { StyledPopperPaper } from "@root/components/common";
 
 export type NodeFormProps = NodeFormState & {
 	editor: Editor;
@@ -45,7 +46,7 @@ export function NodeForm(props: NodeFormProps) {
 			data-testid={testIds.TEXT_EDITOR_NODE_FORM}
 		>
 			<ClickAwayListener onClickAway={onClose}>
-				<StyledNodeForm>
+				<StyledPopperPaper style={{ width: 300 }}>
 					{type === "link" ? (
 						<NodeFormLink
 							data={values || {}}
@@ -59,7 +60,7 @@ export function NodeForm(props: NodeFormProps) {
 							{...rest}
 						/>
 					) : null}
-				</StyledNodeForm>
+				</StyledPopperPaper>
 			</ClickAwayListener>
 		</StyledPopper>
 	);

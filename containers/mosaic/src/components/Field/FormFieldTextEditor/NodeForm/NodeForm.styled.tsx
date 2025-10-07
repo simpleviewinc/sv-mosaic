@@ -8,12 +8,6 @@ export const StyledPopper = styled(Popper)`
 	z-index: 1300;
 `;
 
-export const StyledNodeForm = styled.div`
-    border: 1px solid ${theme.colors.gray300};
-    background: white;
-    width: 300px;
-`;
-
 export const RemoveButton = styled(Button)`
     && {
         margin-left: auto;
