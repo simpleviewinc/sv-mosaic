@@ -213,6 +213,7 @@ function FormFieldTextEditorUnmemo({
 						controls={controls}
 						inputSettings={inputSettings}
 						disabled={disabled}
+						horizontalSeparator
 					/>
 				</PrimaryToolbar>
 			)}
