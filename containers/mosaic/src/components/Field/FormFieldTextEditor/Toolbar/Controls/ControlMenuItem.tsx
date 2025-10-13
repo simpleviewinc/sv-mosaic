@@ -8,7 +8,7 @@ import type { ControlWithProps, TextEditorInputSettings } from "../../FormFieldT
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import testIds from "@root/utils/testIds";
 import { Shortcut } from "../Shortcut";
-import type { MenuItemProps } from "@mui/material/MenuItem";
+import type { MenuItemProps } from "@root/components/MenuItem";
 
 type ControlMenuItemProps = ControlWithProps & MenuItemProps & {
 	editor: Editor;

@@ -90,9 +90,6 @@ export * from "./TopSummary";
 export { default as Content } from "./Content";
 export * from "./Content";
 
-export { default as Popover } from "./Popover";
-export * from "./Popover";
-
 export { default as PageHeader } from "./PageHeader";
 export * from "./PageHeader";
 

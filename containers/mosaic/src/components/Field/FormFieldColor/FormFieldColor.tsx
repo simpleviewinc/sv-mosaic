@@ -14,6 +14,7 @@ import { RGBAToHexA } from "./colorUtils";
 import testIds from "@root/utils/testIds";
 import { NoColor, StyledPopover, StyledWrapper } from "./FormFieldColor.styled";
 import Button from "@root/components/Button";
+import { StyledPopoverPaper } from "@root/components/common";
 
 const popoverSlotProps = {
 	paper: {
@@ -99,6 +100,7 @@ const FormFieldColor = (
 						horizontal: "left",
 					}}
 					slotProps={popoverSlotProps}
+					slots={{ paper: StyledPopoverPaper }}
 				>
 					<SketchPicker color={value} onChange={onColorChange} />
 				</StyledPopover>

@@ -15,7 +15,7 @@ const h5Size = css`font-size: font-size: 12px;`;
 const h6Size = css`font-size: font-size: 12px;`;
 
 const selectedNode = css`
-    outline: 1px solid ${theme.newColors.almostBlack["100"]};
+    outline: 2px solid ${theme.color.gray[700]};
     outline-offset: 2px;
 `;
 
@@ -50,7 +50,7 @@ export const StyledTextEditor = styled.div<{
     ${({ $disabled }) => !$disabled ? "" : `
         --border: var(--mos-border-light);
         --inner-border-color: ${theme.color.gray[200]};
-        color: ${theme.colors.disabledTextColor};
+        color: ${theme.color.gray[400]};
     `}
 `;
 
@@ -71,7 +71,6 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
         `}
 
         &:focus {
-			border-color: ${theme.newColors.almostBlack["100"]};
             outline: none;
         }
 
@@ -142,10 +141,10 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
         }
 
         .tiptap-pill {
-            background-color: ${theme.colors.gray200};
+            background-color: ${theme.color.gray[100]};
             border-radius: 3px;
             border: 1px solid var(--inner-border-color);
-            color: ${theme.colors.gray600};
+            color: ${theme.color.gray[500]};
             padding: 0;
             font-size: ${theme.fontSize.text.sm};
             display: flex;
@@ -170,7 +169,7 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
                 padding-left: 4px;
 
                 &::marker {
-                    color: ${theme.colors.gray400};
+                    color: ${theme.color.gray[500]};
                 }
             }
 
@@ -181,11 +180,11 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
         }
 
         a {
-            color: ${theme.colors.teal};
+            color: ${theme.color.teal[700]};
         }
 
         pre {
-            background-color: ${theme.colors.gray200};
+            background-color: ${theme.color.gray[100]};
             border-radius: 3px;
             border: 1px solid var(--inner-border-color);
             font-size: 0.85rem;
@@ -227,7 +226,7 @@ export const Editor = styled(EditorContent)<{ $minHeight?: string | number; $max
 
 export const StyledFloatingToolbar = styled.div<{ $disabled?: boolean }>`
     ${({ $disabled }) => `
-        --inner-border-color: ${$disabled ? theme.colors.disableBorder : theme.newColors.simplyGrey["100"]};
+        --inner-border-color: ${$disabled ? theme.color.gray[200] : theme.color.gray[300]};
     `}
 
     background: white;
@@ -325,15 +324,15 @@ export const StyledControlButton = styled.button.attrs<{ $active?: boolean; $squ
     `}
 
     &:disabled {
-        color: ${theme.colors.gray400};
+        color: ${theme.color.gray[400]};
     }
 
 
     ${({ $active }) => `
-        color: ${$active ? theme.colors.gray700 : theme.colors.gray600};
+        color: ${$active ? theme.color.gray[700] : theme.color.gray[600]};
 
         ${$active && `
-            background-color: ${theme.newColors.simplyGold["40"]};
+            background-color: ${theme.color.gold[200]};
         `}
 
     `}
@@ -356,7 +355,7 @@ export const MenuButtonArrow = styled(KeyboardArrowDownIcon)`
 
 export const MultipleStyles = styled.div`
     font-style: italic;
-    color: ${theme.newColors.grey3["100"]};
+    color: ${theme.color.gray[500]};
 `;
 
 export const CodeView = styled(TextareaAutosize)`
@@ -422,15 +421,15 @@ export const StyledMenuItem = styled(MenuItem)<{ $active?: boolean }>`
         }
 
         &:disabled {
-            color: ${theme.colors.gray400};
+            color: ${theme.color.gray[400]};
         }
 
         ${({ $active }) => $active && `
-            background-color: ${theme.newColors.simplyGold["40"]};
+            background-color: ${theme.color.teal[50]};
 
             &:focus-visible,
             &:hover {
-                background-color: ${theme.newColors.simplyGold["60"]};
+                background-color: ${theme.color.teal[100]};
             }
         `}
     }
@@ -444,7 +443,7 @@ export const MenuItemLabel = styled.div`
 `;
 
 export const MenuItemShortcut = styled.div`
-    background: ${theme.colors.gray200};
+    background: ${theme.color.gray[200]};
     font-size: ${theme.fontSize.text.xs};
     text-align: center;
     padding: 2px 4px;

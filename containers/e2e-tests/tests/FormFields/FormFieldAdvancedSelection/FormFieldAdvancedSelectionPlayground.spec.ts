@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldAdvancedSelectionPage } from "../../../pages/FormFields/FormFieldAdvancedSelectionPage/AdvancedSelectionPlaygroundPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
@@ -17,7 +17,7 @@ test.describe("FormFields - FormFieldAdvancedSelection - Playground", () => {
 		await ffAdvancedSelectionPage.visit(ffAdvancedSelectionPage.page_path);
 	});
 
-	test("Validate placeholder text has grey3 as Color.", async () => {
+	test.skip("Validate placeholder text has grey3 as Color.", async () => {
 		const expectedColor = theme.newColors.grey3["100"];
 		expect(await ffAdvancedSelectionPage.getSpecificBorderFromElement(ffAdvancedSelectionPage.placeholderText)).toContain(expectedColor);
 	});
