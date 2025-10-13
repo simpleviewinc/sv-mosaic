@@ -1,8 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import styled from "styled-components";
 import theme from "#mosaic/theme";
-import format from "date-fns/format";
 import type { ButtonProps } from "#mosaic/components/Button";
 
 // Components
@@ -11,7 +9,6 @@ import AddIcon from "@mui/icons-material/Add";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { DATE_FORMAT_FULL } from "#mosaic/constants";
 import { Text } from "@simpleview/sv-mosaic/components/Typography";
 import { Column } from "@simpleview/sv-mosaic/components/common";
 
@@ -21,19 +18,6 @@ export default {
 		layout: "centered",
 	},
 };
-
-const ActivityWrapper = styled.div`
-  margin: 32px 0 32px 0;
-`;
-
-const ActivityDescription = styled.p`
-  color: ${theme.newColors.grey4["100"]};
-  margin-bottom: 8px;
-`;
-
-const ActivityDate = styled.span`
-  color: ${theme.newColors.grey3["100"]};
-`;
 
 const content = [
 	<Column>
@@ -151,40 +135,4 @@ Playground.argTypes = {
 	collapsed: {
 		name: "Collapsed",
 	},
-};
-
-const recentActivityContent = [
-	<ActivityWrapper key="activity-1">
-		<ActivityDescription>First Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
-	</ActivityWrapper>,
-	<ActivityWrapper key="activity-2">
-		<ActivityDescription>Second Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
-	</ActivityWrapper>,
-	<ActivityWrapper key="activity-3">
-		<ActivityDescription>Third Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
-	</ActivityWrapper>,
-	<ActivityWrapper key="activity-4">
-		<ActivityDescription>Fourth Activity</ActivityDescription>
-		<ActivityDate>{format(new Date(), DATE_FORMAT_FULL)}</ActivityDate>
-	</ActivityWrapper>,
-];
-
-export const RecentActivity = (): ReactElement => {
-	return (
-		<Card
-			title="Recent Activity"
-			content={recentActivityContent}
-			topActions={[
-				{
-					intent: "info",
-					label: "Show All",
-					variant: "text",
-					onClick: () => alert("Show all clicked"),
-				},
-			]}
-		/>
-	);
 };

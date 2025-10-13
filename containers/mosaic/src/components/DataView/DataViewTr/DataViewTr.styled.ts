@@ -12,6 +12,6 @@ export const TableRow = styled.tr<{ $isDragOverlay?: boolean }>`
 	`}
 
 	&.checked {
-		background-color: ${theme.newColors.grey1["100"]};
+		background-color: ${theme.color.gray[50]};
 	}
 `;

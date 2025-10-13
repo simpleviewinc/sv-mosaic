@@ -24,7 +24,7 @@ export const MediaGalleryImage = styled.img<{ $selected?: boolean }>`
 
 export const MediaGalleryChecked = styled.div`
     box-shadow: 0 1px 1px rgba(0,0,0,.2);
-    background: ${theme.colors.teal};
+    background: ${theme.color.teal[700]};
     border-radius: 3px;
     border: 1px solid white;
     color: white;

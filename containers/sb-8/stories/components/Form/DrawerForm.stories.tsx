@@ -60,7 +60,7 @@ const Heading = styled.h2`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: ${theme.colors.simplyGray};
+	color: ${theme.color.gray[600]};
 	margin: 8px -12px 0;
 	display: flex;
 	align-items: center;
@@ -68,7 +68,7 @@ const Heading = styled.h2`
 	&::after{
 		content: " ";
 		flex-grow: 1;
-		border-top: 1px solid ${theme.newColors.grey2["100"]};
+		border-top: 1px solid ${theme.color.gray[100]};
 		margin-left: 16px;
 		margin-top: 4px;
 	}

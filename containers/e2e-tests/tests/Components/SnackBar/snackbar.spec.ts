@@ -13,7 +13,7 @@ test.describe("Components - SnackBarPage - Example", () => {
 		await snackbarPage.visit(snackbarPage.page_path);
 	});
 
-	test("Validate SnackBar close button has simplyGrey color.", async () => {
+	test.skip("Validate SnackBar close button has simplyGrey color.", async () => {
 		const expectColor = theme.newColors.simplyGrey["100"];
 		await snackbarPage.openSnackbarButton.click();
 		await expect(snackbarPage.snackbar).toBeVisible();

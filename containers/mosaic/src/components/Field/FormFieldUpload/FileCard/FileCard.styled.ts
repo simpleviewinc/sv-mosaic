@@ -42,8 +42,8 @@ export const StyledFileCard = styled.div<{ $error?: boolean; $isDeleting?: boole
 		}
 
 		div {
-			background-color: ${theme.newColors.grey2["100"]};
-			color: ${theme.newColors.grey3["100"]};
+			background-color: ${theme.color.gray[100]};
+			color: ${theme.color.gray[600]};
 			display: flex;
 			align-items: center;
 			justify-content: center;

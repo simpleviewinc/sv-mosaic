@@ -170,7 +170,6 @@ test.describe("Components - Data View - Filter", () => {
 	});
 
 	test("Validate bottons in filters selection are as expected.", async () => {
-		const expectBgColor = theme.newColors.simplyGold["100"];
 		await filter._dataviewPage.filtersBtn.click();
 		await expect(filter.clearBtn).toBeVisible();
 		await expect(filter.applyBtn).toBeVisible();

@@ -89,13 +89,14 @@ export const WithIcons = (): ReactElement => {
 		{
 			label : "Item A",
 			mIcon : CreateIcon,
+			color: "black",
 			onClick : function() {
 				alert("Item A");
 			},
 		},
 		{
 			label : "Item B",
-			color : "blue",
+			color: "gold",
 			mIcon : CloudDownloadIcon,
 			onClick : function() {
 				alert("Item B");
@@ -103,10 +104,26 @@ export const WithIcons = (): ReactElement => {
 		},
 		{
 			label : "Item C",
-			color : "red",
+			color : "gray",
 			mIcon : DeleteIcon,
 			onClick : function() {
 				alert("Item C");
+			},
+		},
+		{
+			label : "Item D",
+			color : "red",
+			mIcon : DeleteIcon,
+			onClick : function() {
+				alert("Item D");
+			},
+		},
+		{
+			label : "Item E",
+			color : "teal",
+			mIcon : DeleteIcon,
+			onClick : function() {
+				alert("Item E");
 			},
 		},
 	];
@@ -131,7 +148,7 @@ export const Selectable = (): ReactElement => {
 		},
 		{
 			label : "Item B",
-			color : "blue",
+			color : "teal",
 			value: "item2",
 		},
 		{

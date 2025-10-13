@@ -15,16 +15,6 @@ test.describe("Components - Button - Playground", () => {
 		buttonPage = new ButtonPage(page);
 	});
 
-	test.skip("Validate Button has simplyGold background.", async () => {
-		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("contained"), await buttonPage.getKnobForColor("yellow")]);
-		expect(await buttonPage.getBackgroundColorFromElement(buttonPage.button)).toBe(theme.newColors.simplyGold["100"]);
-	});
-
-	test.skip("Validate Button has realTeal color.", async () => {
-		await buttonPage.visit(buttonPage.page_path, [await buttonPage.getKnobForVariant("outlined"), await buttonPage.getKnobForColor("teal")]);
-		expect(await buttonPage.getColorFromElement(buttonPage.button)).toBe(theme.newColors.realTeal["100"]);
-	});
-
 	test("Validate Button Popover on Click.", async () => {
 		await buttonPage.visit(buttonPage.page_path, [knob.knobPopover + true, await buttonPage.getKnobForPopoverEvent("onClick")]);
 		await buttonPage.button.click();

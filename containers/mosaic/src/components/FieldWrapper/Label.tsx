@@ -37,7 +37,7 @@ const InputLabelDiv = styled.div`
 `;
 
 const CharCounterWrapper = styled.div<{ $invalid?: boolean }>`
-	color: ${({ $invalid }) => $invalid ? theme.newColors.darkRed["100"] : theme.newColors.grey3["100"]};
+	color: ${({ $invalid }) => $invalid ? theme.color.red[600] : theme.color.gray[600]};
 	font-size: ${theme.fontSize.text.sm};
 	line-height: ${theme.line.loose};
 	margin-left: auto;
