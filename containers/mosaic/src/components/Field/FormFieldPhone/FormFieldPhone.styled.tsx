@@ -56,7 +56,7 @@ export const StyledUnknownFlag = styled.div`
 	box-shadow: 0 0 2px 0 rgba(0,0,0,.5);
 	height: 1rem;
 	width: 1.5rem;
-	color: ${theme.colors.gray600};
+	color: ${theme.color.gray[600]};
 	display: flex;
 	align-items: center;
 	justify-content: center;

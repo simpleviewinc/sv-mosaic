@@ -5,7 +5,7 @@ import type { ComponentProps } from "react";
 
 export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	z-index: 1500;
-	background: ${theme.newColors.almostBlack["100"]};
+	background: ${theme.color.black};
 	color: white;
 	padding: 8px;
 	border-radius: 4px;
@@ -17,7 +17,7 @@ export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	&[data-popper-placement="bottom-start"] .arrow,
 	&[data-popper-placement="bottom"] .arrow,
 	&[data-popper-placement="bottom-end"] .arrow {
-		border-bottom-color: ${theme.newColors.almostBlack["100"]};
+		border-bottom-color: ${theme.color.black};
 		border-top: 0;
 		top: -5px;
 	}
@@ -25,7 +25,7 @@ export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	&[data-popper-placement="top-start"] .arrow,
 	&[data-popper-placement="top"] .arrow,
 	&[data-popper-placement="top-end"] .arrow {
-		border-top-color: ${theme.newColors.almostBlack["100"]};
+		border-top-color: ${theme.color.black};
 		border-bottom: 0;
 		bottom: -5px;
 	}
@@ -49,7 +49,7 @@ export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	&[data-popper-placement="left-start"] .arrow,
 	&[data-popper-placement="left"] .arrow,
 	&[data-popper-placement="left-end"] .arrow {
-		border-left-color: ${theme.newColors.almostBlack["100"]};
+		border-left-color: ${theme.color.black};
 		border-right: 0;
 		right: -5px;
 	}
@@ -57,7 +57,7 @@ export const TooltipPopper = styled(Popper)<ComponentProps<typeof Popper>>`
 	&[data-popper-placement="right-start"] .arrow,
 	&[data-popper-placement="right"] .arrow,
 	&[data-popper-placement="right-end"] .arrow {
-		border-right-color: ${theme.newColors.almostBlack["100"]};
+		border-right-color: ${theme.color.black};
 		border-left: 0;
 		left: -5px;
 	}

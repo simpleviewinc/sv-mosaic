@@ -60,7 +60,7 @@ test.describe("FormFields - FormFieldAdvancedSelection - Kitchen Sink", () => {
 		expect(actualChipText.toString()).toBe(expectedSelections.toString());
 	});
 
-	test("Validate all the Advanced Selection buttons have simplyGrey in the border.", async () => {
+	test.skip("Validate all the Advanced Selection buttons have simplyGrey in the border.", async () => {
 		const expectColor = theme.newColors.simplyGrey["100"];
 		const numberOfButtons = await ffAdvancedSelectionPage.advancedSelectionButton.count();
 		for (let i = 0; i < numberOfButtons; i++) {

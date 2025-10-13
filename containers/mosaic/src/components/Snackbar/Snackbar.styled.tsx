@@ -5,7 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
 
 // Utils
-import theme from "@root/theme";
+import theme, { BREAKPOINTS } from "@root/theme";
 
 export const StyledSnackbar = styled(Snackbar)`
   .MuiIconButton-root {
@@ -22,7 +22,7 @@ export const StyledSnackbar = styled(Snackbar)`
     right: 10px;
   }
 
-  @media (min-width: ${theme.breakpoints.mobile}) {
+  @media (min-width: ${BREAKPOINTS.sm}px) {
     &.MuiSnackbar-anchorOriginBottomRight {
       bottom: 40px;
       left: auto;
@@ -33,15 +33,15 @@ export const StyledSnackbar = styled(Snackbar)`
 
 export const ContentWrapper = styled.div`
   align-items: flex-start;
-  background-color: ${theme.newColors.almostBlack["100"]};
+  background-color: ${theme.color.black};
   border-radius: 2px;
-  box-shadow: 0px 2px 6px ${theme.newColors.almostBlack["20"]};
+  box-shadow: 0px 2px 6px ${theme.color.black};
   display: flex;
   max-width: 400px;
   padding: 16px 16px;
 
   .MuiSvgIcon-root {
-    color: ${theme.newColors.realTeal["100"]};
+    color: ${theme.color.teal[700]};
     font-size: ${theme.fontSize.text["2xl"]};
   }
 `;
@@ -52,7 +52,7 @@ export const ActionWrapper = styled.div`
 
 export const StyledCloseIcon = styled(CloseIcon)`
   &.MuiSvgIcon-root {
-    color: ${theme.newColors.simplyGrey["100"]};
+    color: ${theme.color.white};
     font-size: ${theme.fontSize.text.lg};
   }
 `;

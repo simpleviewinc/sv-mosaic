@@ -1,92 +1,32 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-
-// Styles for the MapCoordinates component
+import { CardWrapper } from "@root/components/Card/Card.styled";
 
 export const StyledSpan = styled.div`
-  color: ${theme.newColors.grey3["100"]};
-  margin-top: 4px;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: calc(100vw - 40px);
-  };
+	color: ${theme.color.gray[600]};
+	margin-top: ${theme.spacing(1)};
 `;
 
-export const CoordinatesCard = styled.div`
-  border: 2px solid ${theme.newColors.grey2["100"]};
-  border-radius: 4px;
-  min-height: 204px;
-  padding: 16px;
-  padding-bottom: 16px;
-  position: relative;
-  width: 450px;
-  max-width: 100%;
-  background-color: white;
+export const StyledCardWrapper = styled(CardWrapper)`
+	width: 450px;
+	max-width: 100%;
 `;
 
-export const ButtonsWrapper = styled.div`
-  display: flex;
-  justify-content: end;
+export const MapPreview = styled.div`
+	margin: ${theme.spacing(-3, -4, 3)};
+	border-top-left-radius: ${theme.rounded.md};
+	border-top-right-radius: ${theme.rounded.md};
+	overflow: hidden;
+	border-bottom: 1px solid ${theme.color.gray[300]};
 
-  button:first-child {
-    padding-right: 16px;
-  }
-
-  button:last-child {
-    padding-left: 16px;
-  }
+	img {
+		display: block;
+		width: 100%;
+	}
 `;
-
-export const Details = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-`;
-
-export const MapImageColumn = styled.div`
-  margin-right: 16px;
-  margin-bottom: 16px;
-  height: fit-content;
-  border: 2px solid ${theme.newColors.grey2["100"]};
-
-  img {
-    display: block;
-    width: 230px;
-    max-width: 100%;
-  }
-`;
-
-export const LatLngLabel = styled.span`
-  color: ${theme.newColors.grey3["100"]};
-  font-weight: ${theme.weight.medium};
-  margin-bottom: 8px;
-`;
-
-export const CoordinatesValues = styled.span`
-  color: ${theme.newColors.almostBlack["100"]};
-`;
-
-export const LatitudeValue = styled(CoordinatesValues)`
-  margin-bottom: 12px;
-`;
-
-// Styles for the Map component
-
-export const MapContainer = styled.div`
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    width: calc(100vw - 40px);
-  };
-`;
-
-// Styles for the Reset Button
 
 export const ResetButtonContainer = styled.div`
-  display: flex;
-  flex-grow: 1;
-  align-items: end;
+	display: flex;
+	flex-grow: 1;
+	align-items: end;
 `;

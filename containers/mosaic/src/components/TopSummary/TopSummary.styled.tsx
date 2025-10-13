@@ -11,7 +11,7 @@ export const StyledTopSummary = styled.div`
 	.img-rounded {
 		width: 71px;
 		height: 71px;
-		border: 2px solid ${theme.newColors.grey2["100"]};
+		border: 2px solid ${theme.color.gray[100]};
 		border-radius: 50%;
 		opacity: 1;
 	}

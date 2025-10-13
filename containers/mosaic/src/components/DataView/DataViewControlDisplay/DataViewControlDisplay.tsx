@@ -4,7 +4,6 @@ import { memo } from "react";
 import type { DataViewControlDisplayProps } from "./DataViewControlDisplayTypes";
 
 import Button from "../../Button";
-import { StyledSpan } from "./DataViewControlDisplay.styled";
 import testIds from "@root/utils/testIds";
 
 const attrs = { "data-testid": testIds.DATA_VIEW_DISPLAY_CONTROL };
@@ -22,18 +21,16 @@ function DataViewControlDisplay(props: DataViewControlDisplayProps) {
 	});
 
 	return (
-		<StyledSpan>
-			<Button
-				variant="text"
-				intent="secondary"
-				mIcon={Icon}
-				iconPosition="right"
-				menuItems={options}
-				menuValue={props.display}
-				menuOnChange={props.onDisplayChange}
-				attrs={attrs}
-			/>
-		</StyledSpan>
+		<Button
+			variant="text"
+			intent="secondary"
+			mIcon={Icon}
+			iconPosition="right"
+			menuItems={options}
+			menuValue={props.display}
+			menuOnChange={props.onDisplayChange}
+			attrs={attrs}
+		/>
 	);
 }
 

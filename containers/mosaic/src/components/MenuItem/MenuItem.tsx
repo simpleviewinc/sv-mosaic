@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { useMemo } from "react";
 
 import type { MenuItemProps } from "./MenuItemTypes";
-import { colors, StyledIcon, StyledMenuItem } from "./MenuItem.styled";
+import { colorMap, colors, StyledIcon, StyledMenuItem } from "./MenuItem.styled";
 
 export default function MenuItem({
 	mIcon: Icon,
@@ -22,7 +22,7 @@ export default function MenuItem({
 	const children = "children" in props ? props.children : null;
 	const label = "label" in props ? props.label : "";
 
-	if (!colors.includes(color)) {
+	if (!Object.keys(colorMap).includes(color)) {
 		throw new Error(
 			"The menu item component only accepts the following colors: " +
 			colors.join(", ") + ". " +

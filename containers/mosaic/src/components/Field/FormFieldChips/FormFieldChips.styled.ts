@@ -4,11 +4,15 @@ import styled from "styled-components";
 export const StyledChipGroup = styled.div<{ $error?: boolean }>`
 	display: flex;
 	flex-wrap: wrap;
-	row-gap: 12px;
+	row-gap: ${theme.spacing(3)};
 
 	& .MuiChip-root {
-		border: 1px solid ${({ $error }) => $error ? theme.newColors.darkRed["100"] : "transparent"};
-		margin-right: 12px;
+		margin-right: ${theme.spacing(3)};
+
+		${({ $error }) => !$error ? "" : `
+			background-color: ${theme.color.red[25]};
+			--border: var(--mos-border-danger);
+		`}
 	}
 
 	& .MuiChip-root:last-child {
@@ -18,7 +22,7 @@ export const StyledChipGroup = styled.div<{ $error?: boolean }>`
 
 export const StyledChipsSkeletonWrapper = styled.div`
 	display: flex;
-	gap: 12px;
+	gap: ${theme.spacing(3)};
 
 	& .MuiSkeleton-root {
 		border-radius: 99999em;

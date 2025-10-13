@@ -1,4 +1,5 @@
 import * as React from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 import type {
 	ReactElement } from "react";
 import {
@@ -13,11 +14,10 @@ import {
 	TopRoot,
 	Heading,
 	PrimaryActions,
-	SmallBack,
-	SmallBackIcon,
 	TopWrapper,
 	SmallDescription,
 	LargeDescription,
+	SmallBack,
 } from "./TopStyled";
 import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { Title } from "@root/components/Title/TitleWrapper.styled";
@@ -58,9 +58,13 @@ const Top = (props: TopProps): ReactElement => {
 				{description && <SmallDescription>{description}</SmallDescription>}
 				<PrimaryActions>
 					{onBack && (
-						<SmallBack type="button" onClick={onBack}>
-							<SmallBackIcon />
-						</SmallBack>
+						<SmallBack
+							tooltip={backLabel}
+							mIcon={ClearIcon}
+							intent="secondary"
+							variant="text"
+							onClick={onBack}
+						/>
 					)}
 					<ButtonRow
 						buttons={buttons}

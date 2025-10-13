@@ -8,7 +8,7 @@ import type { ControlWithComponent, TextEditorInputSettings } from "../../FormFi
 
 import { MenuItemLabel, MenuItemShortcut, StyledMenuItem } from "../../FormFieldTextEditor.styled";
 import { Shortcut } from "../Shortcut";
-import type { MenuItemProps } from "@mui/material/MenuItem";
+import type { MenuItemProps } from "@root/components/MenuItem";
 
 type ControlHeadingProps = Omit<ControlWithComponent, "component"> & MenuItemProps & {
 	editor: Editor;

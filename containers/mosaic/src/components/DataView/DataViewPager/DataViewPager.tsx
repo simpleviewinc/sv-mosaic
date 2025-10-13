@@ -7,7 +7,7 @@ import type { DataViewPagerProps } from "./DataViewPagerTypes";
 import { useMosaicTranslation } from "@root/i18n";
 import Button from "../../Button";
 import DataViewPagerPopover from "../DataViewPagerPopover";
-import { StyledLabel, StyledButton } from "./DataViewPager.styled";
+import { StyledLabel } from "./DataViewPager.styled";
 import testIds from "@root/utils/testIds";
 import ButtonRow from "@root/components/ButtonRow";
 
@@ -60,7 +60,7 @@ function DataViewPager(props: DataViewPagerProps) {
 					/>
 				)}
 			/>
-			<StyledButton
+			<Button
 				intent="secondary"
 				variant="text"
 				mIcon={ChevronLeftIcon}
@@ -68,7 +68,7 @@ function DataViewPager(props: DataViewPagerProps) {
 				disabled={previousDisabled}
 				muiAttrs={prevPageAttrs}
 			/>
-			<StyledButton
+			<Button
 				intent="secondary"
 				variant="text"
 				mIcon={ChevronRightIcon}

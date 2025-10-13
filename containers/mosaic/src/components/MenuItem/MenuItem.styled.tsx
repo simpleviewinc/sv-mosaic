@@ -2,8 +2,17 @@ import styled from "styled-components";
 import MUIMenuItem from "@mui/material/MenuItem";
 
 import theme from "@root/theme";
+import type { MenuItemBaseProps } from "./MenuItemTypes";
 
 export const colors = ["black", "blue", "red", "yellow", "teal", "gray"];
+
+export const colorMap: Record<Exclude<MenuItemBaseProps["color"], "translucent" | "white">, string> = {
+	black: theme.color.black,
+	gold: theme.color.gold[400],
+	gray: theme.color.gray[600],
+	red: theme.color.red[500],
+	teal: theme.color.teal[700],
+};
 
 export const StyledMenuItem = styled(MUIMenuItem)<{ $truncateText?: boolean }>`
 	padding: ${theme.spacing(2, 3)};
@@ -47,25 +56,7 @@ export const StyledIcon = styled.div<{ $color: (typeof colors)[number] }>`
 
     ${({ $color }) => `
         & svg {
-            color: ${theme.colors[$color]}
+            color: ${colorMap[$color]}
         }
     `}
 `;
-
-// export const iconTypes: Record<ColorTypes, React.FC> = {
-// 	black : styled(StyledIcon)`
-// 		& svg {
-// 			color: ${theme.colors.blue};
-// 		}
-// 	`,
-// 	blue : styled(StyledIcon)`
-// 		& svg {
-// 			color: ${theme.colors.blue};
-// 		}
-// 	`,
-// 	red : styled(StyledIcon)`
-// 		& svg {
-// 			color: ${theme.newColors.darkRed["100"]};
-// 		}
-// 	`,
-// };

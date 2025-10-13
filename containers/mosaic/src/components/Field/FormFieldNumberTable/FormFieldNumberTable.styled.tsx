@@ -2,71 +2,70 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const StyledTable = styled.table`
-  border-collapse: collapse;
-  color: ${theme.newColors.almostBlack["100"]};
-  background-color: white;
-  width: 100%;
+	border-collapse: collapse;
+	background-color: white;
+	width: 100%;
 `;
 
 export const Th = styled.th`
-  padding: 24px 16px;
-  font-weight: ${theme.weight.medium};
-  text-align: left;
+	padding: ${theme.spacing(6, 4)};
+	font-weight: ${theme.weight.medium};
+	text-align: left;
 `;
 
 export const TrHead = styled.tr`
-  background-color: ${theme.newColors.grey2["100"]};
+	background-color: ${theme.color.gray[50]};
 
-  th:first-child {
-    padding-left: 24px;
-  }
+	th:first-child {
+		padding-left: ${theme.spacing(6)};
+	}
 
-  th:last-child {
-    padding-right: 24px;
-  }
+	th:last-child {
+		padding-right: ${theme.spacing(6)};
+	}
 `;
 
 export const Td = styled.td`
-  padding: 16px 16px;
+  padding: ${theme.spacing(4)};
 
-  &:first-child {
-	padding-left: 24px;
-  }
+	&:first-child {
+		padding-left: ${theme.spacing(6)};
+	}
 
-  &:last-child {
-	padding-right: 24px;
-  }
+	&:last-child {
+		padding-right: ${theme.spacing(6)};
+	}
 `;
 
 export const TdTitle = styled(Td)`
-  font-weight: ${theme.weight.medium};
+	font-weight: ${theme.weight.medium};
 `;
 
 export const RowTitle = styled.p`
-  margin: 0;
-  font-weight: ${theme.weight.medium};
+	margin: 0;
+	font-weight: ${theme.weight.medium};
 `;
 
 export const RowSubtitle = styled.p`
-  margin: 8px 0 0 0;
+	margin: ${theme.spacing(2, 0, 0)};
 `;
 
 export const TdTotals = styled.td`
-  padding-left: 16px;
-  font-weight: ${theme.weight.medium}
+	padding-left: ${theme.spacing(4)};
+	font-weight: ${theme.weight.medium};
 `;
 
 export const TBody = styled.tbody`
-  tr {
-    border-bottom: 1px solid ${theme.newColors.grey2["100"]};
-  }
+	tr {
+		border-bottom: 1px solid ${theme.color.gray[200]};
+	}
 
-  tr:last-child,
-  tr:nth-last-child(2) {
-    border: none;
-  }
+	tr:last-child,
+	tr:nth-last-child(2) {
+		border: none;
+	}
 `;
 
 export const TrTotals = styled.tr`
-  background-color: ${theme.newColors.grey1["100"]};
+	background-color: ${theme.color.gray[50]};
 `;

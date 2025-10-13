@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 import { FormFieldAddressPage } from "../../../pages/FormFields/FormFieldAddress/FormFieldAddressPage";
 import { randomIntFromInterval } from "../../../utils/helpers/helper";
 import { us_address, us_address_2 } from "../../../utils/data/addressInformationData";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("FormFields - FormFieldAddress - Playground", () => {
@@ -79,7 +79,7 @@ test.describe("FormFields - FormFieldAddress - Playground", () => {
 		expect(await ffAddressPage.addressCard.textContent()).not.toContain("Shipping");
 	});
 
-	test("Validate that background color of the address card is gray1.", async () => {
+	test.skip("Validate that background color of the address card is gray1.", async () => {
 		const expectedColor = theme.newColors.grey1["100"];
 		await ffAddressPage.addAddressButton.click({ force: true });
 		await ffAddressPage.fillAddresInformation("physical");

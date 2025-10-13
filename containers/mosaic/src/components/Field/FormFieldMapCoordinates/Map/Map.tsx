@@ -6,8 +6,6 @@ import type { MapProps } from "../MapCoordinatesTypes";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 
-// Styles
-import { MapContainer } from "../MapCoordinates.styled";
 import AddressAutocomplete from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete";
 import { StyledClearIcon } from "@root/components/Field/FormFieldAddress/AddressAutocomplete/AddressAutocomplete.styled";
 import MarkerFollower from "./MarkerFollower";
@@ -89,7 +87,7 @@ const Map = (props: MapProps): ReactElement => {
 	});
 
 	return (
-		<MapContainer>
+		<>
 			<AddressAutocomplete
 				className="mapCoordinates"
 				label="Search for an address"
@@ -127,7 +125,7 @@ const Map = (props: MapProps): ReactElement => {
 					/>
 				</GoogleMap>
 			)}
-		</MapContainer>
+		</>
 	);
 };
 
