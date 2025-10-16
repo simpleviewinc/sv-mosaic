@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react";
 import type { Theme } from "@root/theme";
 export interface MenuItemBaseProps {
 	value?: string;
-	color?: keyof Theme["color"];
+	color?: Exclude<keyof Theme["color"], "translucent" | "white">;
 	mIcon?: SvgIconComponent;
 	disabled?: boolean;
 	selected?: boolean;

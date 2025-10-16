@@ -1,15 +1,9 @@
 export const BREAKPOINTS = {
-
 	sm: "480px",
 	md: "768px",
 	lg: "1024px",
 	xl: "1280px",
 	"2xl": "1536px",
-
-	topComponent: {
-		responsiveView: 1075,
-		bigScreenView: 1200,
-	},
 };
 
 export const CONTAINERS = {
