@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import theme, { BREAKPOINTS } from "@root/theme/theme";
-
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
-const MOBILE_BREAKPOINT = BREAKPOINTS.sm + "px";
+import theme from "@root/theme/theme";
 
 export const StyledDiv = styled.div`
 	& > .topRowBulkAll {
@@ -12,29 +8,9 @@ export const StyledDiv = styled.div`
 
 	& > .grid {
 		display: grid;
-		grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 		grid-column-gap: 16px;
 		grid-row-gap: 24px;
-
-		@media (min-width: ${MOBILE_BREAKPOINT}) {
-			grid-template-columns: repeat(2, 1fr);
-		};
-
-		@media (min-width: 768px) {
-			grid-template-columns: repeat(3, 1fr);
-		};
-
-		@media (min-width: ${RESPONSIVE_BREAKPOINT}) {
-			grid-template-columns: repeat(4, 1fr);
-		};
-
-		@media (min-width: 1296px) {
-			grid-template-columns: repeat(5, 1fr);
-		};
-
-		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-			grid-template-columns: repeat(6, 1fr);
-		}
 	}
 
 	& > .grid > .cell {
