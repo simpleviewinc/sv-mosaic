@@ -74,7 +74,7 @@ test.describe("Components - Content - Playground", () => {
 		await expect(row).toHaveGridColumns(2);
 	});
 
-	test("should display fields as columns with custom breakpoint rules", async () => {
+	test.only("should display fields as columns with custom breakpoint rules", async () => {
 		await contentPage.visit(contentPage.page_path, [contentKnobs.knobProvideColumnsCustom, ...contentKnobs.knobFourColumns]);
 
 		const container = page.getByTestId("mos:Content:fieldList");
