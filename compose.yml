@@ -56,6 +56,8 @@ services:
   e2e-tests:
     container_name: e2e-tests
     build: ./containers/e2e-tests
+    environment:
+      - CI=true
     volumes:
       - mosaic:/mosaic
     command: npm start
