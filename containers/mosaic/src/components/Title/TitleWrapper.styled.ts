@@ -13,7 +13,7 @@ export const Title = styled.div`
 `;
 
 export const Description = styled.div`
-	color: ${theme.newColors.grey3["100"]};
+	color: ${theme.color.gray[600]};
 	font-weight: ${theme.weight.medium};
 	margin-top: 5px;
 `;

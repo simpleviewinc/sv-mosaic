@@ -26,7 +26,7 @@ export const Item = styled.div<TransientProps<ButtonRowProps, "separator">>`
 			&:not(:first-child)::before{
 				content: ' ';
 				height: 1.4em;
-				border-left: 2px solid ${theme.newColors.grey2["100"]};
+				border-left: 2px solid ${theme.color.gray[100]};
 				margin-right: 8px;
 			}
 		`}

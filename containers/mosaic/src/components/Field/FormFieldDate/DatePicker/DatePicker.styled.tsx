@@ -4,51 +4,42 @@ import { StyledTextField } from "../../FormFieldText/FormFieldText.styled";
 
 export const popperSx = {
 	"& .MuiPaper-root": {
-		border: `2px solid ${theme.newColors.grey2["100"]}`,
-		boxShadow: "0px 1px 5px rgba(26, 26, 26, 0.161)",
+		borderRadius: theme.rounded.md,
+		border: "none",
+		boxShadow: `var(--mos-border-light),
+			0 34px 60px 0 rgba(0, 0, 0, 0.15),
+			var(--mos-shadow-xl);`,
 	},
 
 	"& .MuiPickersDay-today": {
-		color: `${theme.newColors.realTeal["100"]} !important`,
-		border: "none !important",
-		fontWeight: theme.fontWeight.bold,
-		backgroundColor: "transparent !important",
-
-		"&:hover": {
-			color: theme.newColors.realTeal["100"],
-			backgroundColor: `${theme.colors.tealOpacity} !important`,
-		},
+		fontWeight: theme.weight.medium,
+		borderColor: theme.color.gray[200],
 	},
 
-	"& .MuiPickersDay-dayWithMargin": {
-		color: theme.newColors.almostBlack["100"],
+	"& .MuiPickersDay-root": {
+		background: "none",
+		width: 34,
+		height: 34,
+		margin: "1px 3px",
 
 		"&:hover": {
-			color: theme.newColors.realTeal["100"],
-			backgroundColor: theme.colors.tealOpacity,
-			fontWeight: theme.fontWeight.bold,
+			backgroundColor: theme.color.gray[100],
 		},
-	},
 
-	"& .MuiIconButton-edgeStart, .MuiIconButton-edgeEnd" : {
-		color: theme.newColors.grey4["100"],
+		"&:focus-visible": {
+			outline: `2px solid ${theme.color.gray[700]}`,
+			outlineOffset: "1px",
+		},
 	},
 
 	"& .MuiPickersDay-root.Mui-selected" : {
-		backgroundColor: `${theme.newColors.realTeal["100"]} !important`,
-		color: "#FFFF !important",
-		fontWeight: theme.fontWeight.bold,
+		backgroundColor: theme.color.gold[400],
+		color: "inherit",
+		fontWeight: theme.weight.medium,
 
-		"&:hover": {
-			color: "#FFFF !important",
-			backgroundColor: `${theme.newColors.realTeal["100"]} !important`,
+		"&:focus": {
+			backgroundColor: theme.color.gold[300],
 		},
-	},
-
-	"& .MuiCalendarPicker-root > div:first-of-type" : {
-		marginBottom: "16px",
-		paddingLeft: "16px",
-		paddingRight: "16px",
 	},
 };
 

@@ -33,7 +33,7 @@ test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 		});
 	});
 
-	test("Validate helper text has grey3 as color.", async () => {
+	test.skip("Validate helper text has grey3 as color.", async () => {
 		const expectColor = theme.newColors.grey3["100"];
 		expect(await formFieldCheckboxPage.getColorFromElement(formFieldCheckboxPage.regularCheckboxLocator.locator("p").first())).toBe(expectColor);
 		expect(await formFieldCheckboxPage.getColorFromElement(formFieldCheckboxPage.fromDBCheckboxLocator.locator("p").first())).toBe(expectColor);

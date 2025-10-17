@@ -24,7 +24,7 @@ Interdum ante cursus iaculis amet dui cubilia; arcu est. Vel vivamus potenti dui
 
 const StyledTopBar = styled.div`
 	flex: 0 0 auto;
-	background: ${theme.newColors.almostBlack["100"]};
+	background: ${theme.color.black};
 	color: white;
 	padding: 6px 16px;
 	display: flex;

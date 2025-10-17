@@ -1,9 +1,9 @@
 import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
-import type { colors } from "./MenuItem.styled";
 import type { PropsWithChildren } from "react";
+import type { Theme } from "@root/theme";
 export interface MenuItemBaseProps {
 	value?: string;
-	color?: (typeof colors)[number];
+	color?: Exclude<keyof Theme["color"], "translucent" | "white">;
 	mIcon?: SvgIconComponent;
 	disabled?: boolean;
 	selected?: boolean;

@@ -14,7 +14,6 @@ export const StyledAccordion = styled(Accordion)<TransientProps<SectionPropTypes
 	margin: 0 !important;
 
 	${({ $title }) => $title ? `
-		border: 1px solid ${theme.newColors.grey2["100"]};
 		margin: 0px 0px 40px 0px;
 	` : `
 		border: 0;
@@ -27,11 +26,9 @@ export const StyledAccordion = styled(Accordion)<TransientProps<SectionPropTypes
 `;
 
 export const StyledSectionHeader = styled(AccordionSummary)`
-	background-color: ${theme.newColors.grey2["100"]} !important;
 	margin: 0px !important;
 	padding: 12px 24px !important;
 	min-height: 0px !important;
-	color: ${theme.newColors.grey4["100"]} !important;
 
 	& :first-child {
 		margin: 0px !important;
@@ -46,7 +43,7 @@ export const StyledSectionContent = styled(AccordionDetails)`
 export const StyledDescription = styled.p`
 	font-size: ${theme.fontSize.body.lg};
 	line-height: ${theme.line["3xloose"]};
-	color: ${theme.newColors.grey3["100"]};
+	color: ${theme.color.gray[600]};
 	margin: 18px 0 0;
 	padding: 0 24px;
 `;

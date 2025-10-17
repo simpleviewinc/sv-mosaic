@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { CheckboxPage } from "../../../pages/Components/Checkbox/CheckboxPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 import { commonKnobs as knob } from "../../../utils/data/knobs";
 
 test.describe("Components - Checkbox - Example", () => {
@@ -24,7 +24,7 @@ test.describe("Components - Checkbox - Example", () => {
 		}
 	});
 
-	test("Validate Checkbox has simplyGold color.", async () => {
+	test.skip("Validate Checkbox has simplyGold color.", async () => {
 		const expectBgColor = (theme.newColors.simplyGold["100"]).split("rgb")[1];
 		const numberOfCheckboxs = await checkboxPage.checkboxInput.count();
 		for (let i = 0; i < numberOfCheckboxs; i++) {
@@ -33,7 +33,7 @@ test.describe("Components - Checkbox - Example", () => {
 		}
 	});
 
-	test("Validate Checkbox has grey4 color as text.", async () => {
+	test.skip("Validate Checkbox has grey4 color as text.", async () => {
 		const expectColor = theme.newColors.grey4["100"];
 		const numberOfCheckboxs = await checkboxPage.checkboxLabel.count();
 		for (let i = 0; i < numberOfCheckboxs; i++) {

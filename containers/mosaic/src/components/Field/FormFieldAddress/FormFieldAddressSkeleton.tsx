@@ -1,7 +1,7 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
-import { StyledSkeletonWrapper } from "./Address.styled";
 import testIds from "@root/utils/testIds";
+import { Row } from "@root/components/common";
 
 export function FormFieldAddressSkeleton() {
 	return (
@@ -12,7 +12,7 @@ export function FormFieldAddressSkeleton() {
 				height={36}
 				sx={{ marginBottom: 2 }}
 			/>
-			<StyledSkeletonWrapper>
+			<Row $gap={[4]}>
 				<Skeleton
 					variant="rectangular"
 					width={300}
@@ -23,7 +23,7 @@ export function FormFieldAddressSkeleton() {
 					width={300}
 					height={204}
 				/>
-			</StyledSkeletonWrapper>
+			</Row>
 		</div>
 	);
 }

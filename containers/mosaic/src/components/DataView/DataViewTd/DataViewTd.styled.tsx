@@ -12,10 +12,6 @@ export const StyledTd = styled.td`
 		white-space: nowrap;
 	}
 
-	& > div {
-		color: ${theme.newColors.almostBlack["100"]};
-	}
-
 	&.bold > div {
 		font-weight: ${theme.weight.semi};
 	}

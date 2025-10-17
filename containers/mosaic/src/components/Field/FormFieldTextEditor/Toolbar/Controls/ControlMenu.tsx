@@ -86,6 +86,7 @@ export function ControlMenuDropdown({
 				) : (
 					<ControlMenuItem
 						{...control}
+						show={undefined}
 						onSelected={onSelected}
 						editor={editor}
 						inputSettings={inputSettings}

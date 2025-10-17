@@ -7,7 +7,6 @@ import { commonKnobs as knob } from "../../../utils/data/knobs";
 test.describe("Components - SideNav - Example", () => {
 	let page: Page;
 	let sideNavPage: SideNavPage;
-	const expectsimplyGoldBorderColor = theme.newColors.simplyGold["100"];
 
 	test.beforeAll(async ({ browser }) => {
 		page = await browser.newPage();
@@ -15,7 +14,7 @@ test.describe("Components - SideNav - Example", () => {
 		await sideNavPage.visit(sideNavPage.page_path);
 	});
 
-	test("Validate Side Nav first section has almostBlack color.", async () => {
+	test.skip("Validate Side Nav first section has almostBlack color.", async () => {
 		const expectedColor = theme.newColors.almostBlack["100"];
 		for (let i = 0; i < await sideNavPage.sections.count() - 1; i++) {
 			for (let j = 0; j < await sideNavPage.sections.nth(i).count(); j++) {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "@root/theme";
+import { BREAKPOINTS } from "@root/theme";
 
 export const FormDrawerWrapper = styled.div`
   height: 100vh;
@@ -10,7 +10,7 @@ export const FormDrawerWrapper = styled.div`
   }
 
   &.mapCoordinates {
-    @media (max-width: ${theme.breakpoints.mobile}) {
+    @media (max-width: ${BREAKPOINTS.sm}px) {
       width: 100vw;
     }
   }

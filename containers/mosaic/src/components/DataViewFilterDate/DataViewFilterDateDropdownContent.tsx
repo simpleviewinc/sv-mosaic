@@ -31,7 +31,7 @@ const StyledLeft = styled.div`
 `;
 
 const StyledLeftOptions = styled.ul`
-	border-right: 2px solid ${theme.newColors.grey2[100]};
+	border-right: 1px solid ${theme.color.gray[300]};
 	margin: 0;
 	padding: 0;
 	flex: 1 1 0%;
@@ -133,7 +133,6 @@ export default function DataViewFilterDateDropdownContent(props: DataViewFilterD
 								key={option.value}
 								label={option.label}
 								selected={selectedOption === option.value}
-								color="blue"
 								onClick={() => onOptionSelect(option.value)}
 								truncateText
 								title
