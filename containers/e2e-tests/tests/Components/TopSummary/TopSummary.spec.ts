@@ -17,9 +17,9 @@ test.describe("Components - TopSummary - Kitchen Sink", () => {
 	test("Validate Summary Page Top Component padding is valid.", async () => {
 		const locator = summaryPage.summaryTopComponent;
 		await locator.waitFor();
-		expect(await summaryPage.getSpecificPaddingFromElement(locator, "top")).toBe("24px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "top")).toBe("20px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "right")).toBe("24px");
-		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("16px");
+		expect(await summaryPage.getSpecificPaddingFromElement(locator, "bottom")).toBe("20px");
 		expect(await summaryPage.getSpecificPaddingFromElement(locator, "left")).toBe("24px");
 	});
 
