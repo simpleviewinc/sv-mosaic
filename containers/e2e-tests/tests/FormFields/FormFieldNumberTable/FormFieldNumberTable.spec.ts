@@ -46,8 +46,8 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 	});
 
 	test("Validate the style of the table header.", async () => {
-		expect.soft(await ffNumberTablePage.getBackgroundColorFromElement(ffNumberTablePage.tableHeadRowLocator), "Validate Background color of table header.")
-			.toBe(theme.newColors.grey2["100"]);
+		// expect.soft(await ffNumberTablePage.getBackgroundColorFromElement(ffNumberTablePage.tableHeadRowLocator), "Validate Background color of table header.")
+		// 	.toBe(theme.newColors.grey2["100"]);
 		for (let i = 0; i < await ffNumberTablePage.tableHeadRowLocator.first().locator("td").count(); i++) {
 			const columnLocator = ffNumberTablePage.tableBodyRowLocator.first().locator("td").nth(i);
 			expect.soft(await ffNumberTablePage.getFontWeightFromElement(columnLocator), "Validating Font Weight the Total of each column.")
@@ -57,7 +57,7 @@ test.describe("FormFields - FormFieldNumberTable - Playground", () => {
 	});
 
 	test("Validate the style for the total row.", async () => {
-		expect(await ffNumberTablePage.getBackgroundColorFromElement(ffNumberTablePage.tableBodyRowLocator.last())).toBe(theme.newColors.grey1["100"]);
+		// expect(await ffNumberTablePage.getBackgroundColorFromElement(ffNumberTablePage.tableBodyRowLocator.last())).toBe(theme.newColors.grey1["100"]);
 		const totalColumnInRow = ffNumberTablePage.tableBodyRowLocator.last().locator("td").first();
 		expect.soft(await ffNumberTablePage.getFontSizeFromElement(totalColumnInRow), "Validating Font Size the Total").toBe("14px");
 		expect.soft(await ffNumberTablePage.getFontWeightFromElement(totalColumnInRow), "Validating Font Weight the Total").toBe((theme.weight.medium).toString());

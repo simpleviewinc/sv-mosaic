@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import ClearIcon from "@mui/icons-material/Clear";
 
 // Utils
 import theme from "@root/theme/theme";
 import { Description } from "@root/components/Title/TitleWrapper.styled";
 import { containerQuery } from "@root/utils/css";
+import Button from "@root/components/Button";
 
 export const TopRoot = styled.div<{ $bottomBorder?: boolean; $hideSectionNav?: boolean }>`
 	padding: ${theme.spacing(0, 6)};
@@ -56,31 +56,23 @@ export const PrimaryActions = styled.div`
 	margin: 0 -24px 24px;
 	padding: 12px 24px;
 	order: -1;
-	justify-content: end;
-  	background-color: ${theme.newColors.grey2["100"]};
+	justify-content: space-between;
+  	background-color: ${theme.color.gray[100]};
+	align-items: center;
 
 	${containerQuery("sm", "FORM")} {
 		order: 0;
 		background: none;
 		margin: 0;
 		padding: 0;
+		justify-content: end;
   	}
 `;
 
-export const SmallBack = styled.button`
-  margin-right: auto;
-  border-radius: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-
-  ${containerQuery("sm", "FORM")} {
-	display: none;
-  }
-`;
-
-export const SmallBackIcon = styled(ClearIcon)`
-  color: ${theme.newColors.almostBlack["100"]};
+export const SmallBack = styled(Button)`
+	${containerQuery("sm", "FORM")} {
+		display: none;
+	}
 `;
 
 // Title

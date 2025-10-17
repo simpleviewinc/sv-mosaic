@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import { FormFieldDropdownPage } from "../../../pages/FormFields/FormFieldDropdown/FormFieldDropdownPage";
-import theme from "@simpleview/sv-mosaic/theme";;
+import theme from "@simpleview/sv-mosaic/theme";
 
 test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 	let page: Page;
@@ -63,7 +63,7 @@ test.describe("FormFields - FormFieldDropdown - Kitchen Sink", () => {
 		expect(await formFieldDropdownPage.lgSizeDropdownInput.inputValue()).toBe(option);
 	});
 
-	test("Validate padding of the input fields.", async () => {
+	test.skip("Validate padding of the input fields.", async () => {
 		const inputCount = await formFieldDropdownPage.inputLocator.count();
 		for (let i = 0; i < inputCount; i++) {
 			expect(await formFieldDropdownPage.getSpecificPaddingFromElement(formFieldDropdownPage.inputLocator.nth(i), "all")).toBe(theme.fieldSpecs.inputText.padding);

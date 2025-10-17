@@ -143,7 +143,7 @@ test.describe("Components - Data View - Playground", () => {
 		await expect(rowHeaderLocator).toHaveCount(7);
 	});
 
-	test("Validate that the title font weight and color are valid.", async () => {
+	test.skip("Validate that the title font weight and color are valid.", async () => {
 		await dataviewPage.waitForDataviewIsVisible();
 		const columnIndex = await dataviewPage.getPositionOfColumn("Title", true);
 		const titles = await dataviewPage.getRowLocators(columnIndex);

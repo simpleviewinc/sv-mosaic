@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const LinkLibraryAvatar = styled(Avatar)<{ $selected?: boolean }>`
     && {
         ${({ $selected }) => $selected && `
-            background-color: ${theme.colors.teal};
+            background-color: ${theme.color.teal[700]};
         `}
     }
 `;

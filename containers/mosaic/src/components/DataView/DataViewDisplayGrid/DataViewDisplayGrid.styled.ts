@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import theme, { BREAKPOINTS } from "@root/theme/theme";
-
-const BIG_SCREEN_BREAKPOINT = BREAKPOINTS.topComponent.bigScreenView + "px";
-const RESPONSIVE_BREAKPOINT = BREAKPOINTS.topComponent.responsiveView + "px";
-const MOBILE_BREAKPOINT = BREAKPOINTS.mobile + "px";
+import theme from "@root/theme/theme";
 
 export const StyledDiv = styled.div`
 	& > .topRowBulkAll {
@@ -12,29 +8,9 @@ export const StyledDiv = styled.div`
 
 	& > .grid {
 		display: grid;
-		grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 		grid-column-gap: 16px;
 		grid-row-gap: 24px;
-
-		@media (min-width: ${MOBILE_BREAKPOINT}) {
-			grid-template-columns: repeat(2, 1fr);
-		};
-
-		@media (min-width: 768px) {
-			grid-template-columns: repeat(3, 1fr);
-		};
-
-		@media (min-width: ${RESPONSIVE_BREAKPOINT}) {
-			grid-template-columns: repeat(4, 1fr);
-		};
-
-		@media (min-width: 1296px) {
-			grid-template-columns: repeat(5, 1fr);
-		};
-
-		@media (min-width: ${BIG_SCREEN_BREAKPOINT}) {
-			grid-template-columns: repeat(6, 1fr);
-		}
 	}
 
 	& > .grid > .cell {
@@ -51,7 +27,6 @@ export const StyledDiv = styled.div`
 	}
 
 	& > .grid > .cell h2 {
-		color: ${theme.newColors.almostBlack["100"]};
 		margin: 8px 0 8px 0;
 		max-width: 161px;
 		font-size: ${theme.fontSize.text.sm};
@@ -65,7 +40,6 @@ export const StyledDiv = styled.div`
 		margin: 0;
 		font-size: ${theme.fontSize.text.sm};
 		font-weight: ${theme.weight.regular};
-		color: ${theme.newColors.almostBlack["100"]};
 	}
 
 	& > .grid > .cell .image {
@@ -94,7 +68,7 @@ export const StyledDiv = styled.div`
 
 	& > .grid > .cell > .image:hover > .checkboxContainer .custom-checkbox,
 	& > .grid > .cell > .image > .checkboxContainer.anyChecked .custom-checkbox {
-		background: ${theme.newColors.grey2["100"]};
+		background: ${theme.color.gray[100]};
 		opacity: 0.7;
 	}
 
@@ -108,7 +82,7 @@ export const StyledDiv = styled.div`
 		height: 100%;
 		width: 100%;
 		opacity: 0;
-		background-color: ${theme.newColors.almostBlack["100"]};
+		background-color: ${theme.color.black};
 	}
 
 	& > .grid > .cell .image > .imageContainer {

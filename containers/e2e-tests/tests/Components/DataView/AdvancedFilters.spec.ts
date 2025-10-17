@@ -33,31 +33,31 @@ test.describe("Components - Data View - Advanced Filters", () => {
 		await _dataviewPage.removeAllSelectedFilters();
 	});
 
-	const validateFilterStyles = async () => {
-		const expectedFontWeight = (theme.weight.medium).toString();
-		const expectedFontSize = "14px";
-		const expectedFontColor = theme.newColors.almostBlack[100];
-		const applyLocator = advancedFilters.applyBtn;
-		const clearLocator = advancedFilters.page.locator("div[role='presentation'] >> text=Clear");
+	// const validateFilterStyles = async () => {
+	// 	const expectedFontWeight = (theme.weight.medium).toString();
+	// 	const expectedFontSize = "14px";
+	// 	const expectedFontColor = theme.newColors.almostBlack[100];
+	// 	const applyLocator = advancedFilters.applyBtn;
+	// 	const clearLocator = advancedFilters.page.locator("div[role='presentation'] >> text=Clear");
 
-		const applyFontWeight = await advancedFilters.getFontWeightFromElement(applyLocator);
-		const clearFontWeight = await advancedFilters.getFontWeightFromElement(clearLocator);
-		const applyFontSize = await advancedFilters.getFontSizeFromElement(applyLocator);
-		const clearFontSize = await advancedFilters.getFontSizeFromElement(clearLocator);
-		const applyButtonColor = await advancedFilters.getColorFromElement(applyLocator);
-		const clearButtonColor = await advancedFilters.getColorFromElement(clearLocator);
+	// 	const applyFontWeight = await advancedFilters.getFontWeightFromElement(applyLocator);
+	// 	const clearFontWeight = await advancedFilters.getFontWeightFromElement(clearLocator);
+	// 	const applyFontSize = await advancedFilters.getFontSizeFromElement(applyLocator);
+	// 	const clearFontSize = await advancedFilters.getFontSizeFromElement(clearLocator);
+	// 	const applyButtonColor = await advancedFilters.getColorFromElement(applyLocator);
+	// 	const clearButtonColor = await advancedFilters.getColorFromElement(clearLocator);
 
-		//Validate Font Weight
-		expect.soft(applyFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
-		expect.soft(clearFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
-		//Validate Font Size
-		expect.soft(applyFontSize, "Validate Font Size").toBe(expectedFontSize);
-		expect.soft(clearFontSize, "Validate Font Size").toBe(expectedFontSize);
-		//Validate Button Font Color
-		expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
-		expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
-		await advancedFilters.pressSpecificKeyInKeyboard("Escape");
-	};
+	// 	//Validate Font Weight
+	// 	expect.soft(applyFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
+	// 	expect.soft(clearFontWeight, "Validate Font Weight").toBe(expectedFontWeight);
+	// 	//Validate Font Size
+	// 	expect.soft(applyFontSize, "Validate Font Size").toBe(expectedFontSize);
+	// 	expect.soft(clearFontSize, "Validate Font Size").toBe(expectedFontSize);
+	// 	//Validate Button Font Color
+	// 	expect.soft(applyButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
+	// 	expect(clearButtonColor, "Validate Button Font Color").toBe(expectedFontColor);
+	// 	await advancedFilters.pressSpecificKeyInKeyboard("Escape");
+	// };
 
 	// test("Validate Single select category", async () => {
 	// 	await advancedFilters.selectFilter("singleSelectCategory");

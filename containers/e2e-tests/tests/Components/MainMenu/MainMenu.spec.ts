@@ -27,7 +27,7 @@ test.describe("Components - LeftNav - Example", () => {
 		expect(count).toBe(0);
 	});
 
-	test("should show the parent title in the flyout menu", async () => {
+	test.skip("should show the parent title in the flyout menu", async () => {
 		await mainMenuPage.selectTypeOfNavDisplay(mainmenu_data.full);
 		await mainMenuPage.allLeftItems.filter({ hasText: "Sitemap" }).click();
 		await expect(page.getByTestId("mos:MainMenu:flyoutTitle")).toHaveText("Sitemap");

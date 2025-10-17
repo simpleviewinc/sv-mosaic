@@ -58,7 +58,7 @@ export const StyledSideNav = styled(SideNav)`
 `;
 
 export const StyledFormFooter = styled.div<{ $spacing?: FormSpacing }>`
-	border-top: 2px solid ${theme.newColors.grey2[100]};
+	border-top: 1px solid ${theme.color.gray[300]};
 	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
 	display: flex;
 `;

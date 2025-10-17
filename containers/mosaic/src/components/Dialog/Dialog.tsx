@@ -1,9 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
 
-// Components
-import Button from "@root/components/Button";
-
 // Material UI
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,6 +8,8 @@ import DialogContent from "@mui/material/DialogContent";
 // Types and styles
 import type { DialogProps } from ".";
 import { StyledDialog, StyledDialogTitle } from "./Dialog.styled";
+import { StyledPopperPaper } from "../common";
+import ButtonRow from "../ButtonRow";
 
 const Dialog = (props: DialogProps): ReactElement => {
 	const {
@@ -21,13 +20,11 @@ const Dialog = (props: DialogProps): ReactElement => {
 	} = props;
 
 	return (
-		<StyledDialog open={open}>
+		<StyledDialog open={open} PaperComponent={StyledPopperPaper}>
 			<StyledDialogTitle>{dialogTitle}</StyledDialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
-				{buttons?.map((button, idx) => (
-					<Button key={`${button.label}-${idx}`} {...button} />
-				))}
+				<ButtonRow buttons={buttons} />
 			</DialogActions>
 		</StyledDialog>
 	);

@@ -18,11 +18,12 @@ export function ToolbarControlRow({
 	selectionTypes,
 	inputSettings = {},
 	disabled,
+	horizontalSeparator,
 }: ToolbarControlRowProps): ReactElement {
 	const groups = useMemo(() => resolveControls(controlsDef, selectionTypes), [controlsDef, selectionTypes]);
 
 	return (
-		<ControlRow>
+		<ControlRow $horizontalSeparator={horizontalSeparator}>
 			{groups.map((group, groupIndex) => (
 				<ControlGroup key={groupIndex}>
 					{group.map((control, index) => Array.isArray(control) ? (
