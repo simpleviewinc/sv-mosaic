@@ -12,8 +12,11 @@ import Blank from "@root/components/Blank/Blank";
 import Dialog from "@root/components/Dialog/Dialog";
 import Skeleton from "@mui/material/Skeleton";
 import MapCoordinatesDrawer from "./MapCoordinatesDrawer/MapCoordinatesDrawer";
-import { ButtonsWrapper, Column, Details, CoordinatesCard, CoordinatesValues, LatitudeValue, LatLngLabel, MapImageColumn } from "./MapCoordinates.styled";
+import { MapPreview, StyledCardWrapper } from "./MapCoordinates.styled";
 import { isValidLatLng } from "./MapCoordinatesUtils";
+import { CardBottom, CardContent } from "@root/components/Card/Card.styled";
+import ButtonRow from "@root/components/ButtonRow";
+import { Column } from "@root/components/common";
 
 const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCoordinatesInputSettings, MapCoordinatesData>): ReactElement => {
 	const {
@@ -110,50 +113,44 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 	return (
 		<>
 			{latLng ? (
-				<div>
-					<CoordinatesCard>
-						<Details>
-							<MapImageColumn>
-								<img
-									src={`https://maps.googleapis.com/maps/api/staticmap?zoom=${fieldDef?.inputSettings?.focusZoom ?? 11}&size=232x153&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
-									alt="location"
-								/>
-							</MapImageColumn>
-							<Column>
-								<LatLngLabel>Latitude</LatLngLabel>
-								{latLng ? (
-									<LatitudeValue>{latLng?.lat}</LatitudeValue>
-								) : (
-									<Blank />
-								)}
-								<LatLngLabel>Longitude</LatLngLabel>
-								{latLng ? (
-									<CoordinatesValues>{latLng?.lng}</CoordinatesValues>
-								) : (
-									<Blank />
-								)}
-							</Column>
-						</Details>
-						<ButtonsWrapper>
-							<Button
-								intent="info"
-								variant="text"
-								size="small"
-								label="Edit"
-								disabled={disabled}
-								onClick={handleAddCoordinates}
+				<StyledCardWrapper>
+					<CardContent $paddingBottom $compact>
+						<MapPreview>
+							<img
+								src={`https://maps.googleapis.com/maps/api/staticmap?zoom=${fieldDef?.inputSettings?.focusZoom ?? 11}&size=280x168&maptype=roadmap&markers=color:red%7C${latLng?.lat},${latLng?.lng}&key=${fieldDef.inputSettings.googleMapsApiKey}`}
+								alt="location"
 							/>
-							<Button
-								intent="danger"
-								disabled={disabled}
-								variant="text"
-								size="small"
-								label="Remove"
-								onClick={() => setRemoveDialog(true)}
-							/>
-						</ButtonsWrapper>
-					</CoordinatesCard>
-				</div>
+						</MapPreview>
+						<Column $gap={[1]}>
+							<div><strong>Latitude</strong></div>
+							<div>{latLng.lat || <Blank />}</div>
+							<div><strong>Longitude</strong></div>
+							<div>{latLng.lng || <Blank />}</div>
+						</Column>
+					</CardContent>
+					<CardBottom $compact>
+						<ButtonRow
+							buttons={[
+								{
+									intent: "info",
+									variant: "text",
+									size: "small",
+									label: "Edit",
+									disabled: disabled,
+									onClick: handleAddCoordinates,
+								},
+								{
+									intent: "danger",
+									disabled: disabled,
+									variant: "text",
+									size: "small",
+									label: "Remove",
+									onClick: () => setRemoveDialog(true),
+								},
+							]}
+						/>
+					</CardBottom>
+				</StyledCardWrapper>
 			) : (
 				<Button
 					disabled={disabled}
