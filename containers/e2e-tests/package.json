@@ -13,7 +13,7 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@playwright/test": "^1.44.0",
+		"@playwright/test": "^1.56.1",
 		"@simpleview/sv-mosaic": "file:../mosaic",
 		"@simpleview/sv-mosaic-eslint": "^0.0.2",
 		"@types/node": "^20.12.12",
