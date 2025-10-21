@@ -74,6 +74,7 @@ const data = {
 	fieldWithLongURL: "https://simpleviewinc.github.io/sv-mosaic/master/?path=/story/components-content--kitchen-sink",
 	fieldWithLongSentence: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mollis diam non imperdiet luctus. Morbi in augue leo. Vestibulum non tellus in elit molestie pretium sollicitudin eget purus. Mauris varius, est sed placerat ornare, nulla libero consequat nisi, id tempor nibh felis non velit.",
 	multipleTransforms: "This is some text",
+	arrayOfNodes: [<div key={1}>Foo</div>, <div key={2}>Bar</div>],
 };
 
 export const Playground = ({
@@ -181,6 +182,10 @@ export const Playground = ({
 				({ data }) => <div style={{ color: "red" }}>{data as string}</div>,
 				({ data }) => <div style={{ fontSize: "2rem" }}>{data as React.ReactNode}</div>,
 			],
+		},
+		{
+			name: "arrayOfNodes",
+			label: "Array of Nodes",
 		},
 	];
 

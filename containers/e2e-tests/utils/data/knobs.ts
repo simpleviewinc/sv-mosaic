@@ -72,7 +72,7 @@ export const formFieldNumberTableKnobs = {
 export const contentKnobs = {
 	knobProvideColumnsLarge: "provideColumns:!true;columns:lg",
 	knobProvideColumnsCustom: "provideColumns:!true;columns:custom;columnBreakpoints.lg:4",
-	knobSingleField: [...Array(13)].map((_, i) => `sections[${i + 1}]:!undefined`),
-	knobTwoColumns: ["sections[0][1]:tags", ...[...Array(13)].map((_, i) => `sections[${i + 1}]:!undefined`)],
-	knobFourColumns: ["sections[0][1]:tags;sections[0][2]:tags;sections[0][3]:tags", ...[...Array(13)].map((_, i) => `sections[${i + 1}]:!undefined`)],
+	knobSingleField: [...Array(14)].map((_, i) => `sections[${i + 1}]:!undefined`),
+	knobTwoColumns: ["sections[0][1]:tags", ...[...Array(14)].map((_, i) => `sections[${i + 1}]:!undefined`)],
+	knobFourColumns: ["sections[0][1]:tags;sections[0][2]:tags;sections[0][3]:tags", ...[...Array(14)].map((_, i) => `sections[${i + 1}]:!undefined`)],
 };
