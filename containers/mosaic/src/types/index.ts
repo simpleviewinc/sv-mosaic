@@ -72,6 +72,7 @@ export function isReactNode(node: unknown): node is ReactNode {
 		type === "boolean" ||
 		node === null ||
 		node === undefined ||
+		Array.isArray(node) ||
 		type === "object" && isReactElement(node)
 	);
 }
