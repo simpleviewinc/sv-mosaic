@@ -44,7 +44,7 @@ const ContentField = ({ label, transforms, value: rawValue, tooltip }: ContentFi
 						<FieldDefinitionText>{value}</FieldDefinitionText>
 					) : isReactNode(value) ? (
 						value
-					) : null}
+					) : <Blank />}
 				</FieldDefinitionInner>
 			</FieldDefinition>
 		</FieldContainer>
