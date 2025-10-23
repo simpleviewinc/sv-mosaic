@@ -80,7 +80,7 @@ Playground.argTypes = {
 	iconColor: {
 		name: "Icon Color",
 		control: { type: "select" },
-		options: ["black", "blue", "red", "yellow", "teal", "gray", "purple"],
+		options: ["black", "gold", "gray", "red", "teal"],
 	},
 };
 
