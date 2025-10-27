@@ -75,6 +75,11 @@ const items: MainMenuItemRootDef[] = [
 				label : "Spanish",
 				items : siteMapItems("spanish"),
 			},
+			{
+				name : "sitemap.ethiophia",
+				label : "Federal Democratic Republic of Ethiopia",
+				items : siteMapItems("ethiophia"),
+			},
 		],
 	},
 	{
@@ -97,6 +102,18 @@ const items: MainMenuItemRootDef[] = [
 			{
 				name : "assets.videos",
 				label : "Videos",
+			},
+		],
+	},
+	{
+		name: "long.names",
+		label: "Long menu labels that have no business being so long",
+		type: "item",
+		items: [
+			{
+				name: "super.long.name",
+				label: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut sapien nulla. Sed vestibulum magna eu ante tincidunt, sit amet sagittis turpis gravida. Sed et tincidunt diam.",
+				type: "item",
 			},
 		],
 	},
@@ -173,14 +190,28 @@ const items: MainMenuItemRootDef[] = [
 	},
 ];
 
-export const Playground = (): ReactElement => {
+export const Playground = ({ mobileBreakpoint }: typeof Playground.args): ReactElement => {
 	const mosaicSettings = useMosaicSettings();
 
 	return (
 		<MosaicContext.Provider value={mosaicSettings}>
 			<div style={{ height: "100vh" }}>
-				<MainMenuNavWrapper items={items} />
+				<MainMenuNavWrapper
+					items={items}
+					mobileBreakpoint={mobileBreakpoint}
+				/>
 			</div>
 		</MosaicContext.Provider>
 	);
+};
+
+Playground.args = {
+	mobileBreakpoint: 1024,
+};
+
+Playground.argTypes = {
+	mobileBreakpoint: {
+		name: "Mobile Breakpoint",
+		control: { type: "number" },
+	},
 };

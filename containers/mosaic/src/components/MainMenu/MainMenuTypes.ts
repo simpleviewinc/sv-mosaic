@@ -25,9 +25,11 @@ export interface MainMenuProps {
 
 export interface MainMenuContextState extends Pick<MainMenuProps, "active" | "onNav"> {
 	push: MainMenuPush;
-	close: () => void;
+	clearStack: () => void;
 	collapsed?: boolean;
 	hidden?: boolean;
+	isMobileVariant?: boolean;
+	onClose?: () => void;
 }
 
 export interface MainMenuItemDef {

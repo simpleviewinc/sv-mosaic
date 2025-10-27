@@ -1,6 +1,7 @@
 import theme from "@root/theme";
 import styled from "styled-components";
 import { Column } from "../common";
+import { scrollbarStyles } from "@root/utils/styles/scrollbarStyles";
 
 export const StyledWrapper = styled(Column)`
 	gap: ${theme.spacing(3)};
@@ -43,26 +44,7 @@ export const StyledDataViewDisplay = styled.div`
 	min-height: 0;
 	overflow: auto;
 
-	&::-webkit-scrollbar-thumb {
-		background-color: ${theme.color.gray[400]};
-		border: 4px solid transparent;
-		border-radius: 8px;
-		background-clip: padding-box;
-		width: 4px;
-
-		&:hover {
-			background-color: ${theme.color.gray[500]};
-		}
-	}
-
-	&::-webkit-scrollbar {
-		background: transparent;
-		width: 14px;
-	}
-
-	&::-webkit-scrollbar-track {
-		background: rgba(0, 0, 0, 0);
-	}
+	${scrollbarStyles}
 `;
 
 export const StyledDataViewContent = styled(Column)<{ $hasHeading?: boolean }>`

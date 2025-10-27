@@ -3,7 +3,6 @@ import React from "react";
 import type { MainMenuItemDef, MainMenuItemRootDef } from "./MainMenuTypes";
 import { MainMenuItem } from "./MainMenuItem";
 import { MainMenuGroup } from "./MainMenuGroup";
-import { StyledList } from "./MainMenu.styled";
 
 interface MainMenuItems {
 	items: (MainMenuItemRootDef | MainMenuItemDef)[];
@@ -15,7 +14,7 @@ export function MainMenuItems({
 	depth = 0,
 }: MainMenuItems) {
 	return (
-		<StyledList>
+		<>
 			{items.map(item => item.type === "group" ? (
 				<MainMenuGroup
 					key={item.name}
@@ -29,6 +28,6 @@ export function MainMenuItems({
 					{...item}
 				/>
 			))}
-		</StyledList>
+		</>
 	);
 }
