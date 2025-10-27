@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Column, Row } from "../common";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Button from "../Button";
+import { scrollbarStyles } from "@root/utils/styles/scrollbarStyles";
 
 export const StyledMainMenu = styled.nav<{
 	$hidden?: boolean;
@@ -43,6 +44,7 @@ export const StyledBackdrop = styled.div`
 export const StyledMenuFloat = styled.div<{ $hidden?: boolean }>`
 	display: flex;
 	height: 100%;
+	max-width: 100vw;
 
 	${({ $hidden }) => $hidden ? "" : `
 		position: absolute;
@@ -56,7 +58,6 @@ export const StyledMainMenuBottom = styled.div`
 
 export const StyledMainMenuFlyout = styled.div`
 	overflow: hidden;
-	width: var(--expanded-width);
 `;
 
 export const StyledMainMenuPanel = styled(Column)<{
@@ -70,6 +71,7 @@ export const StyledMainMenuPanel = styled(Column)<{
 	transition-timing-function: var(--collapse-timing-fn);
 	transition-property: width;
 	height: 100%;
+	flex: none;
 
 	${!$rootPanel ? "" : $collapsed ? `
 		width: var(--collapsed-width);
@@ -122,12 +124,23 @@ export const StyledPanelClose = styled(StyledPanelHeaderIcon)`
 	margin-left: auto;
 `;
 
-export const StyledList = styled.ul`
+export const StyledList = styled.ul<{ $fixedWidth?: boolean }>`
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	overflow: auto;
+`;
+
+export const ScrollableList = styled(StyledList)`
+	${scrollbarStyles}
+`;
+
+export const RootList = styled(ScrollableList)`
 	width: 200px;
+`;
+
+export const FlyoutList = styled(ScrollableList)`
+	min-width: 200px;
 `;
 
 export const StyledLabel = styled.div<{ $invisible?: boolean }>`
