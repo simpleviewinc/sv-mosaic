@@ -77,3 +77,9 @@ export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "cente
 		margin: ${theme.spacing(0, 5)};
 	`}
 `;
+
+export const CardNoItems = styled.div`
+	color: ${theme.color.gray[600]};
+	padding-bottom: ${theme.spacing(4)};
+	text-align: center;
+`;
