@@ -6,6 +6,7 @@ import testIds from "@root/utils/testIds";
 import {
 	CardBottom,
 	CardContent,
+	CardNoItems,
 	CardWrapper,
 	ContentItem,
 } from "./Card.styled";
@@ -21,6 +22,7 @@ const Card = ({
 	titleIcon,
 	topActions,
 	collapsed,
+	noItems = <CardNoItems>No items to display.</CardNoItems>,
 }: CardProps): ReactElement => {
 
 	return (
@@ -40,11 +42,15 @@ const Card = ({
 			{!collapsed && (
 				<>
 					<CardContent>
-						{content.map((element, idx) => (
-							<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
-								{element}
-							</ContentItem>
-						))}
+						{content.length > 0 ? (
+							content.map((element, idx) => (
+								<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
+									{element}
+								</ContentItem>
+							))
+						) : (
+							typeof noItems === "string" ? <CardNoItems>{noItems}</CardNoItems> : noItems
+						)}
 					</CardContent>
 					{bottomActions?.length > 0 && (
 						<CardBottom>
