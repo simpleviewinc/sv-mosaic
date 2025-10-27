@@ -37,7 +37,7 @@ export function MainMenuItem({
 	...item
 }: MainMenuItemProps) {
 	const { anchorProps, tooltipProps } = useTooltip();
-	const { push, close, active, onNav: mainMenuOnNav, collapsed } = useMainMenu();
+	const { push, clearStack, active, onNav: mainMenuOnNav, collapsed } = useMainMenu();
 	const {
 		label,
 		mIcon,
@@ -83,9 +83,9 @@ export function MainMenuItem({
 			mainMenuOnNav({ item, event });
 		}
 
-		close();
+		clearStack();
 
-	}, [depth, item, items, push, onNav, mainMenuOnNav, href, close]);
+	}, [depth, item, items, push, onNav, mainMenuOnNav, href, clearStack]);
 
 	const isActive = item.isActive || (active && (active === item.name || active.startsWith(`${item.name}.`)));
 
