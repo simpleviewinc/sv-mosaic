@@ -1,9 +1,23 @@
 import type Monaco from "monaco-editor";
 import type { FieldDefBase } from "@root/components/Field";
 
-export interface CodeFieldInputSettings {
-	theme?: "light" | "dark" | Monaco.editor.IStandaloneThemeData;
+interface CodeFieldAutosizeSettings {
+	autogrow: true;
+	minHeight?: number;
+	maxHeight?: number;
 }
+
+interface CodeFieldFixedHeightSettings {
+	autogrow?: false;
+	height?: number;
+}
+
+export type CodeFieldInputSettings = {
+	theme?: "light" | "dark" | Monaco.editor.IStandaloneThemeData;
+	language?: string;
+	onMount?: (editor: Monaco.editor.IStandaloneCodeEditor, monaco: typeof Monaco) => void;
+	monacoOptions?: Monaco.editor.IStandaloneEditorConstructionOptions;
+} & (CodeFieldAutosizeSettings | CodeFieldFixedHeightSettings)
 
 export type CodeFieldData = string;
 

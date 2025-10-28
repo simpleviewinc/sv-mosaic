@@ -2189,11 +2189,11 @@ __metadata:
   linkType: hard
 
 "@monaco-editor/loader@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@monaco-editor/loader@npm:1.5.0"
+  version: 1.6.1
+  resolution: "@monaco-editor/loader@npm:1.6.1"
   dependencies:
     state-local: ^1.0.6
-  checksum: 45e5f56ea9b1e5c16e3d40b05f8c365af830627d2aa8215c86cfac57384419c1b896927408c1261a12dc182a08419d4f20a0d0949d3e76ca42ccc68f4ffec508
+  checksum: c00f4264d3e44f8923a646762dd8b061c4095c8bd91830ce2fccdaed532c6d0ff699b5bb85994de800d868a2126e54c4fd544cc8723422b599aa5a68958a0bed
   languageName: node
   linkType: hard
 
@@ -2802,11 +2802,13 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
+    "@monaco-editor/react": ^4.7.0
     "@mui/icons-material": 5.16.7
     "@mui/material": 5.16.7
     "@mui/styles": 5.16.7
     "@mui/x-date-pickers": ^5.0.0-beta.0
     i18next: ^19.5.0
+    monaco-editor: ^0.52.2
     react: ^18.2.0
     react-dom: ^18.2.0
     react-i18next: ^11.7.0

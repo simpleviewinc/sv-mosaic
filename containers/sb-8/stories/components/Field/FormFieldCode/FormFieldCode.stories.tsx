@@ -21,6 +21,11 @@ export const Playground = ({
 	helperText,
 	theme,
 	customTheme,
+	language,
+	autogrow,
+	minHeight,
+	maxHeight,
+	height,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { handleSubmit, state } = controller;
@@ -37,13 +42,25 @@ export const Playground = ({
 					disabled,
 					inputSettings: {
 						theme: theme === "custom" ? customTheme : theme,
+						language,
+						autogrow,
+						minHeight,
+						maxHeight,
+						height,
+						onMount: (editor, monico) => {
+							monico.languages.typescript.typescriptDefaults.addExtraLib(`
+								interface ScriptArgs {
+									foo: string
+								}
+							`);
+						},
 					},
 					helperText,
 					instructionText,
 					forceInstructionTooltip,
 				},
 			],
-		[label, hideLabel, required, disabled, theme, customTheme, helperText, instructionText, forceInstructionTooltip],
+		[label, hideLabel, required, disabled, theme, customTheme, language, autogrow, minHeight, maxHeight, height, helperText, instructionText, forceInstructionTooltip],
 	);
 
 	return (
@@ -62,7 +79,7 @@ export const Playground = ({
 Playground.args = {
 	...commonFieldControls.args({
 		prepopData: {
-			code: "function concat({ left, right }: { left: string; right }): string {\n    return `${left}:${right}`;\n}",
+			code: "interface ConcatParams {\n    left: string;\n    right: string;\n}\n\nfunction concat({ left, right }: ConcatParams): string {\n    return `${left}:${right}`;\n}",
 		},
 	}),
 	theme: "light",
@@ -74,6 +91,11 @@ Playground.args = {
 			"editor.background": "#fafafa",
 		},
 	},
+	language: "typescript",
+	autogrow: false,
+	minHeight: 200,
+	maxHeight: 600,
+	height: 300,
 };
 
 Playground.argTypes = {
@@ -86,5 +108,25 @@ Playground.argTypes = {
 	customTheme: {
 		name: "Custom Theme",
 		if: { arg: "theme", eq: "custom" },
+	},
+	language: {
+		name: "Language",
+		options: ["typescript", "html", "css"],
+		control: { type: "select" },
+	},
+	autogrow: {
+		name: "Autogrow",
+	},
+	minHeight: {
+		name: "Min Height",
+		if: { arg: "autogrow" },
+	},
+	maxHeight: {
+		name: "Max Height",
+		if: { arg: "autogrow" },
+	},
+	height: {
+		name: "Height",
+		if: { arg: "autogrow", eq: false },
 	},
 };
