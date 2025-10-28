@@ -1,0 +1,1 @@
+import{r as t}from"./index-ePW8zFKp.js";const u=t.createContext(void 0);function x(){return t.useContext(u)}function C({props:n,states:f,muiFormControl:e}){return f.reduce((r,o)=>(r[o]=n[o],e&&typeof n[o]>"u"&&(r[o]=e[o]),r),{})}export{u as F,C as f,x as u};
