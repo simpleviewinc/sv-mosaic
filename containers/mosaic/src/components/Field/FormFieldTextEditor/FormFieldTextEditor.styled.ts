@@ -1,5 +1,4 @@
 import { EditorContent } from "@tiptap/react";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import styled, { css } from "styled-components";
 
@@ -358,25 +357,11 @@ export const MultipleStyles = styled.div`
     color: ${theme.color.gray[500]};
 `;
 
-export const CodeView = styled(TextareaAutosize)`
-    background: var(--bg);
-    border: 0;
+export const CodeView = styled.div`
+    overflow: hidden;
     border-top: 1px solid var(--inner-border-color);
     border-bottom-left-radius: ${theme.rounded.md};
     border-bottom-right-radius: ${theme.rounded.md};
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 16px;
-    margin: 0;
-    min-height: 10rem;
-    width: 100%;
-    resize: vertical;
-    display: block;
-
-    &:focus {
-        outline: none;
-    }
 `;
 
 export const StyledControlMenu = styled(MenuBase)`
