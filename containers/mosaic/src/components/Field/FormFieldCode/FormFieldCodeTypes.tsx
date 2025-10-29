@@ -19,6 +19,12 @@ export type CodeFieldInputSettings = {
 	monacoOptions?: Monaco.editor.IStandaloneEditorConstructionOptions;
 } & (CodeFieldAutosizeSettings | CodeFieldFixedHeightSettings)
 
+export type MonacoCodeEditorProps = CodeFieldInputSettings & {
+	disabled?: boolean;
+	value?: string;
+	onChange?: (value: string | ((current: string) => string), options?: any) => Promise<void>;
+}
+
 export type CodeFieldData = string;
 
 export type FieldDefCode = FieldDefBase<"code", CodeFieldInputSettings>;
