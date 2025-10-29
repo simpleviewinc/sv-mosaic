@@ -4,14 +4,13 @@ import theme from "#mosaic/theme";
 import type { ButtonProps } from "#mosaic/components/Button";
 
 // Components
-import Card, { CardNoItems } from "#mosaic/components/Card";
+import Card from "#mosaic/components/Card";
 import AddIcon from "@mui/icons-material/Add";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Text } from "@simpleview/sv-mosaic/components/Typography";
 import { Column } from "@simpleview/sv-mosaic/components/common";
-import Button from "@simpleview/sv-mosaic/components/Button";
 
 export default {
 	title: "Components/Card",
@@ -42,8 +41,6 @@ export const Playground = ({
 	count,
 	showCount,
 	collapsed,
-	noItemDisplay,
-	noItemDisplayCustom,
 }: typeof Playground.args): ReactElement => {
 	const topActions: ButtonProps[] = [
 		{
@@ -101,23 +98,6 @@ export const Playground = ({
 				count={showCount !== "No" ? count : undefined}
 				showZeroCount={showCount !== "Yes, if greater than 0"}
 				collapsed={collapsed}
-				noItems={noItemDisplay === "Default" ? (
-					undefined
-				) : noItemDisplay === "Custom Text" ? (
-					noItemDisplayCustom
-				) : (
-					<CardNoItems>
-						You have no items.
-						{" "}
-						<Button
-							label="Where are my items?"
-							size="inherit"
-							variant="text"
-							intent="info"
-							onClick={() => alert("Create one clicked")}
-						/>
-					</CardNoItems>
-				)}
 			/>
 		</div>
 	);
@@ -130,8 +110,6 @@ Playground.args = {
 	count: 0,
 	showCount: "No",
 	collapsed: false,
-	noItemDisplay: "Default",
-	noItemDisplayCustom: "These aren't the droids you're looking for.",
 };
 
 Playground.argTypes = {
@@ -157,14 +135,5 @@ Playground.argTypes = {
 	},
 	collapsed: {
 		name: "Collapsed",
-	},
-	noItemDisplay: {
-		name: "No Item Display",
-		options: ["Default", "Custom Text", "React Node"],
-		control: { type: "select" },
-	},
-	noItemDisplayCustom: {
-		name: "Custom No Item Display",
-		if: { arg: "noItemDisplay", eq: "Custom Text" },
 	},
 };
