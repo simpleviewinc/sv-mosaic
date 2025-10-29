@@ -1,31 +1,29 @@
 import React, { useRef } from "react";
-import { StyledGroupHeader, StyledLabel, StyledMainMenuFlyout, StyledMainMenuPanel, StyledPanelBack, StyledPanelClose } from "./MainMenu.styled";
+import { FlyoutList, StyledGroupHeader, StyledLabel, StyledMainMenuFlyout, StyledMainMenuPanel, StyledPanelBack, StyledPanelClose } from "./MainMenu.styled";
 import { MainMenuItems } from "./MainMenuItems";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import Close from "@mui/icons-material/Close";
 import FocusTrap from "@mui/material/Unstable_TrapFocus";
 import Slide from "@mui/material/Slide";
-import type { MainMenuItemDef, MainMenuPop } from "./MainMenuTypes";
+import type { MainMenuItemDef } from "./MainMenuTypes";
 import { useMainMenu } from "./MainMenuContext";
 import testIds from "@root/utils/testIds";
 
 interface MainMenuFlyoutProps {
-	showBack: boolean;
 	title: string;
 	items: MainMenuItemDef[];
-	pop: MainMenuPop;
 	depth: number;
+	onBack?: () => void;
 }
 
 export function MainMenuFlyout({
-	showBack,
+	onBack,
 	title,
 	items,
-	pop,
 	depth,
 }: MainMenuFlyoutProps) {
 	const container = useRef();
-	const { close } = useMainMenu();
+	const { clearStack, onClose, isMobileVariant } = useMainMenu();
 
 	return (
 		<FocusTrap open>
@@ -34,15 +32,15 @@ export function MainMenuFlyout({
 				tabIndex={-1}
 				data-testid={testIds.MAIN_MENU_FLYOUT}
 			>
-				<Slide in direction="right" container={container.current}>
+				<Slide timeout={isMobileVariant ? 0 : undefined} in direction="right" container={container.current}>
 					<StyledMainMenuPanel>
 						<StyledGroupHeader>
-							{showBack && (
+							{onBack && (
 								<StyledPanelBack
 									variant="text"
 									mIcon={ChevronLeft}
 									size="small"
-									onClick={pop}
+									onClick={onBack}
 									tooltip="Back"
 								/>
 							)}
@@ -53,14 +51,16 @@ export function MainMenuFlyout({
 								variant="text"
 								mIcon={Close}
 								size="small"
-								onClick={close}
+								onClick={isMobileVariant ? onClose : clearStack}
 								tooltip="Close"
 							/>
 						</StyledGroupHeader>
-						<MainMenuItems
-							items={items}
-							depth={depth}
-						/>
+						<FlyoutList>
+							<MainMenuItems
+								items={items}
+								depth={depth}
+							/>
+						</FlyoutList>
 					</StyledMainMenuPanel>
 				</Slide>
 			</StyledMainMenuFlyout>

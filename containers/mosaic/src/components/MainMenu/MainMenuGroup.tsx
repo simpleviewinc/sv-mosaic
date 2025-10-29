@@ -1,7 +1,7 @@
 import React from "react";
 import type { MainMenuItemDef } from "./MainMenuTypes";
 import { MainMenuItems } from "./MainMenuItems";
-import { StyledGroupHeader, StyledIcon, StyledLabel } from "./MainMenu.styled";
+import { StyledGroupHeader, StyledIcon, StyledLabel, StyledList } from "./MainMenu.styled";
 import { useMainMenu } from "./MainMenuContext";
 
 interface MainMenuGroupProps extends MainMenuItemDef {
@@ -17,7 +17,7 @@ export function MainMenuGroup({
 	const { collapsed } = useMainMenu();
 
 	return (
-		<>
+		<li>
 			<StyledGroupHeader $collapsed={collapsed}>
 				{Icon && (
 					<StyledIcon>
@@ -28,10 +28,12 @@ export function MainMenuGroup({
 					{label}
 				</StyledLabel>
 			</StyledGroupHeader>
-			<MainMenuItems
-				items={items}
-				depth={depth}
-			/>
-		</>
+			<StyledList>
+				<MainMenuItems
+					items={items}
+					depth={depth}
+				/>
+			</StyledList>
+		</li>
 	);
 }
