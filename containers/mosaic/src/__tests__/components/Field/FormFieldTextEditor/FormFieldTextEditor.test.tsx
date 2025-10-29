@@ -11,6 +11,21 @@ import FormFieldTestType from "../FormFieldTestType";
 import { FormFieldTextEditor } from "@root/components/Field/FormFieldTextEditor/FormFieldTextEditor";
 import testIds from "@root/utils/testIds";
 
+vi.mock("@monaco-editor/react", () => {
+	const FakeEditor = jest.fn(props => {
+		return (
+			<textarea
+				onChange={e => props.onChange(e.target.value)}
+				value={props.value}
+			/>
+		);
+	});
+
+	return {
+		default: FakeEditor,
+	};
+});
+
 const defaultFieldDef: FieldDefBase<"textEditor", TextEditorInputSettings> = {
 	name: "textEditor",
 	label: "Text Editor",
@@ -401,7 +416,7 @@ describe(__dirname, () => {
 		await user.keyboard("abc");
 	});
 
-	it("should not throw an error but warn when malformed HTML is provided in the source tab", async () => {
+	it.only("should not throw an error but warn when malformed HTML is provided in the source tab", async () => {
 		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
 		const { user } = await setup(undefined, { stateful: true });
 

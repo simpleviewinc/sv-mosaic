@@ -47,7 +47,7 @@ export const Playground = ({
 						minHeight,
 						maxHeight,
 						height,
-						onMount: (editor, monico) => {
+						onMount: (_, monico) => {
 							monico.languages.typescript.typescriptDefaults.addExtraLib(`
 								interface ScriptArgs {
 									foo: string
