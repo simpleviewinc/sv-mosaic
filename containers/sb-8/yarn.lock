@@ -2720,6 +2720,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@monaco-editor/loader@npm:^1.5.0":
+  version: 1.6.1
+  resolution: "@monaco-editor/loader@npm:1.6.1"
+  dependencies:
+    state-local: ^1.0.6
+  checksum: c00f4264d3e44f8923a646762dd8b061c4095c8bd91830ce2fccdaed532c6d0ff699b5bb85994de800d868a2126e54c4fd544cc8723422b599aa5a68958a0bed
+  languageName: node
+  linkType: hard
+
+"@monaco-editor/react@npm:^4.7.0":
+  version: 4.7.0
+  resolution: "@monaco-editor/react@npm:4.7.0"
+  dependencies:
+    "@monaco-editor/loader": ^1.5.0
+  peerDependencies:
+    monaco-editor: ">= 0.25.0 < 1"
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 8b3bd8adfcd6af70dc5f965e986932269e1e2c2a0f6beb5a3c632c8c7942c1341f6086d9664f9a949983bdf4a04a706e529a93bfec3b5884642915dfcc0354c3
+  languageName: node
+  linkType: hard
+
 "@mui/core-downloads-tracker@npm:^5.16.7":
   version: 5.16.14
   resolution: "@mui/core-downloads-tracker@npm:5.16.14"
@@ -2882,6 +2904,26 @@ __metadata:
     "@types/react":
       optional: true
   checksum: d3c005358777204debb75c684a25ec324df8a0e108440a4b8bd7c658716d6712d993253294fc790c4c9f431156502f1cafd63819643c7a7b9651ac3216ebf9f2
+  languageName: node
+  linkType: hard
+
+"@mui/utils@npm:5.16.6":
+  version: 5.16.6
+  resolution: "@mui/utils@npm:5.16.6"
+  dependencies:
+    "@babel/runtime": ^7.23.9
+    "@mui/types": ^7.2.15
+    "@types/prop-types": ^15.7.12
+    clsx: ^2.1.1
+    prop-types: ^15.8.1
+    react-is: ^18.3.1
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 6f8068f07f60a842fcb2e2540eecbd9c5f04df695bcc427184720e8ae138ae689fefd3c20147ab7c76e809ede6e10f5e08d1c34cd3a8b09bd22d2020a666a96f
   languageName: node
   linkType: hard
 
@@ -3514,6 +3556,7 @@ __metadata:
     "@dnd-kit/modifiers": ^7.0.0
     "@dnd-kit/sortable": 8.0.0
     "@dnd-kit/utilities": 3.2.2
+    "@mui/utils": 5.16.6
     "@react-google-maps/api": ^2.7.0
     "@tiptap/core": 2.8.0
     "@tiptap/extension-blockquote": 2.8.0
@@ -3549,11 +3592,13 @@ __metadata:
   peerDependencies:
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
+    "@monaco-editor/react": ^4.7.0
     "@mui/icons-material": 5.16.7
     "@mui/material": 5.16.7
     "@mui/styles": 5.16.7
     "@mui/x-date-pickers": ^5.0.0-beta.0
     i18next: ^19.5.0
+    monaco-editor: ^0.52.2
     react: ^18.2.0
     react-dom: ^18.2.0
     react-i18next: ^11.7.0
@@ -10378,6 +10423,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor@npm:^0.52.2":
+  version: 0.52.2
+  resolution: "monaco-editor@npm:0.52.2"
+  checksum: d5ff7b7a469afee25ac708d9ace0dcc5ef24ed328dfc526a52944a497f0d826cfb0685a778ff4b7becc0a8f7843f260c17ea6de3f6719481d53501d79ebb1260
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.0.0":
   version: 2.0.0
   resolution: "ms@npm:2.0.0"
@@ -12184,6 +12236,7 @@ __metadata:
   dependencies:
     "@emotion/react": 11.9.0
     "@emotion/styled": 11.8.1
+    "@monaco-editor/react": ^4.7.0
     "@mui/icons-material": 5.16.7
     "@mui/material": 5.16.7
     "@mui/styles": 5.16.7
@@ -12211,6 +12264,7 @@ __metadata:
     eslint: 9.15.0
     eslint-plugin-storybook: 0.11.6
     gh-pages: 6.3.0
+    monaco-editor: ^0.52.2
     react: 19.0.0
     react-dom: 19.0.0
     remark-gfm: 4.0.0
@@ -12586,6 +12640,13 @@ __metadata:
   dependencies:
     minipass: ^7.0.3
   checksum: ef4b6b0ae47b4a69896f5f1c4375f953b9435388c053c36d27998bc3d73e046969ccde61ab659e679142971a0b08e50478a1228f62edb994105b280f17900c98
+  languageName: node
+  linkType: hard
+
+"state-local@npm:^1.0.6":
+  version: 1.0.7
+  resolution: "state-local@npm:1.0.7"
+  checksum: d1afcf1429e7e6eb08685b3a94be8797db847369316d4776fd51f3962b15b984dacc7f8e401ad20968e5798c9565b4b377afedf4e4c4d60fe7495e1cbe14a251
   languageName: node
   linkType: hard
 

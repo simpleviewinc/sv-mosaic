@@ -20,6 +20,7 @@ import { escapeHtml } from "@root/utils/dom/escapeHtml";
 import testIds from "@root/utils/testIds";
 import { defaultControls, floatingControls, selectionVirtualElement } from "./textEditorUtils";
 import PrimaryToolbar from "./Toolbar/PrimaryToolbar";
+import MonacoCodeEditor from "../FormFieldCode/MonacoCodeEditor";
 
 function FormFieldTextEditorUnmemo({
 	value = "",
@@ -218,13 +219,15 @@ function FormFieldTextEditorUnmemo({
 				</PrimaryToolbar>
 			)}
 			{mode === "code" ? (
-				<CodeView
-					value={value}
-					onChange={({ target: { value } }) => onChange(value)}
-					onFocus={onFocus}
-					onBlur={onBlur}
-					disabled={disabled}
-				/>
+				<CodeView>
+					<MonacoCodeEditor
+						value={value}
+						onChange={onChange}
+						disabled={disabled}
+						language="html"
+						autogrow
+					/>
+				</CodeView>
 			) : (
 				<Editor
 					editor={editor}

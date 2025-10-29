@@ -137,10 +137,65 @@ const border = {
 	light: "var(--mos-border-light)",
 };
 
-// Envourage the dev to use standard factors, but still allow them to use arbitrary ones if necessary.
-// Support long CSS unit syntax.
-// Support string literals to do things like theme.spacing("1px", 2, 2) for "1px 8px 8px"
+/**
+ * Spacing utility function for consistent spacing throughout the application.
+ *
+ * This function converts spacing factors into CSS pixel values using a 4px base unit,
+ * while also supporting custom string values for flexibility.
+ *
+ * @param factors - Variable number of spacing factors that can be:
+ *   - Numbers: Multiplied by 4 to get pixel values (e.g., 1 = 4px, 2 = 8px)
+ *   - Strings: Used as-is for custom values (e.g., "1px", "1rem", "auto")
+ *
+ * @returns A space-separated string of CSS values suitable for padding, margin, etc.
+ *
+ * @example
+ * // Single value - uniform spacing
+ * theme.spacing(2) // "8px"
+ * theme.spacing(4) // "16px"
+ *
+ * @example
+ * // Two values - vertical and horizontal
+ * theme.spacing(1, 2) // "4px 8px"
+ *
+ * @example
+ * // Four values - top, right, bottom, left
+ * theme.spacing(1, 2, 3, 4) // "4px 8px 12px 16px"
+ *
+ * @example
+ * // Mixed numeric and string values
+ * theme.spacing("1px", 2, 2) // "1px 8px 8px"
+ * theme.spacing(0, "auto") // "0px auto"
+ * theme.spacing("1rem", 4, "2em") // "1rem 16px 2em"
+ *
+ * @example
+ * // Usage in styled-components
+ * const StyledDiv = styled.div`
+ *   padding: ${({ theme }) => theme.spacing(2, 4)}; // "8px 16px"
+ *   margin: ${({ theme }) => theme.spacing(1)}; // "4px"
+ * `;
+ *
+ * @example
+ * // Standard spacing factors (encouraged for consistency)
+ * theme.spacing(0)    // "0px"
+ * theme.spacing(0.5)  // "2px"
+ * theme.spacing(1)    // "4px"
+ * theme.spacing(2)    // "8px"
+ * theme.spacing(3)    // "12px"
+ * theme.spacing(4)    // "16px"
+ * theme.spacing(5)    // "20px"
+ * theme.spacing(6)    // "24px"
+ * theme.spacing(8)    // "32px"
+ * theme.spacing(10)   // "40px"
+ * theme.spacing(12)   // "48px"
+ * theme.spacing(16)   // "64px"
+ * theme.spacing(20)   // "80px"
+ * theme.spacing(24)   // "96px"
+ * theme.spacing(32)   // "128px"
+ * theme.spacing(40)   // "160px"
+ */
 type SpacingFactor = 0 | 0.5 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 | 20 | 24 | 32 | 40 | (number & {}) | (string & {});
+
 const spacing = (...factors: SpacingFactor[]) => {
 	return factors.map(factor => typeof factor === "string" ?
 		factor :

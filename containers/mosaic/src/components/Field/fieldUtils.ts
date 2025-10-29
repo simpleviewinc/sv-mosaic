@@ -10,6 +10,7 @@ export const defaultFieldSizeMap: Record<Exclude<FieldDef["type"], FieldDefCusto
 	radio: Sizes.sm,
 	toggle: Sizes.md,
 	color: Sizes.sm,
+	code: Sizes.full,
 	date: Sizes.md,
 	time: Sizes.md,
 	address: Sizes.full,
