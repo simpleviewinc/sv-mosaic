@@ -100,6 +100,7 @@ interface NavWrapperProps {
 	items : MainMenuItemRootDef[];
 	onlyContent?: boolean;
 	active?: string;
+	mobileBreakpoint?: number;
 }
 
 export const MainMenuNavWrapper = function(props: NavWrapperProps): ReactElement {
@@ -111,7 +112,9 @@ export const MainMenuNavWrapper = function(props: NavWrapperProps): ReactElement
 		name : props.items[0]?.name || "Home",
 	});
 
-	const isDesktop = useMediaQuery("(min-width: 1024px)", { defaultMatches: true });
+	const mobileBreakpointNum = Number(props.mobileBreakpoint);
+	const mobileBreakpoint = mobileBreakpointNum !== mobileBreakpointNum ? 1024 : mobileBreakpointNum;
+	const isDesktop = useMediaQuery(`(min-width: ${mobileBreakpoint}px)`, { defaultMatches: true });
 	const variant = !isDesktop ? "mobile" : state.variant;
 
 	const onClick = function() {

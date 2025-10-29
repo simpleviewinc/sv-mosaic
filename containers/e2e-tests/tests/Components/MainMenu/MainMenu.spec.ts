@@ -18,7 +18,7 @@ test.describe("Components - LeftNav - Example", () => {
 	});
 
 	test("should display all available top level items", async () => {
-		expect(await mainMenuPage.allLeftItems.count()).toBe(10);
+		expect(await mainMenuPage.allLeftItems.count()).toBe(12);
 	});
 
 	test("should hide the main menu when hidden display is clicked", async () => {
@@ -38,7 +38,7 @@ test.describe("Components - LeftNav - Example", () => {
 		await mainMenuPage.allLeftItems.filter({ hasText: "Sitemap" }).click();
 		const flyout = page.getByTestId("mos:MainMenu:flyout");
 		await expect(flyout).toBeVisible();
-		await expect(flyout.getByRole("listitem")).toHaveCount(4);
+		await expect(flyout.getByRole("listitem")).toHaveCount(5);
 	});
 
 	test("should go deeper than a single level of children and go back", async () => {
