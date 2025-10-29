@@ -416,7 +416,7 @@ describe(__dirname, () => {
 		await user.keyboard("abc");
 	});
 
-	it.only("should not throw an error but warn when malformed HTML is provided in the source tab", async () => {
+	it("should not throw an error but warn when malformed HTML is provided in the source tab", async () => {
 		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
 		const { user } = await setup(undefined, { stateful: true });
 
