@@ -11,12 +11,11 @@ export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
 `;
 
 export const Heading = styled(Row).attrs({ $align: "center" })<{
-	$collapsed?: boolean;
 	$compact?: boolean;
+	$blunt?: boolean;
 }>`
   	background: ${theme.color.gray[50]};
 	border-radius: ${theme.rounded.md};
-	border-bottom: 1px solid ${theme.color.gray[300]};
 	gap: ${theme.spacing(2)};
 
 	${({ $compact }) => `
@@ -24,9 +23,10 @@ export const Heading = styled(Row).attrs({ $align: "center" })<{
 		height: ${$compact ? "42" : "48"}px;
 	`}
 
-	${({ $collapsed }) => $collapsed ? "" : `
+	${({ $blunt = true }) => !$blunt ? "" : `
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
+		border-bottom: 1px solid ${theme.color.gray[300]};
 	`}
 `;
 
@@ -60,7 +60,10 @@ export const ContentItem = styled.div`
 
 	&:not(:first-child) {
 		padding-top: ${theme.spacing(4)};
-		border-top: 1px solid ${theme.color.gray[200]};
+	}
+
+	&:not(:last-child) {
+		border-bottom: 1px solid ${theme.color.gray[200]};
 	}
 `;
 
@@ -76,10 +79,8 @@ export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "cente
 		padding: ${theme.spacing(3, 0)};
 		margin: ${theme.spacing(0, 5)};
 	`}
-`;
 
-export const CardNoItems = styled.div`
-	color: ${theme.color.gray[600]};
-	padding-bottom: ${theme.spacing(4)};
-	text-align: center;
+	${Heading} + & {
+		border-top: 0;
+	}
 `;

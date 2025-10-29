@@ -6,7 +6,6 @@ import testIds from "@root/utils/testIds";
 import {
 	CardBottom,
 	CardContent,
-	CardNoItems,
 	CardWrapper,
 	ContentItem,
 } from "./Card.styled";
@@ -21,9 +20,9 @@ const Card = ({
 	title,
 	titleIcon,
 	topActions,
-	collapsed,
-	noItems = <CardNoItems>No items to display.</CardNoItems>,
+	collapsed: providedCollapsed,
 }: CardProps): ReactElement => {
+	const collapsed = providedCollapsed || (!content.length && !bottomActions.length);
 
 	return (
 		<CardWrapper
@@ -32,7 +31,7 @@ const Card = ({
 		>
 			<CardHeading
 				buttons={topActions}
-				collapsed={collapsed}
+				blunt={!collapsed}
 				count={count}
 				icon={titleIcon}
 				showZeroCount={showZeroCount}
@@ -41,17 +40,15 @@ const Card = ({
 			</CardHeading>
 			{!collapsed && (
 				<>
-					<CardContent>
-						{content.length > 0 ? (
-							content.map((element, idx) => (
+					{content.length > 0 && (
+						<CardContent>
+							{content.map((element, idx) => (
 								<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
 									{element}
 								</ContentItem>
-							))
-						) : (
-							typeof noItems === "string" ? <CardNoItems>{noItems}</CardNoItems> : noItems
-						)}
-					</CardContent>
+							))}
+						</CardContent>
+					)}
 					{bottomActions?.length > 0 && (
 						<CardBottom>
 							<ButtonRow buttons={bottomActions} />

@@ -15,7 +15,7 @@ import { EMPTY_ARRAY } from "@root/constants/stable";
 export function CardHeading({
 	children,
 	buttons = EMPTY_ARRAY,
-	collapsed,
+	blunt,
 	count,
 	icon: Icon,
 	showZeroCount,
@@ -24,7 +24,7 @@ export function CardHeading({
 	return (
 		<Heading
 			data-testid={testIds.CARD_HEADING}
-			$collapsed={collapsed}
+			$blunt={blunt}
 			$compact={compact}
 		>
 			<Title>

@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { ButtonProps } from "../Button";
 import type { SvgIconComponent } from "@root/types";
 
@@ -37,17 +36,12 @@ export interface CardProps {
 	 * Whether to collapse the main content of the card, showing only the title region
 	 */
 	collapsed?: boolean;
-	/**
-	 * Content to display when there are no items to show in the card. This is typically
-	 * used as a placeholder or empty state message when the card's content array is empty
-	 * or when there's no data to display.
-	 */
-	noItems?: ReactNode;
 }
 
-export type CardHeadingProps = Pick<CardProps, "collapsed" | "count" | "showZeroCount"> & {
+export type CardHeadingProps = Pick<CardProps, "count" | "showZeroCount"> & {
 	icon?: CardProps["titleIcon"];
 	children: CardProps["title"];
 	buttons?: CardProps["topActions"];
+	blunt?: boolean;
 	compact?: boolean;
 };
