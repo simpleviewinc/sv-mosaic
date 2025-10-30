@@ -39,7 +39,7 @@ export const Playground = ({
 	quantityOfTopActions,
 	quantityOfBottomActions,
 	count,
-	showZeroCount,
+	showCount,
 	collapsed,
 }: typeof Playground.args): ReactElement => {
 	const topActions: ButtonProps[] = [
@@ -90,13 +90,13 @@ export const Playground = ({
 	return (
 		<div style={{ maxWidth: "100%", width: 400 }}>
 			<Card
-				content={content}
+				content={content.slice(0, count)}
 				title="Section Title"
 				titleIcon={showTitleIcon && ContactsIcon}
 				topActions={topActions.slice(0, quantityOfTopActions)}
 				bottomActions={bottomActions.slice(0, quantityOfBottomActions)}
-				count={count !== undefined && count >= 0 ? count : undefined}
-				showZeroCount={showZeroCount}
+				count={showCount !== "No" ? count : undefined}
+				showZeroCount={showCount !== "Yes, if greater than 0"}
 				collapsed={collapsed}
 			/>
 		</div>
@@ -108,7 +108,7 @@ Playground.args = {
 	quantityOfTopActions: 1,
 	quantityOfBottomActions: 1,
 	count: 0,
-	showZeroCount: false,
+	showCount: "No",
 	collapsed: false,
 };
 
@@ -117,20 +117,21 @@ Playground.argTypes = {
 		name: "Show Title Icon",
 	},
 	quantityOfTopActions: {
-		options: [0, 1, 2, 3],
-		control: { type: "select" },
 		name: "Top Actions",
+		control: { type: "number", min: 0, max: 3 },
 	},
 	quantityOfBottomActions: {
-		options: [0, 1, 2, 3],
-		control: { type: "select" },
 		name: "Bottom Actions",
+		control: { type: "number", min: 0, max: 3 },
 	},
 	count: {
 		name: "Count",
+		control: { type: "number", min: 0, max: 3 },
 	},
-	showZeroCount: {
-		name: "Display Zero Count",
+	showCount: {
+		name: "Show Count",
+		options: ["No", "Yes", "Yes, if greater than 0"],
+		control: { type: "select" },
 	},
 	collapsed: {
 		name: "Collapsed",

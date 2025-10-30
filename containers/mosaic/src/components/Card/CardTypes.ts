@@ -38,9 +38,10 @@ export interface CardProps {
 	collapsed?: boolean;
 }
 
-export type CardHeadingProps = Pick<CardProps, "collapsed" | "count" | "showZeroCount"> & {
+export type CardHeadingProps = Pick<CardProps, "count" | "showZeroCount"> & {
 	icon?: CardProps["titleIcon"];
 	children: CardProps["title"];
 	buttons?: CardProps["topActions"];
+	blunt?: boolean;
 	compact?: boolean;
 };
