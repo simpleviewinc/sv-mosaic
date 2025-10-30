@@ -7,6 +7,7 @@ export const StyledWrapper = styled(Column)`
 	gap: ${theme.spacing(3)};
 
 	& .noResults {
+		color: ${theme.color.gray[600]};
 		padding: ${theme.spacing(5)};
 		display: flex;
 		align-items: center;

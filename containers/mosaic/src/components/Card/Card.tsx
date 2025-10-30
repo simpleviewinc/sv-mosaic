@@ -20,8 +20,9 @@ const Card = ({
 	title,
 	titleIcon,
 	topActions,
-	collapsed,
+	collapsed: providedCollapsed,
 }: CardProps): ReactElement => {
+	const collapsed = providedCollapsed || (!content.length && !bottomActions.length);
 
 	return (
 		<CardWrapper
@@ -30,7 +31,7 @@ const Card = ({
 		>
 			<CardHeading
 				buttons={topActions}
-				collapsed={collapsed}
+				blunt={!collapsed}
 				count={count}
 				icon={titleIcon}
 				showZeroCount={showZeroCount}
@@ -39,13 +40,15 @@ const Card = ({
 			</CardHeading>
 			{!collapsed && (
 				<>
-					<CardContent>
-						{content.map((element, idx) => (
-							<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
-								{element}
-							</ContentItem>
-						))}
-					</CardContent>
+					{content.length > 0 && (
+						<CardContent>
+							{content.map((element, idx) => (
+								<ContentItem key={idx} data-testid={testIds.CARD_ITEM}>
+									{element}
+								</ContentItem>
+							))}
+						</CardContent>
+					)}
 					{bottomActions?.length > 0 && (
 						<CardBottom>
 							<ButtonRow buttons={bottomActions} />
