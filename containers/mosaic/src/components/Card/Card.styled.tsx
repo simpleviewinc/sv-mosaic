@@ -8,6 +8,7 @@ export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
 
 	border-radius: ${theme.rounded.md};
 	box-shadow: var(--mos-border-light), var(--card-shadow);
+	transition: box-shadow cubic-bezier(0.4, 0, 0.2, 1) 300ms;
 `;
 
 export const Heading = styled(Row).attrs({ $align: "center" })<{
