@@ -2,14 +2,6 @@ import styled from "styled-components";
 import theme from "@root/theme";
 import { Row } from "../common";
 
-export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
-	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
-
-	border-radius: ${theme.rounded.md};
-	box-shadow: var(--mos-border-light), var(--card-shadow);
-	transition: box-shadow cubic-bezier(0.4, 0, 0.2, 1) 300ms;
-`;
-
 export const Heading = styled(Row).attrs({ $align: "center" })<{
 	$compact?: boolean;
 	$blunt?: boolean;
@@ -66,6 +58,19 @@ export const CardContent = styled.div<{
 	`}
 
 `);
+
+export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
+	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
+
+	border-radius: ${theme.rounded.md};
+	box-shadow: var(--mos-border-light), var(--card-shadow);
+	transition: box-shadow cubic-bezier(0.4, 0, 0.2, 1) 300ms;
+
+	& ${CardContent}:first-child {
+		border-top-left-radius: ${theme.rounded.md};
+		border-top-right-radius: ${theme.rounded.md};
+	}
+`;
 
 export const ContentItem = styled.div`
 	padding: ${theme.spacing(0, 2, 4)};
