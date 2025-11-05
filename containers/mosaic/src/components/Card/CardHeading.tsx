@@ -6,11 +6,12 @@ import testIds from "@root/utils/testIds";
 import {
 	Title,
 	Heading,
-	CardButtonRow,
+	CardEndSlot,
 } from "./Card.styled";
 import { Text } from "../Typography";
 import Badge from "../Badge";
 import { EMPTY_ARRAY } from "@root/constants/stable";
+import ButtonRow from "../ButtonRow";
 
 export function CardHeading({
 	children,
@@ -20,12 +21,16 @@ export function CardHeading({
 	icon: Icon,
 	showZeroCount,
 	compact,
+	endSlot,
+	onClick,
 }: CardHeadingProps) {
 	return (
 		<Heading
 			data-testid={testIds.CARD_HEADING}
 			$blunt={blunt}
 			$compact={compact}
+			as={onClick && "button"}
+			onClick={onClick}
 		>
 			<Title>
 				{Icon && <Icon data-testid={testIds.CARD_TITLE_ICON} />}
@@ -48,8 +53,13 @@ export function CardHeading({
 					{count}
 				</Badge>
 			)}
-			{buttons.length > 0 && (
-				<CardButtonRow buttons={buttons} />
+			{(buttons.length > 0 || endSlot) && (
+				<CardEndSlot>
+					{buttons.length > 0 && (
+						<ButtonRow buttons={buttons} />
+					)}
+					{endSlot}
+				</CardEndSlot>
 			)}
 		</Heading>
 	);

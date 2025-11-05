@@ -31,6 +31,7 @@ export const StyledFormContent = styled.div<{ $spacing?: FormSpacing }>`
 	min-width: 0;
 	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
 	position: relative;
+	background-color: ${theme.color.gray[25]};
 `;
 
 export const StyledFormPrimary = styled.div`

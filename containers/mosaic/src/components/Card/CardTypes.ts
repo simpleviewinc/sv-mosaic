@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { ButtonProps } from "../Button";
 import type { SvgIconComponent } from "@root/types";
 
@@ -44,4 +45,6 @@ export type CardHeadingProps = Pick<CardProps, "count" | "showZeroCount"> & {
 	buttons?: CardProps["topActions"];
 	blunt?: boolean;
 	compact?: boolean;
+	onClick?: () => void;
+	endSlot?: ReactNode;
 };

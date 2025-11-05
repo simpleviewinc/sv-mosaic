@@ -7,6 +7,7 @@ import Section from "../Section/Section";
 // Types
 import type { LayoutProps } from "./LayoutTypes";
 import { StyledLayout } from "./LayoutStyles";
+import { SectionContent } from "../Section/SectionContent";
 
 const Layout = (props: LayoutProps): React.ReactElement => {
 	const {
@@ -17,6 +18,26 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 		methods,
 		skeleton,
 	} = props;
+
+	if (sections.length < 2) {
+		const [{
+			description,
+			fields: rows,
+			gridMinWidth,
+		}] = sections;
+
+		return (
+			<SectionContent
+				description={description}
+				rows={rows}
+				fieldsDef={fields}
+				methods={methods}
+				sectionIdx={0}
+				gridMinWidth={gridMinWidth}
+				skeleton={skeleton}
+			/>
+		);
+	}
 
 	return (
 		<StyledLayout data-testid="form-layout-test-id" className="layout">

@@ -1,20 +1,14 @@
 import React, { memo, useRef, useCallback, useState, useEffect, useMemo, useContext } from "react";
 
-// Components
-import Row from "../Row/Row";
-
-// Types
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import type { SectionPropTypes } from "./SectionTypes";
-import {
-	StyledAccordion,
-	StyledDescription,
-	StyledRows,
-	StyledSectionContent,
-	StyledSectionHeader,
-	StyledTitle,
-} from "./SectionStyled";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormContext } from "../FormContext";
+import { CardContent, CardWrapper } from "@root/components/Card/Card.styled";
+import { CardHeading } from "@root/components/Card/CardHeading";
+import Collapse from "@mui/material/Collapse";
+import { SectionContent } from "./SectionContent";
 
 const Section = (props: SectionPropTypes) => {
 	const {
@@ -31,7 +25,7 @@ const Section = (props: SectionPropTypes) => {
 		skeleton,
 	} = props;
 
-	const { state } = useContext(FormContext);
+	const { state: { errors } } = useContext(FormContext);
 
 	const fieldsHaveErrors = useCallback(() => {
 		const fieldNames = rows
@@ -39,12 +33,12 @@ const Section = (props: SectionPropTypes) => {
 			.map(column => typeof column === "string" ? column : column.names)
 			.flat();
 
-		if (fieldNames.some(name => state.errors[name])) {
+		if (fieldNames.some(name => errors[name])) {
 			return true;
 		}
 
 		return false;
-	}, [rows, state.errors]);
+	}, [rows, errors]);
 
 	const defaultExpanded = useMemo(() => {
 		if (fieldsHaveErrors()) {
@@ -54,7 +48,7 @@ const Section = (props: SectionPropTypes) => {
 		return !collapsed;
 	}, [collapsed, fieldsHaveErrors]);
 
-	const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
+	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>();
 
 	useEffect(() => {
@@ -62,16 +56,12 @@ const Section = (props: SectionPropTypes) => {
 			return;
 		}
 
-		setExpanded(true);
+		setState((state) => state === "collapsed" || state === "collapsing" ? "expanding" : state);
 	}, [fieldsHaveErrors]);
 
 	useEffect(() => {
-		setExpanded(!collapsed);
+		setState(collapsed ? "collapsed" : "expanded");
 	}, [collapsed]);
-
-	const onExpandChange = (_e, newExpandVal) => {
-		setExpanded(newExpandVal);
-	};
 
 	useEffect(() => {
 		const unregister = registerRef(ref.current);
@@ -79,44 +69,46 @@ const Section = (props: SectionPropTypes) => {
 	}, [ref.current]);
 
 	return (
-		<StyledAccordion
+		<CardWrapper
 			data-testid="section-test-id"
-			defaultExpanded={defaultExpanded}
-			expanded={expanded}
-			onChange={onExpandChange}
-			square={true}
-			$title={title}
+			$collapsed={state === "collapsed" || state === "collapsing"}
 			ref={ref}
 		>
 			{title && (
-				<StyledSectionHeader
-					expandIcon={<ExpandMoreIcon />}
+				<CardHeading
+					// buttons={[{
+					// 	intent: "secondary",
+					// 	variant: "text",
+					// 	mIcon: state === "expanded" || state === "expanding" ? ExpandLessIcon : ExpandMoreIcon,
+					// 	onClick: () => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding"),
+					// 	tooltip: state === "expanded" || state === "expanding" ? "Collapse Section" : "Expand Section",
+					// }]}
+					blunt={state !== "collapsed"}
 					aria-controls="panel1a-content"
+					endSlot={state === "expanded" || state === "expanding" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+					onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
 				>
-					<StyledTitle className="section-title">{title}</StyledTitle>
-				</StyledSectionHeader>
+					{title}
+				</CardHeading>
 			)}
-			<StyledSectionContent>
-				{description && <StyledDescription>{description}</StyledDescription>}
-				{rows && (
-					<StyledRows $title={title}>
-						{rows.map((row, i) => (
-							<Row
-								key={`row-${i}`}
-								row={row}
-								rowIdx={i}
-								sectionIdx={sectionIdx}
-								fieldsDef={fieldsDef}
-								gridMinWidth={gridMinWidth}
-								spacing={spacing}
-								methods={methods}
-								skeleton={skeleton}
-							/>
-						))}
-					</StyledRows>
-				)}
-			</StyledSectionContent>
-		</StyledAccordion>
+			<Collapse
+				in={state === "expanding" || state === "expanded"}
+				onTransitionEnd={() => setState((state) => state === "expanding" || state === "expanded" ? "expanded" : "collapsed")}
+			>
+				<CardContent>
+					<SectionContent
+						description={description}
+						rows={rows}
+						fieldsDef={fieldsDef}
+						methods={methods}
+						sectionIdx={sectionIdx}
+						gridMinWidth={gridMinWidth}
+						skeleton={skeleton}
+						spacing={spacing}
+					/>
+				</CardContent>
+			</Collapse>
+		</CardWrapper>
 	);
 };
 

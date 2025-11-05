@@ -18,3 +18,14 @@ export interface SectionPropTypes {
 	methods: FormMethods;
 	skeleton?: boolean;
 }
+
+export type SectionContentProps = Pick<SectionPropTypes,
+	| "description"
+	| "rows"
+	| "sectionIdx"
+	| "fieldsDef"
+	| "gridMinWidth"
+	| "spacing"
+	| "methods"
+	| "skeleton"
+>
