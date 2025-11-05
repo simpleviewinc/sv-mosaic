@@ -9,6 +9,8 @@ export const Row = styled.div<{
 	$wrap?: CSSProperties["flexWrap"];
 	$gap?: Parameters<typeof theme.spacing>;
 }>`
+	all: unset;
+	box-sizing: border-box;
 	display: flex;
 
 	${({ $align }) => $align && `
