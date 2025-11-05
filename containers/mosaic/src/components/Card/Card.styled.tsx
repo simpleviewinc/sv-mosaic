@@ -1,14 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import ButtonRow from "../ButtonRow";
 import { Row } from "../common";
-
-export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
-	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
-
-	border-radius: ${theme.rounded.md};
-	box-shadow: var(--mos-border-light), var(--card-shadow);
-`;
 
 export const Heading = styled(Row).attrs({ $align: "center" })<{
 	$compact?: boolean;
@@ -17,6 +9,7 @@ export const Heading = styled(Row).attrs({ $align: "center" })<{
   	background: ${theme.color.gray[50]};
 	border-radius: ${theme.rounded.md};
 	gap: ${theme.spacing(2)};
+	width: 100%;
 
 	${({ $compact }) => `
 		padding: ${theme.spacing(0, $compact ? 4 : 5)};
@@ -27,6 +20,15 @@ export const Heading = styled(Row).attrs({ $align: "center" })<{
 		border-bottom-left-radius: 0;
 		border-bottom-right-radius: 0;
 		border-bottom: 1px solid ${theme.color.gray[300]};
+	`}
+
+	${({ as }) => as !== "button" ? "" : `
+		cursor: pointer;
+
+		&:focus-visible {
+			outline: 2px solid ${theme.color.gray[700]};
+			outline-offset: 3px;
+		}
 	`}
 `;
 
@@ -39,7 +41,7 @@ export const Title = styled(Row).attrs({ $align: "center" })`
 	}
 `;
 
-export const CardButtonRow = styled(ButtonRow)`
+export const CardEndSlot = styled(Row).attrs({ $align: "center" })`
 	margin-left: auto;
 `;
 
@@ -47,6 +49,8 @@ export const CardContent = styled.div<{
 	$compact?: boolean;
 	$paddingBottom?: boolean;
 }>(({ $compact, $paddingBottom }) => `
+	background: ${theme.color.white};
+
 	${$compact ? `
 		padding: ${theme.spacing(3, 4, $paddingBottom ? 3 : 0)};
 	` : `
@@ -54,6 +58,19 @@ export const CardContent = styled.div<{
 	`}
 
 `);
+
+export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
+	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
+
+	border-radius: ${theme.rounded.md};
+	box-shadow: var(--mos-border-light), var(--card-shadow);
+	transition: box-shadow cubic-bezier(0.4, 0, 0.2, 1) 300ms;
+
+	& ${CardContent}:first-child {
+		border-top-left-radius: ${theme.rounded.md};
+		border-top-right-radius: ${theme.rounded.md};
+	}
+`;
 
 export const ContentItem = styled.div`
 	padding: ${theme.spacing(0, 2, 4)};
