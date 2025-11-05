@@ -76,14 +76,17 @@ const Section = (props: SectionPropTypes) => {
 		>
 			{title && (
 				<CardHeading
-					buttons={[{
-						intent: "secondary",
-						variant: "text",
-						mIcon: state === "expanded" || state === "expanding" ? ExpandLessIcon : ExpandMoreIcon,
-						onClick: () => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding"),
-					}]}
+					// buttons={[{
+					// 	intent: "secondary",
+					// 	variant: "text",
+					// 	mIcon: state === "expanded" || state === "expanding" ? ExpandLessIcon : ExpandMoreIcon,
+					// 	onClick: () => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding"),
+					// 	tooltip: state === "expanded" || state === "expanding" ? "Collapse Section" : "Expand Section",
+					// }]}
 					blunt={state !== "collapsed"}
 					aria-controls="panel1a-content"
+					endSlot={state === "expanded" || state === "expanding" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+					onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
 				>
 					{title}
 				</CardHeading>
