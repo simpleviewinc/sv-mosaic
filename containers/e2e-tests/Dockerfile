@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.44.0
+FROM mcr.microsoft.com/playwright:v1.56.1-jammy
 
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/netskope.crt
 COPY netskope.crt /usr/local/share/ca-certificates/
