@@ -56,7 +56,7 @@
 		"storybook": "8.1.11",
 		"tsx": "4.19.4",
 		"typescript": "5.5.4",
-		"vite": "6.2.7"
+		"vite": "6.4.1"
 	},
 	"resolutions": {
 		"@simpleview/sv-mosaic": "portal:../mosaic"
