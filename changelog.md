@@ -1,12 +1,56 @@
 # sv-mosaic changelog
 
-### 44.6.1 - 09/17/2024
+### 45.1.0 - 10/11/2025
+
+* `Form`
+
+  * [MOS-1732](https://jira.granicus.com/browse/MOS-1732) **Form section styling**
+    * (Form) Utilise the new Card polish for the form sections. Eliminate the MUI accordion for an improved UX.
+* `LeftNav`
+
+  * [MOS-1713](https://jira.granicus.com/browse/MOS-1713) **Main menu defects**
+    * (MainMenu) Refactor MainMenu components to improve structure and styling
+    * Add scrollbar styles utility
+* Housekeeping
+
+  * [MOS-1648](https://jira.granicus.com/browse/MOS-1648) **Create code editor in form system**
+    * (CodeField) Initial implementation of code field using Monaco editor. Requires peer dependencies to be installed in order to use.
+    * (TextEditor) Utilise monaco for text editor's code view
+  * [MOS-1718](https://jira.granicus.com/browse/MOS-1718) **Mosaic upgrade issue : Cards have an extra line**
+    * (Card) Corrected card visual when there are no items and no bottom actions to display.
+
+### 45.0.0 - 10/28/2025
+
+* Housekeeping
+  * [MOS-1697](https://jira.granicus.com/browse/MOS-1697) **Tie up loose ends**
+    * **(BREAKING CHANGE)** Eliminate all usage of deprecated theme tokens, swapping out old colours for new ones, etc. Remove the legacy theme tokens definitions.
+    * **(BREAKING CHANGE)** Remove legacy breakpoints (mobile and topComponent).
+    * (Card) Introduce a compact card variant.
+    * (AddressField) Utilise the compact card variant to align address cards with Apex design system.
+    * (MapCoordinatesField) Utilise the compact card variant to align coordinates card with Apex design system.
+    * (TextEditor) Align text editor components with Apex design system.
+    * (Dialog) Utilise the newly designed paper component to align with Apex design system.
+    * (ChipField) Match the text field styling when field is in an invalid state.
+    * **(BREAKING CHANGE)** (Menu) Aligns available icon colours with the colours that are defined in the Apex design system. Previously **["black", "blue", "red", "yellow", "teal", "gray"]** is now **["black", "gold", "gray", "red", "teal"]**.
+    * **(BREAKING CHANGE)** (Popover) Removed unused component.
+
+### 44.7.0 - 10/14/2025
+
+* `Content`
+
+  * [MOS-1624](https://jira.granicus.com/browse/MOS-1624) **Container queries causing odd looking pages in Content**
+    * Introduced a few new customisation options to give product more control over the field columns and their breakpoints. The columns prop can now be used to dictate when columns are displayed for all fields in the content component and a different variation of sections can be used to dictate columns on a more granular level (per row). More information can be found in the [documentation](https://simpleviewinc.github.io/sv-mosaic/sb8/master/?path=/docs/components-content--docs).
+  * [MOS-1712](https://jira.granicus.com/browse/MOS-1712) **Content Polish**
+    * Align component styling with new Apex design system.
+* Housekeeping
+
+### 44.6.1 - 09/17/2025
 
 * `SideNav`
   * [MOS-1719](https://jira.granicus.com/browse/MOS-1719) SideNav not displaying at the top when using a narrow viewport
     * (SideNav) Reinstate the lost flex style.
 
-### 44.6.0 - 09/17/2024
+### 44.6.0 - 09/17/2025
 
 * `SideNav`
   * [MOS-1640](https://jira.granicus.com/browse/MOS-1640) SideNav polish
