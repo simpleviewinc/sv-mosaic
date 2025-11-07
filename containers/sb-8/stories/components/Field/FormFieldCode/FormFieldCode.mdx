@@ -1,0 +1,107 @@
+import { Meta } from '@storybook/blocks';
+import * as stories from "./FormFieldCode.stories";
+import { Header } from "../../../../utils/Header";
+
+<Meta of={stories} />
+
+# FormFieldCode
+
+<strong>Field Type:</strong> `code`
+
+A form field component that provides a Monaco code editor for entering and editing code. Supports syntax highlighting, themes, and advanced Monaco editor features.
+
+This component wraps the Monaco editor with form field functionality, allowing it to be used within forms with validation, error handling, and standard field behavior.
+
+## Input Settings
+
+[GitHub Link to Types](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Field/FormFieldCode/FormFieldCodeTypes.tsx)
+
+<Header title="theme" />
+
+`"light" | "dark" | Monaco.editor.IStandaloneThemeData`
+
+Visual theme for the Monaco editor. Can be "light", "dark", or a custom theme object. Determines the color scheme and styling of the code editor.
+
+**Default:** `"light"`
+
+<Header title="language" />
+
+`string`
+
+Programming language for syntax highlighting and IntelliSense support. Supports any language identifier recognized by Monaco editor (e.g., "javascript", "typescript", "html", "css", "json").
+
+**Examples:** `"javascript"` | `"typescript"` | `"html"` | `"css"` | `"json"` | `"markdown"`
+
+<Header title="onMount" />
+
+`(editor: Monaco.editor.IStandaloneCodeEditor, monaco: typeof Monaco) => void`
+
+Callback function executed when the Monaco editor is mounted and ready. Provides access to the editor instance and Monaco API for advanced configuration.
+
+**Parameters:**
+- `editor` - The Monaco editor instance
+- `monaco` - The Monaco editor API
+
+**Example:**
+```typescript
+onMount: (editor, monaco) => {
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+    console.log('Save shortcut pressed');
+  });
+}
+```
+
+<Header title="monacoOptions" />
+
+`Monaco.editor.IStandaloneEditorConstructionOptions`
+
+Advanced Monaco editor configuration options. Allows fine-tuning of editor behavior, appearance, and features.
+
+**Example:**
+```typescript
+monacoOptions: {
+  fontSize: 16,
+  lineNumbers: "on",
+  wordWrap: "on",
+  minimap: { enabled: false },
+  scrollBeyondLastLine: false
+}
+```
+
+<Header title="autogrow" />
+
+`boolean`
+
+Enables automatic height adjustment based on content. When true, the editor will grow and shrink dynamically.
+
+<Header title="minHeight" />
+
+`number`
+
+Minimum height in pixels for the autogrow editor. The editor will never shrink below this height.
+
+**Default:** `100`
+
+<Header title="maxHeight" />
+
+`number`
+
+Maximum height in pixels for the autogrow editor. The editor will never grow beyond this height and will show scrollbars if needed.
+
+**Default:** `500`
+
+<Header title="height" />
+
+`number`
+
+Fixed height in pixels for the editor. When autogrow is disabled, the editor will maintain this exact height.
+
+**Default:** `300`
+
+## References
+
+- [CodeFieldInputSettings](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Field/FormFieldCode/FormFieldCodeTypes.tsx#L45)
+- [MonacoCodeEditorProps](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Field/FormFieldCode/FormFieldCodeTypes.tsx#L113)
+- [CodeFieldData](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Field/FormFieldCode/FormFieldCodeTypes.tsx#L160)
+- [Monaco Editor Documentation](https://microsoft.github.io/monaco-editor/)
+- [FieldDef Interface](https://github.com/simpleviewinc/sv-mosaic/blob/develop/containers/mosaic/src/components/Field/FieldTypes.tsx)
