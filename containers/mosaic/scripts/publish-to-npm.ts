@@ -6,14 +6,14 @@ import { resolve } from "path";
 const {
 	CIRCLE_BRANCH,
 	CIRCLE_SHA1,
-	NPM_TOKEN,
+	NPM_TOKEN_GRANULAR,
 } = process.env;
 
 if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
 	throw new Error("Must set CIRCLE_BRANCH AND CIRCLE_SHA");
 }
 
-execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
+execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN_GRANULAR}"`, { stdio: "inherit" });
 
 /**
  * First we create a new directory inside /app and copy

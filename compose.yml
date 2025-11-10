@@ -25,7 +25,7 @@ services:
     environment:
       - CIRCLE_BRANCH=${CIRCLE_BRANCH}
       - CIRCLE_SHA1=${CIRCLE_SHA1}
-      - NPM_TOKEN=${NPM_TOKEN}
+      - NPM_TOKEN_GRANULAR=${NPM_TOKEN_GRANULAR}
     command: ["yarn", "publish:npm"]
   storybook:
     build: ./containers/sb-8
