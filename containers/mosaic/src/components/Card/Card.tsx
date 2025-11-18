@@ -11,9 +11,10 @@ import {
 } from "./Card.styled";
 import ButtonRow from "../ButtonRow/ButtonRow";
 import { CardHeading } from "./CardHeading";
+import { EMPTY_ARRAY } from "@root/constants/stable";
 
 const Card = ({
-	bottomActions,
+	bottomActions = EMPTY_ARRAY,
 	content,
 	count,
 	showZeroCount,
@@ -49,7 +50,7 @@ const Card = ({
 							))}
 						</CardContent>
 					)}
-					{bottomActions?.length > 0 && (
+					{bottomActions.length > 0 && (
 						<CardBottom>
 							<ButtonRow buttons={bottomActions} />
 						</CardBottom>

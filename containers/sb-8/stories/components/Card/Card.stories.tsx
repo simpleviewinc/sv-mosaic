@@ -37,6 +37,7 @@ const content = [
 export const Playground = ({
 	showTitleIcon,
 	quantityOfTopActions,
+	provideBottomActions,
 	quantityOfBottomActions,
 	count,
 	showCount,
@@ -94,7 +95,7 @@ export const Playground = ({
 				title="Section Title"
 				titleIcon={showTitleIcon && ContactsIcon}
 				topActions={topActions.slice(0, quantityOfTopActions)}
-				bottomActions={bottomActions.slice(0, quantityOfBottomActions)}
+				bottomActions={provideBottomActions ? bottomActions.slice(0, quantityOfBottomActions) : undefined}
 				count={showCount !== "No" ? count : undefined}
 				showZeroCount={showCount !== "Yes, if greater than 0"}
 				collapsed={collapsed}
@@ -106,6 +107,7 @@ export const Playground = ({
 Playground.args = {
 	showTitleIcon: true,
 	quantityOfTopActions: 1,
+	provideBottomActions: true,
 	quantityOfBottomActions: 1,
 	count: 0,
 	showCount: "No",
@@ -120,9 +122,13 @@ Playground.argTypes = {
 		name: "Top Actions",
 		control: { type: "number", min: 0, max: 3 },
 	},
+	provideBottomActions: {
+		name: "Provide Bottom Actions",
+	},
 	quantityOfBottomActions: {
 		name: "Bottom Actions",
 		control: { type: "number", min: 0, max: 3 },
+		if: { arg: "provideBottomActions" },
 	},
 	count: {
 		name: "Count",
