@@ -46,6 +46,7 @@ export const Playground = ({
 	customExtensionExample,
 	minHeight,
 	maxHeight,
+	monacoOptions,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const [mediaDrawer, setMediaDrawer] = useState<null | TextEditorOnImageParams>(null);
@@ -87,6 +88,7 @@ export const Playground = ({
 						maxCharacters,
 						minHeight: !minHeight ? undefined : minHeight,
 						maxHeight: !maxHeight ? undefined : maxHeight,
+						monacoOptions,
 					},
 					disabled,
 					helperText,
@@ -148,6 +150,10 @@ Playground.args = {
 	customExtensionExample: false,
 	minHeight: "",
 	maxHeight: "",
+	provideMonacoOptions: false,
+	monacoOptions: {
+		wordWrap: "on",
+	},
 };
 
 Playground.argTypes = {
@@ -183,6 +189,13 @@ Playground.argTypes = {
 	},
 	maxHeight: {
 		name: "Maximum Height",
+	},
+	provideMonacoOptions: {
+		name: "Provide Monaco Options",
+	},
+	monacoOptions: {
+		name: "Monaco Options",
+		if: { arg: "provideMonacoOptions" },
 	},
 };
 

@@ -5,6 +5,7 @@ import type { FieldDefBase } from "@root/components/Field";
 import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { PopperProps } from "@mui/material/Popper";
 import type { FormState } from "@root/components/Form";
+import type Monaco from "monaco-editor";
 
 export type SelectionType =
 	| "formatting"
@@ -154,6 +155,7 @@ export interface TextEditorInputSettings {
 	minHeight?: number | string;
 	maxHeight?: number | string;
 	custom?: MosaicObject<any>;
+	monacoOptions?: Monaco.editor.IStandaloneEditorConstructionOptions;
 }
 
 export type TextEditorData = string;

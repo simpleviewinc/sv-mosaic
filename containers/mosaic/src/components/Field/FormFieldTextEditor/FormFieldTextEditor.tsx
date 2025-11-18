@@ -22,6 +22,8 @@ import { defaultControls, floatingControls, selectionVirtualElement } from "./te
 import PrimaryToolbar from "./Toolbar/PrimaryToolbar";
 import MonacoCodeEditor from "../FormFieldCode/MonacoCodeEditor";
 
+const defaultWordWrap = "on";
+
 function FormFieldTextEditorUnmemo({
 	value = "",
 	onChange,
@@ -44,6 +46,12 @@ function FormFieldTextEditorUnmemo({
 	const [mode, setMode] = useState<EditorMode>("visual");
 	const [focus, setFocus] = useState(false);
 	const floatingToolbarBusy = useRef(false);
+
+	const monacoOptions = useMemo<TextEditorInputSettings["monacoOptions"]>(() => ({
+		wordWrap: defaultWordWrap,
+		...providedInputSettings.monacoOptions || {},
+	}), [providedInputSettings.monacoOptions]);
+
 	const [floatingToolbar, setFloatingToolbar] = useState<FloatingToolbarState>({
 		open: false,
 		selectionTypes: [],
@@ -226,6 +234,7 @@ function FormFieldTextEditorUnmemo({
 						disabled={disabled}
 						language="html"
 						autogrow
+						monacoOptions={monacoOptions}
 					/>
 				</CodeView>
 			) : (
