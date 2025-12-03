@@ -62,8 +62,11 @@ export const CardContent = styled.div<{
 export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
 	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
 
+	align-items: stretch;
 	border-radius: ${theme.rounded.md};
 	box-shadow: var(--mos-border-light), var(--card-shadow);
+	display: flex;
+	flex-direction: column;
 	transition: box-shadow cubic-bezier(0.4, 0, 0.2, 1) 300ms;
 
 	& ${CardContent}:first-child {
@@ -96,6 +99,8 @@ export const CardBottom = styled(Row).attrs({ $align: "center", $justify: "cente
 		padding: ${theme.spacing(3, 0)};
 		margin: ${theme.spacing(0, 5)};
 	`}
+
+	margin-top: auto;
 
 	${Heading} + & {
 		border-top: 0;
