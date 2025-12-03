@@ -113,6 +113,7 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 					fields: [
 						{
 							name: "date",
+							id: `${field.name}-date`,
 							type: "date",
 							label: `${field.label} Date`,
 							hideLabel: true,
@@ -129,6 +130,7 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 						},
 						{
 							name: "time",
+							id: `${field.name}-time`,
 							type: "time",
 							label: `${field.label} Time`,
 							hideLabel: true,
