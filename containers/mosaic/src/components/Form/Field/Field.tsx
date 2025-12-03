@@ -85,7 +85,7 @@ const Field = ({
 			disabled={disabled}
 			methods={methods}
 			inputRef={inputRef}
-			id={`${field.name}-input`}
+			id={`${(field.id ?? field.name)}-input`}
 			skeleton={skeleton}
 			path={path}
 		/>
@@ -98,6 +98,7 @@ const Field = ({
 		onBlur,
 		disabled,
 		methods,
+		field.id,
 		field.name,
 		skeleton,
 		path,
