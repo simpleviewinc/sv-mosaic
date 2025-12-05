@@ -1,6 +1,28 @@
 # sv-mosaic changelog
 
-### 45.1.0 - 10/11/2025
+### 45.1.2 - 12/05/2025
+
+* `Form`
+
+  * [MOS-1752](https://jira.granicus.com/browse/MOS-1752) **Error in browser for fields related to Date-Time**
+    * (DateField) Prefix date and time field IDs prefixed with their top level field name to prevent HTML violations.
+* Housekeeping
+
+  * [MOS-1737](https://jira.granicus.com/browse/MOS-1737) **Address Card Button Display Inconsistent**
+    * (AddressCard)
+      Ensure the card footer sticks to the bottom of the card, therefore
+      keeping the buttons of the address card vertically aligned.
+
+### 45.1.1 - 11/25/2025
+
+* `Card`
+  * [MOS-1742](https://jira.granicus.com/browse/MOS-1742) **No nullish check causes an error to be thrown**
+    * (Card) Defaults bottom actions to an empty array to avoid property access on undefined.
+* `FormFieldTextEditor`
+  * [MOS-1743](https://jira.granicus.com/browse/MOS-1743) **Enable Monaco word wrapping by default for text editor**
+    * (TextEditor) Accept a Monaco options object and enable word wrap by default.
+
+### 45.1.0 - 11/10/2025
 
 * `Form`
 
