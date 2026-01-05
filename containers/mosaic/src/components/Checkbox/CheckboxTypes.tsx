@@ -35,6 +35,11 @@ export interface CheckboxProps extends MUICheckboxProps {
 	 */
 	label?: string;
 	/**
+	 * Short description to elaborate on option label. To
+	 * be displayed in smaller text below the label.
+	 */
+	description?: string;
+	/**
 	 * Boolean value that indicates whether the
 	 * current checkbox can be selected or not
 	 */
