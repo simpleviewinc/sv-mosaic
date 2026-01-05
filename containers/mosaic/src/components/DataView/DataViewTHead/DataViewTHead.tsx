@@ -72,7 +72,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 						label={label}
 						description={description}
 						sortable={sortable}
-						sorted={props.sort.name === name ? props.sort.dir : undefined}
+						sorted={props.sort && props.sort.name === name ? props.sort.dir : undefined}
 						onSortChange={props.onSortChange}
 					/>
 				))}
