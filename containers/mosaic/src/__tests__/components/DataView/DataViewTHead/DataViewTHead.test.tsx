@@ -72,7 +72,7 @@ describe(__dirname, () => {
 		expect(columnHeader.colSpan).toBe(4);
 	});
 
-	it("should render a SwitchRightIcon icon in the table header cell for columns sorted ascending", async () => {
+	it("should render a ArrowUpwardIcon icon in the table header cell for columns sorted ascending", async () => {
 		await setup({
 			columns: [...columns, { name: "column3", label: "Column 3", sortable: true }],
 			sort: {
@@ -84,10 +84,10 @@ describe(__dirname, () => {
 		const colHeader = screen.queryByRole("columnheader", { name: "Column 3" });
 
 		expect(colHeader).toBeInTheDocument();
-		expect(within(colHeader).queryByTestId("SwitchRightIcon")).toBeInTheDocument();
+		expect(within(colHeader).queryByTestId("ArrowUpwardIcon")).toBeInTheDocument();
 	});
 
-	it("should render a SwitchLeftIcon icon in the table header cell for columns sorted descending", async () => {
+	it("should render a ArrowDownwardIcon icon in the table header cell for columns sorted descending", async () => {
 		await setup({
 			columns: [...columns, { name: "column3", label: "Column 3", sortable: true }],
 			sort: {
@@ -99,7 +99,7 @@ describe(__dirname, () => {
 		const colHeader = screen.queryByRole("columnheader", { name: "Column 3" });
 
 		expect(colHeader).toBeInTheDocument();
-		expect(within(colHeader).queryByTestId("SwitchLeftIcon")).toBeInTheDocument();
+		expect(within(colHeader).queryByTestId("ArrowDownwardIcon")).toBeInTheDocument();
 	});
 
 	it("should fire the on sort change handler with the column name and ascending direction when an inactive column is clicked", async () => {
