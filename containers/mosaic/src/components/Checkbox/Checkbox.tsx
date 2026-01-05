@@ -14,7 +14,15 @@ const Checkbox = (props: CheckboxProps) => {
 	return (
 		<StyledOptionFormControl
 			label={props.label && (
-				<StyledOptionLabel disabled={props.disabled}>{props.label}</StyledOptionLabel>
+				<div>
+					<StyledOptionLabel
+						disabled={props.disabled}
+						description={props.description}
+					>
+						{props.label}
+					</StyledOptionLabel>
+
+				</div>
 			)}
 			labelPlacement="end"
 			data-testid="label-test-id"
