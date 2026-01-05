@@ -36,6 +36,7 @@ function DataViewColumnDrawerContent(props: DataViewColumnDrawerContentProps) {
 			return {
 				label: column.label,
 				value: column.name,
+				description: column.description,
 			};
 		})
 		.sort((a, b) => {
