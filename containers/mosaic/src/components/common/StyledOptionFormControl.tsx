@@ -5,7 +5,7 @@ import theme from "@root/theme";
 
 export const StyledOptionFormControl = styled(MUIFormControlLabel)<{ $gap?: Parameters<Theme["spacing"]> }>`
 	&& {
-		align-items: center;
+		align-items: start;
 		gap: ${({ $gap = [1] }) => theme.spacing(...$gap)};
 		margin-left: 0;
 		margin-right: 0;
