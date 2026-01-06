@@ -49,7 +49,7 @@ const FileCardPending = (props: FileCardPendingProps) => {
 					{onFileDelete && !disabled && (percent === undefined || percent === 100) && (
 						<div className="file-delete-btn">
 							<Button
-								intent="secondary"
+								intent="danger"
 								variant="text"
 								mIcon={DeleteIcon}
 								onClick={() => onFileDelete({ id: id })}
