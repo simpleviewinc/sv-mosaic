@@ -2,104 +2,121 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { ScrollSpyProps, ScrollSpyResult } from "./ScrollSpyTypes";
 
-import useScrollTo from "../useScrollTo/useScrollTo";
+const scrollingKeys = [
+	"ArrowUp",
+	"ArrowDown",
+	"PageUp",
+	"PageDown",
+	"Home",
+	"End",
+	" ",
+];
 
-export default function useScrollSpy<E extends HTMLElement>({
-	refs,
-	container: containerRef,
-	threshold = 0.2,
-}: ScrollSpyProps<E>): ScrollSpyResult {
-	const scrollHandlerActive = useRef<boolean>(true);
+export default function useScrollSpy({
+	container,
+	intersectionRatioThreshold = 0.1,
+}: ScrollSpyProps): ScrollSpyResult {
+	const sectionRefs = useRef<Map<Element, boolean>>(new Map());
 
-	const { current: container } = containerRef;
+	const [implicitSection, setImplicitSection] = useState<undefined | number>();
+	const [explicitSection, setExplicitSection] = useState<undefined | number>();
+	const [isTerminated, setIsTerminated] = useState<"start" | "end" | undefined>();
+	const activeSection = explicitSection ?? implicitSection;
 
-	const { animation, scrollTo } = useScrollTo({
-		container: containerRef,
-		onScrollFinished: useCallback(() => {
-			scrollHandlerActive.current = true;
-		}, []),
-	});
+	const observer = useRef(new IntersectionObserver((entries) => {
+		entries.forEach(({ target, intersectionRatio }) => {
+			sectionRefs.current.set(target, intersectionRatio >= intersectionRatioThreshold);
+		});
 
-	const [activeSection, setActiveSection] = useState<number>(0);
-
-	const getActiveSection = useCallback(() => {
-		let newActiveSection = 0;
-
-		if (!container || !refs) {
-			return newActiveSection;
-		}
-
-		const containerBox = container.getBoundingClientRect();
-
-		if (!container.scrollTop) {
-			return 0;
-		}
-
-		if (Math.ceil(container.scrollTop + containerBox.height) >= container.scrollHeight) {
-			return refs.length - 1;
-		}
-
-		for (let i = 0; i < refs.length; i++) {
-			const section = refs[i];
-			const box = section.getBoundingClientRect();
-
-			if (box.top > containerBox.top + (containerBox.height * threshold)) {
+		const sectionRefsArr = [...sectionRefs.current.values()];
+		for (let i = 0; i < sectionRefsArr.length; i++) {
+			const isIntersecting = sectionRefsArr[i];
+			if (isIntersecting) {
+				setImplicitSection(i);
 				break;
 			}
-
-			newActiveSection = i;
-
 		}
+	}, {
+		root: container.current,
+		rootMargin: "0px",
+		threshold: [0, intersectionRatioThreshold, 1],
+	}));
 
-		return newActiveSection;
-	}, [container, refs, threshold]);
+	const registerRef: ((ref: Element) => () => void) = useCallback((ref) => {
+		sectionRefs.current.set(ref, false);
+		observer.current.observe(ref);
+		return () => {
+			sectionRefs.current.delete(ref);
+			observer.current.unobserve(ref);
+		};
+	}, []);
 
-	useEffect(() => {
-		if (!container) {
+	const goToSection = useCallback((index: number) => {
+		const sectionElems = [...sectionRefs.current.keys()];
+		const section = sectionElems[index];
+
+		if (!section) {
 			return;
 		}
 
-		function onScroll() {
-			if (!scrollHandlerActive.current) {
+		setExplicitSection(index);
+
+		section.scrollIntoView({
+			behavior: "smooth",
+		});
+	}, []);
+
+	useEffect(() => {
+		const { current: containerRef } = container;
+		const containerState = { lastScrollTop: 0 };
+		const clearExplicit = () => setExplicitSection(undefined);
+
+		const createHandler = (up: boolean, isKey?: boolean) => ({ key }: KeyboardEvent) => {
+			if (isKey && !scrollingKeys.includes(key)) {
 				return;
 			}
 
-			setActiveSection(getActiveSection());
-		}
+			if (containerState.lastScrollTop !== undefined && containerRef.scrollTop !== containerState.lastScrollTop) {
+				clearExplicit();
+			}
 
-		container.addEventListener("scroll", onScroll, { passive: true });
-		return () => container.removeEventListener("scroll", onScroll);
-	}, [container, getActiveSection]);
+			containerState.lastScrollTop = up ? undefined : containerRef.scrollTop;
+		};
 
-	const scrollToSection = useCallback((index: number) => {
-		const [first] = refs;
-		const ref = refs[index];
+		const keyDownHandler = createHandler(false, true);
+		const keyUpHandler = createHandler(true, true);
+		const mouseDownHandler = createHandler(false);
+		const mouseUpHandler = createHandler(true);
 
-		if (!first || !ref || !container) {
-			return;
-		}
+		const scrollHandler = () => {
+			const { scrollTop } = containerRef;
 
-		scrollHandlerActive.current = false;
+			const isTerminatedStart = scrollTop <= 0;
+			const isTerminatedEnd = scrollTop >= containerRef.scrollHeight - containerRef.clientHeight;
 
-		setActiveSection(index);
+			setIsTerminated(isTerminatedStart ? "start" : isTerminatedEnd ? "end" : undefined);
+		};
 
-		const containerBox = container.getBoundingClientRect();
+		containerRef.addEventListener("wheel", clearExplicit);
+		window.addEventListener("keydown", keyDownHandler);
+		window.addEventListener("keyup", keyUpHandler);
+		window.addEventListener("mousedown", mouseDownHandler);
+		window.addEventListener("mouseup", mouseUpHandler);
+		containerRef.addEventListener("scroll", scrollHandler);
 
-		// There might be some extra offset if the first section
-		// does not sit flush with the container, so calculate that
-		// and take it away from the scroll target
-		const firstBox = first.getBoundingClientRect();
-		const firstOffset = firstBox.top + container.scrollTop - containerBox.top;
-
-		scrollTo({
-			target: ref,
-			offset: firstOffset,
-		});
-	}, [container, refs, scrollTo]);
+		return () => {
+			containerRef.removeEventListener("wheel", clearExplicit);
+			window.removeEventListener("keydown", keyDownHandler);
+			window.removeEventListener("keyup", keyUpHandler);
+			window.removeEventListener("mousedown", mouseDownHandler);
+			window.removeEventListener("mouseup", mouseUpHandler);
+			containerRef.removeEventListener("scroll", scrollHandler);
+		};
+	}, [container]);
 
 	return {
-		animation,
-		activeSection,
-		scrollToSection,
+		registerRef,
+		goToSection,
+		activeSection: isTerminated === "start" ? 0 : isTerminated === "end" ? sectionRefs.current.size - 1 : activeSection,
 	};
 }
