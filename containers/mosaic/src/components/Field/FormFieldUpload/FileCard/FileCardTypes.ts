@@ -3,6 +3,7 @@ import type { OnFileDelete, UploadData, UploadDataPending, UploadFieldInputSetti
 export type FileCardProps = {
 	onFileDelete?: UploadFieldInputSettings["onFileDelete"];
 	disabled?: boolean;
+	error?: string;
 } & UploadData;
 
 export type FileCardPendingProps = UploadDataPending & {

@@ -10,6 +10,7 @@ import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import Downloader from "@root/components/Downloader/Downloader";
 import { useHumanSize } from "@root/utils/hooks/useHumanSize";
 import FileCardTitle from "./FileCardTitle";
+import { HelperText } from "@root/components/FieldWrapper";
 
 const FileCard = (props: FileCardProps) => {
 	const {
@@ -22,6 +23,7 @@ const FileCard = (props: FileCardProps) => {
 		downloadUrl,
 		downloadStrategy: providedDownloadStrategy,
 		onFileDelete,
+		error,
 		disabled,
 		isDeleting,
 	} = props;
@@ -113,6 +115,9 @@ const FileCard = (props: FileCardProps) => {
 					</ButtonRow>
 				)}
 			</StyledFileCard>
+			{error && (
+				<HelperText error={error !== undefined}>{error}</HelperText>
+			)}
 		</div>
 	);
 };
