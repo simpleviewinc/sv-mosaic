@@ -61,11 +61,12 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 			<StyledGrid>
 				{columns.map((options, columnIndex) => (
 					<StyledColumn key={columnIndex}>
-						{(options || []).map(({ value, label }, optionIndex) => (
+						{(options || []).map(({ value, label, description }, optionIndex) => (
 							<div key={value}>
 								<Checkbox
 									checked={(checked || []).some((option) => option.value === value)}
 									label={label}
+									description={description}
 									disabled={disabled}
 									id={`${id}-${columnIndex}-${optionIndex}`}
 									onChange={handleToggle}

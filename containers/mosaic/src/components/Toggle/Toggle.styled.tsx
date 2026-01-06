@@ -3,6 +3,7 @@ import styled from "styled-components";
 import theme from "@root/theme";
 
 export const StyledSwitchWrapper = styled.div`
+	margin: ${theme.spacing("5px", 0)};
 	position: relative;
 	padding: 3px 0;
 	z-index: 1;
