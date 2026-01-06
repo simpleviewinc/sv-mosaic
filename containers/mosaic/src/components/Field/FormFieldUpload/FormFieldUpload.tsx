@@ -153,6 +153,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		onChange((items = []) => items.map(item => uuid === item.id ? ({
 			...item,
 			error: message,
+			percent: undefined,
 		}) : item));
 	};
 

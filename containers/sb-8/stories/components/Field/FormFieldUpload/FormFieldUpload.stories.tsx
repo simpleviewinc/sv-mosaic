@@ -28,6 +28,7 @@ export const Playground = ({
 	thumbnailUrl,
 	fileUrl,
 	downloadUrl,
+	chunksToComplete,
 	error,
 	accept,
 	maxFileSize,
@@ -37,11 +38,11 @@ export const Playground = ({
 	const { state, handleSubmit } = controller;
 
 	const onFileAdd: UploadFieldInputSettings["onFileAdd"] = useCallback(async ({ file, onChunkComplete, onUploadComplete }) => {
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < chunksToComplete; i++) {
 			await new Promise(resolve => setTimeout(() =>
 				resolve(
 					onChunkComplete({ percent: (i + 1) * 0.1 }),
-				), (timeToLoad * 1000) / 10),
+				), (timeToLoad * 1000) / chunksToComplete),
 			);
 		}
 
@@ -78,6 +79,7 @@ export const Playground = ({
 		thumbnailUrl,
 		fileUrl,
 		downloadUrl,
+		chunksToComplete,
 		error,
 	]);
 
@@ -162,6 +164,7 @@ Playground.args = {
 	thumbnailUrl: "",
 	fileUrl: "",
 	downloadUrl: "",
+	chunksToComplete: 10,
 	error: "",
 	accept: [],
 	maxFileSize: "",
@@ -189,6 +192,10 @@ Playground.argTypes = {
 	},
 	downloadUrl: {
 		name: "onUploadComplete Download URL",
+	},
+	chunksToComplete: {
+		name: "Chunks to complete (out of 10)",
+		control: { type: "number", min: 0, max: 10 },
 	},
 	error: {
 		name: "Throw Upload Error",
