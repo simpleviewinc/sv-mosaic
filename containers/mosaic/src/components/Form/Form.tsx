@@ -19,7 +19,6 @@ import Dialog from "@root/components/Dialog";
 import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
-import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 import { FormContext } from "./FormContext";
 import sanitizeFieldDefs from "./useForm/utils/sanitizeFieldDefs";
 import getFieldPaths from "./useForm/utils/getFieldPaths";
@@ -35,30 +34,28 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 	minWidth: "xl",
 };
 
-const Form = (props: FormProps) => {
-	const {
-		buttons,
-		state,
-		title,
-		onBack,
-		backLabel,
-		fields: providedFields,
-		sections,
-		dialogOpen = false,
-		description,
-		handleDialogClose,
-		scrollSpyThreshold = 0.15,
-		fullHeight = true,
-		spacing = "normal",
-		useSectionHash = "section",
-		onSubmit,
-		methods,
-		stable,
-		autoFocus,
-		bottomSlot = null,
-		hideSectionNav,
-	} = props;
-
+const Form = ({
+	buttons,
+	state,
+	title,
+	onBack,
+	backLabel,
+	fields: providedFields,
+	sections,
+	dialogOpen = false,
+	description,
+	handleDialogClose,
+	scrollSpyThreshold = 0.15,
+	fullHeight = true,
+	spacing = "normal",
+	useSectionHash = "section",
+	onSubmit,
+	methods,
+	stable,
+	autoFocus,
+	bottomSlot = null,
+	hideSectionNav,
+}: FormProps) => {
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
 	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
 	const { init, setSubmitWarning } = methods;
@@ -88,18 +85,6 @@ const Form = (props: FormProps) => {
 		history.replaceState({}, "", url.toString());
 	}, [useSectionHash]);
 
-	/**
-	 * When there are errors and the "moveToError" property is true,
-	 * scroll the first field with an error into view. This is usually
-	 * when the form is submitted.
-	 */
-	const { scrollTo } = useScrollTo({
-		container: formContentRef,
-		onComplete: () => {
-			stable.moveToError = false;
-		},
-	});
-
 	useEffect(() => {
 		if (!moveToError || !Object.keys(errors).filter(Boolean).length) {
 			return;
@@ -119,16 +104,10 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		scrollTo({
-			target: mount.fieldRef,
+		mount.fieldRef.scrollIntoView({
+			behavior: "smooth",
 		});
-	}, [
-		errors,
-		moveToError,
-		scrollTo,
-		stable.fields,
-		stable.mounted,
-	]);
+	}, [errors, moveToError, stable.fields, stable.mounted]);
 
 	const doneAutoFocus = useRef(false);
 
