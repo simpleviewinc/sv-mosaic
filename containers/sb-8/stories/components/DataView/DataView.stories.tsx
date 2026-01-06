@@ -287,10 +287,12 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "id",
 		label: "ID",
+		description: "Unique identifier for the record",
 	},
 	{
 		name: "image",
 		label: "Image",
+		description: "Thumbnail image of the record",
 		transforms: [
 			transform_get(["resource_raw", "secure_url"]),
 			transform_thumbnail({ width: 75, height: 75 }),
@@ -299,19 +301,23 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "title",
 		label: "Title",
+		description: "Title of the record",
 		sortable: true,
 	},
 	{
 		name: "description",
 		label: "Description",
+		description: "Detailed description of the record",
 	},
 	{
 		name: "content_owner",
 		label: "Content Owner",
+		description: "Owner or creator of the content",
 	},
 	{
 		name: "categories",
 		label: "Categories",
+		description: "Associated category tags",
 		transforms: [
 			transform_mapGet("tag"),
 			transform_join(),
@@ -320,6 +326,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "rating",
 		label: "Rating",
+		description: "Rating score with visual indicator",
 		column: "rating",
 		transforms: [
 			({ data }: { data: string }) => (
@@ -344,6 +351,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "image_title",
 		label: "Image Title",
+		description: "Title extracted from image metadata",
 		column: "image",
 		transforms: [
 			transform_get(["title"]),
@@ -352,6 +360,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "image_notes",
 		label: "Image Notes",
+		description: "Notes extracted from image metadata",
 		column: "image",
 		transforms: [
 			transform_get(["notes"]),
@@ -360,6 +369,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "image_deleted",
 		label: "Image Deleted",
+		description: "Indicates whether the image has been deleted",
 		column: "image",
 		transforms: [
 			transform_get(["deleted"]),
@@ -369,6 +379,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "created",
 		label: "Created",
+		description: "Date when the record was created",
 		sortable: true,
 		transforms: [
 			transform_dateFormat(),
@@ -377,6 +388,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "updated",
 		label: "Updated",
+		description: "Date when the record was last updated",
 		sortable: true,
 		transforms: [
 			transform_dateFormat(),
@@ -385,6 +397,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "bold",
 		label: "Style - bold",
+		description: "Content owner displayed with bold text style",
 		column: "content_owner",
 		style: {
 			bold: true,
@@ -393,6 +406,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "italic",
 		label: "Style - italic",
+		description: "Content owner displayed with italic text style",
 		column: "content_owner",
 		style: {
 			italic: true,
@@ -401,6 +415,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "strike_through",
 		label: "Style - strikeThrough",
+		description: "Content owner displayed with strikethrough text style",
 		column: "content_owner",
 		style: {
 			strikeThrough: true,
@@ -409,6 +424,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "noWrap",
 		label: "Style - noWrap",
+		description: "Title displayed without text wrapping",
 		column: "title",
 		style: {
 			noWrap: true,
@@ -417,6 +433,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "ellipsis",
 		label: "Style - ellipsis",
+		description: "Title displayed with ellipsis overflow",
 		column: "title",
 		style: {
 			noWrap: true,
@@ -427,6 +444,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "textTransform",
 		label: "Style - textTransform",
+		description: "Content owner displayed with uppercase text transformation",
 		column: "content_owner",
 		style: {
 			textTransform: "uppercase",
@@ -435,6 +453,7 @@ const listColumns: DataViewColumn[] = [
 	{
 		name: "textTransformLargeText",
 		label: "Style - Text Transform with large field text to order column",
+		description: "Content owner with uppercase transformation and extended label for column ordering",
 		column: "content_owner",
 		style: {
 			textTransform: "uppercase",

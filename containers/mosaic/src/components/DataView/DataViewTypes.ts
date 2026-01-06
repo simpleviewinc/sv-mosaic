@@ -21,6 +21,10 @@ export interface DataViewColumn {
 	name: string;
 	/**  Displayed label for the column. */
 	label?: string;
+    /**
+     * Provides additional information about the column data through a tooltip displayed alongside the column header.
+     */
+    description?: string;
 	/** The column from the passed RowData it will display in this column. Defaults to `column.name`. */
 	column?: string;
 	/** Whether this column can be sorted. */
