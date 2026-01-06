@@ -1,10 +1,10 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { memo, useEffect, useMemo, useRef, useCallback } from "react";
 
 import type { MosaicCSSContainer } from "@root/types";
 import type { AutofocusOptions, FormProps } from "./FormTypes";
 import type { ButtonProps } from "../Button";
-import type { Item, SideNavArgs } from "../SideNav";
+import type { Item, SideNavProps } from "../SideNav";
 
 import {
 	StyledFormContent,
@@ -16,14 +16,13 @@ import {
 import Layout from "./Layout/Layout";
 import Top from "./Top";
 import Dialog from "@root/components/Dialog";
-import useScrollSpy from "@root/utils/hooks/useScrollSpy";
 import Snackbar from "../Snackbar/Snackbar";
 import { useWrappedToggle } from "@root/utils/toggle";
 import { generateLayout } from "./Layout/layoutUtils";
-import useScrollTo from "@root/utils/hooks/useScrollTo/useScrollTo";
 import { FormContext } from "./FormContext";
 import sanitizeFieldDefs from "./useForm/utils/sanitizeFieldDefs";
 import getFieldPaths from "./useForm/utils/getFieldPaths";
+import { useScrollSpy } from "@root/utils/hooks";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -35,71 +34,56 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 	minWidth: "xl",
 };
 
-const Form = (props: FormProps) => {
-	const {
-		buttons,
-		state,
-		title,
-		onBack,
-		backLabel,
-		fields: providedFields,
-		sections,
-		dialogOpen = false,
-		description,
-		handleDialogClose,
-		scrollSpyThreshold = 0.15,
-		fullHeight = true,
-		spacing = "normal",
-		useSectionHash = "section",
-		onSubmit,
-		methods,
-		stable,
-		autoFocus,
-		bottomSlot = null,
-		hideSectionNav,
-	} = props;
-
+const Form = ({
+	buttons,
+	state,
+	title,
+	onBack,
+	backLabel,
+	fields: providedFields,
+	sections,
+	dialogOpen = false,
+	description,
+	handleDialogClose,
+	scrollSpyThreshold = 0.15,
+	fullHeight = true,
+	spacing = "normal",
+	useSectionHash = "section",
+	onSubmit,
+	methods,
+	stable,
+	autoFocus,
+	bottomSlot = null,
+	hideSectionNav,
+}: FormProps) => {
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
 	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
 	const { init, setSubmitWarning } = methods;
 	const { errors, disabled } = state;
 	const { moveToError } = stable;
 
-	const [sectionRefs, setSectionRefs] = useState<HTMLElement[]>([]);
 	const formContainerRef = useRef<HTMLDivElement>();
 	const formContentRef = useRef<HTMLDivElement>();
 
-	/**
-	 * Sections/layout and scroll spying. Also a callback to set
-	 * the hash in the URL based on the active section.
-	 */
 	const {
-		animation: { inProgress: scrollSpyAnimating },
+		registerRef,
+		goToSection,
 		activeSection,
-		scrollToSection,
 	} = useScrollSpy({
-		refs: sectionRefs,
 		container: formContentRef,
-		threshold: scrollSpyThreshold,
+		intersectionRatioThreshold: scrollSpyThreshold,
 	});
+
+	const onNav: SideNavProps["onNav"] = ({ item: { name } }) => {
+		const index = Number(name);
+		goToSection(index);
+	};
 
 	const setSectionHash = useCallback((index: number) => {
 		const url = new URL(window.location.toString());
 		url.hash = `${useSectionHash}-${index}`;
 		history.replaceState({}, "", url.toString());
 	}, [useSectionHash]);
-
-	/**
-	 * When there are errors and the "moveToError" property is true,
-	 * scroll the first field with an error into view. This is usually
-	 * when the form is submitted.
-	 */
-	const { scrollTo } = useScrollTo({
-		container: formContentRef,
-		onComplete: () => {
-			stable.moveToError = false;
-		},
-	});
 
 	useEffect(() => {
 		if (!moveToError || !Object.keys(errors).filter(Boolean).length) {
@@ -120,16 +104,10 @@ const Form = (props: FormProps) => {
 			return;
 		}
 
-		scrollTo({
-			target: mount.fieldRef,
+		mount.fieldRef.scrollIntoView({
+			behavior: "smooth",
 		});
-	}, [
-		errors,
-		moveToError,
-		scrollTo,
-		stable.fields,
-		stable.mounted,
-	]);
+	}, [errors, moveToError, stable.fields, stable.mounted]);
 
 	const doneAutoFocus = useRef(false);
 
@@ -182,27 +160,22 @@ const Form = (props: FormProps) => {
 		}
 
 		const sectionIndex = Number(match[1]);
-		scrollToSection(sectionIndex);
-	}, [useSectionHash, scrollToSection]);
+		window.requestAnimationFrame(() => goToSection(sectionIndex));
+	}, [goToSection, useSectionHash]);
 
 	useEffect(() => {
-		if (!useSectionHash || scrollSpyAnimating()) {
+		if (!useSectionHash) {
 			return;
 		}
 
 		setSectionHash(activeSection);
-	}, [activeSection, scrollSpyAnimating, setSectionHash, useSectionHash]);
+	}, [activeSection, setSectionHash, useSectionHash]);
 
 	const layout = useMemo(() => {
 		return generateLayout({ sections, fields });
 	}, [sections, fields]);
 
 	const shownSections = useWrappedToggle(layout, state, "show");
-
-	const registerRef: ((ref: HTMLElement) => () => void) = useCallback((ref) => {
-		setSectionRefs(refs => [...refs, ref]);
-		return () => setSectionRefs(refs => refs.filter(r => r !== ref));
-	}, []);
 
 	/**
 	 * In order to use the SideNav on a big desktop we need to transform
@@ -220,12 +193,12 @@ const Form = (props: FormProps) => {
 	 * was clicked.
 	 * @param args
 	 */
-	const onNav = useCallback((args: SideNavArgs) => {
-		const index = Number(args.item.name);
+	// const onNav = useCallback((args: SideNavArgs) => {
+	// 	const index = Number(args.item.name);
 
-		setSectionHash(index);
-		scrollToSection(index);
-	}, [setSectionHash, scrollToSection]);
+	// 	setSectionHash(index);
+	// 	scrollToSection(index);
+	// }, [setSectionHash, scrollToSection]);
 
 	const submitWarningContent = typeof state.submitWarning === "object" ? (
 		<>

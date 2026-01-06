@@ -29,9 +29,10 @@ export const StyledFormContent = styled.div<{ $spacing?: FormSpacing }>`
 	overflow-y: auto;
 	flex-grow: 1;
 	min-width: 0;
-	padding: ${({ $spacing }) => $spacing === "compact" ? "16px" : "24px"};
+	padding: ${({ $spacing }) => theme.spacing($spacing === "compact" ? 4 : 6)};
 	position: relative;
 	background-color: ${theme.color.gray[25]};
+	scroll-padding: ${theme.spacing(4)};
 `;
 
 export const StyledFormPrimary = styled.div`
