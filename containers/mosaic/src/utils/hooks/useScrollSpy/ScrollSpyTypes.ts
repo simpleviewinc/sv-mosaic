@@ -1,28 +1,20 @@
-import type { Animation } from "@root/utils/math/animateTypes";
 import type { MutableRefObject } from "react";
 
-export interface ScrollSpyProps<E extends HTMLElement> {
-	/**
-	 * Array of references to the sections to spy on. The references
-	 * should DOM elements and the array should be in the order that
-	 * the elements appear on the page
-	 */
-	refs: HTMLElement[];
+export interface ScrollSpyProps {
 	/**
      * The DOM element that is the scrollable viewport
      */
-	container: MutableRefObject<E>;
+	container: MutableRefObject<HTMLElement>;
 	/**
-     * The amount of the page that the top of each section should
-     * intersect to be considered active
-     *
-     * default = 0.4
-     */
-	threshold?: number;
+	 * The amount of intersection that should occur between
+	 * the section and the container for the section to be
+	 * considered an active element
+	 */
+	intersectionRatioThreshold?: number;
 }
 
 export interface ScrollSpyResult {
-	activeSection: number;
-	scrollToSection: (index: number) => void;
-	animation: Animation;
+	registerRef: (ref: HTMLElement) => () => void;
+	goToSection: (section: number) => void;
+	activeSection?: number;
 }
