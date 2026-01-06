@@ -22,6 +22,8 @@ Range.prototype.getClientRects = () => ({
 	[Symbol.iterator]: vi.fn(),
 });
 
+HTMLElement.prototype.scrollIntoView = () => null;
+
 document.elementFromPoint = (): null => null;
 
 class MockIntersectionObserver implements IntersectionObserver {
