@@ -23,6 +23,7 @@ const Section = (props: SectionPropTypes) => {
 		spacing,
 		methods,
 		skeleton,
+		id,
 	} = props;
 
 	const { state: { errors } } = useContext(FormContext);
@@ -64,15 +65,20 @@ const Section = (props: SectionPropTypes) => {
 	}, [collapsed]);
 
 	useEffect(() => {
-		const unregister = registerRef(ref.current);
+		const unregister = registerRef({
+			id,
+			index: sectionIdx,
+			elem: ref.current,
+		});
 		return unregister;
-	}, [ref.current]);
+	}, [id, sectionIdx, registerRef]);
 
 	return (
 		<CardWrapper
 			data-testid="section-test-id"
 			$collapsed={state === "collapsed" || state === "collapsing"}
 			ref={ref}
+			id={`section-${id}`}
 		>
 			{title && (
 				<CardHeading
