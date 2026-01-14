@@ -5,6 +5,12 @@ import type { FieldDef } from "@root/components/Field";
 import { generateLayout } from "@root/components/Form/Layout/layoutUtils";
 import type { SectionDef } from "@root/components/Form";
 
+vi.mock("nanoid", async () => {
+	return {
+		nanoid: () => "section-123",
+	};
+});
+
 type Test = ({
 	type: "fields";
 	data: FieldDef[];
@@ -69,6 +75,7 @@ describe("Layout logic", () => {
 				result: [
 					{
 						fields: [[["text1"]], [["text2"]], [["text3"]], [["text4"]]],
+						id: "section-123",
 					},
 				],
 			},
@@ -84,11 +91,13 @@ describe("Layout logic", () => {
 							[["text1"], ["text2"], ["text3"]],
 							[["text3"], ["text4"], ["text1"]],
 						],
+						id: "section-123",
 					},
 					{
 						fields: [
 							[[], ["text2"], ["text3"]],
 						],
+						id: "section-123",
 					},
 				],
 			},
@@ -122,9 +131,11 @@ describe("Layout logic", () => {
 						fields: [
 							[[], ["text1"], []],
 						],
+						id: "section-123",
 					},
 					{
 						fields: [],
+						id: "section-123",
 					},
 				],
 			},
