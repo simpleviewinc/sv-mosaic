@@ -12,56 +12,95 @@ const scrollingKeys = [
 	" ",
 ];
 
+type SectionTermination = "start" | "end";
+
+interface SectionRef {
+	elem: Element;
+	isVisible: boolean;
+	index: number;
+}
+
 export default function useScrollSpy({
 	container,
 	intersectionRatioThreshold = 0.1,
 }: ScrollSpyProps): ScrollSpyResult {
-	const sectionRefs = useRef<Map<Element, boolean>>(new Map());
+	const sectionRefs = useRef<Map<string, SectionRef>>(new Map());
 
-	const [implicitSection, setImplicitSection] = useState<undefined | number>();
-	const [explicitSection, setExplicitSection] = useState<undefined | number>();
-	const [isTerminated, setIsTerminated] = useState<"start" | "end" | undefined>();
+	const [implicitSection, setImplicitSection] = useState<undefined | string>();
+	const [explicitSection, setExplicitSection] = useState<undefined | string>();
+	const [isTerminated, setIsTerminated] = useState<SectionTermination | undefined>();
 	const activeSection = explicitSection ?? implicitSection;
 
-	const observer = useRef(new IntersectionObserver((entries) => {
-		entries.forEach(({ target, intersectionRatio }) => {
-			sectionRefs.current.set(target, intersectionRatio >= intersectionRatioThreshold);
+	const getTerminatedSection = (termination: SectionTermination) => {
+		let targetSection: { id: string; index: number } | undefined;
+
+		sectionRefs.current.forEach((value, key) => {
+			if (!targetSection) {
+				targetSection = { id: key, index: value.index };
+			} else if (termination === "start" && value.index < targetSection.index) {
+				targetSection = { id: key, index: value.index };
+			} else if (termination === "end" && value.index > targetSection.index) {
+				targetSection = { id: key, index: value.index };
+			}
 		});
 
-		const sectionRefsArr = [...sectionRefs.current.values()];
-		for (let i = 0; i < sectionRefsArr.length; i++) {
-			const isIntersecting = sectionRefsArr[i];
-			if (isIntersecting) {
-				setImplicitSection(i);
-				break;
+		return targetSection?.id;
+	};
+
+	const observer = useRef(new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			sectionRefs.current.forEach((sectionRef) => {
+				if (entry.target !== sectionRef.elem) {
+					return;
+				}
+
+				sectionRef.isVisible = entry.intersectionRatio >= intersectionRatioThreshold;
+			});
+		});
+
+		let current: {id: string; index: number};
+		sectionRefs.current.forEach((sectionRef, id) => {
+			if (!sectionRef.isVisible) {
+				return;
 			}
-		}
+
+			if (current && current.index < sectionRef.index) {
+				return;
+			}
+
+			current = { id, index: sectionRef.index };
+		});
+
+		setImplicitSection(current?.id);
 	}, {
 		root: container.current,
 		rootMargin: "0px",
 		threshold: [0, intersectionRatioThreshold, 1],
 	}));
 
-	const registerRef: ((ref: Element) => () => void) = useCallback((ref) => {
-		sectionRefs.current.set(ref, false);
-		observer.current.observe(ref);
+	const registerRef = useCallback<ScrollSpyResult["registerRef"]>(({ elem, id, index }) => {
+		sectionRefs.current.set(id, {
+			elem,
+			isVisible: false,
+			index,
+		});
+		observer.current.observe(elem);
 		return () => {
-			sectionRefs.current.delete(ref);
-			observer.current.unobserve(ref);
+			sectionRefs.current.delete(id);
+			observer.current.unobserve(elem);
 		};
 	}, []);
 
-	const goToSection = useCallback((index: number) => {
-		const sectionElems = [...sectionRefs.current.keys()];
-		const section = sectionElems[index];
+	const goToSection = useCallback<ScrollSpyResult["goToSection"]>((id) => {
+		const section = sectionRefs.current.get(id);
 
 		if (!section) {
 			return;
 		}
 
-		setExplicitSection(index);
+		setExplicitSection(id);
 
-		section.scrollIntoView({
+		section.elem.scrollIntoView({
 			behavior: "smooth",
 		});
 	}, []);
@@ -117,6 +156,6 @@ export default function useScrollSpy({
 	return {
 		registerRef,
 		goToSection,
-		activeSection: isTerminated === "start" ? 0 : isTerminated === "end" ? sectionRefs.current.size - 1 : activeSection,
+		activeSection: isTerminated ? getTerminatedSection(isTerminated) : activeSection,
 	};
 }

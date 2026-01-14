@@ -48,7 +48,6 @@ const Form = ({
 	scrollSpyThreshold = 0.15,
 	fullHeight = true,
 	spacing = "normal",
-	useSectionHash = "section",
 	onSubmit,
 	methods,
 	stable,
@@ -58,6 +57,9 @@ const Form = ({
 }: FormProps) => {
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
 	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
+	const layout = useMemo(() => {
+		return generateLayout({ sections, fields });
+	}, [sections, fields]);
 	const { init, setSubmitWarning } = methods;
 	const { errors, disabled } = state;
 	const { moveToError } = stable;
@@ -75,15 +77,8 @@ const Form = ({
 	});
 
 	const onNav: SideNavProps["onNav"] = ({ item: { name } }) => {
-		const index = Number(name);
-		goToSection(index);
+		goToSection(name);
 	};
-
-	const setSectionHash = useCallback((index: number) => {
-		const url = new URL(window.location.toString());
-		url.hash = `${useSectionHash}-${index}`;
-		history.replaceState({}, "", url.toString());
-	}, [useSectionHash]);
 
 	useEffect(() => {
 		if (!moveToError || !Object.keys(errors).filter(Boolean).length) {
@@ -146,35 +141,6 @@ const Form = ({
 		});
 	}, [disabled, state.skeleton, autoFocus, stable.fields, stable.mounted]);
 
-	useEffect(() => {
-		if (!useSectionHash) {
-			return;
-		}
-
-		const { hash } = window.location;
-		const regexp = new RegExp(`^#${useSectionHash}-(\\d+)`);
-		const match = hash && hash.match(regexp);
-
-		if (!match) {
-			return;
-		}
-
-		const sectionIndex = Number(match[1]);
-		window.requestAnimationFrame(() => goToSection(sectionIndex));
-	}, [goToSection, useSectionHash]);
-
-	useEffect(() => {
-		if (!useSectionHash) {
-			return;
-		}
-
-		setSectionHash(activeSection);
-	}, [activeSection, setSectionHash, useSectionHash]);
-
-	const layout = useMemo(() => {
-		return generateLayout({ sections, fields });
-	}, [sections, fields]);
-
 	const shownSections = useWrappedToggle(layout, state, "show");
 
 	/**
@@ -183,22 +149,10 @@ const Form = ({
 	 * be the index of the section since this index corresponds to the
 	 * section id.
 	 */
-	const sideNavItems: Item[] = useMemo(() => shownSections.map((section, idx) => ({
-		label: section.title,
-		name: idx.toString(),
+	const sideNavItems: Item[] = useMemo(() => shownSections.map(({ title, id }) => ({
+		label: title,
+		name: id,
 	})), [shownSections]);
-
-	/**
-	 * Highlights and scrolls to the sections which link
-	 * was clicked.
-	 * @param args
-	 */
-	// const onNav = useCallback((args: SideNavArgs) => {
-	// 	const index = Number(args.item.name);
-
-	// 	setSectionHash(index);
-	// 	scrollToSection(index);
-	// }, [setSectionHash, scrollToSection]);
 
 	const submitWarningContent = typeof state.submitWarning === "object" ? (
 		<>

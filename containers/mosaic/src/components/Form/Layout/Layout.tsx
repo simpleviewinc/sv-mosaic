@@ -44,7 +44,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 			{sections.map((section, i) => (
 				<Section
 					registerRef={registerRef}
-					key={i}
+					key={section.id}
 					title={section.title}
 					sectionIdx={i}
 					description={section.description}
@@ -55,6 +55,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 					spacing={spacing}
 					methods={methods}
 					skeleton={skeleton}
+					id={section.id}
 				/>
 			))}
 		</StyledLayout>
