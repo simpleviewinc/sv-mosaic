@@ -1,9 +1,14 @@
+import { nanoid } from "nanoid";
+
 import type { SectionDef } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
 
 export const generateLayout = ({ sections, fields }: { sections?: SectionDef[]; fields: FieldDef[] }): SectionDef[] => {
 	if (!sections) {
-		return [{ fields: fields.map(field => [[field.name]]) }];
+		return [{
+			id: nanoid(),
+			fields: fields.map(field => [[field.name]]),
+		}];
 	}
 
 	return sections.map(section => {
@@ -17,6 +22,7 @@ export const generateLayout = ({ sections, fields }: { sections?: SectionDef[]; 
 
 		return {
 			...section,
+			id: section.id ?? nanoid(),
 			fields: rows,
 		};
 	});
