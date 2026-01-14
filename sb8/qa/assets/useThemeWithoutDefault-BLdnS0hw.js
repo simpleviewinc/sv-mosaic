@@ -1,0 +1,1 @@
+import{r as n}from"./index-lnx8lKqn.js";import{T as o}from"./styled-DYj8iMuw.js";function r(t){return Object.keys(t).length===0}function u(t=null){const e=n.useContext(o);return!e||r(e)?t:e}export{u};
