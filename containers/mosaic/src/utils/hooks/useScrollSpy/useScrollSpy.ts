@@ -49,7 +49,7 @@ export default function useScrollSpy({
 
 	const observer = useRef(new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
-			sectionRefs.current.forEach((sectionRef, id) => {
+			sectionRefs.current.forEach((sectionRef) => {
 				if (entry.target !== sectionRef.elem) {
 					return;
 				}
