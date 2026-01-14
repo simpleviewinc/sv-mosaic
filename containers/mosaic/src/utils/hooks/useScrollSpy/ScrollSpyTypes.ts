@@ -14,7 +14,7 @@ export interface ScrollSpyProps {
 }
 
 export interface ScrollSpyResult {
-	registerRef: (ref: HTMLElement) => () => void;
-	goToSection: (section: number) => void;
-	activeSection?: number;
+	registerRef?: (params: { id: string; elem: Element; index: number }) => () => void;
+	goToSection: (id: string) => void;
+	activeSection?: string;
 }

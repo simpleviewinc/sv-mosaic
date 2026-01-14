@@ -12,11 +12,12 @@ export interface SectionPropTypes {
 	rows: RowPropTypes["row"][];
 	collapsed?: boolean;
 	show?: MosaicToggle;
-	registerRef?: (ref: HTMLElement) => () => void;
+	registerRef?: (params: { id: string; elem: Element; index: number }) => () => void;
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
 	methods: FormMethods;
 	skeleton?: boolean;
+	id?: string;
 }
 
 export type SectionContentProps = Pick<SectionPropTypes,
