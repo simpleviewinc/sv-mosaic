@@ -1,5 +1,35 @@
 # sv-mosaic changelog
 
+### 45.2.0 - 01/20/2025
+
+* `DataView`
+
+  * [MOS-1769](https://jira.granicus.com/browse/MOS-1769) **Introduce way to provide additional DataView column information**
+    Enhance Checkbox and DataView components with description support and improve styling:
+    * Added description prop to Checkbox and DataView components for
+      additional context. The description will appear as a tool-tip both
+      alongside the table heading and next to the options listed in Column
+      Settings.
+    * Updated CheckboxList to pass description to Checkbox.
+    * Enhanced DataViewTh to display descriptions with tooltips.
+    * Improved styling for various components to ensure better alignment and spacing.
+* `Form`
+
+  * [MOS-1692](https://jira.granicus.com/browse/MOS-1692) **Minor memory leak in useScrollTo**
+    * Refactor ScrollSpy hook to instability and memory leaks and update styled components for improved layout handling.
+    * Some cleanup of dead code.
+* `FormFieldAdvancedSelection`
+
+  * [MOS-1601](https://jira.granicus.com/browse/MOS-1601) **CSS calculations cause rendering issues**
+    * (FormDrawer) Minor style cleanup
+* `FormFieldUpload`
+
+  * [MOS-1771](https://jira.granicus.com/browse/MOS-1771) **When a file upload fails due to a virus, user should be able to clear file and try another upload**
+    * (FormFieldUpload) Ensure that files that throw errors before
+      reaching 100% are taken out of a pending state and that the specified
+      errors are displayed for non pending items.
+* Housekeeping
+
 ### 45.1.2 - 12/05/2025
 
 * `Form`
