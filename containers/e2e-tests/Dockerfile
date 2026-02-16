@@ -7,7 +7,7 @@ RUN update-ca-certificates
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
-RUN cd /app && npm install
+RUN cd /app && npm install --legacy-peer-deps
 
 COPY playwright.config.ts /app/playwright.config.ts
 COPY tsconfig.json /app/tsconfig.json
