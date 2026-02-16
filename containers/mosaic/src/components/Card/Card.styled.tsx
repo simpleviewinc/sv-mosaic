@@ -49,8 +49,6 @@ export const CardContent = styled.div<{
 	$compact?: boolean;
 	$paddingBottom?: boolean;
 }>(({ $compact, $paddingBottom }) => `
-	background: ${theme.color.white};
-
 	${$compact ? `
 		padding: ${theme.spacing(3, 4, $paddingBottom ? 3 : 0)};
 	` : `
@@ -63,6 +61,7 @@ export const CardWrapper = styled.div<{ $collapsed?: boolean }>`
 	--card-shadow: ${({ $collapsed }) => $collapsed ? "var(--mos-shadow-sm)" : "var(--mos-shadow-lg)"};
 
 	align-items: stretch;
+	background-color: ${theme.color.white};
 	border-radius: ${theme.rounded.md};
 	box-shadow: var(--mos-border-light), var(--card-shadow);
 	display: flex;
