@@ -106,26 +106,28 @@ function PickerPanel({
 							value={keyword}
 							placeholder={t("mosaic:common.keyword___")}
 							autoFocus
-							InputProps={{
-								inputProps: {
-									"aria-label": t("mosaic:common.keyword___"),
+							slotProps={{
+								input:{
+									inputProps: {
+										"aria-label": t("mosaic:common.keyword___"),
+									},
+									startAdornment: (
+										<InputAdornment position="start">
+											<SearchIcon />
+										</InputAdornment>
+									),
+									endAdornment: onCreateNew && keyword && (
+										<InputAdornment position="end">
+											<Button
+												label="Create"
+												variant="text"
+												intent="secondary"
+												mIcon={AddIcon}
+												onClick={() => onCreateNew(keyword)}
+											/>
+										</InputAdornment>
+									),
 								},
-								startAdornment: (
-									<InputAdornment position="start">
-										<SearchIcon />
-									</InputAdornment>
-								),
-								endAdornment: onCreateNew && keyword && (
-									<InputAdornment position="end">
-										<Button
-											label="Create"
-											variant="text"
-											intent="secondary"
-											mIcon={AddIcon}
-											onClick={() => onCreateNew(keyword)}
-										/>
-									</InputAdornment>
-								),
 							}}
 						/>
 					</LeftPanelTop>
