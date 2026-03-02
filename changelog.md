@@ -1,5 +1,11 @@
 # sv-mosaic changelog
 
+### 45.2.1 - 02/04/2025
+
+* `Card`
+  * [MOS-1768](https://jira.granicus.com/browse/MOS-1768) **Empty Cards do not have shadows and on filled cards corners not rounded**
+    * (Card) Move background color to the card wrapper rather than the content to avoid leaking out of rounded corners.
+
 ### 45.2.0 - 01/20/2025
 
 * `DataView`
