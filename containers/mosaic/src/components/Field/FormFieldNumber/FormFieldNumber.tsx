@@ -103,8 +103,8 @@ const NumberField = (
 		onBlur && onBlur();
 	};
 
-	const InputProps = useMemo(() => {
-		const props: TextFieldProps["InputProps"] = {
+	const inputProps = useMemo(() => {
+		const props: TextFieldProps["slotProps"]["input"] = {
 			inputRef,
 			inputProps: {
 				inputMode: "numeric",
@@ -147,7 +147,7 @@ const NumberField = (
 				error={Boolean(errorFlash) || Boolean(error)}
 				className={fieldDef?.className}
 				placeholder={fieldDef?.inputSettings?.placeholder}
-				InputProps={InputProps}
+				slotProps={{ input: inputProps }}
 				required={Boolean(fieldDef?.required)}
 				type="text"
 				disabled={disabled}

@@ -35,7 +35,7 @@ const PhoneTextField = function PhoneTextField({
 			id={id}
 			error={error}
 			disabled={disabled}
-			InputProps={{ inputRef: setRef, inputProps: props }}
+			slotProps={{ input: { inputRef: setRef, inputProps: props } }}
 			onFocus={_onFocus}
 			onBlur={_onBlur}
 		/>
