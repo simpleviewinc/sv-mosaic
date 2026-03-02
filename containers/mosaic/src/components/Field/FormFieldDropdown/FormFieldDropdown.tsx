@@ -31,8 +31,6 @@ const renderOption = (props: HTMLAttributes<HTMLLIElement>, option: MosaicLabelV
 	</StyledPopperListboxOption>
 );
 
-const componentsProps = { popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" } };
-
 const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSettings, DropdownData>) => {
 	const {
 		fieldDef,
@@ -69,21 +67,23 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				variant="outlined"
 				placeholder={placeholder}
 				required={typeof required === "object" ? required.asterisk : required}
-				inputProps={{
-					...params.inputProps,
-					ref: (el: HTMLInputElement) => {
-						if (inputRef) {
-							inputRef.current = el;
-						}
+				slotProps={{
+					htmlInput: {
+						...params.inputProps,
+						ref: (el: HTMLInputElement) => {
+							if (inputRef) {
+								inputRef.current = el;
+							}
 
-						if (typeof params.inputProps.ref === "function") {
-							params.inputProps.ref(el);
-						} else {
-							params.inputProps.ref.current = el;
-						}
+							if (typeof params.inputProps.ref === "function") {
+								params.inputProps.ref(el);
+							} else {
+								params.inputProps.ref.current = el;
+							}
+						},
+						id,
+						"aria-label": label,
 					},
-					id,
-					"aria-label": label,
 				}}
 			/>
 		);
@@ -120,12 +120,17 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				isOptionEqualToValue={isOptionEqualToValue}
 				onChange={onDropDownChange}
 				renderInput={renderInput}
-				ListboxComponent={StyledPopperListbox}
-				PopperComponent={StyledPopper}
-				PaperComponent={StyledPopperPaper}
+				slots={{
+					// @ts-expect-error ownerState is passed down here for some reason, even though props is typed as HTMLAttributes
+					listbox: ({ ownerState, ...props }) => <StyledPopperListbox {...props} />,
+					paper: StyledPopperPaper,
+					popper: StyledPopper,
+				}}
+				slotProps={{
+					popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" },
+				}}
 				renderOption={renderOption}
 				popupIcon={<ExpandMoreIcon />}
-				componentsProps={componentsProps}
 				onBlur={(e) => onBlur && onBlur((e.target as HTMLInputElement).value)}
 				open={isOpen}
 				disabled={disabled}
