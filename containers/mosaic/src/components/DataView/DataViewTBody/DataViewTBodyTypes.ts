@@ -1,5 +1,6 @@
 import type { DataViewProps, DataViewRowActions } from "../DataViewTypes";
 import type { DataViewDisplayListProps } from "../DataViewDisplayList";
+import type { Ref } from "react";
 
 export interface DataViewTBodyProps {
 	onReorder?: DataViewProps["onReorder"];
@@ -13,4 +14,5 @@ export interface DataViewTBodyProps {
 	checked?: DataViewProps["checked"];
 	columns: DataViewProps["columns"];
 	hasActions: boolean;
+	ref?: Ref<HTMLTableSectionElement>;
 }
