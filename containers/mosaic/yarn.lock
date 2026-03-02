@@ -2752,7 +2752,7 @@ __metadata:
     "@tiptap/extension-history": 2.8.0
     "@tiptap/extension-image": 2.8.0
     "@tiptap/extension-italic": 2.8.0
-    "@tiptap/extension-link": 2.8.0
+    "@tiptap/extension-link": 2.10.4
     "@tiptap/extension-list-item": 2.8.0
     "@tiptap/extension-ordered-list": 2.8.0
     "@tiptap/extension-paragraph": 2.8.0
@@ -3037,15 +3037,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-link@npm:2.8.0":
-  version: 2.8.0
-  resolution: "@tiptap/extension-link@npm:2.8.0"
+"@tiptap/extension-link@npm:2.10.4":
+  version: 2.10.4
+  resolution: "@tiptap/extension-link@npm:2.10.4"
   dependencies:
     linkifyjs: ^4.1.0
   peerDependencies:
     "@tiptap/core": ^2.7.0
     "@tiptap/pm": ^2.7.0
-  checksum: a299eb05867949da5ab8ea792c45711cd0ee9ea6ee798ec1120d09c5727d101d0948865a6af2e9f325457acc910e865c3c6bae01d162f49fcf274f9810c34879
+  checksum: c5e90d831abd6cedddfe9287f27cc0f6e18008bb48364a0d089bee86a6fd35a5ffd01d2ace908a9f1c5fdbf4e25e7d0b26805f698cbeba3f389891729bd520ed
   languageName: node
   linkType: hard
 
