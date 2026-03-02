@@ -1,7 +1,7 @@
 import type { MouseEvent } from "react";
 import type { PopoverProps } from "@mui/material/Popover";
 
-import React, { createContext, memo, useState, forwardRef } from "react";
+import React, { createContext, memo, useState } from "react";
 import Popover from "@mui/material/Popover";
 
 import type { ButtonIntent, ButtonPopoverContextProps, ButtonProps, ColorTypes } from "./ButtonTypes";
@@ -36,11 +36,12 @@ const colorToIntent: Record<ColorTypes, ButtonIntent> = {
 	yellow: "primary",
 };
 
-const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBase({
+const ButtonBase = function ButtonBase({
 	size = "medium",
 	alignItems = "center",
+	ref,
 	...props
-}, ref) {
+}: ButtonProps) {
 	const Icon = props.mIcon;
 	const isIconButton = !props.label && Icon;
 	const iconPosition = props.iconPosition || "left";
@@ -133,7 +134,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(function ButtonBas
 			</StyledButton>
 		</StyledWrapper>
 	);
-});
+};
 
 function ButtonWithState(props: ButtonProps) {
 	const { anchorProps, tooltipProps } = useTooltip();

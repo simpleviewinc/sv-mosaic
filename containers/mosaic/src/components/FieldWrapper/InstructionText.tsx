@@ -19,6 +19,4 @@ const InstructionText = (props: InstructionTextProps): ReactElement => {
 	);
 };
 
-InstructionText.displayName = "InstructionText";
-
 export default InstructionText;

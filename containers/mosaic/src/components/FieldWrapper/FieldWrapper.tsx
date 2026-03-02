@@ -85,7 +85,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 		useRealLabel,
 	} = props;
 
-	const fieldRef = useRef<HTMLDivElement | undefined>();
+	const fieldRef = useRef<HTMLDivElement | undefined>(undefined);
 
 	const errorWithMessage = typeof error === "string" ? error?.trim().length > 0 : false;
 	const shouldRenderError = (errorWithMessage || (errorWithMessage && Boolean(fieldDef?.required)) || (typeof error === "boolean" && error === true));

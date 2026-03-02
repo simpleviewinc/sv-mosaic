@@ -1,6 +1,6 @@
-import type { ComponentProps, PropsWithChildren, ReactElement } from "react";
+import type { ComponentProps, ReactElement, Ref } from "react";
 
-import React, { forwardRef } from "react";
+import React from "react";
 
 import type { ShortcutDef } from "../../FormFieldTextEditorTypes";
 
@@ -15,17 +15,19 @@ interface ControlButtonProps extends ComponentProps<typeof StyledControlButton> 
 	square?: boolean;
 	shortcut?: ShortcutDef;
 	disabled?: boolean;
+	ref?: Ref<HTMLButtonElement>;
 }
 
-export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<ControlButtonProps>>(function ControlButton({
+export const ControlButton = function ControlButton({
 	label,
 	children,
 	active,
 	square,
 	shortcut,
 	disabled,
+	ref: providedRef,
 	...props
-}, providedRef): ReactElement {
+}: ControlButtonProps): ReactElement {
 	const { anchorProps, tooltipProps } = useTooltip();
 	const setRef = useSpreadRefs([anchorProps.ref, providedRef]);
 
@@ -57,4 +59,4 @@ export const ControlButton = forwardRef<HTMLButtonElement, PropsWithChildren<Con
 			)}
 		</>
 	);
-});
+};

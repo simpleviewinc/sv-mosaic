@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { forwardRef, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import DataViewTitleBar from "./DataViewTitleBar";
 import { DataViewDisplayList, DataViewDisplayGrid } from "./DataViewDisplays";
@@ -10,7 +10,7 @@ import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 import testIds from "@root/utils/testIds";
 import { StyledDataViewContent, StyledDataViewDisplay, StyledWrapper } from "./DataView.styled";
 
-const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (props, ref): ReactElement {
+const DataView = function DataView (props: DataViewProps): ReactElement {
 	props.activeFilters?.forEach(activeFilter => {
 		const isValidFilter = props.filters?.some(({ name }) => name === activeFilter);
 
@@ -240,7 +240,7 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 				${props.loading ? "loading" : ""}
 				${props.sticky ? "sticky" : ""}
 			`}
-			ref={ref}
+			ref={props.ref}
 			data-testid={testIds.DATA_VIEW}
 			{...(props.attrs || {})}
 		>
@@ -337,6 +337,6 @@ const DataView = forwardRef<HTMLDivElement, DataViewProps>(function DataView (pr
 			</StyledDataViewContent>
 		</StyledWrapper>
 	);
-});
+};
 
 export default DataView;
