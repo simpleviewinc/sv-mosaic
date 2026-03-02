@@ -23,7 +23,7 @@ function PhoneCodeAutocomplete({
 	value,
 }: PhoneCodeAutocompleteProps): ReactElement {
 	const { setAutocompleteOpen } = useContext(FormFieldPhoneContext);
-	const autocompleteInputRef = useRef<HTMLInputElement>();
+	const autocompleteInputRef = useRef<HTMLInputElement>(undefined);
 
 	const autocompleteProps = useMemo<Omit<AutocompleteProps, "options">>(() => {
 		return {

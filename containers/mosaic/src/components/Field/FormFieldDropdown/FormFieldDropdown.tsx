@@ -79,7 +79,6 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 						if (typeof params.inputProps.ref === "function") {
 							params.inputProps.ref(el);
 						} else {
-							// @ts-expect-error It's not read only, TS only thinks it is.
 							params.inputProps.ref.current = el;
 						}
 					},

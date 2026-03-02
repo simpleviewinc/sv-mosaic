@@ -22,7 +22,7 @@ export function MainMenuFlyout({
 	items,
 	depth,
 }: MainMenuFlyoutProps) {
-	const container = useRef();
+	const container = useRef<HTMLDivElement>(undefined);
 	const { clearStack, onClose, isMobileVariant } = useMainMenu();
 
 	return (

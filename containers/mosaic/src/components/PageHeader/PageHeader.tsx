@@ -1,17 +1,17 @@
 import * as React from "react";
-import { memo, forwardRef } from "react";
+import { memo } from "react";
 import { StyledPageHeader, StyledTitleRow } from "./PageHeader.styled";
 import type { PageHeaderProps } from "./PageHeaderTypes";
 import TitleWrapper from "@root/components/Title";
 import ButtonRow from "../ButtonRow/ButtonRow";
 
-const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
-	const {
-		title,
-		buttons,
-		onBack,
-		backLabel,
-	} = props;
+const PageHeader = ({
+	title,
+	buttons,
+	onBack,
+	backLabel,
+	ref,
+}: PageHeaderProps) => {
 
 	return (
 		<StyledPageHeader ref={ref} data-testid="page-header-test-id">
@@ -29,8 +29,6 @@ const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>((props, ref) => {
 			)}
 		</StyledPageHeader>
 	);
-});
-
-PageHeader.displayName = "PageHeader";
+};
 
 export default memo(PageHeader);
