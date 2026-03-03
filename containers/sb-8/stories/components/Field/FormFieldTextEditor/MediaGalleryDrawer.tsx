@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import React, { useMemo } from "react";
 import { DrawerWrapper, MediaGalleryChecked, MediaGalleryImage, MediaGalleryItem } from "./MediaGalleryDrawer.styled";
 import type { FieldDef, TextEditorOnImageParams } from "#mosaic/components/Field";
-import Grid from "@mui/material/Grid2";
+import Grid from "@mui/material/Grid";
 import Form, { useForm } from "#mosaic/components/Form";
 import FieldWrapper from "#mosaic/components/FieldWrapper";
 import type { ButtonProps } from "#mosaic/components/Button";
