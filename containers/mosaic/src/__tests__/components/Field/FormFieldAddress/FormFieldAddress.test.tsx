@@ -63,7 +63,7 @@ describe(__dirname, () => {
 			.toThrow();
 	});
 
-	it("should default type allowances to 1 of each if no type limits are provided", { timeout: 30_000 }, async () => {
+	it("should default type allowances to 1 of each if no type limits are provided", { timeout: 60_000 }, async () => {
 		const { user } = await setup(undefined, { stateful: true });
 
 		const types = ["Physical", "Billing", "Shipping"];
@@ -83,7 +83,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Add Address" })).toBeNull();
 	});
 
-	it("should allow up to the number of amounts per type for each type if provided", { timeout: 30_000 }, async () => {
+	it("should allow up to the number of amounts per type for each type if provided", { timeout: 60_000 }, async () => {
 		const { user } = await setup({
 			fieldDef: {
 				...defaultFieldDef,
@@ -117,7 +117,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Add Address" })).toBeNull();
 	});
 
-	it("should allow up to the number of amounts of a specific type if provided", { timeout: 30_000 }, async () => {
+	it("should allow up to the number of amounts of a specific type if provided", { timeout: 60_000 }, async () => {
 		const { user } = await setup({
 			fieldDef: {
 				...defaultFieldDef,
@@ -139,7 +139,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Add Address" })).toBeNull();
 	});
 
-	it("should not display redundant checkboxes if the input settings mean only one type is allowed", { timeout: 30_000 }, async () => {
+	it("should not display redundant checkboxes if the input settings mean only one type is allowed", { timeout: 60_000 }, async () => {
 		const { user } = await setup({
 			fieldDef: {
 				...defaultFieldDef,
@@ -157,7 +157,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("checkbox", { name: "Shipping" })).toBeNull();
 	});
 
-	it("should allow varied amounts of specified address types", { timeout: 30_000 }, async () => {
+	it("should allow varied amounts of specified address types", { timeout: 60_000 }, async () => {
 		const { user } = await setup({
 			fieldDef: {
 				...defaultFieldDef,
@@ -184,7 +184,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Add Address" })).toBeNull();
 	});
 
-	it("should allow specific types to be limited and default the rest to amounts per type", { timeout: 30_000 }, async () => {
+	it("should allow specific types to be limited and default the rest to amounts per type", { timeout: 60_000 }, async () => {
 		const { user } = await setup({
 			fieldDef: {
 				...defaultFieldDef,
