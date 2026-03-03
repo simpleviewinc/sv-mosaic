@@ -4,11 +4,11 @@
 	"description": "Mosaic UI Library",
 	"author": "Owen Allen <owenallenaz@gmail.com>",
 	"devDependencies": {
-		"@emotion/react": "11.9.0",
-		"@emotion/styled": "11.8.1",
+		"@emotion/react": "11.14.0",
+		"@emotion/styled": "11.14.1",
 		"@monaco-editor/react": "^4.7.0",
-		"@mui/icons-material": "6.5.0",
-		"@mui/material": "6.5.0",
+		"@mui/icons-material": "7.3.8",
+		"@mui/material": "7.3.8",
 		"@mui/x-date-pickers": "5.0.0-beta.0",
 		"@simpleview/mochalib": "2.0.2",
 		"@simpleview/sv-mosaic-eslint": "0.0.2",
@@ -36,7 +36,7 @@
 		"react-dom": "19.2.4",
 		"react-i18next": "11.7.0",
 		"react-places-autocomplete": "7.3.0",
-		"styled-components": "6.0.7",
+		"styled-components": "6.3.11",
 		"ts-node": "10.9.1",
 		"ts-patch": "^3.2.1",
 		"typescript": "5.5.4",
@@ -51,7 +51,7 @@
 		"@dnd-kit/modifiers": "^7.0.0",
 		"@dnd-kit/sortable": "8.0.0",
 		"@dnd-kit/utilities": "3.2.2",
-		"@mui/utils": "6.4.9",
+		"@mui/utils": "7.3.8",
 		"@react-google-maps/api": "^2.7.0",
 		"@tiptap/core": "2.8.0",
 		"@tiptap/extension-blockquote": "2.8.0",
@@ -86,18 +86,18 @@
 		"react-phone-number-input": "^3.4.11"
 	},
 	"peerDependencies": {
-		"@emotion/react": "^11.9.0",
-		"@emotion/styled": "^11.8.1",
+		"@emotion/react": "11.14.0",
+		"@emotion/styled": "11.14.1",
 		"@monaco-editor/react": "^4.7.0",
-		"@mui/icons-material": "6.5.0",
-		"@mui/material": "6.5.0",
+		"@mui/icons-material": "7.3.8",
+		"@mui/material": "7.3.8",
 		"@mui/x-date-pickers": "^5.0.0-beta.0",
 		"i18next": "^19.5.0",
 		"monaco-editor": "^0.52.2",
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
 		"react-i18next": "^11.7.0",
-		"styled-components": "^4.3.2"
+		"styled-components": "6.3.11"
 	},
 	"exports": {
 		".": {
