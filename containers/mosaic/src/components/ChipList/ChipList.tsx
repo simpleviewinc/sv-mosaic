@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import React, { memo, useState, forwardRef, useMemo } from "react";
+import React, { memo, useState, useMemo } from "react";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
@@ -11,13 +11,13 @@ import { ChipsWrapper, ShowButton } from "./ChipList.styled";
 import { EMPTY_ARRAY } from "@root/constants/stable";
 import testIds from "@root/utils/testIds";
 
-const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactElement => {
-	const {
-		disabled,
-		onDelete,
-		options = EMPTY_ARRAY,
-		maxInitialChips = 8,
-	} = props;
+const ChipList = ({
+	disabled,
+	onDelete,
+	options = EMPTY_ARRAY,
+	maxInitialChips = 8,
+	ref,
+}: ChipListProps): ReactElement => {
 
 	if (maxInitialChips < 1) {
 		throw new Error("ChipList `maxInitialChips` prop must be more than 0.");
@@ -58,8 +58,6 @@ const ChipList = forwardRef<HTMLDivElement, ChipListProps>((props, ref): ReactEl
 			)}
 		</div>
 	);
-});
-
-ChipList.displayName = "ChipList";
+};
 
 export default memo(ChipList);

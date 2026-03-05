@@ -4,6 +4,8 @@ import failOnConsole from "vitest-fail-on-console";
 
 failOnConsole();
 
+globalThis.MUI_TEST_ENV = true;
+
 Range.prototype.getBoundingClientRect = () => ({
 	bottom: 0,
 	height: 0,

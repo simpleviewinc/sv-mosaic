@@ -64,8 +64,8 @@ const Form = ({
 	const { errors, disabled } = state;
 	const { moveToError } = stable;
 
-	const formContainerRef = useRef<HTMLDivElement>();
-	const formContentRef = useRef<HTMLDivElement>();
+	const formContainerRef = useRef<HTMLDivElement>(undefined);
+	const formContentRef = useRef<HTMLDivElement>(undefined);
 
 	const {
 		registerRef,
