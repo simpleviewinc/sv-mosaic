@@ -47,7 +47,7 @@ function ImageSelectionField(props: any) {
 		>
 			<Grid container spacing={2}>
 				{imageUrls.map(url => (
-					<Grid key={url} item xs={4}>
+					<Grid key={url} size={4}>
 						<MediaGalleryItem>
 							<MediaGalleryImage
 								src={url}

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
@@ -12,7 +12,7 @@ import { TableRow } from "./DataViewTr.styled";
 import Button from "@root/components/Button";
 import testIds from "@root/utils/testIds";
 
-const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
+const DataViewTrStatic = ({
 	checked,
 	onReorder,
 	disabled,
@@ -26,8 +26,9 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 	row,
 	isDragOverlay,
 	style,
+	ref,
 	...props
-}, ref) => {
+}: DataViewTrProps) => {
 	return (
 		<TableRow
 			style={style}
@@ -87,9 +88,7 @@ const DataViewTrStatic = forwardRef<HTMLTableRowElement, DataViewTrProps>(({
 			})}
 		</TableRow>
 	);
-});
-
-DataViewTrStatic.displayName = "DataViewTrStatic";
+};
 
 export function DataViewTrSortable(props: DataViewTrDndProps) {
 	const {

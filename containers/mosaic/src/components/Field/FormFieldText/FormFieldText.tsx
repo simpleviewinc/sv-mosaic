@@ -29,7 +29,7 @@ const TextField = (
 	const prefix = fieldDef?.inputSettings?.prefixElement;
 
 	const InputProps = useMemo(() => {
-		const props: TextFieldProps["InputProps"] = {
+		const props: TextFieldProps["slotProps"]["input"] = {
 			inputRef,
 			inputProps: {
 				"aria-label": fieldDef.label,

@@ -2,12 +2,13 @@ import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { MenuItemProps } from "../MenuItem";
 import type { WebTarget } from "styled-components";
 import type { MenuProps } from "../Menu/MenuTypes";
-import type { CSSProperties } from "react";
+import type { CSSProperties, Ref } from "react";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 
 export type ButtonIntent = "primary" | "secondary" | "tertiary" | "info" | "specialized" | "danger";
 export interface ButtonProps {
+	ref?: Ref<HTMLButtonElement>;
 	name?: string;
 	label?: string | JSX.Element;
 	className?: string;

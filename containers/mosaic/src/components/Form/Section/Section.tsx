@@ -50,7 +50,7 @@ const Section = (props: SectionPropTypes) => {
 	}, [collapsed, fieldsHaveErrors]);
 
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
-	const ref = useRef<HTMLDivElement>();
+	const ref = useRef<HTMLDivElement>(undefined);
 
 	useEffect(() => {
 		if (!fieldsHaveErrors()) {
@@ -117,7 +117,5 @@ const Section = (props: SectionPropTypes) => {
 		</CardWrapper>
 	);
 };
-
-Section.displayName = "Section";
 
 export default memo(Section);

@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactElement } from "react";
+import type { CSSProperties, ReactElement, Ref } from "react";
 import type { Property } from "csstype";
 
 import type { MosaicObject, MosaicCallback, MosaicLabelValue, MosaicToggle } from "@root/types";
@@ -133,6 +133,7 @@ export type OnViewSaveAs = () => Promise<void> | void;
 export type OnViewList = () => Promise<void> | void;
 
 export interface DataViewProps<D extends DataViewRowData = DataViewRowData> {
+	ref?: Ref<HTMLDivElement>;
 	attrs?: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>;
 	title?: string;
 	loading?: boolean;

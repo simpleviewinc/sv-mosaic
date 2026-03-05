@@ -38,7 +38,7 @@ const Field = ({
 	}
 
 	const disabled = useWrappedToggle(field, state, "disabled", false);
-	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>();
+	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>(undefined);
 
 	const onChange = useCallback((value: any, options: any = {}) => {
 		field.onChangeCb && field.onChangeCb();
