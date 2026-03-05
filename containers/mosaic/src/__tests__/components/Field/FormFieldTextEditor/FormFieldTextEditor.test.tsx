@@ -12,7 +12,7 @@ import { FormFieldTextEditor } from "@root/components/Field/FormFieldTextEditor/
 import testIds from "@root/utils/testIds";
 
 vi.mock("@monaco-editor/react", () => {
-	const FakeEditor = jest.fn(props => {
+	const FakeEditor = vi.fn(props => {
 		return (
 			<textarea
 				onChange={e => props.onChange(e.target.value)}
