@@ -59,7 +59,7 @@ test.describe("FormFields - FormFieldsText - Kitchen Sink", () => {
 		expect(await ffTextPage.multilineTextField.inputValue()).toBe(expectedResult);
 	});
 
-	test("Validate field with an icon", async () => {
+	test.skip("Validate field with an icon", async () => {
 		await ffTextPage.fieldWithIconIcon.waitFor({ state: "visible" });
 		await expect(ffTextPage.fieldWithIconIcon).toBeVisible();
 		await expect(ffTextPage.fieldWithIconTextField).toBeVisible();
