@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 import type { DataViewTBodyProps } from "./DataViewTBodyTypes";
@@ -30,9 +30,9 @@ const StyledTBody = styled.tbody`
 	}
 `;
 
-const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((props, ref) => (
+const DataViewTBody = (props: DataViewTBodyProps) => (
 	<StyledTBody
-		ref={ref}
+		ref={props.ref}
 		data-testid={testIds.DATA_VIEW_TBODY}
 	>
 		{props.transformedData.map((row, i) => (
@@ -52,8 +52,6 @@ const DataViewTBody = forwardRef<HTMLTableSectionElement, DataViewTBodyProps>((p
 			/>
 		))}
 	</StyledTBody>
-));
-
-DataViewTBody.displayName = "DataViewTBody";
+);
 
 export default memo(DataViewTBody);

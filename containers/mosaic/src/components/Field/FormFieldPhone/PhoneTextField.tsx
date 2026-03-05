@@ -1,15 +1,16 @@
-import type { ComponentProps, FocusEventHandler } from "react";
-import React, { memo, forwardRef, useCallback, useContext } from "react";
+import type { ComponentPropsWithRef, FocusEventHandler } from "react";
+import React, { memo, useCallback, useContext } from "react";
 
 import { StyledPhoneTextField } from "./FormFieldPhone.styled";
 import FormFieldPhoneContext from "./FormFieldPhoneContext";
 import { useSpreadRefs } from "@root/utils/hooks";
 
-const PhoneTextField = forwardRef<HTMLInputElement, ComponentProps<"input"> & { countryCodeEditable: boolean }>(function PhoneTextField({
+const PhoneTextField = function PhoneTextField({
 	onFocus,
 	countryCodeEditable: _,
+	ref,
 	...props
-}, ref) {
+}: ComponentPropsWithRef<"input"> & { countryCodeEditable: boolean }) {
 	const { id, disabled, error, onBlur, setHasFocus, inputRef } = useContext(FormFieldPhoneContext);
 	const setRef = useSpreadRefs([inputRef, ref]);
 
@@ -34,11 +35,11 @@ const PhoneTextField = forwardRef<HTMLInputElement, ComponentProps<"input"> & { 
 			id={id}
 			error={error}
 			disabled={disabled}
-			InputProps={{ inputRef: setRef, inputProps: props }}
+			slotProps={{ input: { inputRef: setRef, inputProps: props } }}
 			onFocus={_onFocus}
 			onBlur={_onBlur}
 		/>
 	);
-});
+};
 
 export default memo(PhoneTextField);

@@ -22,7 +22,7 @@ const StyledTable = styled.table`
 `;
 
 function DataViewDisplayList(props: DataViewDisplayListProps) {
-	const tBodyRef = useRef<HTMLTableSectionElement>();
+	const tBodyRef = useRef<HTMLTableSectionElement>(undefined);
 	const { rowActions } = props;
 	// execute the transforms in the rows
 	const transformedData = useMemo(() => {

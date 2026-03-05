@@ -22,7 +22,7 @@ const Chip = ({
 	variant: providedVariant,
 	...props
 }: ChipsProps & HTMLAttributes<HTMLDivElement>): ReactElement => {
-	const ref = useRef<HTMLDivElement>();
+	const ref = useRef<HTMLDivElement>(undefined);
 	const variant =
 		providedVariant !== undefined ? providedVariant :
 		(selected ? "primary" : "secondary");

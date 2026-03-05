@@ -98,12 +98,14 @@ const Map = (props: MapProps): ReactElement => {
 				placeholder="Type a location, address or city…"
 				googleMapsApiKey={googleMapsApiKey}
 				textField={{
-					InputProps: {
-						endAdornment: (
-							<InputAdornment position="end">
-								<StyledClearIcon data-testid="location-search-clear-icon" onClick={clearValue} />
-							</InputAdornment>
-						),
+					slotProps: {
+						input: {
+							endAdornment: (
+								<InputAdornment position="end">
+									<StyledClearIcon data-testid="location-search-clear-icon" onClick={clearValue} />
+								</InputAdornment>
+							),
+						},
 					},
 				}}
 			/>

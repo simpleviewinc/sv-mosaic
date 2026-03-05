@@ -23,16 +23,18 @@ function PhoneCodeAutocomplete({
 	value,
 }: PhoneCodeAutocompleteProps): ReactElement {
 	const { setAutocompleteOpen } = useContext(FormFieldPhoneContext);
-	const autocompleteInputRef = useRef<HTMLInputElement>();
+	const autocompleteInputRef = useRef<HTMLInputElement>(undefined);
 
 	const autocompleteProps = useMemo<Omit<AutocompleteProps, "options">>(() => {
 		return {
 			renderInput: (props: AutocompleteRenderInputParams) => (
 				<StyledTextField
 					{...props}
-					InputProps={{
-						inputRef: autocompleteInputRef, ...props.InputProps,
-						startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+					slotProps={{
+						input: {
+							inputRef: autocompleteInputRef, ...props.InputProps,
+							startAdornment: <InputAdornment position="start"><SearchIcon /></InputAdornment>,
+						},
 					}}
 				/>
 			),
@@ -42,7 +44,7 @@ function PhoneCodeAutocomplete({
 				<StyledNonPopper {...props}>{isReactNode(children) ? children : children({ placement })}</StyledNonPopper>
 			),
 			PaperComponent: (props) => <StyledPopperPaper {...props} $hideShadow />,
-			ListboxComponent: StyledPopperListbox,
+			ListboxComponent: (props) => <StyledPopperListbox {...props} />,
 			isOptionEqualToValue: (option, value) => isLabelValue(option) && isLabelValue(value) && option.value === value.value,
 			renderOption: ({ key: _, ...props }, option, __, { getOptionKey, getOptionLabel }) => {
 				const value = String(getOptionKey(option));

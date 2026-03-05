@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, Ref } from "react";
 import type { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewTrProps {
@@ -15,6 +15,7 @@ export interface DataViewTrProps {
 	row?: Record<string, any>;
 	style?: CSSProperties;
 	isDragOverlay?: boolean;
+	ref?: Ref<HTMLTableRowElement>;
 }
 
 export type DataViewTrDndProps = DataViewTrProps;

@@ -31,7 +31,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 	const { addWait } = methods || {};
 	const generatedId = useId();
 	const id = providedId || generatedId;
-	const inputRef = useRef<HTMLInputElement | undefined>();
+	const inputRef = useRef<HTMLInputElement | undefined>(undefined);
 
 	const {
 		limit = -1,

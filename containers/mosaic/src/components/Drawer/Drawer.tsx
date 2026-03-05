@@ -25,7 +25,7 @@ const Drawer = (props: DrawerProps): ReactElement => {
 		backdropCloseHandler = true,
 	} = props;
 
-	const prevStyleRef = useRef<typeof anchorstyle>();
+	const prevStyleRef = useRef<typeof anchorstyle>(undefined);
 	useEffect(() => {
 		prevStyleRef.current = anchorstyle;
 	}, [anchorstyle]);
