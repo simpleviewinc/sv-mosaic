@@ -1,10 +1,9 @@
 import * as React from "react";
 import type { ReactElement, ChangeEvent } from "react";
 import { useState } from "react";
-import RadioGroup from "@mui/material/RadioGroup";
 
 // Components
-import RadioButton from "#mosaic/components/RadioButton";
+import RadioButton, { RadioGroup } from "#mosaic/components/RadioButton";
 
 export default {
 	title: "Components/RadioButton",
