@@ -1,1 +1,0 @@
-import{r}from"./DefaultPropsProvider-t4VZgs2P.js";import{r as n}from"./index-CDlOlYQx.js";function c(s){const{theme:e,name:o,props:t}=s;return!e||!e.components||!e.components[o]||!e.components[o].defaultProps?t:r(e.components[o].defaultProps,t)}const m=typeof window<"u"?n.useLayoutEffect:n.useEffect;export{c as g,m as u};
