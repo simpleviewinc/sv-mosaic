@@ -1,12 +1,36 @@
 # sv-mosaic changelog
 
-### 45.2.1 - 02/04/2025
+### 46.0.0 - 03/16/2026
+
+* `Form`
+
+  * [MOS-1437](https://jira.granicus.com/browse/MOS-1437) **Incorrect Anchor Behavior**
+    * Incorrect scrolling behaviour was inadvertently fixed in[~MOS-1692~](https://jira.granicus.com/browse/MOS-1692 "Minor memory leak in useScrollTo")
+* `RadioButton`
+
+  * [MOS-1406](https://jira.granicus.com/browse/MOS-1406) **Multi select on Group RadioButtons in Group**
+    * Re-export MUI's RadioGroup from the library to ensure the context can be correctly shared by consumers.
+* Housekeeping
+
+  * [MOS-1846](https://jira.granicus.com/browse/MOS-1846) **Upgrade to React 19**
+    * **(BREAKING CHANGE)** Upgraded React and React DOM libraries to
+      19.2.4. Peer dependencies have been updated and therefore consumer
+      dependencies should upgrade their React versions accordingly.
+    * Update React and TypeScript types in various components; refactor
+      to remove unnecessary forwardRef usage and ensure proper ref handling.
+  * [MOS-1847](https://jira.granicus.com/browse/MOS-1847)
+    * **(BREAKING CHANGE)** Upgrade MUI packages. Drop @mui/styles
+      from dependencies. Migrate all applicable props to MUI7. Consumers
+      should upgrade your @mui/* libraries to match the versions listed in
+      peerDependencies.
+
+### 45.2.1 - 02/04/2026
 
 * `Card`
   * [MOS-1768](https://jira.granicus.com/browse/MOS-1768) **Empty Cards do not have shadows and on filled cards corners not rounded**
     * (Card) Move background color to the card wrapper rather than the content to avoid leaking out of rounded corners.
 
-### 45.2.0 - 01/20/2025
+### 45.2.0 - 01/20/2026
 
 * `DataView`
 
