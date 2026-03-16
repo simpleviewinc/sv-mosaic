@@ -1,1 +1,0 @@
-import{r as n}from"./index-lnx8lKqn.js";import{T as o}from"./identifier-DL_MWCt5.js";function r(t){return Object.keys(t).length===0}function u(t=null){const e=n.useContext(o);return!e||r(e)?t:e}export{u};
