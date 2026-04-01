@@ -16,7 +16,7 @@ jobs:
     description: Runs Mosaic library unit tests
     docker:
       - image: cimg/base:current
-    resource_class: large
+    resource_class: medium
     steps:
       - init
       - run:
@@ -26,7 +26,7 @@ jobs:
     description: Spins up a web server to serve static Storybook files and runs E2E tests against it using Playwright
     docker:
       - image: cimg/base:current
-    resource_class: large
+    resource_class: medium
     steps:
       - init
       - run:
@@ -57,7 +57,7 @@ jobs:
     description: Checks in the static storybook files to the simpleviewinc/sv-mosaic GitHub repo which triggers a GitHub pages build
     docker:
       - image: cimg/base:current
-    resource_class: large
+    resource_class: medium
     steps:
       - init
       - add_ssh_keys:
@@ -77,7 +77,7 @@ jobs:
     description: Publishes distribution files to both @simpleview/sv-mosaic and @simpleview/sv-mosaic-types on NPM
     docker:
       - image: cimg/base:current
-    resource_class: large
+    resource_class: medium
     steps:
       - init
       - run:
