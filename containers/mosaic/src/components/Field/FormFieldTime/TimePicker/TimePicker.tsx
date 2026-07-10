@@ -33,7 +33,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 	};
 
 	return (
-		<LocalizationProvider dateAdapter={AdapterDateFns}>
+		<LocalizationProvider dateAdapter={AdapterDateFns} localeText={{ fieldMeridiemPlaceholder: () => "AM/PM" }}>
 			<ThemeProvider theme={customTheme}>
 				<TimePicker
 					enableAccessibleFieldDOMStructure={false}
