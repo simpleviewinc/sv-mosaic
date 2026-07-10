@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from "@root/theme";
-import { StyledTextField } from "../../FormFieldText/FormFieldText.styled";
+import { MosaicPickersTextField } from "../../FormFieldText/FormFieldTextPickers.styled";
 
 export const popperSx = {
 	"& .MuiPaper-root": {
@@ -43,6 +43,6 @@ export const popperSx = {
 	},
 };
 
-export const DatePickerTextField = styled(StyledTextField)`
+export const DatePickerTextField = styled(MosaicPickersTextField)`
 	width: 100%;
 `;

@@ -34,7 +34,7 @@ describe(__dirname, () => {
 	it("should render a datepicker field", async () => {
 		await setup();
 
-		expect(screen.queryByRole("textbox")).toBeInTheDocument();
+		expect(screen.queryAllByRole("spinbutton").length).toBeGreaterThan(0);
 		expect(screen.queryByRole("button", { name: "Choose date" })).toBeInTheDocument();
 	});
 

@@ -23,7 +23,7 @@ function setup({ value }: { value?: TimeData } = {}) {
 		/>,
 	);
 
-	const input = screen.getByRole("textbox");
+	const [input] = screen.getAllByRole("spinbutton");
 	expect(input).toBeInTheDocument();
 
 	return { onChange, input, user };
