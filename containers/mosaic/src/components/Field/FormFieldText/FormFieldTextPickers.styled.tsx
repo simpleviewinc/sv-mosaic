@@ -11,9 +11,9 @@ import theme from "@root/theme";
  *
  * Class name mapping from StyledTextField (legacy) → PickersTextField (accessible):
  *   .MuiInputBase-root           → .MuiPickersInputBase-root
- *   &.Mui-error                  → &.MuiPickersInputBase-error
- *   &.Mui-focused                → &.MuiPickersInputBase-focused
- *   &.Mui-disabled               → &.MuiPickersInputBase-disabled
+ *   &.Mui-error                  → &.Mui-error
+ *   &.Mui-focused                → &.Mui-focused
+ *   &.Mui-disabled               → &.Mui-disabled
  *   .MuiInputBase-input          → .MuiPickersInputBase-sectionsContainer
  *   &.MuiInputBase-adornedStart  → &.MuiPickersInputBase-adornedStart
  *   &.MuiInputBase-adornedEnd    → &.MuiPickersInputBase-adornedEnd
@@ -22,7 +22,13 @@ export const MosaicPickersTextField = styled(PickersTextField)`
 	--border: var(--mos-border-medium);
 	--shadow: var(--mos-shadow-sm);
 
-	.MuiPickersInputBase-root {
+	/*
+	 * Use && to beat MUI X PickersOutlinedInput defaults, which apply their own
+	 * border/borderColor on .MuiPickersOutlinedInput-notchedOutline for hover,
+	 * focus (borderWidth: 2), and error states.
+	 */
+	&& .MuiPickersInputBase-root,
+	&& .MuiPickersOutlinedInput-root {
 		z-index: 1;
 		padding: 0;
 
@@ -33,7 +39,8 @@ export const MosaicPickersTextField = styled(PickersTextField)`
 			height: auto;
 		}
 
-		fieldset {
+		fieldset,
+		.MuiPickersOutlinedInput-notchedOutline {
 			background-color: ${theme.color.white};
 			border: 0;
 			border-radius: ${theme.rounded.md};
@@ -46,32 +53,37 @@ export const MosaicPickersTextField = styled(PickersTextField)`
 			}
 		}
 
-		&.MuiPickersInputBase-error {
-			fieldset {
+		&.Mui-error {
+			fieldset,
+			.MuiPickersOutlinedInput-notchedOutline {
 				background-color: ${theme.color.red[25]};
 				--border: var(--mos-border-danger);
 			}
 		}
 
-		&:not(.MuiPickersInputBase-error):not(.MuiPickersInputBase-disabled) {
+		&:not(.Mui-error):not(.Mui-disabled) {
 			&:hover {
-				fieldset {
+				fieldset,
+				.MuiPickersOutlinedInput-notchedOutline {
 					--border: var(--mos-border-dark);
 				}
 			}
 		}
 
-		&.MuiPickersInputBase-focused {
+		&.Mui-focused {
 			z-index: 2;
 
-			fieldset {
+			fieldset,
+			.MuiPickersOutlinedInput-notchedOutline {
+				border: 0;
 				outline: 2px solid ${theme.color.gray[700]};
 				outline-offset: 3px;
 			}
 		}
 
-		&.MuiPickersInputBase-disabled {
-			fieldset {
+		&.Mui-disabled {
+			fieldset,
+			.MuiPickersOutlinedInput-notchedOutline {
 				--border: var(--mos-border-light);
 			}
 		}
