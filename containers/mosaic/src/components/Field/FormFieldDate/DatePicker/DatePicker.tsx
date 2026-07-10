@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
-import React, { useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import format from "date-fns/format";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,9 +11,16 @@ import type { DatePickerProps } from ".";
 
 import { DatePickerTextField, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
+import { createContainedBlurHandler } from "../../utils/createContainedBlurHandler";
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
 	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
+
+	const containerRef = useRef<HTMLDivElement>(null);
+	const handleBlur = useMemo(
+		() => createContainedBlurHandler(containerRef, onBlur),
+		[onBlur],
+	);
 
 	const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -35,7 +42,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			<div data-testid="date-picker-test-id">
+			<div ref={containerRef} data-testid="date-picker-test-id">
 				<DesktopDatePicker
 					format={DATE_FORMAT_FULL}
 					value={value}
@@ -50,7 +57,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 					slotProps={{
 						textField: {
 							id,
-							onBlur,
+							onBlur: handleBlur,
 							required: Boolean(fieldDef.required),
 							disabled,
 							error: Boolean(error),
