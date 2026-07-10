@@ -44,7 +44,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("button", { name: "Choose date" })).toBeInTheDocument();
 	});
 
-	it("should fire the on change handler with a keyboard and an invalid date if manual entry is used", async () => {
+	it("should not fire the on change handler while manual entry is incomplete", async () => {
 		const onChangeMock = vi.fn();
 
 		const { user } = await setup({ onChange: onChangeMock });
@@ -52,10 +52,7 @@ describe(__dirname, () => {
 		const input = screen.queryByRole("textbox");
 		expect(input).toBeInTheDocument();
 		await user.type(input, "1");
-		expect(onChangeMock).toBeCalledWith({
-			date: new Date("Invalid Date"),
-			keyboardInputValue: "1",
-		});
+		expect(onChangeMock).not.toBeCalled();
 	});
 
 	it("should fire the on change handler with a keyboard and a valid date if manual entry is used", async () => {

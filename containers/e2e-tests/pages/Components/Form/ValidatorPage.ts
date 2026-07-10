@@ -43,11 +43,11 @@ export class ValidatorPage extends BasePage {
 		this.endDateInput = page.locator("#endDate input");
 		this.endDateButton = page.locator("#endDate button");
 		this.inputError = page.locator(".Mui-error");
-		this.calendarPicker = page.locator(".MuiCalendarPicker-root");
+		this.calendarPicker = page.locator(".MuiDateCalendar-root");
 		this.rightArrowCalendar = page.locator("[data-testid='ArrowRightIcon']");
 		this.leftArrowCalendar = page.locator("[data-testid='ArrowLeftIcon']");
 		this.yearArrowCalendar = page.locator("[role='presentation'] .MuiIconButton-root.MuiIconButton-sizeSmall");
-		this.monthCalendar = page.locator("[role='presentation'] .PrivatePickersFadeTransitionGroup-root").nth(0);
+		this.monthCalendar = page.locator("[role='presentation'] .MuiPickersFadeTransitionGroup-root").nth(0);
 	}
 
 	async getDateIcon(field: Locator): Promise<Locator> {

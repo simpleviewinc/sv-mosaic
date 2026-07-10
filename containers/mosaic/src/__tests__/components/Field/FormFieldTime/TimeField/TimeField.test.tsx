@@ -36,7 +36,7 @@ describe("TimeField component", () => {
 				time: new Date("2022-01-01T18:30:00.000Z"),
 			},
 		});
-		expect(screen.getByDisplayValue("06:30 pm")).toBeInTheDocument();
+		expect(screen.getByDisplayValue("06:30 PM")).toBeInTheDocument();
 	});
 	it.skip("Should emit the correct date object with a valid input", async () => {
 		const { input, onChange, user } = setup();

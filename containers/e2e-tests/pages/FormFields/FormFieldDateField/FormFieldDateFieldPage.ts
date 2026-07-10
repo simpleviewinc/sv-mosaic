@@ -38,8 +38,8 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
 		this.dateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(2);
 		this.hourMinutesOption = this.roleOptionLocator;
-		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
-		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
+		this.hourAMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(0);
+		this.hourPMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(1);
 
 		this.requiredDateTimeInput = page.locator("input").nth(5);
 		this.requiredDateHourInput = page.locator("input").nth(6);
