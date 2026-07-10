@@ -37,7 +37,6 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<div data-testid="date-picker-test-id">
 				<DesktopDatePicker
-					enableAccessibleFieldDOMStructure={false}
 					format={DATE_FORMAT_FULL}
 					value={value}
 					onChange={handleChange}
@@ -55,7 +54,6 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 							required: Boolean(fieldDef.required),
 							disabled,
 							error: Boolean(error),
-							placeholder: fieldDef?.inputSettings?.placeholder,
 							inputProps: {
 								"aria-label": fieldDef.label,
 							},

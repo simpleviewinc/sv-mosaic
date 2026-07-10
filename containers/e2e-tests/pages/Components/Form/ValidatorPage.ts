@@ -38,6 +38,8 @@ export class ValidatorPage extends BasePage {
 		this.slowField = page.locator("input#slow-input");
 		this.numberField = page.locator("input#number-input");
 		this.urlField = page.locator("input#url-input");
+		// In the accessible field DOM structure, the picker renders a hidden <input> that
+		// holds the formatted value — suitable for inputValue() assertions.
 		this.startDateInput = page.locator("#startDate input");
 		this.startDateButton = page.locator("#startDate button");
 		this.endDateInput = page.locator("#endDate input");

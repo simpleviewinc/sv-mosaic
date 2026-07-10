@@ -14,7 +14,7 @@ import { customTheme } from "./TimePicker.styled";
 import type { MosaicFieldProps } from "@root/components/Field";
 import type { TimePickerDef, TimePickerData } from "./TimePickerTypes";
 import { ThemeProvider } from "@mui/material/styles";
-import { StyledTextField } from "../../FormFieldText/FormFieldText.styled";
+import { MosaicPickersTextField } from "../../FormFieldText/FormFieldTextPickers.styled";
 import { TIME_FORMAT_FULL } from "@root/constants";
 
 const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {
@@ -36,7 +36,6 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 		<LocalizationProvider dateAdapter={AdapterDateFns} localeText={{ fieldMeridiemPlaceholder: () => "AM/PM" }}>
 			<ThemeProvider theme={customTheme}>
 				<TimePicker
-					enableAccessibleFieldDOMStructure={false}
 					value={value}
 					onChange={handleChange}
 					onClose={handleClose}
@@ -44,7 +43,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 					closeOnSelect
 					viewRenderers={{ hours: renderTimeViewClock, minutes: renderTimeViewClock }}
 					inputRef={inputRef as React.Ref<HTMLInputElement>}
-					slots={{ textField: StyledTextField }}
+					slots={{ textField: MosaicPickersTextField }}
 					slotProps={{
 						textField: {
 							id,
@@ -52,7 +51,6 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 							required: Boolean(fieldDef.required),
 							disabled,
 							error: Boolean(error),
-							placeholder: fieldDef?.inputSettings?.placeholder,
 							inputProps: {
 								"aria-label": fieldDef.label,
 							},

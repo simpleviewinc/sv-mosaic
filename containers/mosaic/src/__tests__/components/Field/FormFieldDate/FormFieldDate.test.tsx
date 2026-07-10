@@ -40,19 +40,25 @@ describe(__dirname, () => {
 	it("should render a date field", async () => {
 		await setup();
 
-		expect(screen.queryByRole("textbox")).toBeInTheDocument();
+		expect(screen.queryAllByRole("spinbutton").length).toBeGreaterThan(0);
 		expect(screen.queryByRole("button", { name: "Choose date" })).toBeInTheDocument();
 	});
 
-	it("should not fire the on change handler while manual entry is incomplete", async () => {
+	it("should not fire the on change handler with a valid date while manual entry is incomplete", async () => {
 		const onChangeMock = vi.fn();
 
 		const { user } = await setup({ onChange: onChangeMock });
 
-		const input = screen.queryByRole("textbox");
-		expect(input).toBeInTheDocument();
-		await user.type(input, "1");
-		expect(onChangeMock).not.toBeCalled();
+		const monthSection = screen.getByRole("spinbutton", { name: /month/i });
+		await user.click(monthSection);
+		await user.keyboard("1");
+
+		// Typing a single digit leaves the date incomplete — onChange may be called
+		// with null but must not be called with a complete valid Date object.
+		const calledWithValidDate = onChangeMock.mock.calls.some(
+			([arg]) => arg?.date instanceof Date && !isNaN(arg.date.getTime()),
+		);
+		expect(calledWithValidDate).toBe(false);
 	});
 
 	it("should fire the on change handler with a keyboard and a valid date if manual entry is used", async () => {
@@ -60,11 +66,13 @@ describe(__dirname, () => {
 
 		const { user } = await setup({ onChange: onChangeMock });
 
-		const input = screen.queryByRole("textbox");
-		expect(input).toBeInTheDocument();
-		await user.click(input);
+		// In the accessible structure, MUI X's paste handler accepts a full date string and
+		// parses it into the sections when the pasted text is not purely letters or digits.
+		const monthSection = screen.getByRole("spinbutton", { name: /month/i });
+		await user.click(monthSection);
 		await user.paste("01/01/2024");
-		expect(onChangeMock).toBeCalledWith({
+
+		expect(onChangeMock).toHaveBeenCalledWith({
 			date: new Date("2024/01/01"),
 			keyboardInputValue: "01/01/2024",
 		});
@@ -94,7 +102,7 @@ describe(__dirname, () => {
 	it("should render the skeleton components if skeleton is truthy", async () => {
 		await setup({ skeleton: true });
 
-		expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+		expect(screen.queryAllByRole("spinbutton").length).toBe(0);
 		expect(screen.queryByRole("button", { name: "Choose date" })).not.toBeInTheDocument();
 		expect(screen.queryByTestId(testIds.FORM_FIELD_SKELETON)).toBeInTheDocument();
 	});
