@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
+import type { PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
 import React, { useState } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import format from "date-fns/format";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
@@ -23,39 +25,45 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		}
 	};
 
-	const renderInput = (params) => (
-		<DatePickerTextField
-			{...params}
-			id={id}
-			onBlur={onBlur}
-			required={fieldDef.required}
-			disabled={disabled}
-			error={error}
-			inputProps={{
-				...params.inputProps,
-				ref: inputRef,
-				placeholder: fieldDef?.inputSettings?.placeholder,
-				"aria-label": fieldDef.label,
-			}}
-		/>
-	);
+	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<DateValidationError>) => {
+		const keyboardInputValue = context.source !== "view" && newValue
+			? format(newValue, DATE_FORMAT_FULL)
+			: undefined;
+
+		onChange(newValue, keyboardInputValue);
+	};
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			<div data-testid="date-picker-test-id">
 				<DesktopDatePicker
-					renderInput={renderInput}
-					inputFormat={DATE_FORMAT_FULL}
+					enableAccessibleFieldDOMStructure={false}
+					format={DATE_FORMAT_FULL}
 					value={value}
-					onChange={onChange}
+					onChange={handleChange}
 					onOpen={handleOpenState}
 					onClose={handleOpenState}
-					PopperProps={{
-						sx: popperSx,
-					}}
 					minDate={fieldDef?.inputSettings?.minDate}
 					maxDate={fieldDef?.inputSettings?.maxDate}
 					disabled={disabled}
+					inputRef={inputRef as React.Ref<HTMLInputElement>}
+					slots={{ textField: DatePickerTextField }}
+					slotProps={{
+						textField: {
+							id,
+							onBlur,
+							required: Boolean(fieldDef.required),
+							disabled,
+							error: Boolean(error),
+							placeholder: fieldDef?.inputSettings?.placeholder,
+							inputProps: {
+								"aria-label": fieldDef.label,
+							},
+						},
+						popper: {
+							sx: popperSx,
+						},
+					}}
 				/>
 			</div>
 		</LocalizationProvider>
