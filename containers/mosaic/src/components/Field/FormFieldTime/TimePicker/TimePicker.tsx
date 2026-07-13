@@ -71,6 +71,10 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 		onBlur && onBlur();
 	}, [onBlur, syncPartialFillState, value]);
 
+	const handleClear = useCallback(() => {
+		onChange?.(null, undefined, { isPartiallyFilled: false });
+	}, [onChange]);
+
 	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<TimeValidationError>) => {
 		const keyboardInputValue = context.source !== "view" && isValid(newValue)
 			? format(newValue, TIME_FORMAT_FULL)
@@ -94,8 +98,13 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 						inputRef={inputRef as React.Ref<HTMLInputElement>}
 						slots={{ textField: MosaicPickersTextField }}
 						slotProps={{
-							// MUI accepts unstableFieldRef on the field, but omits it from PickerFieldSlotProps.
-							field: { unstableFieldRef: fieldRef } as object,
+							field: {
+								clearable: true,
+								onClear: handleClear,
+								// Supported by the field at runtime; omitted from PickerFieldSlotProps typing.
+								// @ts-expect-error unstableFieldRef is not in PickerFieldSlotProps
+								unstableFieldRef: fieldRef,
+							},
 							textField: {
 								id,
 								onBlur: handleBlur,
