@@ -10,6 +10,7 @@ export function getInitialState(): FormState {
 		submitWarning: { open: false, lead: "", reasons: [] },
 		waits: [],
 		skeleton: false,
+		inputRevision: 0,
 	};
 }
 

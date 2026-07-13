@@ -96,6 +96,7 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		skeleton,
 		disabled,
 		validate,
+		resetInputs,
 	}) => {
 		const internalValues = getFieldInternalValues(values, getFields({ stable: stable.current, path }));
 		/**
@@ -105,6 +106,10 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		 */
 		stable.current.data = path.length ? set(path, values, stable.current.data) : values;
 		stable.current.internalData = path.length ? set(path, internalValues, stable.current.internalData) : internalValues;
+
+		if (resetInputs) {
+			stable.current.inputRevision += 1;
+		}
 
 		if (skeleton !== undefined) {
 			stable.current.skeleton = skeleton;
@@ -127,6 +132,7 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 			internalValues: stable.current.internalData,
 			skeleton,
 			disabled,
+			inputRevision: resetInputs ? stable.current.inputRevision : undefined,
 		});
 	}, []);
 
@@ -159,6 +165,7 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		const { initialData, fields } = stable.current;
 		const values = { ...initialData };
 		const internalValues = getFieldInternalValues(initialData, fields);
+		const inputRevision = stable.current.inputRevision + 1;
 
 		stable.current = {
 			...getInitialState(),
@@ -167,12 +174,14 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 			data: values,
 			internalData: internalValues,
 			disabled: false,
+			inputRevision,
 		};
 
 		dispatch({
 			type: "RESET",
 			data: values,
 			internalData: internalValues,
+			inputRevision,
 		});
 	}, []);
 
