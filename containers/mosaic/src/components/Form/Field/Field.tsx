@@ -39,6 +39,7 @@ const Field = ({
 
 	const disabled = useWrappedToggle(field, state, "disabled", false);
 	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>(undefined);
+	const flushRef = useRef<(() => void) | null>(null);
 
 	const onChange = useCallback((value: any, options: any = {}) => {
 		field.onChangeCb && field.onChangeCb();
@@ -92,6 +93,7 @@ const Field = ({
 			id={`${(field.id ?? field.name)}-input`}
 			skeleton={skeleton}
 			path={path}
+			flushRef={needsInputReset ? flushRef : undefined}
 		/>
 	), [
 		Component,
@@ -107,6 +109,7 @@ const Field = ({
 		field.name,
 		skeleton,
 		path,
+		needsInputReset,
 	]);
 
 	if (!shouldShow) {
@@ -125,6 +128,7 @@ const Field = ({
 		inputRef: inputRef,
 		disabled: disabled,
 		skeleton: skeleton,
+		flushRef: needsInputReset ? flushRef : undefined,
 	};
 
 	return isCustomField ? (

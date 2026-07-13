@@ -153,6 +153,11 @@ export interface MountFieldParams {
 	path?: FieldPath;
 	fieldRef?: HTMLDivElement;
 	inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+	/**
+	 * Optional callback invoked before submit validation so fields can sync
+	 * UI-only state (e.g. partially filled date/time sections) into form data.
+	 */
+	flush?: () => void;
 }
 
 export type UnmountField = () => void;
@@ -225,7 +230,11 @@ export interface UseFormReturn {
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldObj>;
-	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
+	mounted: Record<string, false | {
+		fieldRef?: HTMLDivElement;
+		inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+		flush?: () => void;
+	}>;
 	hasBlurred: Record<string, boolean>;
 	hasSubmitted: boolean;
 	moveToError: boolean;

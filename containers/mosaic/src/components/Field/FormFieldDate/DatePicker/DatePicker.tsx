@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
-import type { PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
+import type { FieldRef, PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
-import React, { useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import format from "date-fns/format";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -12,15 +12,45 @@ import type { DatePickerProps } from ".";
 import { DatePickerTextField, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
 import { createContainedBlurHandler } from "../../utils/createContainedBlurHandler";
+import { getIsPartiallyFilled } from "../../utils/getIsPartiallyFilled";
 import { isValid } from "date-fns";
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error, flushRef } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const fieldRef = useRef<FieldRef<Date | null>>(null);
+
+	const syncPartialFillState = useCallback((
+		date: Date | null,
+		keyboardInputValue?: string,
+	) => {
+		const sections = fieldRef.current?.getSections() ?? [];
+		onChange?.(date, keyboardInputValue, {
+			isPartiallyFilled: getIsPartiallyFilled(sections),
+		});
+	}, [onChange]);
+
+	useEffect(() => {
+		if (!flushRef) {
+			return;
+		}
+
+		flushRef.current = () => {
+			syncPartialFillState(value);
+		};
+
+		return () => {
+			flushRef.current = null;
+		};
+	}, [flushRef, syncPartialFillState, value]);
+
 	const handleBlur = useMemo(
-		() => createContainedBlurHandler(containerRef, onBlur),
-		[onBlur],
+		() => createContainedBlurHandler(containerRef, () => {
+			syncPartialFillState(value);
+			onBlur?.();
+		}),
+		[onBlur, syncPartialFillState, value],
 	);
 
 	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<DateValidationError>) => {
@@ -28,7 +58,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 			? format(newValue, DATE_FORMAT_FULL)
 			: undefined;
 
-		onChange(newValue, keyboardInputValue);
+		syncPartialFillState(newValue, keyboardInputValue);
 	};
 
 	return (
@@ -45,12 +75,14 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 					inputRef={inputRef as React.Ref<HTMLInputElement>}
 					slots={{ textField: DatePickerTextField }}
 					slotProps={{
+						// MUI accepts unstableFieldRef on the field, but omits it from PickerFieldSlotProps.
+						field: { unstableFieldRef: fieldRef } as object,
 						textField: {
 							id,
 							onBlur: handleBlur,
 							required: Boolean(fieldDef.required),
 							disabled,
-							error: Boolean(error),
+							error: error ? true : undefined,
 							inputProps: {
 								"aria-label": fieldDef.label,
 							},

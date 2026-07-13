@@ -22,6 +22,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		inputRef,
 		skeleton,
 		id,
+		flushRef,
 	} = props;
 	const {
 		inputSettings: {
@@ -33,9 +34,18 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 	const value = useMemo(() => providedValue || {
 		date: null,
 		keyboardInputValue: undefined,
+		isPartiallyFilled: false,
 	}, [providedValue]);
 
-	const handleDateChange = (date: Date | null, keyboardInputValue?: string) => onChange({ date, keyboardInputValue });
+	const handleDateChange = (
+		date: Date | null,
+		keyboardInputValue?: string,
+		options?: { isPartiallyFilled?: boolean },
+	) => onChange({
+		date,
+		keyboardInputValue,
+		isPartiallyFilled: options?.isPartiallyFilled ?? false,
+	});
 
 	if (skeleton) {
 		return (
@@ -69,6 +79,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				onBlur={onBlur}
 				disabled={disabled}
 				inputRef={inputRef}
+				flushRef={flushRef}
 
 			/>
 		</DateTimePickerWrapper>
