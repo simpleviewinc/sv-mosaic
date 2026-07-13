@@ -97,6 +97,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * root field.
 	 */
 	path?: FieldPath;
+	/**
+	 * Optional ref that section-based fields assign a flush callback to.
+	 * Invoked before submit validation to sync UI-only state into form data.
+	 */
+	flushRef?: MutableRefObject<(() => void) | null>;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

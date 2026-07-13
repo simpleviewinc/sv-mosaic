@@ -308,6 +308,14 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 
 		stable.current.hasSubmitted = true;
 
+		/**
+		 * Let fields with UI-only state (e.g. partially filled date/time sections)
+		 * sync into form data before validation. Independent of validateOn timing.
+		 */
+		Object.values(stable.current.mounted).forEach((mounted) => {
+			mounted && mounted.flush?.();
+		});
+
 		const { count, errors } = await getFieldErrors({
 			stable: stable.current,
 		});
@@ -399,12 +407,13 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		};
 	}, [removeWait]);
 
-	const mountField = useCallback<MountField>(({ name, path = [], fieldRef, inputRef }) => {
+	const mountField = useCallback<MountField>(({ name, path = [], fieldRef, inputRef, flush }) => {
 		const key = [...path, name].join(".");
 
 		stable.current.mounted[key] = {
 			fieldRef,
 			inputRef,
+			flush,
 		};
 
 		return {

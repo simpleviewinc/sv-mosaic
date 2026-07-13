@@ -37,6 +37,11 @@ export interface DateFieldInputSettings {
 export interface DateData {
 	date: null | Date;
 	keyboardInputValue?: string;
+	/**
+	 * True when the section-based picker has some but not all sections filled.
+	 * Used to validate incomplete manual entry that never produces a Date.
+	 */
+	isPartiallyFilled?: boolean;
 }
 
 export type FieldDefDate = FieldDefBase<"date", DateFieldInputSettings>;

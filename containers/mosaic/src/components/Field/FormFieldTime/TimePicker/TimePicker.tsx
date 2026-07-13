@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import type { PickerChangeHandlerContext, TimeValidationError } from "@mui/x-date-pickers/models";
-import { useCallback, useMemo, useRef } from "react";
+import type { FieldRef, PickerChangeHandlerContext, TimeValidationError } from "@mui/x-date-pickers/models";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 
 import format from "date-fns/format";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,27 +17,66 @@ import { ThemeProvider } from "@mui/material/styles";
 import { MosaicPickersTextField } from "../../FormFieldText/FormFieldTextPickers.styled";
 import { TIME_FORMAT_FULL } from "@root/constants";
 import { createContainedBlurHandler } from "../../utils/createContainedBlurHandler";
+import { getIsPartiallyFilled } from "../../utils/getIsPartiallyFilled";
 import { isValid } from "date-fns";
 
-const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
+export interface TimePickerChangeOptions {
+	isPartiallyFilled?: boolean;
+}
+
+type TimePickerProps = Omit<MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>, "onChange"> & {
+	onChange?: (time: Date | null, keyboardInputValue?: string, options?: TimePickerChangeOptions) => void;
+};
+
+const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error, flushRef } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const fieldRef = useRef<FieldRef<Date | null>>(null);
+
+	const syncPartialFillState = useCallback((
+		time: Date | null,
+		keyboardInputValue?: string,
+	) => {
+		const sections = fieldRef.current?.getSections() ?? [];
+		onChange?.(time, keyboardInputValue, {
+			isPartiallyFilled: getIsPartiallyFilled(sections),
+		});
+	}, [onChange]);
+
+	useEffect(() => {
+		if (!flushRef) {
+			return;
+		}
+
+		flushRef.current = () => {
+			syncPartialFillState(value);
+		};
+
+		return () => {
+			flushRef.current = null;
+		};
+	}, [flushRef, syncPartialFillState, value]);
+
 	const handleBlur = useMemo(
-		() => createContainedBlurHandler(containerRef, onBlur),
-		[onBlur],
+		() => createContainedBlurHandler(containerRef, () => {
+			syncPartialFillState(value);
+			onBlur?.();
+		}),
+		[onBlur, syncPartialFillState, value],
 	);
 
 	const handleClose = useCallback(async () => {
+		syncPartialFillState(value);
 		onBlur && onBlur();
-	}, [onBlur]);
+	}, [onBlur, syncPartialFillState, value]);
 
 	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<TimeValidationError>) => {
 		const keyboardInputValue = context.source !== "view" && isValid(newValue)
 			? format(newValue, TIME_FORMAT_FULL)
 			: undefined;
 
-		onChange(newValue, keyboardInputValue);
+		syncPartialFillState(newValue, keyboardInputValue);
 	};
 
 	return (
@@ -55,12 +94,14 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 						inputRef={inputRef as React.Ref<HTMLInputElement>}
 						slots={{ textField: MosaicPickersTextField }}
 						slotProps={{
+							// MUI accepts unstableFieldRef on the field, but omits it from PickerFieldSlotProps.
+							field: { unstableFieldRef: fieldRef } as object,
 							textField: {
 								id,
 								onBlur: handleBlur,
 								required: Boolean(fieldDef.required),
 								disabled,
-								error: Boolean(error),
+								error: error ? true : undefined,
 								inputProps: {
 									"aria-label": fieldDef.label,
 								},
