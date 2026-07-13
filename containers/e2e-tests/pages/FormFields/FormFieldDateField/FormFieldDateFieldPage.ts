@@ -28,24 +28,49 @@ export class FormFieldDateFieldPage extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.singleDateCalendarInput = page.locator("input").nth(0);
+		// In the accessible field DOM structure, date/time pickers render a hidden <input>
+		// (aria-hidden, tabindex=-1) that holds the formatted value. That hidden input is
+		// not directly typeable, so use fillDatePicker() to enter values via section paste.
+		this.singleDateCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(0).locator("input");
 		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
 		this.calendarCell = page.locator("[role='row'] button");
 		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate");
 
-		this.dateTimeInput = page.locator("input").nth(1);
-		this.dateHourInput = page.locator("input").nth(2);
+		this.dateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(1).locator("input");
+		this.dateHourInput = page.locator("#dateTime-time-input");
 		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-		this.dateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(2);
+		this.dateHourInputCalendarButton = this.getTimeFieldContainer("dateTime").locator("button");
 		this.hourMinutesOption = this.roleOptionLocator;
-		this.hourAMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(2);
-		this.hourPMButton = page.locator("[role='dialog'] .MuiClockPicker-root button").nth(3);
+		this.hourAMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(0);
+		this.hourPMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(1);
 
-		this.requiredDateTimeInput = page.locator("input").nth(5);
-		this.requiredDateHourInput = page.locator("input").nth(6);
+		this.requiredDateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(3).locator("input");
+		this.requiredDateHourInput = page.locator("#requiredDateTime-time-input");
 		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(3);
-		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(6);
+		this.requiredDateHourInputCalendarButton = this.getTimeFieldContainer("requiredDateTime").locator("button");
 		this.dateFieldText = page.locator("#date p").first();
+	}
+
+	getTimeFieldContainer(fieldName: "dateTime" | "requiredDateTime"): Locator {
+		return this.page
+			.locator(`#${fieldName}-time-input`)
+			.locator("xpath=ancestor::*[@data-testid='field-test-id'][1]");
+	}
+
+	/**
+	 * Enter a date or time value into an accessible picker field by dispatching a paste
+	 * event directly on the first spinbutton section. MUI X's section paste handler
+	 * recognises full date/time strings (those containing "/" or ":") and delegates to
+	 * `updateValueFromValueStr` which parses and populates all sections at once.
+	 */
+	async fillDatePicker(container: Locator, value: string): Promise<void> {
+		const spinbutton = container.getByRole("spinbutton").first();
+		await spinbutton.click();
+		await spinbutton.evaluate((el, text) => {
+			const dataTransfer = new DataTransfer();
+			dataTransfer.setData("text/plain", text);
+			el.dispatchEvent(new ClipboardEvent("paste", { clipboardData: dataTransfer, bubbles: true }));
+		}, value);
 	}
 
 	async selectDayFromDatePicker(day:number): Promise<void> {

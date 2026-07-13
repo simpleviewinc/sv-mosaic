@@ -73,9 +73,11 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.errorMessageDates = page.locator("#rangeStart p");
 
 		this.fromCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
-		this.fromCalendarInput = page.locator("input[type='tel']").nth(0);
+		// The accessible field DOM structure uses a hidden <input> (not type="tel") to hold
+		// the formatted date value. Use container-scoped locators for stability.
+		this.fromCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(0).locator("input");
 		this.toCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-		this.toCalendarInput = page.locator("input[type='tel']").nth(1);
+		this.toCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(1).locator("input");
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {
