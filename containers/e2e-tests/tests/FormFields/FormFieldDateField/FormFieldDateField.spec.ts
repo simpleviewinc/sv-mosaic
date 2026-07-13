@@ -29,12 +29,12 @@ test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	test("Validate the Calendar Date and Time Input by writing the date and time.", async () => {
 		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const dateContainer = formFieldDateFieldPage.page.locator("[data-testid='date-picker-test-id']").nth(1);
-		const timeContainer = formFieldDateFieldPage.page.locator("[data-testid='field-test-id']").nth(0);
+		const timeContainer = formFieldDateFieldPage.getTimeFieldContainer("dateTime");
 		await formFieldDateFieldPage.fillDatePicker(dateContainer, todayDate);
-		await formFieldDateFieldPage.fillDatePicker(timeContainer, "07:30 AM");
+		await formFieldDateFieldPage.fillDatePicker(timeContainer, "07:30 am");
 		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.dateTimeInput.inputValue()).toBe(todayDate);
-		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe("07:30 AM");
+		expect(await formFieldDateFieldPage.dateHourInput.inputValue()).toBe("07:30 am");
 	});
 
 	test("Validate the Calendar Date and Time Input by selecting the date and time.", async () => {
@@ -55,12 +55,12 @@ test.describe("FormFields - FormFieldDateField - Kitchen Sink", () => {
 	test("Validate the Requiered Calendar Date and Time Input by writing the date and time.", async () => {
 		const todayDate = await formFieldDateFieldPage.getTodayDate();
 		const dateContainer = formFieldDateFieldPage.page.locator("[data-testid='date-picker-test-id']").nth(3);
-		const timeContainer = formFieldDateFieldPage.page.locator("[data-testid='field-test-id']").nth(3);
+		const timeContainer = formFieldDateFieldPage.getTimeFieldContainer("requiredDateTime");
 		await formFieldDateFieldPage.fillDatePicker(dateContainer, todayDate);
-		await formFieldDateFieldPage.fillDatePicker(timeContainer, "07:30 AM");
+		await formFieldDateFieldPage.fillDatePicker(timeContainer, "07:30 am");
 		await formFieldDateFieldPage.formTestIDLocator.click();
 		expect(await formFieldDateFieldPage.requiredDateTimeInput.inputValue()).toBe(todayDate);
-		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe("07:30 AM");
+		expect(await formFieldDateFieldPage.requiredDateHourInput.inputValue()).toBe("07:30 am");
 	});
 
 	test("Validate the Requiered Calendar Date and Time Input by selecting the date and time.", async () => {
