@@ -36,6 +36,7 @@ export interface ActionSetFieldValues {
 	touched?: FormState["touched"];
 	skeleton?: boolean;
 	disabled?: boolean;
+	inputRevision?: number;
 }
 
 export interface ActionSetFormWaits {
@@ -47,6 +48,7 @@ export interface ActionReset {
 	type: "RESET";
 	data: MosaicObject<any>;
 	internalData: MosaicObject<any>;
+	inputRevision: number;
 }
 
 export type ActionSetSubmitWarning = FormState["submitWarning"] & {
@@ -92,6 +94,11 @@ export interface SetFormValuesParams {
 	skeleton?: boolean;
 	disabled?: boolean;
 	validate?: boolean;
+	/**
+	 * When true, increments `inputRevision` so section-based date/time pickers
+	 * remount and clear any partially filled internal state.
+	 */
+	resetInputs?: boolean;
 }
 
 export type SetFormValues = (params: SetFormValuesParams) => void;
@@ -201,6 +208,10 @@ export interface FormState {
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
 	skeleton?: boolean;
+	/**
+	 * Incremented when the form is reset or cleared so date/time pickers remount.
+	 */
+	inputRevision: number;
 }
 
 export type UseFormParams = Partial<Pick<FormState, "disabled" | "skeleton" | "data">>;

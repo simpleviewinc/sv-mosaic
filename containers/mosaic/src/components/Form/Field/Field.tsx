@@ -30,7 +30,7 @@ const Field = ({
 	}
 
 	const isCustomField = typeof field.type !== "string";
-	const { Component }: FieldConfig = getFieldConfig(field.type);
+	const { Component, needsInputReset = false }: FieldConfig = getFieldConfig(field.type);
 	const { setFieldValue, setFieldBlur } = methods;
 
 	if (!Component) {
@@ -73,8 +73,12 @@ const Field = ({
 
 	const sanitizedFieldDef = useMemo(() => ({ ...field, size }), [field, size]);
 
+	const fieldPathKey = [...(path || []), field.name].join(".");
+	const componentKey = needsInputReset ? `${fieldPathKey}-${state.inputRevision}` : fieldPathKey;
+
 	const children = useMemo(() => (
 		<Component
+			key={componentKey}
 			fieldDef={sanitizedFieldDef}
 			name={sanitizedFieldDef.name}
 			value={value}
@@ -91,6 +95,7 @@ const Field = ({
 		/>
 	), [
 		Component,
+		componentKey,
 		sanitizedFieldDef,
 		value,
 		error,

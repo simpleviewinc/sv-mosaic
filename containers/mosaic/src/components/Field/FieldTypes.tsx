@@ -264,5 +264,11 @@ export interface FieldConfig {
 	externalToInternalValue: ExternalToInternalValue;
 	internalToExternalValue: InternalToExternalValue;
 	hasValue: FieldHasValue;
+	/**
+	 * When true, the field remounts when the form's `inputRevision` increments
+	 * (e.g. on reset or `setFormValues({ resetInputs: true })`). Used by
+	 * section-based MUI date/time pickers to clear partially filled input.
+	 */
+	needsInputReset?: boolean;
 }
 
