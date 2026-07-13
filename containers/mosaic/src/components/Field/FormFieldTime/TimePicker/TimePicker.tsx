@@ -17,6 +17,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { MosaicPickersTextField } from "../../FormFieldText/FormFieldTextPickers.styled";
 import { TIME_FORMAT_FULL } from "@root/constants";
 import { createContainedBlurHandler } from "../../utils/createContainedBlurHandler";
+import { isValid } from "date-fns";
 
 const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, TimePickerData>): ReactElement => {
 	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
@@ -32,7 +33,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 	}, [onBlur]);
 
 	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<TimeValidationError>) => {
-		const keyboardInputValue = context.source !== "view" && newValue
+		const keyboardInputValue = context.source !== "view" && isValid(newValue)
 			? format(newValue, TIME_FORMAT_FULL)
 			: undefined;
 
@@ -44,6 +45,7 @@ const TimeFieldPicker = (props: MosaicFieldProps<"timePicker", TimePickerDef, Ti
 			<ThemeProvider theme={customTheme}>
 				<div ref={containerRef}>
 					<TimePicker
+						format={TIME_FORMAT_FULL}
 						value={value}
 						onChange={handleChange}
 						onClose={handleClose}

@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import format from "date-fns/format";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV2";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -12,6 +12,7 @@ import type { DatePickerProps } from ".";
 import { DatePickerTextField, popperSx } from "./DatePicker.styled";
 import { DATE_FORMAT_FULL } from "@root/constants";
 import { createContainedBlurHandler } from "../../utils/createContainedBlurHandler";
+import { isValid } from "date-fns";
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
 	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error } = props;
@@ -22,18 +23,8 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		[onBlur],
 	);
 
-	const [isPickerOpen, setIsPickerOpen] = useState(false);
-
-	const handleOpenState = async () => {
-		setIsPickerOpen(!isPickerOpen);
-
-		if (isPickerOpen && onBlur) {
-			onBlur();
-		}
-	};
-
 	const handleChange = (newValue: Date | null, context: PickerChangeHandlerContext<DateValidationError>) => {
-		const keyboardInputValue = context.source !== "view" && newValue
+		const keyboardInputValue = context.source !== "view" && isValid(newValue)
 			? format(newValue, DATE_FORMAT_FULL)
 			: undefined;
 
@@ -47,8 +38,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 					format={DATE_FORMAT_FULL}
 					value={value}
 					onChange={handleChange}
-					onOpen={handleOpenState}
-					onClose={handleOpenState}
+					onClose={handleBlur}
 					minDate={fieldDef?.inputSettings?.minDate}
 					maxDate={fieldDef?.inputSettings?.maxDate}
 					disabled={disabled}
