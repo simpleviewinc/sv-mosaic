@@ -37,18 +37,24 @@ export class FormFieldDateFieldPage extends BasePage {
 		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate");
 
 		this.dateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(1).locator("input");
-		this.dateHourInput = page.locator("[data-testid='field-test-id']").nth(0).locator("input");
+		this.dateHourInput = page.locator("#dateTime-time-input");
 		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-		this.dateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(2);
+		this.dateHourInputCalendarButton = this.getTimeFieldContainer("dateTime").locator("button");
 		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(0);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(1);
 
 		this.requiredDateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(3).locator("input");
-		this.requiredDateHourInput = page.locator("[data-testid='field-test-id']").nth(3).locator("input");
+		this.requiredDateHourInput = page.locator("#requiredDateTime-time-input");
 		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(3);
-		this.requiredDateHourInputCalendarButton = page.locator("[data-testid='field-test-id'] button").nth(6);
+		this.requiredDateHourInputCalendarButton = this.getTimeFieldContainer("requiredDateTime").locator("button");
 		this.dateFieldText = page.locator("#date p").first();
+	}
+
+	getTimeFieldContainer(fieldName: "dateTime" | "requiredDateTime"): Locator {
+		return this.page
+			.locator(`#${fieldName}-time-input`)
+			.locator("xpath=ancestor::*[@data-testid='field-test-id'][1]");
 	}
 
 	/**
