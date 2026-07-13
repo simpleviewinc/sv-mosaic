@@ -101,14 +101,23 @@ describe(__dirname, () => {
 			onClose: onCloseMock,
 		});
 
-		const from = screen.queryByLabelText("From");
-		const to = screen.queryByLabelText("To");
 		const apply = screen.queryByRole("button", { name: "Apply" });
-		expect(from).toBeInTheDocument();
-		expect(to).toBeInTheDocument();
 		expect(apply).toBeInTheDocument();
-		await user.type(from, "10/23/2024[Tab]");
-		await user.type(to, "10/24/2024[Tab]");
+
+		// In the accessible field DOM structure, date sections are spinbuttons — paste the
+		// full date string into the first section of each picker (MUI X's paste handler
+		// recognises "/" as a separator and calls updateValueFromValueStr to fill all sections).
+		const allSpinbuttons = screen.getAllByRole("spinbutton");
+		// First 3 spinbuttons belong to rangeStart ("From"), next 3 to rangeEnd ("To").
+		const fromSection = allSpinbuttons[0];
+		const toSection = allSpinbuttons[3];
+
+		await user.click(fromSection);
+		await user.paste("10/23/2024");
+
+		await user.click(toSection);
+		await user.paste("10/24/2024");
+
 		await user.click(apply);
 
 		expect(onChangeMock).toBeCalledWith({

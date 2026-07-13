@@ -61,6 +61,9 @@ export class PlaygroundPage extends BasePage {
 		this.colorSelectorExample = page.locator("#color [data-testid='colordiv-test']");
 		this.colorSelector = page.locator(".flexbox-fix");
 		this.singleDatePickerIcon = page.locator("button [data-testid='CalendarIcon']");
+		// In the accessible field DOM structure, the picker renders a hidden <input> that
+		// holds the formatted value — use this for value assertions. For entering a date,
+		// use fillDatePicker() which pastes via the section spinbuttons.
 		this.singleDatePickerInput = page.locator("#date input");
 		this.addressFieldButton = page.locator("text=ADD ADDRESS");
 		this.advancedSelectionChip = page.locator(`#advancedSelection [data-testid='${testIds.CHIP_LIST}'] [role='button']`);
@@ -103,7 +106,7 @@ export class PlaygroundPage extends BasePage {
 		await this.colorSelectorExample.click();
 		await this.colorSelector.locator("[title='#000000']").click();
 		await this.page.locator("#root").click();
-		await this.singleDatePickerInput.type(await this.getTodayDate());
+		await this.fillDatePicker(this.page.locator("#date [data-testid='date-picker-test-id']"), await this.getTodayDate());
 		await this.addressFieldButton.click();
 		await this.selectOptionFromDropdown(this.countryDropdown, "United States");
 		await this.firstAddressField.type("4242 Hillview Street");
@@ -180,9 +183,24 @@ export class PlaygroundPage extends BasePage {
 			expect(await this.selectionRadioBtn.nth(i).isChecked()).toBeFalsy();
 		}
 		expect(await this.toggleField.isChecked()).toBeFalsy();
-		await expect(this.singleDatePickerInput).toBeEmpty();
+		expect(await this.singleDatePickerInput.inputValue()).toBe("");
 		expect(await this.addressFieldTitle.isVisible()).toBeFalsy();
 		expect(await this.advancedSelectionChip.isVisible()).toBeFalsy();
 		await expect(this.textEditorField).toBeEmpty();
+	}
+
+	/**
+	 * Enter a date value into an accessible picker field by dispatching a paste event on
+	 * the first section spinbutton. MUI X handles full date strings containing "/" or ":"
+	 * by parsing them into sections via updateValueFromValueStr.
+	 */
+	async fillDatePicker(container: Locator, value: string): Promise<void> {
+		const spinbutton = container.getByRole("spinbutton").first();
+		await spinbutton.click();
+		await spinbutton.evaluate((el, text) => {
+			const dataTransfer = new DataTransfer();
+			dataTransfer.setData("text/plain", text);
+			el.dispatchEvent(new ClipboardEvent("paste", { clipboardData: dataTransfer, bubbles: true }));
+		}, value);
 	}
 }

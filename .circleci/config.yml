@@ -90,51 +90,22 @@ jobs:
 
 workflows:
   main:
+    when:
+      or:
+        - equal: [ pull_request, << pipeline.event.name >> ]
+        - equal: [ api, << pipeline.event.name >> ]
+        - matches:
+            pattern: "^(develop|qa|staging|master|.*publish-ci)$"
+            value: << pipeline.git.branch >>
     jobs:
       - Unit Tests:
           context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
       - E2E Tests:
           context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
       - Consumer Tests:
           context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
       - Storybook Typecheck:
           context: default
-          filters:
-            branches:
-              only:
-                - /pull.*/
-                - /.*publish-ci$/
-                - develop
-                - qa
-                - staging
-                - master
       - Publish SB Static:
           context: default
           requires:

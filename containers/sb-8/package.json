@@ -21,7 +21,7 @@
 		"@monaco-editor/react": "^4.7.0",
 		"@mui/icons-material": "7.3.8",
 		"@mui/material": "7.3.8",
-		"@mui/x-date-pickers": "5.0.0-beta.0",
+		"@mui/x-date-pickers": "8.29.2",
 		"@simpleview/sv-mosaic": "file:../mosaic",
 		"@tiptap/core": "2.8.0",
 		"@tiptap/pm": "2.8.0",
