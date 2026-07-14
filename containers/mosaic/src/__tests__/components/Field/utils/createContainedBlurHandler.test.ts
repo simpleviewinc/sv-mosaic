@@ -66,6 +66,27 @@ describe("createContainedBlurHandler", () => {
 		container.remove();
 		outside.remove();
 	});
+
+	it("cancel prevents a scheduled onBlur from firing", async () => {
+		const onBlur = vi.fn();
+		const container = document.createElement("div");
+		const outside = document.createElement("button");
+		document.body.append(container, outside);
+
+		const containerRef = createRef<HTMLElement>();
+		(containerRef as { current: HTMLElement }).current = container;
+
+		const handleBlur = createContainedBlurHandler(containerRef, onBlur);
+		outside.focus();
+		handleBlur({ relatedTarget: outside } as unknown as FocusEvent);
+		handleBlur.cancel();
+
+		await new Promise((resolve) => requestAnimationFrame(resolve));
+		expect(onBlur).not.toHaveBeenCalled();
+
+		container.remove();
+		outside.remove();
+	});
 });
 
 describe("isFocusInPickerOverlay", () => {

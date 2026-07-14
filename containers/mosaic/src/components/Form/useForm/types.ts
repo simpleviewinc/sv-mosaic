@@ -239,6 +239,11 @@ export type FormStable = FormState & {
 	hasSubmitted: boolean;
 	moveToError: boolean;
 	hooks: { [T in keyof FormHooks]: FormHooks[T][] };
+	/**
+	 * True while `setFormValues` is in flight. Blocks `setFieldValue` so async
+	 * picker blur handlers cannot undo an in-progress form values write.
+	 */
+	settingFormValues?: boolean;
 };
 
 export type ValidatorFn = (

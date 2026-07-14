@@ -160,7 +160,10 @@ describe(__dirname, () => {
 		const from = screen.queryByLabelText("From");
 		const to = screen.queryByLabelText("To");
 		const option = screen.queryByRole("menuitem", { name: "Today" });
-		const clear = screen.queryByRole("button", { name: "Clear" });
+		// Date fields also expose clear icon buttons (title "Clear") when valued —
+		// exclude those MUI field clear controls (class "clearButton").
+		const clear = screen.getAllByRole("button", { name: "Clear" })
+			.find((button) => !button.classList.contains("clearButton"));
 
 		expect(from).toBeInTheDocument();
 		expect(to).toBeInTheDocument();
@@ -173,8 +176,9 @@ describe(__dirname, () => {
 
 		await user.click(clear);
 
-		expect(from).toHaveValue("");
-		expect(to).toHaveValue("");
+		// Date fields remount on inputRevision reset — re-query after clear.
+		expect(screen.getByLabelText("From")).toHaveValue("");
+		expect(screen.getByLabelText("To")).toHaveValue("");
 		expect(option).toHaveAttribute("aria-selected", "false");
 	});
 });

@@ -26,12 +26,18 @@ export interface ContainedBlurHandlerOptions {
 	isFocusStillContained?: () => boolean;
 }
 
+export type ContainedBlurHandler = ((event?: FocusEvent) => void) & {
+	cancel: () => void;
+};
+
 export function createContainedBlurHandler(
 	containerRef: RefObject<HTMLElement | null>,
 	onBlur?: () => void,
 	options?: ContainedBlurHandlerOptions,
-): (event?: FocusEvent) => void {
-	return (event?: FocusEvent) => {
+): ContainedBlurHandler {
+	let frameId: number | undefined;
+
+	const handler = ((event?: FocusEvent) => {
 		if (!onBlur) {
 			return;
 		}
@@ -41,7 +47,13 @@ export function createContainedBlurHandler(
 			return;
 		}
 
-		requestAnimationFrame(() => {
+		if (frameId !== undefined) {
+			cancelAnimationFrame(frameId);
+		}
+
+		frameId = requestAnimationFrame(() => {
+			frameId = undefined;
+
 			if (containerRef.current?.contains(document.activeElement)) {
 				return;
 			}
@@ -52,5 +64,14 @@ export function createContainedBlurHandler(
 
 			onBlur();
 		});
+	}) as ContainedBlurHandler;
+
+	handler.cancel = () => {
+		if (frameId !== undefined) {
+			cancelAnimationFrame(frameId);
+			frameId = undefined;
+		}
 	};
+
+	return handler;
 }
