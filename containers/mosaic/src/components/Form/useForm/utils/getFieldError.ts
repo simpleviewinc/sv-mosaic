@@ -34,16 +34,16 @@ async function getFieldError({
 		validators.unshift({ fn: "required", options: {} });
 	}
 
-	if (field.type === "phone") {
-		validators.push({ fn: "validatePhoneNumber", options: {} });
-	}
-
 	if (field.type === "date") {
-		validators.push({ fn: "validateDate", options: {} });
+		validators.unshift({ fn: "validateDate", options: {} });
 	}
 
 	if (field.type === "time") {
-		validators.push({ fn: "validateTime", options: {} });
+		validators.unshift({ fn: "validateTime", options: {} });
+	}
+
+	if (field.type === "phone") {
+		validators.push({ fn: "validatePhoneNumber", options: {} });
 	}
 
 	if (field.inputSettings?.maxCharacters > 0) {
