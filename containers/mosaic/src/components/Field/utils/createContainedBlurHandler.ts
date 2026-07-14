@@ -21,7 +21,7 @@ export function isFocusInPickerOverlay(activeElement: Element | null = document.
 
 	// MUI X renamed the popper root from MuiPickersPopper-root to MuiPickerPopper-root;
 	// keep both so focus-in-overlay detection works across versions.
-	return Boolean(activeElement.closest(".MuiPickerPopper-root, .MuiPickersPopper-root, .MuiModal-root"));
+	return Boolean(activeElement.closest(".MuiPickerPopper-root, .MuiPickersPopper-root"));
 }
 
 export interface ContainedBlurHandlerOptions {
