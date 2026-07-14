@@ -62,6 +62,10 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 		[notifyBlur],
 	);
 
+	useEffect(() => () => {
+		handleBlur.cancel();
+	}, [handleBlur]);
+
 	const handleOpen = useCallback(() => {
 		openRef.current = true;
 	}, []);

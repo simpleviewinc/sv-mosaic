@@ -104,8 +104,12 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		 * so if path is empty, we'll just assign the values instead of "setting"
 		 * them.
 		 */
-		stable.current.data = path.length ? set(path, values, stable.current.data) : values;
-		stable.current.internalData = path.length ? set(path, internalValues, stable.current.internalData) : internalValues;
+		const nextData = path.length ? set(path, values, stable.current.data) : values;
+		const nextInternalData = path.length ? set(path, internalValues, stable.current.internalData) : internalValues;
+
+		stable.current.settingFormValues = true;
+		stable.current.data = nextData;
+		stable.current.internalData = nextInternalData;
 
 		if (resetInputs) {
 			stable.current.inputRevision += 1;
@@ -115,25 +119,35 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 			stable.current.skeleton = skeleton;
 		}
 
-		if (validate) {
-			const { errors } = await getFieldErrors({ stable: stable.current });
+		const inputRevision = resetInputs ? stable.current.inputRevision : undefined;
 
-			stable.current.errors = path.length ? set(path, errors, stable.current.errors) : errors;
+		try {
+			if (validate) {
+				const { errors } = await getFieldErrors({ stable: stable.current });
 
-			dispatch({
-				type: "SET_FIELD_ERRORS",
-				errors: stable.current.errors,
+				stable.current.errors = path.length ? set(path, errors, stable.current.errors) : errors;
+
+				dispatch({
+					type: "SET_FIELD_ERRORS",
+					errors: stable.current.errors,
+				});
+			}
+
+			// Re-assert after await: blur rAF may have raced before the lock took effect.
+			stable.current.data = nextData;
+			stable.current.internalData = nextInternalData;
+
+			return dispatch({
+				type: "SET_FIELD_VALUES",
+				values: nextData,
+				internalValues: nextInternalData,
+				skeleton,
+				disabled,
+				inputRevision,
 			});
+		} finally {
+			stable.current.settingFormValues = false;
 		}
-
-		return dispatch({
-			type: "SET_FIELD_VALUES",
-			values: stable.current.data,
-			internalValues: stable.current.internalData,
-			skeleton,
-			disabled,
-			inputRevision: resetInputs ? stable.current.inputRevision : undefined,
-		});
 	}, []);
 
 	const init = useCallback<FormInit>(({
@@ -192,6 +206,10 @@ export function useForm(initial: UseFormParams = {}): UseFormReturn {
 		validate,
 		path = [],
 	}) => {
+		if (stable.current.settingFormValues) {
+			return;
+		}
+
 		const fullPath = [...path, name];
 		const field = getField({ name, path, stable: stable.current });
 		const { errors, hasBlurred, hasSubmitted } = stable.current;
