@@ -111,7 +111,7 @@ export const KitchenSink = (): ReactElement => {
 	const helperText = "Helper text";
 	const instructionText = "Instruction text";
 
-	const fields: FieldDef[] = useMemo(
+	const fields = useMemo<FieldDef[]>(
 		() =>
 			[
 				{
@@ -156,6 +156,18 @@ export const KitchenSink = (): ReactElement => {
 					label: "Required Single Date Calendar",
 					required: true,
 					disabled: false,
+					helperText,
+					instructionText,
+					inputSettings: {
+						showTime: true,
+					},
+				},
+				{
+					name: "disabledDateTime",
+					type: "date",
+					label: "Disabled Date and Time",
+					required: true,
+					disabled: true,
 					helperText,
 					instructionText,
 					inputSettings: {
