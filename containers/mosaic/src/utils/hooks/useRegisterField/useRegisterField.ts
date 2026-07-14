@@ -13,6 +13,7 @@ function useRegisterField(props: MosaicFieldProps & { fieldRef?: React.MutableRe
 		} = {},
 		inputRef,
 		fieldRef,
+		flushRef,
 	} = props;
 
 	useEffect(() => {
@@ -25,10 +26,11 @@ function useRegisterField(props: MosaicFieldProps & { fieldRef?: React.MutableRe
 			path,
 			fieldRef: fieldRef?.current,
 			inputRef: inputRef?.current,
+			flush: flushRef ? () => flushRef.current?.() : undefined,
 		});
 
 		return unmount;
-	}, [mountField, name, path, inputRef, skeleton, fieldRef]);
+	}, [mountField, name, path, inputRef, skeleton, fieldRef, flushRef]);
 }
 
 export default useRegisterField;

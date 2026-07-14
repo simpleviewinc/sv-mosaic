@@ -15,6 +15,11 @@ export interface TimeData {
 	time: null | Date;
 	keyboardInputValue?: string;
 	usingDefaultTime?: boolean;
+	/**
+	 * True when the section-based picker has some but not all sections filled.
+	 * Used to validate incomplete manual entry that never produces a Date.
+	 */
+	isPartiallyFilled?: boolean;
 }
 
 export type FieldDefTime = FieldDefBase<"time", TimeFieldInputSettings>;

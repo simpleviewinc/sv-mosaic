@@ -97,6 +97,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * root field.
 	 */
 	path?: FieldPath;
+	/**
+	 * Optional ref that section-based fields assign a flush callback to.
+	 * Invoked before submit validation to sync UI-only state into form data.
+	 */
+	flushRef?: MutableRefObject<(() => void) | null>;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT
@@ -264,5 +269,11 @@ export interface FieldConfig {
 	externalToInternalValue: ExternalToInternalValue;
 	internalToExternalValue: InternalToExternalValue;
 	hasValue: FieldHasValue;
+	/**
+	 * When true, the field remounts when the form's `inputRevision` increments
+	 * (e.g. on reset or `setFormValues({ resetInputs: true })`). Used by
+	 * section-based MUI date/time pickers to clear partially filled input.
+	 */
+	needsInputReset?: boolean;
 }
 

@@ -30,7 +30,7 @@ const Field = ({
 	}
 
 	const isCustomField = typeof field.type !== "string";
-	const { Component }: FieldConfig = getFieldConfig(field.type);
+	const { Component, needsInputReset = false }: FieldConfig = getFieldConfig(field.type);
 	const { setFieldValue, setFieldBlur } = methods;
 
 	if (!Component) {
@@ -39,6 +39,7 @@ const Field = ({
 
 	const disabled = useWrappedToggle(field, state, "disabled", false);
 	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>(undefined);
+	const flushRef = useRef<(() => void) | null>(null);
 
 	const onChange = useCallback((value: any, options: any = {}) => {
 		field.onChangeCb && field.onChangeCb();
@@ -73,8 +74,12 @@ const Field = ({
 
 	const sanitizedFieldDef = useMemo(() => ({ ...field, size }), [field, size]);
 
+	const fieldPathKey = [...(path || []), field.name].join(".");
+	const componentKey = needsInputReset ? `${fieldPathKey}-${state.inputRevision}` : fieldPathKey;
+
 	const children = useMemo(() => (
 		<Component
+			key={componentKey}
 			fieldDef={sanitizedFieldDef}
 			name={sanitizedFieldDef.name}
 			value={value}
@@ -88,9 +93,11 @@ const Field = ({
 			id={`${(field.id ?? field.name)}-input`}
 			skeleton={skeleton}
 			path={path}
+			flushRef={needsInputReset ? flushRef : undefined}
 		/>
 	), [
 		Component,
+		componentKey,
 		sanitizedFieldDef,
 		value,
 		error,
@@ -102,6 +109,7 @@ const Field = ({
 		field.name,
 		skeleton,
 		path,
+		needsInputReset,
 	]);
 
 	if (!shouldShow) {
@@ -120,6 +128,7 @@ const Field = ({
 		inputRef: inputRef,
 		disabled: disabled,
 		skeleton: skeleton,
+		flushRef: needsInputReset ? flushRef : undefined,
 	};
 
 	return isCustomField ? (

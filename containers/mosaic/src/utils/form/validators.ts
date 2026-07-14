@@ -276,6 +276,10 @@ export async function validatePostcode(value: string, data: any, { countryField 
 }
 
 export async function validateDate(value: any, data: MosaicObject<any>, options: any, internalValue: any) {
+	if (internalValue?.isPartiallyFilled) {
+		return "Date is incomplete. Finish entering MM/DD/YYYY or clear the field";
+	}
+
 	if (!internalValue?.date) {
 		return;
 	}
@@ -291,6 +295,10 @@ export async function validateDate(value: any, data: MosaicObject<any>, options:
 }
 
 export async function validateTime(value: any, data: MosaicObject<any>, options: any, internalValue: any) {
+	if (internalValue?.isPartiallyFilled) {
+		return "Time is incomplete. Finish entering a 12hr time or clear the field";
+	}
+
 	if (!internalValue?.time) {
 		return;
 	}

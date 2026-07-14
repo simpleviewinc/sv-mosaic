@@ -24,6 +24,7 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			touched: action.touched || state.touched,
 			skeleton: action.skeleton !== undefined ? action.skeleton : state.skeleton,
 			disabled: action.disabled !== undefined ? action.disabled : state.disabled,
+			inputRevision: action.inputRevision !== undefined ? action.inputRevision : state.inputRevision,
 		};
 	}
 	case "SET_FORM_WAITS": {
@@ -38,6 +39,7 @@ export function reducer(state: FormState, action: FormAction): FormState {
 			data: action.data,
 			internalData: action.internalData,
 			disabled: false,
+			inputRevision: action.inputRevision,
 		};
 	}
 	case "FORM_DISABLE": {
