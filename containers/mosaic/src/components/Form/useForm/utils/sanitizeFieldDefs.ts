@@ -126,7 +126,6 @@ function sanitizeFieldDefs(fields: FieldDef[], sections?: SectionDef[]): FieldDe
 								maxDate,
 								showTime: false,
 							},
-							validates: ["time"],
 						},
 						{
 							name: "time",

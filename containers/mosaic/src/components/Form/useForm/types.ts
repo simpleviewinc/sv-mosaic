@@ -36,6 +36,7 @@ export interface ActionSetFieldValues {
 	touched?: FormState["touched"];
 	skeleton?: boolean;
 	disabled?: boolean;
+	inputRevision?: number;
 }
 
 export interface ActionSetFormWaits {
@@ -47,6 +48,7 @@ export interface ActionReset {
 	type: "RESET";
 	data: MosaicObject<any>;
 	internalData: MosaicObject<any>;
+	inputRevision: number;
 }
 
 export type ActionSetSubmitWarning = FormState["submitWarning"] & {
@@ -92,6 +94,11 @@ export interface SetFormValuesParams {
 	skeleton?: boolean;
 	disabled?: boolean;
 	validate?: boolean;
+	/**
+	 * When true, increments `inputRevision` so section-based date/time pickers
+	 * remount and clear any partially filled internal state.
+	 */
+	resetInputs?: boolean;
 }
 
 export type SetFormValues = (params: SetFormValuesParams) => void;
@@ -146,6 +153,11 @@ export interface MountFieldParams {
 	path?: FieldPath;
 	fieldRef?: HTMLDivElement;
 	inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+	/**
+	 * Optional callback invoked before submit validation so fields can sync
+	 * UI-only state (e.g. partially filled date/time sections) into form data.
+	 */
+	flush?: () => void;
 }
 
 export type UnmountField = () => void;
@@ -201,6 +213,10 @@ export interface FormState {
 	submitWarning: { open: boolean; lead: string; reasons: string[] };
 	waits: FormWait[];
 	skeleton?: boolean;
+	/**
+	 * Incremented when the form is reset or cleared so date/time pickers remount.
+	 */
+	inputRevision: number;
 }
 
 export type UseFormParams = Partial<Pick<FormState, "disabled" | "skeleton" | "data">>;
@@ -214,11 +230,20 @@ export interface UseFormReturn {
 export type FormStable = FormState & {
 	initialData: MosaicObject<any>;
 	fields: Record<string, FieldObj>;
-	mounted: Record<string, false | { fieldRef?: HTMLDivElement; inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement }>;
+	mounted: Record<string, false | {
+		fieldRef?: HTMLDivElement;
+		inputRef?: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+		flush?: () => void;
+	}>;
 	hasBlurred: Record<string, boolean>;
 	hasSubmitted: boolean;
 	moveToError: boolean;
 	hooks: { [T in keyof FormHooks]: FormHooks[T][] };
+	/**
+	 * True while `setFormValues` is in flight. Blocks `setFieldValue` so async
+	 * picker blur handlers cannot undo an in-progress form values write.
+	 */
+	settingFormValues?: boolean;
 };
 
 export type ValidatorFn = (

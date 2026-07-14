@@ -27,6 +27,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		id,
 		skeleton,
 		path,
+		flushRef,
 	} = props;
 	const { name, inputSettings = {} } = fieldDef;
 	const { defaultTime } = inputSettings;
@@ -34,6 +35,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 	const value = useMemo(() => providedValue || {
 		time: null,
 		keyboardInputValue: undefined,
+		isPartiallyFilled: false,
 	}, [providedValue]);
 
 	const { methods: { addHook } } = useContext(FormContext);
@@ -70,6 +72,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 						time: null,
 						keyboardInputValue: undefined,
 						usingDefaultTime: true,
+						isPartiallyFilled: false,
 					}, internalData),
 				};
 			}
@@ -80,16 +83,22 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 					time: matchTime(new Date(), defaultTime),
 					keyboardInputValue: undefined,
 					usingDefaultTime: true,
+					isPartiallyFilled: false,
 				}, internalData),
 			};
 		});
 	}, [addHook, defaultTime, path, name]);
 
-	const handleTimeChange = (time: Date | null, keyboardInputValue?: string) => {
+	const handleTimeChange = (
+		time: Date | null,
+		keyboardInputValue?: string,
+		options?: { isPartiallyFilled?: boolean },
+	) => {
 		return onChange({
 			time,
 			keyboardInputValue,
 			usingDefaultTime: !time || !isValidDate(time),
+			isPartiallyFilled: options?.isPartiallyFilled ?? false,
 		});
 	};
 
@@ -120,6 +129,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			onBlur={onBlur}
 			disabled={disabled}
 			inputRef={inputRef}
+			flushRef={flushRef}
 		/>
 	);
 };

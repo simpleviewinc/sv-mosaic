@@ -114,6 +114,7 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			date: {
 				Component: FormFieldDate,
 				validate: "onBlurAmend",
+				needsInputReset: true,
 				externalToInternalValue: (value: Date | undefined) => {
 					if (!value || !(value instanceof Date)) {
 						return { date: undefined };
@@ -144,6 +145,7 @@ function getFieldConfigMapMemo(): () => FieldConfigMap {
 			time: {
 				Component: FormFieldTime,
 				validate: "onBlurAmend",
+				needsInputReset: true,
 				externalToInternalValue: (value: string | undefined) => {
 					if (!value) {
 						return undefined;

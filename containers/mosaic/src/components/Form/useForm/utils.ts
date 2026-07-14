@@ -28,6 +28,7 @@ export function stateFromStable({
 	submitWarning,
 	waits,
 	skeleton,
+	inputRevision,
 }: FormStable): FormState {
 	return {
 		internalData,
@@ -38,6 +39,7 @@ export function stateFromStable({
 		submitWarning,
 		waits,
 		skeleton,
+		inputRevision,
 	};
 }
 

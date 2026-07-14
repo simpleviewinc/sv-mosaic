@@ -51,6 +51,7 @@ describe("TimeField component", () => {
 			time: new Date(new Date().setHours(6, 30, 0, 0)),
 			keyboardInputValue: "06:30 am",
 			usingDefaultTime: false,
+			isPartiallyFilled: false,
 		});
 	});
 
@@ -82,6 +83,7 @@ describe("TimeField component", () => {
 			time: null,
 			keyboardInputValue: undefined,
 			usingDefaultTime: true,
+			isPartiallyFilled: false,
 		});
 	});
 });

@@ -72,12 +72,13 @@ export class AdvancedFiltersComponent extends FilterComponent {
 		this.searchTitleMenuDropdownItem = page.locator("ul[role='menu']");
 		this.errorMessageDates = page.locator("#rangeStart p");
 
-		this.fromCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
-		// The accessible field DOM structure uses a hidden <input> (not type="tel") to hold
-		// the formatted date value. Use container-scoped locators for stability.
-		this.fromCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(0).locator("input");
-		this.toCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-		this.toCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(1).locator("input");
+		// Open by accessible name — clearable fields insert a Clear control when valued,
+		// which breaks global button nth indexes.
+		const datePickers = page.locator("[data-testid='date-picker-test-id']");
+		this.fromCalendarButton = datePickers.nth(0).getByRole("button", { name: "Choose date" });
+		this.fromCalendarInput = datePickers.nth(0).locator("input");
+		this.toCalendarButton = datePickers.nth(1).getByRole("button", { name: "Choose date" });
+		this.toCalendarInput = datePickers.nth(1).locator("input");
 	}
 
 	async getNumberOfSingleSelectCategoryOptions(): Promise<number> {

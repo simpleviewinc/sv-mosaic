@@ -75,6 +75,7 @@ describe(__dirname, () => {
 		expect(onChangeMock).toHaveBeenCalledWith({
 			date: new Date("2024/01/01"),
 			keyboardInputValue: "01/01/2024",
+			isPartiallyFilled: false,
 		});
 	});
 
@@ -96,7 +97,34 @@ describe(__dirname, () => {
 		expect(onChangeMock).toBeCalledWith({
 			date: new Date(`${now.getFullYear()}/${now.getMonth() + 1}/01`),
 			keyboardInputValue: undefined,
+			isPartiallyFilled: false,
 		});
+	});
+
+	it("should mark the field as partially filled on blur after incomplete manual entry", async () => {
+		const onChangeMock = vi.fn();
+		const onBlurMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock, onBlur: onBlurMock });
+
+		const monthSection = screen.getByRole("spinbutton", { name: /month/i });
+		await user.click(monthSection);
+		await user.keyboard("1");
+
+		// Move focus outside the picker. Blur is deferred with requestAnimationFrame.
+		await user.click(document.body);
+		await act(async () => {
+			await new Promise<void>((resolve) => {
+				requestAnimationFrame(() => resolve());
+			});
+		});
+
+		expect(onBlurMock).toHaveBeenCalled();
+		expect(onChangeMock).toHaveBeenCalledWith(
+			expect.objectContaining({
+				isPartiallyFilled: true,
+			}),
+		);
 	});
 
 	it("should render the skeleton components if skeleton is truthy", async () => {
