@@ -4,10 +4,32 @@ import type { FocusEvent, RefObject } from "react";
  * MUI X accessible pickers fire blur on the section container when focus moves
  * between internal elements (e.g. tabbing into the field). Only call onBlur when
  * focus has actually left the picker container.
+ *
+ * Clear/open adornments sit inside the container but outside the text field, so
+ * callers should attach this handler to the container (React onBlur bubbles via
+ * focusout) rather than only the text field — otherwise tabbing out via those
+ * buttons never notifies the form.
+ *
+ * Open picker overlays are portaled outside the container; pass
+ * `isFocusStillContained` (e.g. open ref / overlay DOM check) to avoid treating
+ * that as a leave.
  */
+export function isFocusInPickerOverlay(activeElement: Element | null = document.activeElement): boolean {
+	if (!(activeElement instanceof Element)) {
+		return false;
+	}
+
+	return Boolean(activeElement.closest(".MuiPickersPopper-root, .MuiModal-root"));
+}
+
+export interface ContainedBlurHandlerOptions {
+	isFocusStillContained?: () => boolean;
+}
+
 export function createContainedBlurHandler(
 	containerRef: RefObject<HTMLElement | null>,
 	onBlur?: () => void,
+	options?: ContainedBlurHandlerOptions,
 ): (event?: FocusEvent) => void {
 	return (event?: FocusEvent) => {
 		if (!onBlur) {
@@ -20,9 +42,15 @@ export function createContainedBlurHandler(
 		}
 
 		requestAnimationFrame(() => {
-			if (!containerRef.current?.contains(document.activeElement)) {
-				onBlur();
+			if (containerRef.current?.contains(document.activeElement)) {
+				return;
 			}
+
+			if (options?.isFocusStillContained?.() || isFocusInPickerOverlay()) {
+				return;
+			}
+
+			onBlur();
 		});
 	};
 }

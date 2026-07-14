@@ -63,4 +63,23 @@ describe(__dirname, () => {
 		await user.keyboard("{Escape}");
 		expect(onBlurMock).toBeCalled();
 	});
+
+	it("should keep the selected date after choosing from the calendar", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => null);
+
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ onChange: onChangeMock });
+
+		await user.click(screen.getByRole("button", { name: "Choose date" }));
+		await user.click(screen.getByRole("gridcell", { name: "15" }));
+
+		const selectedCalls = onChangeMock.mock.calls.filter(([date]) => (
+			date instanceof Date && date.getDate() === 15
+		));
+		expect(selectedCalls.length).toBeGreaterThan(0);
+
+		const lastCall = onChangeMock.mock.calls.at(-1);
+		expect(lastCall?.[0]).toBeInstanceOf(Date);
+		expect((lastCall?.[0] as Date).getDate()).toBe(15);
+	});
 });

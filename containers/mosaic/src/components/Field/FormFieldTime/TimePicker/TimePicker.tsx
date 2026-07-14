@@ -33,6 +33,9 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const fieldRef = useRef<FieldRef<Date | null>>(null);
+	const openRef = useRef(false);
+	const valueRef = useRef(value);
+	valueRef.current = value;
 
 	const syncPartialFillState = useCallback((
 		time: Date | null,
@@ -50,28 +53,39 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 		}
 
 		flushRef.current = () => {
-			syncPartialFillState(value);
+			syncPartialFillState(valueRef.current);
 		};
 
 		return () => {
 			flushRef.current = null;
 		};
-	}, [flushRef, syncPartialFillState, value]);
+	}, [flushRef, syncPartialFillState]);
+
+	const notifyBlur = useCallback(() => {
+		// Prefer valueRef: onClose runs in the same tick as onChange after a picker
+		// selection, before React re-renders with the new `value` prop.
+		syncPartialFillState(valueRef.current);
+		onBlur?.();
+	}, [onBlur, syncPartialFillState]);
 
 	const handleBlur = useMemo(
-		() => createContainedBlurHandler(containerRef, () => {
-			syncPartialFillState(value);
-			onBlur?.();
+		() => createContainedBlurHandler(containerRef, notifyBlur, {
+			isFocusStillContained: () => openRef.current,
 		}),
-		[onBlur, syncPartialFillState, value],
+		[notifyBlur],
 	);
 
-	const handleClose = useCallback(async () => {
-		syncPartialFillState(value);
-		onBlur && onBlur();
-	}, [onBlur, syncPartialFillState, value]);
+	const handleOpen = useCallback(() => {
+		openRef.current = true;
+	}, []);
+
+	const handleClose = useCallback(() => {
+		openRef.current = false;
+		notifyBlur();
+	}, [notifyBlur]);
 
 	const handleClear = useCallback(() => {
+		valueRef.current = null;
 		onChange?.(null, undefined, { isPartiallyFilled: false });
 	}, [onChange]);
 
@@ -80,17 +94,19 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 			? format(newValue, TIME_FORMAT_FULL)
 			: undefined;
 
+		valueRef.current = newValue;
 		syncPartialFillState(newValue, keyboardInputValue);
 	};
 
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns} localeText={{ fieldMeridiemPlaceholder: () => "AM/PM" }}>
 			<ThemeProvider theme={customTheme}>
-				<div ref={containerRef}>
+				<div ref={containerRef} onBlur={handleBlur}>
 					<TimePicker
 						format={TIME_FORMAT_FULL}
 						value={value}
 						onChange={handleChange}
+						onOpen={handleOpen}
 						onClose={handleClose}
 						disabled={disabled}
 						closeOnSelect
@@ -107,7 +123,6 @@ const TimeFieldPicker = (props: TimePickerProps): ReactElement => {
 							},
 							textField: {
 								id,
-								onBlur: handleBlur,
 								required: Boolean(fieldDef.required),
 								disabled,
 								error: error ? true : undefined,
