@@ -10,7 +10,6 @@ export class FormFieldDateFieldPage extends BasePage {
 	readonly page: Page;
 	readonly singleDateCalendarInput: Locator;
 	readonly singleDateCalendarButton: Locator;
-	readonly calendarCell: Locator;
 	readonly disabledSingleDateCalendarText: Locator;
 	readonly dateTimeInput: Locator;
 	readonly dateHourInput: Locator;
@@ -31,23 +30,25 @@ export class FormFieldDateFieldPage extends BasePage {
 		// In the accessible field DOM structure, date/time pickers render a hidden <input>
 		// (aria-hidden, tabindex=-1) that holds the formatted value. That hidden input is
 		// not directly typeable, so use fillDatePicker() to enter values via section paste.
-		this.singleDateCalendarInput = page.locator("[data-testid='date-picker-test-id']").nth(0).locator("input");
-		this.singleDateCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(0);
-		this.calendarCell = page.locator("[role='row'] button");
+		// Open buttons must be resolved by accessible name (not button nth): clearable fields
+		// insert a Clear control when a value is present, which shifts nth indexes.
+		const datePickers = page.locator("[data-testid='date-picker-test-id']");
+		this.singleDateCalendarInput = datePickers.nth(0).locator("input");
+		this.singleDateCalendarButton = datePickers.nth(0).getByRole("button", { name: "Choose date" });
 		this.disabledSingleDateCalendarText = page.locator("#disableSingleDate");
 
-		this.dateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(1).locator("input");
+		this.dateTimeInput = datePickers.nth(1).locator("input");
 		this.dateHourInput = page.locator("#dateTime-time-input");
-		this.dateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(1);
-		this.dateHourInputCalendarButton = this.getTimeFieldContainer("dateTime").locator("button");
+		this.dateTimeInputCalendarButton = datePickers.nth(1).getByRole("button", { name: "Choose date" });
+		this.dateHourInputCalendarButton = this.getTimeFieldContainer("dateTime").getByRole("button", { name: "Choose time" });
 		this.hourMinutesOption = this.roleOptionLocator;
 		this.hourAMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(0);
 		this.hourPMButton = page.locator("[role='dialog'] .MuiTimeClock-root button").nth(1);
 
-		this.requiredDateTimeInput = page.locator("[data-testid='date-picker-test-id']").nth(3).locator("input");
+		this.requiredDateTimeInput = datePickers.nth(3).locator("input");
 		this.requiredDateHourInput = page.locator("#requiredDateTime-time-input");
-		this.requiredDateTimeInputCalendarButton = page.locator("[data-testid='date-picker-test-id'] button").nth(3);
-		this.requiredDateHourInputCalendarButton = this.getTimeFieldContainer("requiredDateTime").locator("button");
+		this.requiredDateTimeInputCalendarButton = datePickers.nth(3).getByRole("button", { name: "Choose date" });
+		this.requiredDateHourInputCalendarButton = this.getTimeFieldContainer("requiredDateTime").getByRole("button", { name: "Choose time" });
 		this.dateFieldText = page.locator("#date p").first();
 	}
 
@@ -73,8 +74,13 @@ export class FormFieldDateFieldPage extends BasePage {
 		}, value);
 	}
 
-	async selectDayFromDatePicker(day:number): Promise<void> {
-		await this.calendarCell.nth(day - 1).click();
+	async selectDayFromDatePicker(day: number): Promise<void> {
+		// MUI X uses MuiPickerPopper-root (singular "Picker"); the older
+		// MuiPickersPopper-root class name no longer appears in the DOM.
+		await this.page
+			.locator(".MuiPickerPopper-root")
+			.getByRole("gridcell", { name: String(day), exact: true })
+			.click();
 	}
 
 	async selectHourAndMinutesInHourPicker(timeOfDay:string): Promise<string> {

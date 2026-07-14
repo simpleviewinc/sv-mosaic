@@ -90,9 +90,12 @@ describe("createContainedBlurHandler", () => {
 });
 
 describe("isFocusInPickerOverlay", () => {
-	it("returns true when the active element is inside a pickers popper", () => {
+	it.each([
+		"MuiPickerPopper-root",
+		"MuiPickersPopper-root",
+	])("returns true when the active element is inside %s", (className) => {
 		const popper = document.createElement("div");
-		popper.className = "MuiPickersPopper-root";
+		popper.className = className;
 		const button = document.createElement("button");
 		popper.appendChild(button);
 		document.body.appendChild(popper);
