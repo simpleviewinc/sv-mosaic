@@ -23,7 +23,6 @@ COPY packages/mosaic ./packages/mosaic
 COPY packages/storybook ./packages/storybook
 COPY packages/consumer-tests ./packages/consumer-tests
 COPY packages/e2e ./packages/e2e
-COPY scripts ./scripts
 COPY tsconfig.json ./tsconfig.json
 
 RUN pnpm --filter @simpleview/sv-mosaic build \
