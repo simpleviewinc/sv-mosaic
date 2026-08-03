@@ -4,16 +4,20 @@ import { writeFileSync, readFileSync } from "fs";
 import { resolve } from "path";
 
 const {
-	CIRCLE_BRANCH,
-	CIRCLE_SHA1,
-	NPM_TOKEN_GRANULAR,
+	GITHUB_REF_NAME,
+	GITHUB_SHA,
+	NPM_TOKEN,
 } = process.env;
 
-if (!CIRCLE_BRANCH || !CIRCLE_SHA1) {
-	throw new Error("Must set CIRCLE_BRANCH AND CIRCLE_SHA");
+if (!GITHUB_REF_NAME || !GITHUB_SHA) {
+	throw new Error("Must set GITHUB_REF_NAME and GITHUB_SHA");
 }
 
-execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN_GRANULAR}"`, { stdio: "inherit" });
+if (!NPM_TOKEN) {
+	throw new Error("Must set NPM_TOKEN");
+}
+
+execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
 /**
  * First we create a new directory inside /app and copy
@@ -37,7 +41,7 @@ const packages = {
 const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
 const versions = JSON.parse(raw.toString());
 
-if (CIRCLE_BRANCH === "master") {
+if (GITHUB_REF_NAME === "master") {
 	/**
 	 * When on master we publish to the main semver
 	 */
@@ -54,9 +58,9 @@ if (CIRCLE_BRANCH === "master") {
 } else {
 	/**
 	 * When not on master we prepublish a beta version
-	 * Creates a version like 1.0.0-qa-abcdef
+	 * Creates a version like 1.0.0-staging-abcdef
 	 */
-	const version = `${packages.main.version}-${CIRCLE_BRANCH}-${CIRCLE_SHA1.slice(0, 6)}`;
+	const version = `${packages.main.version}-${GITHUB_REF_NAME}-${GITHUB_SHA.slice(0, 6)}`;
 
 	console.log(`Publishing @simpleview/sv-mosaic@${version} and @simpleview/sv-mosaic-types@${version}.`);
 

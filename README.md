@@ -114,7 +114,11 @@ Good Example Components:
 
 # Publishing
 
-Publishing to NPM and storybook is automated via CircleCI. You do not need to run build, or publish.
+Publishing to NPM and Storybook is automated via GitHub Actions (`.github/workflows/ci.yml`). You do not need to run build or publish manually in CI.
 
 * Version bumps are performed with `pnpm release`, which runs `release-it` against `packages/mosaic` only.
-* On qualifying branches, CircleCI publishes `@simpleview/sv-mosaic` and `@simpleview/sv-mosaic-types` to NPM and deploys Storybook static files to GitHub Pages.
+* On push to `staging` or `master`, after unit, consumer, e2e, and Storybook typecheck jobs pass, Actions publishes `@simpleview/sv-mosaic` and `@simpleview/sv-mosaic-types` to NPM:
+	* `master` publishes the version in `packages/mosaic/package.json` (latest).
+	* `staging` publishes `{version}-staging-{sha6}` under the `beta` tag.
+* On push to `develop`, `qa`, `staging`, or `master`, Actions also deploys Storybook static files to GitHub Pages at `https://simpleviewinc.github.io/sv-mosaic/sb8/<branch>/`.
+* Required repository secret: `NPM_TOKEN` (npm publish auth). GitHub Pages deploy uses `GITHUB_TOKEN`.

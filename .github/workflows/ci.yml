@@ -1,0 +1,145 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - develop
+      - qa
+      - staging
+      - master
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run unit tests
+        run: docker compose up --build --exit-code-from mosaic-units mosaic-units
+
+  consumer:
+    name: Consumer Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run consumer tests
+        run: docker compose up --build --exit-code-from consumer-tests consumer-tests
+
+  storybook-typecheck:
+    name: Storybook Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Typecheck Storybook
+        run: docker compose up --build --exit-code-from storybook-typecheck storybook-typecheck
+
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Storybook static server
+        run: docker compose up -d --build storybook-serve
+
+      - name: Wait for Storybook
+        run: |
+          for i in $(seq 1 60); do
+            if curl --head --silent --fail http://localhost:10001/ >/dev/null; then
+              echo "Storybook is ready"
+              exit 0
+            fi
+            echo "Waiting for Storybook... ($i)"
+            sleep 5
+          done
+          echo "Storybook did not become ready in time"
+          docker compose logs storybook-serve
+          exit 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: pnpm --filter @simpleview/sv-mosaic-e2e exec playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        working-directory: packages/e2e
+        env:
+          CI: true
+          ENV: local
+        run: pnpm test:chrome
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: packages/e2e/playwright-report
+          retention-days: 7
+
+      - name: Stop Storybook
+        if: always()
+        run: docker compose down --remove-orphans
+
+  publish-npm:
+    name: Publish to NPM
+    needs:
+      - unit
+      - consumer
+      - storybook-typecheck
+      - e2e
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish packages
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_SHA: ${{ github.sha }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
+
+  publish-storybook:
+    name: Publish Storybook
+    needs:
+      - unit
+      - consumer
+      - storybook-typecheck
+      - e2e
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/qa' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build workspace image
+        run: docker compose build workspace
+
+      - name: Export Storybook static files
+        run: |
+          cid=$(docker create mosaic-workspace:local)
+          docker cp "$cid:/app/packages/storybook/storybook-static" ./storybook-static
+          docker rm "$cid"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          destination_dir: sb8/${{ github.ref_name }}
+          keep_files: true
