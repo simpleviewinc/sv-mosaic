@@ -30,9 +30,5 @@
 		"node_modules",
 		"dist",
 		"./src/__tests__/**/*"
-	],
-	"watchOptions": {
-		"watchFile": "priorityPollingInterval",
-		"watchDirectory": "fixedpollinginterval",
-	}
+	]
 }

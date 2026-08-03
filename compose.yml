@@ -3,10 +3,6 @@ services:
     image: mosaic-workspace:local
     build: .
     working_dir: /app
-    volumes:
-      - /app/node_modules
-      - /app/packages/mosaic/node_modules
-      - /app/packages/storybook/node_modules
 
   mosaic-units:
     container_name: mosaic-units
@@ -14,14 +10,6 @@ services:
     environment:
       - CI=true
     command: ["pnpm", "--filter", "@simpleview/sv-mosaic", "test", "--", "--run"]
-
-  mosaic-dev:
-    container_name: mosaic-dev
-    extends: workspace
-    volumes:
-      - ./packages/mosaic/src:/app/packages/mosaic/src
-      - mosaic-dist:/app/packages/mosaic/dist
-    command: ["pnpm", "--filter", "@simpleview/sv-mosaic", "start"]
 
   mosaic-publish:
     container_name: mosaic-publish
@@ -43,12 +31,9 @@ services:
     volumes:
       - ./packages/mosaic/src:/app/packages/mosaic/src
       - ./packages/storybook/stories:/app/packages/storybook/stories
-      - mosaic-dist:/app/packages/mosaic/dist
-    depends_on:
-      - mosaic-dev
     ports:
       - 10001:10001
-    command: ["pnpm", "--filter", "@simpleview/sv-mosaic-storybook", "start"]
+    command: ["pnpm", "dev"]
 
   storybook-serve:
     container_name: storybook-serve
@@ -82,7 +67,3 @@ services:
     depends_on:
       - storybook-serve
     command: ["./scripts/start"]
-
-volumes:
-  # Shares the mosaic watch-build output from mosaic-dev with storybook-dev.
-  mosaic-dist:

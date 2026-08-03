@@ -32,10 +32,6 @@ const config: StorybookConfig = {
 
 		return mergeConfig(config, {
 			server: {
-				watch: {
-					usePolling: true,
-					interval: 500,
-				},
 				allowedHosts: ["kube.simpleview.io"],
 			},
 		});
