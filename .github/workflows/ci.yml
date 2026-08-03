@@ -24,13 +24,13 @@ jobs:
         run: docker compose build workspace
 
       - name: Save workspace image
-        run: docker save mosaic-workspace:local | gzip > workspace-image.tar.gz
+        run: docker save mosaic-workspace:local -o workspace-image.tar
 
       - name: Upload workspace image
         uses: actions/upload-artifact@v4
         with:
           name: workspace-image
-          path: workspace-image.tar.gz
+          path: workspace-image.tar
           retention-days: 1
 
   unit:

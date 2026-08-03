@@ -11,4 +11,4 @@ runs:
 
     - name: Docker load
       shell: bash
-      run: gunzip -c workspace-image.tar.gz | docker load
+      run: docker load -i workspace-image.tar
