@@ -167,17 +167,44 @@ jobs:
       (github.event_name == 'push' && (github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master'))
       || (github.event_name == 'pull_request' && github.event.pull_request.number == 986)
     runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/load-workspace-image
+
+      - name: Extract mosaic package from workspace image
+        run: |
+          cid=$(docker create mosaic-workspace:local)
+          docker cp "$cid:/app/packages/mosaic/dist" ./packages/mosaic/dist
+          docker cp "$cid:/app/packages/mosaic/package.json" ./packages/mosaic/package.json
+          docker cp "$cid:/app/packages/mosaic/package.types.json" ./packages/mosaic/package.types.json
+          docker rm "$cid"
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Publish packages
+        working-directory: packages/mosaic
         env:
-          # Not named GITHUB_*: the runner ignores overrides of its default variables.
           # PR refs look like "986/merge" (invalid for npm); use pr986 for the temporary PR path.
           PUBLISH_REF_NAME: ${{ github.event.pull_request.number == 986 && 'pr986' || github.ref_name }}
           PUBLISH_SHA: ${{ github.sha }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: docker compose up --exit-code-from mosaic-publish mosaic-publish
+        run: pnpm publish:npm
 
   publish-storybook:
     name: Publish Storybook

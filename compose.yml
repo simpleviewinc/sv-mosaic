@@ -11,15 +11,6 @@ services:
       - CI=true
     command: ["pnpm", "--filter", "@simpleview/sv-mosaic", "test", "--", "--run"]
 
-  mosaic-publish:
-    container_name: mosaic-publish
-    extends: workspace
-    environment:
-      - GITHUB_REF_NAME=${PUBLISH_REF_NAME}
-      - GITHUB_SHA=${PUBLISH_SHA}
-      - NPM_TOKEN=${NPM_TOKEN}
-    command: ["pnpm", "--filter", "@simpleview/sv-mosaic", "publish:npm"]
-
   storybook-typecheck:
     container_name: storybook-typecheck
     extends: workspace

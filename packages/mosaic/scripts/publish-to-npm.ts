@@ -4,23 +4,16 @@ import { writeFileSync, readFileSync } from "fs";
 import { resolve } from "path";
 
 const {
-	GITHUB_REF_NAME,
-	GITHUB_SHA,
-	NPM_TOKEN,
+	PUBLISH_REF_NAME,
+	PUBLISH_SHA,
 } = process.env;
 
-if (!GITHUB_REF_NAME || !GITHUB_SHA) {
-	throw new Error("Must set GITHUB_REF_NAME and GITHUB_SHA");
+if (!PUBLISH_REF_NAME || !PUBLISH_SHA) {
+	throw new Error("Must set PUBLISH_REF_NAME and PUBLISH_SHA");
 }
-
-if (!NPM_TOKEN) {
-	throw new Error("Must set NPM_TOKEN");
-}
-
-execSync(`npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"`, { stdio: "inherit" });
 
 /**
- * First we create a new directory inside /app and copy
+ * First we create a new directory inside the package and copy
  * package.types.json and the built types in there. That'll
  * serve to publish to @simpleview/sv-mosaic-types
  */
@@ -41,7 +34,7 @@ const packages = {
 const raw = execSync("npm view @simpleview/sv-mosaic versions --json --quiet");
 const versions = JSON.parse(raw.toString());
 
-if (GITHUB_REF_NAME === "master") {
+if (PUBLISH_REF_NAME === "master") {
 	/**
 	 * When on master we publish to the main semver
 	 */
@@ -60,7 +53,7 @@ if (GITHUB_REF_NAME === "master") {
 	 * When not on master we prepublish a beta version
 	 * Creates a version like 1.0.0-staging-abcdef
 	 */
-	const version = `${packages.main.version}-${GITHUB_REF_NAME}-${GITHUB_SHA.slice(0, 6)}`;
+	const version = `${packages.main.version}-${PUBLISH_REF_NAME}-${PUBLISH_SHA.slice(0, 6)}`;
 
 	console.log(`Publishing @simpleview/sv-mosaic@${version} and @simpleview/sv-mosaic-types@${version}.`);
 
