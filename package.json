@@ -24,16 +24,18 @@
 		}
 	},
 	"scripts": {
-		"dev": "pnpm --filter @simpleview/sv-mosaic build:esm && pnpm --parallel --filter \"./packages/{mosaic,storybook}\" start",
-		"build": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-storybook build",
-		"test": "pnpm --filter @simpleview/sv-mosaic test",
-		"test:unit": "pnpm --filter @simpleview/sv-mosaic test",
-		"test:consumer": "pnpm --filter @simpleview/sv-mosaic-consumer-tests types",
-		"test:e2e": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-e2e test:chrome",
-		"docker:dev": "docker compose up --build storybook-dev",
 		"lint": "eslint . --config .eslintrc.ci.js",
-		"each": "ts-node ./scripts/each-run.ts",
-		"release": "pnpm --filter @simpleview/sv-mosaic release"
+		"release": "pnpm --filter @simpleview/sv-mosaic release",
+		"host:dev": "pnpm --filter @simpleview/sv-mosaic build:esm && pnpm --parallel --filter \"./packages/{mosaic,storybook}\" start",
+		"host:build": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-storybook build",
+		"host:test:unit": "pnpm --filter @simpleview/sv-mosaic test",
+		"host:test:consumer": "pnpm --filter @simpleview/sv-mosaic-consumer-tests types",
+		"host:test:e2e": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-e2e test:chrome",
+		"docker:dev": "docker compose up --build storybook-dev",
+		"docker:lint": "docker compose up --build --exit-code-from lint lint",
+		"docker:test:unit": "docker compose up --build --exit-code-from mosaic-units mosaic-units",
+		"docker:test:consumer": "docker compose up --build --exit-code-from consumer-tests consumer-tests",
+		"docker:test:e2e": "docker compose up --build --exit-code-from e2e-tests e2e-tests",
 	},
 	"packageManager": "pnpm@9.15.9",
 	"repository": {

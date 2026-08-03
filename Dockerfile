@@ -1,4 +1,4 @@
-FROM node:18.18.2
+FROM node:24.18.1
 
 ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/netskope.crt
 COPY netskope.crt /usr/local/share/ca-certificates/

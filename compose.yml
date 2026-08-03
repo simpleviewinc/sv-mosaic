@@ -38,6 +38,11 @@ services:
     extends: workspace
     command: ["pnpm", "--filter", "@simpleview/sv-mosaic-consumer-tests", "types"]
 
+  lint:
+    container_name: mosaic-lint
+    extends: workspace
+    command: ["pnpm", "each", "lint"]
+
   e2e-tests:
     container_name: e2e-tests
     image: mosaic-e2e:local

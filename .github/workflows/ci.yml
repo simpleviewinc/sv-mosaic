@@ -141,7 +141,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 24.18.1
           registry-url: https://registry.npmjs.org
 
       - name: Ensure npm supports Trusted Publishing
