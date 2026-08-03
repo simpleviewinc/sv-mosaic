@@ -24,7 +24,7 @@ services:
       - ./packages/storybook/stories:/app/packages/storybook/stories
     ports:
       - 10001:10001
-    command: ["pnpm", "dev"]
+    command: ["pnpm", "host:dev"]
 
   storybook-serve:
     container_name: storybook-serve
@@ -41,7 +41,7 @@ services:
   lint:
     container_name: mosaic-lint
     extends: workspace
-    command: ["pnpm", "each", "lint"]
+    command: ["pnpm", "-r", "--if-present", "lint"]
 
   e2e-tests:
     container_name: e2e-tests

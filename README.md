@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic.svg)](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic)
+[npm version](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic)
 
 # sv-mosaic
 
@@ -6,119 +6,139 @@
 npm install @simpleview/sv-mosaic
 ```
 
-Mosaic is a [React](https://reactjs.org/) user interface library designed to create admin interfaces. It is designed to be product agnostic allowing it to be utilized in any manner of Admin interface.
+Mosaic is a [React](https://reactjs.org/) user interface library designed to create admin interfaces. It is product-agnostic and can be used in any manner of admin UI.
 
-It is built on top of [React Material-UI](https://mui.com/) and is it recommended that you pin to the same version that Mosaic is using.
+It is built on top of [React Material UI](https://mui.com/). Pin your app to the same MUI (and other peer dependency) versions that Mosaic declares.
 
-Storybook: https://simpleviewinc.github.io/sv-mosaic/
+Storybook: [https://simpleviewinc.github.io/sv-mosaic/](https://simpleviewinc.github.io/sv-mosaic/)
 
-[Changelog](changelog.md) - See the latest changes to sv-mosaic.
+---
 
-This repository is a **pnpm workspace** monorepo:
+## Usage
 
-| Package | Path | Role |
-|---------|------|------|
-| `@simpleview/sv-mosaic` | `packages/mosaic` | Published component library |
-| `@simpleview/sv-mosaic-storybook` | `packages/storybook` | Storybook docs app |
-| `@simpleview/sv-mosaic-consumer-tests` | `packages/consumer-tests` | Export / types smoke tests |
-| `@simpleview/sv-mosaic-e2e` | `packages/e2e` | Playwright e2e tests |
+- Add `@simpleview/sv-mosaic` to your `package.json` and pin to a specific version.
+- Mosaic declares `peerDependencies` that are not bundled with the library. Satisfy all of them in your app — see the current list in `[packages/mosaic/package.json](packages/mosaic/package.json)`.
 
-# Usage
-
-* Add `@simpleview/sv-mosaic` to your package.json and pin to a specific version.
-* sv-mosaic has a host of `peerDependencies` which are not bundled into the library in order to minimize the bundle size of those that are using the package. You will need to ensure all of the `peerDependencies` of the package are satisfied. See the [library package.json](packages/mosaic/package.json) for the current `peerDependencies`.
-
-Modules should be imported using the specific resource path to avoid unecessarily importing the entire library:
+Import modules by specific resource path so you do not pull in the entire library:
 
 ```js
 import DataView from "@simpleview/sv-mosaic/components/DataView"
 ```
 
-Resources are categorised and made available using the `exports` key in the library's [`package.json`](packages/mosaic/package.json) file. Those resources are:
+Public entry points are defined by the `exports` map in the library `[package.json](packages/mosaic/package.json)`:
 
-* components e.g: `import DataView from "@simpleview/sv-mosaic/components/DataView"`
-  * For components, you should not only reach into the `components` directory, but also the directory named after component you are looking for.
-  * Component-specific types are also available for import from these locations e.g. `import DataView, { type DataViewProps } from "@simpleview/sv-mosaic/components/DataView"`
-* theme e.g: `import theme from "@simpleview/sv-mosaic/theme"`
-* transforms e.g: `import transform_boolean from "@simpleview/sv-mosaic/transforms"`
-* utils e.g `import prettyBytes from "@simpleview/sv-mosaic/utils"`
-* types e.g `import type { MosaicLabelValue } from "@simpleview/sv-mosaic"`
-  * Types are the *only resource* that should be imported from the root of the library.
-  * Also note that all types are available from a standalone types-only package called `@simpleview/sv-mosaic-types`. This is useful for applications that need to reference Mosaic types without installing the dependencies that come with the library.
+- **components** — e.g. `import DataView from "@simpleview/sv-mosaic/components/DataView"`
+  - Import from the directory named after the component (not deeper into implementation files).
+  - Component-specific types are available from the same path, e.g. `import DataView, { type DataViewProps } from "@simpleview/sv-mosaic/components/DataView"`
+- **theme** — e.g. `import theme from "@simpleview/sv-mosaic/theme"`
+- **transforms** — e.g. `import { transform_boolean } from "@simpleview/sv-mosaic/transforms"`
+- **utils** — e.g. `import { getToggle } from "@simpleview/sv-mosaic/utils/toggle"`
+- **constants** — e.g. `import { DATE_FORMAT_FULL } from "@simpleview/sv-mosaic/constants"`
+- **mock** — e.g. `import { mockAddresses } from "@simpleview/sv-mosaic/mock"`
+- **types** — e.g. `import type { MosaicLabelValue } from "@simpleview/sv-mosaic"`
+  - Types are the *only* resource that should be imported from the package root.
+  - The same types are also published as `@simpleview/sv-mosaic-types` for apps that need Mosaic types without installing the full library.
 
-## Optimization Guidelines
+---
 
-[Optimization Guidelines](optimization.md) - Ensure you're properly using Mosaic and React for optimal client-side performance.
 
-# Installation
 
-* Ensure you have [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) installed.
-* Install [pnpm](https://pnpm.io/) (this repo pins `pnpm@9.15.9` via `packageManager`).
-* If you want your windows box to have TypeScript completions of npm packages.
-	* Install Node via https://nodejs.org/en/download/, easiest method is the Windows Install 64-bit. It may ask you to restart your box.
-	* In windows cmd
-		```
-		cd d:\PATH\TO\sv-kubernetes\containers\sv-mosaic
-		pnpm install
-		```
-* Putty/Shell into sv-kubernetes
-	* Install the container
-		* `sudo sv install sv-mosaic --type=container --branch=develop`
-	* Run Storybook in Docker
-		```
-		cd /sv/containers/sv-mosaic
-		pnpm docker
-		```
-	* Or run locally without Docker
-		```
-		cd /sv/containers/sv-mosaic
-		pnpm install
-		pnpm dev
-		```
+# Development Guide
 
-The Storybook service should now be accessible at http://kube.simpleview.io:10001/
+This repository is a **pnpm workspace** monorepo:
 
-# Unit Testing
 
-* Ensure you have sv-mosaic installed per the instructions above.
-* Locally:
-	```
-	pnpm test
-	```
-* Or via Docker Compose:
-	```
-	docker compose up --build --exit-code-from mosaic-units mosaic-units
-	```
+| Package                                | Path                      | Role                        |
+| -------------------------------------- | ------------------------- | --------------------------- |
+| `@simpleview/sv-mosaic`                | `packages/mosaic`         | Published component library |
+| `@simpleview/sv-mosaic-storybook`      | `packages/storybook`      | Storybook docs app          |
+| `@simpleview/sv-mosaic-consumer-tests` | `packages/consumer-tests` | Export / types smoke tests  |
+| `@simpleview/sv-mosaic-e2e`            | `packages/e2e`            | Playwright e2e tests        |
 
-# Component File Structure
 
-Component directories found inside `./packages/mosaic/src/components` should follow a strict structure:
 
-* /components/ - Each exported component have it's own sub-folder in this folder.
-	* [Component] - e.g. DataView, DataViewFilterDate
-		* index.ts
-			* This file File which should re-export the primary component as default. So if in the folder /DataViewFilterDate/ then index.ts should re-export /DataViewFilterDate/DataViewFilterDate.tsx.
-			* This file should also export all entities in the [ComponentTypes].ts file. This makes the type definitions usable throughout the project and by external consumers.
-		* [Component].tsx - The primary component file.
-		* [ComponentTypes].ts - If the component needs to declare it's own typescript Interfaces or Types througout the folder, declare them here.
-			* The props for the primary component should always be called `[Component]Props`, e.g. `DataViewProps`.
-			* All TypeScript `type` and `interface` definitions should be unique across the project this way if they are exported, they are guaranteed to be unique. Prefix them with the name of the `Component`, e.g. `DataViewOptions`, `DataViewColumn`.
-		* [Component].styled.ts - Optional file containing styled components used to compose the primary and sub components
 
-Good Example Components:
+## Development setup
 
-* /components/Button/
-* /components/LeftNav/
-* /components/CheckboxList/
-* /components/Checkbox/
+Developers should use [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) and keep this repo on the **WSL filesystem** (not a Windows-mounted path). That avoids filesystem and tooling friction when working with Docker and Node.
 
-# Publishing
+```
+sudo sv install sv-mosaic --type=container --branch=develop
+cd /sv/containers/sv-mosaic
+npm run docker:dev
+```
 
-Publishing to NPM and Storybook is automated via GitHub Actions (`.github/workflows/ci.yml`). You do not need to run build or publish manually in CI.
+You can also develop on the host if [pnpm](https://pnpm.io/) is available. This repo pins `pnpm@9.15.9` via `packageManager`.
 
-* Version bumps are performed with `pnpm release`, which runs `release-it` against `packages/mosaic` only.
-* On push to `staging` or `master`, after unit, consumer, e2e, and Storybook typecheck jobs pass, Actions publishes `@simpleview/sv-mosaic` and `@simpleview/sv-mosaic-types` to NPM:
-	* `master` publishes the version in `packages/mosaic/package.json` (latest).
-	* `staging` publishes `{version}-staging-{sha6}` under the `beta` tag.
-* On push to `develop`, `qa`, `staging`, or `master`, Actions also deploys Storybook static files to GitHub Pages at `https://simpleviewinc.github.io/sv-mosaic/sb8/<branch>/`.
-* Required repository secret: `NPM_TOKEN` (npm publish auth). GitHub Pages deploy uses `GITHUB_TOKEN`.
+```
+pnpm install
+```
+
+Storybook (Docker or host) listens on port `10001`. Inside sv-kubernetes it is typically available at [http://kube.simpleview.io:10001/](http://kube.simpleview.io:10001/).
+
+## Scripts
+
+Root scripts are the supported developer entry points. Prefer them over calling package filters or Compose services directly.
+
+### Host (`host:*`)
+
+Run these after `pnpm install` on the host (WSL or elsewhere with pnpm):
+
+
+| Script                    | Purpose                                                  |
+| ------------------------- | -------------------------------------------------------- |
+| `pnpm host:dev`           | Build mosaic ESM once, then watch mosaic + run Storybook |
+| `pnpm host:build`         | Build mosaic (ESM + CJS) and Storybook static output     |
+| `pnpm host:test:unit`     | Run mosaic unit tests (Vitest)                           |
+| `pnpm host:test:consumer` | Typecheck consumer smoke imports (CJS + ESM)             |
+| `pnpm host:test:e2e`      | Build mosaic, then run Playwright Chromium e2e tests     |
+| `pnpm lint`               | Lint the workspace                                       |
+| `pnpm release`            | Bump / release `@simpleview/sv-mosaic` via `release-it`  |
+
+
+
+
+### Docker (`docker:*`)
+
+These build/run Compose services defined in `compose.yml`:
+
+
+| Script                      | Purpose                                         |
+| --------------------------- | ----------------------------------------------- |
+| `pnpm docker:dev`           | Storybook dev server with source bind-mounts    |
+| `pnpm docker:lint`          | Lint inside the workspace image                 |
+| `pnpm docker:test:unit`     | Unit tests inside Docker                        |
+| `pnpm docker:test:consumer` | Consumer typechecks inside Docker               |
+| `pnpm docker:test:e2e`      | Playwright e2e against a served Storybook build |
+
+
+
+
+## Component file structure
+
+Component directories under `packages/mosaic/src/components` should follow this structure:
+
+- `/components/` — each exported component has its own sub-folder
+  - `[Component]` — e.g. `DataView`, `DataViewFilterDate`
+    - `index.ts`
+      - Re-export the primary component as default (e.g. from `/DataViewFilterDate/DataViewFilterDate.tsx`).
+      - Re-export entities from `[ComponentTypes].ts` so types are usable in-repo and by consumers.
+    - `[Component].tsx` — primary component file
+    - `[ComponentTypes].ts` — component-local TypeScript interfaces/types
+      - Primary props type must be named `[Component]Props` (e.g. `DataViewProps`).
+      - Prefix all exported `type` / `interface` names with the component name so they stay unique across the project (e.g. `DataViewOptions`, `DataViewColumn`).
+    - `[Component].styled.ts` — optional styled-components used by the component
+
+Good examples: `Button/`, `LeftNav/`, `CheckboxList/`, `Checkbox/`.
+
+## Publishing
+
+Publishing to NPM and Storybook is automated by GitHub Actions (`.github/workflows/ci.yml`). You do not need to run build or publish manually in CI.
+
+- Version bumps are performed with `pnpm release`, which runs `release-it` against `packages/mosaic` only.
+- On push to `staging` or `master`, after unit, consumer, e2e, and Storybook typecheck jobs pass, Actions publishes `@simpleview/sv-mosaic` and `@simpleview/sv-mosaic-types` to NPM:
+  - `master` publishes the version in `packages/mosaic/package.json` (npm `latest`).
+  - `staging` publishes `{version}-staging-{sha6}` under the npm `beta` tag.
+- NPM auth uses [Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (OIDC). The publish job requests `id-token: write` and does **not** use an `NPM_TOKEN` repository secret. The GitHub Environment `npm-publish` is required for the publish job.
+- On push to `develop`, `qa`, `staging`, or `master`, Actions also deploys Storybook static files to GitHub Pages at `https://simpleviewinc.github.io/sv-mosaic/sb8/<branch>/`.
+

@@ -24,7 +24,6 @@
 		}
 	},
 	"scripts": {
-		"lint": "eslint . --config .eslintrc.ci.js",
 		"release": "pnpm --filter @simpleview/sv-mosaic release",
 		"host:dev": "pnpm --filter @simpleview/sv-mosaic build:esm && pnpm --parallel --filter \"./packages/{mosaic,storybook}\" start",
 		"host:build": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-storybook build",
