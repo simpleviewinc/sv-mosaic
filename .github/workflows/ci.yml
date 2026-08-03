@@ -100,6 +100,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Copy mosaic dist from workspace image
+        run: |
+          cid=$(docker create mosaic-workspace:local)
+          docker cp "$cid:/app/packages/mosaic/dist" ./packages/mosaic/dist
+          docker rm "$cid"
+
       - name: Install Playwright Chromium
         run: pnpm --filter @simpleview/sv-mosaic-e2e exec playwright install --with-deps chromium
 
