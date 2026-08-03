@@ -15,8 +15,8 @@ services:
     container_name: mosaic-publish
     extends: workspace
     environment:
-      - GITHUB_REF_NAME=${GITHUB_REF_NAME}
-      - GITHUB_SHA=${GITHUB_SHA}
+      - GITHUB_REF_NAME=${PUBLISH_REF_NAME}
+      - GITHUB_SHA=${PUBLISH_SHA}
       - NPM_TOKEN=${NPM_TOKEN}
     command: ["pnpm", "--filter", "@simpleview/sv-mosaic", "publish:npm"]
 

@@ -172,9 +172,10 @@ jobs:
       - uses: ./.github/actions/load-workspace-image
       - name: Publish packages
         env:
+          # Not named GITHUB_*: the runner ignores overrides of its default variables.
           # PR refs look like "986/merge" (invalid for npm); use pr986 for the temporary PR path.
-          GITHUB_REF_NAME: ${{ github.event.pull_request.number == 986 && 'pr986' || github.ref_name }}
-          GITHUB_SHA: ${{ github.sha }}
+          PUBLISH_REF_NAME: ${{ github.event.pull_request.number == 986 && 'pr986' || github.ref_name }}
+          PUBLISH_SHA: ${{ github.sha }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: docker compose up --exit-code-from mosaic-publish mosaic-publish
 
