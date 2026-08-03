@@ -18,12 +18,12 @@ jobs:
     name: Build Workspace Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
 
       - name: Build workspace image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           tags: mosaic-workspace:local
@@ -35,7 +35,7 @@ jobs:
         run: docker save mosaic-workspace:local -o workspace-image.tar
 
       - name: Upload workspace image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: workspace-image
           path: workspace-image.tar
@@ -46,7 +46,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
       - name: Run unit tests
         run: docker compose up --exit-code-from mosaic-units mosaic-units
@@ -56,7 +56,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
       - name: Run consumer tests
         run: docker compose up --exit-code-from consumer-tests consumer-tests
@@ -66,7 +66,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
       - name: Typecheck Storybook
         run: docker compose up --exit-code-from storybook-typecheck storybook-typecheck
@@ -76,13 +76,13 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
 
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
 
       - name: Build e2e image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: packages/e2e/Dockerfile
@@ -96,7 +96,7 @@ jobs:
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: packages/e2e/playwright-report
@@ -124,7 +124,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
 
       - name: Extract mosaic package from workspace image
@@ -135,11 +135,11 @@ jobs:
           docker cp "$cid:/app/packages/mosaic/package.types.json" ./packages/mosaic/package.types.json
           docker rm "$cid"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 9.15.9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24.18.1
           registry-url: https://registry.npmjs.org
@@ -174,7 +174,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/load-workspace-image
 
       - name: Export Storybook static files
