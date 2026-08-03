@@ -48,4 +48,6 @@ services:
       - CI=true
     depends_on:
       - storybook-serve
+    volumes:
+      - ./packages/e2e/playwright-report:/app/packages/e2e/playwright-report
     command: ["./scripts/start"]
