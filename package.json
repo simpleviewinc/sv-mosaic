@@ -35,7 +35,7 @@
 		"docker:lint": "docker compose up --build --exit-code-from lint lint",
 		"docker:test:unit": "docker compose up --build --exit-code-from mosaic-units mosaic-units",
 		"docker:test:consumer": "docker compose up --build --exit-code-from consumer-tests consumer-tests",
-		"docker:test:e2e": "docker compose up --build --exit-code-from e2e-tests e2e-tests",
+		"docker:test:e2e": "docker compose up --build --exit-code-from e2e-tests e2e-tests"
 	},
 	"packageManager": "pnpm@9.15.9",
 	"repository": {
