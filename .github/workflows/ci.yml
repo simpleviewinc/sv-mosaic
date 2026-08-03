@@ -14,38 +14,65 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  unit:
-    name: Unit Tests
+  build:
+    name: Build Workspace Image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Build workspace image
+        run: docker compose build workspace
+
+      - name: Save workspace image
+        run: docker save mosaic-workspace:local | gzip > workspace-image.tar.gz
+
+      - name: Upload workspace image
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace-image
+          path: workspace-image.tar.gz
+          retention-days: 1
+
+  unit:
+    name: Unit Tests
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/load-workspace-image
       - name: Run unit tests
-        run: docker compose up --build --exit-code-from mosaic-units mosaic-units
+        run: docker compose up --exit-code-from mosaic-units mosaic-units
 
   consumer:
     name: Consumer Tests
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/load-workspace-image
       - name: Run consumer tests
-        run: docker compose up --build --exit-code-from consumer-tests consumer-tests
+        run: docker compose up --exit-code-from consumer-tests consumer-tests
 
   storybook-typecheck:
     name: Storybook Typecheck
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/load-workspace-image
       - name: Typecheck Storybook
-        run: docker compose up --build --exit-code-from storybook-typecheck storybook-typecheck
+        run: docker compose up --exit-code-from storybook-typecheck storybook-typecheck
 
   e2e:
     name: E2E Tests
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/load-workspace-image
 
       - name: Start Storybook static server
-        run: docker compose up -d --build storybook-serve
+        run: docker compose up -d storybook-serve
 
       - name: Wait for Storybook
         run: |
@@ -67,7 +94,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: pnpm
 
       - name: Install dependencies
@@ -98,6 +125,7 @@ jobs:
   publish-npm:
     name: Publish to NPM
     needs:
+      - build
       - unit
       - consumer
       - storybook-typecheck
@@ -106,16 +134,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/load-workspace-image
       - name: Publish packages
         env:
           GITHUB_REF_NAME: ${{ github.ref_name }}
           GITHUB_SHA: ${{ github.sha }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: docker compose up --build --exit-code-from mosaic-publish mosaic-publish
+        run: docker compose up --exit-code-from mosaic-publish mosaic-publish
 
   publish-storybook:
     name: Publish Storybook
     needs:
+      - build
       - unit
       - consumer
       - storybook-typecheck
@@ -126,9 +156,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-
-      - name: Build workspace image
-        run: docker compose build workspace
+      - uses: ./.github/actions/load-workspace-image
 
       - name: Export Storybook static files
         run: |
