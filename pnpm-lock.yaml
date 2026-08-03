@@ -56,7 +56,7 @@ importers:
   packages/e2e:
     devDependencies:
       '@playwright/test':
-        specifier: ^1.56.1
+        specifier: 1.62.1
         version: 1.62.1
       '@simpleview/sv-mosaic':
         specifier: workspace:*
