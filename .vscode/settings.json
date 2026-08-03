@@ -9,9 +9,9 @@
 		"dist/*": true,
 		"docs/*": true,
 		"node_modules/*": true,
-		"**/.yarn/*": true,
 	},
 	"files.eol": "\n",
 	"editor.tabSize": 4,
-	"editor.insertSpaces": false
+	"editor.insertSpaces": false,
+	"js/ts.tsdk.path": "node_modules/typescript/lib"
 }

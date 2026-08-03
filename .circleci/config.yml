@@ -39,9 +39,6 @@ jobs:
     steps:
       - init
       - run:
-          name: Build Mosaic image
-          command: docker compose build mosaic
-      - run:
           name: Build and bring up consumer tests
           command: docker compose up --build --exit-code-from consumer-tests consumer-tests
   Storybook Typecheck:

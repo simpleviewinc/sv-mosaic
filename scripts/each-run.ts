@@ -1,18 +1,18 @@
 import { execSync } from "child_process";
-import { getContainers } from "./utils";
+import { getPackages } from "./utils";
 
 const [cmd, ...args] = process.argv.slice(2);
 
 if (!cmd) {
-	throw new Error("You need to provide a command to run in each container");
+	throw new Error("You need to provide a command to run in each package");
 }
 
-const commonCmds: Record<string, string | ((manager: "npm" | "yarn") => string)> = {
-	"install": "install",
-	"reinstall": (manager) => `rm -rf node_modules && ${manager} install`
+const commonCmds: Record<string, string> = {
+	"install": "pnpm install",
+	"reinstall": "rm -rf node_modules && pnpm install",
 };
 
-getContainers().forEach(({ pkg, isYarn, path }) => {
+getPackages().forEach(({ pkg, path: packagePath }) => {
 	const { scripts = {} } = pkg;
 
 	if (
@@ -22,15 +22,13 @@ getContainers().forEach(({ pkg, isYarn, path }) => {
 		return;
 	}
 
-	const manager = isYarn ? "yarn" : "npm";
-	const commonCmd = commonCmds[cmd];
-	const fullCmd = commonCmd ?
-		typeof commonCmd === "function" ? commonCmd(manager) : `${manager} ${commonCmd}` :
-		`${manager} run ${cmd} ${args.join(" ")}`.trim();
+	const fullCmd = commonCmds[cmd] ?
+		commonCmds[cmd] :
+		`pnpm run ${cmd} ${args.join(" ")}`.trim();
 
-	console.log(`Running "${fullCmd}" in ${path}`);
+	console.log(`Running "${fullCmd}" in ${packagePath}`);
 	execSync(fullCmd, {
 		stdio: "inherit",
-		cwd: path,
+		cwd: packagePath,
 	});
 });

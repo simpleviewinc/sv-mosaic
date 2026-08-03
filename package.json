@@ -1,34 +1,44 @@
 {
-    "name": "@simpleview/sv-mosaic",
-    "version": "46.1.0",
-    "description": "Mosaic UI Library",
-    "author": "Owen Allen <owenallenaz@gmail.com>",
-    "devDependencies": {
-        "@stylistic/eslint-plugin": "1.6.0",
-        "@types/node": "^20.14.2",
-        "@typescript-eslint/eslint-plugin": "5.30.0",
-        "@typescript-eslint/parser": "5.30.0",
-        "concurrently": "^9.1.2",
-        "eslint": "8.56.0",
-        "eslint-plugin-react": "7.30.1",
-        "eslint-plugin-react-hooks": "4.6.0",
-        "react": "18.2.0",
-        "release-it": "16.1.5",
-        "ts-node": "^10.9.2",
-        "typescript": "4.7.4"
-    },
-    "scripts": {
-        "release": "release-it",
-        "bump-packages": "ts-node ./scripts/bump-packages.ts",
-        "docker": "docker compose up --build storybook-dev",
-        "local": "concurrently -n \"Mosaic,Storybook\" -c \"yellow,green\" \"cd containers/mosaic && yarn start\" \"cd containers/sb-8 && yarn start\"",
-        "lint": "eslint . --config .eslintrc.ci.js",
-        "each": "ts-node ./scripts/each-run.ts"
-    },
-    "packageManager": "yarn@3.1.1",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/simpleviewinc/sv-mosaic"
-    },
-    "license": "MIT"
+	"name": "sv-mosaic",
+	"private": true,
+	"description": "Mosaic UI Library monorepo",
+	"author": "Owen Allen <owenallenaz@gmail.com>",
+	"devDependencies": {
+		"@stylistic/eslint-plugin": "1.6.0",
+		"@types/node": "^20.14.2",
+		"@typescript-eslint/eslint-plugin": "5.30.0",
+		"@typescript-eslint/parser": "5.30.0",
+		"eslint": "8.56.0",
+		"eslint-plugin-react": "7.30.1",
+		"eslint-plugin-react-hooks": "4.6.0",
+		"ts-node": "^10.9.2",
+		"typescript": "5.5.4"
+	},
+	"pnpm": {
+		"overrides": {
+			"prosemirror-model": "1.22.3",
+			"react": "19.2.8",
+			"react-dom": "19.2.8",
+			"@types/react": "19.2.18",
+			"@types/react-dom": "19.2.4"
+		}
+	},
+	"scripts": {
+		"dev": "pnpm --filter @simpleview/sv-mosaic build:esm && pnpm --parallel --filter \"./packages/{mosaic,storybook}\" start",
+		"build": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-storybook build",
+		"test": "pnpm --filter @simpleview/sv-mosaic test",
+		"test:unit": "pnpm --filter @simpleview/sv-mosaic test",
+		"test:consumer": "pnpm --filter @simpleview/sv-mosaic-consumer-tests types",
+		"test:e2e": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-e2e test:chrome",
+		"docker:dev": "docker compose up --build storybook-dev",
+		"lint": "eslint . --config .eslintrc.ci.js",
+		"each": "ts-node ./scripts/each-run.ts",
+		"release": "pnpm --filter @simpleview/sv-mosaic release"
+	},
+	"packageManager": "pnpm@9.15.9",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/simpleviewinc/sv-mosaic"
+	},
+	"license": "MIT"
 }

@@ -8,4 +8,4 @@ until curl --head --silent --fail $STORYBOOK_URL 1> /dev/null 2>&1; do
     sleep $INTERVAL
 done
 
-ENV=docker npm run test:chrome
+ENV=docker pnpm run test:chrome

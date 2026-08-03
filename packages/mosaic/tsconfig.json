@@ -23,6 +23,7 @@
 		],
 	},
 	"include": [
+		"./src/jsx-global.d.ts",
 		"./src/**/*"
 	],
 	"exclude": [

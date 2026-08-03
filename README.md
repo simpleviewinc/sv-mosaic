@@ -3,7 +3,7 @@
 # sv-mosaic
 
 ```
-npm install sv-mosaic
+npm install @simpleview/sv-mosaic
 ```
 
 Mosaic is a [React](https://reactjs.org/) user interface library designed to create admin interfaces. It is designed to be product agnostic allowing it to be utilized in any manner of Admin interface.
@@ -14,10 +14,19 @@ Storybook: https://simpleviewinc.github.io/sv-mosaic/
 
 [Changelog](changelog.md) - See the latest changes to sv-mosaic.
 
+This repository is a **pnpm workspace** monorepo:
+
+| Package | Path | Role |
+|---------|------|------|
+| `@simpleview/sv-mosaic` | `packages/mosaic` | Published component library |
+| `@simpleview/sv-mosaic-storybook` | `packages/storybook` | Storybook docs app |
+| `@simpleview/sv-mosaic-consumer-tests` | `packages/consumer-tests` | Export / types smoke tests |
+| `@simpleview/sv-mosaic-e2e` | `packages/e2e` | Playwright e2e tests |
+
 # Usage
 
-* Add sv-mosaic to your package.json and pin to a specific version.
-* sv-mosaic has a host of `peerDependencies` which are not bundled into the library in order to minimize the bundle size of those that are using the package. You will need to ensure all of the `peerDependencies` of the package are satisfied. See the [package.json](package.json) for the current `peerDependencies`.
+* Add `@simpleview/sv-mosaic` to your package.json and pin to a specific version.
+* sv-mosaic has a host of `peerDependencies` which are not bundled into the library in order to minimize the bundle size of those that are using the package. You will need to ensure all of the `peerDependencies` of the package are satisfied. See the [library package.json](packages/mosaic/package.json) for the current `peerDependencies`.
 
 Modules should be imported using the specific resource path to avoid unecessarily importing the entire library:
 
@@ -25,7 +34,7 @@ Modules should be imported using the specific resource path to avoid unecessaril
 import DataView from "@simpleview/sv-mosaic/components/DataView"
 ```
 
-Resources are categorised and made available using the `exports` key in the library's [`package.json`](package.json) file. Those resources are:
+Resources are categorised and made available using the `exports` key in the library's [`package.json`](packages/mosaic/package.json) file. Those resources are:
 
 * components e.g: `import DataView from "@simpleview/sv-mosaic/components/DataView"`
   * For components, you should not only reach into the `components` directory, but also the directory named after component you are looking for.
@@ -44,39 +53,46 @@ Resources are categorised and made available using the `exports` key in the libr
 # Installation
 
 * Ensure you have [sv-kubernetes](https://github.com/simpleviewinc/sv-kubernetes) installed.
+* Install [pnpm](https://pnpm.io/) (this repo pins `pnpm@9.15.9` via `packageManager`).
 * If you want your windows box to have TypeScript completions of npm packages.
 	* Install Node via https://nodejs.org/en/download/, easiest method is the Windows Install 64-bit. It may ask you to restart your box.
 	* In windows cmd
 		```
 		cd d:\PATH\TO\sv-kubernetes\containers\sv-mosaic
-		npm install
+		pnpm install
 		```
 * Putty/Shell into sv-kubernetes
 	* Install the container
 		* `sudo sv install sv-mosaic --type=container --branch=develop`
-	* Run the container
+	* Run Storybook in Docker
 		```
 		cd /sv/containers/sv-mosaic
-		sudo npm run docker
-		yarn start
+		pnpm docker
+		```
+	* Or run locally without Docker
+		```
+		cd /sv/containers/sv-mosaic
+		pnpm install
+		pnpm dev
 		```
 
-The service should now be accessible at http://kube.simpleview.io:10000/
+The Storybook service should now be accessible at http://kube.simpleview.io:10001/
 
 # Unit Testing
 
 * Ensure you have sv-mosaic installed per the instructions above.
-* Putty/Shell into sv-kubernetes
-	* Run the container
-		```
-		cd /sv/containers/sv-mosaic
-		sudo npm run docker
-		yarn test
-		```
+* Locally:
+	```
+	pnpm test
+	```
+* Or via Docker Compose:
+	```
+	docker compose up --build --exit-code-from mosaic-units mosaic-units
+	```
 
 # Component File Structure
 
-Component directories found inside `./containers/mosaic/src/components` should follow a strict structure:
+Component directories found inside `./packages/mosaic/src/components` should follow a strict structure:
 
 * /components/ - Each exported component have it's own sub-folder in this folder.
 	* [Component] - e.g. DataView, DataViewFilterDate
@@ -98,7 +114,7 @@ Good Example Components:
 
 # Publishing
 
-Publishing to NPM and storybook is automated. You do not need to run build, or publish.
+Publishing to NPM and storybook is automated via CircleCI. You do not need to run build, or publish.
 
-* Whenever a push to master changes the package.json, @simpleview/sv-mosaic and @simpleview/sv-mosaic-types will be published to NPM via the publish github action which runs scripts/conditional-publish
-* Whenever a push to master occurs the storybook is automatically built and pushed to the gh-pages branch via the storybook github action.
+* Version bumps are performed with `pnpm release`, which runs `release-it` against `packages/mosaic` only.
+* On qualifying branches, CircleCI publishes `@simpleview/sv-mosaic` and `@simpleview/sv-mosaic-types` to NPM and deploys Storybook static files to GitHub Pages.

@@ -1,25 +1,34 @@
 import fs from "fs";
 import path from "path";
 
-export function fileExistsSync(path: string): boolean {
+export function fileExistsSync(filePath: string): boolean {
 	try {
-		fs.accessSync(path, fs.constants.F_OK);
+		fs.accessSync(filePath, fs.constants.F_OK);
 		return true;
-	} catch (err) {
+	} catch {
 		return false;
 	}
 }
 
-export function getContainers() {
-	const containersDir = path.resolve(__dirname, "../containers");
-	const containers = fs.readdirSync(containersDir);
+export function getPackages() {
+	const packagesDir = path.resolve(__dirname, "../packages");
+	const packages = fs.readdirSync(packagesDir);
 
-	return containers.map(name => {
-		const containerPath = path.resolve(containersDir, name);
-		const pkgPath = path.resolve(containerPath, "package.json");
-		const pkg = JSON.parse(fs.readFileSync(pkgPath).toString());
-		const isYarn = fileExistsSync(path.resolve(containerPath, "yarn.lock"))
+	return packages
+		.map(name => {
+			const packagePath = path.resolve(packagesDir, name);
+			const pkgPath = path.resolve(packagePath, "package.json");
 
-		return { name, path: containerPath, pkgPath, pkg, isYarn };
-	});
+			if (!fileExistsSync(pkgPath)) {
+				return null;
+			}
+
+			const pkg = JSON.parse(fs.readFileSync(pkgPath).toString());
+
+			return { name, path: packagePath, pkgPath, pkg };
+		})
+		.filter((pkg): pkg is NonNullable<typeof pkg> => pkg !== null);
 }
+
+/** @deprecated Use getPackages */
+export const getContainers = getPackages;

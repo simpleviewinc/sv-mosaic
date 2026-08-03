@@ -2,11 +2,12 @@
 
 # How to execute:
 
-* ENV=<env> npm run <script>
+* `ENV=<env> pnpm run <script>`
 
 ENV options:
-* local 
+* local
 * develop
+* docker (used in Compose against `storybook-serve`)
 
 Script options:
 * test:chrome
@@ -14,4 +15,6 @@ Script options:
 * test:webkit
 
 EG:
-ENV=local npm run test:chrome
+```
+ENV=local pnpm run test:chrome
+```

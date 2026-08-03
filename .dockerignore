@@ -1,0 +1,16 @@
+node_modules
+**/node_modules
+.git
+.gitignore
+**/.git
+packages/mosaic/dist
+packages/storybook/storybook-static
+packages/e2e/test-results
+packages/e2e/playwright-report
+packages/*/Dockerfile
+*.log
+.yarn
+**/.yarn
+coverage
+.circleci
+.vscode

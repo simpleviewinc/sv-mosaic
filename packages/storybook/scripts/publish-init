@@ -7,4 +7,4 @@ sed -i 's#/home/circleci#/root#g' /root/.ssh/config
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 echo Running publish script
-yarn publish:github-pages
+pnpm publish:github-pages
