@@ -3,5 +3,9 @@
 	"types": "./types/index.d.ts",
 	"files": [
 		"types"
-	]
+	],
+	"repository": {
+  		"type": "git",
+  		"url": "https://github.com/simpleviewinc/sv-mosaic"
+	}
 }
