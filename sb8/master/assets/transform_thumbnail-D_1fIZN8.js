@@ -1,0 +1,19 @@
+import{j as i}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as m}from"./index-ikABDTSQ.js";import{M as n}from"./index-Bl4jeCu5.js";import{c as p}from"./column_transforms-3ZJ09Gxm.js";import{T as e}from"./TransformExample-CWk1OYGN.js";import"./index-CDlOlYQx.js";import"./iframe-G-K5kHBy.js";import"./index-BGZCjPBa.js";import"./index-CA2ozmjx.js";import"./index-cS34vJOP.js";import"./index-DrFu-skq.js";import"./index-DUrLt3d7.js";import"./MosaicContext-Ckn3SYVO.js";import"./ButtonBase-BTOUCkJL.js";import"./identifier-D-VlK421.js";import"./sizes-BeWafy6f.js";import"./createSimplePaletteValueFilter-CQDqkEyb.js";import"./useSlot-BF1fWNxP.js";import"./useEnhancedEffect-BmmhhWnX.js";import"./TitleWrapper-D9Xlm0gk.js";import"./styled-components.browser.esm-CsHOGV45.js";import"./Button-DiGzPWWk.js";import"./useId-CJY4DrkM.js";import"./CircularProgress-DnZWjXCP.js";import"./index-fPYtWVub.js";import"./Popover-BARbcQa_.js";import"./useTooltip-CvILwQ8N.js";import"./mergeSlotProps-1AUqaabT.js";import"./createChainedFunction-BO_9K8Jh.js";import"./containerQuery-DwQ6QvMu.js";import"./ChevronLeft-ef-3r2ji.js";import"./createSvgIcon-CpiYeT0y.js";import"./Typography-Bp-nXGcB.js";import"./DisplayText-BJnL9L05.js";import"./ButtonRow-Cf2fXVyQ.js";import"./testIds-B6Pox1zA.js";import"./StyledPopperPaper-B1C6YiGY.js";import"./TooltipIcon-CCmwqh__.js";import"./DataViewFilterDropdownButtons-DxJf3FQF.js";import"./FormFieldText.styled-CRryNLjj.js";import"./formControlState-VojGIu4f.js";import"./GlobalStyles-DOqqlamx.js";import"./useControlled-DKUcMOPx.js";import"./index-BYJCM7n4.js";import"./ExpandMore-C3mveD_C.js";import"./Chip-BzCeYly-.js";import"./DataViewPrimaryFilter.styled-64dlO4D8.js";import"./Badge-OO3YKMxk.js";import"./Text-B-CII8XP.js";import"./PickerPanel-DE1h0Woy.js";import"./PageHeader-CVwaxNeh.js";import"./Spinner-Dd-oad_B.js";import"./CheckboxList-BKNIRyAz.js";import"./Checkbox-65JO9dLp.js";import"./SwitchBase-Cr0Iw5cH.js";import"./StyledOptionFormControl-DVa9h7YW.js";import"./FormGroup-DKw7Nhjc.js";import"./MoreVert-BuMRkz_g.js";import"./stable-BFc8HSVh.js";import"./scrollbarStyles-DAQJW3QI.js";import"./Snackbar-Bo2ZVk08.js";import"./Close-Dcayhvfb.js";import"./ChipList-DMumVwBB.js";import"./RadioGroup-bYFNZFp8.js";import"./Toggle-DXGG91mo.js";import"./Dialog-DXGYH3lr.js";import"./ThemeProvider-C67Jzfm-.js";import"./SideNav-0jIe1PLd.js";import"./CardHeading-c7RPWGjr.js";import"./Image-DWVfwFkh.js";function o(t){const r={code:"code",h1:"h1",h4:"h4",li:"li",p:"p",pre:"pre",strong:"strong",ul:"ul",...m(),...t.components};return i.jsxs(i.Fragment,{children:[i.jsx(n,{title:"Utils/Transforms/Thumbnail"}),`
+`,i.jsx(r.h1,{id:"transform_thumbnail",children:"transform_thumbnail"}),`
+`,i.jsxs(r.p,{children:["Converts an image URL to an ",i.jsx(r.code,{children:"<img />"})," element with a given height and width."]}),`
+`,i.jsx(r.h4,{id:"conversions",children:"Conversions"}),`
+`,i.jsxs(r.ul,{children:[`
+`,i.jsxs(r.li,{children:[i.jsx(r.code,{children:'"https://myImgUrl.com"'})," => ",i.jsx(e,{cb:p({width:150,height:150}),data:"https://res.cloudinary.com/simpleview/image/upload/v1542821844/clients/grandrapids/_OD_0354_c78fbb66-c75a-4804-9430-9af38ed8e9d5.jpg"})]}),`
+`]}),`
+`,i.jsx(r.h4,{id:"args",children:"Args"}),`
+`,i.jsxs(r.ul,{children:[`
+`,i.jsxs(r.li,{children:[i.jsx(r.strong,{children:"width"})," - width of the image in pixels."]}),`
+`,i.jsxs(r.li,{children:[i.jsx(r.strong,{children:"height"})," - height of the image in pixels."]}),`
+`]}),`
+`,i.jsx(r.h4,{id:"example",children:"Example"}),`
+`,i.jsx(r.pre,{children:i.jsx(r.code,{className:"language-js",children:`import { transform_thumbnail } from "#mosaic"
+...
+transforms : [
+    transform_thumbnail()
+]
+`})})]})}function Ci(t={}){const{wrapper:r}={...m(),...t.components};return r?i.jsx(r,{...t,children:i.jsx(o,{...t})}):o(t)}export{Ci as default};
