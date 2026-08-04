@@ -1,8 +1,0 @@
-{
-    "npm": {
-        "publish": false
-    },
-    "hooks": {
-        "after:bump": "yarn bump-packages"
-    }
-}

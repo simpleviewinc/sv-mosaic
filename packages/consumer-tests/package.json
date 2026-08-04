@@ -1,0 +1,17 @@
+{
+	"name": "@simpleview/sv-mosaic-consumer-tests",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"types:cjs": "tsc --project tsconfig.cjs.json --noEmit",
+		"types:esm": "tsc --project tsconfig.esm.json --noEmit",
+		"types": "pnpm types:cjs && pnpm types:esm",
+		"start": "pnpm types"
+	},
+	"dependencies": {
+		"@simpleview/sv-mosaic": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "^5.5.4"
+	}
+}

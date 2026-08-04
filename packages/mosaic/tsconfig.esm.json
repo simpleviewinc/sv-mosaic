@@ -1,0 +1,20 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"declaration": true,
+		"declarationDir": "./dist/types",
+		"target": "ES2019",
+		"outDir": "./dist/esm"
+	},
+	"include": [
+		"./src/jsx-global.d.ts",
+		"./src/index.ts",
+		"./src/components/index.ts",
+		"./src/constants/index.ts",
+		"./src/mock/index.ts",
+		"./src/i18n/index.ts",
+		"./src/theme/index.ts",
+		"./src/transforms/index.ts",
+		"./src/utils/index.ts"
+	]
+}

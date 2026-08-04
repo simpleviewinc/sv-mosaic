@@ -1,7 +1,0 @@
-{
-	"name": "@simpleview/sv-mosaic-types",
-	"types": "./types/index.d.ts",
-	"files": [
-		"types"
-	]
-}

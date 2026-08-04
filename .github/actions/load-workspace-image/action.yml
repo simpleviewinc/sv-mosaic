@@ -1,0 +1,14 @@
+name: Load workspace image
+description: Download the shared mosaic-workspace Docker image artifact and load it
+
+runs:
+  using: composite
+  steps:
+    - name: Download workspace image
+      uses: actions/download-artifact@v8
+      with:
+        name: workspace-image
+
+    - name: Docker load
+      shell: bash
+      run: docker load -i workspace-image.tar

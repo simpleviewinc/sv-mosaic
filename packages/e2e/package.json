@@ -1,0 +1,21 @@
+{
+	"name": "@simpleview/sv-mosaic-e2e",
+	"private": true,
+	"version": "0.0.0",
+	"description": "Mosaic Playwright e2e tests",
+	"scripts": {
+		"test:chrome": "playwright test --project=chromium",
+		"test:firefox": "playwright test --project=firefox",
+		"test:webkit": "playwright test --project=webkit",
+		"start": "./scripts/start",
+		"lint": "eslint ."
+	},
+	"license": "ISC",
+	"devDependencies": {
+		"@playwright/test": "1.62.1",
+		"@simpleview/sv-mosaic": "workspace:*",
+		"@simpleview/sv-mosaic-eslint": "^0.0.2",
+		"@types/node": "^20.12.12",
+		"eslint": "^9.15.0"
+	}
+}

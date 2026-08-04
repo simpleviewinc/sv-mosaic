@@ -1,35 +1,17 @@
 node_modules
+.pnpm-store
+.cursor
 coverage
-automation_testing/node_modules
-automation_testing/test-results
-automation_testing/playwright-report
+packages/e2e/test-results
+packages/e2e/playwright-report
 dist/*
 !dist/.gitkeep
 
-# Yarn
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
 .vscode/terminals.json
 
-# New containerisation
+packages/mosaic/dist/*
+!packages/mosaic/dist/.gitkeep
 
-containers/*/.pnp.*
-containers/*/.yarn/*
-!containers/*/.yarn/patches
-!containers/*/.yarn/plugins
-!containers/*/.yarn/releases
-!containers/*/.yarn/sdks
-!containers/*/.yarn/versions
-
-containers/mosaic/dist/*
-!containers/mosaic/dist/.gitkeep
-
-containers/sb-8/storybook-static
+packages/storybook/storybook-static
 
 *storybook.log

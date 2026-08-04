@@ -1,0 +1,185 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - develop
+      - qa
+      - staging
+      - master
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Workspace Image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/setup-buildx-action@v4
+
+      - name: Build workspace image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          tags: mosaic-workspace:local
+          load: true
+          cache-from: type=gha,scope=mosaic-workspace
+          cache-to: type=gha,mode=max,scope=mosaic-workspace
+
+      - name: Save workspace image
+        run: docker save mosaic-workspace:local -o workspace-image.tar
+
+      - name: Upload workspace image
+        uses: actions/upload-artifact@v7
+        with:
+          name: workspace-image
+          path: workspace-image.tar
+          retention-days: 1
+
+  unit:
+    name: Unit Tests
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+      - name: Run unit tests
+        run: docker compose up --exit-code-from mosaic-units mosaic-units
+
+  consumer:
+    name: Consumer Tests
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+      - name: Run consumer tests
+        run: docker compose up --exit-code-from consumer-tests consumer-tests
+
+  storybook-typecheck:
+    name: Storybook Typecheck
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+      - name: Typecheck Storybook
+        run: docker compose up --exit-code-from storybook-typecheck storybook-typecheck
+
+  e2e:
+    name: E2E Tests
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+
+      - uses: docker/setup-buildx-action@v4
+
+      - name: Build e2e image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: packages/e2e/Dockerfile
+          tags: mosaic-e2e:local
+          load: true
+          cache-from: type=gha,scope=mosaic-e2e
+          cache-to: type=gha,mode=max,scope=mosaic-e2e
+
+      - name: Run e2e tests
+        run: docker compose up --exit-code-from e2e-tests --no-build e2e-tests
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: packages/e2e/playwright-report
+          retention-days: 7
+
+      - name: Stop services
+        if: always()
+        run: docker compose down --remove-orphans
+
+  publish-npm:
+    name: Publish to NPM
+    needs:
+      - build
+      - unit
+      - consumer
+      - storybook-typecheck
+      - e2e
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+
+      - name: Extract mosaic package from workspace image
+        run: |
+          cid=$(docker create mosaic-workspace:local)
+          docker cp "$cid:/app/packages/mosaic/dist" ./packages/mosaic/dist
+          docker cp "$cid:/app/packages/mosaic/package.json" ./packages/mosaic/package.json
+          docker cp "$cid:/app/packages/mosaic/package.types.json" ./packages/mosaic/package.types.json
+          docker rm "$cid"
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 9.15.9
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.18.1
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish packages
+        working-directory: packages/mosaic
+        env:
+          PUBLISH_REF_NAME: ${{ github.ref_name }}
+          PUBLISH_SHA: ${{ github.sha }}
+        run: pnpm publish:npm
+
+  publish-storybook:
+    name: Publish Storybook
+    needs:
+      - build
+      - unit
+      - consumer
+      - storybook-typecheck
+      - e2e
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/qa' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/load-workspace-image
+
+      - name: Export Storybook static files
+        run: |
+          cid=$(docker create mosaic-workspace:local)
+          docker cp "$cid:/app/packages/storybook/storybook-static" ./storybook-static
+          docker rm "$cid"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          destination_dir: sb8/${{ github.ref_name }}
+          keep_files: true

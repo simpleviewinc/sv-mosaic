@@ -1,0 +1,28 @@
+# Dependencies and local stores (installed inside the image)
+node_modules
+**/node_modules
+.pnpm-store
+
+# VCS / IDE / local tooling
+.git
+**/.git
+.gitignore
+.cursor
+.vscode
+.github
+
+# Host / CI build outputs (rebuilt in the image)
+packages/mosaic/dist
+packages/storybook/storybook-static
+packages/e2e/test-results
+packages/e2e/playwright-report
+coverage
+*.log
+*storybook.log
+
+# Not needed in either image build context
+README.md
+changelog.md
+LICENSE
+compose.yml
+.dockerignore
