@@ -114,10 +114,7 @@ jobs:
       - consumer
       - storybook-typecheck
       - e2e
-    # TEMPORARY: also publish from PR #986 so we can validate NPM without merging to staging.
-    if: >
-      (github.event_name == 'push' && (github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master'))
-      || (github.event_name == 'pull_request' && github.event.pull_request.number == 986)
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     environment: npm-publish
     permissions:
@@ -153,8 +150,7 @@ jobs:
       - name: Publish packages
         working-directory: packages/mosaic
         env:
-          # PR refs look like "986/merge" (invalid for npm); use pr986 for the temporary PR path.
-          PUBLISH_REF_NAME: ${{ github.event.pull_request.number == 986 && 'pr986' || github.ref_name }}
+          PUBLISH_REF_NAME: ${{ github.ref_name }}
           PUBLISH_SHA: ${{ github.sha }}
         run: pnpm publish:npm
 
@@ -166,10 +162,7 @@ jobs:
       - consumer
       - storybook-typecheck
       - e2e
-    # TEMPORARY: also publish from PR #986 so we can validate GitHub Pages without merging to staging.
-    if: >
-      (github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/qa' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master'))
-      || (github.event_name == 'pull_request' && github.event.pull_request.number == 986)
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/qa' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -188,5 +181,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
-          destination_dir: sb8/${{ github.event.pull_request.number == 986 && 'pr986' || github.ref_name }}
+          destination_dir: sb8/${{ github.ref_name }}
           keep_files: true

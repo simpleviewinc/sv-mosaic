@@ -27,6 +27,7 @@
 		"release": "pnpm --filter @simpleview/sv-mosaic release",
 		"host:dev": "pnpm --filter @simpleview/sv-mosaic build:esm && pnpm --parallel --filter \"./packages/{mosaic,storybook}\" start",
 		"host:build": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-storybook build",
+		"host:lint": "pnpm -r --if-present lint",
 		"host:test:unit": "pnpm --filter @simpleview/sv-mosaic test",
 		"host:test:consumer": "pnpm --filter @simpleview/sv-mosaic-consumer-tests types",
 		"host:test:e2e": "pnpm --filter @simpleview/sv-mosaic build && pnpm --filter @simpleview/sv-mosaic-e2e test:chrome",

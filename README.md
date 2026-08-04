@@ -43,12 +43,9 @@ Public entry points are defined by the `exports` map in the library `[package.js
 
 ---
 
-
-
 # Development Guide
 
 This repository is a **pnpm workspace** monorepo:
-
 
 | Package                                | Path                      | Role                        |
 | -------------------------------------- | ------------------------- | --------------------------- |
@@ -56,9 +53,6 @@ This repository is a **pnpm workspace** monorepo:
 | `@simpleview/sv-mosaic-storybook`      | `packages/storybook`      | Storybook docs app          |
 | `@simpleview/sv-mosaic-consumer-tests` | `packages/consumer-tests` | Export / types smoke tests  |
 | `@simpleview/sv-mosaic-e2e`            | `packages/e2e`            | Playwright e2e tests        |
-
-
-
 
 ## Development setup
 
@@ -83,23 +77,6 @@ Storybook (Docker or host) listens on port `10001`. Inside sv-kubernetes it is t
 
 Root scripts are the supported developer entry points. Prefer them over calling package filters or Compose services directly.
 
-### Host (`host:*`)
-
-Run these after `pnpm install` on the host (WSL or elsewhere with pnpm):
-
-
-| Script                    | Purpose                                                  |
-| ------------------------- | -------------------------------------------------------- |
-| `pnpm host:dev`           | Build mosaic ESM once, then watch mosaic + run Storybook |
-| `pnpm host:build`         | Build mosaic (ESM + CJS) and Storybook static output     |
-| `pnpm host:test:unit`     | Run mosaic unit tests (Vitest)                           |
-| `pnpm host:test:consumer` | Typecheck consumer smoke imports (CJS + ESM)             |
-| `pnpm host:test:e2e`      | Build mosaic, then run Playwright Chromium e2e tests     |
-| `pnpm release`            | Bump / release `@simpleview/sv-mosaic` via `release-it`  |
-
-
-
-
 ### Docker (`docker:*`)
 
 These build/run Compose services defined in `compose.yml`:
@@ -107,14 +84,25 @@ These build/run Compose services defined in `compose.yml`:
 
 | Script                      | Purpose                                         |
 | --------------------------- | ----------------------------------------------- |
-| `pnpm docker:dev`           | Storybook dev server with source bind-mounts    |
-| `pnpm docker:lint`          | Lint inside the workspace image                 |
-| `pnpm docker:test:unit`     | Unit tests inside Docker                        |
-| `pnpm docker:test:consumer` | Consumer typechecks inside Docker               |
-| `pnpm docker:test:e2e`      | Playwright e2e against a served Storybook build |
+| `npm docker:dev`            | Storybook dev server with source bind-mounts    |
+| `npm docker:lint`           | Lint inside the workspace image                 |
+| `npm docker:test:unit`      | Unit tests inside Docker                        |
+| `npm docker:test:consumer`  | Consumer typechecks inside Docker               |
+| `npm docker:test:e2e`       | Playwright e2e against a served Storybook build |
 
+### Host (`host:*`)
 
+You'll need `pnpm` installed on your host in order to use the following scripts. After `pnpm install` on the host (or in another non-Docker environment):
 
+| Script                    | Purpose                                                  |
+| ------------------------- | -------------------------------------------------------- |
+| `pnpm host:dev`           | Build mosaic ESM once, then watch mosaic + run Storybook |
+| `pnpm host:build`         | Build mosaic (ESM + CJS) and Storybook static output     |
+| `pnpm host:lint`          | Lint packages that define a lint script                  |
+| `pnpm host:test:unit`     | Run mosaic unit tests (Vitest)                           |
+| `pnpm host:test:consumer` | Typecheck consumer smoke imports (CJS + ESM)             |
+| `pnpm host:test:e2e`      | Build mosaic, then run Playwright Chromium e2e tests     |
+| `pnpm release`            | Bump / release `@simpleview/sv-mosaic` via `release-it`  |
 
 ## Component file structure
 
