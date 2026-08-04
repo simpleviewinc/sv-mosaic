@@ -1,4 +1,6 @@
 node_modules
+.pnpm-store
+.cursor
 coverage
 packages/e2e/test-results
 packages/e2e/playwright-report
