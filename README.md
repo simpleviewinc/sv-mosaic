@@ -1,6 +1,8 @@
-[npm version](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic)
+<a href="#"><img src="packages/storybook/.storybook/Mosaic.png" alt="Mosaic" width="80" /></a>
 
-# sv-mosaic
+# Mosaic
+
+[![npm version](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic.svg)](https://badge.fury.io/js/%40simpleview%2Fsv-mosaic)
 
 ```
 npm install @simpleview/sv-mosaic
@@ -72,6 +74,7 @@ You can also develop on the host if [pnpm](https://pnpm.io/) is available. This 
 
 ```
 pnpm install
+pnpm host:dev
 ```
 
 Storybook (Docker or host) listens on port `10001`. Inside sv-kubernetes it is typically available at [http://kube.simpleview.io:10001/](http://kube.simpleview.io:10001/).
@@ -92,7 +95,6 @@ Run these after `pnpm install` on the host (WSL or elsewhere with pnpm):
 | `pnpm host:test:unit`     | Run mosaic unit tests (Vitest)                           |
 | `pnpm host:test:consumer` | Typecheck consumer smoke imports (CJS + ESM)             |
 | `pnpm host:test:e2e`      | Build mosaic, then run Playwright Chromium e2e tests     |
-| `pnpm lint`               | Lint the workspace                                       |
 | `pnpm release`            | Bump / release `@simpleview/sv-mosaic` via `release-it`  |
 
 
