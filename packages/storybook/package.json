@@ -28,7 +28,7 @@
 		"date-fns": "^2.29.1",
 		"lodash": "^4.17.15",
 		"monaco-editor": "^0.52.2",
-		"nanoid": "^3.3.7",
+		"nanoid": "^3.3.17",
 		"react": "19.2.8",
 		"react-dom": "19.2.8",
 		"styled-components": "6.3.11"
