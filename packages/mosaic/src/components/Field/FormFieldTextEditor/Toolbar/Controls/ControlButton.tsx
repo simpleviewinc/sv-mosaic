@@ -36,6 +36,9 @@ export const ControlButton = function ControlButton({
 			<StyledControlButton
 				{...props}
 				{...anchorProps}
+				// The Tooltip below is rendered only when there is a label, so
+				// without one there is nothing for a description to point at.
+				aria-describedby={label ? anchorProps["aria-describedby"] : undefined}
 				ref={setRef}
 				$active={active}
 				$square={square}

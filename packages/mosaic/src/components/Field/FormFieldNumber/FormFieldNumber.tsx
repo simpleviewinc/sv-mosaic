@@ -110,6 +110,10 @@ const NumberField = (
 				inputMode: "numeric",
 				"aria-label": fieldDef.label,
 				...anchorProps,
+				// This field drives its Tooltip from `errorFlash` rather than from
+				// the hook's own open state, so the hook's description reference
+				// would otherwise point at a tooltip that is not rendered.
+				"aria-describedby": errorFlash ? tooltipProps.id : undefined,
 			},
 		};
 
@@ -122,7 +126,7 @@ const NumberField = (
 		}
 
 		return props;
-	}, [anchorProps, inputRef, prefix, suffix, fieldDef.label]);
+	}, [anchorProps, inputRef, prefix, suffix, fieldDef.label, errorFlash, tooltipProps.id]);
 
 	if (skeleton) {
 		return (
