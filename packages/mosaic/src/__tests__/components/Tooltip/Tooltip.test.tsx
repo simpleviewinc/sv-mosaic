@@ -107,6 +107,51 @@ describe("Tooltip component", () => {
 		expect(tooltip.getByRole("button", { name: "Anchor" })).toHaveFocus();
 	});
 
+	it("should keep a hovered tooltip open when focus leaves the anchor", async () => {
+		const user = userEvent.setup();
+		const tooltip = render(
+			<FocusableTooltipTest text="Persist tooltip test" />,
+		);
+		const anchor = tooltip.getByRole("button", { name: "Anchor" });
+
+		await user.hover(anchor);
+		expect(await tooltip.findByText("Persist tooltip test")).toBeInTheDocument();
+
+		// Focus then move focus away, without the pointer ever leaving. Hover is
+		// still a live trigger, so the content must survive the blur.
+		await user.tab();
+		await user.tab();
+
+		expect(tooltip.getByRole("button", { name: "Next" })).toHaveFocus();
+		expect(tooltip.queryByText("Persist tooltip test")).toBeInTheDocument();
+
+		await user.unhover(anchor);
+		expect(tooltip.queryByText("Persist tooltip test")).not.toBeInTheDocument();
+	});
+
+	it("should reopen after Escape once the anchor is re-entered", async () => {
+		const user = userEvent.setup();
+		const tooltip = render(
+			<FocusableTooltipTest text="Reopen tooltip test" />,
+		);
+
+		await user.tab();
+		expect(await tooltip.findByText("Reopen tooltip test")).toBeInTheDocument();
+
+		await user.keyboard("{Escape}");
+		expect(tooltip.queryByText("Reopen tooltip test")).not.toBeInTheDocument();
+
+		// Leaving and returning re-arms the trigger; a dismissal is for one
+		// visit, not for the life of the component.
+		await user.tab();
+		expect(tooltip.getByRole("button", { name: "Next" })).toHaveFocus();
+
+		await user.tab({ shift: true });
+
+		expect(tooltip.getByRole("button", { name: "Anchor" })).toHaveFocus();
+		expect(await tooltip.findByText("Reopen tooltip test")).toBeInTheDocument();
+	});
+
 	it("should reference the tooltip with aria-describedby only while it is open", async () => {
 		const user = userEvent.setup();
 		const tooltip = render(

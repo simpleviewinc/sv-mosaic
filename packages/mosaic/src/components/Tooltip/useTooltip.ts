@@ -10,7 +10,20 @@ export interface UseTooltipResult {
 
 function useTooltip(): UseTooltipResult {
 	const [ref, setRef] = useState<AnchorElement | null>(null);
-	const [open, setOpen] = useState(false);
+	// Pointer and keyboard are tracked separately rather than as one `open`
+	// flag. With a single flag, blurring closes a tooltip the pointer is still
+	// resting on — measured — because the two triggers are also bound to two
+	// different elements (hover on the wrapper, focus on the button).
+	// SC 1.4.13 Persistent asks for the content to stay until its trigger is
+	// removed, and one of the two triggers is still present in that case.
+	const [hovered, setHovered] = useState(false);
+	const [focused, setFocused] = useState(false);
+	// Escape dismisses without moving focus (SC 1.4.13 Dismissible), which the
+	// trigger flags alone cannot express: focus is still on the anchor.
+	// Re-entering by either trigger clears it.
+	const [dismissed, setDismissed] = useState(false);
+
+	const open = (hovered || focused) && !dismissed;
 
 	const id = useId();
 
@@ -22,13 +35,19 @@ function useTooltip(): UseTooltipResult {
 
 	const anchorProps = useMemo<AnchorProps>(() => ({
 		ref: setRef,
-		onMouseEnter: () => setOpen(true),
-		onMouseLeave: () => setOpen(false),
-		onFocus: () => setOpen(true),
-		onBlur: () => setOpen(false),
+		onMouseEnter: () => {
+			setDismissed(false);
+			setHovered(true);
+		},
+		onMouseLeave: () => setHovered(false),
+		onFocus: () => {
+			setDismissed(false);
+			setFocused(true);
+		},
+		onBlur: () => setFocused(false),
 		onKeyDown: (event) => {
 			if (event.key === "Escape") {
-				setOpen(false);
+				setDismissed(true);
 			}
 		},
 		"aria-describedby": open ? `tooltip-${id}` : undefined,
