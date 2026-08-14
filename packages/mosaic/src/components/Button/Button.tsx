@@ -1,4 +1,4 @@
-import type { MouseEvent } from "react";
+import type { FocusEvent, KeyboardEvent, MouseEvent } from "react";
 import type { PopoverProps } from "@mui/material/Popover";
 
 import React, { createContext, memo, useState } from "react";
@@ -83,7 +83,9 @@ const ButtonBase = function ButtonBase({
 		size: size,
 		$size: size,
 		onClick: props.onClick,
+		onFocus: props.onFocus,
 		onBlur: props.onBlur,
+		onKeyDown: props.onKeyDown,
 		href: props.href,
 		name: props.name,
 		id: props.id,
@@ -167,6 +169,21 @@ function ButtonWithState(props: ButtonProps) {
 		anchorProps.onMouseLeave();
 	};
 
+	const onFocus = (e: FocusEvent<HTMLButtonElement>) => {
+		props.onFocus && props.onFocus(e);
+		anchorProps.onFocus();
+	};
+
+	const onBlur = (e: FocusEvent<HTMLButtonElement>) => {
+		props.onBlur && props.onBlur(e);
+		anchorProps.onBlur();
+	};
+
+	const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+		props.onKeyDown && props.onKeyDown(e);
+		anchorProps.onKeyDown(e);
+	};
+
 	const shownMenuItems = useToggle(props.menuItems || [], "show", true);
 
 	// If this is a button with menu items
@@ -183,6 +200,15 @@ function ButtonWithState(props: ButtonProps) {
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
 				onMouseLeave={onMouseLeave}
+				onFocus={onFocus}
+				onBlur={onBlur}
+				onKeyDown={onKeyDown}
+				muiAttrs={{
+					// Only a button that renders a Tooltip has a description to
+					// point at; the hook itself runs for every button.
+					"aria-describedby": props.tooltip ? anchorProps["aria-describedby"] : undefined,
+					...props.muiAttrs,
+				}}
 				ref={anchorProps.ref}
 			/>
 			{props.tooltip && (

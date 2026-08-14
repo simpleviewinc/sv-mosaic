@@ -36,7 +36,7 @@ export interface ButtonProps {
 	disabled?: MosaicToggle;
 	/** Button will occupy 100% of the width provided to it */
 	fullWidth?: boolean;
-	/** Display a tooltip on hover of the button */
+	/** Display a tooltip on hover or keyboard focus of the button */
 	tooltip?: string | JSX.Element;
 	/** Trigger a popover on click */
 	popover?: JSX.Element;
@@ -48,7 +48,9 @@ export interface ButtonProps {
 	onClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	onBlur?: (event: React.FocusEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+	onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
 	/** Attrs for the root span that wraps the button */
 	attrs?: MosaicObject;
 	/** Attrs for the nested Material UI IconButton or Button */

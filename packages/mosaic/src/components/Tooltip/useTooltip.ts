@@ -24,8 +24,15 @@ function useTooltip(): UseTooltipResult {
 		ref: setRef,
 		onMouseEnter: () => setOpen(true),
 		onMouseLeave: () => setOpen(false),
-		"aria-describedby": `tooltip-${id}`,
-	}), [id]);
+		onFocus: () => setOpen(true),
+		onBlur: () => setOpen(false),
+		onKeyDown: (event) => {
+			if (event.key === "Escape") {
+				setOpen(false);
+			}
+		},
+		"aria-describedby": open ? `tooltip-${id}` : undefined,
+	}), [id, open]);
 
 	return {
 		tooltipProps,

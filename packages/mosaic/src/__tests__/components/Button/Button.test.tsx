@@ -136,6 +136,80 @@ describe(__dirname, () => {
 		expect(tooltip).not.toBeInTheDocument();
 	});
 
+	it("should show a button's tooltip on keyboard focus", async () => {
+		const { user } = await setup({ tooltip: "My Tooltip" });
+
+		await user.tab();
+
+		expect(screen.queryByRole("button")).toHaveFocus();
+		expect(screen.queryByRole("tooltip")).toBeInTheDocument();
+	});
+
+	it("should hide a button's tooltip when keyboard focus leaves", async () => {
+		const { user } = await setup({ tooltip: "My Tooltip" });
+
+		await user.tab();
+		expect(screen.queryByRole("tooltip")).toBeInTheDocument();
+
+		await user.tab();
+
+		expect(screen.queryByRole("button")).not.toHaveFocus();
+		expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+	});
+
+	it("should dismiss a focused button's tooltip on Escape", async () => {
+		const { user } = await setup({ tooltip: "My Tooltip" });
+
+		await user.tab();
+		expect(screen.queryByRole("tooltip")).toBeInTheDocument();
+
+		await user.keyboard("{Escape}");
+
+		expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+		expect(screen.queryByRole("button")).toHaveFocus();
+	});
+
+	it("should describe a button by its tooltip while the tooltip is open", async () => {
+		const { user } = await setup({ label: "Edit", tooltip: "Edit this record" });
+		const button = screen.queryByRole("button");
+
+		expect(button).not.toHaveAttribute("aria-describedby");
+
+		await user.tab();
+
+		const describedBy = button.getAttribute("aria-describedby");
+		expect(describedBy).toBeTruthy();
+		expect(document.getElementById(describedBy)).toHaveTextContent("Edit this record");
+	});
+
+	it("should not describe a button that has no tooltip", async () => {
+		const { user } = await setup({ label: "No tooltip here" });
+
+		await user.tab();
+
+		// The hook runs for every button, but only a button that actually
+		// renders a Tooltip has anything for aria-describedby to point at.
+		expect(screen.queryByRole("button")).toHaveFocus();
+		expect(screen.queryByRole("button")).not.toHaveAttribute("aria-describedby");
+	});
+
+	it("should still call a consumer's own onFocus and onBlur alongside the tooltip", async () => {
+		const onFocusMock = vi.fn();
+		const onBlurMock = vi.fn();
+
+		const { user } = await setup({
+			tooltip: "My Tooltip",
+			onFocus: onFocusMock,
+			onBlur: onBlurMock,
+		});
+
+		await user.tab();
+		expect(onFocusMock).toBeCalled();
+
+		await user.tab();
+		expect(onBlurMock).toBeCalled();
+	});
+
 	it("should render a button with popover on hover", async () => {
 		const onMouseEnterMock = vi.fn();
 		const onMouseLeaveMock = vi.fn();
