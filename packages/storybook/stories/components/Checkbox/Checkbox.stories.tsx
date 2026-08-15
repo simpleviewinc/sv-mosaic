@@ -12,6 +12,7 @@ export default {
 
 export const Playground = ({
 	label,
+	ariaLabel,
 	controlled,
 	checked: controlledChecked,
 	disabled,
@@ -23,6 +24,7 @@ export const Playground = ({
 	return (
 		<Checkbox
 			label={label}
+			aria-label={ariaLabel || undefined}
 			checked={checked}
 			onChange={(e) => setInternalChecked((e.target as HTMLInputElement).checked)}
 			disabled={disabled}
@@ -33,6 +35,7 @@ export const Playground = ({
 
 Playground.args = {
 	label: "Example",
+	ariaLabel: "",
 	controlled: true,
 	checked: false,
 	disabled: false,
@@ -42,6 +45,10 @@ Playground.args = {
 Playground.argTypes = {
 	label: {
 		name: "Label",
+	},
+	ariaLabel: {
+		name: "Aria Label",
+		description: "Accessible name to use when no visible Label is provided.",
 	},
 	controlled: {
 		name: "Controlled",
