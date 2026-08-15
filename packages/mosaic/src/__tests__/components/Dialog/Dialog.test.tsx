@@ -99,7 +99,14 @@ describe(__dirname, () => {
 		const invoker = screen.getByRole("button", { name: "Open Dialog" });
 		await user.click(invoker);
 
-		expect(screen.queryByRole("dialog")).toBeInTheDocument();
+		const dialog = screen.getByRole("dialog");
+		expect(dialog).toBeInTheDocument();
+		const modalRoot = dialog.closest(".MuiDialog-container");
+		expect(modalRoot).not.toBeNull();
+		if (!modalRoot) {
+			throw new Error("expected MUI dialog container");
+		}
+		expect(modalRoot.contains(document.activeElement)).toBe(true);
 		await user.keyboard("{Escape}");
 
 		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
