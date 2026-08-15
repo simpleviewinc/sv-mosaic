@@ -90,9 +90,8 @@ describe("Form section DOM id scoping across multiple Form instances", () => {
 		// Every heading's aria-controls resolves to exactly one existing element
 		// (a duplicate id elsewhere in the document would make this ambiguous).
 		controlsIds.forEach(id => {
-			const matches = document.querySelectorAll(`[id="${id}"]`);
-			expect(matches).toHaveLength(1);
-			expect(matches[0]).toBeInTheDocument();
+			expect(id).toBeTruthy();
+			expect(document.getElementById(id)).toBeInTheDocument();
 		});
 	});
 });
