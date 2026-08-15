@@ -1,5 +1,13 @@
 import type { CheckboxProps as MUICheckboxProps } from "@mui/material/Checkbox";
 
+/**
+ * `aria-label`/`aria-labelledby` (inherited from `MUICheckboxProps`) are
+ * forwarded to the underlying `<input>` and take precedence over `label` as
+ * the checkbox's accessible name. Only set them when `label` is empty/absent
+ * and there is otherwise no visible text for assistive technology to read
+ * (e.g. a colour swatch option); setting both logs a dev warning, since the
+ * announced name will then silently diverge from the visible text.
+ */
 export interface CheckboxProps extends MUICheckboxProps {
 	/**
 	 * Boolean value that indicates whether the
