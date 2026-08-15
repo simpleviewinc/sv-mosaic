@@ -55,4 +55,22 @@ describe(__dirname, () => {
 		expect(checkboxes).toHaveLength(2);
 		expect(checkboxes[0]).toBeChecked();
 	});
+
+	it("should expose an accessible name via an option's ariaLabel when the option has no visible label text", async () => {
+		await setup({
+			options: [{ value: "green", label: "", ariaLabel: "Green" }],
+		});
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
+
+	it("should warn when an option has neither a label nor an ariaLabel", async () => {
+		vi.spyOn(console, "warn").mockImplementation(() => undefined);
+
+		await setup({
+			options: [{ value: "green", label: "" }],
+		});
+
+		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("no accessible name"));
+	});
 });
