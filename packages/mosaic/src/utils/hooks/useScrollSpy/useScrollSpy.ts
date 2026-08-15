@@ -16,6 +16,7 @@ type SectionTermination = "start" | "end";
 
 interface SectionRef {
 	elem: Element;
+	headingElem?: Element;
 	isVisible: boolean;
 	index: number;
 }
@@ -78,9 +79,10 @@ export default function useScrollSpy({
 		threshold: [0, intersectionRatioThreshold, 1],
 	}));
 
-	const registerRef = useCallback<ScrollSpyResult["registerRef"]>(({ elem, id, index }) => {
+	const registerRef = useCallback<ScrollSpyResult["registerRef"]>(({ elem, headingElem, id, index }) => {
 		sectionRefs.current.set(id, {
 			elem,
+			headingElem,
 			isVisible: false,
 			index,
 		});
@@ -103,6 +105,16 @@ export default function useScrollSpy({
 		section.elem.scrollIntoView({
 			behavior: "smooth",
 		});
+
+		/**
+		 * Move focus into the section so keyboard and screen reader users
+		 * land on the content they navigated to, not just see it scroll by.
+		 * `preventScroll` avoids fighting the smooth scrollIntoView above,
+		 * since focusing an off-screen element scrolls it into view instantly.
+		 */
+		if (section.headingElem instanceof HTMLElement) {
+			section.headingElem.focus({ preventScroll: true });
+		}
 	}, []);
 
 	useEffect(() => {

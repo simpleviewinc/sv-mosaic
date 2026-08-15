@@ -51,6 +51,9 @@ const Section = (props: SectionPropTypes) => {
 
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>(undefined);
+	const titleRef = useRef<HTMLElement>(undefined);
+	const panelId = `section-panel-${id}`;
+	const headingId = `section-heading-${id}`;
 
 	useEffect(() => {
 		if (!fieldsHaveErrors()) {
@@ -69,6 +72,7 @@ const Section = (props: SectionPropTypes) => {
 			id,
 			index: sectionIdx,
 			elem: ref.current,
+			headingElem: titleRef.current,
 		});
 		return unregister;
 	}, [id, sectionIdx, registerRef]);
@@ -90,7 +94,12 @@ const Section = (props: SectionPropTypes) => {
 					// 	tooltip: state === "expanded" || state === "expanding" ? "Collapse Section" : "Expand Section",
 					// }]}
 					blunt={state !== "collapsed"}
-					aria-controls="panel1a-content"
+					ariaControls={panelId}
+					titleAttrs={{
+						ref: titleRef,
+						id: headingId,
+						tabIndex: -1,
+					}}
 					endSlot={state === "expanded" || state === "expanding" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 					onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
 				>
@@ -101,7 +110,7 @@ const Section = (props: SectionPropTypes) => {
 				in={state === "expanding" || state === "expanded"}
 				onTransitionEnd={() => setState((state) => state === "expanding" || state === "expanded" ? "expanded" : "collapsed")}
 			>
-				<CardContent>
+				<CardContent id={panelId}>
 					<SectionContent
 						description={description}
 						rows={rows}

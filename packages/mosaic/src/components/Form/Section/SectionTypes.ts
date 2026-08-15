@@ -12,7 +12,7 @@ export interface SectionPropTypes {
 	rows: RowPropTypes["row"][];
 	collapsed?: boolean;
 	show?: MosaicToggle;
-	registerRef?: (params: { id: string; elem: Element; index: number }) => () => void;
+	registerRef?: (params: { id: string; elem: Element; headingElem?: Element; index: number }) => () => void;
 	gridMinWidth?: string;
 	spacing?: FormSpacing;
 	methods: FormMethods;
