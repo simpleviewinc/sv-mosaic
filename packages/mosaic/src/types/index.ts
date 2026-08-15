@@ -6,6 +6,14 @@ export interface MosaicLabelValue {
 	label: string;
 	value: string;
 	description?: string;
+	/**
+	 * Accessible name to give the rendered control (e.g. a checkbox or radio
+	 * button) for this option when `label` is empty and there is otherwise no
+	 * visible text for assistive technology to read (for example, a colour
+	 * swatch option). Consuming components should forward this as the
+	 * underlying input's `aria-label`. Has no effect when `label` is non-empty.
+	 */
+	ariaLabel?: string;
 }
 
 /** Javascript object than can have any keys and any data */

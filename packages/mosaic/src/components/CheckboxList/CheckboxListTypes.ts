@@ -6,7 +6,10 @@ export interface CheckboxListProps {
 	 */
 	checked: MosaicLabelValue[];
 	/**
-	 * List of options
+	 * List of options. Each option's checkbox derives its accessible name
+	 * from `label`; when `label` is empty, set `ariaLabel` on the option so
+	 * the checkbox still has a name for assistive technology (e.g. a colour
+	 * swatch option with no visible text).
 	 */
 	options: MosaicLabelValue[];
 	/**

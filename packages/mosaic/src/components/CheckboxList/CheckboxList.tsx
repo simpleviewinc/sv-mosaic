@@ -61,19 +61,28 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 			<StyledGrid>
 				{columns.map((options, columnIndex) => (
 					<StyledColumn key={columnIndex}>
-						{(options || []).map(({ value, label, description }, optionIndex) => (
-							<div key={value}>
-								<Checkbox
-									checked={(checked || []).some((option) => option.value === value)}
-									label={label}
-									description={description}
-									disabled={disabled}
-									id={`${id}-${columnIndex}-${optionIndex}`}
-									onChange={handleToggle}
-									value={value}
-								/>
-							</div>
-						))}
+						{(options || []).map(({ value, label, description, ariaLabel }, optionIndex) => {
+							if (!label && !ariaLabel) {
+								console.warn(
+									`CheckboxList: the option with value "${value}" has no \`label\` and no \`ariaLabel\`, so its checkbox has no accessible name for assistive technology. Provide a non-empty \`label\`, or an \`ariaLabel\` when the option has no visible label text (e.g. a colour swatch).`,
+								);
+							}
+
+							return (
+								<div key={value}>
+									<Checkbox
+										checked={(checked || []).some((option) => option.value === value)}
+										label={label}
+										description={description}
+										aria-label={ariaLabel}
+										disabled={disabled}
+										id={`${id}-${columnIndex}-${optionIndex}`}
+										onChange={handleToggle}
+										value={value}
+									/>
+								</div>
+							);
+						})}
 					</StyledColumn>
 				))}
 			</StyledGrid>
