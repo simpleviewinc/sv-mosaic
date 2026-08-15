@@ -1,5 +1,6 @@
 import * as React from "react";
 import { render, screen, cleanup, fireEvent, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Form, { useForm } from "@root/components/Form";
 import type { SectionDef } from "@root/components/Form";
@@ -102,6 +103,25 @@ describe("Form section nav focus management", () => {
 		expect(heading).toHaveAttribute("tabindex", "-1");
 
 		// Focus actually left the nav control and landed in the section.
+		expect(document.activeElement).not.toBe(navLink);
+	});
+
+	it("moves focus to the target section's heading when a section nav link is activated via the keyboard", async () => {
+		const user = userEvent.setup();
+		render(<TestForm />);
+
+		const navLink = getNavLink("Section B");
+
+		// The SideNav item is a real <button> (no href), so Enter/Space are its
+		// native activation keys — pin the keyboard path, not just fireEvent.click.
+		navLink.focus();
+		expect(document.activeElement).toBe(navLink);
+
+		await user.keyboard("{Enter}");
+
+		const heading = screen.getByRole("heading", { level: 3, name: "Section B" });
+
+		expect(document.activeElement).toBe(heading);
 		expect(document.activeElement).not.toBe(navLink);
 	});
 
