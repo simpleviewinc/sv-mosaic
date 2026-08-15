@@ -8,6 +8,7 @@ import type { CheckboxListProps } from "./CheckboxListTypes";
 
 import Checkbox from "@root/components/Checkbox";
 import { arrayChunks } from "@root/utils/array";
+import warnOnceInDev from "@root/utils/warnOnceInDev/warnOnceInDev";
 import { StyledColumn, StyledFormGroup, StyledGrid } from "./CheckboxList.styled";
 
 const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputElement>, "onChange">): ReactElement => {
@@ -63,7 +64,8 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 					<StyledColumn key={columnIndex}>
 						{(options || []).map(({ value, label, description, ariaLabel }, optionIndex) => {
 							if (!label && !ariaLabel) {
-								console.warn(
+								warnOnceInDev(
+									`mosaic:checkbox-list:option-no-accessible-name:${value}`,
 									`CheckboxList: the option with value "${value}" has no \`label\` and no \`ariaLabel\`, so its checkbox has no accessible name for assistive technology. Provide a non-empty \`label\`, or an \`ariaLabel\` when the option has no visible label text (e.g. a colour swatch).`,
 								);
 							}

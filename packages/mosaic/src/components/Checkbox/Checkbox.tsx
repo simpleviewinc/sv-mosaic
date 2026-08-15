@@ -6,6 +6,9 @@ import testIds from "@root/utils/testIds";
 import CheckboxIcon from "./CheckboxIcon";
 import { StyledOptionLabel } from "../common/StyledOptionLabel";
 import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
+import warnOnceInDev from "@root/utils/warnOnceInDev/warnOnceInDev";
+
+const CHECKBOX_LABEL_ARIA_CONFLICT_KEY = "mosaic:checkbox:label-and-aria-conflict";
 
 const Checkbox = (props: CheckboxProps) => {
 	const fallbackId = useId();
@@ -16,7 +19,8 @@ const Checkbox = (props: CheckboxProps) => {
 	// so having both set means the visible text and the announced name will
 	// silently diverge for assistive technology users.
 	if (props.label && (props["aria-label"] || props["aria-labelledby"])) {
-		console.warn(
+		warnOnceInDev(
+			CHECKBOX_LABEL_ARIA_CONFLICT_KEY,
 			"Checkbox: both a visible `label` and an `aria-label`/`aria-labelledby` were provided. The aria attribute takes precedence as the checkbox's accessible name and will override the visible label for assistive technology. Only provide `aria-label`/`aria-labelledby` when there is no visible label text.",
 		);
 	}
