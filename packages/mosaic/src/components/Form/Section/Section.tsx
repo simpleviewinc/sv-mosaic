@@ -24,6 +24,7 @@ const Section = (props: SectionPropTypes) => {
 		methods,
 		skeleton,
 		id,
+		formId,
 	} = props;
 
 	const { state: { errors } } = useContext(FormContext);
@@ -52,8 +53,15 @@ const Section = (props: SectionPropTypes) => {
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>(undefined);
 	const titleRef = useRef<HTMLElement>(undefined);
-	const panelId = `section-panel-${id}`;
-	const headingId = `section-heading-${id}`;
+	/**
+	 * `id` is caller-supplied (via `SectionDef.id`), so it isn't guaranteed to
+	 * be unique across separate Form instances on the same page. Scoping with
+	 * `formId` (the owning Form's `useId()`) keeps these DOM ids — and the
+	 * `aria-controls` wired to them — unique document-wide.
+	 */
+	const sectionInstanceId = formId ? `${formId}-${id}` : id;
+	const panelId = `section-panel-${sectionInstanceId}`;
+	const headingId = `section-heading-${sectionInstanceId}`;
 
 	useEffect(() => {
 		if (!fieldsHaveErrors()) {
@@ -82,7 +90,7 @@ const Section = (props: SectionPropTypes) => {
 			data-testid="section-test-id"
 			$collapsed={state === "collapsed" || state === "collapsing"}
 			ref={ref}
-			id={`section-${id}`}
+			id={`section-${sectionInstanceId}`}
 		>
 			{title && (
 				<CardHeading
