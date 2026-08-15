@@ -43,4 +43,16 @@ describe(__dirname, () => {
 
 		expect(screen.queryByTestId(testIds.CHECKBOX_WRAPPER)).toHaveClass("MyCheckbox");
 	});
+
+	it("should expose the label text as the checkbox's accessible name", async () => {
+		await setup({ label: "Green" });
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
+
+	it("should expose an accessible name via aria-label when no visible label text is rendered", async () => {
+		await setup({ label: undefined, "aria-label": "Green" });
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
 });

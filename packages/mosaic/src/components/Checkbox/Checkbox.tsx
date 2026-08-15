@@ -14,15 +14,12 @@ const Checkbox = (props: CheckboxProps) => {
 	return (
 		<StyledOptionFormControl
 			label={props.label && (
-				<div>
-					<StyledOptionLabel
-						disabled={props.disabled}
-						description={props.description}
-					>
-						{props.label}
-					</StyledOptionLabel>
-
-				</div>
+				<StyledOptionLabel
+					disabled={props.disabled}
+					description={props.description}
+				>
+					{props.label}
+				</StyledOptionLabel>
 			)}
 			labelPlacement="end"
 			data-testid="label-test-id"
@@ -49,6 +46,12 @@ const Checkbox = (props: CheckboxProps) => {
 					indeterminateIcon={<CheckboxIcon indeterminate />}
 					disableRipple
 					disabled={props.disabled}
+					// When no visible label text is rendered, allow an accessible
+					// name to still be supplied per WAI-ARIA APG guidance.
+					inputProps={{
+						"aria-label": props["aria-label"],
+						"aria-labelledby": props["aria-labelledby"],
+					}}
 				/>
 			)}
 		/>
