@@ -64,10 +64,17 @@ cd /sv/containers/sv-mosaic
 npm run docker:dev
 ```
 
-You can also develop on the host if [pnpm](https://pnpm.io/) is available. This repo pins `pnpm@9.15.9` via `packageManager`.
+To make use of intellisense in your IDE, you will need to install activate pnpm and install packages on your host:
 
 ```
+corepack enable
+corepack prepare pnpm@9.15.9 --activate
 pnpm install
+```
+
+You can also develop on the host if the docker variant doesn't fit your needs.
+
+```
 pnpm host:dev
 ```
 
