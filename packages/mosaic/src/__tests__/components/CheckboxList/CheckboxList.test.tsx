@@ -63,14 +63,4 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
 	});
-
-	it("should warn when an option has neither a label nor an ariaLabel", async () => {
-		vi.spyOn(console, "warn").mockImplementation(() => undefined);
-
-		await setup({
-			options: [{ value: "green", label: "" }],
-		});
-
-		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("no accessible name"));
-	});
 });

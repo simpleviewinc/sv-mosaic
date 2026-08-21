@@ -8,7 +8,6 @@ import type { CheckboxListProps } from "./CheckboxListTypes";
 
 import Checkbox from "@root/components/Checkbox";
 import { arrayChunks } from "@root/utils/array";
-import warnOnceInDev from "@root/utils/warnOnceInDev/warnOnceInDev";
 import { StyledColumn, StyledFormGroup, StyledGrid } from "./CheckboxList.styled";
 
 const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputElement>, "onChange">): ReactElement => {
@@ -62,29 +61,20 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 			<StyledGrid>
 				{columns.map((options, columnIndex) => (
 					<StyledColumn key={columnIndex}>
-						{(options || []).map(({ value, label, description, ariaLabel }, optionIndex) => {
-							if (!label && !ariaLabel) {
-								warnOnceInDev(
-									`mosaic:checkbox-list:option-no-accessible-name:${value}`,
-									`CheckboxList: the option with value "${value}" has no \`label\` and no \`ariaLabel\`, so its checkbox has no accessible name for assistive technology. Provide a non-empty \`label\`, or an \`ariaLabel\` when the option has no visible label text (e.g. a colour swatch).`,
-								);
-							}
-
-							return (
-								<div key={value}>
-									<Checkbox
-										checked={(checked || []).some((option) => option.value === value)}
-										label={label}
-										description={description}
-										aria-label={ariaLabel}
-										disabled={disabled}
-										id={`${id}-${columnIndex}-${optionIndex}`}
-										onChange={handleToggle}
-										value={value}
-									/>
-								</div>
-							);
-						})}
+						{(options || []).map(({ value, label, description, ariaLabel }, optionIndex) => (
+							<div key={value}>
+								<Checkbox
+									checked={(checked || []).some((option) => option.value === value)}
+									label={label}
+									description={description}
+									aria-label={ariaLabel}
+									disabled={disabled}
+									id={`${id}-${columnIndex}-${optionIndex}`}
+									onChange={handleToggle}
+									value={value}
+								/>
+							</div>
+						))}
 					</StyledColumn>
 				))}
 			</StyledGrid>

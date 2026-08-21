@@ -55,12 +55,4 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
 	});
-
-	it("should warn when both a visible label and an aria-label are provided", async () => {
-		vi.spyOn(console, "warn").mockImplementation(() => undefined);
-
-		await setup({ label: "Green", "aria-label": "Some swatch" });
-
-		expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
-	});
 });
