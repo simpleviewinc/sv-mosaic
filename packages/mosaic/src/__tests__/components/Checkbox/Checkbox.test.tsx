@@ -55,4 +55,28 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
 	});
+
+	it("should warn when both a visible label and an aria-label are provided", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: "Green", "aria-label": "Some swatch" });
+
+		expect(warnMock).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+	});
+
+	it("should warn when both a visible label and an aria-labelledby are provided", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: "Green", "aria-labelledby": "some-heading" });
+
+		expect(warnMock).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+	});
+
+	it("should not warn when an aria-label is provided without a visible label", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: undefined, "aria-label": "Green" });
+
+		expect(warnMock).not.toHaveBeenCalled();
+	});
 });

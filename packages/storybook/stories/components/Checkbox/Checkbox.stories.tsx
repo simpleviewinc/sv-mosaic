@@ -48,7 +48,7 @@ Playground.argTypes = {
 	},
 	ariaLabel: {
 		name: "Aria Label",
-		description: "Accessible name to use when no visible Label is provided.",
+		description: "Sets the checkbox's accessible name. It is used even when a Label is present, and overrides it, so setting both logs a warning. Provide it when there is no visible Label text.",
 	},
 	controlled: {
 		name: "Controlled",

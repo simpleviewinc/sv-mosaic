@@ -63,4 +63,14 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
 	});
+
+	it("should warn when an option provides both a label and an ariaLabel", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({
+			options: [{ value: "green", label: "Green", ariaLabel: "Some swatch" }],
+		});
+
+		expect(warnMock).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+	});
 });
