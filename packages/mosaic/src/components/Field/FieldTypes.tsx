@@ -102,6 +102,11 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Invoked before submit validation to sync UI-only state into form data.
 	 */
 	flushRef?: MutableRefObject<(() => void) | null>;
+	/**
+	 * Id of the field's instruction text element, injected by FieldWrapper
+	 * so field components can wire it to their controls via aria-describedby.
+	 */
+	instructionTextId?: string;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

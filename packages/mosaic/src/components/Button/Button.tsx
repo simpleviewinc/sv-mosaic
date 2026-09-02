@@ -87,6 +87,7 @@ const ButtonBase = function ButtonBase({
 		href: props.href,
 		name: props.name,
 		id: props.id,
+		"aria-describedby": props["aria-describedby"],
 		type: props.type || "button",
 		as: props.as,
 		ref,

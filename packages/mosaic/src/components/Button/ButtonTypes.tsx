@@ -57,6 +57,7 @@ export interface ButtonProps {
 	component?: React.ComponentType;
 	type?: "button" | "submit";
 	id?: string;
+	"aria-describedby"?: string;
 	as?: WebTarget;
 	invisible?: boolean;
 	/**

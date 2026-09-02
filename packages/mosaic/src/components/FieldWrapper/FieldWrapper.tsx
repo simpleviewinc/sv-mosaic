@@ -104,6 +104,9 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
+	const hasInstructionText = Boolean(fieldDef?.instructionText) && !fieldDef?.forceInstructionTooltip;
+	const instructionTextId = hasInstructionText ? `${fieldDef.name}-instruction` : undefined;
+
 	return (
 		<StyledFieldContainer
 			id={id}
@@ -144,7 +147,9 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 						className="Mos-FieldControl"
 						$size={fieldDef?.size}
 					>
-						{children}
+						{instructionTextId && React.isValidElement<{ instructionTextId?: string }>(children)
+							? React.cloneElement(children, { instructionTextId })
+							: children}
 					</StyledControlWrapper>
 				</StyledLabelControlWrapper>
 				{shouldRenderError ? (
@@ -155,8 +160,8 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 					<HelperText>{fieldDef?.helperText}</HelperText>
 				)}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && !fieldDef?.forceInstructionTooltip && (
-				<InstructionText colsInRow={colsInRow}>
+			{hasInstructionText && (
+				<InstructionText id={instructionTextId} colsInRow={colsInRow}>
 					{fieldDef.instructionText}
 				</InstructionText>
 			)}
