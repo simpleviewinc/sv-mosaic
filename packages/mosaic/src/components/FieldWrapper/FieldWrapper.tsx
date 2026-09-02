@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useRef, useMemo, memo } from "react";
+import { useRef, useMemo, memo, cloneElement, isValidElement } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./FieldWrapper.styled";
 
 import { default as Label } from "./Label";
@@ -104,6 +104,9 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
+	const shouldRenderInstructionText = Boolean(fieldDef?.instructionText) && !fieldDef?.forceInstructionTooltip;
+	const instructionTextId = shouldRenderInstructionText ? `${fieldDef.name}-instruction` : undefined;
+
 	return (
 		<StyledFieldContainer
 			id={id}
@@ -144,7 +147,9 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 						className="Mos-FieldControl"
 						$size={fieldDef?.size}
 					>
-						{children}
+						{instructionTextId && isValidElement<Partial<MosaicFieldProps<any>>>(children)
+							? cloneElement(children, { instructionTextId })
+							: children}
 					</StyledControlWrapper>
 				</StyledLabelControlWrapper>
 				{shouldRenderError ? (
@@ -155,8 +160,8 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 					<HelperText>{fieldDef?.helperText}</HelperText>
 				)}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && !fieldDef?.forceInstructionTooltip && (
-				<InstructionText colsInRow={colsInRow}>
+			{shouldRenderInstructionText && (
+				<InstructionText id={instructionTextId} colsInRow={colsInRow}>
 					{fieldDef.instructionText}
 				</InstructionText>
 			)}
