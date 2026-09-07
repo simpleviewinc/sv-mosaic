@@ -4,7 +4,10 @@ import type { MosaicLabelValue } from "@root/types";
 
 export interface FormFieldCheckboxInputSettings extends Pick<CheckboxListProps, "itemsPerColumn"> {
 	/**
-	* List of options
+	* List of options. Set `ariaLabel` on an option to give its checkbox an
+	* accessible name when `label` is empty (e.g. a colour swatch option).
+	* `ariaLabel` overrides `label` as the accessible name, so setting both
+	* logs a warning.
 	*/
 	options: MosaicLabelValue[] | (() => Promise<MosaicLabelValue[]>);
 }

@@ -10,8 +10,8 @@ export const StyledOptionLabelText = styled(Text)
 	.attrs<{ $disabled?: boolean }>(({ $disabled }) => ({
 		size: "lg",
 		color: $disabled ? theme.color.gray[600] : undefined,
-		tag: "div",
 	}))`
+		display: block;
 		max-width: 414px;
 		padding-top: ${theme.spacing("5px")};
 	`;

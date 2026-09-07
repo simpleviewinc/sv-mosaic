@@ -43,4 +43,40 @@ describe(__dirname, () => {
 
 		expect(screen.queryByTestId(testIds.CHECKBOX_WRAPPER)).toHaveClass("MyCheckbox");
 	});
+
+	it("should expose the label text as the checkbox's accessible name", async () => {
+		await setup({ label: "Green" });
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
+
+	it("should expose an accessible name via aria-label when no visible label text is rendered", async () => {
+		await setup({ label: undefined, "aria-label": "Green" });
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
+
+	it("should warn when both a visible label and an aria-label are provided", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: "Green", "aria-label": "Some swatch" });
+
+		expect(warnMock).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+	});
+
+	it("should warn when both a visible label and an aria-labelledby are provided", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: "Green", "aria-labelledby": "some-heading" });
+
+		expect(warnMock).toHaveBeenCalledWith(expect.stringContaining("takes precedence"));
+	});
+
+	it("should not warn when an aria-label is provided without a visible label", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+
+		await setup({ label: undefined, "aria-label": "Green" });
+
+		expect(warnMock).not.toHaveBeenCalled();
+	});
 });

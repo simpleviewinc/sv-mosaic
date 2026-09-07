@@ -25,20 +25,27 @@ export const Playground = ({
 	optionsType,
 	optionCount,
 	itemsPerColumn,
+	includeUnlabeledSwatchOption,
 }: typeof Playground.args): ReactElement => {
 	const controller = useForm({ data: prepop ? prepopData : {} });
 	const { state, handleSubmit } = controller;
 
 	const options = useMemo<FormFieldCheckboxInputSettings["options"]>(() => {
+		// Demonstrates an option with no visible label text (e.g. a colour
+		// swatch), which relies on `ariaLabel` for its accessible name.
+		const unlabeledSwatchOption = { value: "swatch", label: "", ariaLabel: "Swatch" };
+
 		if (optionsType === "Synchronous") {
-			return optionCount >= 0 ? mockOptions.slice(0, optionCount) : mockOptions;
+			const syncOptions = optionCount >= 0 ? mockOptions.slice(0, optionCount) : mockOptions;
+			return includeUnlabeledSwatchOption ? [...syncOptions, unlabeledSwatchOption] : syncOptions;
 		}
 
 		return async () => {
 			const result = await getOptions();
-			return optionCount >= 0 ? result.slice(0, optionCount) : result;
+			const asyncOptions = optionCount >= 0 ? result.slice(0, optionCount) : result;
+			return includeUnlabeledSwatchOption ? [...asyncOptions, unlabeledSwatchOption] : asyncOptions;
 		};
-	}, [optionCount, optionsType]);
+	}, [optionCount, optionsType, includeUnlabeledSwatchOption]);
 
 	const fields = useMemo(
 		(): FieldDef[] =>
@@ -87,6 +94,7 @@ Playground.args = {
 	optionsType: "Synchronous",
 	optionCount: 25,
 	itemsPerColumn: 8,
+	includeUnlabeledSwatchOption: false,
 };
 
 Playground.argTypes = {
@@ -101,6 +109,10 @@ Playground.argTypes = {
 	},
 	itemsPerColumn: {
 		name: "Items per Column",
+	},
+	includeUnlabeledSwatchOption: {
+		name: "Include Unlabeled Swatch Option",
+		description: "Adds an option with no visible label text, relying on ariaLabel for its accessible name.",
 	},
 };
 

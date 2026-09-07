@@ -109,6 +109,22 @@ describe(__dirname, () => {
 		expect(onChangeMock).toBeCalledWith([{ label: "Dog", value: "dog" }]);
 	});
 
+	it("should expose an accessible name via an option's ariaLabel when the form field option has no visible label text", async () => {
+		await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					options: [
+						...mockOptions,
+						{ value: "green", label: "", ariaLabel: "Green" },
+					],
+				},
+			},
+		});
+
+		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+	});
+
 	it("should render the skeleton components if skeleton is truthy", async () => {
 		await setup({ skeleton: true });
 

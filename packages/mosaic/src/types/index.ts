@@ -6,6 +6,7 @@ export interface MosaicLabelValue {
 	label: string;
 	value: string;
 	description?: string;
+	ariaLabel?: string;
 }
 
 /** Javascript object than can have any keys and any data */
