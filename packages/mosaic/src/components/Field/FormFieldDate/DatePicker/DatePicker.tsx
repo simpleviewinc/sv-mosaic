@@ -16,7 +16,7 @@ import { getIsPartiallyFilled } from "../../utils/getIsPartiallyFilled";
 import { isValid } from "date-fns";
 
 const DatePicker = (props: DatePickerProps): ReactElement => {
-	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error, flushRef } = props;
+	const { fieldDef, onChange, value = null, onBlur, disabled, inputRef, id, error, flushRef, instructionTextId } = props;
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const fieldRef = useRef<FieldRef<Date | null>>(null);
@@ -118,6 +118,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 							error: error ? true : undefined,
 							inputProps: {
 								"aria-label": fieldDef.label,
+								"aria-describedby": instructionTextId,
 							},
 						},
 						popper: {

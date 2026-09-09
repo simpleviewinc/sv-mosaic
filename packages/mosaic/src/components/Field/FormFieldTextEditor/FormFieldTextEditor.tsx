@@ -35,6 +35,7 @@ function FormFieldTextEditorUnmemo({
 	disabled,
 	skeleton,
 	error,
+	instructionTextId,
 }: MosaicFieldProps<"textEditor", TextEditorInputSettings, TextEditorData>): ReactElement {
 	const {
 		extensions: providedExtensions,
@@ -134,10 +135,11 @@ function FormFieldTextEditorUnmemo({
 			attributes: {
 				"data-testid": testIds.TEXT_EDITOR_CANVAS,
 				"aria-label": label,
+				...(instructionTextId ? { "aria-describedby": instructionTextId } : {}),
 			},
 		},
 		editable: !disabled,
-	}, [disabled, label, extensions]);
+	}, [disabled, label, extensions, instructionTextId]);
 
 	const inputSettings = useMemo<TextEditorInputSettings>(() => ({
 		...providedInputSettings,

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useContext, useMemo, useRef } from "react";
+import React, { memo, useCallback, useContext, useId, useMemo, useRef } from "react";
 import get from "lodash/get";
 
 import type { FieldConfig, FieldDef } from "@root/components/Field";
@@ -40,6 +40,12 @@ const Field = ({
 	const disabled = useWrappedToggle(field, state, "disabled", false);
 	const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | undefined>(undefined);
 	const flushRef = useRef<(() => void) | null>(null);
+
+	const reactId = useId();
+	const shouldRenderInstructionText = Boolean(field.instructionText) && !field.forceInstructionTooltip;
+	const instructionTextId = shouldRenderInstructionText
+		? `${field.id ?? field.name}-instruction-${reactId}`
+		: undefined;
 
 	const onChange = useCallback((value: any, options: any = {}) => {
 		field.onChangeCb && field.onChangeCb();
@@ -94,6 +100,7 @@ const Field = ({
 			skeleton={skeleton}
 			path={path}
 			flushRef={needsInputReset ? flushRef : undefined}
+			instructionTextId={instructionTextId}
 		/>
 	), [
 		Component,
@@ -110,6 +117,7 @@ const Field = ({
 		skeleton,
 		path,
 		needsInputReset,
+		instructionTextId,
 	]);
 
 	if (!shouldShow) {
@@ -129,6 +137,7 @@ const Field = ({
 		disabled: disabled,
 		skeleton: skeleton,
 		flushRef: needsInputReset ? flushRef : undefined,
+		instructionTextId,
 	};
 
 	return isCustomField ? (

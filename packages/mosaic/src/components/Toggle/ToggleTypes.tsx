@@ -31,4 +31,9 @@ export interface ToggleProps {
 	 * OnBlur function inherit from the FormFieldToggle parent component.
 	 */
 	onBlur?: MosaicFieldProps<"toggle", ToggleInputSettings, boolean>["onBlur"];
+	/**
+	 * Id of an element describing this toggle, applied as
+	 * aria-describedby on its input.
+	 */
+	describedById?: string;
 }

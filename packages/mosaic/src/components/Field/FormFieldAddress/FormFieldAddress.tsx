@@ -47,6 +47,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 		onChange,
 		fieldDef,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	// State variables
@@ -191,6 +192,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 						variant="contained"
 						label="Add Address"
 						onClick={addAddressHandler}
+						muiAttrs={instructionTextId ? { "aria-describedby": instructionTextId } : undefined}
 					/>
 				</Footer>
 			)}

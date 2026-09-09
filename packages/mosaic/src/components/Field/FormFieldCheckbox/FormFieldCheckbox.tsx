@@ -21,6 +21,7 @@ const FormFieldCheckbox = (
 		disabled,
 		skeleton,
 		id,
+		instructionTextId,
 	} = props;
 
 	const {
@@ -50,6 +51,7 @@ const FormFieldCheckbox = (
 			className={fieldDef.className}
 			id={id}
 			itemsPerColumn={itemsPerColumn}
+			aria-describedby={instructionTextId}
 		/>
 	);
 };

@@ -33,6 +33,7 @@ const FormFieldColor = (
 		disabled,
 		skeleton,
 		id,
+		instructionTextId,
 	} = props;
 
 	// State variables
@@ -76,6 +77,7 @@ const FormFieldColor = (
 					color={value}
 					onClick={handleClick}
 					id={id}
+					aria-describedby={instructionTextId}
 				/>
 				{value ? (
 					<Button

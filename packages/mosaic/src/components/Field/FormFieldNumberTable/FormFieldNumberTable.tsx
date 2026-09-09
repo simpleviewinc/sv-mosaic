@@ -31,7 +31,7 @@ const FormFieldNumberTable = (
 		NumberTableData
 	>,
 ): ReactElement => {
-	const { fieldDef, onChange, value, disabled, inputRef, skeleton } = props;
+	const { fieldDef, onChange, value, disabled, inputRef, skeleton, instructionTextId } = props;
 
 	const { inputSettings } = fieldDef;
 	const { displaySumColumn = true, displaySumRow = true } = inputSettings;
@@ -192,7 +192,7 @@ const FormFieldNumberTable = (
 							return (
 								<Td key={`${row.name}-${column.name}`}>
 									<StyledTextField
-										inputProps={{ "data-testid": `${row.name}-${column.name}` }}
+										inputProps={{ "data-testid": `${row.name}-${column.name}`, "aria-describedby": instructionTextId }}
 										placeholder="0"
 										value={strValue}
 										onChange={(e) => onChangeCell(e, row.name, column.name)}
