@@ -12,6 +12,7 @@ const RadioButton = (
 	props: RadioButtonProps & HTMLAttributes<HTMLInputElement>,
 ): ReactElement => {
 	const { label, required, disabled, value, checked } = props;
+	const describedBy = props["aria-describedby"];
 
 	return (
 		<StyledOptionFormControl
@@ -37,7 +38,7 @@ const RadioButton = (
 					disableRipple
 					// Set the required prop on the DOM element rather than using the RadioButton required prop because
 					// we don't want it adding an asterisk. That's already done above.
-					inputProps={{ required }}
+					inputProps={{ required, "aria-describedby": describedBy }}
 				/>
 			)}
 		/>

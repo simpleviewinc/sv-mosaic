@@ -40,6 +40,7 @@ export interface FormFieldPhoneContextState {
 	onBlur?: MosaicFieldProps["onBlur"];
 	inputRef?: MosaicFieldProps["inputRef"];
 	international?: boolean;
+	instructionTextId?: string;
 }
 
 export interface PhoneSelectionInputSettings {

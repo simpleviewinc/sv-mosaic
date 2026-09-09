@@ -23,6 +23,7 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 		style,
 		itemsPerColumn = 8,
 	} = props;
+	const describedBy = props["aria-describedby"];
 
 	const handleToggle = useCallback<ChangeEventHandler<HTMLInputElement>>(({ target }) => {
 		const { value } = target;
@@ -72,6 +73,7 @@ const CheckboxList = (props: CheckboxListProps & Omit<HTMLAttributes<HTMLInputEl
 									id={`${id}-${columnIndex}-${optionIndex}`}
 									onChange={handleToggle}
 									value={value}
+									aria-describedby={describedBy}
 								/>
 							</div>
 						))}

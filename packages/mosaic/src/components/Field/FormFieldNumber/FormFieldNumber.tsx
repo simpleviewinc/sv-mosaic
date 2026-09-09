@@ -26,6 +26,7 @@ const NumberField = (
 		inputRef,
 		id,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const [errorFlash, setErrorFlash] = useState(false);
@@ -110,6 +111,7 @@ const NumberField = (
 				inputMode: "numeric",
 				"aria-label": fieldDef.label,
 				...anchorProps,
+				"aria-describedby": [instructionTextId, anchorProps["aria-describedby"]].filter(Boolean).join(" ") || undefined,
 			},
 		};
 
@@ -122,7 +124,7 @@ const NumberField = (
 		}
 
 		return props;
-	}, [anchorProps, inputRef, prefix, suffix, fieldDef.label]);
+	}, [anchorProps, inputRef, prefix, suffix, fieldDef.label, instructionTextId]);
 
 	if (skeleton) {
 		return (

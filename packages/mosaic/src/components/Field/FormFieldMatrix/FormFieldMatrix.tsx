@@ -18,6 +18,7 @@ const FormFieldMatrix = (
 		disabled,
 		fieldDef,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const { buttons = [], dataView } = fieldDef.inputSettings;
@@ -41,6 +42,10 @@ const FormFieldMatrix = (
 							key={`${button.label}-${idx}`}
 							{...button}
 							disabled={button.disabled === undefined ? disabled : button.disabled}
+							muiAttrs={{
+								...button.muiAttrs,
+								...(instructionTextId ? { "aria-describedby": instructionTextId } : {}),
+							}}
 						/>
 					))}
 				</ButtonRow>

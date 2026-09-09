@@ -19,6 +19,7 @@ const FormFieldToggle = (
 		value,
 		disabled,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	if (skeleton) {
@@ -32,6 +33,7 @@ const FormFieldToggle = (
 			label={fieldDef?.inputSettings?.toggleLabel}
 			onChange={onChange}
 			onBlur={onBlur}
+			describedById={instructionTextId}
 		/>
 	);
 };

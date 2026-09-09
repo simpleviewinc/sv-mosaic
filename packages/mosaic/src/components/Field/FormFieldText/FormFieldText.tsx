@@ -24,6 +24,7 @@ const TextField = (
 		inputRef,
 		id,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const prefix = fieldDef?.inputSettings?.prefixElement;
@@ -33,6 +34,7 @@ const TextField = (
 			inputRef,
 			inputProps: {
 				"aria-label": fieldDef.label,
+				"aria-describedby": instructionTextId,
 			},
 		};
 
@@ -41,7 +43,7 @@ const TextField = (
 		}
 
 		return props;
-	}, [inputRef, prefix, fieldDef.label]);
+	}, [inputRef, prefix, fieldDef.label, instructionTextId]);
 
 	if (skeleton) {
 		return (

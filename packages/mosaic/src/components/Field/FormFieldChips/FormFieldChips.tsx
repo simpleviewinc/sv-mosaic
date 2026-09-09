@@ -20,6 +20,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 		value,
 		disabled,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const {
@@ -51,6 +52,7 @@ const FormFieldChips = (props: MosaicFieldProps<"chip", FormFieldChipsInputSetti
 					selected={value && value.value === option.value}
 					onClick={async () => onChange(option)}
 					role="option"
+					aria-describedby={instructionTextId}
 				/>
 			))}
 		</StyledChipGroup>

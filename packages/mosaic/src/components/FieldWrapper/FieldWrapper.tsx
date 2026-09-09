@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactElement } from "react";
-import { useRef, useMemo, memo, cloneElement, isValidElement } from "react";
+import { useRef, useMemo, memo } from "react";
 import { StyledFieldContainer, StyledFieldWrapper, StyledControlWrapper, StyledLabelControlWrapper } from "./FieldWrapper.styled";
 
 import { default as Label } from "./Label";
@@ -83,6 +83,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 		disabled,
 		skeleton,
 		useRealLabel,
+		instructionTextId,
 	} = props;
 
 	const fieldRef = useRef<HTMLDivElement | undefined>(undefined);
@@ -105,7 +106,6 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
 
 	const shouldRenderInstructionText = Boolean(fieldDef?.instructionText) && !fieldDef?.forceInstructionTooltip;
-	const instructionTextId = shouldRenderInstructionText ? `${fieldDef.name}-instruction` : undefined;
 
 	return (
 		<StyledFieldContainer
@@ -147,9 +147,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 						className="Mos-FieldControl"
 						$size={fieldDef?.size}
 					>
-						{instructionTextId && isValidElement<Partial<MosaicFieldProps<any>>>(children)
-							? cloneElement(children, { instructionTextId })
-							: children}
+						{children}
 					</StyledControlWrapper>
 				</StyledLabelControlWrapper>
 				{shouldRenderError ? (

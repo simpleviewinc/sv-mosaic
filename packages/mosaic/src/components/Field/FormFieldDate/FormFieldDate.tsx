@@ -23,6 +23,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 		skeleton,
 		id,
 		flushRef,
+		instructionTextId,
 	} = props;
 	const {
 		inputSettings: {
@@ -80,7 +81,7 @@ const FormFieldDate = (props: MosaicFieldProps<"date", DateFieldInputSettings, D
 				disabled={disabled}
 				inputRef={inputRef}
 				flushRef={flushRef}
-
+				instructionTextId={instructionTextId}
 			/>
 		</DateTimePickerWrapper>
 	);

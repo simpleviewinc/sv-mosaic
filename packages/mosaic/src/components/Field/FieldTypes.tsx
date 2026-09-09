@@ -103,9 +103,10 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 */
 	flushRef?: MutableRefObject<(() => void) | null>;
 	/**
-	 * The id of the rendered instructionText, if any. Field components
-	 * should apply this as aria-describedby on their interactive controls
-	 * so screen readers announce the instruction text on focus.
+	 * Owned by the form system, not a FieldDef consumer prop. Derived in
+	 * Field from the field definition `id` or `name` plus React `useId`,
+	 * and only set when instruction text is rendered inline. Field components
+	 * should apply it as aria-describedby on their interactive controls.
 	 */
 	instructionTextId?: string;
 }
