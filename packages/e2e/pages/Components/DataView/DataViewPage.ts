@@ -35,10 +35,6 @@ export class DataviewPage extends BasePage {
 	readonly dataviewTopComponent: Locator;
 	readonly dataviewTableHeadLocator: Locator;
 	readonly dataviewRowHeaderLocator: Locator;
-	readonly ariaLabelRowTitleLocator: Locator;
-	readonly ariaLabelRowCategoryLocator: Locator;
-	readonly ariaLabelRowCreatedLocator: Locator;
-	readonly ariaLabelRowUpdatedLocator: Locator;
 	readonly listViewsDropdown: Locator;
 	readonly saveViewDropdown: Locator;
 	readonly overwriteViewButton: Locator;
@@ -79,10 +75,6 @@ export class DataviewPage extends BasePage {
 		this.dataviewTableHeadLocator = page.locator("thead th");
 		this.backIconLocator = page.getByRole("button", { name: "Go back" });
 		this.dataviewRowHeaderLocator = page.locator(".row-header");
-		this.ariaLabelRowTitleLocator = page.locator("[aria-label='Title'] div");
-		this.ariaLabelRowCategoryLocator = page.locator("[aria-label='Categories'] div");
-		this.ariaLabelRowCreatedLocator = page.locator("[aria-label='Created'] div");
-		this.ariaLabelRowUpdatedLocator = page.locator("[aria-label='Updated'] div");
 		this.listViewsDropdown = page.getByText("No view selected");
 		this.saveViewDropdown = page.getByText("Save View");
 		this.overwriteViewButton = page.getByText("Overwrite Current View");
@@ -156,22 +148,16 @@ export class DataviewPage extends BasePage {
 		await this.wait();
 		const pages = await this.paginationComponent.calculatePages(resultsPerPage);
 		const data = [];
-		let locator: Locator;
 
-		switch (dataName) {
-		case "Title":
-			locator = this.ariaLabelRowTitleLocator;
-			break;
-		case "Category":
-			locator = this.ariaLabelRowCategoryLocator;
-			break;
-		case "Created":
-			locator = this.ariaLabelRowCreatedLocator;
-			break;
-		case "Updated":
-			locator = this.ariaLabelRowUpdatedLocator;
-			break;
-		}
+		const columnLabels: Record<typeof dataName, string> = {
+			Title: "Title",
+			Category: "Categories",
+			Created: "Created",
+			Updated: "Updated",
+		};
+		const position = await this.getPositionOfColumn(columnLabels[dataName], true);
+		const locator = this.dataviewTable.locator(`tr > td:nth-child(${position + 1}) [data-testid="${testIds.DATA_VIEW_TD_INNER}"]`);
+
 		let locatorCount = await locator.count();
 		for (let i = 0; i < pages; i++) {
 			for (let j = 0; j < locatorCount; j++) {
