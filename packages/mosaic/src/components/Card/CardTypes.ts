@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { ButtonProps } from "../Button";
-import type { SvgIconComponent } from "@root/types";
+import type { MosaicObject, SvgIconComponent } from "@root/types";
 
 export interface CardProps {
 	/**
@@ -47,4 +47,14 @@ export type CardHeadingProps = Pick<CardProps, "count" | "showZeroCount"> & {
 	compact?: boolean;
 	onClick?: () => void;
 	endSlot?: ReactNode;
+	/**
+	 * The id of the region this heading controls, e.g. the collapsible
+	 * content panel. Rendered as `aria-controls` on the heading.
+	 */
+	ariaControls?: string;
+	/**
+	 * Additional attributes (including a `ref`) applied directly to the
+	 * heading's title element, so it can be targeted for programmatic focus.
+	 */
+	titleAttrs?: MosaicObject;
 };
