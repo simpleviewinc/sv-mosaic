@@ -55,6 +55,7 @@ export const Playground = ({ dialogContent, dialogTitle, primaryBtnLabel, second
 				dialogTitle={dialogTitle}
 				open={open}
 				buttons={buttons}
+				onClose={handleClose}
 			>
 				{dialogContent}
 			</Dialog>
