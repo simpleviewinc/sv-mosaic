@@ -91,6 +91,8 @@ const Form = ({
 			return;
 		}
 
+		stable.moveToError = false;
+
 		const firstErrorPath = getFieldPaths(stable.fields)
 			.map(path => path.join("."))
 			.find(path => stable.mounted[path] && errors[path]);
@@ -107,6 +109,10 @@ const Form = ({
 
 		mount.fieldRef.scrollIntoView({
 			behavior: "smooth",
+		});
+
+		window.requestAnimationFrame(() => {
+			mount.inputRef?.focus();
 		});
 	}, [errors, moveToError, stable.fields, stable.mounted]);
 
