@@ -10,11 +10,13 @@ export function ToggleSwitch({
 	checked,
 	onChange,
 	onBlur: providedOnBlur,
+	describedById,
 }: {
 	disabled?: boolean;
 	checked?: boolean;
 	onChange?: ChangeEventHandler<HTMLInputElement>;
 	onBlur?: FocusEventHandler<HTMLInputElement>;
+	describedById?: string;
 }): ReactElement {
 	const { ref, onFocus, onBlur, isFocusVisibleRef } = useIsFocusVisible();
 	const [isFocusVisible, setIsFocusVisible] = useState(false);
@@ -41,6 +43,7 @@ export function ToggleSwitch({
 				ref={ref}
 				disabled={disabled}
 				checked={Boolean(checked)}
+				aria-describedby={describedById}
 				{...inputProps}
 			/>
 			<StyledSwitchTrack $checked={checked} $disabled={disabled} />

@@ -25,6 +25,7 @@ const FormFieldPhone = (
 		inputRef,
 		id,
 		skeleton,
+		instructionTextId,
 	} = props;
 	const {
 		inputSettings: {
@@ -52,7 +53,8 @@ const FormFieldPhone = (
 		onBlur,
 		inputRef,
 		international,
-	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef, international]);
+		instructionTextId,
+	}), [autocompleteOpen, hasFocus, container, id, error, disabled, onBlur, inputRef, international, instructionTextId]);
 
 	if (skeleton) {
 		return (

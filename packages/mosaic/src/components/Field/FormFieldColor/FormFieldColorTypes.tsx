@@ -5,6 +5,7 @@ export interface ColorSelectedProps {
 	disabled?: boolean;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	id?: string;
+	"aria-describedby"?: string;
 }
 
 export type ColorData = string;

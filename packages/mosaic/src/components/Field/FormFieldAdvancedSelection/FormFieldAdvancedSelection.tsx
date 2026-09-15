@@ -31,7 +31,10 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 		disabled,
 		fieldDef,
 		skeleton,
+		instructionTextId,
 	} = props;
+
+	const describedByAttrs = instructionTextId ? { "aria-describedby": instructionTextId } : undefined;
 
 	// State variables
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -79,6 +82,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 							onClick={handleOpenModal}
 							mIcon={AddIcon}
 							disabled={disabled}
+							muiAttrs={describedByAttrs}
 						/>
 					)}
 					{value && (
@@ -96,6 +100,7 @@ const FormFieldAdvancedSelection = (props: MosaicFieldProps<"advancedSelection",
 					label="Add"
 					onClick={handleOpenModal}
 					disabled={disabled}
+					muiAttrs={describedByAttrs}
 				/>
 			)}
 			<Drawer

@@ -41,6 +41,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 		inputRef,
 		id,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const {
@@ -83,11 +84,12 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 						},
 						id,
 						"aria-label": label,
+						"aria-describedby": instructionTextId,
 					},
 				}}
 			/>
 		);
-	}, [placeholder, label, required, id, inputRef]);
+	}, [placeholder, label, required, id, inputRef, instructionTextId]);
 
 	const handleOpen = () => {
 		setIsOpen(!isOpen);

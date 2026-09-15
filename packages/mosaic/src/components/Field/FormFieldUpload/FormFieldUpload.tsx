@@ -26,6 +26,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 		methods,
 		id: providedId,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const { addWait } = methods || {};
@@ -296,6 +297,7 @@ const FormFieldUpload = (props: MosaicFieldProps<"upload", UploadFieldInputSetti
 								label="Add Files"
 								disabled={disabled}
 								onClick={handleUploadButtonClick}
+								muiAttrs={instructionTextId ? { "aria-describedby": instructionTextId } : undefined}
 							/>
 						</>
 					)}

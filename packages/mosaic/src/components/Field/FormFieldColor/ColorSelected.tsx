@@ -4,7 +4,7 @@ import { ColorBackground, ColorContainer, ColorDiv } from "./FormFieldColor.styl
 import type { ColorSelectedProps } from "./FormFieldColorTypes";
 
 const ColorSelected = (props: ColorSelectedProps): ReactElement => {
-	const { disabled, color, onClick, id } = props;
+	const { disabled, color, onClick, id, "aria-describedby": describedBy } = props;
 
 	return (
 		<ColorContainer
@@ -13,6 +13,7 @@ const ColorSelected = (props: ColorSelectedProps): ReactElement => {
 			type="button"
 			id={id}
 			aria-label="Select color"
+			aria-describedby={describedBy}
 		>
 			<ColorBackground>
 				<ColorDiv

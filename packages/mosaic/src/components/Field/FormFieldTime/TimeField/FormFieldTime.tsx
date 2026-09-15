@@ -28,6 +28,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 		skeleton,
 		path,
 		flushRef,
+		instructionTextId,
 	} = props;
 	const { name, inputSettings = {} } = fieldDef;
 	const { defaultTime } = inputSettings;
@@ -130,6 +131,7 @@ const FormFieldTime = (props: MosaicFieldProps<"time", TimeFieldInputSettings, T
 			disabled={disabled}
 			inputRef={inputRef}
 			flushRef={flushRef}
+			instructionTextId={instructionTextId}
 		/>
 	);
 };

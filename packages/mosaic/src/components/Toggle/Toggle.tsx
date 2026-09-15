@@ -17,6 +17,7 @@ const Toggle = ({
 	disabled = false,
 	onChange,
 	onBlur,
+	describedById,
 }: ToggleProps): ReactElement => {
 	return (
 		<StyledOptionFormControl
@@ -38,6 +39,7 @@ const Toggle = ({
 					checked={checked}
 					onChange={(e) => onChange && onChange(e.target.checked)}
 					onBlur={(e) => onBlur && onBlur(e.target.checked)}
+					describedById={describedById}
 				/>
 			)}
 		/>

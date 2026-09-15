@@ -26,6 +26,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 		disabled,
 		fieldDef,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const latLng = useMemo(() => isValidLatLng(value) ? value : undefined, [value]);
@@ -138,6 +139,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 									label: "Edit",
 									disabled: disabled,
 									onClick: handleAddCoordinates,
+									muiAttrs: instructionTextId ? { "aria-describedby": instructionTextId } : undefined,
 								},
 								{
 									intent: "danger",
@@ -158,6 +160,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 					intent="secondary"
 					variant="contained"
 					label="Add Coordinates"
+					muiAttrs={instructionTextId ? { "aria-describedby": instructionTextId } : undefined}
 				/>
 			)}
 			<Drawer open={isModalOpen} onClose={handleClose}>

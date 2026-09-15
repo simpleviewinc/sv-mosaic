@@ -11,7 +11,7 @@ const PhoneTextField = function PhoneTextField({
 	ref,
 	...props
 }: ComponentPropsWithRef<"input"> & { countryCodeEditable: boolean }) {
-	const { id, disabled, error, onBlur, setHasFocus, inputRef } = useContext(FormFieldPhoneContext);
+	const { id, disabled, error, onBlur, setHasFocus, inputRef, instructionTextId } = useContext(FormFieldPhoneContext);
 	const setRef = useSpreadRefs([inputRef, ref]);
 
 	const _onFocus = useCallback<FocusEventHandler<HTMLInputElement>>((e) => {
@@ -35,7 +35,7 @@ const PhoneTextField = function PhoneTextField({
 			id={id}
 			error={error}
 			disabled={disabled}
-			slotProps={{ input: { inputRef: setRef, inputProps: props } }}
+			slotProps={{ input: { inputRef: setRef, inputProps: { ...props, "aria-describedby": instructionTextId } } }}
 			onFocus={_onFocus}
 			onBlur={_onBlur}
 		/>

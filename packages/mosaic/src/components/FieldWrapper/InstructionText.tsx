@@ -8,12 +8,13 @@ import {
 interface InstructionTextProps {
 	children: ReactNode;
 	colsInRow?: number;
+	id?: string;
 }
 
 const InstructionText = (props: InstructionTextProps): ReactElement => {
-	const { children, colsInRow } = props;
+	const { children, colsInRow, id } = props;
 	return (
-		<InstructionTextWrapper className="Mos-FieldInstructionText" $colsInRow={colsInRow}>
+		<InstructionTextWrapper id={id} className="Mos-FieldInstructionText" $colsInRow={colsInRow}>
 			<StyledInstructionText>{children}</StyledInstructionText>
 		</InstructionTextWrapper>
 	);

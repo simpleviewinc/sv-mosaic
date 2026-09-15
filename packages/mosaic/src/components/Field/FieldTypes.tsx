@@ -102,6 +102,13 @@ export interface MosaicFieldProps<T = any, U = any, V = any> {
 	 * Invoked before submit validation to sync UI-only state into form data.
 	 */
 	flushRef?: MutableRefObject<(() => void) | null>;
+	/**
+	 * Owned by the form system, not a FieldDef consumer prop. Derived in
+	 * Field from the field definition `id` or `name` plus React `useId`,
+	 * and only set when instruction text is rendered inline. Field components
+	 * should apply it as aria-describedby on their interactive controls.
+	 */
+	instructionTextId?: string;
 }
 
 // SHARED FIELD DEFINITION - DEVELOPER GENERIC CONTRACT

@@ -20,6 +20,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 		onBlur,
 		disabled,
 		skeleton,
+		instructionTextId,
 	} = props;
 
 	const {
@@ -54,6 +55,7 @@ const FormFieldRadio = (props: MosaicFieldProps<"radio", RadioInputSettings, Rad
 					key={option.label}
 					label={option.label}
 					value={option.value}
+					aria-describedby={instructionTextId}
 				/>
 			))}
 		</StyledRadioGroup>

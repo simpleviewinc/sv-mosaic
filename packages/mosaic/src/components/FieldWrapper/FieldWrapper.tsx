@@ -83,6 +83,7 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 		disabled,
 		skeleton,
 		useRealLabel,
+		instructionTextId,
 	} = props;
 
 	const fieldRef = useRef<HTMLDivElement | undefined>(undefined);
@@ -103,6 +104,8 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 	});
 
 	const hasRealLabel = useRealLabel || typesWithRealLabel.includes(fieldDef?.type);
+
+	const shouldRenderInstructionText = Boolean(fieldDef?.instructionText) && !fieldDef?.forceInstructionTooltip;
 
 	return (
 		<StyledFieldContainer
@@ -155,8 +158,8 @@ const FieldWrapper = (props: MosaicFieldProps<any>): ReactElement => {
 					<HelperText>{fieldDef?.helperText}</HelperText>
 				)}
 			</StyledFieldWrapper>
-			{fieldDef?.instructionText && !fieldDef?.forceInstructionTooltip && (
-				<InstructionText colsInRow={colsInRow}>
+			{shouldRenderInstructionText && (
+				<InstructionText id={instructionTextId} colsInRow={colsInRow}>
 					{fieldDef.instructionText}
 				</InstructionText>
 			)}
