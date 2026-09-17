@@ -21,7 +21,11 @@ const Dialog = (props: DialogProps): ReactElement => {
 	} = props;
 
 	return (
-		<StyledDialog open={open} onClose={onClose} PaperComponent={StyledPopperPaper}>
+		<StyledDialog
+			open={open}
+			onClose={onClose ? () => onClose() : undefined}
+			PaperComponent={StyledPopperPaper}
+		>
 			<StyledDialogTitle>{dialogTitle}</StyledDialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>

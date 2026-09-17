@@ -70,7 +70,7 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("dialog")).toBeInTheDocument();
 		await user.keyboard("{Escape}");
 
-		expect(onCloseMock).toHaveBeenCalledWith(expect.anything(), "escapeKeyDown");
+		expect(onCloseMock).toHaveBeenCalledWith();
 	});
 
 	it("should close and return focus to the invoker when Escape is pressed", async () => {

@@ -255,6 +255,24 @@ describe(__dirname, () => {
 		await waitFor(() => expect(screen.queryByRole("button", { name: "No, keep it" })).toBeNull());
 	});
 
+	it("should cancel address removal with Escape and restore focus", { timeout: 50_000 }, async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({
+			value: mockAddresses,
+			onChange: onChangeMock,
+		});
+
+		const [remove] = screen.getAllByRole("button", { name: "Remove" });
+		await user.click(remove);
+		expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+		await user.keyboard("{Escape}");
+
+		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		expect(onChangeMock).not.toBeCalled();
+		expect(remove).toHaveFocus();
+	});
+
 	it("should fire the on change handler with correctly updated addresses", async () => {
 		const onChangeMock = vi.fn();
 		const { user } = await setup({

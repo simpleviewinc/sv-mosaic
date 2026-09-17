@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import type { DialogProps as MUIDialogProps } from "@mui/material/Dialog";
 import type { ButtonProps } from "../Button";
 
 export interface DialogProps {
@@ -20,9 +19,7 @@ export interface DialogProps {
 	*/
 	buttons?: ButtonProps[];
 	/**
-	 * Called when the dialog requests to close, e.g. by pressing Escape or clicking the
-	 * backdrop. Wire this up to dismiss the dialog so it stays keyboard operable (WCAG 2.1.1 /
-	 * 2.1.2): without it, MUI has nothing to call and Escape does nothing.
+	 * Called when the user dismisses the dialog with Escape or a backdrop click.
 	 */
-	onClose?: MUIDialogProps["onClose"];
+	onClose?: () => void;
 }

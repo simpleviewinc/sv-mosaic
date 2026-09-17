@@ -226,6 +226,7 @@ const FormFieldAddress = (props: MosaicFieldProps<"address", AddressFieldInputSe
 				buttons={dialogButtons}
 				dialogTitle="Are you sure you want to remove this address?"
 				open={Boolean(removeDialog)}
+				onClose={() => setRemoveDialog(null)}
 			>
 				All data for this address will be lost. This action is irreversible.
 			</Dialog>
