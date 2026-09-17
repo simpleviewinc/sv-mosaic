@@ -35,6 +35,7 @@ const DataViewTrStatic = ({
 			className={checked && "checked"}
 			ref={ref}
 			$isDragOverlay={isDragOverlay}
+			aria-selected={onCheckboxClick ? checked === true : undefined}
 		>
 			{onReorder && (
 				<DataViewTd
