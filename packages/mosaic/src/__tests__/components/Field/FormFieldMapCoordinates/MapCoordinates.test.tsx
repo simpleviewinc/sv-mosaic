@@ -7,6 +7,7 @@ import {
 	screen,
 	waitFor,
 } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 // Components
 import Form, { useForm } from "@root/components/Form";
@@ -36,8 +37,8 @@ const fields: FieldDef[] = [
 	},
 ];
 
-const MapCoordinatesExample = (): ReactElement => {
-	const controller = useForm();
+const MapCoordinatesExample = ({ data }: { data?: Record<string, unknown> } = {}): ReactElement => {
+	const controller = useForm(data ? { data } : undefined);
 	const { handleSubmit } = controller;
 
 	const onSubmit = handleSubmit((data) => alert("Form submitted with the following data: " + JSON.stringify(data, null, " ")));
@@ -187,6 +188,20 @@ describe("MapCoordinates component without an address", () => {
 			});
 			expect(getByText("Add Coordinates")).toBeTruthy();
 		}, 5000);
+	});
+
+	it("should cancel coordinate removal with Escape and restore focus", async () => {
+		const user = userEvent.setup();
+		render(<MapCoordinatesExample data={{ map: { lat: 12, lng: 22 } }} />);
+
+		const remove = screen.getByRole("button", { name: "Remove" });
+		await user.click(remove);
+		expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+		await user.keyboard("{Escape}");
+
+		await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+		expect(remove).toHaveFocus();
 	});
 
 	it("should edit the saved coordinates", async () => {
