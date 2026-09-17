@@ -19,6 +19,7 @@ interface SectionRef {
 	headingElem?: Element;
 	isVisible: boolean;
 	index: number;
+	onNavigate?: () => void;
 }
 
 export default function useScrollSpy({
@@ -79,12 +80,13 @@ export default function useScrollSpy({
 		threshold: [0, intersectionRatioThreshold, 1],
 	}));
 
-	const registerRef = useCallback<ScrollSpyResult["registerRef"]>(({ elem, headingElem, id, index }) => {
+	const registerRef = useCallback<ScrollSpyResult["registerRef"]>(({ elem, headingElem, id, index, onNavigate }) => {
 		sectionRefs.current.set(id, {
 			elem,
 			headingElem,
 			isVisible: false,
 			index,
+			onNavigate,
 		});
 		observer.current.observe(elem);
 		return () => {
@@ -101,6 +103,7 @@ export default function useScrollSpy({
 		}
 
 		setExplicitSection(id);
+		section.onNavigate?.();
 
 		section.elem.scrollIntoView({
 			behavior: "smooth",

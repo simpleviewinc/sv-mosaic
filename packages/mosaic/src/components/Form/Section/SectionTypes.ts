@@ -7,9 +7,15 @@ import type { RowPropTypes } from "../Row";
 /**
  * Single source of truth for the `registerRef` contract shared by `Section`,
  * `Layout`, and `useScrollSpy` — the section's own element plus its heading
- * element (used to move focus on section-nav activation).
+ * element and the action to run when section-nav activates it.
  */
-export type SectionRegisterRef = (params: { id: string; elem: Element; headingElem?: Element; index: number }) => () => void;
+export type SectionRegisterRef = (params: {
+	id: string;
+	elem: Element;
+	headingElem?: Element;
+	index: number;
+	onNavigate?: () => void;
+}) => () => void;
 
 export interface SectionPropTypes {
 	title: string;

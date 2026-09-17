@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import Form, { useForm } from "@root/components/Form";
 import type { SectionDef } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
-import testIds from "@root/utils/testIds";
 
 afterEach(cleanup);
 
@@ -33,6 +32,7 @@ const sections: SectionDef[] = [
 		id: "section-b",
 		title: "Section B",
 		description: "Description for section B",
+		collapsed: true,
 		fields: [[["fieldB"]]],
 	},
 ];
@@ -51,18 +51,10 @@ function TestForm() {
 }
 
 /**
- * Finds the CardHeading (the clickable, aria-controls-carrying wrapper)
- * that belongs to the section with the given title.
+ * Finds the dedicated expand/collapse button for a section.
  */
-function getSectionHeadingButton(title: string) {
-	const headings = screen.getAllByTestId(testIds.CARD_HEADING);
-	const match = headings.find(heading => heading.textContent === title);
-
-	if (!match) {
-		throw new Error(`could not find a section heading for "${title}"`);
-	}
-
-	return match;
+function getSectionToggle(title: string) {
+	return screen.getByRole("button", { name: new RegExp(`^(Expand|Collapse) ${title}$`) });
 }
 
 /**
@@ -101,6 +93,7 @@ describe("Form section nav focus management", () => {
 
 		expect(document.activeElement).toBe(heading);
 		expect(heading).toHaveAttribute("tabindex", "-1");
+		expect(heading.closest("button")).toBeNull();
 
 		// Focus actually left the nav control and landed in the section.
 		expect(document.activeElement).not.toBe(navLink);
@@ -125,6 +118,32 @@ describe("Form section nav focus management", () => {
 		expect(document.activeElement).not.toBe(navLink);
 	});
 
+	it("moves focus when a section nav link is activated with Space", async () => {
+		const user = userEvent.setup();
+		render(<TestForm />);
+
+		const navLink = getNavLink("Section B");
+		navLink.focus();
+
+		await user.keyboard(" ");
+
+		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+	});
+
+	it("expands a collapsed section before moving focus to its heading", async () => {
+		const user = userEvent.setup();
+		render(<TestForm />);
+
+		expect(getSectionToggle("Section B")).toHaveAttribute("aria-expanded", "false");
+
+		const navLink = getNavLink("Section B");
+		navLink.focus();
+		await user.keyboard("{Enter}");
+
+		expect(getSectionToggle("Section B")).toHaveAttribute("aria-expanded", "true");
+		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+	});
+
 	it("moves focus to a different heading for each section, matching the activated link", () => {
 		render(<TestForm />);
 
@@ -138,8 +157,8 @@ describe("Form section nav focus management", () => {
 	it("wires each section's aria-controls to its own real, unique content id instead of the hardcoded placeholder", () => {
 		render(<TestForm />);
 
-		const headingA = getSectionHeadingButton("Section A");
-		const headingB = getSectionHeadingButton("Section B");
+		const headingA = getSectionToggle("Section A");
+		const headingB = getSectionToggle("Section B");
 
 		const controlsA = headingA.getAttribute("aria-controls");
 		const controlsB = headingB.getAttribute("aria-controls");

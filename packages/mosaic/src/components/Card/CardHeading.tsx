@@ -23,7 +23,6 @@ export function CardHeading({
 	compact,
 	endSlot,
 	onClick,
-	ariaControls,
 	titleAttrs,
 }: CardHeadingProps) {
 	return (
@@ -33,7 +32,6 @@ export function CardHeading({
 			$compact={compact}
 			as={onClick && "button"}
 			onClick={onClick}
-			aria-controls={ariaControls}
 		>
 			<Title>
 				{Icon && <Icon data-testid={testIds.CARD_TITLE_ICON} />}

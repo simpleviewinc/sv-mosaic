@@ -48,11 +48,6 @@ export type CardHeadingProps = Pick<CardProps, "count" | "showZeroCount"> & {
 	onClick?: () => void;
 	endSlot?: ReactNode;
 	/**
-	 * The id of the region this heading controls, e.g. the collapsible
-	 * content panel. Rendered as `aria-controls` on the heading.
-	 */
-	ariaControls?: string;
-	/**
 	 * Additional attributes (including a `ref`) applied directly to the
 	 * heading's title element, so it can be targeted for programmatic focus.
 	 */

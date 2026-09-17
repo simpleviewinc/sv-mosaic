@@ -4,7 +4,6 @@ import { render, screen, cleanup } from "@testing-library/react";
 import Form, { useForm } from "@root/components/Form";
 import type { SectionDef } from "@root/components/Form";
 import type { FieldDef } from "@root/components/Field";
-import testIds from "@root/utils/testIds";
 
 afterEach(cleanup);
 
@@ -65,18 +64,18 @@ describe("Form section DOM id scoping across multiple Form instances", () => {
 			</>,
 		);
 
-		const headings = screen.getAllByTestId(testIds.CARD_HEADING);
+		const sectionToggles = screen.getAllByRole("button", { name: /^(Expand|Collapse) / });
 		const sectionWrappers = screen.getAllByTestId("section-test-id");
 		const headingElements = screen.getAllByRole("heading", { level: 3 });
 
 		// 2 Forms x 2 sections each.
-		expect(headings).toHaveLength(4);
+		expect(sectionToggles).toHaveLength(4);
 		expect(sectionWrappers).toHaveLength(4);
 		expect(headingElements).toHaveLength(4);
 
 		const wrapperIds = sectionWrappers.map(wrapper => wrapper.id);
 		const headingIds = headingElements.map(heading => heading.id);
-		const controlsIds = headings.map(heading => heading.getAttribute("aria-controls"));
+		const controlsIds = sectionToggles.map(toggle => toggle.getAttribute("aria-controls"));
 
 		// No DOM id collisions across Form instances that share section ids.
 		expect(wrapperIds.every(Boolean)).toBe(true);
@@ -87,7 +86,7 @@ describe("Form section DOM id scoping across multiple Form instances", () => {
 		expect(new Set(headingIds).size).toBe(headingIds.length);
 		expect(new Set(controlsIds).size).toBe(controlsIds.length);
 
-		// Every heading's aria-controls resolves to exactly one existing element
+		// Every section toggle's aria-controls resolves to exactly one existing element
 		// (a duplicate id elsewhere in the document would make this ambiguous).
 		controlsIds.forEach(id => {
 			expect(id).toBeTruthy();
