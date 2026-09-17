@@ -1,4 +1,5 @@
 import type { MutableRefObject } from "react";
+import type { SectionRegisterRef } from "@root/components/Form/Section/SectionTypes";
 
 export interface ScrollSpyProps {
 	/**
@@ -14,7 +15,7 @@ export interface ScrollSpyProps {
 }
 
 export interface ScrollSpyResult {
-	registerRef?: (params: { id: string; elem: Element; index: number }) => () => void;
+	registerRef?: SectionRegisterRef;
 	goToSection: (id: string) => void;
 	activeSection?: string;
 }

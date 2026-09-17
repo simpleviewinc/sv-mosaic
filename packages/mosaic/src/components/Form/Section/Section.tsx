@@ -7,6 +7,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormContext } from "../FormContext";
 import { CardContent, CardWrapper } from "@root/components/Card/Card.styled";
 import { CardHeading } from "@root/components/Card/CardHeading";
+import Button from "@root/components/Button";
 import Collapse from "@mui/material/Collapse";
 import { SectionContent } from "./SectionContent";
 
@@ -24,6 +25,7 @@ const Section = (props: SectionPropTypes) => {
 		methods,
 		skeleton,
 		id,
+		formId,
 	} = props;
 
 	const { state: { errors } } = useContext(FormContext);
@@ -51,6 +53,20 @@ const Section = (props: SectionPropTypes) => {
 
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>(undefined);
+	const titleRef = useRef<HTMLElement>(undefined);
+	const expanded = state === "expanded" || state === "expanding";
+	const expand = useCallback(() => {
+		setState((state) => state === "collapsed" || state === "collapsing" ? "expanding" : state);
+	}, []);
+	/**
+	 * `id` is caller-supplied (via `SectionDef.id`), so it isn't guaranteed to
+	 * be unique across separate Form instances on the same page. Scoping with
+	 * `formId` (the owning Form's `useId()`) keeps these DOM ids — and the
+	 * `aria-controls` wired to them — unique document-wide.
+	 */
+	const sectionInstanceId = formId ? `${formId}-${id}` : id;
+	const panelId = `section-panel-${sectionInstanceId}`;
+	const headingId = `section-heading-${sectionInstanceId}`;
 
 	useEffect(() => {
 		if (!fieldsHaveErrors()) {
@@ -69,39 +85,49 @@ const Section = (props: SectionPropTypes) => {
 			id,
 			index: sectionIdx,
 			elem: ref.current,
+			headingElem: titleRef.current,
+			onNavigate: expand,
 		});
 		return unregister;
-	}, [id, sectionIdx, registerRef]);
+	}, [expand, id, sectionIdx, registerRef]);
 
 	return (
 		<CardWrapper
 			data-testid="section-test-id"
 			$collapsed={state === "collapsed" || state === "collapsing"}
 			ref={ref}
-			id={`section-${id}`}
+			id={`section-${sectionInstanceId}`}
 		>
 			{title && (
 				<CardHeading
-					// buttons={[{
-					// 	intent: "secondary",
-					// 	variant: "text",
-					// 	mIcon: state === "expanded" || state === "expanding" ? ExpandLessIcon : ExpandMoreIcon,
-					// 	onClick: () => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding"),
-					// 	tooltip: state === "expanded" || state === "expanding" ? "Collapse Section" : "Expand Section",
-					// }]}
 					blunt={state !== "collapsed"}
-					aria-controls="panel1a-content"
-					endSlot={state === "expanded" || state === "expanding" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-					onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
+					titleAttrs={{
+						ref: titleRef,
+						id: headingId,
+						tabIndex: -1,
+					}}
+					endSlot={(
+						<Button
+							intent="secondary"
+							variant="text"
+							mIcon={expanded ? ExpandLessIcon : ExpandMoreIcon}
+							tooltip={`${expanded ? "Collapse" : "Expand"} ${title}`}
+							onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
+							muiAttrs={{
+								"aria-controls": panelId,
+								"aria-expanded": expanded,
+							}}
+						/>
+					)}
 				>
 					{title}
 				</CardHeading>
 			)}
 			<Collapse
-				in={state === "expanding" || state === "expanded"}
+				in={expanded}
 				onTransitionEnd={() => setState((state) => state === "expanding" || state === "expanded" ? "expanded" : "collapsed")}
 			>
-				<CardContent>
+				<CardContent id={panelId}>
 					<SectionContent
 						description={description}
 						rows={rows}

@@ -17,6 +17,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 		spacing,
 		methods,
 		skeleton,
+		formId,
 	} = props;
 
 	if (sections.length < 2) {
@@ -56,6 +57,7 @@ const Layout = (props: LayoutProps): React.ReactElement => {
 					methods={methods}
 					skeleton={skeleton}
 					id={section.id}
+					formId={formId}
 				/>
 			))}
 		</StyledLayout>
