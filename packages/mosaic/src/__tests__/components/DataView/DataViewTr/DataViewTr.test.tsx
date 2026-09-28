@@ -71,6 +71,24 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
 	});
 
+	it.each([
+		{ checked: false, disabled: false },
+		{ checked: true, disabled: false },
+		{ checked: false, disabled: true },
+	])("should name the row selection input with checked=$checked and disabled=$disabled", async ({ checked, disabled }) => {
+		const onCheckboxClick = vi.fn();
+		const { user } = await setup({ checked, disabled, onCheckboxClick });
+		const input = screen.getByRole("checkbox", { name: "Select row" });
+
+		expect(input).toHaveAttribute("aria-label", "Select row");
+		expect(input).toHaveProperty("checked", checked);
+		expect(input).toHaveProperty("disabled", disabled);
+		if (!disabled) {
+			await user.click(input);
+			expect(onCheckboxClick).toHaveBeenCalledTimes(1);
+		}
+	});
+
 	it("should expose aria-selected=true on the row when checkbox selection is enabled and the row is checked", async () => {
 		const onCheckbocClickMock = vi.fn();
 
