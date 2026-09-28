@@ -104,6 +104,11 @@ describe("SideNav component", () => {
 		expect(getByText("Documents"));
 	});
 
+	it("should provide an accessible navigation name when labeled", () => {
+		render(<SideNav items={[[{ label: "Section", name: "section" }]]} label="Account sections" />);
+		expect(screen.getByRole("navigation", { name: "Account sections" }));
+	});
+
 	it("should displays the Accounts content by default", () => {
 		expect(getByText("Accounts Content"));
 	});

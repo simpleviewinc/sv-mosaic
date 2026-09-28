@@ -236,6 +236,7 @@ const Form = ({
 					<StyledFormPrimary className="form-primary">
 						{!hideSectionNav && sideNavItems.length > 1 && (
 							<StyledSideNav
+								label="Form sections"
 								items={[sideNavItems]}
 								active={String(activeSection)}
 								onNav={onNav}
