@@ -41,6 +41,9 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("row")).toBeInTheDocument();
 		expect(screen.queryAllByRole("cell")).toHaveLength(2);
+		for (const cell of screen.getAllByRole("cell")) {
+			expect(cell).not.toHaveAttribute("aria-label");
+		}
 	});
 
 	it("should render the row with an additional class name when checked", async () => {
