@@ -71,6 +71,34 @@ describe(__dirname, () => {
 		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
 	});
 
+	it("should expose aria-selected=true on the row when checkbox selection is enabled and the row is checked", async () => {
+		const onCheckbocClickMock = vi.fn();
+
+		await setup({ onCheckboxClick: onCheckbocClickMock, checked: true });
+
+		const row = screen.queryByRole("row");
+
+		expect(row).toHaveAttribute("aria-selected", "true");
+	});
+
+	it("should expose aria-selected=false on the row when checkbox selection is enabled and the row is not checked", async () => {
+		const onCheckbocClickMock = vi.fn();
+
+		await setup({ onCheckboxClick: onCheckbocClickMock, checked: false });
+
+		const row = screen.queryByRole("row");
+
+		expect(row).toHaveAttribute("aria-selected", "false");
+	});
+
+	it("should not expose aria-selected on the row when checkbox selection is not enabled", async () => {
+		await setup({ checked: true });
+
+		const row = screen.queryByRole("row");
+
+		expect(row).not.toHaveAttribute("aria-selected");
+	});
+
 	it("should render the row with an additional cell containing a button row if the data view has actions", async () => {
 		await setup({ hasActions: true, primaryActions, additionalActions });
 
