@@ -27,11 +27,18 @@ test.describe("Components - Data View - Playground", () => {
 
 	test("Data cell locator uses the header's CSS column position", async () => {
 		await dataviewPage.waitForDataviewIsVisible();
-		const position = await dataviewPage.getPositionOfColumn("Title", true);
-		expect(position).toBe(3);
-		const firstTitle = await dataviewPage.dataviewTable.locator(`tr > td:nth-child(${position}) [data-testid="${testIds.DATA_VIEW_TD_INNER}"]`).first().textContent();
-		const titles = await dataviewPage.getAllRowData("Title");
-		expect(titles[0]).toBe(firstTitle.toLowerCase());
+		expect(await dataviewPage.getPositionOfColumn("Title", true)).toBe(5);
+		expect(await dataviewPage.getPositionOfColumn("Categories", true)).toBe(6);
+		const firstRowCells = dataviewPage.dataviewTable.locator("tr").first().locator("td");
+		const firstTitle = await firstRowCells.nth(4).getByTestId(testIds.DATA_VIEW_TD_INNER).textContent();
+		expect(firstTitle).toBe("Accessibility");
+		expect((await dataviewPage.getAllRowData("Title", Number.MAX_SAFE_INTEGER))[0]).toBe(firstTitle.toLowerCase());
+		await page.reload();
+		await dataviewPage.clean();
+		await dataviewPage.waitForDataviewIsVisible();
+		const firstCategories = await firstRowCells.nth(5).getByTestId(testIds.DATA_VIEW_TD_INNER).textContent();
+		expect(firstCategories).not.toBe("");
+		expect((await dataviewPage.getAllRowData("Category", Number.MAX_SAFE_INTEGER))[0]).toBe(firstCategories.toLowerCase());
 	});
 
 	test("Validate Create New alert message.", async () => {
