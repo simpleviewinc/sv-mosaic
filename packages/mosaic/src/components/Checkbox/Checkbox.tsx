@@ -27,11 +27,10 @@ const Checkbox = (props: CheckboxProps) => {
 		<StyledOptionFormControl
 			label={props.label && (
 				<StyledOptionLabel
-					aria-hidden={true}
 					disabled={props.disabled}
 					description={props.description}
 				>
-					{props.label}
+					<span data-checkbox-visible-label aria-hidden="true">{props.label}</span>
 				</StyledOptionLabel>
 			)}
 			labelPlacement="end"

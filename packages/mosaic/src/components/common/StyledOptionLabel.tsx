@@ -1,4 +1,4 @@
-import type { AriaAttributes, PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import React from "react";
 import styled from "styled-components";
 import { Text } from "../Typography";
@@ -29,16 +29,15 @@ const StyledRequired = styled.span`
 `;
 
 export function StyledOptionLabel({
-	"aria-hidden": ariaHidden,
 	children,
 	disabled,
 	description,
 	required,
-}: PropsWithChildren<{ disabled?: boolean; required?: boolean; description?: string } & Pick<AriaAttributes, "aria-hidden">>) {
+}: PropsWithChildren<{ disabled?: boolean; required?: boolean; description?: string }>) {
 	const { anchorProps, tooltipProps } = useTooltip();
 
 	return (
-		<StyledOptionLabelText $disabled={disabled} attrs={{ "aria-hidden": ariaHidden }}>
+		<StyledOptionLabelText $disabled={disabled}>
 			{children}
 			{required && <StyledRequired>*</StyledRequired>}
 			{description && (

@@ -53,6 +53,23 @@ describe(__dirname, () => {
 		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
 	});
 
+	it("should keep the description tooltip anchor outside hidden visible label text", async () => {
+		await setup({ label: "Green", description: "The green choice" });
+
+		const text = screen.getByText("Green");
+		const outerLabel = text.parentElement;
+		const anchor = outerLabel?.querySelector("svg[aria-describedby]");
+
+		expect(text).toHaveAttribute("data-checkbox-visible-label");
+		expect(text).toHaveAttribute("aria-hidden", "true");
+		expect(text).toHaveTextContent("Green");
+		expect(text).not.toHaveTextContent("The green choice");
+		expect(outerLabel).not.toHaveAttribute("aria-hidden");
+		expect(anchor).toBeInTheDocument();
+		expect(anchor?.parentElement?.closest("[aria-hidden=true]")).toBeNull();
+		expect(anchor).toHaveAttribute("aria-describedby", expect.stringMatching(/^tooltip-/));
+	});
+
 	it("should expose an accessible name via aria-label when no visible label text is rendered", async () => {
 		await setup({ label: undefined, "aria-label": "Green" });
 
