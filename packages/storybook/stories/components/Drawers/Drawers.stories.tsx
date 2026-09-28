@@ -90,7 +90,7 @@ export const Playground = (): ReactElement => {
 				>
 					Add Form
 				</button>
-				<Drawers drawers={state.drawers}>
+				<Drawers drawers={state.drawers} onClose={removeDrawer}>
 					{(drawerDef) => {
 						return (
 							<Page

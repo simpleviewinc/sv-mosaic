@@ -38,6 +38,37 @@ describe(__dirname, () => {
 		expect(screen.queryByTestId(testIds.DRAWER_BACKDROP)).toBeNull();
 	});
 
+	it("should call onClose when Escape is pressed", async () => {
+		const onClose = vi.fn();
+		const { user } = await setup({ onClose });
+
+		await screen.findByText("Drawer 2");
+		await user.keyboard("{Escape}");
+
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it("should keep the drawer open when onClose is omitted", async () => {
+		const { user } = await setup();
+		await screen.findByText("Drawer 2");
+
+		await user.keyboard("{Escape}");
+
+		expect(screen.getByText("Drawer 2")).toBeInTheDocument();
+	});
+
+	it("should not call onClose for a backdrop click", async () => {
+		const onClose = vi.fn();
+		const { user } = await setup({ onClose });
+		await screen.findByText("Drawer 2");
+
+		const backdrops = screen.getAllByTestId(testIds.DRAWER_BACKDROP);
+		await user.click(backdrops[backdrops.length - 1]);
+
+		expect(onClose).not.toHaveBeenCalled();
+		expect(screen.getByText("Drawer 2")).toBeInTheDocument();
+	});
+
 	it("should begin closing a draw once the definition is removed", async () => {
 		const { rerender } = await setup();
 

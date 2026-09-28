@@ -289,7 +289,7 @@ export const Playground = ({
 					fields={fields}
 				/>
 			</MosaicContext.Provider>
-			<Drawers drawers={drawerState.drawers}>
+			<Drawers drawers={drawerState.drawers} onClose={removeDrawer}>
 				{(drawerDef) => {
 					return (
 						<DrawerEditForm
