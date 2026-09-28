@@ -56,6 +56,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					<LeftControlsContainer>
 						{onCheckAllClick && (
 							<Checkbox
+								aria-label="Select all rows"
 								checked={allChecked}
 								indeterminate={!allChecked && anyChecked}
 								onClick={onCheckAllClick}

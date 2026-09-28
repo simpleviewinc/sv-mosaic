@@ -38,11 +38,12 @@ function DataViewTHead(props: DataViewTHeadProps) {
 		<StyledWrapper>
 			<tr className="row-header">
 				{props.onReorder && (
-					<StyledTh key="_draggable" className="bulk" />
+					<StyledTh key="_draggable" className="bulk" scope="col" />
 				)}
 				{props.onCheckAllClick && (
-					<StyledTh key="_bulk" className="bulk" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
+					<StyledTh key="_bulk" className="bulk" scope="col" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
 						<Checkbox
+							aria-label="Select all rows"
 							checked={props.allChecked}
 							indeterminate={!props.allChecked && props.anyChecked}
 							onClick={props.onCheckAllClick}
@@ -51,7 +52,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				)}
 				{props.bulkActions?.length > 0 && props.anyChecked && (
-					<StyledTh key="_bulk_actions" colSpan={props.columns.length + 1}>
+					<StyledTh key="_bulk_actions" scope="col" colSpan={props.columns.length + 1}>
 						<DataViewBulkActionsButtonsRow
 							data={props.data}
 							checked={props.checked}
@@ -61,7 +62,7 @@ function DataViewTHead(props: DataViewTHeadProps) {
 					</StyledTh>
 				)}
 				{!props.anyChecked && props.hasActions && (
-					<StyledTh key="_actions">
+					<StyledTh key="_actions" scope="col">
 						<span className="columnHeader">{t("mosaic:DataView.actions")}</span>
 					</StyledTh>
 				)}

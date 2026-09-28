@@ -66,6 +66,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 														data-testid={testIds.DATA_VIEW_GRID_ITEM_CHECK}
 													>
 														<Checkbox
+															aria-label="Select row"
 															className="checkbox"
 															checked={Boolean(props.checked[i])}
 															onClick={checkboxClick(i)}
