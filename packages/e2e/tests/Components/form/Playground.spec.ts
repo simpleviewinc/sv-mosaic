@@ -16,7 +16,8 @@ test.describe("Components - Form - Playground", () => {
 	});
 
 	test("Validate error messages when saving with empty required fields", async () => {
-		await playgroundPage.saveBtn.click();
+		await expect(playgroundPage.saveBtn).toHaveCount(2);
+		await playgroundPage.saveBtn.last().click();
 		await playgroundPage.wait();
 		const expectedNumberOfRequiredFields = await playgroundPage.getNumberOfFieldsRequired();
 		for (let i = 0; i < expectedNumberOfRequiredFields; i++) {
@@ -29,7 +30,7 @@ test.describe("Components - Form - Playground", () => {
 		await page.reload();
 		await playgroundPage.fillAllRequiredFields();
 		await playgroundPage.wait();
-		await playgroundPage.saveBtn.click();
+		await playgroundPage.saveBtn.last().click();
 		expect(await playgroundPage.errorMessage.count()).toBe(0);
 	});
 
@@ -55,7 +56,7 @@ test.describe("Components - Form - Playground", () => {
 
 	test("Validate that no error message are displayed when the knob disabled is active.", async () => {
 		await playgroundPage.visit(playgroundPage.page_path, [commonKnobs.knobDisabled + "true", commonKnobs.knobRequired + "true"]);
-		await playgroundPage.saveBtn.click();
+		await playgroundPage.saveBtn.last().click();
 		await expect(playgroundPage.errorIcon).not.toBeVisible();
 		await expect(playgroundPage.errorMessage).not.toBeVisible();
 	});

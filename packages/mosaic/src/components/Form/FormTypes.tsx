@@ -32,6 +32,11 @@ export interface FormProps {
 	dialogOpen?: boolean;
 	description?: string;
 	handleDialogClose?: (val: boolean) => void;
+	/** List of buttons rendered in an action bar below the form fields. */
+	bottomActions?: ButtonProps[];
+	/** Any custom content rendered below the form fields and before bottomActions. */
+	bottomSlot?: ReactNode;
+	/** List of buttons rendered in the form header. */
 	buttons?: ButtonProps[];
 	scrollSpyThreshold?: number;
 	fullHeight?: boolean;
@@ -40,7 +45,6 @@ export interface FormProps {
 	onSubmit?: React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>["onSubmit"];
 	methods: FormMethods;
 	autoFocus?: boolean | AutofocusOptions;
-	bottomSlot?: ReactNode;
 	hideSectionNav?: boolean;
 }
 

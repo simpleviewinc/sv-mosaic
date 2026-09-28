@@ -11,8 +11,10 @@ import {
 	StyledForm,
 	StyledContainerForm,
 	StyledFormPrimary,
+	StyledFormActions,
 	StyledSideNav,
 } from "./Form.styled";
+import ButtonRow from "../ButtonRow/ButtonRow";
 import Layout from "./Layout/Layout";
 import Top from "./Top";
 import Dialog from "@root/components/Dialog";
@@ -35,6 +37,7 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 };
 
 const Form = ({
+	bottomActions,
 	buttons,
 	state,
 	title,
@@ -199,6 +202,11 @@ const Form = ({
 		disabled: state.disabled ? true : button.disabled,
 	})), [state.disabled, buttons]);
 
+	const bottomActionsWithDisable = useMemo(() => (bottomActions || []).map(button => ({
+		...button,
+		disabled: state.disabled ? true : button.disabled,
+	})), [state.disabled, bottomActions]);
+
 	const fieldsWithDisable = useMemo(() => fields.map(field => ({
 		...field,
 		disabled: state.disabled ? true : field.disabled,
@@ -254,6 +262,14 @@ const Form = ({
 						</StyledFormContent>
 					</StyledFormPrimary>
 					{bottomSlot}
+					{bottomActionsWithDisable.length > 0 && (
+						<StyledFormActions $spacing={spacing}>
+							<ButtonRow
+								buttons={bottomActionsWithDisable}
+								skeleton={state.skeleton}
+							/>
+						</StyledFormActions>
+					)}
 				</StyledForm>
 			</StyledContainerForm>
 			<Dialog

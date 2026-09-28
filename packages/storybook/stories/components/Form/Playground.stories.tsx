@@ -438,6 +438,7 @@ export const Playground = ({
 				fields={fields}
 				sections={showSections > 0 ? sectionsAmount : undefined}
 				buttons={buttons}
+				bottomActions={buttons}
 			/>
 		</div>
 	);
