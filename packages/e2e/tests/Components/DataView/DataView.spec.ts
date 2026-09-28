@@ -4,6 +4,7 @@ import { DataviewPage } from "../../../pages/Components/DataView/DataViewPage";
 import { dataview_data } from "../../../utils/data/dataviewData";
 import theme from "@simpleview/sv-mosaic/theme";
 import { dataviewKnobs as knob, commonKnobs } from "../../../utils/data/knobs";
+import { testIds } from "@simpleview/sv-mosaic";
 
 test.describe("Components - Data View - Playground", () => {
 	let page: Page;
@@ -23,6 +24,15 @@ test.describe("Components - Data View - Playground", () => {
 	async function getNumberOfResultVisible() {
 		return Number(await dataviewPage.paginationComponent.resultAmount.textContent());
 	}
+
+	test("Data cell locator uses the header's CSS column position", async () => {
+		await dataviewPage.waitForDataviewIsVisible();
+		const position = await dataviewPage.getPositionOfColumn("Title", true);
+		expect(position).toBe(3);
+		const firstTitle = await dataviewPage.dataviewTable.locator(`tr > td:nth-child(${position}) [data-testid="${testIds.DATA_VIEW_TD_INNER}"]`).first().textContent();
+		const titles = await dataviewPage.getAllRowData("Title");
+		expect(titles[0]).toBe(firstTitle.toLowerCase());
+	});
 
 	test("Validate Create New alert message.", async () => {
 		dataviewPage.setDialogValidationListener("CREATE NEW");

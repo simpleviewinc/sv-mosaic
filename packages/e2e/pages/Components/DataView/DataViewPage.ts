@@ -156,7 +156,7 @@ export class DataviewPage extends BasePage {
 			Updated: "Updated",
 		};
 		const position = await this.getPositionOfColumn(columnLabels[dataName], true);
-		const locator = this.dataviewTable.locator(`tr > td:nth-child(${position + 1}) [data-testid="${testIds.DATA_VIEW_TD_INNER}"]`);
+		const locator = this.dataviewTable.locator(`tr > td:nth-child(${position}) [data-testid="${testIds.DATA_VIEW_TD_INNER}"]`);
 
 		let locatorCount = await locator.count();
 		for (let i = 0; i < pages; i++) {
