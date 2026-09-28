@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
 import type { CheckboxProps } from "@root/components/Checkbox";
@@ -47,13 +48,70 @@ describe(__dirname, () => {
 	it("should expose the label text as the checkbox's accessible name", async () => {
 		await setup({ label: "Green" });
 
-		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+		const checkbox = screen.getByRole("checkbox", { name: "Green" });
+		expect(checkbox).toHaveAttribute("aria-label", "Green");
+		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
 	});
 
 	it("should expose an accessible name via aria-label when no visible label text is rendered", async () => {
 		await setup({ label: undefined, "aria-label": "Green" });
 
-		expect(screen.queryByRole("checkbox", { name: "Green" })).toBeInTheDocument();
+		expect(screen.getByRole("checkbox", { name: "Green" })).toHaveAttribute("aria-label", "Green");
+		expect(screen.queryByText("Green")).not.toBeInTheDocument();
+	});
+
+	it("should leave an unnamed checkbox without a generated name when no label is provided", async () => {
+		await setup({ label: undefined });
+
+		expect(screen.getByRole("checkbox")).not.toHaveAttribute("aria-label");
+	});
+
+	it("should preserve an explicit aria-label over the visible label", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+		await setup({ label: "Green", "aria-label": "Green swatch" });
+
+		expect(screen.getByRole("checkbox", { name: "Green swatch" })).toHaveAttribute("aria-label", "Green swatch");
+		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
+		expect(warnMock).toHaveBeenCalled();
+	});
+
+	it("should preserve aria-labelledby without adding a label fallback", async () => {
+		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
+		const heading = document.createElement("span");
+		heading.id = "green-heading";
+		heading.textContent = "Green swatch";
+		document.body.appendChild(heading);
+		try {
+			await setup({ label: "Green", "aria-labelledby": heading.id });
+
+			const checkbox = screen.getByRole("checkbox", { name: "Green swatch" });
+			expect(checkbox).toHaveAttribute("aria-labelledby", heading.id);
+			expect(checkbox).not.toHaveAttribute("aria-label");
+			expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
+			expect(warnMock).toHaveBeenCalled();
+		} finally {
+			heading.remove();
+		}
+	});
+
+	it("should toggle when the visible label is clicked", async () => {
+		const onChange = vi.fn((event) => {
+			expect(event.target.checked).toBe(true);
+		});
+		await setup({ checked: false, label: "Green", onChange });
+
+		await userEvent.click(screen.getByText("Green"));
+
+		expect(onChange).toHaveBeenCalledOnce();
+	});
+
+	it("should keep a disabled checkbox named", async () => {
+		await setup({ checked: false, disabled: true, label: "Green" });
+
+		const checkbox = screen.getByRole("checkbox", { name: "Green" });
+		expect(checkbox).toBeDisabled();
+		expect(checkbox).toHaveAttribute("aria-label", "Green");
+		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
 	});
 
 	it("should warn when both a visible label and an aria-label are provided", async () => {

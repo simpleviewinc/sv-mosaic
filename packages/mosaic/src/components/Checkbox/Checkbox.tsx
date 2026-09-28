@@ -27,6 +27,7 @@ const Checkbox = (props: CheckboxProps) => {
 		<StyledOptionFormControl
 			label={props.label && (
 				<StyledOptionLabel
+					aria-hidden={true}
 					disabled={props.disabled}
 					description={props.description}
 				>
@@ -60,7 +61,7 @@ const Checkbox = (props: CheckboxProps) => {
 					disabled={props.disabled}
 					slotProps={{
 						input: {
-							"aria-label": props["aria-label"],
+							"aria-label": ariaLabelledBy ? ariaLabel : ariaLabel ?? label,
 							"aria-labelledby": props["aria-labelledby"],
 							"aria-describedby": props["aria-describedby"],
 						},
