@@ -180,6 +180,7 @@ const FormFieldMapCoordinates = (props: MosaicFieldProps<"mapCoordinates", MapCo
 				buttons={dialogButtons}
 				dialogTitle="Are you sure you want to remove these coordinates?"
 				open={removeDialog}
+				onClose={() => setRemoveDialog(false)}
 			>
 				All data for these coordinates will be lost. This action is irreversible.
 			</Dialog>

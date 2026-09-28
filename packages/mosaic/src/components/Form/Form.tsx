@@ -260,6 +260,7 @@ const Form = ({
 				buttons={dialogButtons}
 				dialogTitle="Are you sure you want to leave?"
 				open={dialogOpen}
+				onClose={() => handleDialogClose?.(false)}
 			>
 				You have unsaved changes. If you leave all your changes will be lost.
 			</Dialog>

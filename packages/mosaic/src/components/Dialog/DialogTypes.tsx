@@ -18,4 +18,8 @@ export interface DialogProps {
 	* Array of buttons provided to the Form.
 	*/
 	buttons?: ButtonProps[];
+	/**
+	 * Called when the user dismisses the dialog with Escape or a backdrop click.
+	 */
+	onClose?: () => void;
 }
