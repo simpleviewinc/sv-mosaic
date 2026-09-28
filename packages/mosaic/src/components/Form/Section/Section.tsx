@@ -1,4 +1,4 @@
-import React, { memo, useRef, useCallback, useState, useEffect, useMemo, useContext } from "react";
+import React, { memo, useRef, useCallback, useState, useEffect, useMemo, useContext, useId } from "react";
 
 import type { SectionPropTypes } from "./SectionTypes";
 
@@ -7,6 +7,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormContext } from "../FormContext";
 import { CardContent, CardWrapper } from "@root/components/Card/Card.styled";
 import { CardHeading } from "@root/components/Card/CardHeading";
+import Button from "@root/components/Button";
 import Collapse from "@mui/material/Collapse";
 import { SectionContent } from "./SectionContent";
 
@@ -51,6 +52,8 @@ const Section = (props: SectionPropTypes) => {
 
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>(undefined);
+	const panelId = useId();
+	const expanded = state === "expanded" || state === "expanding";
 
 	useEffect(() => {
 		if (!fieldsHaveErrors()) {
@@ -82,26 +85,29 @@ const Section = (props: SectionPropTypes) => {
 		>
 			{title && (
 				<CardHeading
-					// buttons={[{
-					// 	intent: "secondary",
-					// 	variant: "text",
-					// 	mIcon: state === "expanded" || state === "expanding" ? ExpandLessIcon : ExpandMoreIcon,
-					// 	onClick: () => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding"),
-					// 	tooltip: state === "expanded" || state === "expanding" ? "Collapse Section" : "Expand Section",
-					// }]}
 					blunt={state !== "collapsed"}
-					aria-controls="panel1a-content"
-					endSlot={state === "expanded" || state === "expanding" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-					onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
+					endSlot={(
+						<Button
+							intent="secondary"
+							variant="text"
+							mIcon={expanded ? ExpandLessIcon : ExpandMoreIcon}
+							tooltip={`${expanded ? "Collapse" : "Expand"} ${title}`}
+							onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
+							muiAttrs={{
+								"aria-controls": panelId,
+								"aria-expanded": expanded,
+							}}
+						/>
+					)}
 				>
 					{title}
 				</CardHeading>
 			)}
 			<Collapse
-				in={state === "expanding" || state === "expanded"}
+				in={expanded}
 				onTransitionEnd={() => setState((state) => state === "expanding" || state === "expanded" ? "expanded" : "collapsed")}
 			>
-				<CardContent>
+				<CardContent id={panelId}>
 					<SectionContent
 						description={description}
 						rows={rows}
