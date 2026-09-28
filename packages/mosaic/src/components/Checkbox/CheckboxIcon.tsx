@@ -11,7 +11,7 @@ const CheckboxIcon = ({
 	indeterminate?: boolean;
 }) => {
 	return (
-		<StyledCheckboxIcon>
+		<StyledCheckboxIcon aria-hidden="true">
 			{indeterminate ? (
 				<IndeterminateCheckBoxIcon />
 			) : checked ? (
