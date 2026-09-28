@@ -1,5 +1,18 @@
 # sv-mosaic changelog
 
+### 46.1.1 - 09/29/2026
+
+- `Form`
+  - [MOS-1914](https://jira.granicus.com/browse/MOS-1914) **Announce field instruction text to screen readers**
+    - Links visible instruction text to its field control, so a screen reader announces the instruction when the control is focused.
+    - Applies to advanced selection, chip, upload, date, and text fields when the instruction is shown beside the field.
+    - Leaves the association off when instruction text is empty or shown only in the label tooltip.
+- `FormFieldCheckbox`
+  - [MOS-1850](https://jira.granicus.com/browse/MOS-1850) **Improve Checkbox and FormFieldCheckbox accessibility**
+    - Adds accessible label support to checkbox inputs, including options without visible text.
+    - Corrects invalid label markup to improve screen-reader compatibility across Checkbox, RadioButton, and Toggle components.
+    - Warns developers when visible and accessible checkbox labels differ.
+
 ### 46.1.0 - 07/14/2026
 
 - `FormFieldDate`
@@ -28,11 +41,15 @@
     should upgrade your @mui/* libraries to match the versions listed in
     peerDependencies.
 
+
+
 ### 45.2.1 - 02/04/2026
 
 - `Card`
   - [MOS-1768](https://jira.granicus.com/browse/MOS-1768) **Empty Cards do not have shadows and on filled cards corners not rounded**
     - (Card) Move background color to the card wrapper rather than the content to avoid leaking out of rounded corners.
+
+
 
 ### 45.2.0 - 01/20/2026
 
@@ -60,6 +77,8 @@
     errors are displayed for non pending items.
 - Housekeeping
 
+
+
 ### 45.1.2 - 12/05/2025
 
 - `Form`
@@ -71,6 +90,8 @@
     Ensure the card footer sticks to the bottom of the card, therefore
     keeping the buttons of the address card vertically aligned.
 
+
+
 ### 45.1.1 - 11/25/2025
 
 - `Card`
@@ -79,6 +100,8 @@
 - `FormFieldTextEditor`
   - [MOS-1743](https://jira.granicus.com/browse/MOS-1743) **Enable Monaco word wrapping by default for text editor**
     - (TextEditor) Accept a Monaco options object and enable word wrap by default.
+
+
 
 ### 45.1.0 - 11/10/2025
 
@@ -96,6 +119,8 @@
   - [MOS-1718](https://jira.granicus.com/browse/MOS-1718) **Mosaic upgrade issue : Cards have an extra line**
     - (Card) Corrected card visual when there are no items and no bottom actions to display.
 
+
+
 ### 45.0.0 - 10/28/2025
 
 - Housekeeping
@@ -111,6 +136,8 @@
     - **(BREAKING CHANGE)** (Menu) Aligns available icon colours with the colours that are defined in the Apex design system. Previously **["black", "blue", "red", "yellow", "teal", "gray"]** is now **["black", "gold", "gray", "red", "teal"]**.
     - **(BREAKING CHANGE)** (Popover) Removed unused component.
 
+
+
 ### 44.7.0 - 10/14/2025
 
 - `Content`
@@ -120,11 +147,15 @@
     - Align component styling with new Apex design system.
 - Housekeeping
 
+
+
 ### 44.6.1 - 09/17/2025
 
 - `SideNav`
   - [MOS-1719](https://jira.granicus.com/browse/MOS-1719) SideNav not displaying at the top when using a narrow viewport
     - (SideNav) Reinstate the lost flex style.
+
+
 
 ### 44.6.0 - 09/17/2025
 
@@ -136,6 +167,8 @@
     - (DataView) Styles aligned with the design system in Figma.
     - (ButtonRow) Allows arbritary properties to be passed down to the underlying div element.
 
+
+
 ### 44.5.0 - 09/02/2025
 
 - `LeftNav` → `MainMenu`
@@ -146,6 +179,8 @@
   - [MOS-1643](https://jira.granicus.com/browse/MOS-1643) Card polish
     - Aligns Card polish with Apex design system.
 
+
+
 ### 44.4.1 - 08/27/2025
 
 - `Content`
@@ -154,6 +189,8 @@
 - `FormFieldAdvancedSelection`
   - [MOS-1706](https://jira.granicus.com/browse/MOS-1706) Advanced selection limit not respected
     - (AdvSelField) Pass down the select limit to async advanced selection variant.
+
+
 
 ### 44.4.0 - 08/19/2025
 
@@ -179,6 +216,8 @@
     - (Drawer) Removes a redundant z-index style which was causing conflicts with Apex drawer system.
     - (Toggle) Pass down the checked property to the underlying HTML checkbox input.
 
+
+
 ### 44.3.0 - 08/05/2025
 
 - `Chip`
@@ -195,6 +234,8 @@
 - `FormFieldUpload`
   - [MOS-1638](https://simpleviewtools.atlassian.net/browse/MOS-1638) **File Upload Field**
     - (FileUploadField) Align styles with the Apex design system.
+
+
 
 ### 44.2.0 - 07/22/2025
 
@@ -230,6 +271,8 @@
     - `Mos-FieldTooltip`
     - `Mos-CharacterCount`
 
+
+
 ### 44.1.0 - 07/08/2025
 
 - `FormFieldAdvancedSelection`
@@ -241,6 +284,8 @@
 - Housekeeping
   - [MOS-1633](https://simpleviewtools.atlassian.net/browse/MOS-1633) **Badge and Sortable List Tile**
     - (Badge) Implement new badge component
+
+
 
 ### 44.0.0 - 06/24/2025
 
@@ -268,6 +313,8 @@
     - (chore) Add icons-material to eslint rule to prevent loose importing of all icons.
     - (ChipList) Fix loose icon import.
 
+
+
 ### 43.2.1 - 06/10/2025
 
 - `FormFieldAddress`
@@ -276,6 +323,8 @@
 - `SummaryPageTopComponent`
   - [MOS-1647](https://simpleviewtools.atlassian.net/browse/MOS-1647) **TopSummary should accept title?: ReactNode**
     - (TopSummary) Adds support to provide an arbitrary `ReactNode` title which doesn't receive the same formatting as string-based titles.
+
+
 
 ### 43.2.0 - 05/27/2025
 
@@ -293,6 +342,8 @@
     - Enable Mosaic container to rebuild itself based on changes thereby eliminating the need to mount node_modules.
     - Rewrite Circle config to reduce some of the magic carried out by each job. Rely more on docker compose.
     - Improved Teams notifications.
+
+
 
 ### 43.1.0 - 04/28/2025
 
@@ -324,6 +375,8 @@
     - (TimeField) Ensure time is emitted in correct string format instead of as a date object.
 - Housekeeping
 
+
+
 ### 43.0.0 - 04/15/2025
 
 - `Chip`
@@ -346,6 +399,8 @@
   - [MOS-1610](https://simpleviewtools.atlassian.net/browse/MOS-1610) **Remove "other" gender option.**
     - (chore) Removes other gender options, replaces conditional field demonstration with referral question.
 
+
+
 ### 42.1.0 - 04/01/2024
 
 - `FormFieldPhoneSelectionDropdown`
@@ -359,6 +414,8 @@
     - (TextEditor) Ensure the text editor canvas only receives focus if a control menu item is selected and not if the menu is merely closed.
   - [MOS-1580](https://simpleviewtools.atlassian.net/browse/MOS-1580) **Mosiac - Tiptap Texteditor Labelling issue**
     - (TextEditor) Add support for menu button labels and tooltips.
+
+
 
 ### 42.0.0 - 03/17/2024
 
@@ -387,6 +444,8 @@
     - Unifies mock data
     - Adds types for `react-color`
 
+
+
 ### 41.0.0 - 03/04/2024
 
 - `Form`
@@ -399,6 +458,8 @@
     - (Form) Introduce a `hideSectionNav` form prop that gives product a way to always hide the section navigation, regardless of how many sections are defined.
   - [MOS-1577](https://simpleviewtools.atlassian.net/browse/MOS-1577) **Better error handling for improper field reference in section**
     - (Form) Adds to field sanitization check to validation fields referenced in sections exist in the list of field definitions.
+
+
 
 ### 40.1.0 - 02/18/2024
 
@@ -421,6 +482,8 @@
     - (TextEditor) Adds support for images to be wrapped in links.
   - [MOS-1512](https://simpleviewtools.atlassian.net/browse/MOS-1512) **Tiptap Text editor - Table - Align Left not functioning correctly**
     - (TextEditor) Resets the text alignment of table header cells.
+
+
 
 ### 40.0.0 - 02/04/2024
 
@@ -447,9 +510,15 @@
     - (Fields) Utilise the new `useOptions` hook for the Checkbox, Dropdown, Radio and Chip fields.
     - **DEPRECATED** the use of the `getOptions` input setting for all of the fields listed in the previous point. Use `options` instead, which will now take a list of options *or* a function that returns a promise resolving to a list of options.
 
+
+
 #### Improvements and Fixes
 
+
+
 ### 39.3.2 - 01/21/2024
+
+
 
 #### Improvements and Fixes
 
@@ -464,7 +533,11 @@
   - [MOS-1432](https://simpleviewtools.atlassian.net/browse/MOS-1432) **Rename all broken documentation links**
     - (chore) Updates broken documentation links
 
+
+
 ### 39.3.1 - 01/13/2024
+
+
 
 #### Fixes
 
@@ -480,7 +553,11 @@
     - (Card) Introduces a way to display a numeric item count alongside the card title.
 - Housekeeping
 
+
+
 ### 39.3.0 - 01/07/2024
+
+
 
 #### Improvements and Fixes
 
@@ -494,7 +571,11 @@
     - (TextEditor) Adds minimum and maximum heights. Adds a "custom" input setting for exposing arbitrary callbacks to the editor.
 - Housekeeping
 
+
+
 ### 39.2.1 - 12/12/2024
+
+
 
 #### Fixes
 
@@ -502,7 +583,11 @@
   - [MOS-1526](https://simpleviewtools.atlassian.net/browse/MOS-1526) **Date field default time bug**
     - (DateField) Fixes issue where date fields default time would overwrite any form value population.
 
+
+
 ### 39.2.0 - 12/10/2024
+
+
 
 #### Improvements and Fixes
 
@@ -529,7 +614,11 @@
   - [MOS-1518](https://simpleviewtools.atlassian.net/browse/MOS-1518) **Console log eslint rule**
   (chore) Upgrades to @simpleview/[sv-mosaic-eslint@0.0.2](mailto:sv-mosaic-eslint@0.0.2) to utilises the `no-console` rule. This prevents console logging from making it into production.
 
+
+
 ### 39.1.0 - 11/26/2024
+
+
 
 #### Improvements and Fixes
 
@@ -557,6 +646,8 @@
     - Factors out ESLint config to `@simpleview/sv-mosaic-eslint` package
     - Consumes the newly created package in e2e-tests, mosaic and storybook containers.
     - Utilises `eslint-plugin-storybook` ESLint plugin in Storybook container.
+
+
 
 ### 39.0.0 - 11/12/2024
 
@@ -589,9 +680,15 @@
   - [MOS-1504](https://simpleviewtools.atlassian.net/browse/MOS-1504) **Section nav item keys**
     - (SideNav) Adds keys to the components rendered within each side nav item to prevent React errors being thrown in the console.
 
+
+
 ## Improvements and Fixes
 
+
+
 ### 38.0.0 - 10/29/2024
+
+
 
 ## Improvements and Fixes
 
@@ -635,7 +732,11 @@
   - [MOS-1494](https://simpleviewtools.atlassian.net/browse/MOS-1494) **Lock down tiptap to a specific version**
     - (chore) Pin Tiptap package versions to 2.8.0
 
+
+
 ### 37.3.0 - 10/01/2024
+
+
 
 ## Improvements and Fixes
 
@@ -663,14 +764,22 @@
     - (chore) Remove MenuFormFieldCard
     - (chore) Tidy. Move mock functions away from library file structure. Remove redundant files.
 
+
+
 ### 37.2.2 - 09/24/2024
+
+
 
 ## Improvements and Fixes
 
 - `FormFieldTextEditor`
   - Due to compatibility issues, the syntax highlighting for the code block extension has been dropped. Code blocks will now be rendered with the standard black text.
 
+
+
 ### 37.2.1 - 09/17/2024
+
+
 
 ## Improvements and Fixes
 
@@ -709,7 +818,11 @@
   - [MOS-1463](https://simpleviewtools.atlassian.net/browse/MOS-1463) **Replace ttypescript**
     - (chore) Swap out ttypescript for ts-patch
 
+
+
 ### 37.1.0 - 09/03/2024
+
+
 
 ### Improvements and Fixes
 
@@ -720,7 +833,7 @@
   - [MOS-1430](https://simpleviewtools.atlassian.net/browse/MOS-1430) **Render the aria-selected attribute for Chips even when there is no selection**
     - (ChipField) Fallback to a false selected state to ensure aria-selected is always provided
 - `FormFieldDropdownSingleSelection`
-  - [MOS-1435](https://simpleviewtools.atlassian.net/browse/MOS-1435) **Dropdown with duplicate labels results in react `key` error spam**
+  - [MOS-1435](https://simpleviewtools.atlassian.net/browse/MOS-1435) **Dropdown with duplicate labels results in react** `key` **error spam**
     - (DropdownField) Ensure the dropdown (autocomplete) component uses the option's value as the key instead of the label to avoid React errors
 - `FormFieldMapCoordinates`
   - [MOS-1431](https://simpleviewtools.atlassian.net/browse/MOS-1431) **Add Mousehover Tooltip to Drawer back arrows**
@@ -744,7 +857,11 @@
       - @mui/material@^5.8.7 → @mui/[material@5.16.7](mailto:material@5.16.7)
       - @mui/styles@^5.6.2 → @mui/[styles@5.16.7](mailto:styles@5.16.7)
 
+
+
 ### 37.0.0 - 08/20/2024
+
+
 
 ### Improvements and Fixes
 
@@ -771,7 +888,11 @@
   - [MOS-1353](https://simpleviewtools.atlassian.net/browse/MOS-1353) **Stop exporting components from root entry file**
     - **(BREAKING CHANGE)** (chore) Moves component exports into a dedicated index file
 
+
+
 ### 36.2.2 - 08/05/2024
+
+
 
 ### Improvements and Fixes
 
@@ -804,7 +925,11 @@
   - [MOS-1309](https://simpleviewtools.atlassian.net/browse/MOS-1309) **Replace non secure Storybook links**
     - (chore) Replace resource data images with SSL-enabled URLs
 
+
+
 ## 36.2.1 - 07/23/24
+
+
 
 ### Improvements and Fixes
 
@@ -831,7 +956,11 @@
   - [MOS-1425](https://simpleviewtools.atlassian.net/browse/MOS-1425) **Broken FieldDef export**
     - (Field) Exports field types from library main entry point
 
+
+
 ## 36.1.0 - 07/09/24
+
+
 
 ### Improvements and Fixes
 
@@ -867,7 +996,11 @@
     - Moves remaining test files into the correct location
     - Removes local`testArray` implementation and replaces it with`@simpleview/mochalib`'s implementation
 
+
+
 ## 36.0.0 - 06/11/24
+
+
 
 ### Improvements & Fixes
 
@@ -897,7 +1030,11 @@
       - `as` from `TypographyProps` (use `tag` instead)
       - `style` from `TypographyProps` (Use a style property on an object provided to `attrs` instead)
 
+
+
 ## 35.0.0 - 05/28/24
+
+
 
 ### Improvements & Fixes
 
@@ -930,12 +1067,16 @@
   - [MOS-1359](https://simpleviewtools.atlassian.net/browse/MOS-1359)
     - Replace occurrences of imports from Material's root with component-specific imports
   - [MOS-1351](https://simpleviewtools.atlassian.net/browse/MOS-1351)
-    - **(BREAKING CHANGE)** Stops exporting Mosaic utility functions from the root export. Utilities imported using `@simpleview/sv-mosaic/`* must now be imported using `@simpleview/sv-mosaic/utils/*`
+    - **(BREAKING CHANGE)** Stops exporting Mosaic utility functions from the root export. Utilities imported using `@simpleview/sv-mosaic/`* must now be imported using `@simpleview/sv-mosaic/utils/`*
   - [MOS-1363](https://simpleviewtools.atlassian.net/browse/MOS-1363)
     - Upgrades playwright from `1.27.1` to `1.44.0`.
     - Renames the playwright configuration file to `playwright.config.ts` instead of the non standard `sv-mosaic.config.ts` to support the VSCode debugging extension.
 
+
+
 ## 34.0.0 - 05/14/24
+
+
 
 ### Improvements & Fixes
 
@@ -982,7 +1123,11 @@
   - [MOS-1288](https://simpleviewtools.atlassian.net/browse/MOS-1288)
     - Slightly improves the type of DataView's data property to avoid the need to use `as` when referencing row IDs.
 
+
+
 ## 33.0.0 - 04/30/24
+
+
 
 ### Improvements & Fixes
 
@@ -1022,7 +1167,11 @@
       - `FormFieldImageVideoLinkDocumentBrowsing`
       - `FormFieldImageUpload`
 
+
+
 ## 32.1.1 - 04/16/24
+
+
 
 ### Improvements & Fixes
 
@@ -1062,7 +1211,11 @@
   - [MOS-1221](https://simpleviewtools.atlassian.net/browse/MOS-1221)
     - Provides `FormFieldNumberTable`'s table with an explicit full width to ensure it stretches (or shrinks) to the width of it's containing element.
 
+
+
 ## 32.1.0 - 04/02/24
+
+
 
 ### Improvements & Fixes
 
@@ -1098,7 +1251,11 @@
   - [MOS-1301](https://simpleviewtools.atlassian.net/browse/MOS-1301)
     - Adds a `aria-disabled` attribute to field wrappers to denote disabled state and assist with testing.
 
+
+
 ## 32.0.0 - 03/19/24
+
+
 
 ### Improvements & Fixes
 
@@ -1146,7 +1303,11 @@
   - [MOS-1279](https://simpleviewtools.atlassian.net/browse/MOS-1279)
     - Ensures the `onBlur` handler is passed down from the map coordinate field's draw to the autocomplete field but also only invoke the `onBlur` handler if it is defined.
 
+
+
 ## 31.1.0 - 03/05/24
+
+
 
 ### Improvements & Fixes
 
@@ -1180,7 +1341,11 @@
   - [MOS-1275](https://simpleviewtools.atlassian.net/browse/MOS-1275)
     - Updates upload field documentation to include instruction for new `inputSettings`.
 
+
+
 ## 31.0.2 - 02/20/24
+
+
 
 ### Improvements & Fixes
 
@@ -1188,7 +1353,11 @@
   - [MOS-1266](https://simpleviewtools.atlassian.net/browse/MOS-1266)
     - Ensures the form action `submitForm` waits for the result of the asynchronous function `isSubmittable` to correctly return a `{ valid: false }` result.
 
+
+
 ## 31.0.1 - 02/20/24
+
+
 
 ### Improvements & Fixes
 
@@ -1220,7 +1389,11 @@
     - Installs ESLint Stylistic
     - Introduces stricter ESLint rules and fixes all files to conform
 
+
+
 ## 31.0.0 - 02/06/24
+
+
 
 ### Improvements & Fixes
 
@@ -1248,7 +1421,11 @@
   - [MOS-1233](https://simpleviewtools.atlassian.net/browse/MOS-1233)
     - Eliminates **Form** field data race conditions by storing values in a stable reference and using that for subsequent actions
 
+
+
 ## 30.0.0 - 01/23/24
+
+
 
 ### Improvements & Fixes
 
@@ -1280,7 +1457,11 @@
   - [MOS-1240](https://simpleviewtools.atlassian.net/browse/MOS-1240)
     - Replaces `Content` row flex with grid and adds a gap between items
 
+
+
 ## 29.0.0 - 01/09/24
+
+
 
 ### Improvements & Fixes
 
@@ -1307,7 +1488,11 @@
   - [MOS-1207](https://simpleviewtools.atlassian.net/browse/MOS-1207)
     - Removes the evaluateShow function in favour of the `useToggle` and `useWrappedToggle` hooks. Button rows themselves now use the `useToggle` hook to filter away buttons (as far as button definitions go - button rows with children behaviour has not changed) so that components higher up the tree don't need to do so. In the odd cases where the toggle callback needs to accept parameters, the lowest level component that has access to those parameters uses the `useWrappedToggle` hook to evaluate those callbacks and filter away the buttons (or any other kind of item that extends `{ show: MosaicToggle<T> }`)
 
+
+
 ## 28.0.2 - 12/12/23
+
+
 
 ### Improvements & Fixes
 
@@ -1335,7 +1520,11 @@
   - [MOS-1220](https://simpleviewtools.atlassian.net/browse/MOS-1220)
     - Removes the horizontal margin that the dataview table has when it fall inside a matrix field context
 
+
+
 ## 28.0.1 - 11/27/23
+
+
 
 ### Fixes
 
@@ -1343,7 +1532,11 @@
   - [MOS-1216](https://simpleviewtools.atlassian.net/browse/MOS-1216)
     - Updates the active filter button’s colour, since the black contained button combination has been corrected to take on a black background instead of gray
 
+
+
 ## 28.0.0 - 11/27/23
+
+
 
 ### Improvements & Fixes
 
@@ -1383,7 +1576,11 @@
   - [MOS-1162](https://simpleviewtools.atlassian.net/browse/MOS-1162)
     - Introduce a new validator registration technique that allows internal validators to be correctly checked alongside field definition validators
 
+
+
 ## 27.1.0 - 11/14/23
+
+
 
 ### Improvements & Fixes
 
@@ -1419,7 +1616,11 @@
   - [MOS-1199](https://simpleviewtools.atlassian.net/browse/MOS-1199)
     - Upgrades container to use Node 18
 
+
+
 ## 27.0.0 - 10/17/23
+
+
 
 ### Improvements & Fixes
 
@@ -1473,7 +1674,11 @@
   - [MOS-1146](https://simpleviewtools.atlassian.net/browse/MOS-1146)
     - Adds the `tabbableDropdown={false}` property to the `PhoneInput` invokation, having forked `react-phone-input-2` into `@simpleview/react-phone-input-2` with some modifications. This prevents the user from tabbing to the integrated country dropdown input.
 
+
+
 ## 26.1.0 - 09/19/23
+
+
 
 ### Improvements & Fixes
 
@@ -1504,7 +1709,11 @@
     - Removes behaviour that caused a hyphen to be displayed in place of disabled fields
     - Introduce styling for all fields to better reflect what is visually expected natively from a disabled field
 
+
+
 ## 26.0.0
+
+
 
 ### Improvements & Fixes
 
@@ -1535,7 +1744,11 @@
 - `Core`:
   - [MOS-1087](https://simpleviewtools.atlassian.net/browse/MOS-1087) Exposes the `theme` index to consumers
 
+
+
 ## 25.2.1
+
+
 
 ### Improvements & Fixes
 
@@ -1553,7 +1766,11 @@
 - `DataView`:
   - [MOS-1065](https://simpleviewtools.atlassian.net/browse/MOS-1065https:/) Fixes a bug that caused pre-applied filters to be reordered by the filter popup
 
+
+
 ## 25.2.0
+
+
 
 ### Improvements & Fixes
 
@@ -1571,7 +1788,11 @@
 - `formActions.validateField`
   - [MOS-1148](https://simpleviewtools.atlassian.net/browse/MOS-1148) Fixed a bug where a reference to the `fieldMap` on `extraArgs` would throw an error if the given field doesn’t exist in the map
 
+
+
 ## 25.1.1 - 07/27/23
+
+
 
 ### Improvements & Fixes
 
@@ -1579,12 +1800,18 @@
   - Fixes a bug that caused scroll glitching in Chrome when `setActiveSection` was invoked. Drops `scrollTo` in favour of new implementation.
 - Split `Form` stories into individual files to improve performance in Storybook “docs” tab.
 
+
+
 ## 25.1.0 - 07/25/23
+
+
 
 ### Features
 
 - `useScrollSpy`:
   - Introduces the useScrollSpy hook which can be used to watch a viewport and get updates about the section that is considered active based on it’s vertical position in the viewport
+
+
 
 ### Improvements & Fixes
 
@@ -1601,6 +1828,8 @@
     - `Form` (Desktop and Mobile views)
   - Exposes the `ButtonRow` for use by consuming products, which can improve consistency further
 
+
+
 ## 25.0.0 - 07/11/23
 
 - `DataView`:
@@ -1611,6 +1840,8 @@
   - Introduced a `Blank` component than can be used to represent non-values, like empty strings and `undefined`. This component is now being consumed by `Content` and `Field` components. Right now, it's comprised of an em-dash.
 - `FormFieldAdvancedSelection`
   - Drops behaviour that allows the user to click the draw backdrop to close the draw - the draw's "X" and back buttons' behaviour remains the same and will still close the draw. This release also drops the "unsaved changes" prompt that was displayed when the user attempted to close the draw after making selection adjustments.
+
+
 
 ## 24.0.0 - 06/06/23
 
@@ -1625,6 +1856,8 @@
 - `FormFieldNumberTable`:
   - Users can now move across the cells using their keyboard arrow keys.
   - Fixed bug caused when the prop `numberFormatOptions` was present but the user didn't have a value on one column. To make it easier to understand, if the column totals expected a value to be formatted but the column didn't have a value yet (on any of its cells), it would render a "NaN" because it would try to sum undefined values.
+
+
 
 ## 23.0.0 - 05/23/23
 
@@ -1650,6 +1883,8 @@
   - Added functionality for new optional prop `numberFormatOptions` as well as its proper documentation in `Form` Readme. This allows developers to format the calculated values of the table (totals) e.g. to dollars.
 - `FormFieldAdvancedSelection`:
   - Updated styles to add space between chips and scrollbar.
+
+
 
 ## 22.0.0 - 05/09/23
 
@@ -1713,6 +1948,8 @@
 - `Automation tests`:
   - Updated naming conventions on all tests and pages to make then follow the same standard.
 
+
+
 ## 21.0.0 - 04/25/23
 
 - `Button`:
@@ -1757,6 +1994,8 @@
 - `FormFieldRadio`:
   - When disabled, the field will render all of its selected options as regular non-clickable chips.
 
+
+
 ## 20.0.0 - 04/11/23
 
 - `Button`:
@@ -1785,6 +2024,8 @@
   - Updated disabled stylings. Field's value will now render as text in an almostBlack color.
 - `Transforms`:
   - Added stories for `transform_chips`, `transform_colorPicker`, `transform_dateFormat`, and `transform_thumbnail`. Also updated wording in `transform_boolean` and `transform_join`.
+
+
 
 ## 19.0.0 - 03/28/23
 
@@ -1821,6 +2062,8 @@
   - Internally added `onBack` so the drawer can be closed when clicking on the "left-arrow" button (ONLY IN STORY EXAMPLES).
 - Updated table styles in `DataView`. Added more padding to the left and right of the first and last elements respectively, and adjusted table to align with title.
 
+
+
 ## 18.0.0 - 03/09/23
 
 - Updated z-index when using tooltips in buttons to ensure they render on top of drawers.
@@ -1841,6 +2084,8 @@
   - `title` prop is now of type `string` (previously `JSX.Element`).
   - Updated styles and spacing to match `Content` component.
 - Implemented `FormFieldNumberTable`. Field that renders a table with inputs in every cell. The component allows as many columns and rows as needed and displays the total per row, per column, and of the whole table. For more information about the props it receives please look at the documentation in storybook -> Form -> Readme -> FormFieldNumberTable.
+
+
 
 ## 17.0.0 - 02/28/23
 
@@ -1869,6 +2114,8 @@
   - `createNewOption` -> optional prop with the same type definition as the `createNewOption` prop from `AdvancedSelectionInputSettings`.
   - `selectLimit` -> optional prop with the same type definition as the `selectLimit` prop from `AdvancedSelectionInputSettings`.
 
+
+
 ## 16.0.0 - 02/14/23
 
 - Created `FormFieldUpload`. This new field allows users to upload multiple files, showing the upload status of each one of them while being uploaded. See more in Form's readme.
@@ -1881,6 +2128,8 @@
 - Updated `DataViewFilterDate` to use our Field component, making its styles closer to regular form fields.
 - **BREAKING** Removed `FormFieldTextArea`. Developers can still use `FormFieldText` to render an input with multiple lines by using the newly added props `minRows` and `maxRows`.
 - Fixed "Draggable requires a draggableId" issue in `DataView`.
+
+
 
 ## 15.0.0 - 01/31/23
 
@@ -1899,6 +2148,8 @@
 - **BREAKING** Updated `FormFieldMapCoordinates`' props:
   - apiKey -> googleMapsApiKey (remains as string).
 - **BREAKING** Added autocomplete functionality to `FormFieldAddress`. This means the component now requires a `googleMapsApiKey` prop in order to work (more on this on the documentation).
+
+
 
 ## 14.0.0 - 01/17/23
 
@@ -1951,6 +2202,8 @@
     - `onCheckAllPagesChange`: Optional callback function that receives a boolean that indicates the new value for `checkedAllPages`. Both `checkedAllPages` and `onCheckAllPagesChange` are needed (amongst other props) to render the checkboxes that allow users to select rows.
 - `Button`: Updated internal mechanics to remove tooltip when opening a button menu.
 
+
+
 ## 13.0.0 - 01/03/23
 
 - Internally updated the color scheme, naming conventions and references in all components of the following colors:
@@ -1966,6 +2219,8 @@
   - Fixed "All" comparison functionality in categories with comparison filter (Only in storybook).
 - Internally updated the `FormNav` tabs mechanics to now use the InteractionObserver API. This allows the last section tab to be selected even if the previous one is also in the screen at the same time.
 - Added new optional prop `selectLimit` to `FormFieldAdvancedSelection`. This allows developers to limit the amount of options users can select.
+
+
 
 ## 12.0.0 - 11/29/22
 
@@ -1986,6 +2241,8 @@
   - Updated the `DataViewTable` style. Added a new indeterminate state to the bulk actions checkbox when the following condition is true: 0 < selected rows < max number of rows.
   - **BREAKING** The types on all the previously mentioned components (and their sub-components) have been updated. They were mostly using `any` and now they should match what's expected from the DataView.
 
+
+
 ## 11.0.0 - 11/15/22
 
 - **BREAKING** Updated `DataView` types: `activeFilters` will now always be an array of strings. Previously it was jumping between an array of strings and an object that had `comparison: string`, and `value: string[]`.
@@ -1997,6 +2254,8 @@
   - `RealTeal`.
 - Updated the `AdvancedSelectionDrawer` style to now fully adapt to the available space.
 - Updated the `FormFieldChipSingleSelect` style to evenly space chips when spanning multiple rows.
+
+
 
 ## 10.0.0 - 11/01/22
 
@@ -2021,6 +2280,8 @@
   - `TopComponent`: Updated font-family and font-weights of title and description.
   - `ImageVideoLinkDocumentBrowsing`: Updated component to vertically center the "No browsing options" text.
   - `FormFieldAddress`: Updated card's colors.
+
+
 
 ## 9.0.0 - 10/18/22
 
@@ -2055,11 +2316,15 @@
 - **BREAKING** `FormFieldMapCoordinates`:
   - Updated prop `address` to now use the same types as the as FormFieldAddress, which means `country, state, and types` now require to match the same types as above (in FormFieldAddress).
 
+
+
 ## 8.0.0 - 10/04/22
 
 - Updated `Button` component's font-weight to 700.
 - **BREAKING** All Fields will now return undefined when users fully delete their value.
 - Updated automation tests to now run simultaneously to improve running times.
+
+
 
 ## 7.0.0 - 09/20/22
 
@@ -2073,6 +2338,8 @@
   - The filter will throw an error if devs pass a `comparisonDefault` that's not part of the allowed valid comparisons.
 - **BREAKING** Re-developed `Content` component (`Summary Page Content` in figma). The new `Content` component works almost in the same way as the `Form` component, it receives a fieldDef array with all the "metadata" from the fields, a getValues callback for populating the fields, and a sections array for positioning the fields. Please see Content.stories.mdx for detailed documentation on the new prop structure.
 - Created 2 new transforms: transform_chips, and transform_colorPicker. These work in the exact same way as the other transforms, so they can be used interchangeably between the DataView and the Content component.
+
+
 
 ## 6.0.1
 
@@ -2089,6 +2356,8 @@
   - Added box-shadow to `FormFieldText` and `FormFieldTextArea`.
   - Improved padding space between the firs field in the form and the `TopComponent`.
   - Improved overall structure of theme.ts file.
+
+
 
 ## 6.0.0
 
@@ -2133,9 +2402,13 @@
   - Added validation to latitude (between -90 and 90) and longitude (between -180 and 180).
   - Map card now rendering static map.
 
+
+
 ## 5.1.1 - 8/9/22
 
 - Added missing semicolon to line 31 in FormNav.styled.tsx.
+
+
 
 ## 5.1.0 - 8/9/22
 
@@ -2158,6 +2431,8 @@
   - FormFieldDropdownSingleSelection
   - FormFieldImageUpload
 
+
+
 ## 5.0.0 - 7/26/22
 
 - **BREAKING** - Major changes in Forms (See more Forms documentation in Storybook):
@@ -2179,33 +2454,47 @@
 - Limited length of filter in `DataView`.
 - Improved Form's rendering performance.
 
+
+
 ## 6/3/2021
 
 - Adds `onAllClick` as an option on `bulkActions`. If specified it will allow a user to select content across all pages.
 
+
+
 ## 1/6/2021
 
 - Fixes an issue with LeftNav flyouts closing when they shouldn't. Thanks @TreavorPhilyaw
+
+
 
 ## 12/23/2020
 
 - `LeftNavItemDef` now supports custom `attrs` which add arbitrary keys to the primary `a` tag for each link, this can be used to apply `href` and `target` and tracking.
 - `LeftNavItemDef` now support their own `onNav` function in case of odd edge cases.
 
+
+
 ## 11/24/2020
 
 - `LeftNavItemRootDef` now supports `pinned : "bottom"` to anchor a nav item to the bottom of the screen.
+
+
 
 ## 7/20/2020
 
 - `Button` now supports `href`.
 - `Button` now takes a `muiAttrs` that can be used to pass any attributes on to the MUI component beneath for cases that Mosaic does not yet support.
 
+
+
 ## 7/17/2020
 
 - Published 3.2.0
 - `Checkbox`, `CheckboxList` converted to TypeScript and Storybook documentation added.
 - Added style hardening to various components to fix BBS conflicts with their Bootstrap environment.
+
+
 
 ## 6/23/2020
 
@@ -2215,15 +2504,21 @@
 - `DataView` the text filter will now `trim()` the data prior to passing it back to the filter system.
 - Adds `P` typography element for when you want a simple paragraph styled according to mosaic.
 
+
+
 ## 5/29/2020
 
 - Publish 2.2.0
 - `LeftNav` nears completion. All variants are functional and being sent to QA and review from different Product Owners.
 
+
+
 ## 5/21/2020
 
 - Publish 2.1.2
 - `DataView` will no longer require an `id` column due to developer feedback.
+
+
 
 ## 3/31/2020
 
@@ -2236,11 +2531,15 @@
 - Clicking on the `DataView` pager will allow the user to jump to a specific page.
 - `Button` now supports `tooltip`.
 
+
+
 ## 3/25/2020
 
 - The DataView pager now can be clicked to jump to a specific page. No changes are needed within applications to gain this behavior.
 - `Button` now supports tooltip.
 - `Button` popover option now exposes the `onClose` method via context API to allow programmatic closing from within the popover.
+
+
 
 ## 3/20/2020
 
@@ -2252,6 +2551,8 @@
 - Primary and optional filters should now wrap cleanly if there are more than fit in one line.
 - Grid view now supports sorting.
 - **BREAKING** - Grid view requires a `gridColumnsMap` for mapping which columns will be used in grid.
+
+
 
 ## 3/6/2020
 
@@ -2270,6 +2571,8 @@
 - The theme file now includes better colors per the updated styleguide, including all of the different shades of gray.
 - Added style-hardening so that the styles of Mosaic are intact when pulled into a system which has it's own external CSS.
 
+
+
 ## 2/20/2020
 
 - `savedViewAllowSharedViewSave` has been added to `DataView` props, it defaults to `false` meaning that if you want users to be able to create shared views, you will need to pass `true` here. Otherwise they will only be able to create views for their own user.
@@ -2277,9 +2580,13 @@
 - Published a lot more documentation in the Storybook.
 - Published `0.4.0` on npm.
 
+
+
 ## 2/14/2020
 
 - `transform_boolean` now exported on the root level.
+
+
 
 ## 2/11/2020
 
@@ -2287,9 +2594,13 @@
 - Added date range filter component `FilterDate`.
 - Transforms `transform_dateFormat`, `transform_get`, `transform_thumbnail`  now exported on the root level.
 
+
+
 ## 2/6/2020
 
 - Added `sticky` to DataView in order to allow a grid to be constrained by its parent and stick the headers or bulk actions (depending on view mode) to the top of the DataView.
+
+
 
 ## 1/30/2019
 
@@ -2300,9 +2611,13 @@
   - `GridFilterMultiselect` is now `DataViewFilterMultiselect`
   - `GridPrimaryFilter` is now `DataViewPrimaryFilter`
 
+
+
 ## 11/12/2019
 
 - New Bundle - an updated bundle is now available.
+
+
 
 ## 11/11/2019
 
