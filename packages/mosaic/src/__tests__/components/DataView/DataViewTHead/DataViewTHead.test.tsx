@@ -37,6 +37,9 @@ describe(__dirname, () => {
 		expect(screen.queryByText("Column 1")).toBeInTheDocument();
 		expect(screen.queryByText("Column 2")).toBeInTheDocument();
 		expect(screen.queryAllByRole("columnheader")).toHaveLength(3);
+		for (const header of screen.getAllByRole("columnheader")) {
+			expect(header).toHaveAttribute("scope", "col");
+		}
 	});
 
 	it("should render the data view table head without the actions column if there are no actions", async () => {
@@ -51,6 +54,9 @@ describe(__dirname, () => {
 		await setup({ onReorder: onReorderMock });
 
 		expect(screen.queryAllByRole("columnheader")).toHaveLength(4);
+		const header = screen.getByRole("columnheader", { name: "DataView.drag_to_reorder" });
+		expect(header).toHaveAttribute("scope", "col");
+		expect(within(header).getByText("DataView.drag_to_reorder")).toHaveStyle({ position: "absolute" });
 	});
 
 	it("should render a check-all table header cell containing a checkbox if an on check all handler is provided", async () => {
@@ -60,6 +66,9 @@ describe(__dirname, () => {
 
 		expect(screen.queryAllByRole("columnheader")).toHaveLength(4);
 		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
+		const header = screen.getByRole("columnheader", { name: "DataView.select_rows" });
+		expect(header).toHaveAttribute("scope", "col");
+		expect(within(header).getByText("DataView.select_rows")).toHaveStyle({ position: "absolute" });
 	});
 
 	it("should render a check-all table header cell that spans all columns when any items are checked and there are no bulk actions", async () => {
@@ -70,6 +79,8 @@ describe(__dirname, () => {
 		const columnHeader = screen.queryByRole<HTMLTableCellElement>("columnheader");
 		expect(columnHeader).toBeInTheDocument();
 		expect(columnHeader.colSpan).toBe(4);
+		expect(columnHeader).toHaveAttribute("scope", "col");
+		expect(within(columnHeader).getByText("DataView.selected_rows")).toHaveStyle({ position: "absolute" });
 	});
 
 	it("should render a ArrowUpwardIcon icon in the table header cell for columns sorted ascending", async () => {
@@ -175,6 +186,9 @@ describe(__dirname, () => {
 		await setup({ bulkActions, anyChecked: true });
 
 		expect(screen.queryByTestId(testIds.BUTTON_ROW)).toBeInTheDocument();
+		const header = screen.getByRole("columnheader", { name: /DataView.bulk_actions/ });
+		expect(header).toHaveAttribute("scope", "col");
+		expect(within(header).getByText("DataView.bulk_actions")).toHaveStyle({ position: "absolute" });
 	});
 
 	it("should render a bulk actions check all pages row if show bulk all is provided", async () => {

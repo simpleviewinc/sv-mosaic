@@ -24,6 +24,7 @@ export function DataViewTh({
 
 	return (
 		<StyledTh
+			scope="col"
 			className={`
 				${sortable ? "sortable" : ""}
 				${sorted ? "active" : ""}
