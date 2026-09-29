@@ -6,10 +6,11 @@ import { StyledFormFooter } from "@root/components/Form/Form.styled";
 import { RemoveButton } from "./NodeForm.styled";
 
 interface NodeFormFooterProps {
+	onCancel: () => void;
 	onRemove?: () => void;
 }
 
-export function NodeFormFooter({ onRemove }: NodeFormFooterProps): ReactElement {
+export function NodeFormFooter({ onCancel, onRemove }: NodeFormFooterProps): ReactElement {
 	return (
 		<StyledFormFooter $spacing="compact">
 			<Button
@@ -17,6 +18,12 @@ export function NodeFormFooter({ onRemove }: NodeFormFooterProps): ReactElement 
 				variant="contained"
 				label="Submit"
 				type="submit"
+			/>
+			<Button
+				intent="secondary"
+				variant="text"
+				label="Cancel"
+				onClick={onCancel}
 			/>
 			{onRemove && (
 				<RemoveButton

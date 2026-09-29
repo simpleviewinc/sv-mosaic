@@ -2,6 +2,7 @@ import type { Editor } from "@tiptap/react";
 
 import React from "react";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import FocusTrap from "@mui/material/Unstable_TrapFocus";
 
 import type { NodeFormState } from "../FormFieldTextEditorTypes";
 
@@ -37,6 +38,7 @@ export function NodeForm(props: NodeFormProps) {
 	} = props;
 
 	const { onClose } = rest;
+	const label = type === "link" ? "Edit link" : "Edit image";
 
 	return (
 		<StyledPopper
@@ -47,19 +49,37 @@ export function NodeForm(props: NodeFormProps) {
 		>
 			<ClickAwayListener onClickAway={onClose}>
 				<StyledPopperPaper style={{ width: 300 }}>
-					{type === "link" ? (
-						<NodeFormLink
-							data={values || {}}
-							update={update}
-							{...rest}
-						/>
-					) : type === "image" ? (
-						<NodeFormImage
-							data={values || {}}
-							update={update}
-							{...rest}
-						/>
-					) : null}
+					<FocusTrap open={open} disableRestoreFocus>
+						<div
+							role="dialog"
+							aria-modal="true"
+							aria-label={label}
+							tabIndex={-1}
+							onKeyDown={(event) => {
+								if (event.key !== "Escape") {
+									return;
+								}
+
+								event.preventDefault();
+								event.stopPropagation();
+								onClose();
+							}}
+						>
+							{type === "link" ? (
+								<NodeFormLink
+									data={values || {}}
+									update={update}
+									{...rest}
+								/>
+							) : type === "image" ? (
+								<NodeFormImage
+									data={values || {}}
+									update={update}
+									{...rest}
+								/>
+							) : null}
+						</div>
+					</FocusTrap>
 				</StyledPopperPaper>
 			</ClickAwayListener>
 		</StyledPopper>
