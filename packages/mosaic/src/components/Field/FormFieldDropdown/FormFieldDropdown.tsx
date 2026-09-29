@@ -129,6 +129,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 					popper: StyledPopper,
 				}}
 				slotProps={{
+					clearIndicator: { tabIndex: 0, style: { visibility: "visible" } },
 					popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" },
 				}}
 				renderOption={renderOption}
