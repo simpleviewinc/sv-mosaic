@@ -15,6 +15,11 @@ export const StyledPickerPanel = styled(Column)<{ $fullHeight?: boolean }>`
 export const PickerPanelPrimary = styled(Row)`
 	flex-grow: 1;
 	min-height: 0;
+
+	@media (max-width: 540px) {
+		flex-direction: column;
+		overflow: auto;
+	}
 `;
 
 export const LeftPanelTop = styled.div`
@@ -23,12 +28,22 @@ export const LeftPanelTop = styled.div`
 
 export const LeftPanel = styled(Column)`
 	flex: 1;
+	min-width: 0;
+
+	@media (max-width: 540px) {
+		flex: none;
+	}
 `;
 
 export const OptionsWrapper = styled.div`
 	padding: ${theme.spacing(5)};
 	flex: 1;
 	overflow: auto;
+
+	@media (max-width: 540px) {
+		flex: none;
+		overflow: visible;
+	}
 `;
 
 export const PickerPanelSubtitle = styled(Text).attrs({ size: "xl", weight: "medium", tag: "h3" })`
@@ -55,6 +70,15 @@ export const PickerPanelActive = styled.div<{ $rounded?: boolean }>`
 	max-width: 380px;
 	flex: none;
 	overflow: auto;
+
+	@media (max-width: 540px) {
+		width: 100%;
+		max-width: none;
+		box-sizing: border-box;
+		border-left: 0;
+		border-top: 1px solid ${theme.color.gray[300]};
+		overflow: visible;
+	}
 
 	${({ $rounded }) => !$rounded ? "" : `
 		border-top-right-radius: ${theme.rounded.md};
