@@ -57,6 +57,7 @@ const DataViewTrStatic = ({
 					data-testid={testIds.DATA_VIEW_CELL_CHECK}
 				>
 					<Checkbox
+						aria-label="Select row"
 						checked={checked === true}
 						onClick={onCheckboxClick}
 						disabled={disabled}
