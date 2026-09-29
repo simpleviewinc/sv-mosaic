@@ -2,6 +2,8 @@ import type { DataViewProps } from "../DataViewTypes";
 
 export interface DataViewColumnDrawerProps extends DataViewColumnDrawerContentProps {
 	open: boolean;
+	/** Called after the drawer closes and the page is accessible again. */
+	exitCB?: () => void;
 }
 
 export interface DataViewColumnDrawerContentProps {
