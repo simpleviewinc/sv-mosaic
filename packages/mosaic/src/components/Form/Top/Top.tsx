@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useCallback, useId } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import type {
 	ReactElement } from "react";
@@ -23,8 +24,15 @@ import ButtonRow from "@root/components/ButtonRow/ButtonRow";
 import { Title } from "@root/components/Title/TitleWrapper.styled";
 import { TitleBackButton } from "@root/components/Title";
 import { DisplayText } from "@root/components/Typography";
+import { useDrawerContext } from "@root/components/Drawers";
 
 const Top = (props: TopProps): ReactElement => {
+	const drawer = useDrawerContext();
+	const titleId = useId();
+	const registerHeading = useCallback((element: HTMLElement | null) => {
+		drawer?.registerTitle(element ? titleId : null);
+		drawer?.registerInitialFocus(element);
+	}, [drawer, titleId]);
 	const {
 		buttons,
 		description,
@@ -52,7 +60,7 @@ const Top = (props: TopProps): ReactElement => {
 								label={backLabel}
 							/>
 						)}
-						<DisplayText attrs={{ title }} tag="h1">{title}</DisplayText>
+						<DisplayText attrs={{ title, id: titleId, tabIndex: drawer ? -1 : undefined, ref: registerHeading }} tag="h1">{title}</DisplayText>
 					</Title>
 				</Heading>
 				{description && <SmallDescription>{description}</SmallDescription>}

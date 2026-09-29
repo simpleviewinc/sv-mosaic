@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef, useLayoutEffect } from "react";
 
 import type { DrawersProps } from "./DrawersTypes";
 
@@ -7,6 +7,7 @@ import Backdrop from "@mui/material/Backdrop";
 import calculateAnimationState from "./calculateAnimationState";
 import { ANIMATION_DURATION, PaperDiv } from "./Drawers.styled";
 import testIds from "@root/utils/testIds";
+import { DrawerContext } from "./DrawerContext";
 
 const slotProps = {
 	backdrop: {
@@ -14,52 +15,83 @@ const slotProps = {
 	},
 };
 
-const focusableSelector = [
-	"a[href]",
-	"button:not([disabled])",
-	"input:not([disabled]):not([type='hidden'])",
-	"select:not([disabled])",
-	"textarea:not([disabled])",
-	"[contenteditable='true']",
-	"[tabindex]:not([tabindex='-1'])",
-].join(",");
-
-function isVisible(element: HTMLElement) {
-	if (
-		element.matches(":disabled") ||
-		element.closest("[hidden], [aria-hidden='true'], [aria-disabled='true'], [inert]")
-	) {
-		return false;
-	}
-
-	let current: HTMLElement | null = element;
-	while (current) {
-		const style = window.getComputedStyle(current);
-		if (style.display === "none" || style.visibility === "hidden") {
-			return false;
-		}
-		current = current.parentElement;
-	}
-
-	return true;
+interface DrawerPanelProps {
+	open: boolean;
+	className: string;
+	showContent: boolean;
+	topmost: boolean;
+	onEntered: () => void;
+	onExited: () => void;
+	children: React.ReactNode;
 }
 
-function focusFirst(elements: HTMLElement[]) {
-	for (const element of elements) {
-		if (!isVisible(element)) {
-			continue;
+function DrawerPanel({ open, className, showContent, topmost, onEntered, onExited, children }: DrawerPanelProps) {
+	const paperRef = useRef<HTMLDivElement | null>(null);
+	const initialFocusRef = useRef<HTMLElement | null>(null);
+	const focusedRef = useRef(false);
+	const [entered, setEntered] = useState(false);
+	const [titleId, setTitleId] = useState<string | null>(null);
+	const registerTitle = useCallback((id: string | null) => setTitleId(id), []);
+	const registerInitialFocus = useCallback((element: HTMLElement | null) => {
+		initialFocusRef.current = element;
+	}, []);
+	const contextValue = useMemo(() => ({ registerTitle, registerInitialFocus }), [registerTitle, registerInitialFocus]);
+
+	useLayoutEffect(() => {
+		if (!entered || !showContent || !topmost || focusedRef.current) {
+			return;
 		}
 
-		if (/^H[12]$/.test(element.tagName) && !element.hasAttribute("tabindex")) {
-			element.tabIndex = -1;
+		const paper = paperRef.current;
+		if (!paper) {
+			return;
 		}
-		element.focus();
-		if (document.activeElement === element) {
-			return true;
-		}
-	}
 
-	return false;
+		focusedRef.current = true;
+		if (document.activeElement instanceof HTMLElement && paper.contains(document.activeElement) && document.activeElement !== paper) {
+			return;
+		}
+
+		const target = initialFocusRef.current;
+		if (target?.isConnected && paper.contains(target)) {
+			target.focus();
+		}
+		if (!target || document.activeElement !== target) {
+			paper.focus();
+		}
+	}, [entered, showContent, topmost]);
+
+	return (
+		<Drawer
+			open={open}
+			anchor="right"
+			SlideProps={{
+				appear: true,
+				onEntered: () => {
+					setEntered(true);
+					onEntered();
+				},
+				onExited,
+			}}
+			transitionDuration={ANIMATION_DURATION}
+			PaperProps={{
+				className,
+				component: PaperDiv,
+				ref: paperRef,
+				tabIndex: -1,
+				role: "dialog",
+				"aria-modal": topmost ? true : undefined,
+				"aria-labelledby": titleId || undefined,
+				"aria-label": titleId ? undefined : "Drawer",
+			}}
+			slotProps={slotProps}
+			data-testid={testIds.DRAWER}
+		>
+			<DrawerContext.Provider value={contextValue}>
+				{showContent ? children : null}
+			</DrawerContext.Provider>
+		</Drawer>
+	);
 }
 
 function Drawers<T>(props: DrawersProps<T>) {
@@ -67,16 +99,6 @@ function Drawers<T>(props: DrawersProps<T>) {
 	const [bools, setBools] = useState<boolean[]>([]);
 	// Stores whether the Drawer system is currently animating. If no animation is being performed animating === false.
 	const [animating, setAnimating] = useState(false);
-	const paperRefs = useRef<(HTMLDivElement | null)[]>([]);
-	const focusFrame = useRef<number | undefined>(undefined);
-	const drawersLength = useRef(props.drawers.length);
-	drawersLength.current = props.drawers.length;
-
-	useEffect(() => () => {
-		if (focusFrame.current !== undefined) {
-			window.cancelAnimationFrame(focusFrame.current);
-		}
-	}, []);
 
 	useEffect(() => {
 		if (
@@ -103,31 +125,8 @@ function Drawers<T>(props: DrawersProps<T>) {
 	/**
 	 * Called when the animation for a drawer entering the UI is complete
 	 */
-	const onEntered = useCallback((index: number) => {
+	const onEntered = useCallback(() => {
 		setAnimating(false);
-
-		if (focusFrame.current !== undefined) {
-			window.cancelAnimationFrame(focusFrame.current);
-		}
-
-		focusFrame.current = window.requestAnimationFrame(() => {
-			const paper = paperRefs.current[index];
-			if (!paper?.isConnected || index !== drawersLength.current - 1) {
-				return;
-			}
-
-			const activeElement = document.activeElement;
-			if (activeElement !== paper && activeElement instanceof HTMLElement && paper.contains(activeElement)) {
-				return;
-			}
-
-			const headings = Array.from(paper.querySelectorAll<HTMLElement>("h1, h2"));
-			const focusable = Array.from(paper.querySelectorAll<HTMLElement>(focusableSelector));
-
-			if (!focusFirst(headings) && !focusFirst(focusable)) {
-				paper.focus();
-			}
-		});
 	}, []);
 
 	/**
@@ -158,31 +157,17 @@ function Drawers<T>(props: DrawersProps<T>) {
 			props.drawers[i] && !["closing", "opening"].includes(className);
 
 				return (
-					<Drawer
+					<DrawerPanel
 						key={i}
 						open={val}
-						anchor="right"
-						SlideProps={{
-							appear: true,
-							onEntered: () => onEntered(i),
-							onExited: onExited,
-						}}
-						transitionDuration={ANIMATION_DURATION}
-						PaperProps={{
-							className,
-							component: PaperDiv,
-							ref: (element: HTMLDivElement | null) => {
-								paperRefs.current[i] = element;
-							},
-							tabIndex: -1,
-							role: "dialog",
-							"aria-modal": true,
-						}}
-						slotProps={slotProps}
-						data-testid={testIds.DRAWER}
+						className={className}
+						showContent={Boolean(showContent)}
+						topmost={i === props.drawers.length - 1 && val}
+						onEntered={onEntered}
+						onExited={onExited}
 					>
 						{showContent ? props.children(props.drawers[i]) : null}
-					</Drawer>
+					</DrawerPanel>
 				);
 			})}
 			{/* This backdrop is invisible but locks the UI from clicks preventing race conditions while the drawer system is animating into place */}
