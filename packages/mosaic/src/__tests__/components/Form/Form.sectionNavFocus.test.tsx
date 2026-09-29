@@ -50,11 +50,10 @@ function TestForm() {
 	);
 }
 
-/**
- * Finds the dedicated expand/collapse button for a section.
- */
 function getSectionToggle(title: string) {
-	return screen.getByRole("button", { name: new RegExp(`^(Expand|Collapse) ${title}$`) });
+	const heading = screen.getByRole("heading", { level: 3, name: title });
+	const button = within(heading).getByRole("button", { name: title });
+	return button;
 }
 
 /**
@@ -73,6 +72,28 @@ function getNavLink(label: string) {
 }
 
 describe("Form section nav focus management", () => {
+	it("uses the entire header, including its title, as the accordion button", async () => {
+		const user = userEvent.setup();
+		render(<TestForm />);
+
+		const heading = screen.getByRole("heading", { level: 3, name: "Section A" });
+		const toggle = getSectionToggle("Section A");
+		expect(heading.children).toHaveLength(1);
+		expect(heading.firstElementChild).toBe(toggle);
+		expect(toggle).toHaveAttribute("type", "button");
+		expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+		await user.click(within(toggle).getByText("Section A"));
+		expect(toggle).toHaveAttribute("aria-expanded", "false");
+		expect(toggle).toHaveAccessibleName("Section A");
+
+		toggle.focus();
+		await user.keyboard("{Enter}");
+		expect(toggle).toHaveAttribute("aria-expanded", "true");
+		await user.keyboard(" ");
+		expect(toggle).toHaveAttribute("aria-expanded", "false");
+	});
+
 	it("keeps focus on the nav control before activation is the failing state we're fixing", () => {
 		render(<TestForm />);
 
@@ -82,7 +103,7 @@ describe("Form section nav focus management", () => {
 		expect(document.activeElement).toBe(navLink);
 	});
 
-	it("moves focus to the target section's heading when a section nav link is activated", () => {
+	it("moves focus to the target section's header button when a section nav link is activated", () => {
 		render(<TestForm />);
 
 		const navLink = getNavLink("Section B");
@@ -91,15 +112,15 @@ describe("Form section nav focus management", () => {
 
 		const heading = screen.getByRole("heading", { level: 3, name: "Section B" });
 
-		expect(document.activeElement).toBe(heading);
-		expect(heading).toHaveAttribute("tabindex", "-1");
-		expect(heading.closest("button")).toBeNull();
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
+		expect(heading.children).toHaveLength(1);
+		expect(heading.firstElementChild).toBe(getSectionToggle("Section B"));
 
 		// Focus actually left the nav control and landed in the section.
 		expect(document.activeElement).not.toBe(navLink);
 	});
 
-	it("moves focus to the target section's heading when a section nav link is activated via the keyboard", async () => {
+	it("moves focus to the target section's header button when a section nav link is activated via the keyboard", async () => {
 		const user = userEvent.setup();
 		render(<TestForm />);
 
@@ -112,9 +133,7 @@ describe("Form section nav focus management", () => {
 
 		await user.keyboard("{Enter}");
 
-		const heading = screen.getByRole("heading", { level: 3, name: "Section B" });
-
-		expect(document.activeElement).toBe(heading);
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
 		expect(document.activeElement).not.toBe(navLink);
 	});
 
@@ -127,10 +146,10 @@ describe("Form section nav focus management", () => {
 
 		await user.keyboard(" ");
 
-		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
 	});
 
-	it("expands a collapsed section before moving focus to its heading", async () => {
+	it("expands a collapsed section before moving focus to its header button", async () => {
 		const user = userEvent.setup();
 		render(<TestForm />);
 
@@ -141,17 +160,20 @@ describe("Form section nav focus management", () => {
 		await user.keyboard("{Enter}");
 
 		expect(getSectionToggle("Section B")).toHaveAttribute("aria-expanded", "true");
-		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
+
+		await user.tab();
+		expect(document.activeElement).toBe(screen.getByRole("textbox", { name: "Field B" }));
 	});
 
-	it("moves focus to a different heading for each section, matching the activated link", () => {
+	it("moves focus to a different header button for each section, matching the activated link", () => {
 		render(<TestForm />);
 
 		fireEvent.click(getNavLink("Section A"));
-		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section A" }));
+		expect(document.activeElement).toBe(getSectionToggle("Section A"));
 
 		fireEvent.click(getNavLink("Section B"));
-		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
 	});
 
 	it("does not submit the form when a section nav link is activated with Enter", async () => {
@@ -178,8 +200,12 @@ describe("Form section nav focus management", () => {
 		navLink.focus();
 		await user.keyboard("{Enter}");
 
-		expect(document.activeElement).toBe(screen.getByRole("heading", { level: 3, name: "Section B" }));
+		expect(document.activeElement).toBe(getSectionToggle("Section B"));
 		expect(navLink).toHaveAttribute("type", "button");
+		expect(onSubmit).not.toHaveBeenCalled();
+
+		await user.keyboard("{Enter}");
+		expect(getSectionToggle("Section B")).toHaveAttribute("aria-expanded", "false");
 		expect(onSubmit).not.toHaveBeenCalled();
 	});
 

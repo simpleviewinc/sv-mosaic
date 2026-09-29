@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, within } from "@testing-library/react";
 
 import Form, { useForm } from "@root/components/Form";
 import type { SectionDef } from "@root/components/Form";
@@ -64,9 +64,13 @@ describe("Form section DOM id scoping across multiple Form instances", () => {
 			</>,
 		);
 
-		const sectionToggles = screen.getAllByRole("button", { name: /^(Expand|Collapse) / });
-		const sectionWrappers = screen.getAllByTestId("section-test-id");
 		const headingElements = screen.getAllByRole("heading", { level: 3 });
+		const sectionToggles = headingElements.map(heading => {
+			const button = within(heading).getByRole("button");
+			expect(button).toHaveAccessibleName(heading.textContent);
+			return button;
+		});
+		const sectionWrappers = screen.getAllByTestId("section-test-id");
 
 		// 2 Forms x 2 sections each.
 		expect(sectionToggles).toHaveLength(4);

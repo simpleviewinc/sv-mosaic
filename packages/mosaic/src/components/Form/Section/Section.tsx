@@ -6,10 +6,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import { FormContext } from "../FormContext";
 import { CardContent, CardWrapper } from "@root/components/Card/Card.styled";
-import { CardHeading } from "@root/components/Card/CardHeading";
-import Button from "@root/components/Button";
+import { Text } from "@root/components/Typography";
 import Collapse from "@mui/material/Collapse";
 import { SectionContent } from "./SectionContent";
+import { SectionHeading, SectionHeadingButton } from "./SectionStyled";
 
 const Section = (props: SectionPropTypes) => {
 	const {
@@ -53,7 +53,7 @@ const Section = (props: SectionPropTypes) => {
 
 	const [state, setState] = useState<"collapsed" | "collapsing" | "expanded" | "expanding">(defaultExpanded ? "expanded" : "collapsed");
 	const ref = useRef<HTMLDivElement>(undefined);
-	const titleRef = useRef<HTMLElement>(undefined);
+	const titleRef = useRef<HTMLButtonElement>(undefined);
 	const expanded = state === "expanded" || state === "expanding";
 	const expand = useCallback(() => {
 		setState((state) => state === "collapsed" || state === "collapsing" ? "expanding" : state);
@@ -99,29 +99,18 @@ const Section = (props: SectionPropTypes) => {
 			id={`section-${sectionInstanceId}`}
 		>
 			{title && (
-				<CardHeading
-					blunt={state !== "collapsed"}
-					titleAttrs={{
-						ref: titleRef,
-						id: headingId,
-						tabIndex: -1,
-					}}
-					endSlot={(
-						<Button
-							intent="secondary"
-							variant="text"
-							mIcon={expanded ? ExpandLessIcon : ExpandMoreIcon}
-							tooltip={`${expanded ? "Collapse" : "Expand"} ${title}`}
-							onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
-							muiAttrs={{
-								"aria-controls": panelId,
-								"aria-expanded": expanded,
-							}}
-						/>
-					)}
-				>
-					{title}
-				</CardHeading>
+				<SectionHeading $blunt={state !== "collapsed"} id={headingId}>
+					<SectionHeadingButton
+						ref={titleRef}
+						type="button"
+						aria-controls={panelId}
+						aria-expanded={expanded}
+						onClick={() => setState((state) => state === "expanded" || state === "expanding" ? "collapsing" : "expanding")}
+					>
+						<Text maxLines={1} size="xl" line="xtight" weight="medium">{title}</Text>
+						{expanded ? <ExpandLessIcon aria-hidden="true" /> : <ExpandMoreIcon aria-hidden="true" />}
+					</SectionHeadingButton>
+				</SectionHeading>
 			)}
 			<Collapse
 				in={expanded}

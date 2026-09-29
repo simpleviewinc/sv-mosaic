@@ -6,8 +6,8 @@ import type { RowPropTypes } from "../Row";
 
 /**
  * Single source of truth for the `registerRef` contract shared by `Section`,
- * `Layout`, and `useScrollSpy` — the section's own element plus its heading
- * element and the action to run when section-nav activates it.
+ * `Layout`, and `useScrollSpy` — the section's own element, its header
+ * control, and the action to run when section-nav activates it.
  */
 export type SectionRegisterRef = (params: {
 	id: string;
