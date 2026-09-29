@@ -3,7 +3,7 @@ import PickerPanel from "@root/components/PickerPanel";
 import styled from "styled-components";
 
 export const StyledPickerPanel = styled(PickerPanel)`
-	width: 700px;
+	width: min(700px, 100vw);
 `;
 
 export const StyledSkeletonWrapper = styled.div`

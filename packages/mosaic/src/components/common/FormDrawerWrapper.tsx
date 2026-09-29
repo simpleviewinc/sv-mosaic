@@ -1,18 +1,15 @@
 import styled from "styled-components";
-import { BREAKPOINTS } from "@root/theme";
 
 export const FormDrawerWrapper = styled.div`
 	height: 100vh;
 
 	&.mapCoordinates,
 	&.address {
-		width: 1060px;
+		width: min(1060px, 100vw);
 	}
 
-	&.mapCoordinates {
-		@media (max-width: ${BREAKPOINTS.sm}px) {
-			width: 100vw;
-		}
+	&.advancedSelection {
+		width: 100%;
+		min-width: min(600px, 100vw);
 	}
 `;
-
