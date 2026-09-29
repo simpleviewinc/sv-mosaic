@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { act } from "react";
 
@@ -81,5 +81,57 @@ describe(__dirname, () => {
 		const lastCall = onChangeMock.mock.calls.at(-1);
 		expect(lastCall?.[0]).toBeInstanceOf(Date);
 		expect((lastCall?.[0] as Date).getDate()).toBe(15);
+	});
+
+	it("should restore keyboard focus to the day grid after choosing a year", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => null);
+
+		const { user } = await setup({
+			value: new Date(2024, 0, 15),
+		});
+
+		await user.click(screen.getByRole("button", { name: /^Choose date/ }));
+
+		const viewButton = screen.getByRole("button", { name: /switch to year view/ });
+		viewButton.focus();
+		await user.keyboard("{Enter}");
+
+		await waitFor(() => expect(screen.getByRole("radio", { name: "2024" })).toHaveFocus());
+		await user.keyboard("{ArrowRight} ");
+
+		await waitFor(() => expect(document.activeElement).toHaveAttribute("role", "gridcell"));
+		const focusedDay = document.activeElement as HTMLElement;
+
+		await user.keyboard("{ArrowRight}");
+		expect(document.activeElement).not.toBe(focusedDay);
+		expect(document.activeElement).toHaveAttribute("role", "gridcell");
+	});
+
+	it("should restore focus to MUI's valid day when the selected year reaches a date boundary", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => null);
+
+		const { user } = await setup({
+			fieldDef: {
+				...defaultFieldDef,
+				inputSettings: {
+					minDate: new Date(2025, 0, 10),
+					maxDate: new Date(2026, 0, 20),
+				},
+			},
+			value: new Date(2025, 0, 25),
+		});
+
+		await user.click(screen.getByRole("button", { name: /^Choose date/ }));
+
+		const viewButton = screen.getByRole("button", { name: /switch to year view/ });
+		viewButton.focus();
+		await user.keyboard("{Enter}");
+
+		await waitFor(() => expect(screen.getByRole("radio", { name: "2025" })).toHaveFocus());
+		await user.keyboard("{ArrowRight} ");
+
+		await waitFor(() => expect(screen.getByRole("gridcell", { name: "20" })).toHaveFocus());
+		await user.keyboard("{ArrowRight}");
+		expect(screen.getByRole("gridcell", { name: "20" })).toHaveFocus();
 	});
 });
