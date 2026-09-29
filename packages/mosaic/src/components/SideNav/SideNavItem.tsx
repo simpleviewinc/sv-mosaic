@@ -42,7 +42,9 @@ export function SideNavItem(props: SideNavItem): ReactElement {
 				{...(href !== undefined ? {
 					href,
 					as: "a",
-				} : {})}
+				} : {
+					type: "button",
+				})}
 			>
 				{icon && <LinkIcon key="link-icon" />}
 				<StyledLink key="link-text">{label}</StyledLink>
