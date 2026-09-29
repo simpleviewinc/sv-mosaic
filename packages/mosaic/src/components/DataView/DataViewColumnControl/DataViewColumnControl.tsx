@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SettingsIcon from "@mui/icons-material/Settings";
 import styled from "styled-components";
 
@@ -27,10 +27,17 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 		open : false,
 	});
 	const [announcement, setAnnouncement] = useState("");
+	const pendingAnnouncement = useRef<string | null>(null);
 
 	const { t } = useMosaicTranslation();
 
 	const gearClick = function() {
+		if (!state.open) {
+			// Clear the previous message so another Apply with the same count
+			// still produces a fresh live-region update.
+			setAnnouncement("");
+			pendingAnnouncement.current = null;
+		}
 		setState({
 			...state,
 			open : !state.open,
@@ -39,7 +46,16 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 
 	const onColumnsChange = function(activeColumns: string[]) {
 		props.onChange?.(activeColumns);
-		setAnnouncement(`Columns updated. ${activeColumns.length} ${activeColumns.length === 1 ? "column" : "columns"} now visible.`);
+		pendingAnnouncement.current = `Columns updated. ${activeColumns.length} ${activeColumns.length === 1 ? "column" : "columns"} now visible.`;
+	};
+
+	const onDrawerExited = function() {
+		// MUI removes aria-hidden from the page before invoking this callback.
+		// Announcing during Apply instead updates an inaccessible live region.
+		if (pendingAnnouncement.current !== null) {
+			setAnnouncement(pendingAnnouncement.current);
+			pendingAnnouncement.current = null;
+		}
 	};
 
 	return (
@@ -64,6 +80,7 @@ export default function DataViewColumnControl(props: DataViewColumnControlProps)
 						allColumns={props.allColumns}
 						onChange={onColumnsChange}
 						onClose={gearClick}
+						exitCB={onDrawerExited}
 					/>
 				)
 			}

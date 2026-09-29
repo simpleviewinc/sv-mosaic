@@ -10,6 +10,7 @@ function DataViewColumnDrawer(props: DataViewColumnDrawerProps) {
 		<Drawer
 			open={props.open}
 			onClose={props.onClose}
+			exitCB={props.exitCB}
 		>
 			<DataViewColumnDrawerContent
 				columns={props.columns}

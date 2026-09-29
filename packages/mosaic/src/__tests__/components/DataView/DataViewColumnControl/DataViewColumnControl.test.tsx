@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React, { act } from "react";
 
 import type { DataViewColumnControlProps } from "@root/components/DataView/DataViewColumnControl";
@@ -71,14 +71,49 @@ describe(__dirname, () => {
 		await user.click(screen.getByRole("checkbox", { name: "Column 2" }));
 		await user.click(screen.getByRole("button", { name: "Apply" }));
 
-		expect(screen.getByRole("status")).toHaveTextContent("Columns updated. 2 columns now visible.");
+		await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Columns updated. 2 columns now visible."));
 		expect(screen.getAllByRole("status")).toHaveLength(1);
 
 		await user.click(screen.getByRole("button", { name: "DataView.columns" }));
 		await user.click(screen.getByRole("button", { name: "Remove Column 2 column" }));
 		await user.click(screen.getByRole("button", { name: "Apply" }));
 
-		expect(screen.getByRole("status")).toHaveTextContent("Columns updated. 1 column now visible.");
+		await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Columns updated. 1 column now visible."));
 		expect(screen.getAllByRole("status")).toHaveLength(1);
+	});
+
+	it("announces after the modal releases the page, including same-count updates", async () => {
+		const user = userEvent.setup();
+		const { unmount } = render(<LiveRegionHarness />);
+		const status = screen.getByRole("status");
+		const updates: { text: string; hidden: boolean }[] = [];
+		const observer = new MutationObserver(() => {
+			if (status.textContent) {
+				updates.push({ text: status.textContent, hidden: Boolean(status.closest('[aria-hidden="true"]')) });
+			}
+		});
+		observer.observe(status, { childList: true, characterData: true, subtree: true });
+		try {
+			await user.click(screen.getByRole("button", { name: "DataView.columns" }));
+			await user.click(screen.getByRole("button", { name: "Apply" }));
+			await waitFor(() => expect(updates).toEqual([{ text: "Columns updated. 1 column now visible.", hidden: false }]));
+
+			await user.click(screen.getByRole("button", { name: "DataView.columns" }));
+			await user.click(screen.getByRole("button", { name: "Remove Column 1 column" }));
+			await user.click(screen.getByRole("checkbox", { name: "Column 2" }));
+			await user.click(screen.getByRole("button", { name: "Apply" }));
+			await waitFor(() => expect(updates).toEqual([
+				{ text: "Columns updated. 1 column now visible.", hidden: false },
+				{ text: "Columns updated. 1 column now visible.", hidden: false },
+			]));
+
+			await user.click(screen.getByRole("button", { name: "DataView.columns" }));
+			await user.keyboard("{Escape}");
+			await waitFor(() => expect(screen.queryByText("DataView.column_settings")).not.toBeInTheDocument());
+			expect(updates).toHaveLength(2);
+		} finally {
+			observer.disconnect();
+			unmount();
+		}
 	});
 });
