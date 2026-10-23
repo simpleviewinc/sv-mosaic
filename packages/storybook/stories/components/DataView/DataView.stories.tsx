@@ -1241,3 +1241,102 @@ Playground.argTypes = {
 		name: "Has view list handler",
 	},
 };
+
+const rowActionColumns: DataViewColumn[] = [
+	{ name: "name", label: "Account" },
+	{ name: "accountArchived", label: "Status", transforms: [({ data }) => data ? "Archived" : "Active"] },
+];
+
+/** Primary actions can remain visible while explaining why a particular row cannot be edited. */
+const rowActionGridColumns = { primary: "name", secondary: "accountArchived" };
+
+export const RowDependentActions = ({ disabled = false, display = "list" }) => {
+	const [archived, setArchived] = useState(true);
+	const [lastAction, setLastAction] = useState("No action selected");
+	const [checked, setChecked] = useState<boolean[]>([]);
+	const data = useMemo(() => [
+		{ id: "active", name: "Active account", accountArchived: false },
+		{ id: "archived", name: "Archived account", accountArchived: archived },
+	], [archived]);
+	const actions = useMemo<DataViewProps["primaryActions"]>(() => [
+		{
+			name: "edit",
+			label: "Edit",
+			intent: "secondary",
+			variant: "contained",
+			disabled: ({ row }) => Boolean(row.accountArchived),
+			tooltip: ({ row }) => row.accountArchived ? "This account is archived" : "Edit account",
+			onClick: ({ data: row }) => setLastAction(`Edit: ${row.name}`),
+		},
+		{
+			name: "view",
+			label: "View",
+			intent: "secondary",
+			variant: "text",
+			disabled: false,
+			tooltip: "View account",
+			onClick: ({ data: row }) => setLastAction(`View: ${row.name}`),
+		},
+	], []);
+
+	return (
+		<div style={{ padding: 24 }}>
+			<p>Hover Edit on each row for its explanation. Restore the archived account to enable editing.</p>
+			<button type="button" onClick={() => setArchived(value => !value)}>
+				{archived ? "Restore archived account" : "Archive account again"}
+			</button>
+			<p role="status">{lastAction}</p>
+			<DataView
+				title="Row-dependent primary actions"
+				columns={rowActionColumns}
+				data={data}
+				primaryActions={actions}
+				disabled={disabled}
+				display={display}
+				gridColumnsMap={rowActionGridColumns}
+				checked={checked}
+				onCheckChange={setChecked}
+			/>
+		</div>
+	);
+};
+
+RowDependentActions.args = { disabled: false, display: "list" };
+RowDependentActions.argTypes = {
+	display: { control: "select", options: ["list", "grid"] },
+	disabled: { control: "boolean", description: "Disable all row actions, regardless of their individual disabled callbacks." },
+};
+
+const conditionalRowData: DataViewProps["data"] = [
+	{ id: "account", name: "Account row", account: { archived: false, name: "Active account" } },
+	{ id: "other", name: "Other row" },
+];
+const conditionalRowColumns: DataViewColumn[] = [{ name: "name", label: "Name" }];
+const conditionalRowActions: DataViewProps["primaryActions"] = [{
+	name: "edit",
+	label: "Edit",
+	variant: "contained",
+	show: ({ row }) => Boolean(row.account),
+	disabled: ({ row }) => (row.account as { archived: boolean }).archived,
+	tooltip: ({ row }) => `Edit ${(row.account as { name: string }).name}`,
+	onClick: () => undefined,
+}];
+
+export const ConditionalRowActions = ({ display = "list" }) => (
+	<div style={{ padding: 24 }}>
+		<p>Only the account row has an Edit action. Its callbacks require account data that the other row does not have.</p>
+		<DataView
+			title="Conditional row actions"
+			columns={conditionalRowColumns}
+			data={conditionalRowData}
+			primaryActions={conditionalRowActions}
+			display={display}
+			gridColumnsMap={rowActionGridColumns}
+		/>
+	</div>
+);
+
+ConditionalRowActions.args = { display: "list" };
+ConditionalRowActions.argTypes = {
+	display: { control: "select", options: ["list", "grid"] },
+};
