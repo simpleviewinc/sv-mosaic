@@ -72,23 +72,29 @@ export interface DataViewFilterProps {
 
 type DataViewActionOnClick = ({ data }: { data: DataViewProps["data"][number] }) => void;
 
+type DataViewActionRowArgs = { row: DataViewActionsButtonRowProps["originalRowData"] };
+
 export interface ActionAdditional {
 	/** A unique name for this action. */
 	name: string;
 	/** A handler function to be invoked when this action is used. */
 	onClick: DataViewActionOnClick;
 	/** A value or function controlling whether or not to display this action. */
-	// show?: boolean | DataViewActionShow | DataViewActionShow[] | boolean[] | [DataViewActionShow | boolean] | (DataViewActionShow | boolean)[];
-	show?: MosaicToggle<{ row: DataViewActionsButtonRowProps["originalRowData"] }>;
+	show?: MosaicToggle<DataViewActionRowArgs>;
 }
 
 type DataViewBulkActionOnClick = ({ data }: { data: DataViewProps["data"] }) => void;
 
-export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show"> & ActionAdditional;
+export type DataViewAction = Omit<ButtonProps, "onClick" | "attrs" | "show" | "disabled" | "tooltip"> & ActionAdditional & {
+	/** Disable this action for a row. Arrays disable the action when any condition is true. */
+	disabled?: MosaicToggle<DataViewActionRowArgs>;
+	/** Static tooltip content or a callback evaluated with the original row. */
+	tooltip?: ButtonProps["tooltip"] | ((args: DataViewActionRowArgs) => ButtonProps["tooltip"]);
+};
 
 export type DataViewAdditionalAction = Omit<MenuItemProps, "onClick" | "selected" | "attrs" | "show"> & ActionAdditional;
 
-export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "show"> {
+export interface DataViewBulkAction extends Omit<DataViewAction, "onClick" | "show" | "disabled" | "tooltip">, Pick<ButtonProps, "disabled" | "tooltip"> {
 	/** A handler function to be invoked when this action is used. */
 	onClick?: DataViewBulkActionOnClick;
 	onAllClick?: MosaicCallback;

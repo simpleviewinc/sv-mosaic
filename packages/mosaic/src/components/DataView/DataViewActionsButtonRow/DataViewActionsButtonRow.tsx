@@ -4,7 +4,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import type { DataViewActionsButtonRowProps } from "./DataViewActionsButtonRowTypes";
 
-import { useWrappedToggle } from "@root/utils/toggle";
+import { getToggle, useWrappedToggle, wrapToggle } from "@root/utils/toggle";
 import Button from "../../Button";
 import { StyledButtonRow } from "./DataViewActionsButtonRow.styled";
 import { EMPTY_ARRAY } from "@root/constants/stable";
@@ -28,6 +28,8 @@ function DataViewActionsButtonRow({
 				name,
 				show,
 				onClick,
+				disabled: actionDisabled,
+				tooltip,
 				...buttonArgs
 			} = action;
 
@@ -35,19 +37,22 @@ function DataViewActionsButtonRow({
 				onClick({ data : originalRowData });
 			};
 
-			const calculatedDisabled = [buttonArgs.disabled, disabled, actionsHidden].some(disabled => disabled);
+			const rowDisabled = getToggle(wrapToggle(actionDisabled, showParams, false), false);
+			const calculatedDisabled = [rowDisabled, disabled, actionsHidden].some(Boolean);
+			const rowTooltip = typeof tooltip === "function" ? tooltip(showParams) : tooltip;
 
 			return (
 				<Button
 					{...buttonArgs}
 					disabled={calculatedDisabled}
+					tooltip={rowTooltip}
 					key={`primary_${name}`}
 					attrs={{ "data-mosaic-id" : `action_primary_${name}` }}
 					onClick={newOnClick}
 				/>
 			);
 		});
-	}, [shownPrimaryActions, disabled, actionsHidden, originalRowData]);
+	}, [shownPrimaryActions, disabled, actionsHidden, originalRowData, showParams]);
 
 	const additionalActionsButton = useMemo(() => {
 		if (!shownadditionalActions.length) {

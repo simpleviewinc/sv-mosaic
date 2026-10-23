@@ -1241,3 +1241,55 @@ Playground.argTypes = {
 		name: "Has view list handler",
 	},
 };
+
+
+const rowActionColumns: DataViewColumn[] = [
+	{ name: "name", label: "Account" },
+	{ name: "status", label: "Status" },
+];
+
+/** Primary actions can remain visible while explaining why a particular row cannot be edited. */
+export const RowDependentActions = ({ disabled = false }) => {
+	const [archived, setArchived] = useState(true);
+	const [lastAction, setLastAction] = useState("No action selected");
+	const data = useMemo(() => [
+		{ id: "active", name: "Active account", status: "Active", accountArchived: false },
+		{ id: "archived", name: "Archived account", status: archived ? "Archived" : "Active", accountArchived: archived },
+	], [archived]);
+	const actions = useMemo<DataViewProps["primaryActions"]>(() => [
+		{
+			name: "edit",
+			label: "Edit",
+			intent: "secondary",
+			variant: "contained",
+			disabled: ({ row }) => Boolean(row.accountArchived),
+			tooltip: ({ row }) => row.accountArchived ? "This account is archived" : "Edit account",
+			onClick: ({ data: row }) => setLastAction(`Edit: ${row.name}`),
+		},
+		{
+			name: "view",
+			label: "View",
+			intent: "secondary",
+			variant: "text",
+			disabled: false,
+			tooltip: "View account",
+			onClick: ({ data: row }) => setLastAction(`View: ${row.name}`),
+		},
+	], []);
+
+	return (
+		<div style={{ padding: 24 }}>
+			<p>Hover Edit on each row for its explanation. Restore the archived account to enable editing.</p>
+			<button type="button" onClick={() => setArchived(value => !value)}>
+				{archived ? "Restore archived account" : "Archive account again"}
+			</button>
+			<p role="status">{lastAction}</p>
+			<DataView title="Row-dependent primary actions" columns={rowActionColumns} data={data} primaryActions={actions} disabled={disabled} />
+		</div>
+	);
+};
+
+RowDependentActions.args = { disabled: false };
+RowDependentActions.argTypes = {
+	disabled: { control: "boolean", description: "Disable all row actions, regardless of their individual disabled callbacks." },
+};
