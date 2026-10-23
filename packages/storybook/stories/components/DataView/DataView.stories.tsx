@@ -1244,19 +1244,19 @@ Playground.argTypes = {
 
 const rowActionColumns: DataViewColumn[] = [
 	{ name: "name", label: "Account" },
-	{ name: "status", label: "Status" },
+	{ name: "accountArchived", label: "Status", transforms: [({ data }) => data ? "Archived" : "Active"] },
 ];
 
 /** Primary actions can remain visible while explaining why a particular row cannot be edited. */
-const rowActionGridColumns = { primary: "name", secondary: "status" };
+const rowActionGridColumns = { primary: "name", secondary: "accountArchived" };
 
 export const RowDependentActions = ({ disabled = false, display = "list" }) => {
 	const [archived, setArchived] = useState(true);
 	const [lastAction, setLastAction] = useState("No action selected");
 	const [checked, setChecked] = useState<boolean[]>([]);
 	const data = useMemo(() => [
-		{ id: "active", name: "Active account", status: "Active", accountArchived: false },
-		{ id: "archived", name: "Archived account", status: archived ? "Archived" : "Active", accountArchived: archived },
+		{ id: "active", name: "Active account", accountArchived: false },
+		{ id: "archived", name: "Archived account", accountArchived: archived },
 	], [archived]);
 	const actions = useMemo<DataViewProps["primaryActions"]>(() => [
 		{
