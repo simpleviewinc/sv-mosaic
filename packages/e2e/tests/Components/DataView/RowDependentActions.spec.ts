@@ -65,3 +65,29 @@ test("selecting a row hides and disables primary actions until selection clears"
 	await expect(edit.nth(1)).toBeVisible();
 	await expect(edit.nth(1)).toBeDisabled();
 });
+
+for (const display of ["list", "grid"]) {
+	test(`show excludes callbacks for rows without account data in ${display} view`, async ({ page }) => {
+		const errors: string[] = [];
+		page.on("pageerror", error => errors.push(error.message));
+		page.on("console", message => {
+			if (message.type() === "error") errors.push(message.text());
+		});
+		await page.goto(`?id=components-dataview--conditional-row-actions&viewMode=story&args=display:${display}`);
+		await expect(page.getByText("Account row", { exact: true })).toBeVisible();
+		await expect(page.getByText("Other row", { exact: true })).toBeVisible();
+		const actions = page.locator(editSelector);
+		await expect(actions).toHaveCount(display === "list" ? 2 : 1);
+		await expect(actions.first().getByRole("button")).toBeEnabled();
+		await actions.first().hover();
+		await expect(page.getByRole("tooltip")).toHaveText("Edit Active account");
+		if (display === "list") {
+			const placeholder = actions.nth(1);
+			await expect(placeholder).toHaveClass(/invisible/);
+			await expect(placeholder).toHaveCSS("opacity", "0");
+			await expect(placeholder.getByRole("button")).toBeDisabled();
+			expect((await placeholder.boundingBox())?.width).toBeGreaterThan(0);
+		}
+		expect(errors).toEqual([]);
+	});
+}

@@ -1306,3 +1306,37 @@ RowDependentActions.argTypes = {
 	display: { control: "select", options: ["list", "grid"] },
 	disabled: { control: "boolean", description: "Disable all row actions, regardless of their individual disabled callbacks." },
 };
+
+const conditionalRowData: DataViewProps["data"] = [
+	{ id: "account", name: "Account row", account: { archived: false, name: "Active account" } },
+	{ id: "other", name: "Other row" },
+];
+const conditionalRowColumns: DataViewColumn[] = [{ name: "name", label: "Name" }];
+const conditionalRowActions: DataViewProps["primaryActions"] = [{
+	name: "edit",
+	label: "Edit",
+	variant: "contained",
+	show: ({ row }) => Boolean(row.account),
+	disabled: ({ row }) => (row.account as { archived: boolean }).archived,
+	tooltip: ({ row }) => `Edit ${(row.account as { name: string }).name}`,
+	onClick: () => undefined,
+}];
+
+export const ConditionalRowActions = ({ display = "list" }) => (
+	<div style={{ padding: 24 }}>
+		<p>Only the account row has an Edit action. Its callbacks require account data that the other row does not have.</p>
+		<DataView
+			title="Conditional row actions"
+			columns={conditionalRowColumns}
+			data={conditionalRowData}
+			primaryActions={conditionalRowActions}
+			display={display}
+			gridColumnsMap={rowActionGridColumns}
+		/>
+	</div>
+);
+
+ConditionalRowActions.args = { display: "list" };
+ConditionalRowActions.argTypes = {
+	display: { control: "select", options: ["list", "grid"] },
+};

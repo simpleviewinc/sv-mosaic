@@ -37,9 +37,10 @@ function DataViewActionsButtonRow({
 				onClick({ data : originalRowData });
 			};
 
-			const rowDisabled = getToggle(wrapToggle(actionDisabled, showParams, false), false);
+			// List actions excluded by show remain as invisible alignment placeholders.
+			const rowDisabled = buttonArgs.invisible || getToggle(wrapToggle(actionDisabled, showParams, false), false);
 			const calculatedDisabled = [rowDisabled, disabled, actionsHidden].some(Boolean);
-			const rowTooltip = typeof tooltip === "function" ? tooltip(showParams) : tooltip;
+			const rowTooltip = buttonArgs.invisible ? undefined : typeof tooltip === "function" ? tooltip(showParams) : tooltip;
 
 			return (
 				<Button

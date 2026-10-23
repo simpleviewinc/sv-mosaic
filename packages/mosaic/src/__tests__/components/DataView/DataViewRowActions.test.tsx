@@ -30,3 +30,42 @@ it.each(["list", "grid"])("evaluates %s actions against original data, not forma
 	await user.click(button);
 	expect(onClick.mock.calls[0][0].data).toBe(row);
 });
+
+for (const display of ["list", "grid"]) {
+	it.each(["disabled", "tooltip"])(`skips %s callbacks for excluded rows in ${display} view`, async (callback) => {
+		const accountRow = { id: "account", name: "Account row", account: { archived: false, name: "Active account" } };
+		const data = [accountRow, { id: "other", name: "Other row" }];
+		const disabled = vi.fn(({ row }) => row.account.archived);
+		const tooltip = vi.fn(({ row }) => row.account.name);
+		await act(() => render(
+			<DataView
+				display={display}
+				gridColumnsMap={{ primary: "name" }}
+				columns={[{ name: "name", label: "Name" }]}
+				data={data}
+				primaryActions={[{
+					name: "edit",
+					label: "Edit",
+					variant: "contained",
+					show: ({ row }) => Boolean(row.account),
+					disabled: callback === "disabled" ? disabled : false,
+					tooltip: callback === "tooltip" ? tooltip : "Edit account",
+					onClick: vi.fn(),
+				}]}
+			/>,
+		));
+
+		expect(screen.getByText("Other row")).toBeInTheDocument();
+		expect(callback === "disabled" ? disabled : tooltip).toHaveBeenCalledExactlyOnceWith({ row: accountRow });
+		const wrappers = document.querySelectorAll('[data-mosaic-id="action_primary_edit"]');
+		expect(wrappers).toHaveLength(display === "list" ? 2 : 1);
+		expect(wrappers[0]).toBeVisible();
+		expect(wrappers[0].querySelector("button")).toBeEnabled();
+		if (display === "list") {
+			// Keep a disabled placeholder for alignment without evaluating its callbacks.
+			expect(wrappers[1]).toHaveClass("invisible");
+			expect(wrappers[1]).not.toBeVisible();
+			expect(wrappers[1].querySelector("button")).toBeDisabled();
+		}
+	});
+}
