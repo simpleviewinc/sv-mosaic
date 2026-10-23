@@ -2,7 +2,7 @@ import type { MosaicObject, MosaicToggle, SvgIconComponent } from "@root/types";
 import type { MenuItemProps } from "../MenuItem";
 import type { WebTarget } from "styled-components";
 import type { MenuProps } from "../Menu/MenuTypes";
-import type { CSSProperties, Ref } from "react";
+import type { CSSProperties, ReactElement, Ref } from "react";
 
 export type ColorTypes = "black" | "blue" | "lightBlue" | "red" | "yellow" | "teal" | "gray" | "white";
 
@@ -37,7 +37,7 @@ export interface ButtonProps {
 	/** Button will occupy 100% of the width provided to it */
 	fullWidth?: boolean;
 	/** Display a tooltip on hover of the button */
-	tooltip?: string | JSX.Element;
+	tooltip?: string | ReactElement;
 	/** Trigger a popover on click */
 	popover?: JSX.Element;
 	popoverEvent?: "onClick" | "onHover";

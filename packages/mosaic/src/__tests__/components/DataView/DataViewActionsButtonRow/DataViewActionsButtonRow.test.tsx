@@ -139,7 +139,7 @@ describe("primary action row callbacks", () => {
 	it.each([
 		{ name: "static string", tooltip: "Edit account" },
 		{ name: "static element", tooltip: <span>Edit account</span> },
-		{ name: "callback element", tooltip: ({ row }) => <span>Edit {String(row.id)}</span> },
+		{ name: "callback element", tooltip: ({ row }) => <span>{`Edit ${row.id}`}</span> },
 	])("preserves $name tooltips", async ({ tooltip }) => {
 		const { user } = await setup({ originalRowData: { id: "account" }, primaryActions: [{ ...primaryActions[0], tooltip }] });
 		await user.hover(screen.getByRole("button"));

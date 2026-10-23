@@ -1242,16 +1242,18 @@ Playground.argTypes = {
 	},
 };
 
-
 const rowActionColumns: DataViewColumn[] = [
 	{ name: "name", label: "Account" },
 	{ name: "status", label: "Status" },
 ];
 
 /** Primary actions can remain visible while explaining why a particular row cannot be edited. */
-export const RowDependentActions = ({ disabled = false }) => {
+const rowActionGridColumns = { primary: "name", secondary: "status" };
+
+export const RowDependentActions = ({ disabled = false, display = "list" }) => {
 	const [archived, setArchived] = useState(true);
 	const [lastAction, setLastAction] = useState("No action selected");
+	const [checked, setChecked] = useState<boolean[]>([]);
 	const data = useMemo(() => [
 		{ id: "active", name: "Active account", status: "Active", accountArchived: false },
 		{ id: "archived", name: "Archived account", status: archived ? "Archived" : "Active", accountArchived: archived },
@@ -1284,12 +1286,23 @@ export const RowDependentActions = ({ disabled = false }) => {
 				{archived ? "Restore archived account" : "Archive account again"}
 			</button>
 			<p role="status">{lastAction}</p>
-			<DataView title="Row-dependent primary actions" columns={rowActionColumns} data={data} primaryActions={actions} disabled={disabled} />
+			<DataView
+				title="Row-dependent primary actions"
+				columns={rowActionColumns}
+				data={data}
+				primaryActions={actions}
+				disabled={disabled}
+				display={display}
+				gridColumnsMap={rowActionGridColumns}
+				checked={checked}
+				onCheckChange={setChecked}
+			/>
 		</div>
 	);
 };
 
-RowDependentActions.args = { disabled: false };
+RowDependentActions.args = { disabled: false, display: "list" };
 RowDependentActions.argTypes = {
+	display: { control: "select", options: ["list", "grid"] },
 	disabled: { control: "boolean", description: "Disable all row actions, regardless of their individual disabled callbacks." },
 };

@@ -72,7 +72,9 @@ export interface DataViewFilterProps {
 
 type DataViewActionOnClick = ({ data }: { data: DataViewProps["data"][number] }) => void;
 
-type DataViewActionRowArgs = { row: DataViewActionsButtonRowProps["originalRowData"] };
+interface DataViewActionRowArgs {
+	row: DataViewActionsButtonRowProps["originalRowData"];
+}
 
 export interface ActionAdditional {
 	/** A unique name for this action. */

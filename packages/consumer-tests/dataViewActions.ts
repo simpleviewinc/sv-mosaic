@@ -3,6 +3,7 @@ import type { DataViewAction, DataViewBulkAction, DataViewRowData } from "@simpl
 
 const action: DataViewAction = {
 	name: "edit",
+	variant: "contained",
 	onClick: ({ data }) => { const row: DataViewRowData = data; return void row; },
 	show: ({ row }) => Boolean(row.id),
 	disabled: [false, ({ row }) => Boolean(row.accountArchived)],
@@ -18,6 +19,7 @@ const elementCallback: DataViewAction = { ...action, tooltip: () => element };
 
 const bulkAction: DataViewBulkAction = {
 	name: "bulk-edit",
+	variant: "contained",
 	disabled: [false, () => true],
 	tooltip: "Edit selected accounts",
 	onClick: ({ data }) => { const rows: DataViewRowData[] = data; return void rows; },
