@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { memo, useEffect, useMemo, useRef, useCallback } from "react";
+import { memo, useEffect, useId, useMemo, useRef, useCallback } from "react";
 
 import type { MosaicCSSContainer } from "@root/types";
 import type { AutofocusOptions, FormProps } from "./FormTypes";
@@ -55,6 +55,12 @@ const Form = ({
 	bottomSlot = null,
 	hideSectionNav,
 }: FormProps) => {
+	/**
+	 * Scopes section-derived DOM ids (panel/heading) to this Form instance so
+	 * two Forms on the same page with identical caller-supplied section ids
+	 * don't emit duplicate DOM ids / ambiguous aria-controls.
+	 */
+	const formId = useId();
 	const formContextValue = useMemo(() => ({ methods, state }), [methods, state]);
 	const fields = useMemo(() => sanitizeFieldDefs(providedFields, sections), [providedFields, sections]);
 	const layout = useMemo(() => {
@@ -244,6 +250,7 @@ const Form = ({
 						)}
 						<StyledFormContent ref={formContentRef} $spacing={spacing}>
 							<Layout
+								formId={formId}
 								registerRef={registerRef}
 								fields={fieldsWithDisable}
 								sections={shownSections}

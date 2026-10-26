@@ -23,6 +23,7 @@ export function CardHeading({
 	compact,
 	endSlot,
 	onClick,
+	titleAttrs,
 }: CardHeadingProps) {
 	return (
 		<Heading
@@ -40,6 +41,7 @@ export function CardHeading({
 					size={compact ? "lg" : "xl"}
 					line="xtight"
 					weight="medium"
+					attrs={titleAttrs}
 				>
 					{children}
 				</Text>
