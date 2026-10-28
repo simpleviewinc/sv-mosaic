@@ -159,6 +159,18 @@ describe(__dirname, () => {
 		expect(onBlurMock).toBeCalled();
 	});
 
+	it("should keep a long options list inside a scrollable menu", async () => {
+		const { user } = await setup();
+
+		await user.click(screen.getByRole("combobox"));
+
+		const listbox = screen.getByRole("listbox");
+		const style = window.getComputedStyle(listbox);
+
+		expect(style.maxHeight).toBe("40vh");
+		expect(style.overflow).toBe("auto");
+	});
+
 	it("should render the skeleton components if skeleton is truthy", async () => {
 		await setup({ skeleton: true });
 
