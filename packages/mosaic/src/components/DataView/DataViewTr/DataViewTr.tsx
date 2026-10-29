@@ -79,7 +79,6 @@ const DataViewTrStatic = ({
 				return (
 					<DataViewTd
 						key={column.name}
-						ariaLabel={column.label}
 						expandCell={true}
 						style={column.style}
 					>
