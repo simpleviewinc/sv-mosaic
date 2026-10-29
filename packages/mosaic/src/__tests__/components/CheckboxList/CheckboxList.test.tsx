@@ -32,6 +32,8 @@ describe(__dirname, () => {
 		await setup();
 
 		expect(screen.queryAllByRole("checkbox")).toHaveLength(2);
+		expect(screen.getByRole("checkbox", { name: "Item 1" })).toHaveAttribute("aria-label", "Item 1");
+		expect(screen.getByText("Item 1")).toHaveAttribute("aria-hidden", "true");
 	});
 
 	it("should trigger the change handler with the correct parameters", async () => {
@@ -44,7 +46,7 @@ describe(__dirname, () => {
 		const checkboxes = screen.queryAllByRole("checkbox");
 
 		expect(checkboxes).toHaveLength(2);
-		await user.click(checkboxes[0]);
+		await user.click(screen.getByText("Item 1"));
 		expect(onChangeMock).toBeCalled();
 	});
 

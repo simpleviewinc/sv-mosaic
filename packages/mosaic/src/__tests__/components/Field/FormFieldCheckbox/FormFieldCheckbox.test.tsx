@@ -45,7 +45,8 @@ describe(__dirname, () => {
 		await setup();
 
 		expect(screen.queryByRole("checkbox", { name: "Cat" })).toBeInTheDocument();
-		expect(screen.queryByRole("checkbox", { name: "Dog" })).toBeInTheDocument();
+		expect(screen.getByRole("checkbox", { name: "Dog" })).toHaveAttribute("aria-label", "Dog");
+		expect(screen.getByText("Dog")).toHaveAttribute("aria-hidden", "true");
 		expect(screen.queryByRole("checkbox", { name: "Horse" })).toBeInTheDocument();
 	});
 
