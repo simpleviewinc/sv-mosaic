@@ -56,8 +56,8 @@ function DataViewTHead(props: DataViewTHeadProps) {
 				)}
 				{props.onCheckAllClick && (
 					<StyledTh key="_bulk" className="bulk" scope="col" colSpan={(props.bulkActions?.length <= 0 && props.anyChecked) ? props.columns.length + 2 : 1}>
-						<VisuallyHidden>{t(props.anyChecked ? "mosaic:DataView.selected_rows" : "mosaic:DataView.select_rows")}</VisuallyHidden>
 						<Checkbox
+							aria-label={t("mosaic:DataView.select_all_rows")}
 							checked={props.allChecked}
 							indeterminate={!props.allChecked && props.anyChecked}
 							onClick={props.onCheckAllClick}
