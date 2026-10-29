@@ -11,6 +11,7 @@ import DataViewActionsButtonRow from "../DataViewActionsButtonRow";
 import { TableRow } from "./DataViewTr.styled";
 import Button from "@root/components/Button";
 import testIds from "@root/utils/testIds";
+import { useMosaicTranslation } from "@root/i18n";
 
 const DataViewTrStatic = ({
 	checked,
@@ -29,6 +30,8 @@ const DataViewTrStatic = ({
 	ref,
 	...props
 }: DataViewTrProps) => {
+	const { t } = useMosaicTranslation();
+
 	return (
 		<TableRow
 			style={style}
@@ -57,6 +60,7 @@ const DataViewTrStatic = ({
 					data-testid={testIds.DATA_VIEW_CELL_CHECK}
 				>
 					<Checkbox
+						aria-label={t("mosaic:DataView.select_row")}
 						checked={checked === true}
 						onClick={onCheckboxClick}
 						disabled={disabled}

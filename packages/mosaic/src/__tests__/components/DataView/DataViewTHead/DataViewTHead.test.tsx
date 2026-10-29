@@ -66,9 +66,8 @@ describe(__dirname, () => {
 
 		expect(screen.queryAllByRole("columnheader")).toHaveLength(4);
 		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
-		const header = screen.getByRole("columnheader", { name: "DataView.select_rows" });
+		const header = screen.getByRole("columnheader", { name: "DataView.select_all_rows" });
 		expect(header).toHaveAttribute("scope", "col");
-		expect(within(header).getByText("DataView.select_rows")).toHaveStyle({ position: "absolute" });
 	});
 
 	it("should render a check-all table header cell that spans all columns when any items are checked and there are no bulk actions", async () => {
@@ -80,7 +79,7 @@ describe(__dirname, () => {
 		expect(columnHeader).toBeInTheDocument();
 		expect(columnHeader.colSpan).toBe(4);
 		expect(columnHeader).toHaveAttribute("scope", "col");
-		expect(within(columnHeader).getByText("DataView.selected_rows")).toHaveStyle({ position: "absolute" });
+		expect(columnHeader).toHaveAccessibleName("DataView.select_all_rows");
 	});
 
 	it("should render a ArrowUpwardIcon icon in the table header cell for columns sorted ascending", async () => {
