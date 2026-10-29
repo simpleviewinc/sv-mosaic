@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 
@@ -33,22 +33,24 @@ function ErrorFocusForm() {
 	);
 }
 
-function MissingInputRefForm() {
+const options = [
+	{ label: "Cat", value: "cat" },
+	{ label: "Dog", value: "dog" },
+];
+
+function FieldsForm({ fields }: { fields: FieldDef[] }) {
 	const controller = useForm();
-	const submitWithoutInputRef = () => {
-		const mount = controller.stable.mounted.required;
-		if (mount) {
-			mount.inputRef = undefined;
-		}
-		void controller.methods.submitForm();
-	};
 
 	return (
 		<>
-			<Form {...controller} fields={[fields[0]]} title="Missing input ref" />
-			<button type="button" onClick={submitWithoutInputRef}>Submit</button>
+			<Form {...controller} fields={fields} title="Error focus" />
+			<button type="button" onClick={() => void controller.methods.submitForm()}>Submit</button>
 		</>
 	);
+}
+
+function CustomField() {
+	return <input aria-label="Custom" />;
 }
 
 describe("Form error focus", () => {
@@ -98,14 +100,30 @@ describe("Form error focus", () => {
 		expect(submit).toHaveFocus();
 	});
 
-	it("does not throw or redirect focus when an invalid field has no input ref", async () => {
+	it.each([
+		["checkbox", "checkbox"],
+		["radio", "radio"],
+	] as const)("focuses the first option of an invalid %s field", async (type, role) => {
 		const user = userEvent.setup();
-		const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");
-		render(<MissingInputRefForm />);
+		render(
+			<FieldsForm
+				fields={[{ name: "pets", label: "Pets", type, required: true, inputSettings: { options } } as FieldDef]}
+			/>,
+		);
+
+		await user.click(screen.getByRole("button", { name: "Submit" }));
+		await waitFor(() => expect(screen.getByRole(role, { name: "Cat" })).toHaveFocus());
+	});
+
+	it("does not throw when the first invalid field is a custom field", async () => {
+		const user = userEvent.setup();
+		render(<FieldsForm fields={[{ name: "custom", label: "Custom", type: CustomField, required: true }]} />);
 
 		const submit = screen.getByRole("button", { name: "Submit" });
 		await user.click(submit);
-		await waitFor(() => expect(scrollIntoView).toHaveBeenCalled());
+		await act(() => new Promise(resolve => window.requestAnimationFrame(resolve)));
+
+		expect(screen.getByRole("textbox", { name: "Custom" })).toBeInTheDocument();
 		expect(submit).toHaveFocus();
 	});
 });

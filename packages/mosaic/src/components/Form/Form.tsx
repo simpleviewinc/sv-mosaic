@@ -34,6 +34,35 @@ const sidebarCollapseContainer: MosaicCSSContainer = {
 	minWidth: "xl",
 };
 
+// Form controls are tried before buttons so that, for example, a text editor's
+// content area wins over its toolbar.
+const focusableSelectors = [
+	"input:not([type='hidden']):not([disabled]):not([tabindex='-1']), select:not([disabled]), textarea:not([disabled]), [contenteditable='true']",
+	"button:not([disabled]):not([tabindex='-1']), a[href], [tabindex]:not([tabindex='-1'])",
+];
+
+function focusField({ fieldRef, inputRef }: { fieldRef?: HTMLElement; inputRef?: HTMLElement }) {
+	if (inputRef) {
+		inputRef.focus();
+		return;
+	}
+
+	if (!fieldRef) {
+		return;
+	}
+
+	for (const selector of focusableSelectors) {
+		for (const element of Array.from(fieldRef.querySelectorAll<HTMLElement>(selector))) {
+			element.focus();
+
+			// Elements that can't take focus, like a `display: none` file input, are skipped.
+			if (element.ownerDocument.activeElement === element) {
+				return;
+			}
+		}
+	}
+}
+
 const Form = ({
 	buttons,
 	state,
@@ -107,14 +136,14 @@ const Form = ({
 			return;
 		}
 
-		mount.fieldRef.scrollIntoView({
+		mount.fieldRef?.scrollIntoView({
 			behavior: "smooth",
 		});
 
 		window.requestAnimationFrame(() => {
-			mount.inputRef?.focus();
+			focusField(mount);
 		});
-	}, [errors, moveToError, stable.fields, stable.mounted]);
+	}, [errors, moveToError, stable, stable.fields, stable.mounted]);
 
 	const doneAutoFocus = useRef(false);
 
