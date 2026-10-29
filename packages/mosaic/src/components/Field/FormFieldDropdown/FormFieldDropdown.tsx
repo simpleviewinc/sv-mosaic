@@ -123,13 +123,14 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 				onChange={onDropDownChange}
 				renderInput={renderInput}
 				slots={{
-					// @ts-expect-error ownerState is passed down here for some reason, even though props is typed as HTMLAttributes
-					listbox: ({ ownerState, ...props }) => <StyledPopperListbox {...props} />,
 					paper: StyledPopperPaper,
 					popper: StyledPopper,
 				}}
 				slotProps={{
 					popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" },
+					// `slots.listbox` replaces MUI's listbox, including its 40vh cap.
+					// `component` swaps the element and keeps those styles.
+					listbox: { component: StyledPopperListbox },
 				}}
 				renderOption={renderOption}
 				popupIcon={<ExpandMoreIcon />}
