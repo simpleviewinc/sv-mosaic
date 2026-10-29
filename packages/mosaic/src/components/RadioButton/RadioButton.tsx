@@ -21,7 +21,7 @@ const RadioButton = (
 					disabled={disabled}
 					required={required}
 				>
-					{props.label}
+					<span aria-hidden="true">{label}</span>
 				</StyledOptionLabel>
 			)}
 			disableTypography
@@ -38,7 +38,7 @@ const RadioButton = (
 					disableRipple
 					// Set the required prop on the DOM element rather than using the RadioButton required prop because
 					// we don't want it adding an asterisk. That's already done above.
-					inputProps={{ required, "aria-describedby": describedBy }}
+					inputProps={{ required, "aria-label": label || undefined, "aria-describedby": describedBy }}
 				/>
 			)}
 		/>

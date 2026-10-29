@@ -30,7 +30,7 @@ const Checkbox = (props: CheckboxProps) => {
 					disabled={props.disabled}
 					description={props.description}
 				>
-					<span data-checkbox-visible-label aria-hidden="true">{props.label}</span>
+					<span aria-hidden="true">{props.label}</span>
 				</StyledOptionLabel>
 			)}
 			labelPlacement="end"

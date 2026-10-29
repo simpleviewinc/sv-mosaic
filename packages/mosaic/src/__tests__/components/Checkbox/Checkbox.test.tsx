@@ -60,7 +60,6 @@ describe(__dirname, () => {
 		const outerLabel = text.parentElement;
 		const anchor = outerLabel?.querySelector("svg[aria-describedby]");
 
-		expect(text).toHaveAttribute("data-checkbox-visible-label");
 		expect(text).toHaveAttribute("aria-hidden", "true");
 		expect(text).toHaveTextContent("Green");
 		expect(text).not.toHaveTextContent("The green choice");
