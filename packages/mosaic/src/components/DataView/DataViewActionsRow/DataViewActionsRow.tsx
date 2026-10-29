@@ -14,6 +14,7 @@ import Checkbox from "../../Checkbox";
 import DataViewBulkActionsButtonsRow from "../DataViewBulkActionsButtonsRow";
 import DataViewDisplayGridSortControl from "../DataViewDisplayGridSortControl";
 import testIds from "@root/utils/testIds";
+import { useMosaicTranslation } from "@root/i18n";
 
 const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 	const {
@@ -40,6 +41,8 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 		anyChecked,
 	} = props;
 
+	const { t } = useMosaicTranslation();
+
 	const limitOptionsValue = useMemo(() => {
 		return limitOptions || [25, 50, 100];
 	}, [limitOptions]);
@@ -56,6 +59,7 @@ const DataViewActionsRow = (props: DataViewActionsRowProps): ReactElement => {
 					<LeftControlsContainer>
 						{onCheckAllClick && (
 							<Checkbox
+								aria-label={t("mosaic:DataView.select_all_rows")}
 								checked={allChecked}
 								indeterminate={!allChecked && anyChecked}
 								onClick={onCheckAllClick}

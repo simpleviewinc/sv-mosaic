@@ -11,8 +11,11 @@ import type { DataViewDisplayGridProps } from "./DataViewDisplayGridTypes";
 import { StyledDiv } from "./DataViewDisplayGrid.styled";
 import Typography from "@root/components/Typography";
 import testIds from "@root/utils/testIds";
+import { useMosaicTranslation } from "@root/i18n";
 
 function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
+	const { t } = useMosaicTranslation();
+
 	if (!props.gridColumnsMap) {
 		throw new Error("You must specify gridColumnsMap in order to use the grid view.");
 	}
@@ -66,6 +69,7 @@ function DataViewDisplayGrid(props: DataViewDisplayGridProps) {
 														data-testid={testIds.DATA_VIEW_GRID_ITEM_CHECK}
 													>
 														<Checkbox
+															aria-label={t("mosaic:DataView.select_row")}
 															className="checkbox"
 															checked={Boolean(props.checked[i])}
 															onClick={checkboxClick(i)}

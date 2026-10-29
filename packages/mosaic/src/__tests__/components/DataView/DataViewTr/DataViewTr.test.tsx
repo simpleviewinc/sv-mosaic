@@ -3,6 +3,7 @@ import React, { act } from "react";
 
 import type { DataViewTrProps } from "@root/components/DataView/DataViewTr";
 
+import "@root/components/DataView";
 import DataViewTr from "@root/components/DataView/DataViewTr";
 import userEvent from "@testing-library/user-event";
 import testIds from "@root/utils/testIds";
@@ -41,6 +42,9 @@ describe(__dirname, () => {
 
 		expect(screen.queryByRole("row")).toBeInTheDocument();
 		expect(screen.queryAllByRole("cell")).toHaveLength(2);
+		for (const cell of screen.getAllByRole("cell")) {
+			expect(cell).not.toHaveAttribute("aria-label");
+		}
 	});
 
 	it("should render the row with an additional class name when checked", async () => {
@@ -69,6 +73,24 @@ describe(__dirname, () => {
 		expect(screen.queryAllByRole("cell")).toHaveLength(3);
 		expect(screen.queryByTestId(testIds.DATA_VIEW_CELL_CHECK)).toBeInTheDocument();
 		expect(screen.queryByRole("checkbox")).toBeInTheDocument();
+	});
+
+	it.each([
+		{ checked: false, disabled: false },
+		{ checked: true, disabled: false },
+		{ checked: false, disabled: true },
+	])("should name the row selection input with checked=$checked and disabled=$disabled", async ({ checked, disabled }) => {
+		const onCheckboxClick = vi.fn();
+		const { user } = await setup({ checked, disabled, onCheckboxClick });
+		const input = screen.getByRole("checkbox", { name: "Select row" });
+
+		expect(input).toHaveAttribute("aria-label", "Select row");
+		expect(input).toHaveProperty("checked", checked);
+		expect(input).toHaveProperty("disabled", disabled);
+		if (!disabled) {
+			await user.click(input);
+			expect(onCheckboxClick).toHaveBeenCalledTimes(1);
+		}
 	});
 
 	it("should expose aria-selected=true on the row when checkbox selection is enabled and the row is checked", async () => {

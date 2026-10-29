@@ -5,7 +5,6 @@ import testIds from "@root/utils/testIds";
 import { StyledTd } from "./DataViewTd.styled";
 
 function DataViewTd({
-	ariaLabel,
 	expandCell = false,
 	style: providedStyle,
 	...props
@@ -27,7 +26,6 @@ function DataViewTd({
 				${italic ? "italic" : ""}
 				${strikeThrough ? "strikeThrough" : ""}
 			`}
-			aria-label={ariaLabel}
 			style={style}
 			{...props}
 		>
