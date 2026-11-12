@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import type { FieldRef, PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
+import type { DateView, FieldRef, PickerChangeHandlerContext, DateValidationError } from "@mui/x-date-pickers/models";
 
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import format from "date-fns/format";
@@ -20,6 +20,9 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const fieldRef = useRef<FieldRef<Date | null>>(null);
+	const popperRef = useRef<HTMLDivElement>(null);
+	const focusFrameRef = useRef<number | null>(null);
+	const keyboardYearSelectionRef = useRef(false);
 	const openRef = useRef(false);
 	const valueRef = useRef(value);
 	valueRef.current = value;
@@ -64,6 +67,9 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 
 	useEffect(() => () => {
 		handleBlur.cancel();
+		if (focusFrameRef.current !== null) {
+			window.cancelAnimationFrame(focusFrameRef.current);
+		}
 	}, [handleBlur]);
 
 	const handleOpen = useCallback(() => {
@@ -72,8 +78,43 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 
 	const handleClose = useCallback(() => {
 		openRef.current = false;
+		keyboardYearSelectionRef.current = false;
+		if (focusFrameRef.current !== null) {
+			window.cancelAnimationFrame(focusFrameRef.current);
+			focusFrameRef.current = null;
+		}
 		notifyBlur();
 	}, [notifyBlur]);
+
+	const handlePopperKeyDownCapture = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+		const target = event.target as HTMLElement;
+		keyboardYearSelectionRef.current = target.getAttribute("role") === "radio"
+			&& (event.key === " " || event.key === "Enter");
+	}, []);
+
+	const handlePopperKeyUpCapture = useCallback(() => {
+		keyboardYearSelectionRef.current = false;
+	}, []);
+
+	// MUI leaves the focused year mounted while the day view fades in, so its
+	// internal focus handoff can leave focus on the exiting year button.
+	const handleViewChange = useCallback((view: DateView) => {
+		if (view !== "day" || !keyboardYearSelectionRef.current) {
+			return;
+		}
+
+		keyboardYearSelectionRef.current = false;
+		if (focusFrameRef.current !== null) {
+			window.cancelAnimationFrame(focusFrameRef.current);
+		}
+
+		focusFrameRef.current = window.requestAnimationFrame(() => {
+			focusFrameRef.current = null;
+			popperRef.current
+				?.querySelector<HTMLElement>('[role="grid"] [role="gridcell"][tabindex="0"]:not([disabled])')
+				?.focus();
+		});
+	}, []);
 
 	const handleClear = useCallback(() => {
 		valueRef.current = null;
@@ -96,6 +137,7 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 					format={DATE_FORMAT_FULL}
 					value={value}
 					onChange={handleChange}
+					onViewChange={handleViewChange}
 					onOpen={handleOpen}
 					onClose={handleClose}
 					minDate={fieldDef?.inputSettings?.minDate}
@@ -122,7 +164,10 @@ const DatePicker = (props: DatePickerProps): ReactElement => {
 							},
 						},
 						popper: {
+							ref: popperRef,
 							sx: popperSx,
+							onKeyDownCapture: handlePopperKeyDownCapture,
+							onKeyUpCapture: handlePopperKeyUpCapture,
 						},
 					}}
 				/>
