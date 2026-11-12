@@ -286,6 +286,51 @@ describe(__dirname, () => {
 		await user.click(submit);
 
 		expect(onChangeMock).toBeCalledWith("<p><img src=\"https://www.placehold.it/200\"></p>");
+		await waitFor(() => expect(screen.getByTestId(testIds.TEXT_EDITOR_CANVAS)).toHaveFocus());
+	});
+
+	it("should cancel the image form with the keyboard and restore editor focus", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ value: "", onChange: onChangeMock });
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
+		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		const dialog = screen.getByRole("dialog", { name: "Edit image" });
+		const source = screen.getByLabelText("Source*");
+		const cancel = within(dialog).getByRole("button", { name: "Cancel" });
+
+		expect(dialog).toHaveAttribute("aria-modal", "true");
+		await waitFor(() => expect(source).toHaveFocus());
+		await user.type(source, "https://example.com/cancelled.png");
+		await user.tab();
+		await user.tab();
+		await user.tab();
+		expect(cancel).toHaveFocus();
+
+		await user.keyboard("{Enter}");
+
+		expect(dialog).not.toBeInTheDocument();
+		await waitFor(() => expect(canvas).toHaveFocus());
+		expect(onChangeMock).not.toBeCalled();
+	});
+
+	it("should close the image form with Escape without requiring a source", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ value: "", onChange: onChangeMock });
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:menu-4-1`));
+		await user.click(screen.getAllByTestId(`${testIds.TEXT_EDITOR_CONTROL}:image`)[0]);
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		const source = screen.getByLabelText("Source*");
+		await waitFor(() => expect(source).toHaveFocus());
+		await user.keyboard("{Escape}");
+
+		expect(screen.queryByRole("dialog", { name: "Edit image" })).not.toBeInTheDocument();
+		await waitFor(() => expect(canvas).toHaveFocus());
+		expect(onChangeMock).not.toBeCalled();
 	});
 
 	it("should render the correct elements when an image is added using custom image handler", async () => {
@@ -342,6 +387,87 @@ describe(__dirname, () => {
 		await user.click(screen.getByRole("button", { name: "Submit" }));
 
 		expect(onChangeMock).toBeCalledWith("<p><a target=\"\" rel=\"noopener noreferrer nofollow\" href=\"https://example.com\">Test Link</a></p>");
+		await waitFor(() => expect(screen.getByTestId(testIds.TEXT_EDITOR_CANVAS)).toHaveFocus());
+	});
+
+	it("should cancel the link form with the keyboard and restore editor focus", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ value: "", onChange: onChangeMock });
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+		const dialog = screen.getByRole("dialog", { name: "Edit link" });
+		const url = screen.getByLabelText("URL*");
+		const cancel = within(dialog).getByRole("button", { name: "Cancel" });
+
+		await waitFor(() => expect(url).toHaveFocus());
+		await user.tab();
+		await user.tab();
+		await user.tab();
+		await user.tab();
+		expect(cancel).toHaveFocus();
+
+		await user.keyboard("{Enter}");
+
+		expect(dialog).not.toBeInTheDocument();
+		await waitFor(() => expect(canvas).toHaveFocus());
+		expect(onChangeMock).not.toBeCalled();
+	});
+
+	it("should preserve an existing link when its form is closed with Escape", async () => {
+		const value = "<p><a href=\"https://www.example.com\">Test Link</a></p>";
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ value, onChange: onChangeMock });
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+
+		await user.click(canvas);
+		await user.keyboard("{ArrowLeft}");
+		const toolbar = screen.getByTestId(testIds.TEXT_EDITOR_FLOATING_TOOLBAR);
+		await user.click(within(toolbar).getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+
+		const url = screen.getByLabelText("URL*");
+		await waitFor(() => expect(url).toHaveFocus());
+		await user.clear(url);
+		await user.type(url, "https://example.com/changed");
+		await user.keyboard("{Escape}");
+
+		expect(screen.queryByRole("dialog", { name: "Edit link" })).not.toBeInTheDocument();
+		await waitFor(() => expect(canvas).toHaveFocus());
+		expect(canvas.querySelector("a")).toHaveAttribute("href", "https://www.example.com");
+		expect(onChangeMock).not.toBeCalled();
+	});
+
+	it("should still remove an existing link from the node form", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({
+			value: "<p><a href=\"https://www.example.com\">Test Link</a></p>",
+			onChange: onChangeMock,
+		});
+		const canvas = screen.getByTestId(testIds.TEXT_EDITOR_CANVAS);
+
+		await user.click(canvas);
+		await user.keyboard("{ArrowLeft}");
+		const toolbar = screen.getByTestId(testIds.TEXT_EDITOR_FLOATING_TOOLBAR);
+		await user.click(within(toolbar).getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+		await user.click(screen.getByRole("button", { name: "Remove" }));
+
+		expect(screen.queryByRole("dialog", { name: "Edit link" })).not.toBeInTheDocument();
+		await waitFor(() => expect(canvas).toHaveFocus());
+		expect(onChangeMock).toBeCalledWith("<p>Test Link</p>");
+	});
+
+	it("should close a new link form with Escape without submitting it", async () => {
+		const onChangeMock = vi.fn();
+		const { user } = await setup({ value: "", onChange: onChangeMock });
+
+		await user.click(screen.getByTestId(`${testIds.TEXT_EDITOR_CONTROL}:link`));
+		await waitFor(() => expect(screen.getByLabelText("URL*")).toHaveFocus());
+		await user.keyboard("{Escape}");
+
+		expect(screen.queryByRole("dialog", { name: "Edit link" })).not.toBeInTheDocument();
+		await waitFor(() => expect(screen.getByTestId(testIds.TEXT_EDITOR_CANVAS)).toHaveFocus());
+		expect(onChangeMock).not.toBeCalled();
 	});
 
 	it("should render the correct elements when a link is added using custom link handler", async () => {
@@ -393,7 +519,7 @@ describe(__dirname, () => {
 		expect(nodeForm).toBeInTheDocument();
 		await user.click(canvas);
 		expect(nodeForm).not.toBeInTheDocument();
-		expect(canvas).toHaveFocus();
+		await waitFor(() => expect(canvas).toHaveFocus());
 	});
 
 	it("should fire the on blur handler when the date picker is closed", async () => {

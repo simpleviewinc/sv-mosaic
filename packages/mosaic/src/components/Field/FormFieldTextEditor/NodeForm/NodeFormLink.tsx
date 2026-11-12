@@ -68,7 +68,7 @@ export function NodeFormLink({ editor, isTextBased, data, onClose, update }: Nod
 			autoFocus
 			onSubmit={onSubmit}
 			bottomSlot={(
-				<NodeFormFooter onRemove={onRemove} />
+				<NodeFormFooter onCancel={onClose} onRemove={onRemove} />
 			)}
 		/>
 	);

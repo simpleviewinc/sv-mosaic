@@ -58,6 +58,7 @@ function FormFieldTextEditorUnmemo({
 		selectionTypes: [],
 	});
 	const [nodeForm, _setNodeForm] = useState<NodeFormState | null>(null);
+	const nodeFormWasOpen = useRef(false);
 
 	const setNodeForm: typeof _setNodeForm = (value) => {
 		floatingToolbarBusy.current = false;
@@ -186,9 +187,26 @@ function FormFieldTextEditorUnmemo({
 		}
 	}, [editor, value]);
 
+	useEffect(() => {
+		const nodeFormOpen = Boolean(nodeForm?.open);
+		const restoreFocus = nodeFormWasOpen.current && !nodeFormOpen;
+		nodeFormWasOpen.current = nodeFormOpen;
+
+		if (!restoreFocus) {
+			return;
+		}
+
+		const frame = window.requestAnimationFrame(() => {
+			if (!editor.isDestroyed) {
+				editor.chain().focus().run();
+			}
+		});
+
+		return () => window.cancelAnimationFrame(frame);
+	}, [editor, nodeForm?.open]);
+
 	const closeNodeForm = () => {
 		setNodeForm((state) => ({ ...state, open: false }));
-		editor.chain().focus();
 	};
 
 	if (skeleton) {
