@@ -9,6 +9,7 @@ export interface SideNavArgs {
 export type SideNavOnNav = (args: SideNavArgs) => void;
 
 export interface SideNavProps {
+	label?: string;
 	/**
 	 * List of lists of links, each list represents a section of links
 	 */

@@ -8,7 +8,7 @@ import { StyledSideNav } from "./SideNav.styled";
 import { SideNavGroup } from "./SideNavGroup";
 
 const SideNav = (props: SideNavProps): ReactElement => {
-	const { items, active, onNav, className, collapse } = props;
+	const { items, active, onNav, className, collapse, label } = props;
 
 	/**
 	 * Set the clicked link as selected and executes the
@@ -35,7 +35,7 @@ const SideNav = (props: SideNavProps): ReactElement => {
 	}, [onNav]);
 
 	return (
-		<StyledSideNav className={className} $collapse={collapse}>
+		<StyledSideNav aria-label={label} className={className} $collapse={collapse}>
 			{items.map((itemGroup, groupIndex) => {
 				return (
 					<SideNavGroup
