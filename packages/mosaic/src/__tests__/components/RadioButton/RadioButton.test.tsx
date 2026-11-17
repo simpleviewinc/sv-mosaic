@@ -26,6 +26,21 @@ describe("RadioButton component", () => {
 		expect(radioButton.disabled).toBe(true);
 	});
 
+	it("should name the input from the label and hide the duplicate visible text", () => {
+		render(<RadioButton label="Label test" />);
+
+		expect(screen.getByRole("radio", { name: "Label test" })).toHaveAttribute("aria-label", "Label test");
+		expect(screen.getByText("Label test")).toHaveAttribute("aria-hidden", "true");
+	});
+
+	it("should check the RadioButton when the visible label is clicked", () => {
+		render(<RadioButton label="Label test" />);
+
+		fireEvent.click(screen.getByText("Label test"));
+
+		expect((screen.getByRole("radio") as HTMLInputElement).checked).toBe(true);
+	});
+
 	it("should test that the RadioButton is required", () => {
 		render(<RadioButton label="Label test" disabled={false} required={true} />);
 

@@ -11,12 +11,14 @@ export function ToggleSwitch({
 	onChange,
 	onBlur: providedOnBlur,
 	describedById,
+	ariaLabel,
 }: {
 	disabled?: boolean;
 	checked?: boolean;
 	onChange?: ChangeEventHandler<HTMLInputElement>;
 	onBlur?: FocusEventHandler<HTMLInputElement>;
 	describedById?: string;
+	ariaLabel?: string;
 }): ReactElement {
 	const { ref, onFocus, onBlur, isFocusVisibleRef } = useIsFocusVisible();
 	const [isFocusVisible, setIsFocusVisible] = useState(false);
@@ -43,6 +45,7 @@ export function ToggleSwitch({
 				ref={ref}
 				disabled={disabled}
 				checked={Boolean(checked)}
+				aria-label={ariaLabel}
 				aria-describedby={describedById}
 				{...inputProps}
 			/>

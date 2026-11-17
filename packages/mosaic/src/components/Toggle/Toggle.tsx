@@ -26,7 +26,7 @@ const Toggle = ({
 					disabled={disabled}
 					required={required}
 				>
-					{label}
+					<span aria-hidden="true">{label}</span>
 				</StyledOptionLabel>
 			)}
 			$gap={[3]}
@@ -40,6 +40,7 @@ const Toggle = ({
 					onChange={(e) => onChange && onChange(e.target.checked)}
 					onBlur={(e) => onBlur && onBlur(e.target.checked)}
 					describedById={describedById}
+					ariaLabel={label || undefined}
 				/>
 			)}
 		/>
