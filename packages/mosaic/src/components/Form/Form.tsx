@@ -44,7 +44,10 @@ const focusableSelectors = [
 function focusField({ fieldRef, inputRef }: { fieldRef?: HTMLElement; inputRef?: HTMLElement }) {
 	if (inputRef) {
 		inputRef.focus();
-		return;
+
+		if (inputRef.ownerDocument.activeElement === inputRef) {
+			return;
+		}
 	}
 
 	if (!fieldRef) {
