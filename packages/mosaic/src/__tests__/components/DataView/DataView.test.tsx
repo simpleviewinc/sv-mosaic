@@ -51,10 +51,10 @@ describe(__dirname, () => {
 	it("should render the data view", async () => {
 		await setup();
 
-		expect(screen.queryByRole("columnheader", { name: "Column 1" })).toBeInTheDocument();
-		expect(screen.queryByRole("columnheader", { name: "Column 2" })).toBeInTheDocument();
-		expect(screen.queryAllByLabelText("Column 1")).toHaveLength(2);
-		expect(screen.queryAllByLabelText("Column 2")).toHaveLength(2);
+		expect(screen.queryByRole("columnheader", { name: "Column 1" })).toHaveAttribute("scope", "col");
+		expect(screen.queryByRole("columnheader", { name: "Column 2" })).toHaveAttribute("scope", "col");
+		expect(screen.queryAllByLabelText("Column 1")).toHaveLength(0);
+		expect(screen.queryAllByLabelText("Column 2")).toHaveLength(0);
 	});
 
 	it("should throw an error if a provided active filter is not recognised as a valid filter", async () => {

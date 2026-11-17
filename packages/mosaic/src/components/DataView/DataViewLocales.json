@@ -1,12 +1,14 @@
 {
 	"en" : {
 		"actions": "Actions",
+		"bulk_actions": "Bulk actions",
 		"clear_filters": "Clear filters",
 		"column_order": "Column Order",
 		"columns": "Columns",
 		"comparison": "Comparison",
 		"default": "Default",
 		"default_view": "Default View",
+		"drag_to_reorder": "Drag to reorder",
 		"filters": "Filters",
 		"go": "Go",
 		"jump_to_page": "Jump to Page",
@@ -21,6 +23,8 @@
 		"save_as_new_view": "Save as New View",
 		"save_view": "Save View",
 		"saved_views": "Saved Views",
+		"select_rows": "Select rows",
+		"selected_rows": "Selected rows",
 		"no_view_selected": "No view selected",
 		"selected_options": "Selected Options",
 		"show_for_all_users": "Show for all Users",
@@ -31,15 +35,19 @@
 		"cancel_column_settings": "Cancel column settings"
 	},
 	"es" : {
+		"bulk_actions": "Acciones en lote",
 		"clear_filters": "Limpiar filtros",
 		"columns": "Columnas",
 		"default_view": "Vista predeterminada",
+		"drag_to_reorder": "Arrastrar para reordenar",
 		"filters": "Filtros",
 		"jump_to_page": "Ir a la página",
 		"more": "Más",
 		"overwrite_current_view": "Sobrescribir vista actual",
 		"save_as": "Guardar como",
 		"save_as_new_view": "Guardar como nueva vista",
-		"save_view": "Guardar Vista"
+		"save_view": "Guardar Vista",
+		"select_rows": "Seleccionar filas",
+		"selected_rows": "Filas seleccionadas"
 	}
 }
