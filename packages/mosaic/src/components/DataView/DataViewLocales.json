@@ -18,13 +18,13 @@
 		"overwrite_current_view": "Overwrite Current View",
 		"page": "Page",
 		"remove": "Remove",
+		"select_all_rows": "Select all rows",
+		"select_row": "Select row",
 		"save_as": "Save As",
 		"view": "View",
 		"save_as_new_view": "Save as New View",
 		"save_view": "Save View",
 		"saved_views": "Saved Views",
-		"select_rows": "Select rows",
-		"selected_rows": "Selected rows",
 		"no_view_selected": "No view selected",
 		"selected_options": "Selected Options",
 		"show_for_all_users": "Show for all Users",
@@ -44,10 +44,10 @@
 		"jump_to_page": "Ir a la página",
 		"more": "Más",
 		"overwrite_current_view": "Sobrescribir vista actual",
+		"select_all_rows": "Seleccionar todas las filas",
+		"select_row": "Seleccionar fila",
 		"save_as": "Guardar como",
 		"save_as_new_view": "Guardar como nueva vista",
-		"save_view": "Guardar Vista",
-		"select_rows": "Seleccionar filas",
-		"selected_rows": "Filas seleccionadas"
+		"save_view": "Guardar Vista"
 	}
 }
