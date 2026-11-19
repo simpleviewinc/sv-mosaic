@@ -54,6 +54,10 @@ function CustomField() {
 }
 
 describe("Form error focus", () => {
+	afterEach(() => {
+		vi.restoreAllMocks();
+	});
+
 	it("focuses the first invalid field for each failed submission", async () => {
 		const user = userEvent.setup();
 		const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");
@@ -71,6 +75,43 @@ describe("Form error focus", () => {
 		await user.click(screen.getByRole("textbox", { name: /Outside/ }));
 		await user.click(screen.getByRole("button", { name: "Submit" }));
 		await waitFor(() => expect(screen.getByRole("textbox", { name: /Email/ })).toHaveFocus());
+	});
+
+	it("focuses the invalid field's wrapper before its input and leaves the wrapper out of the tab order", async () => {
+		const user = userEvent.setup();
+		render(<ErrorFocusForm />);
+
+		const required = screen.getByRole("textbox", { name: /Required/ });
+		const [wrapper] = screen.getAllByTestId("field-test-id");
+		const focused: Element[] = [];
+		const onFocusIn = (e: FocusEvent) => focused.push(e.target as Element);
+		document.addEventListener("focusin", onFocusIn);
+
+		await user.click(screen.getByRole("button", { name: "Submit" }));
+		await waitFor(() => expect(required).toHaveFocus());
+		document.removeEventListener("focusin", onFocusIn);
+
+		expect(focused.slice(-2)).toEqual([wrapper, required]);
+		expect(wrapper).not.toHaveAttribute("tabindex");
+	});
+
+	it("keeps focus where it was when no control in the invalid field can take focus", async () => {
+		const user = userEvent.setup();
+		render(<ErrorFocusForm />);
+
+		const submit = screen.getByRole("button", { name: "Submit" });
+		const [wrapper] = screen.getAllByTestId("field-test-id");
+		const focused: Element[] = [];
+		const onFocusIn = (e: FocusEvent) => focused.push(e.target as Element);
+		document.addEventListener("focusin", onFocusIn);
+		vi.spyOn(HTMLInputElement.prototype, "focus").mockImplementation(() => undefined);
+
+		await user.click(submit);
+		await waitFor(() => expect(focused.slice(-2)).toEqual([wrapper, submit]));
+		document.removeEventListener("focusin", onFocusIn);
+
+		expect(submit).toHaveFocus();
+		expect(wrapper).not.toHaveAttribute("tabindex");
 	});
 
 	it("does not restore error focus when later validation updates errors", async () => {

@@ -41,7 +41,12 @@ const focusableSelectors = [
 	"button:not([disabled]):not([tabindex='-1']), a[href], [tabindex]:not([tabindex='-1'])",
 ];
 
-function focusField({ fieldRef, inputRef }: { fieldRef?: HTMLElement; inputRef?: HTMLElement }) {
+interface FieldElements {
+	fieldRef?: HTMLElement;
+	inputRef?: HTMLElement;
+}
+
+function focusControl({ fieldRef, inputRef }: FieldElements) {
 	if (inputRef) {
 		inputRef.focus();
 
@@ -64,6 +69,33 @@ function focusField({ fieldRef, inputRef }: { fieldRef?: HTMLElement; inputRef?:
 			}
 		}
 	}
+}
+
+function focusField(elements: FieldElements) {
+	const { fieldRef } = elements;
+
+	if (!fieldRef) {
+		focusControl(elements);
+		return;
+	}
+
+	// Safari + VoiceOver reads only the value of a text field that already has
+	// one when a script focuses it directly. Focusing the field's wrapper for a
+	// frame first makes it also announce the label and invalid state.
+	const previousFocus = fieldRef.ownerDocument.activeElement;
+	fieldRef.tabIndex = -1;
+	fieldRef.focus({ preventScroll: true });
+
+	window.requestAnimationFrame(() => {
+		focusControl(elements);
+
+		const noControlTookFocus = fieldRef.ownerDocument.activeElement === fieldRef;
+		fieldRef.removeAttribute("tabindex");
+
+		if (noControlTookFocus && previousFocus instanceof HTMLElement) {
+			previousFocus.focus({ preventScroll: true });
+		}
+	});
 }
 
 const Form = ({
