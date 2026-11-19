@@ -4,8 +4,7 @@ import type { CheckboxProps } from "./CheckboxTypes";
 import { StyledCheckbox } from "./Checkbox.styled";
 import testIds from "@root/utils/testIds";
 import CheckboxIcon from "./CheckboxIcon";
-import { StyledOptionLabel } from "../common/StyledOptionLabel";
-import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
+import { OptionField } from "../common/OptionField";
 import useMountWarning from "@root/utils/hooks/useMountWarning/useMountWarning";
 
 const Checkbox = (props: CheckboxProps) => {
@@ -14,6 +13,7 @@ const Checkbox = (props: CheckboxProps) => {
 	const { label } = props;
 	const ariaLabel = props["aria-label"];
 	const ariaLabelledBy = props["aria-labelledby"];
+	const inputAriaLabel = ariaLabelledBy ? ariaLabel : ariaLabel ?? label;
 
 	// `aria-label`/`aria-labelledby` becomes the input's accessible name and
 	// hides the visible label from assistive technology, so the announced name
@@ -24,21 +24,12 @@ const Checkbox = (props: CheckboxProps) => {
 	);
 
 	return (
-		<StyledOptionFormControl
-			label={props.label && (
-				<StyledOptionLabel
-					disabled={props.disabled}
-					description={props.description}
-				>
-					<span aria-hidden="true">{props.label}</span>
-				</StyledOptionLabel>
-			)}
-			labelPlacement="end"
-			data-testid="label-test-id"
-			value={props.value}
+		<OptionField
+			id={id}
+			label={label}
+			description={props.description}
 			disabled={props.disabled}
-			htmlFor={id}
-			disableTypography
+			data-testid="label-test-id"
 			control={(
 				<StyledCheckbox
 					data-testid={testIds.CHECKBOX_WRAPPER}
@@ -53,6 +44,7 @@ const Checkbox = (props: CheckboxProps) => {
 					onChange={props.onChange}
 					indeterminate={props.indeterminate}
 					id={id}
+					value={props.value}
 					icon={<CheckboxIcon />}
 					checkedIcon={<CheckboxIcon checked />}
 					indeterminateIcon={<CheckboxIcon indeterminate />}
@@ -60,8 +52,8 @@ const Checkbox = (props: CheckboxProps) => {
 					disabled={props.disabled}
 					slotProps={{
 						input: {
-							"aria-label": ariaLabelledBy ? ariaLabel : ariaLabel ?? label,
-							"aria-labelledby": props["aria-labelledby"],
+							"aria-label": inputAriaLabel,
+							"aria-labelledby": ariaLabelledBy,
 							"aria-describedby": props["aria-describedby"],
 						},
 					}}

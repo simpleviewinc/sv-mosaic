@@ -16,6 +16,6 @@ export class FormFieldTogglePage extends BasePage {
 		this.page = page;
 		this.regularToggleWithLabel = page.locator("#toggleDefault input");
 		this.regularToggleWithoutLabel = page.locator("#toggleWithoutLabel input");
-		this.regularLabel = page.locator("span.MuiFormControlLabel-label").nth(0);
+		this.regularLabel = page.locator("#toggleDefault [data-testid='mos:Toggle:root'] > span:last-child").nth(0);
 	}
 }

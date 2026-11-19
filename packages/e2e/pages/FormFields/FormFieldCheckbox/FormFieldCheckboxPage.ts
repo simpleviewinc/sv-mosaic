@@ -18,18 +18,18 @@ export class FormFieldCheckboxPage extends BasePage {
 		this.page = page;
 		this.regularCheckboxButton = page.locator(".listItem").nth(0);
 		this.disableCheckbox = page.locator("#disabledCheckbox");
-		this.checkboxLabel = page.locator("label[data-testid='label-test-id']");
+		this.checkboxLabel = page.locator("[data-testid='label-test-id'] > span:last-child");
 		this.regularCheckboxLocator = page.locator("#checkbox");
 		this.fromDBCheckboxLocator = page.locator("#checkboxFromDB");
 	}
 
 	async selectRandomCheckboxButton(): Promise<number> {
 		const optionSelected = randomIntFromInterval(1, await this.regularCheckboxButton.locator("[data-testid='label-test-id']").count()) - 1;
-		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(optionSelected).check();
+		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(optionSelected).locator("input").check();
 		return optionSelected;
 	}
 
 	async uncheckCheckboxOption(option: number): Promise<void> {
-		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(option).uncheck();
+		await this.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(option).locator("input").uncheck();
 	}
 }

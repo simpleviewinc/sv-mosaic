@@ -45,25 +45,29 @@ describe(__dirname, () => {
 		expect(screen.queryByTestId(testIds.CHECKBOX_WRAPPER)).toHaveClass("MyCheckbox");
 	});
 
-	it("should expose the label text as the checkbox's accessible name", async () => {
+	it("should name the checkbox directly and hide the duplicate visible text", async () => {
 		await setup({ label: "Green" });
 
 		const checkbox = screen.getByRole("checkbox", { name: "Green" });
+		const text = screen.getByText("Green");
+
 		expect(checkbox).toHaveAttribute("aria-label", "Green");
-		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
+		expect(checkbox.closest("label")).toBeNull();
+		expect(text).toHaveAttribute("aria-hidden", "true");
+		expect(text.closest("label")).toBeNull();
 	});
 
 	it("should keep the description tooltip anchor outside hidden visible label text", async () => {
 		await setup({ label: "Green", description: "The green choice" });
 
 		const text = screen.getByText("Green");
-		const outerLabel = text.parentElement;
-		const anchor = outerLabel?.querySelector("svg[aria-describedby]");
+		const visibleLabel = text.parentElement;
+		const anchor = visibleLabel?.querySelector("svg[aria-describedby]");
 
 		expect(text).toHaveAttribute("aria-hidden", "true");
 		expect(text).toHaveTextContent("Green");
 		expect(text).not.toHaveTextContent("The green choice");
-		expect(outerLabel).not.toHaveAttribute("aria-hidden");
+		expect(visibleLabel).not.toHaveAttribute("aria-hidden");
 		expect(anchor).toBeInTheDocument();
 		expect(anchor?.parentElement?.closest("[aria-hidden=true]")).toBeNull();
 		expect(anchor).toHaveAttribute("aria-describedby", expect.stringMatching(/^tooltip-/));
@@ -86,7 +90,10 @@ describe(__dirname, () => {
 		const warnMock = vi.spyOn(console, "warn").mockImplementation(() => null);
 		await setup({ label: "Green", "aria-label": "Green swatch" });
 
-		expect(screen.getByRole("checkbox", { name: "Green swatch" })).toHaveAttribute("aria-label", "Green swatch");
+		const checkbox = screen.getByRole("checkbox", { name: "Green swatch" });
+		expect(checkbox).toHaveAttribute("aria-label", "Green swatch");
+		expect(checkbox.closest("label")).toBeNull();
+		expect(screen.getByText("Green").closest("label")).toBeNull();
 		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
 		expect(warnMock).toHaveBeenCalled();
 	});
@@ -103,11 +110,23 @@ describe(__dirname, () => {
 			const checkbox = screen.getByRole("checkbox", { name: "Green swatch" });
 			expect(checkbox).toHaveAttribute("aria-labelledby", heading.id);
 			expect(checkbox).not.toHaveAttribute("aria-label");
+			expect(checkbox.closest("label")).toBeNull();
+			expect(screen.getByText("Green").closest("label")).toBeNull();
 			expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
 			expect(warnMock).toHaveBeenCalled();
 		} finally {
 			heading.remove();
 		}
+	});
+
+	it("should toggle when an overridden visible label is clicked", async () => {
+		vi.spyOn(console, "warn").mockImplementation(() => null);
+		const onChange = vi.fn();
+		await setup({ checked: false, label: "Green", "aria-label": "Green swatch", onChange });
+
+		await userEvent.click(screen.getByText("Green"));
+
+		expect(onChange).toHaveBeenCalledOnce();
 	});
 
 	it("should toggle when the visible label is clicked", async () => {
@@ -128,6 +147,7 @@ describe(__dirname, () => {
 		expect(checkbox).toBeDisabled();
 		expect(checkbox).toHaveAttribute("aria-label", "Green");
 		expect(screen.getByText("Green")).toHaveAttribute("aria-hidden", "true");
+		expect(screen.getByText("Green").closest("label")).toBeNull();
 	});
 
 	it("should warn when both a visible label and an aria-label are provided", async () => {
