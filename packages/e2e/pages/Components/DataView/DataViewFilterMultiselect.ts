@@ -1,7 +1,6 @@
 import { testIds } from "@simpleview/sv-mosaic";
 import { BasePage } from "../../BasePage";
 import type { Locator, Page } from "@playwright/test";
-import { expect } from "@playwright/test";
 
 export class DataViewFilterMultiselectComponent extends BasePage {
 
@@ -21,8 +20,8 @@ export class DataViewFilterMultiselectComponent extends BasePage {
 	constructor(page: Page) {
 		super(page);
 		this.page = page;
-		this.optionsLocator = page.getByTestId("mos:DataView:filterMultiOptions");
-		this.selectedOptionsLocator = page.getByTestId("mos:DataView:filterMultiActive");
+		this.optionsLocator = page.getByTestId(testIds.DATA_VIEW_FILTER_MULTI_CONTENT);
+		this.selectedOptionsLocator = page.getByTestId(testIds.DATA_VIEW_FILTER_MULTI_ACTIVE);
 		this.hideComparisonSelectorButton = page.getByRole("button", { name: "Multi Select Category Without Comparisons" });
 		this.showComparisonSelectorButton = page.getByRole("button", { name: "Multi Select Category With Comparisons" });
 		this.comparisonDropdown = page.getByTestId("mos:DataView:filtersComparison");

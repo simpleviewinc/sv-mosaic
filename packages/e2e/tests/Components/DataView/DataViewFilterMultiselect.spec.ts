@@ -14,12 +14,13 @@ test.describe("Components - DataViewFilterMultiSelect - Kitchen Sink", () => {
 	});
 
 	async function validateSelectedOption(comparisonLocator: Locator) {
-		const optionLocator = multiSelectComponent.page.locator("label").first();
-		await optionLocator.click();
+		const optionLocator = multiSelectComponent.optionsLocator.getByRole("checkbox").first();
+		const optionText = await optionLocator.getAttribute("aria-label");
+
+		await optionLocator.check();
 		await multiSelectComponent.applyBtn.click();
 
 		const comparisonText = await comparisonLocator.textContent();
-		const optionText = await optionLocator.textContent();
 
 		expect(comparisonText).toContain(optionText);
 	}

@@ -19,7 +19,7 @@ export class ColumnsComponent extends BasePage {
 		this.title = page.locator("[data-testid='drawer-title-test-id']");
 		this.columnsBtn = page.locator(".headerActions button").first();
 		this.rightItems = page.getByTestId("mos:DataView:activeColumns").locator("[role='button']");
-		this.leftItems = this.listItemLabelLocator;
+		this.leftItems = this.listItemOptionLocator;
 		this.btnLocator = ".buttons .iconButton.variant_icon button[type='button']";
 		this.checkboxLocator = `[data-testid='${testIds.CHECKBOX_WRAPPER}'] input`;
 		this.columnCheckbox = page.locator(`.left [data-testid='${testIds.CHECKBOX_WRAPPER}']`);
