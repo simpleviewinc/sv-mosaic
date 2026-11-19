@@ -123,10 +123,12 @@ describe(__dirname, () => {
 		vi.spyOn(console, "warn").mockImplementation(() => null);
 		const onChange = vi.fn();
 		await setup({ checked: false, label: "Green", "aria-label": "Green swatch", onChange });
+		const checkbox = screen.getByRole("checkbox", { name: "Green swatch" });
 
 		await userEvent.click(screen.getByText("Green"));
 
 		expect(onChange).toHaveBeenCalledOnce();
+		expect(checkbox).toHaveFocus();
 	});
 
 	it("should toggle when the visible label is clicked", async () => {
@@ -134,10 +136,12 @@ describe(__dirname, () => {
 			expect(event.target.checked).toBe(true);
 		});
 		await setup({ checked: false, label: "Green", onChange });
+		const checkbox = screen.getByRole("checkbox", { name: "Green" });
 
 		await userEvent.click(screen.getByText("Green"));
 
 		expect(onChange).toHaveBeenCalledOnce();
+		expect(checkbox).toHaveFocus();
 	});
 
 	it("should keep a disabled checkbox named", async () => {

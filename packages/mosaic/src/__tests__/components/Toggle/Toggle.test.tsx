@@ -49,9 +49,11 @@ describe("Toggle component", () => {
 
 	it("should check the Toggle when the visible label is clicked", () => {
 		render(<ToggleExample />);
+		const toggle = getByRole("checkbox") as HTMLInputElement;
 
 		fireEvent.click(getByText("Label test"));
 
-		expect((getByRole("checkbox") as HTMLInputElement).checked).toEqual(true);
+		expect(toggle.checked).toEqual(true);
+		expect(toggle).toHaveFocus();
 	});
 });

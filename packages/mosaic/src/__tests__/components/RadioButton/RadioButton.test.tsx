@@ -1,4 +1,5 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import RadioButton from "@root/components/RadioButton";
 
@@ -37,12 +38,14 @@ describe("RadioButton component", () => {
 		expect(screen.getByText("Label test").closest("label")).toBeNull();
 	});
 
-	it("should check the RadioButton when the visible label is clicked", () => {
+	it("should check the RadioButton when the visible label is clicked", async () => {
 		render(<RadioButton label="Label test" />);
+		const radio = screen.getByRole("radio") as HTMLInputElement;
 
-		fireEvent.click(screen.getByText("Label test"));
+		await userEvent.click(screen.getByText("Label test"));
 
-		expect((screen.getByRole("radio") as HTMLInputElement).checked).toBe(true);
+		expect(radio.checked).toBe(true);
+		expect(radio).toHaveFocus();
 	});
 
 	it("should test that the RadioButton is required", () => {

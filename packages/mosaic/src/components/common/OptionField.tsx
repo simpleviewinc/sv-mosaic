@@ -48,8 +48,8 @@ const StyledHiddenLabelText = styled.span<{ $disabled?: boolean }>`
 
 export interface OptionFieldProps {
 	/**
-	 * Id of the input. A visible label that is the accessible name
-	 * points at this id with `for`.
+	 * Id of the input used to forward focus and clicks from the
+	 * visual-only label text without creating a native label association.
 	 */
 	id: string;
 	control: ReactNode;
@@ -103,7 +103,12 @@ export function OptionField({
 							$disabled={disabled}
 							aria-hidden="true"
 							onClick={disabled ? undefined : () => {
-								document.getElementById(id)?.click();
+								const input = document.getElementById(id);
+
+								if (input instanceof HTMLInputElement) {
+									input.focus();
+									input.click();
+								}
 							}}
 						>
 							{label}
