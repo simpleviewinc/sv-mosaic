@@ -15,7 +15,7 @@ test.describe("FormFields - FormFieldsCheckbox - Kitchen Sink", () => {
 
 	test("Validate Regular Checkbox.", async () => {
 		const selectedOption = await formFieldCheckboxPage.selectRandomCheckboxButton();
-		await expect(formFieldCheckboxPage.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(selectedOption)).toBeChecked();
+		await expect(formFieldCheckboxPage.regularCheckboxButton.locator("[data-testid='label-test-id']").nth(selectedOption).locator("input")).toBeChecked();
 	});
 
 	test("Validate Disabled Checkbox displays disabled inputs", async () => {

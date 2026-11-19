@@ -43,6 +43,6 @@ test.describe("Components - Checkbox - Example", () => {
 
 	test("Validate checkbox is disabled when knob is active", async () => {
 		await checkboxPage.visit(checkboxPage.checkbox_page_path, [knob.knobDisabled + "true"]);
-		await expect(checkboxPage.checkboxLabel).toBeDisabled();
+		await expect(checkboxPage.checkboxInput).toBeDisabled();
 	});
 });

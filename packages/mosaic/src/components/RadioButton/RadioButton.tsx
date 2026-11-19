@@ -4,8 +4,7 @@ import type { ReactElement, HTMLAttributes } from "react";
 // Types and styles
 import type { RadioButtonProps } from "./RadioButtonTypes";
 import { StyledRadioButton } from "./RadioButton.styled";
-import { StyledOptionLabel } from "../common/StyledOptionLabel";
-import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
+import { OptionField } from "../common/OptionField";
 import RadioIcon from "./RadioIcon";
 
 const RadioButton = (
@@ -13,21 +12,14 @@ const RadioButton = (
 ): ReactElement => {
 	const { label, required, disabled, value, checked } = props;
 	const describedBy = props["aria-describedby"];
+	const id = React.useId();
 
 	return (
-		<StyledOptionFormControl
-			label={label && (
-				<StyledOptionLabel
-					disabled={disabled}
-					required={required}
-				>
-					<span aria-hidden="true">{label}</span>
-				</StyledOptionLabel>
-			)}
-			disableTypography
-			labelPlacement="end"
-			value={value}
+		<OptionField
+			id={id}
+			label={label}
 			disabled={disabled}
+			required={required}
 			control={(
 				<StyledRadioButton
 					data-testid="radio-button-test"
@@ -36,6 +28,8 @@ const RadioButton = (
 					icon={<RadioIcon />}
 					checkedIcon={<RadioIcon checked />}
 					disableRipple
+					id={id}
+					value={value}
 					// Set the required prop on the DOM element rather than using the RadioButton required prop because
 					// we don't want it adding an asterisk. That's already done above.
 					inputProps={{ required, "aria-label": label || undefined, "aria-describedby": describedBy }}

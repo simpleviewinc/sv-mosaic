@@ -44,7 +44,7 @@ export class BasePage {
 	readonly tableHeadRowLocator: Locator;
 	readonly iconButtonTestLocator: string;
 	readonly viewContainerLocator: Locator;
-	readonly listItemLabelLocator: Locator;
+	readonly listItemOptionLocator: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
@@ -83,7 +83,7 @@ export class BasePage {
 		this.tableHeadRowLocator = page.locator("thead tr");
 		this.iconButtonTestLocator = "[data-testid='icon-button-test']";
 		this.viewContainerLocator = page.locator(".viewContainer");
-		this.listItemLabelLocator = page.locator(".listItem label");
+		this.listItemOptionLocator = page.locator(".listItem [data-testid='label-test-id']");
 	}
 
 	async visit(page_path: string, knobs?: string[]): Promise<void> {

@@ -36,18 +36,24 @@ describe("Toggle component", () => {
 		expect(toggle.checked).toEqual(true);
 	});
 
-	it("should name the input from the label and hide the duplicate visible text", () => {
+	it("should name the input directly and hide the duplicate visible text", () => {
 		render(<ToggleExample />);
 
-		expect(getByRole("checkbox", { name: "Label test" })).toHaveAttribute("aria-label", "Label test");
+		const toggle = getByRole("checkbox", { name: "Label test" });
+
+		expect(toggle).toHaveAttribute("aria-label", "Label test");
+		expect(toggle.closest("label")).toBeNull();
 		expect(getByText("Label test")).toHaveAttribute("aria-hidden", "true");
+		expect(getByText("Label test").closest("label")).toBeNull();
 	});
 
 	it("should check the Toggle when the visible label is clicked", () => {
 		render(<ToggleExample />);
+		const toggle = getByRole("checkbox") as HTMLInputElement;
 
 		fireEvent.click(getByText("Label test"));
 
-		expect((getByRole("checkbox") as HTMLInputElement).checked).toEqual(true);
+		expect(toggle.checked).toEqual(true);
+		expect(toggle).toHaveFocus();
 	});
 });

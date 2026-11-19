@@ -39,7 +39,7 @@ export function StyledOptionLabel({
 	return (
 		<StyledOptionLabelText $disabled={disabled}>
 			{children}
-			{required && <StyledRequired>*</StyledRequired>}
+			{required && <StyledRequired aria-hidden="true">*</StyledRequired>}
 			{description && (
 				<>
 					<StyledTooltipIcon {...anchorProps} />

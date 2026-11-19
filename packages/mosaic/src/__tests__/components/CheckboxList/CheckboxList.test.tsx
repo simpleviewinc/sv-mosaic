@@ -31,9 +31,12 @@ describe(__dirname, () => {
 	it("should render a checkbox list", async () => {
 		await setup();
 
+		const checkbox = screen.getByRole("checkbox", { name: "Item 1" });
+
 		expect(screen.queryAllByRole("checkbox")).toHaveLength(2);
-		expect(screen.getByRole("checkbox", { name: "Item 1" })).toHaveAttribute("aria-label", "Item 1");
+		expect(checkbox).toHaveAttribute("aria-label", "Item 1");
 		expect(screen.getByText("Item 1")).toHaveAttribute("aria-hidden", "true");
+		expect(screen.getByText("Item 1").closest("label")).toBeNull();
 	});
 
 	it("should trigger the change handler with the correct parameters", async () => {

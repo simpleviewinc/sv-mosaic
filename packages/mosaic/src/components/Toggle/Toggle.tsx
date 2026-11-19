@@ -6,8 +6,7 @@ import type { ToggleProps } from "./ToggleTypes";
 
 import testIds from "@root/utils/testIds";
 import { ToggleSwitch } from "./ToggleSwitch";
-import { StyledOptionFormControl } from "../common/StyledOptionFormControl";
-import { StyledOptionLabel } from "../common/StyledOptionLabel";
+import { OptionField } from "../common/OptionField";
 
 const Toggle = ({
 	checked,
@@ -19,28 +18,26 @@ const Toggle = ({
 	onBlur,
 	describedById,
 }: ToggleProps): ReactElement => {
+	const id = React.useId();
+
 	return (
-		<StyledOptionFormControl
-			label={label && (
-				<StyledOptionLabel
-					disabled={disabled}
-					required={required}
-				>
-					<span aria-hidden="true">{label}</span>
-				</StyledOptionLabel>
-			)}
-			$gap={[3]}
-			disableTypography
+		<OptionField
+			id={id}
+			label={label}
 			labelPlacement={labelPlacement}
+			required={required}
 			disabled={disabled}
+			gap={[3]}
 			data-testid={testIds.TOGGLE}
 			control={(
 				<ToggleSwitch
+					id={id}
+					disabled={disabled}
 					checked={checked}
+					ariaLabel={label || undefined}
 					onChange={(e) => onChange && onChange(e.target.checked)}
 					onBlur={(e) => onBlur && onBlur(e.target.checked)}
 					describedById={describedById}
-					ariaLabel={label || undefined}
 				/>
 			)}
 		/>

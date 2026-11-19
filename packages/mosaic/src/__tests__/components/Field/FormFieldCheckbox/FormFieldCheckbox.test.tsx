@@ -44,9 +44,12 @@ describe(__dirname, () => {
 	it("should render the checkbox form field", async () => {
 		await setup();
 
+		const dog = screen.getByRole("checkbox", { name: "Dog" });
+
 		expect(screen.queryByRole("checkbox", { name: "Cat" })).toBeInTheDocument();
-		expect(screen.getByRole("checkbox", { name: "Dog" })).toHaveAttribute("aria-label", "Dog");
+		expect(dog).toHaveAttribute("aria-label", "Dog");
 		expect(screen.getByText("Dog")).toHaveAttribute("aria-hidden", "true");
+		expect(screen.getByText("Dog").closest("label")).toBeNull();
 		expect(screen.queryByRole("checkbox", { name: "Horse" })).toBeInTheDocument();
 	});
 

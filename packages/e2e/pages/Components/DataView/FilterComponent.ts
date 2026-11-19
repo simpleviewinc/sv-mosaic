@@ -53,7 +53,7 @@ export class FilterComponent extends BasePage {
 		this.updatedOption = this.labelCheckbox.locator(":scope", { hasText: "Updated" });
 		this.titleWithComparisonOption = this.labelCheckbox.locator(":scope", { hasText: "Title with Comparisons" });
 
-		this.categoryItems = this.listItemLabelLocator;
+		this.categoryItems = this.listItemOptionLocator;
 		this.selectedOptions = page.getByTestId("mos:Chip:root");
 		this.loadMoreBtn = page.getByRole("button", { name: "Load more..." });
 		this.moreCategoriesTooltip = page.getByTestId(testIds.DATA_VIEW_FILTER_MULTI_COUNTER);
