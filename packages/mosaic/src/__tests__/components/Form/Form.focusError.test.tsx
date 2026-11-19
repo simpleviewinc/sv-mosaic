@@ -77,25 +77,29 @@ describe("Form error focus", () => {
 		await waitFor(() => expect(screen.getByRole("textbox", { name: /Email/ })).toHaveFocus());
 	});
 
-	it("focuses the invalid field's wrapper before its input and leaves the wrapper out of the tab order", async () => {
+	it("holds focus on the invalid field's wrapper for a frame, then moves it to the input and removes the temporary tabindex", async () => {
 		const user = userEvent.setup();
 		render(<ErrorFocusForm />);
 
 		const required = screen.getByRole("textbox", { name: /Required/ });
 		const [wrapper] = screen.getAllByTestId("field-test-id");
-		const focused: Element[] = [];
-		const onFocusIn = (e: FocusEvent) => focused.push(e.target as Element);
-		document.addEventListener("focusin", onFocusIn);
+		let nextFrame: { active: Element | null; tabIndex: string | null } | undefined;
+		const onWrapperFocus = () => {
+			window.requestAnimationFrame(() => {
+				nextFrame = { active: document.activeElement, tabIndex: wrapper.getAttribute("tabindex") };
+			});
+		};
+		wrapper.addEventListener("focus", onWrapperFocus);
 
 		await user.click(screen.getByRole("button", { name: "Submit" }));
 		await waitFor(() => expect(required).toHaveFocus());
-		document.removeEventListener("focusin", onFocusIn);
+		wrapper.removeEventListener("focus", onWrapperFocus);
 
-		expect(focused.slice(-2)).toEqual([wrapper, required]);
+		expect(nextFrame).toEqual({ active: wrapper, tabIndex: "-1" });
 		expect(wrapper).not.toHaveAttribute("tabindex");
 	});
 
-	it("keeps focus where it was when no control in the invalid field can take focus", async () => {
+	it("returns focus to the previously focused element when no control in the invalid field can take focus", async () => {
 		const user = userEvent.setup();
 		render(<ErrorFocusForm />);
 
