@@ -9,6 +9,10 @@ export const StyledFieldContainer = styled.div`
 	gap: 0 20px;
 	min-width: 0;
 
+	&:focus {
+		outline: none;
+	}
+
 	${containerQuery("lg", "FORM")} {
 		gap: 0 40px;
 	}
