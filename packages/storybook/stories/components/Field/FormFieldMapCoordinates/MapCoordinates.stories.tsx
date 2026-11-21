@@ -120,13 +120,14 @@ const kitchenSinkFields: FieldDef[] = [
 		},
 	},
 	{
-		name: "mapWithInitalPosition",
-		label: "Map with an inital map position set",
+		name: "mapWithInitialPosition",
+		label: "Map with an initial map position set",
 		type: "mapCoordinates",
 		required: false,
 		disabled: false,
 		inputSettings: {
 			googleMapsApiKey: "AIzaSyArV4f-KFF86Zn9VWAu9wS4hHlG1TXxqac",
+			zoom: 8,
 			initialCenter: { lat: 19.3884403, lng: -99.1747252 },
 		},
 	},
@@ -143,7 +144,11 @@ const kitchenSinkFields: FieldDef[] = [
 ];
 
 export const KitchenSink = (): ReactElement => {
-	const controller = useForm();
+	const controller = useForm({
+		data: {
+			mapWithInitialPosition: { lat: 19.3884403, lng: -99.1747252 },
+		},
+	});
 	const { state, handleSubmit } = controller;
 
 	return (
