@@ -12,7 +12,7 @@ type NodeFormImageProps = NodeFormTypeProps & {
 	update: TextEditorUpdateImage;
 };
 
-export function NodeFormImage({ data, update }: NodeFormImageProps): ReactElement {
+export function NodeFormImage({ data, onClose, update }: NodeFormImageProps): ReactElement {
 	const controller = useForm({ data });
 	const { handleSubmit } = controller;
 
@@ -43,7 +43,7 @@ export function NodeFormImage({ data, update }: NodeFormImageProps): ReactElemen
 			spacing="compact"
 			autoFocus
 			onSubmit={onSubmit}
-			bottomSlot={<NodeFormFooter />}
+			bottomSlot={<NodeFormFooter onCancel={onClose} />}
 		/>
 	);
 }
