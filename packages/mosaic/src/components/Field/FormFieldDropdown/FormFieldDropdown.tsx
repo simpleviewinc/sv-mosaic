@@ -127,6 +127,7 @@ const FormFieldDropdown = (props: MosaicFieldProps<"dropdown", DropdownInputSett
 					popper: StyledPopper,
 				}}
 				slotProps={{
+					clearIndicator: { tabIndex: 0, style: { visibility: "visible" } },
 					popupIndicator: { disableRipple: true, className: "Mos-DropdownChevron" },
 					// `slots.listbox` replaces MUI's listbox, including its 40vh cap.
 					// `component` swaps the element and keeps those styles.
