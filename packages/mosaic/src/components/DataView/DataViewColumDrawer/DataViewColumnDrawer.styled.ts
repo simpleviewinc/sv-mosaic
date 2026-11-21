@@ -4,7 +4,7 @@ import { Text } from "@root/components/Typography";
 
 export const StyledWrapper = styled.div`
 	height: 100%;
-	width: 700px;
+	width: min(700px, 100vw);
 `;
 
 export const ColumnItem = styled.div<{ $isDragging?: boolean }>`
@@ -32,9 +32,11 @@ export const ColumnDraggable = styled.div`
 	cursor: grab;
 	display: flex;
 	flex-grow: 1;
+	min-width: 0;
 	padding: ${theme.spacing(5, 5)};
 `;
 
 export const ColumnItemLabel = styled(Text).attrs({ tag: "div", size: "lg" })`
 	margin-left: 16px;
+	overflow-wrap: anywhere;
 `;

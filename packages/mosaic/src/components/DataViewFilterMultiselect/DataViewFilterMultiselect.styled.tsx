@@ -4,7 +4,7 @@ import theme from "@root/theme";
 import { Text } from "../Typography";
 
 export const StyledPickerPanel = styled(PickerPanel)`
-	width: 530px;
+	width: min(530px, 100vw);
 	height: 344px;
 `;
 
