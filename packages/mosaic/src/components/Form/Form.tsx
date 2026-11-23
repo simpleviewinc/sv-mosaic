@@ -23,6 +23,7 @@ import { FormContext } from "./FormContext";
 import sanitizeFieldDefs from "./useForm/utils/sanitizeFieldDefs";
 import getFieldPaths from "./useForm/utils/getFieldPaths";
 import { useScrollSpy } from "@root/utils/hooks";
+import { needsWrapperFocusForAnnouncement } from "@root/utils/dom/needsWrapperFocusForAnnouncement";
 
 const topCollapseContainer: MosaicCSSContainer = {
 	name: "FORM",
@@ -74,14 +75,17 @@ function focusControl({ fieldRef, inputRef }: FieldElements) {
 function focusField(elements: FieldElements) {
 	const { fieldRef } = elements;
 
-	if (!fieldRef) {
+	if (!fieldRef || !needsWrapperFocusForAnnouncement(fieldRef.ownerDocument.defaultView)) {
 		focusControl(elements);
 		return;
 	}
 
 	// Safari + VoiceOver reads only the value of a text field that already has
 	// one when a script focuses it directly. Focusing the field's wrapper for a
-	// frame first makes it also announce the label and invalid state.
+	// frame first makes it also announce the label and invalid state. NVDA in
+	// Chrome, Edge and Firefox already announces the control, and holding focus
+	// on the wrapper there makes it read the whole field before the control, so
+	// this only runs on WebKit.
 	const previousFocus = fieldRef.ownerDocument.activeElement;
 	fieldRef.tabIndex = -1;
 	fieldRef.focus({ preventScroll: true });
