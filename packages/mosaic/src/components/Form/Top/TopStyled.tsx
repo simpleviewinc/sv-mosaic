@@ -55,7 +55,6 @@ export const PrimaryActions = styled.div`
 	display: flex;
 	margin: 0 -24px 24px;
 	padding: 12px 24px;
-	order: -1;
 	justify-content: space-between;
   	background-color: ${theme.color.gray[100]};
 	align-items: center;

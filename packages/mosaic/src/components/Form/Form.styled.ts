@@ -65,6 +65,10 @@ export const StyledFormFooter = styled.div<{ $spacing?: FormSpacing }>`
 	display: flex;
 `;
 
+export const StyledFormActions = styled(StyledFormFooter)`
+	justify-content: flex-end;
+`;
+
 export const StyledFormFooterButton = styled(Button)<{ $push?: "left" | "right"}>`
 	${({ $push }) => $push && `
 		margin-${$push}: auto;
