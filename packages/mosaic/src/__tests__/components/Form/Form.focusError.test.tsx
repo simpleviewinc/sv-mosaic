@@ -5,6 +5,7 @@ import React from "react";
 import type { FieldDef } from "@root/components/Field";
 import Form, { useForm } from "@root/components/Form";
 import { validateEmail } from "@root/utils/form";
+import { withWebkitApi } from "../../testUtils/webkitApi";
 
 const fields: FieldDef[] = [
 	{
@@ -77,7 +78,28 @@ describe("Form error focus", () => {
 		await waitFor(() => expect(screen.getByRole("textbox", { name: /Email/ })).toHaveFocus());
 	});
 
-	it("holds focus on the invalid field's wrapper for a frame, then moves it to the input and removes the temporary tabindex", async () => {
+	it("moves focus straight to the input and never through the wrapper on Blink and Gecko", async () => {
+		const user = userEvent.setup();
+		render(<ErrorFocusForm />);
+
+		const required = screen.getByRole("textbox", { name: /Required/ });
+		const [wrapper] = screen.getAllByTestId("field-test-id");
+		const focused: Element[] = [];
+		const onFocusIn = (e: FocusEvent) => focused.push(e.target as Element);
+		document.addEventListener("focusin", onFocusIn);
+
+		await user.click(screen.getByRole("button", { name: "Submit" }));
+		await waitFor(() => expect(required).toHaveFocus());
+		document.removeEventListener("focusin", onFocusIn);
+
+		// NVDA reads the wrapper's whole contents before the control if the
+		// wrapper ever holds focus, so it must not appear in the focus path.
+		expect(focused).not.toContain(wrapper);
+		expect(focused.at(-1)).toBe(required);
+		expect(wrapper).not.toHaveAttribute("tabindex");
+	});
+
+	it("holds focus on the invalid field's wrapper for a frame on WebKit, then moves it to the input and removes the temporary tabindex", async () => {
 		const user = userEvent.setup();
 		render(<ErrorFocusForm />);
 
@@ -91,8 +113,10 @@ describe("Form error focus", () => {
 		};
 		wrapper.addEventListener("focus", onWrapperFocus);
 
-		await user.click(screen.getByRole("button", { name: "Submit" }));
-		await waitFor(() => expect(required).toHaveFocus());
+		await withWebkitApi(async () => {
+			await user.click(screen.getByRole("button", { name: "Submit" }));
+			await waitFor(() => expect(required).toHaveFocus());
+		});
 		wrapper.removeEventListener("focus", onWrapperFocus);
 
 		expect(nextFrame).toEqual({ active: wrapper, tabIndex: "-1" });
@@ -110,8 +134,10 @@ describe("Form error focus", () => {
 		document.addEventListener("focusin", onFocusIn);
 		vi.spyOn(HTMLInputElement.prototype, "focus").mockImplementation(() => undefined);
 
-		await user.click(submit);
-		await waitFor(() => expect(focused.slice(-2)).toEqual([wrapper, submit]));
+		await withWebkitApi(async () => {
+			await user.click(submit);
+			await waitFor(() => expect(focused.slice(-2)).toEqual([wrapper, submit]));
+		});
 		document.removeEventListener("focusin", onFocusIn);
 
 		expect(submit).toHaveFocus();
