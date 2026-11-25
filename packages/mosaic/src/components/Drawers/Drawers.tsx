@@ -91,6 +91,11 @@ function Drawers<T>(props: DrawersProps<T>) {
 							className,
 							component: PaperDiv,
 						}}
+						onClose={i === bools.length - 1 ? (_event, reason) => {
+							if (reason === "escapeKeyDown") {
+								props.onClose?.();
+							}
+						} : undefined}
 						slotProps={slotProps}
 						data-testid={testIds.DRAWER}
 					>
