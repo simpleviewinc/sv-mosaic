@@ -1,0 +1,34 @@
+import{j as t}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as n}from"./index-D24LeHLf.js";import{M as o}from"./index-ol1uVNUk.js";import{s}from"./FormFieldText.stories-RArd0qJ4.js";import"./index-wekxHvEx.js";import"./iframe-COkOr2KU.js";import"./index-DzOTb6QP.js";import"./index-gSqf9uqI.js";import"./index-DgH-xKnr.js";import"./index-Bhqu_tAV.js";import"./index-e3Cwxuf6.js";import"./MosaicContext-lnnMUzUH.js";import"./ButtonBase-C7cXrk-H.js";import"./mergeSlotProps-DU4484Lo.js";import"./identifier-DEb8G0aq.js";import"./sizes-BeWafy6f.js";import"./generateUtilityClasses-NbEjrlIW.js";import"./emotion-react.browser.esm-CeqoEiNQ.js";import"./TitleWrapper-D3WSxBwS.js";import"./styled-components.browser.esm-DDzsJbQW.js";import"./Button-BUZ6VV6G.js";import"./createSimplePaletteValueFilter-bm0fmN_7.js";import"./useId-69YouNVI.js";import"./CircularProgress-XoRRhNY7.js";import"./index-BMiqk0dF.js";import"./useTooltip-CO_soAtI.js";import"./Popover-C7i3nYv0.js";import"./useTheme-cEQ9eIsv.js";import"./useMountWarning-xu6cFXpq.js";import"./createChainedFunction-BO_9K8Jh.js";import"./containerQuery-DwQ6QvMu.js";import"./ChevronLeft-DroHY8JW.js";import"./createSvgIcon-TbZ0fr-h.js";import"./Typography-ByjXglyy.js";import"./DisplayText-BWS-vBdr.js";import"./ButtonRow-CMLeEZxo.js";import"./testIds-B6Pox1zA.js";import"./_arrayIncludes-tabo-wbk.js";import"./ExpandMore-DMteFeWA.js";import"./Help-BqPVwWaf.js";import"./Chip-hlb4pmaG.js";import"./Clear-DlU6fmaM.js";import"./FormFieldText.styled-BsjNlYvA.js";import"./useFormControl-p_2RyLus.js";import"./formControlState-Dq1zat_P.js";import"./GlobalStyles-B7dp4lKd.js";import"./DataViewFilterDropdownButtons-F5j2IuvN.js";import"./StyledPopperPaper-BTEmDkdR.js";import"./TooltipIcon-Bg32Lmm2.js";import"./DataViewPrimaryFilter.styled-D9YhNElh.js";import"./Badge-s3xa3C_L.js";import"./Text-CfL2WyGr.js";import"./PickerPanel-CfqePg2q.js";import"./Add-VWMKePYD.js";import"./PageHeader-CcC-OptF.js";import"./Spinner-CUCt3e5k.js";import"./CheckboxList-BIvmP8ms.js";import"./Checkbox-C781D4ZG.js";import"./SwitchBase-D6K8Fkjn.js";import"./OptionField-R5YykxyG.js";import"./FormGroup-BOW51rb4.js";import"./MoreVert-Cw5dZkux.js";import"./stable-BFc8HSVh.js";import"./Settings-jBnAWEnT.js";import"./scrollbarStyles-Bv9JpEGT.js";import"./useEnhancedEffect-CqQDwvBE.js";import"./Snackbar-BbgjRMho.js";import"./Close-brVlBoUV.js";import"./ChipList-D-Z4RzuG.js";import"./RadioGroup-CR_TgkXs.js";import"./Toggle-DvSm-bxV.js";import"./Dialog-D_7vc-8r.js";import"./ThemeProvider-BUWLNaok.js";import"./Link-YMNHmFB7.js";import"./Card.styled-Xnb-IEFb.js";import"./OpenInNew-B-tDM0BO.js";import"./Delete-Bi8a5FsZ.js";import"./CloudDownload-B1kX4zjH.js";import"./InsertDriveFile-benxu_XD.js";import"./renderButtons-DP0bGf4C.js";import"./commonFieldControl-LQDYMh-C.js";import"./AccountCircle-BeacoyFM.js";function i(e){const r={a:"a",code:"code",h1:"h1",h3:"h3",li:"li",p:"p",pre:"pre",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",ul:"ul",...n(),...e.components};return t.jsxs(t.Fragment,{children:[t.jsx(o,{of:s}),`
+`,t.jsx(r.h1,{id:"text",children:"Text"}),`
+`,t.jsxs(r.p,{children:["This field implements the ",t.jsx(r.a,{href:"#generic-field-props-fielddef",children:t.jsx(r.strong,{children:"FieldDef"})})," interface."]}),`
+`,t.jsxs(r.ul,{children:[`
+`,t.jsx(r.li,{children:"Text input fields are used to enter text information, numbers, email addresses, or passwords."}),`
+`,t.jsx(r.li,{children:"A text field consists of a label and a line with variations in width."}),`
+`,t.jsx(r.li,{children:t.jsx(r.a,{href:"/?path=/story/formfields-formfieldtext--playground",children:t.jsx(r.strong,{children:"Playground"})})}),`
+`,t.jsxs(r.li,{children:["Data: ",t.jsx(r.code,{children:"string | number"})," - Value of the input typed."]}),`
+`,t.jsx(r.li,{children:"inputSettings:"}),`
+`]}),`
+`,t.jsxs(r.table,{children:[t.jsx(r.thead,{children:t.jsxs(r.tr,{children:[t.jsx(r.th,{children:"Name"}),t.jsx(r.th,{children:"Type"}),t.jsx(r.th,{children:"Description"})]})}),t.jsxs(r.tbody,{children:[t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"maxCharacters"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"number"})}),t.jsx(r.td,{children:"optional - Defines the limit of characters that are allow to type in the input element."})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"multiline"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"boolean"})}),t.jsx(r.td,{children:"optional - When is enabled the text field will expand its height."})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"placeholder"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"string"})}),t.jsx(r.td,{children:"optional - The hint displayed in the input before the user enters a value."})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"prefixElement"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"JSX.Element"})}),t.jsx(r.td,{children:"optional - Icon at the beginning of the text field."})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"type"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"string"})}),t.jsxs(r.td,{children:["optional - Type of the input element. It should be a ",t.jsx(r.a,{href:"https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types",rel:"nofollow",children:"valid HTML5 input type"}),"."]})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"maxRows"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"number"})}),t.jsx(r.td,{children:"optional - Maximum number of rows to display when multiline options is set to true."})]}),t.jsxs(r.tr,{children:[t.jsx(r.td,{children:t.jsx(r.strong,{children:t.jsx(r.code,{children:"minRows"})})}),t.jsx(r.td,{children:t.jsx(r.code,{children:"number"})}),t.jsx(r.td,{children:"optional - Minimum number of rows to display when multiline option is set to true."})]})]})]}),`
+`,t.jsx(r.h3,{id:"how-to-use-in-a-form",children:"How to use in a form?"}),`
+`,t.jsx(r.pre,{children:t.jsx(r.code,{className:"language-ts",children:`const fields: FieldDef[] = useMemo(\r
+	() =>\r
+		[\r
+			//...other fields\r
+			{\r
+				//...all generic field props,\r
+				type: "text",\r
+				size: "md",\r
+				inputSettings: {\r
+					prefixElement: <AccountCircle />,\r
+					maxCharacters: 20,\r
+					placeholder: "placeholder",\r
+					multiline: true,\r
+					maxRows: 4,\r
+					minRows: 3\r
+				},\r
+			},\r
+			//...other fields\r
+		],\r
+	[]\r
+);
+`})})]})}function zt(e={}){const{wrapper:r}={...n(),...e.components};return r?t.jsx(r,{...e,children:t.jsx(i,{...e})}):i(e)}export{zt as default};
