@@ -14,6 +14,7 @@ async function setup(props: Partial<DataViewColumnDrawerColumnProps> = {}) {
 			allColumns={allColumns}
 			name="column1"
 			{...props}
+			onRemove={props.onRemove || vi.fn()}
 		/>,
 	));
 
@@ -30,10 +31,16 @@ describe(__dirname, () => {
 		expect(screen.queryByText("Column 1")).toBeInTheDocument();
 	});
 
+	it("should give the remove button a column-specific accessible name", async () => {
+		await setup();
+
+		expect(screen.getByRole("button", { name: "Remove Column 1 column" })).toBeInTheDocument();
+	});
+
 	it("should throw an error if the name of the column is not found amongst the list of all columns", async () => {
 		vi.spyOn(console, "error").mockImplementation(() => null);
 
-		expect(() => setup({ name: "column3" }))
+		await expect(() => setup({ name: "column3" }))
 			.rejects
 			.toThrow("Column \"column3\" not found in column list: column1, column2");
 	});
