@@ -147,6 +147,59 @@ describe(__dirname, () => {
 		expect(onChangeMock).toBeCalledWith(undefined);
 	});
 
+	it("should clear a selected value with the keyboard-reachable clear action", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock }, { stateful: true });
+
+		const input = screen.getByRole("combobox");
+		await user.click(input);
+		await user.click(screen.getByRole("option", { name: "Cat" }));
+		expect(input).toHaveValue("Cat");
+
+		const clearButton = screen.getByTitle("Clear");
+		expect(clearButton).toHaveAttribute("aria-label", "Clear");
+		expect(clearButton).toHaveAttribute("tabindex", "0");
+		await user.tab();
+		expect(clearButton).toHaveFocus();
+		await user.keyboard("{Enter}");
+
+		expect(onChangeMock).toHaveBeenLastCalledWith(undefined);
+		expect(input).toHaveValue("");
+		expect(screen.queryByTitle("Clear")).not.toBeInTheDocument();
+	});
+
+	it("should clear a value selected with the keyboard", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock }, { stateful: true });
+
+		const input = screen.getByRole("combobox");
+		await user.click(input);
+		await user.keyboard("{ArrowDown}{Enter}");
+		expect(input).toHaveValue("Dog");
+		await user.tab();
+		expect(screen.getByTitle("Clear")).toHaveFocus();
+		await user.keyboard("{Enter}");
+
+		expect(onChangeMock).toHaveBeenLastCalledWith(undefined);
+		expect(input).toHaveValue("");
+	});
+
+	it("should retain the pointer clear action", async () => {
+		const onChangeMock = vi.fn();
+
+		const { user } = await setup({ onChange: onChangeMock }, { stateful: true });
+
+		const input = screen.getByRole("combobox");
+		await user.click(input);
+		await user.click(screen.getByRole("option", { name: "Cat" }));
+		await user.click(screen.getByTitle("Clear"));
+
+		expect(onChangeMock).toHaveBeenLastCalledWith(undefined);
+		expect(input).toHaveValue("");
+	});
+
 	it("should fire the on blur handler when the dropdown's text field loses focus", async () => {
 		const onBlurMock = vi.fn();
 
